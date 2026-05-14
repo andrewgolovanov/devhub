@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Geist+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 
 /* Docusaurus toggles theme with [data-theme="dark"], not .dark */
@@ -18,6 +18,14 @@
     --db-bg: #f9f7f4;
     --db-card: #ffffff;
     --db-border: #dce0e2;
+
+    --black: hsl(240 20 2);
+    --grey-8: hsl(230 12 8); /* #121317 */
+    --grey-40: hsl(222 5 40); /* #61646B */
+    --grey-60: hsl(229 11 70); /* #94979E */
+    --grey-70: hsl(229 11 70); /* #ABAEBB */
+    --grey-80: hsl(228 10 80);
+    --orange: hsl(8 100 64); /* #FF5F46 */
 
     /* shadcn semantic tokens mapped to Databricks colors */
     --background: var(--db-bg);
@@ -56,9 +64,9 @@
     --ifm-color-primary-lightest: var(--db-lava-lightest);
     --ifm-background-color: var(--db-bg);
     --ifm-font-family-base:
-      "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     --ifm-font-family-monospace:
-      "DM Mono", SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      "Geist Mono", SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     --ifm-code-font-size: 95%;
     --ifm-pre-padding: 1rem 1.25rem;
     --ifm-navbar-background-color: #000000;
@@ -85,6 +93,14 @@
     --db-bg: var(--db-dark-bg);
     --db-card: var(--db-dark-card);
     --db-border: var(--db-dark-border);
+
+    --black: hsl(240 20 2);
+    --grey-8: hsl(230 12 8); /* #121317 */
+    --grey-40: hsl(222 5 40); /* #61646B */
+    --grey-60: hsl(229 11 70); /* #94979E */
+    --grey-70: hsl(229 11 70); /* #ABAEBB */
+    --grey-80: hsl(228 10 80);
+    --orange: hsl(8 100 64); /* #FF5F46 */
 
     --background: var(--db-dark-bg);
     --foreground: #f5f7f8;
@@ -134,8 +150,10 @@
 
 @theme inline {
   --font-sans:
+    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-heading:
     "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-mono: "DM Mono", SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-mono: "Geist Mono", SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -175,6 +193,13 @@
   --color-db-bg: var(--db-bg);
   --color-db-card: var(--db-card);
   --color-db-border: var(--db-border);
+  --color-black: var(--black);
+  --color-grey-8: var(--grey-8);
+  --color-grey-40: var(--grey-40);
+  --color-grey-60: var(--grey-60);
+  --color-grey-70: var(--grey-70);
+  --color-grey-80: var(--grey-80);
+  --color-orange: var(--orange);
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);

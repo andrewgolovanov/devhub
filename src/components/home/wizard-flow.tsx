@@ -152,7 +152,7 @@ function ChatVisual(): ReactNode {
         className="text-black/30 dark:text-white/30"
         fill="currentColor"
         fontSize="8"
-        fontFamily="monospace"
+        fontFamily="Geist Mono, monospace"
       >
         Terminal
       </text>
@@ -163,7 +163,7 @@ function ChatVisual(): ReactNode {
           className="text-black/40 dark:text-white/45"
           fill="currentColor"
           fontSize="10"
-          fontFamily="monospace"
+          fontFamily="Geist Mono, monospace"
         >
           <tspan fill="#ff3621" opacity="0.7">
             $
@@ -178,7 +178,7 @@ function ChatVisual(): ReactNode {
           className="text-black/40 dark:text-white/45"
           fill="currentColor"
           fontSize="10"
-          fontFamily="monospace"
+          fontFamily="Geist Mono, monospace"
         >
           <tspan fill="#ff3621" opacity="0.7">
             $
@@ -205,7 +205,7 @@ function ChatVisual(): ReactNode {
         className="text-black/25 dark:text-white/25"
         fill="currentColor"
         fontSize="8"
-        fontFamily="sans-serif"
+        fontFamily="Inter, sans-serif"
         letterSpacing="0.5"
       >
         AGENT CHAT
@@ -240,7 +240,7 @@ function ChatVisual(): ReactNode {
         className="text-black/25 dark:text-white/25"
         fill="currentColor"
         fontSize="10"
-        fontFamily="monospace"
+        fontFamily="Geist Mono, monospace"
       >
         Paste the copied prompt here...
       </text>
@@ -305,7 +305,7 @@ function BuildVisual(): ReactNode {
           textAnchor="middle"
           className="fill-black/60 dark:fill-white/70"
           fontSize="10"
-          fontFamily="DM Mono, monospace"
+          fontFamily="Geist Mono, monospace"
         >
           Lakebase
         </text>
@@ -342,7 +342,7 @@ function BuildVisual(): ReactNode {
           textAnchor="middle"
           className="fill-black/60 dark:fill-white/70"
           fontSize="10"
-          fontFamily="DM Mono, monospace"
+          fontFamily="Geist Mono, monospace"
         >
           Agent Bricks
         </text>
@@ -405,7 +405,7 @@ function BuildVisual(): ReactNode {
           textAnchor="middle"
           className="fill-black/60 dark:fill-white/70"
           fontSize="10"
-          fontFamily="DM Mono, monospace"
+          fontFamily="Geist Mono, monospace"
         >
           AppKit
         </text>
@@ -462,7 +462,7 @@ function ShipVisual(): ReactNode {
         textAnchor="middle"
         className="fill-black/55 dark:fill-white/65"
         fontSize="10"
-        fontFamily="DM Mono, monospace"
+        fontFamily="Geist Mono, monospace"
       >
         your-app.databricksapps.com
       </text>

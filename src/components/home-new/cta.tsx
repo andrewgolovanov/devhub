@@ -1,0 +1,189 @@
+import Link from "@docusaurus/Link";
+import useBaseUrl from "@docusaurus/useBaseUrl";
+import { Check, Copy, LoaderCircle } from "lucide-react";
+import { type ReactNode, useCallback, useState } from "react";
+
+import { Button } from "@/components/ui/button";
+import { getBootstrapPromptApiPath } from "@/lib/bootstrap-prompt";
+import { cn } from "@/lib/utils";
+
+const TOPBAR_DOTS = ["bg-db-lava", "bg-yellow-400", "bg-green-500"] as const;
+
+const TITLE_HIGHLIGHT = "agentic app";
+
+type CopyState = "idle" | "copying" | "copied";
+
+type CTAProps = {
+  label?: string;
+  title?: string;
+  description?: string;
+  actions?: ReactNode;
+  className?: string;
+};
+
+function titleSegments(title: string): {
+  before: string;
+  highlight: string;
+  after: string;
+} {
+  const highlightStart = title.indexOf(TITLE_HIGHLIGHT);
+
+  if (highlightStart === -1) {
+    return {
+      before: title,
+      highlight: "",
+      after: "",
+    };
+  }
+
+  return {
+    before: title.slice(0, highlightStart),
+    highlight: title.slice(
+      highlightStart,
+      highlightStart + TITLE_HIGHLIGHT.length,
+    ),
+    after: title.slice(highlightStart + TITLE_HIGHLIGHT.length),
+  };
+}
+
+function CTATitleHighlight({ children }: { children: string }) {
+  const cornerClassName =
+    "absolute hidden size-3 md:block before:absolute before:top-0 before:left-1/2 before:h-full before:w-px before:-translate-x-1/2 before:bg-white/50 after:absolute after:top-1/2 after:left-0 after:h-px after:w-full after:-translate-y-1/2 after:bg-white/50";
+
+  return (
+    <span className="relative inline-block text-db-lava md:whitespace-nowrap">
+      <span
+        className="pointer-events-none absolute -inset-x-2 -inset-y-1 hidden border border-white/14 md:block"
+        aria-hidden="true"
+      />
+      <span
+        className={cn(cornerClassName, "-top-2.5 -left-3.5")}
+        aria-hidden="true"
+      />
+      <span
+        className={cn(cornerClassName, "-top-2.5 -right-3.5")}
+        aria-hidden="true"
+      />
+      <span
+        className={cn(cornerClassName, "-bottom-2.5 -left-3.5")}
+        aria-hidden="true"
+      />
+      <span
+        className={cn(cornerClassName, "-right-3.5 -bottom-2.5")}
+        aria-hidden="true"
+      />
+      <span className="relative">{children}</span>
+    </span>
+  );
+}
+
+function Topbar() {
+  return (
+    <header className="flex gap-x-6.5 mx-1.5 items-center bg-[#202021] py-4.5 px-6.5">
+      <div className="flex items-center gap-4" aria-hidden="true">
+        {TOPBAR_DOTS.map((dotClassName) => (
+          <span
+            className={cn("size-4 shrink-0", dotClassName)}
+            key={dotClassName}
+          />
+        ))}
+      </div>
+      <p className="truncate font-mono text-xs leading-[1.15] font-normal tracking-[-0.04em] text-white/40 uppercase md:text-lg">
+        Databricks Developer Hub — Getting started
+      </p>
+    </header>
+  );
+}
+
+function CTAButtons({
+  copyState,
+  onCopy,
+}: {
+  copyState: CopyState;
+  onCopy: () => void;
+}) {
+  return (
+    <div className="flex w-full flex-col gap-y-3 gap-x-5 sm:w-auto sm:flex-row sm:items-center lg:justify-end">
+      <Button
+        className="font-mono gap-x-4.5 text-base leading-none tracking-tight text-black uppercase shadow-none"
+        onClick={onCopy}
+        disabled={copyState === "copying"}
+        title="Copy agent prompt"
+        size="xl"
+        type="button"
+        variant="orange"
+      >
+        {copyState === "copied" ? "Copied" : "Copy agent prompt"}
+        {copyState === "copying" ? (
+          <LoaderCircle className="size-4 animate-spin" aria-hidden="true" />
+        ) : copyState === "copied" ? (
+          <Check className="size-4" aria-hidden="true" />
+        ) : (
+          <Copy className="size-4 rotate-180" aria-hidden="true" />
+        )}
+      </Button>
+      <Button
+        className="h-11 rounded-none bg-white pl-7 pr-6 font-mono text-base leading-none font-medium tracking-tight text-black uppercase shadow-none hover:bg-white/90"
+        asChild
+      >
+        <Link className="no-underline hover:no-underline" to="/docs/start-here">
+          Read docs
+        </Link>
+      </Button>
+    </div>
+  );
+}
+
+function CTA({
+  className,
+  label = "Start building",
+  title = "Ready to ship your next agentic app in minutes?",
+  actions,
+}: CTAProps) {
+  const bootstrapPromptApiPath = useBaseUrl(getBootstrapPromptApiPath());
+  const [copyState, setCopyState] = useState<CopyState>("idle");
+  const { before, highlight, after } = titleSegments(title);
+
+  const handleCopy = useCallback(async () => {
+    if (typeof navigator === "undefined" || !navigator.clipboard?.writeText) {
+      return;
+    }
+
+    setCopyState("copying");
+
+    try {
+      const response = await fetch(bootstrapPromptApiPath);
+      if (!response.ok) throw new Error("Failed to fetch bootstrap prompt");
+
+      const bootstrapPrompt = await response.text();
+      await navigator.clipboard.writeText(bootstrapPrompt);
+      setCopyState("copied");
+    } catch {
+      setCopyState("idle");
+    }
+  }, [bootstrapPromptApiPath]);
+
+  return (
+    <section
+      aria-label={label}
+      className={cn("cta bg-black text-white pt-1.5", className)}
+    >
+      <Topbar />
+      <div className="relative mx-auto px-5 md:px-8 lg:px-16 2xl:px-24">
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-end mt-10 md:mt-16 lg:mt-20">
+          <h2 className="relative font-heading text-4xl/none font-normal tracking-normal text-balance text-white md:text-5xl/none xl:text-6xl/none 2xl:text-[5rem]">
+            {before}
+            {highlight ? (
+              <CTATitleHighlight>{highlight}</CTATitleHighlight>
+            ) : null}
+            {after}
+          </h2>
+
+          {actions ?? <CTAButtons copyState={copyState} onCopy={handleCopy} />}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default CTA;
