@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { Database } from "lucide-react";
 
-import { FeatureInfographicCard } from "./feature-infographic-card";
+import { FeatureInfographicCard } from "@/components/ui/feature-card";
 
 const autoScaleGraphSrc = "/img/home-new/features/auto-scale-compute.jpg";
 
@@ -39,15 +39,15 @@ export function LakebaseInfographic() {
         </div>
       </FeatureInfographicCard>
 
-      <div className="h-[4%] border-l border-dashed border-black md:h-[6%]" />
-      <div className="grid h-[4%] w-[70%] grid-cols-[1fr_auto_1fr] grid-rows-[auto_1fr] md:h-[7.6%] md:w-[66.1%]">
+      <div className="border-l border-dashed border-black" />
+      <div className="grid w-[70%] grid-cols-[1fr_auto_1fr] grid-rows-[auto_1fr] md:w-[66.1%]">
         <div className="col-span-3 row-start-1 border-t border-dashed border-black" />
         <div className="col-start-1 row-span-2 row-start-1 border-l border-dashed border-black" />
         <div className="col-start-2 row-span-2 row-start-1 border-l border-dashed border-black" />
         <div className="col-start-3 row-span-2 row-start-1 justify-self-end border-l border-dashed border-black" />
       </div>
 
-      <FeatureInfographicCard className="relative h-44 w-[82%] max-w-[426px] shrink-0 p-2.5 md:h-[31.77%] md:w-[44.444%] md:max-w-none @md/infographic:p-5">
+      <FeatureInfographicCard className="relative w-[82%] max-w-[426px] shrink-0 p-2.5 md:w-[44.444%] md:max-w-none @md/infographic:p-5">
         <h4 className="m-0 text-xs leading-[1.15] font-medium @md/infographic:text-[15px]">
           Instant branching
         </h4>

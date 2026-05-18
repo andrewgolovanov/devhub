@@ -1,6 +1,6 @@
 import { Sparkles } from "lucide-react";
 
-import { FeatureInfographicCard } from "./feature-infographic-card";
+import { FeatureInfographicCard } from "@/components/ui/feature-card";
 
 export function DatabricksAppsInfographic() {
   return (
