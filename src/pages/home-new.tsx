@@ -1,6 +1,5 @@
 import Head from "@docusaurus/Head";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import useBaseUrl from "@docusaurus/useBaseUrl";
 import Layout from "@theme/Layout";
 import type { ReactNode } from "react";
 
@@ -16,7 +15,6 @@ export default function HomeNew(): ReactNode {
   const { siteConfig } = useDocusaurusContext();
   const siteUrl = siteUrlFromConfig(siteConfig.url, siteConfig.baseUrl);
   const pageUrl = `${siteUrl}/home-new`;
-  const heroBackgroundUrl = useBaseUrl("/img/home-new/hero/background.jpg");
 
   return (
     <Layout
@@ -27,7 +25,6 @@ export default function HomeNew(): ReactNode {
     >
       <Head>
         <link rel="canonical" href={pageUrl} />
-        <link rel="preload" as="image" href={heroBackgroundUrl} />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",

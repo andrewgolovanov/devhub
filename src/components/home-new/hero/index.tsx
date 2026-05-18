@@ -6,11 +6,11 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 import { Check, Copy, LoaderCircle } from "lucide-react";
 import { useState } from "react";
 
+import { DbHeroAnimation } from "./animation";
+
 interface HeroProps {
   className?: string;
 }
-
-const heroBackgroundSrc = "/img/home-new/hero/background.jpg";
 
 function HeroCopyPromptButton() {
   const apiPath = useBaseUrl(getBootstrapPromptApiPath());
@@ -93,26 +93,14 @@ function Hero({ className }: HeroProps) {
     <section
       className={cn("hero relative block bg-black text-white", className)}
     >
-      <div className="grid min-h-[36rem] w-full grid-cols-1 grid-rows-1 overflow-hidden md:min-h-[44rem] xl:min-h-286">
-        <div
-          className="relative col-span-full row-span-full"
-          aria-hidden="true"
-        >
-          <img
-            className="absolute top-9 left-1/2 h-[45%] min-h-48 w-full -translate-x-1/2 object-cover object-top opacity-95 md:top-12 md:h-[58%] md:min-h-88 xl:top-14 xl:h-[62%] xl:min-h-118 xl:max-w-480"
-            src={heroBackgroundSrc}
-            alt=""
-            width={1920}
-            height={1144}
-            decoding="async"
-            loading="eager"
-            fetchPriority="high"
-          />
-          <div className="absolute inset-x-0 top-0 h-[74%] bg-linear-to-b from-transparent from-20% to-black/95 md:from-40% md:to-black/92 xl:from-58%" />
-          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-black to-60%" />
+      <div className="relative min-h-[36rem] w-full overflow-hidden md:min-h-[44rem] xl:min-h-286">
+        <div className="absolute top-0 left-1/2 h-full w-screen -translate-x-1/2">
+          <DbHeroAnimation />
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-[74%] bg-linear-to-b from-transparent from-20% to-black/95 md:from-40% md:to-black/92 xl:from-58%" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-black to-60%" />
         </div>
-        <header className="relative col-span-full row-span-full flex flex-col py-14 md:py-16 justify-end xl:py-16">
-          <div className="mx-auto grid w-full max-w-400 grid-cols-1 px-5 md:px-8 lg:gap-7 lg:grid-cols-[1fr_auto] lg:items-end">
+        <header className="pointer-events-none relative z-10 flex min-h-[36rem] flex-col justify-end py-14 md:min-h-[44rem] md:py-16 xl:min-h-286 xl:py-16">
+          <div className="pointer-events-auto mx-auto grid w-full max-w-400 grid-cols-1 px-5 md:px-8 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-7">
             <h1 className="max-w-sm md:max-w-4xl pb-1 font-heading text-[2rem]/[0.98] tracking-normal text-white md:text-6xl/none lg:max-xl:text-5xl/[0.96] xl:text-7xl/none">
               Build{" "}
               <HeroTitleHighlight>agentic applications</HeroTitleHighlight> in
@@ -122,7 +110,7 @@ function Hero({ className }: HeroProps) {
               Open your agent in any folder and paste. Works with Cursor, Claude
               Code, Codex, or your favorite coding agent.
             </p>
-            <div className="flex flex-col mt-6 gap-y-3 gap-x-5 sm:flex-row lg:mt-0">
+            <div className="mt-6 flex flex-col gap-x-5 gap-y-3 sm:flex-row lg:mt-0">
               <Button
                 className="h-11 rounded-none bg-white pl-7 pr-6 font-mono text-base leading-none font-medium tracking-tight text-black uppercase shadow-none hover:bg-white/90"
                 asChild
