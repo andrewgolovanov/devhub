@@ -1,6 +1,10 @@
 import { cn } from "@/lib/utils";
 import Link from "@docusaurus/Link";
 import type { SVGProps } from "react";
+
+import { AgentBricksInfographic } from "./agent-bricks-infographic";
+import { DatabricksAppsInfographic } from "./databricks-apps-infographic";
+import { LakebaseInfographic } from "./lakebase-infographic";
 import {
   FeatureCardAction,
   FeatureCardEyebrow,
@@ -47,14 +51,8 @@ type FeatureCardProps = {
   title: string;
   description: string;
   href: string;
-  imageSrc: string;
+  visual: FeatureVisual;
   reversed?: boolean;
-};
-
-const FEATURE_IMAGES: Record<FeatureVisual, string> = {
-  lakebase: "/img/home-new/features/lakebase.png",
-  agents: "/img/home-new/features/agent-bricks.png",
-  apps: "/img/home-new/features/databricks-apps.png",
 };
 
 function FeatureLinkArrowIcon({
@@ -86,6 +84,18 @@ function FeatureLinkArrowIcon({
   );
 }
 
+function FeatureVisualContent({ visual }: { visual: FeatureVisual }) {
+  if (visual === "lakebase") {
+    return <LakebaseInfographic />;
+  }
+
+  if (visual === "agents") {
+    return <AgentBricksInfographic />;
+  }
+
+  return <DatabricksAppsInfographic />;
+}
+
 function Features({ className }: { className?: string }) {
   return (
     <section
@@ -109,7 +119,7 @@ function Features({ className }: { className?: string }) {
                 title={title}
                 description={description}
                 href={href}
-                imageSrc={FEATURE_IMAGES[visual]}
+                visual={visual}
                 reversed={index % 2 === 1}
               />
             );
@@ -126,7 +136,7 @@ function FeatureCard({
   title,
   description,
   href,
-  imageSrc,
+  visual,
   reversed = false,
 }: FeatureCardProps) {
   return (
@@ -156,16 +166,8 @@ function FeatureCard({
         </div>
       </FeatureCardHeader>
       <FeatureCardVisual className="mt-8 lg:mt-0" reversed={reversed}>
-        <div className="mx-auto my-auto w-full max-w-184">
-          <img
-            src={imageSrc}
-            alt=""
-            className="block aspect-square w-full object-contain"
-            loading="eager"
-            width={720}
-            height={720}
-            decoding="async"
-          />
+        <div className="mx-auto my-auto w-full max-w-184" aria-hidden="true">
+          <FeatureVisualContent visual={visual} />
         </div>
       </FeatureCardVisual>
       <FeatureCardFooter
