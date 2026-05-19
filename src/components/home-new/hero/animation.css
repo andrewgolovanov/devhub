@@ -158,16 +158,6 @@
   --build-bullet-scale: 1;
   --build-list-offset-y: 0px;
   --final-link-indent: 0px;
-  --glass-glow-opacity: 0;
-  --glass-glow-x: 960px;
-  --glass-glow-y: 420px;
-  --glass-glow-scale-x: 1.1;
-  --glass-glow-scale-y: 0.75;
-  --glass-glow-blur: 42px;
-  --glass-glow-strength: 0.5;
-  --glass-glow-white-alpha: 0.55;
-  --glass-glow-blue-alpha: 0.34;
-  --glass-glow-red-alpha: 0.18;
   --rgb-grid-opacity: 0;
   --rgb-grid-stripe: 6px;
   --rgb-grid-stop-2: 12px;
@@ -384,12 +374,35 @@
   animation-play-state: paused !important;
 }
 
+.db-hero-animation-root .stage.is-quiet-css .app-preview.app-boot-running,
+.db-hero-animation-root .stage.is-quiet-css .app-preview.app-boot-running *,
+.db-hero-animation-root
+  .stage.is-quiet-css
+  .app-preview.app-boot-running
+  *::before,
+.db-hero-animation-root
+  .stage.is-quiet-css
+  .app-preview.app-boot-running
+  *::after,
+.db-hero-animation-root .stage.is-quiet-css .app-preview.app-reveal-running,
+.db-hero-animation-root .stage.is-quiet-css .app-preview.app-reveal-running *,
+.db-hero-animation-root
+  .stage.is-quiet-css
+  .app-preview.app-reveal-running
+  *::before,
+.db-hero-animation-root
+  .stage.is-quiet-css
+  .app-preview.app-reveal-running
+  *::after {
+  animation-play-state: running !important;
+}
+
 .db-hero-animation-root .stage::before,
 .db-hero-animation-root .stage::after {
   content: "";
   position: absolute;
   inset: 0;
-  z-index: 82;
+  z-index: var(--fx-z-scanlines, 82);
   display: none;
   pointer-events: none;
 }
@@ -604,71 +617,6 @@
   animation: scan-bar var(--group-fx-bar-duration, 2s) linear infinite;
 }
 
-.db-hero-animation-root .stage.text-glitch-burst .fx-layer {
-  animation:
-    crt-text-burst var(--text-glitch-duration, 720ms) steps(9, end) both,
-    crt-text-flicker var(--text-glitch-duration, 720ms) linear both;
-}
-
-.db-hero-animation-root .stage.text-glitch-loop .fx-layer {
-  animation:
-    crt-text-loop 1.9s steps(12, end) infinite,
-    crt-text-flicker 2.8s linear infinite;
-}
-
-.db-hero-animation-root
-  .stage[data-text-fx="buzz"].text-glitch-burst
-  .fx-layer {
-  animation:
-    buzz-text-burst var(--text-glitch-duration, 720ms) steps(1, end) both,
-    buzz-text-noise var(--group-fx-buzz-noise-duration, 34ms) steps(2, end)
-      infinite;
-  text-shadow:
-    calc(var(--buzz-rgb-x, 3px) * -1) calc(var(--buzz-rgb-y, 0px) * -1) 1px
-      rgb(var(--buzz-color-red, 255 31 31) / var(--buzz-ghost-opacity, 0.72)),
-    var(--buzz-rgb-x, 3px) var(--buzz-rgb-y, 0px) 1px
-      rgb(var(--buzz-color-green, 0 255 102) / var(--buzz-ghost-opacity, 0.72)),
-    calc(var(--buzz-rgb-x, 3px) * 0.5) calc(var(--buzz-rgb-y, 0px) * -0.5) 1px
-      rgb(var(--buzz-color-blue, 40 96 255) / var(--buzz-ghost-opacity, 0.72)),
-    0 0 30px rgb(255 255 255 / calc(var(--buzz-alpha, 1) * 0.2));
-  -webkit-mask-image: repeating-linear-gradient(
-    to bottom,
-    #000 0 2px,
-    rgba(0, 0, 0, 0.2) 2px 4px
-  );
-  mask-image: repeating-linear-gradient(
-    to bottom,
-    #000 0 2px,
-    rgba(0, 0, 0, 0.2) 2px 4px
-  );
-}
-
-.db-hero-animation-root .stage[data-text-fx="buzz"].text-glitch-loop .fx-layer {
-  animation:
-    buzz-text-loop 5s steps(1, end) infinite,
-    buzz-text-noise var(--group-fx-buzz-noise-duration, 38ms) steps(2, end)
-      infinite;
-  text-shadow:
-    calc(var(--buzz-rgb-x, 3px) * -0.75) calc(var(--buzz-rgb-y, 0px) * -0.75)
-      1px
-      rgb(var(--buzz-color-red, 255 31 31) / var(--buzz-ghost-opacity, 0.72)),
-    calc(var(--buzz-rgb-x, 3px) * 0.75) calc(var(--buzz-rgb-y, 0px) * 0.75) 1px
-      rgb(var(--buzz-color-green, 0 255 102) / var(--buzz-ghost-opacity, 0.72)),
-    calc(var(--buzz-rgb-x, 3px) * 0.4) calc(var(--buzz-rgb-y, 0px) * -0.4) 1px
-      rgb(var(--buzz-color-blue, 40 96 255) / var(--buzz-ghost-opacity, 0.72)),
-    0 0 24px rgb(255 255 255 / calc(var(--buzz-alpha, 1) * 0.16));
-  -webkit-mask-image: repeating-linear-gradient(
-    to bottom,
-    #000 0 2px,
-    rgba(0, 0, 0, 0.2) 2px 4px
-  );
-  mask-image: repeating-linear-gradient(
-    to bottom,
-    #000 0 2px,
-    rgba(0, 0, 0, 0.2) 2px 4px
-  );
-}
-
 .db-hero-animation-root .fx-layer:not(canvas) {
   isolation: isolate;
 }
@@ -684,179 +632,116 @@
   border-radius: inherit;
 }
 
-.db-hero-animation-root
-  .stage[data-text-fx="crtmask"].text-glitch-burst
-  .fx-layer:not(canvas)::before,
-.db-hero-animation-root
-  .stage[data-text-fx="crtmask"].text-glitch-loop
-  .fx-layer:not(canvas)::before {
-  display: block;
-  opacity: calc(var(--group-fx-alpha) * 0.34);
-  mix-blend-mode: overlay;
-  background: repeating-linear-gradient(
-    var(--crt-red) 0,
-    var(--crt-green) 2px,
-    var(--crt-blue) 4px
+.db-hero-animation-root .stage.fx-rgb-split .fx-layer:not(#heroLogoReveal) {
+  --rgb-split-layer-alpha: var(
+    --rgb-split-text-alpha,
+    var(--rgb-split-alpha, 0.6)
   );
-}
-
-.db-hero-animation-root
-  .stage[data-text-fx="crtmask"].text-glitch-burst
-  .fx-layer:not(canvas)::after,
-.db-hero-animation-root
-  .stage[data-text-fx="crtmask"].text-glitch-loop
-  .fx-layer:not(canvas)::after {
-  display: block;
-  opacity: calc(var(--group-fx-alpha) * 0.28);
-  mix-blend-mode: color-dodge;
-  background: repeating-linear-gradient(
-    90deg,
-    var(--crt-red) 0 1px,
-    var(--crt-green) 1px 2px,
-    var(--crt-blue) 2px 3px
-  );
-  animation: crt-mask-drift var(--group-fx-mask-duration, 520ms) steps(12, end)
-    infinite;
-}
-
-.db-hero-animation-root
-  .stage[data-text-fx="video"].text-glitch-burst
-  .fx-layer,
-.db-hero-animation-root
-  .stage[data-text-fx="video"].text-glitch-loop
-  .fx-layer {
-  filter: saturate(calc(1 + var(--group-fx-alpha) * 0.7))
-    contrast(calc(1 + var(--group-fx-alpha) * 0.28));
-}
-
-.db-hero-animation-root
-  .stage[data-text-fx="video"].text-glitch-burst
-  .fx-layer:not(canvas)::before,
-.db-hero-animation-root
-  .stage[data-text-fx="video"].text-glitch-loop
-  .fx-layer:not(canvas)::before {
-  display: block;
-  opacity: calc(var(--group-fx-alpha) * 0.46);
-  mix-blend-mode: screen;
-  background:
-    radial-gradient(
-      circle at 18% 28%,
-      rgba(255, 255, 255, 0.24),
-      transparent 8%
-    ),
-    radial-gradient(
-      circle at 76% 42%,
-      rgba(255, 87, 64, 0.18),
-      transparent 10%
-    ),
-    radial-gradient(circle at 40% 82%, rgba(40, 129, 206, 0.2), transparent 9%),
-    repeating-linear-gradient(
-      115deg,
-      rgba(255, 255, 255, 0.09) 0 1px,
-      transparent 1px 7px
-    );
-  animation: video-overlay-drift var(--group-fx-video-duration, 1.6s)
-    steps(24, end) infinite;
-}
-
-.db-hero-animation-root
-  .stage[data-text-fx="slices"].text-glitch-burst
-  .fx-layer,
-.db-hero-animation-root
-  .stage[data-text-fx="slices"].text-glitch-loop
-  .fx-layer {
-  animation:
-    slice-glitch var(--text-glitch-duration, 720ms) steps(1, end) both,
-    crt-text-flicker var(--text-glitch-duration, 720ms) linear both;
-}
-
-.db-hero-animation-root
-  .stage[data-text-fx="slices"].text-glitch-loop
-  .fx-layer {
-  animation:
-    slice-glitch-loop var(--group-fx-slice-loop-duration, 3.2s) steps(1, end)
-      infinite,
-    crt-text-flicker 2.4s linear infinite;
-}
-
-.db-hero-animation-root
-  .stage[data-text-fx="slices"].text-glitch-burst
-  .fx-layer:not(canvas)::before,
-.db-hero-animation-root
-  .stage[data-text-fx="slices"].text-glitch-loop
-  .fx-layer:not(canvas)::before,
-.db-hero-animation-root
-  .stage[data-text-fx="slices"].text-glitch-burst
-  .fx-layer:not(canvas)::after,
-.db-hero-animation-root
-  .stage[data-text-fx="slices"].text-glitch-loop
-  .fx-layer:not(canvas)::after {
-  display: block;
-  opacity: calc(var(--group-fx-alpha) * var(--slice-hold-alpha, 0.42) * 1.2);
-  mix-blend-mode: screen;
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(255, 90, 66, 0.36) 0 1px,
-    transparent 1px calc(100% / var(--slice-count, 5))
-  );
-  animation: slice-overlay var(--text-glitch-duration, 720ms) steps(1, end) both;
-}
-
-.db-hero-animation-root
-  .stage[data-text-fx="slices"].text-glitch-burst
-  .fx-layer:not(canvas)::after,
-.db-hero-animation-root
-  .stage[data-text-fx="slices"].text-glitch-loop
-  .fx-layer:not(canvas)::after {
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(0, 229, 255, 0.24) 0 1px,
-    transparent 1px calc(100% / var(--slice-count, 5))
-  );
-  animation-name: slice-overlay-alt;
-}
-
-.db-hero-animation-root .stage.fx-rgb-split.text-glitch-burst .fx-layer,
-.db-hero-animation-root .stage.fx-rgb-split.text-glitch-loop .fx-layer {
   filter: drop-shadow(
       calc(var(--rgb-split-x, 2px) * -1) var(--rgb-split-y, 0px)
-        rgb(var(--rgb-split-color-a, 255 49 74) / var(--rgb-split-alpha, 0.6))
+        rgb(var(--rgb-split-color-a, 255 49 74) / var(--rgb-split-layer-alpha))
     )
     drop-shadow(
       var(--rgb-split-x, 2px) calc(var(--rgb-split-y, 0px) * -1)
         rgb(
           var(--rgb-split-color-b, 0 229 255) /
-            calc(var(--rgb-split-alpha, 0.6) * 0.72)
+            calc(var(--rgb-split-layer-alpha) * 0.72)
         )
     );
   text-shadow:
     calc(var(--rgb-split-x, 2px) * -1.2) var(--rgb-split-y, 0px)
-      rgb(var(--rgb-split-color-a, 255 49 74) / var(--rgb-split-alpha, 0.6)),
+      rgb(var(--rgb-split-color-a, 255 49 74) / var(--rgb-split-layer-alpha)),
     calc(var(--rgb-split-x, 2px) * 1.1) calc(var(--rgb-split-y, 0px) * -1)
       rgb(
         var(--rgb-split-color-b, 0 229 255) /
-          calc(var(--rgb-split-alpha, 0.6) * 0.74)
+          calc(var(--rgb-split-layer-alpha) * 0.74)
       ),
     calc(var(--rgb-split-x, 2px) * 0.45) calc(var(--rgb-split-y, 0px) * 0.55)
       rgb(
         var(--rgb-split-color-c, 70 95 255) /
-          calc(var(--rgb-split-alpha, 0.6) * 0.44)
+          calc(var(--rgb-split-layer-alpha) * 0.44)
       );
 }
 
-.db-hero-animation-root
-  .stage[data-text-fx="rgbsplit"].text-glitch-burst
-  .fx-layer {
-  animation:
-    rgb-split-burst var(--text-glitch-duration, 620ms) steps(1, end) both,
-    crt-text-flicker var(--text-glitch-duration, 620ms) linear both;
+.db-hero-animation-root .stage.fx-rgb-split .prompt-line,
+.db-hero-animation-root .stage.fx-rgb-split .prompt-copy.is-entering::before {
+  --rgb-split-layer-alpha: var(
+    --rgb-split-text-alpha,
+    var(--rgb-split-alpha, 0.6)
+  );
+  filter: drop-shadow(
+      calc(var(--rgb-split-x, 2px) * -1) var(--rgb-split-y, 0px)
+        rgb(var(--rgb-split-color-a, 255 49 74) / var(--rgb-split-layer-alpha))
+    )
+    drop-shadow(
+      var(--rgb-split-x, 2px) calc(var(--rgb-split-y, 0px) * -1)
+        rgb(
+          var(--rgb-split-color-b, 0 229 255) /
+            calc(var(--rgb-split-layer-alpha) * 0.72)
+        )
+    );
+  text-shadow:
+    calc(var(--rgb-split-x, 2px) * -1.2) var(--rgb-split-y, 0px)
+      rgb(var(--rgb-split-color-a, 255 49 74) / var(--rgb-split-layer-alpha)),
+    calc(var(--rgb-split-x, 2px) * 1.1) calc(var(--rgb-split-y, 0px) * -1)
+      rgb(
+        var(--rgb-split-color-b, 0 229 255) /
+          calc(var(--rgb-split-layer-alpha) * 0.74)
+      ),
+    calc(var(--rgb-split-x, 2px) * 0.45) calc(var(--rgb-split-y, 0px) * 0.55)
+      rgb(
+        var(--rgb-split-color-c, 70 95 255) /
+          calc(var(--rgb-split-layer-alpha) * 0.44)
+      );
 }
 
-.db-hero-animation-root
-  .stage[data-text-fx="rgbsplit"].text-glitch-loop
-  .fx-layer {
-  animation: rgb-split-loop var(--rgb-split-duration, 1.4s) steps(1, end)
-    infinite;
+.db-hero-animation-root .stage.fx-rgb-split .prompt-marker {
+  text-shadow:
+    calc(var(--rgb-split-x, 2px) * -1.2) var(--rgb-split-y, 0px)
+      rgb(var(--rgb-split-color-a, 255 49 74) / var(--rgb-split-layer-alpha)),
+    calc(var(--rgb-split-x, 2px) * 1.1) calc(var(--rgb-split-y, 0px) * -1)
+      rgb(
+        var(--rgb-split-color-b, 0 229 255) /
+          calc(var(--rgb-split-layer-alpha) * 0.74)
+      ),
+    0 0 8px rgb(var(--prompt-enter-rgb) / 0.14);
+}
+
+.db-hero-animation-root .stage.fx-rgb-split #heroLogoReveal {
+  --rgb-split-layer-alpha: var(
+    --rgb-split-logo-alpha,
+    var(--rgb-split-alpha, 0.6)
+  );
+}
+
+.db-hero-animation-root .stage.fx-rgb-split #heroLogoReveal .hero-logo {
+  filter: drop-shadow(
+      calc(var(--rgb-split-x, 2px) * -1) var(--rgb-split-y, 0px)
+        rgb(var(--rgb-split-color-a, 255 49 74) / var(--rgb-split-layer-alpha))
+    )
+    drop-shadow(
+      var(--rgb-split-x, 2px) calc(var(--rgb-split-y, 0px) * -1)
+        rgb(
+          var(--rgb-split-color-b, 0 229 255) /
+            calc(var(--rgb-split-layer-alpha) * 0.72)
+        )
+    );
+}
+
+.db-hero-animation-root .stage.fx-rgb-split .app-preview.is-visible {
+  filter: drop-shadow(
+      calc(var(--rgb-split-x, 2px) * -1) var(--rgb-split-y, 0px)
+        rgb(
+          var(--rgb-split-color-a, 255 49 74) / var(--rgb-split-window-alpha, 0)
+        )
+    )
+    drop-shadow(
+      var(--rgb-split-x, 2px) calc(var(--rgb-split-y, 0px) * -1)
+        rgb(
+          var(--rgb-split-color-b, 0 229 255) /
+            calc(var(--rgb-split-window-alpha, 0) * 0.72)
+        )
+    );
 }
 
 .db-hero-animation-root .reference-guide {
@@ -892,7 +777,7 @@
 .db-hero-animation-root .rgb-grid-overlay {
   position: absolute;
   inset: 0;
-  z-index: 87;
+  z-index: var(--fx-z-rgbgrid, 87);
   display: none;
   opacity: var(--rgb-grid-opacity, 0);
   pointer-events: none;
@@ -917,50 +802,47 @@
     infinite;
 }
 
-.db-hero-animation-root .glass-glow {
+.db-hero-animation-root .shade-map-overlay {
   position: absolute;
-  left: var(--glass-glow-x, 960px);
-  top: var(--glass-glow-y, 420px);
-  z-index: 90;
-  width: 1320px;
-  height: 760px;
-  opacity: var(--glass-glow-opacity, 0);
-  transform: translate(-50%, -50%)
-    scale(var(--glass-glow-scale-x, 1), var(--glass-glow-scale-y, 1));
-  filter: blur(var(--glass-glow-blur, 42px));
-  mix-blend-mode: screen;
+  inset: 0;
+  z-index: calc(var(--fx-z-shademap, 100) + 220);
+  display: none;
+  opacity: var(--shade-map-alpha, 0);
   pointer-events: none;
-  background:
-    radial-gradient(
-      ellipse at 46% 42%,
-      rgba(255, 255, 255, var(--glass-glow-white-alpha, 0.55)) 0%,
-      rgba(255, 255, 255, 0.16) 18%,
-      transparent 44%
-    ),
-    radial-gradient(
-      ellipse at 58% 53%,
-      rgba(118, 172, 255, var(--glass-glow-blue-alpha, 0.34)) 0%,
-      transparent 56%
-    ),
-    radial-gradient(
-      ellipse at 34% 62%,
-      rgba(255, 90, 66, var(--glass-glow-red-alpha, 0.18)) 0%,
-      transparent 62%
-    ),
-    linear-gradient(
-      115deg,
-      transparent 0 32%,
-      rgba(255, 255, 255, 0.18) 42%,
-      transparent 54% 100%
-    );
-  box-shadow: 0 0 calc(var(--glass-glow-blur, 42px) * 2.2)
-    rgba(170, 205, 255, 0.42);
+  mix-blend-mode: normal;
+  filter: blur(var(--shade-map-blur, 12px)) saturate(1.12);
+  background: none;
+  will-change: opacity;
+}
+
+.db-hero-animation-root .shade-map-cell {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+  opacity: var(--shade-cell-low, 0.18);
+  background: rgb(var(--shade-map-color, 255 255 255) / 1);
+  animation-name: shade-map-cell-flick;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+  will-change: opacity;
+}
+
+.db-hero-animation-root .stage.fx-shade-map .shade-map-overlay {
+  display: block;
+}
+
+.db-hero-animation-root .stage.is-quiet-css.fx-shade-map .shade-map-overlay {
+  animation-play-state: running !important;
+}
+
+.db-hero-animation-root .stage.is-quiet-css.fx-shade-map .shade-map-cell {
+  animation-play-state: running !important;
 }
 
 .db-hero-animation-root .screen-vignette {
   position: absolute;
   inset: 0;
-  z-index: 98;
+  z-index: var(--fx-z-vignette, 98);
   overflow: hidden;
   opacity: var(--screen-vignette-opacity, 0);
   pointer-events: none;
@@ -1069,7 +951,85 @@
   filter: drop-shadow(0 0 10px rgba(111, 123, 159, 0.16));
 }
 
+.db-hero-animation-root .hero-logo-reflex {
+  z-index: 0;
+  pointer-events: none;
+  overflow: visible;
+  opacity: calc(var(--logo-reflex-opacity, 0) * var(--logo-block-opacity, 1));
+  transform: translate3d(
+      calc(var(--logo-reflex-left, 0px) + var(--logo-reflex-x, 0px)),
+      calc(var(--logo-reflex-top, 0px) + var(--logo-reflex-y, 0px)),
+      0
+    )
+    scale(var(--logo-reflex-scale-x, 1), var(--logo-reflex-scale-y, 1));
+  transform-origin: 50% 50%;
+  filter: blur(var(--logo-reflex-blur, 12px))
+    drop-shadow(
+      0 0 calc(var(--logo-reflex-blur, 12px) * 0.75) rgb(111 123 159 / 0.24)
+    );
+  clip-path: inset(0 0 calc(100% - var(--logo-reveal)) 0);
+  mix-blend-mode: screen;
+}
+
+.db-hero-animation-root .hero-logo-reflex::after {
+  content: "";
+  position: absolute;
+  left: var(--logo-reflex-shade-x, 0px);
+  top: var(--logo-reflex-shade-y, -4px);
+  width: var(--logo-reflex-shade-width, 1600px);
+  height: var(--logo-reflex-shade-height, 92px);
+  z-index: 2;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0,
+      var(--logo-reflex-shade-color, #000000) 28px,
+      var(--logo-reflex-shade-color, #000000) calc(100% - 28px),
+      transparent 100%
+    ),
+    linear-gradient(
+      180deg,
+      transparent 0,
+      var(--logo-reflex-shade-color, #000000) 18px,
+      var(--logo-reflex-shade-color, #000000) calc(100% - 18px),
+      transparent 100%
+    );
+  background-blend-mode: multiply;
+  opacity: var(--logo-reflex-shade-opacity, 0.58);
+  filter: blur(var(--logo-reflex-shade-blur, 0px));
+  mix-blend-mode: multiply;
+}
+
+.db-hero-animation-root .hero-logo-reflex svg {
+  position: relative;
+  z-index: 1;
+  transform: translateY(var(--logo-shift));
+}
+
+.db-hero-animation-root .stage.fx-rgb-split #heroLogoReveal .hero-logo-reflex {
+  filter: blur(var(--logo-reflex-blur, 12px))
+    drop-shadow(
+      0 0 calc(var(--logo-reflex-blur, 12px) * 0.75) rgb(111 123 159 / 0.24)
+    )
+    drop-shadow(
+      calc(var(--rgb-split-x, 2px) * -1) var(--rgb-split-y, 0px)
+        rgb(var(--rgb-split-color-a, 255 49 74) / var(--rgb-split-layer-alpha))
+    )
+    drop-shadow(
+      var(--rgb-split-x, 2px) calc(var(--rgb-split-y, 0px) * -1)
+        rgb(
+          var(--rgb-split-color-b, 0 229 255) /
+            calc(var(--rgb-split-layer-alpha) * 0.72)
+        )
+    );
+}
+
 .db-hero-animation-root .hero-logo-svg {
+  overflow: visible;
+}
+
+.db-hero-animation-root .hero-logo-reflex.hero-logo-svg {
   overflow: visible;
 }
 
@@ -1095,6 +1055,12 @@
     opacity 90ms steps(2, end),
     transform 70ms steps(2, end);
   will-change: fill, transform;
+}
+
+.db-hero-animation-root .hero-logo-reflex rect {
+  cursor: default;
+  pointer-events: none;
+  transition: none;
 }
 
 .db-hero-animation-root .hero-logo-rect-layer rect {
@@ -1163,10 +1129,12 @@
 }
 
 .db-hero-animation-root .hero-logo-base {
+  z-index: 1;
   opacity: calc(var(--logo-base-opacity, 0.28) * var(--logo-block-opacity, 1));
 }
 
 .db-hero-animation-root .hero-logo-fill {
+  z-index: 2;
   opacity: var(--logo-block-opacity, 1);
   transform: translateY(var(--logo-shift));
   clip-path: inset(0 0 calc(100% - var(--logo-reveal)) 0);
@@ -1189,7 +1157,7 @@
   position: relative;
   margin: 0;
   max-width: 100%;
-  color: rgba(132, 135, 151, 0.88);
+  color: #777a88;
   font-family:
     "Geist Mono", "SFMono-Regular", Consolas, "Liberation Mono", Menlo,
     monospace;
@@ -1198,7 +1166,7 @@
   line-height: 1.5;
   letter-spacing: var(--install-letter-spacing, -0.02em);
   white-space: pre-line;
-  text-shadow: 0 0 12px rgba(105, 122, 178, 0.18);
+  text-shadow: 0 0 12px rgba(119, 122, 136, 0.08);
 }
 
 .db-hero-animation-root .terminal-copy::after {
@@ -1756,7 +1724,7 @@
     color: rgba(238, 239, 244, 0.94);
   }
   22% {
-    opacity: 0.78;
+    opacity: var(--shade-map-flicker-a-high, 0.78);
     color: rgb(var(--prompt-enter-flash-rgb) / 0.9);
   }
   46% {
@@ -2172,7 +2140,7 @@
 }
 
 .db-hero-animation-root
-  .app-preview.is-image-backed.is-wire
+  .app-preview.is-image-backed.is-wire.is-prototype-visible
   > .app-prototype-image {
   display: block;
 }
@@ -2197,264 +2165,6 @@
   z-index: 5;
   opacity: 0;
   pointer-events: auto;
-}
-
-.db-hero-animation-root .app-chart-overlay {
-  position: absolute;
-  left: 82px;
-  top: 229px;
-  z-index: 3;
-  display: none;
-  width: 428px;
-  height: 270px;
-  padding: 10px;
-  box-sizing: border-box;
-  pointer-events: auto;
-  color: #f7f8fb;
-  font-family:
-    Inter,
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-  background: #17181d;
-  border-radius: 6px;
-  --chart-hover-x: 230px;
-  --chart-hover-revenue-y: 60px;
-  --chart-hover-target-y: 68px;
-  --chart-card-x: 246px;
-  --chart-card-y: 20px;
-}
-
-.db-hero-animation-root
-  .app-preview.is-image-backed.is-polished
-  > .app-chart-overlay {
-  display: block;
-}
-
-.db-hero-animation-root .app-chart-head {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 15px;
-}
-
-.db-hero-animation-root .app-chart-head h3,
-.db-hero-animation-root .app-chart-head p {
-  margin: 0;
-}
-
-.db-hero-animation-root .app-chart-head h3 {
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.25;
-}
-
-.db-hero-animation-root .app-chart-head p {
-  margin-top: 3px;
-  color: #9b9daa;
-  font-size: 10px;
-  line-height: 1.25;
-}
-
-.db-hero-animation-root .app-chart-head > span {
-  height: 18px;
-  padding: 4px 6px;
-  color: #9b9daa;
-  font-size: 10px;
-  line-height: 1;
-  background: #14151a;
-  border-radius: 4px;
-}
-
-.db-hero-animation-root .app-chart-head b {
-  padding: 3px 5px;
-  color: #f3f4f8;
-  font-weight: 500;
-  background: #333640;
-  border-radius: 2px;
-}
-
-.db-hero-animation-root .app-chart-stage {
-  position: relative;
-  height: 164px;
-  overflow: hidden;
-  background:
-    repeating-linear-gradient(
-      0deg,
-      transparent 0,
-      transparent 29px,
-      rgba(145, 148, 161, 0.12) 30px,
-      transparent 31px
-    ),
-    linear-gradient(
-      90deg,
-      transparent 0,
-      transparent 49.4%,
-      rgba(145, 148, 161, 0.16) 49.7%,
-      transparent 50%
-    );
-}
-
-.db-hero-animation-root .app-chart-svg {
-  position: absolute;
-  inset: 0;
-  overflow: visible;
-}
-
-.db-hero-animation-root .app-chart-fill {
-  fill: rgba(255, 68, 50, 0.22);
-}
-
-.db-hero-animation-root .app-chart-target {
-  fill: none;
-  stroke: rgba(177, 179, 190, 0.7);
-  stroke-width: 2;
-  stroke-dasharray: 7 7;
-}
-
-.db-hero-animation-root .app-chart-line-live {
-  fill: none;
-  stroke: #ff493b;
-  stroke-width: 2.4;
-}
-
-.db-hero-animation-root .app-chart-marker {
-  position: absolute;
-  top: 0;
-  bottom: 31px;
-  left: var(--chart-hover-x);
-  width: 1px;
-  background: rgba(145, 148, 161, 0.38);
-  transform: translateX(-0.5px);
-  transition: left 90ms linear;
-}
-
-.db-hero-animation-root .app-chart-marker-dot {
-  position: absolute;
-  left: 0;
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  transform: translate3d(-50%, -50%, 0);
-  border: 2px solid rgba(255, 255, 255, 0.28);
-}
-
-.db-hero-animation-root .app-chart-marker-dot.is-revenue {
-  top: var(--chart-hover-revenue-y);
-  background: #ff493b;
-}
-
-.db-hero-animation-root .app-chart-marker-dot.is-target {
-  top: var(--chart-hover-target-y);
-  background: #8e93a3;
-}
-
-.db-hero-animation-root .app-chart-hover-card {
-  position: absolute;
-  left: var(--chart-card-x);
-  top: var(--chart-card-y);
-  width: 96px;
-  display: grid;
-  gap: 5px;
-  padding: 7px;
-  color: #f6f7fb;
-  font-family:
-    Inter,
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-  font-size: 9px;
-  line-height: 1.1;
-  background: #262832;
-  border: 1px solid rgba(244, 244, 245, 0.24);
-  border-radius: 2px;
-  transform: translateZ(0);
-  transition:
-    left 90ms linear,
-    top 90ms linear;
-}
-
-.db-hero-animation-root .app-chart-hover-card span {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  color: rgba(244, 244, 245, 0.82);
-}
-
-.db-hero-animation-root .app-chart-hover-card i {
-  width: 5px;
-  height: 5px;
-  border-radius: 999px;
-  background: #8e93a3;
-}
-
-.db-hero-animation-root .app-chart-hover-card span:last-child i {
-  background: #ff493b;
-}
-
-.db-hero-animation-root .app-chart-hover-card strong {
-  margin-left: auto;
-  color: #fff;
-  font-weight: 600;
-}
-
-.db-hero-animation-root .app-chart-y-labels {
-  position: absolute;
-  left: 0;
-  top: 10px;
-  bottom: 31px;
-  z-index: 2;
-  width: 46px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  color: #9b9daa;
-  font-size: 8px;
-  line-height: 1;
-  text-align: right;
-  pointer-events: none;
-}
-
-.db-hero-animation-root .app-chart-months {
-  position: absolute;
-  left: 72px;
-  right: 10px;
-  bottom: 4px;
-  z-index: 2;
-  display: flex;
-  justify-content: space-between;
-  color: #9b9daa;
-  font-size: 8px;
-  line-height: 1;
-  pointer-events: none;
-}
-
-.db-hero-animation-root .app-chart-foot {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  margin-top: 10px;
-  color: #9b9daa;
-  font-size: 9px;
-  line-height: 1.15;
-}
-
-.db-hero-animation-root .app-chart-foot b {
-  display: block;
-  margin-top: 4px;
-  color: #f7f8fb;
-  font-size: 12px;
-  font-weight: 500;
-}
-
-.db-hero-animation-root .app-chart-foot span:last-child b {
-  color: #00bd86;
 }
 
 .db-hero-animation-root .app-preview.terminal-window-enter {
@@ -3060,8 +2770,48 @@
   opacity: 0;
 }
 
+.db-hero-animation-root .app-preview.app-reveal-running > .app-prototype-image,
+.db-hero-animation-root .app-preview.app-reveal-running > .app-done-image {
+  display: none;
+}
+
+.db-hero-animation-root
+  .app-preview.app-reveal-running.reveal-target-polished.is-image-backed.is-wire.is-prototype-visible
+  > .app-prototype-image {
+  display: block;
+  opacity: 1;
+}
+
+.db-hero-animation-root
+  .app-preview.app-reveal-running.reveal-target-polished
+  > .app-done-image {
+  display: none;
+}
+
+.db-hero-animation-root .app-reveal-image-mask {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  background-image: var(--app-reveal-image);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: 0 0;
+  filter: grayscale(1) brightness(1.05) contrast(1.18);
+  clip-path: polygon(0 0, 0 0, 0 0);
+  animation: app-reveal-image-draw var(--app-reveal-duration) steps(14, end)
+    both;
+}
+
+.db-hero-animation-root
+  .app-preview.app-reveal-running.reveal-target-polished
+  .app-reveal-image-mask {
+  filter: brightness(1.02) contrast(1.08) saturate(1.05);
+}
+
 .db-hero-animation-root .app-reveal-solid-tile {
   position: absolute;
+  z-index: 1;
   display: block;
   overflow: hidden;
   box-sizing: border-box;
@@ -3069,6 +2819,7 @@
   background-image: var(--app-reveal-image);
   background-repeat: no-repeat;
   background-color: #07080a;
+  background-blend-mode: normal;
   animation: app-solid-tile-reveal var(--app-reveal-duration) steps(1, end) both;
 }
 
@@ -4083,6 +3834,28 @@
   border-top: 1px solid var(--figma-border-soft);
 }
 
+.db-hero-animation-root .fx-drag-handle {
+  width: 18px;
+  height: 24px;
+  cursor: grab;
+  border-radius: 5px;
+  background:
+    radial-gradient(circle, var(--figma-muted) 0 1.5px, transparent 1.7px) 2px
+      4px / 6px 6px,
+    radial-gradient(circle, var(--figma-muted) 0 1.5px, transparent 1.7px) 8px
+      4px / 6px 6px;
+  opacity: 0.68;
+}
+
+.db-hero-animation-root .fx-drag-handle:hover {
+  opacity: 1;
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+.db-hero-animation-root .fx-drag-handle:active {
+  cursor: grabbing;
+}
+
 .db-hero-animation-root .color-label {
   display: grid;
   grid-template-columns: 1fr auto auto;
@@ -4350,6 +4123,65 @@
   18%,
   100% {
     opacity: 1;
+  }
+}
+
+@keyframes app-reveal-image-draw {
+  0% {
+    clip-path: polygon(0 0, 0 0, 0 0);
+    filter: grayscale(1) brightness(0.92) contrast(1.42);
+  }
+  16% {
+    clip-path: polygon(0 0, 31% 0, 0 31%);
+  }
+  34% {
+    clip-path: polygon(0 0, 62% 0, 0 62%);
+    filter: grayscale(1) brightness(1.08) contrast(1.26);
+  }
+  52% {
+    clip-path: polygon(0 0, 96% 0, 0 96%);
+  }
+  70% {
+    clip-path: polygon(0 0, 132% 0, 0 132%);
+  }
+  88% {
+    clip-path: polygon(0 0, 168% 0, 0 168%);
+  }
+  100% {
+    clip-path: polygon(0 0, 200% 0, 0 200%);
+    filter: grayscale(1) brightness(1.05) contrast(1.18);
+  }
+}
+
+.db-hero-animation-root
+  .app-preview.app-reveal-running.reveal-target-polished
+  .app-reveal-image-mask {
+  animation-name: app-reveal-design-draw;
+}
+
+@keyframes app-reveal-design-draw {
+  0% {
+    clip-path: polygon(0 0, 0 0, 0 0);
+    filter: brightness(0.96) contrast(1.24) saturate(0.8);
+  }
+  16% {
+    clip-path: polygon(0 0, 31% 0, 0 31%);
+  }
+  34% {
+    clip-path: polygon(0 0, 62% 0, 0 62%);
+  }
+  52% {
+    clip-path: polygon(0 0, 96% 0, 0 96%);
+  }
+  70% {
+    clip-path: polygon(0 0, 132% 0, 0 132%);
+  }
+  88% {
+    clip-path: polygon(0 0, 168% 0, 0 168%);
+  }
+  100% {
+    clip-path: polygon(0 0, 200% 0, 0 200%);
+    filter: brightness(1.02) contrast(1.08) saturate(1.05);
   }
 }
 
@@ -5172,7 +5004,7 @@
     transform: translateY(-8%);
   }
   58% {
-    opacity: 0.18;
+    opacity: var(--shade-map-flicker-a-low, 0.18);
     transform: translateY(28%);
   }
   100% {
@@ -5208,92 +5040,6 @@
   }
 }
 
-@keyframes crt-text-burst {
-  0%,
-  100% {
-    transform: translate(0, 0);
-    filter: none;
-    text-shadow: inherit;
-  }
-  7% {
-    transform: translate(calc(var(--text-glitch-x) * -1), var(--text-glitch-y))
-      skewX(-7deg);
-    filter: contrast(1.35) brightness(1.18);
-    text-shadow:
-      calc(var(--text-glitch-rgb) * -1) 0 var(--text-glitch-red-color),
-      var(--text-glitch-rgb) 0 #00e5ff,
-      0 0 12px rgba(255, 255, 255, 0.2);
-  }
-  13% {
-    transform: translate(var(--text-glitch-x), calc(var(--text-glitch-y) * -1))
-      skewX(5deg);
-    clip-path: polygon(0 0, 100% 0, 100% 38%, 0 43%);
-  }
-  23% {
-    transform: translate(calc(var(--text-glitch-x) * 0.65), 0);
-    clip-path: polygon(0 19%, 100% 14%, 100% 79%, 0 84%);
-    text-shadow:
-      calc(var(--text-glitch-rgb) * 1.3) 0 var(--text-glitch-red-color),
-      calc(var(--text-glitch-rgb) * -1.1) 0 #00e5ff;
-  }
-  36% {
-    transform: translate(calc(var(--text-glitch-x) * -0.4), 0);
-    filter: brightness(0.78) contrast(1.55);
-    clip-path: polygon(0 52%, 100% 45%, 100% 100%, 0 100%);
-  }
-  52% {
-    transform: translate(0, 0);
-    filter: brightness(1.4);
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-  }
-}
-
-@keyframes crt-text-loop {
-  0%,
-  88%,
-  100% {
-    transform: translate(0, 0);
-    text-shadow: inherit;
-    filter: none;
-  }
-  90% {
-    transform: translate(calc(var(--text-glitch-x) * -0.5), 0);
-    text-shadow:
-      calc(var(--text-glitch-rgb) * -0.8) 0 var(--text-glitch-red-color),
-      calc(var(--text-glitch-rgb) * 0.8) 0 #00e5ff;
-  }
-  92% {
-    transform: translate(calc(var(--text-glitch-x) * 0.4), 0);
-    filter: contrast(1.25);
-  }
-}
-
-@keyframes crt-text-flicker {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  8% {
-    opacity: 0.88;
-  }
-  11% {
-    opacity: 1;
-  }
-  18% {
-    opacity: 0.72;
-  }
-  21%,
-  73% {
-    opacity: 1;
-  }
-  76% {
-    opacity: 0.9;
-  }
-  79% {
-    opacity: 1;
-  }
-}
-
 @keyframes crt-mask-drift {
   to {
     transform: translate(1px, 3px);
@@ -5323,18 +5069,22 @@
   }
 }
 
-@keyframes video-overlay-drift {
-  0% {
-    transform: translate3d(-2%, -2%, 0) scale(1.03);
-    filter: hue-rotate(0deg);
-  }
-  50% {
-    transform: translate3d(2%, 1%, 0) scale(1.05);
-    filter: hue-rotate(12deg);
-  }
+@keyframes shade-map-cell-flick {
+  0%,
+  32%,
+  68%,
   100% {
-    transform: translate3d(-2%, -2%, 0) scale(1.03);
-    filter: hue-rotate(0deg);
+    opacity: var(--shade-cell-high, 0.9);
+  }
+  12%,
+  48%,
+  86% {
+    opacity: var(--shade-cell-low, 0.12);
+  }
+  22%,
+  58%,
+  76% {
+    opacity: var(--shade-cell-mid, 0.55);
   }
 }
 
@@ -5381,66 +5131,6 @@
   89% {
     transform: translate(calc(var(--text-glitch-x) * 5), 0) skew(-24deg);
     clip-path: inset(58% 0 11% 0);
-  }
-}
-
-@keyframes rgb-split-burst {
-  0%,
-  18%,
-  44%,
-  70%,
-  100% {
-    transform: translate(0, 0);
-  }
-  19% {
-    transform: translate(calc(var(--rgb-split-x, 2px) * -0.8), 0);
-  }
-  20% {
-    transform: translate(var(--rgb-split-x, 2px), var(--rgb-split-y, 0px));
-  }
-  33% {
-    transform: translate(calc(var(--rgb-split-x, 2px) * 0.35), 0);
-  }
-  45% {
-    transform: translate(
-      calc(var(--rgb-split-x, 2px) * -1.6),
-      calc(var(--rgb-split-y, 0px) * -1)
-    );
-    filter: drop-shadow(
-        calc(var(--rgb-split-x, 2px) * -2.4) var(--rgb-split-y, 0px)
-          rgb(var(--rgb-split-color-a, 255 49 74) / var(--rgb-split-alpha, 0.6))
-      )
-      drop-shadow(
-        calc(var(--rgb-split-x, 2px) * 2.2) calc(var(--rgb-split-y, 0px) * -1)
-          rgb(
-            var(--rgb-split-color-b, 0 229 255) /
-              calc(var(--rgb-split-alpha, 0.6) * 0.82)
-          )
-      );
-  }
-  47% {
-    transform: translate(calc(var(--rgb-split-x, 2px) * 1.2), 0);
-  }
-  66% {
-    transform: translate(calc(var(--rgb-split-x, 2px) * -0.4), 1px);
-  }
-}
-
-@keyframes rgb-split-loop {
-  0%,
-  74%,
-  79%,
-  100% {
-    transform: translate(0, 0);
-  }
-  75% {
-    transform: translate(calc(var(--rgb-split-x, 2px) * -0.9), 0);
-  }
-  77% {
-    transform: translate(
-      calc(var(--rgb-split-x, 2px) * 0.7),
-      var(--rgb-split-y, 0px)
-    );
   }
 }
 
@@ -5605,160 +5295,6 @@
   }
   100% {
     filter: none;
-  }
-}
-
-@keyframes buzz-text-noise {
-  0%,
-  100% {
-    opacity: var(--buzz-noise-low, 0.84);
-  }
-  50% {
-    opacity: 1;
-  }
-}
-
-@keyframes buzz-text-burst {
-  0%,
-  29%,
-  43%,
-  66%,
-  100% {
-    transform: translate(0, 0) scale(1, 1) skew(0, 0);
-    clip-path: inset(0 0 0 0);
-  }
-  30% {
-    transform: translate(0, 0);
-    text-shadow:
-      calc(var(--text-glitch-rgb) * -2) 0 1px rgba(255, 20, 34, 0.85),
-      calc(var(--text-glitch-rgb) * 2) 0 1px rgba(0, 255, 102, 0.72),
-      calc(var(--text-glitch-rgb) * 1.2) 0 1px rgba(40, 96, 255, 0.72),
-      0 0 38px rgba(255, 255, 255, 0.3);
-  }
-  31% {
-    transform: translate3d(
-      var(--buzz-jitter-x, 7px),
-      var(--buzz-jitter-y, 1px),
-      0
-    );
-    text-shadow:
-      calc(var(--buzz-rgb-x, 3px) * -1.6) calc(var(--buzz-rgb-y, 0px) * -1) 1px
-        rgb(var(--buzz-color-red, 255 31 31) / var(--buzz-ghost-opacity, 0.72)),
-      calc(var(--buzz-rgb-x, 3px) * -2.2) var(--buzz-rgb-y, 0px) 1px
-        rgb(
-          var(--buzz-color-green, 0 255 102) / var(--buzz-ghost-opacity, 0.72)
-        ),
-      calc(var(--buzz-rgb-x, 3px) * 1.8) calc(var(--buzz-rgb-y, 0px) * 0.5) 1px
-        rgb(var(--buzz-color-blue, 40 96 255) / var(--buzz-ghost-opacity, 0.72));
-  }
-  32% {
-    transform: translate(0, 0);
-  }
-  40% {
-    opacity: 1;
-  }
-  41% {
-    opacity: 0.8;
-    transform: translate3d(calc(var(--buzz-jitter-x, 7px) * -2), 0, 0)
-      scale(1, calc(1 + var(--buzz-stretch-y, 0.18)))
-      skew(var(--buzz-skew, 44deg), 0);
-    clip-path: inset(0 0 var(--buzz-tear, 38%) 0);
-  }
-  42% {
-    opacity: 0.82;
-    transform: translate3d(calc(var(--buzz-jitter-x, 7px) * 2), 0, 0)
-      scale(1, calc(1 + var(--buzz-stretch-y, 0.18)))
-      skew(calc(var(--buzz-skew, 44deg) * -1.4), 0);
-    clip-path: inset(var(--buzz-tear, 38%) 0 0 0);
-  }
-  52% {
-    transform: translate3d(
-      calc(var(--buzz-jitter-x, 7px) * -0.35),
-      calc(var(--buzz-jitter-y, 1px) * -1),
-      0
-    );
-    text-shadow:
-      calc(var(--buzz-rgb-x, 3px) * -1.2) 0 1px
-        rgb(var(--buzz-color-red, 255 31 31) / var(--buzz-ghost-opacity, 0.72)),
-      calc(var(--buzz-rgb-x, 3px) * 1.4) 0 1px
-        rgb(
-          var(--buzz-color-green, 0 255 102) / var(--buzz-ghost-opacity, 0.72)
-        ),
-      calc(var(--buzz-rgb-x, 3px) * -0.7) 0 1px
-        rgb(var(--buzz-color-blue, 40 96 255) / var(--buzz-ghost-opacity, 0.72));
-  }
-  64% {
-    transform: translate3d(calc(var(--buzz-jitter-x, 7px) * 1.2), 0, 0);
-  }
-  65% {
-    transform: translate(0, 0);
-  }
-  98% {
-    transform: translate(0, 0);
-  }
-  99% {
-    transform: translate3d(var(--buzz-jitter-x, 7px), 0, 0);
-    text-shadow:
-      calc(var(--buzz-rgb-x, 3px) * -1.5) 0 1px
-        rgb(var(--buzz-color-red, 255 31 31) / var(--buzz-ghost-opacity, 0.72)),
-      calc(var(--buzz-rgb-x, 3px) * -2) 0 1px
-        rgb(
-          var(--buzz-color-green, 0 255 102) / var(--buzz-ghost-opacity, 0.72)
-        ),
-      calc(var(--buzz-rgb-x, 3px) * 1.6) 0 1px
-        rgb(var(--buzz-color-blue, 40 96 255) / var(--buzz-ghost-opacity, 0.72));
-  }
-}
-
-@keyframes buzz-text-loop {
-  0%,
-  30%,
-  32%,
-  40%,
-  43%,
-  65%,
-  98% {
-    transform: translate(0, 0) scale(1, 1) skew(0, 0);
-    clip-path: inset(0 0 0 0);
-  }
-  31% {
-    transform: translate3d(var(--buzz-jitter-x, 7px), 0, 0);
-    text-shadow:
-      calc(var(--buzz-rgb-x, 3px) * -1.3) 0 1px
-        rgb(var(--buzz-color-red, 255 31 31) / var(--buzz-ghost-opacity, 0.72)),
-      calc(var(--buzz-rgb-x, 3px) * -1.8) 0 1px
-        rgb(
-          var(--buzz-color-green, 0 255 102) / var(--buzz-ghost-opacity, 0.72)
-        ),
-      calc(var(--buzz-rgb-x, 3px) * 1.5) 0 1px
-        rgb(var(--buzz-color-blue, 40 96 255) / var(--buzz-ghost-opacity, 0.72));
-  }
-  41% {
-    opacity: 0.8;
-    transform: translate3d(calc(var(--buzz-jitter-x, 7px) * -1.7), 0, 0)
-      scale(1, calc(1 + var(--buzz-stretch-y, 0.18)))
-      skew(var(--buzz-skew, 44deg), 0);
-    clip-path: inset(0 0 var(--buzz-tear, 38%) 0);
-  }
-  42% {
-    opacity: 0.82;
-    transform: translate3d(calc(var(--buzz-jitter-x, 7px) * 1.7), 0, 0)
-      scale(1, calc(1 + var(--buzz-stretch-y, 0.18)))
-      skew(calc(var(--buzz-skew, 44deg) * -1.4), 0);
-    clip-path: inset(var(--buzz-tear, 38%) 0 0 0);
-  }
-  99%,
-  100% {
-    transform: translate3d(var(--buzz-jitter-x, 7px), 0, 0);
-    text-shadow:
-      calc(var(--buzz-rgb-x, 3px) * -1.3) 0 1px
-        rgb(var(--buzz-color-red, 255 31 31) / var(--buzz-ghost-opacity, 0.72)),
-      calc(var(--buzz-rgb-x, 3px) * -1.8) 0 1px
-        rgb(
-          var(--buzz-color-green, 0 255 102) / var(--buzz-ghost-opacity, 0.72)
-        ),
-      calc(var(--buzz-rgb-x, 3px) * 1.5) 0 1px
-        rgb(var(--buzz-color-blue, 40 96 255) / var(--buzz-ghost-opacity, 0.72));
   }
 }
 

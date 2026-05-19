@@ -1,5 +1,31 @@
 (() => {
   window.DATABRICKS_EXPORT_MODE = true;
+  window.DATABRICKS_USED_FEATURES = {
+    powerOn: true,
+    logoReveal: true,
+    logoTubeWarmup: false,
+    terminalTyping: true,
+    terminalScroll: true,
+    buildStatus: true,
+    finalStatus: true,
+    windowBoot: true,
+    appReveal: true,
+    parallax: true,
+    rgbSplit: true,
+    shadeMap: false,
+    rgbGrid: true,
+    scanlines: true,
+    vignette: true,
+    dragEcho: true,
+    logoClick: true,
+    guide: false,
+    perfMonitor: false,
+    editorControls: false,
+  };
+  window.DATABRICKS_EXPORT_ASSETS = {
+    logoSvg:
+      '<svg width="1280" height="176" viewBox="0 0 1280 176" fill="none" xmlns="http://www.w3.org/2000/svg">\n<mask id="mask0_7186_508" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="5" width="1251" height="167">\n<path d="M954.706 16.3207H983.949V45.564H907.401V140.175H983.949V169.418H885.898V151.356" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/>\n<rect x="873.857" y="5.99976" width="98.051" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="873.857" y="129.853" width="98.051" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="866.117" y="36.963" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="866.117" y="67.9265" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="866.117" y="98.89" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<path d="M1155.11 16.3208H1248V45.5641H1171.45V78.2477H1230.8V107.491H1248V140.175H1235.1V169.418H1142.21V140.175" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/>\n<path d="M1218.76 107.491H1155.11V92.0093" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/>\n<rect x="1143.06" y="6" width="92.8904" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="1143.06" y="67.9268" width="75.6885" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="1130.16" y="129.854" width="92.8904" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="1130.16" y="36.9634" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="1206.71" y="98.8901" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<path d="M1026.95 16.3209H1040.71V78.2479H1068.24" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/>\n<path d="M1085.44 16.3208H1114.68V45.5641H1097.48V78.2477H1082.86V107.491H1097.48V140.175H1114.68V169.418H1085.44V140.175M1011.47 156.517V169.418H1040.71V107.491H1068.24V123.833" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/>\n<rect x="999.428" y="6" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="1073.4" y="6" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="999.428" y="98.8901" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="1056.2" y="98.8901" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="999.428" y="36.9634" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="1056.2" y="36.9634" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="999.428" y="129.854" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="1073.4" y="129.854" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="999.428" y="67.9268" width="71.388" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="809.352" y="6" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="809.352" y="36.9634" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="809.352" y="67.9268" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="809.352" y="98.8901" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="809.352" y="129.854" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<path d="M821.393 16.3208H850.636V169.418H821.393V149.206" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/>\n<path d="M540.998 16.3208H639.049V45.5641H653.671V78.2477H631.308V107.491H653.671V140.175H639.049V169.418H540.998V152.216" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/>\n<path d="M624.428 61.906V45.5642H570.242V78.2479H597.335" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/>\n<path d="M624.428 123.833V107.491H570.242V140.175H597.335" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/>\n<rect x="528.955" y="6" width="98.051" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="528.955" y="67.9268" width="90.3101" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="528.955" y="129.854" width="98.051" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="528.955" y="36.9634" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="528.955" y="98.8901" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="612.385" y="36.9634" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="612.385" y="98.8901" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<path d="M681.197 16.3208H779.248V45.5641H793.87V78.2477H771.507V107.491H793.87V169.418H764.627V154.366" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/>\n<path d="M764.626 61.9063V45.5645H710.439V78.2481H737.532" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/>\n<path d="M764.627 107.491H710.441V169.418H681.197V159.957" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/>\n<rect x="669.15" y="6" width="98.051" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="669.15" y="67.9268" width="90.3101" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="669.15" y="36.9634" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="669.15" y="98.8901" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="669.15" y="129.854" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="752.58" y="36.9634" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="752.58" y="98.8901" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="752.58" y="129.854" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<path d="M318.236 156.947V169.418H347.479V45.5641H393.064V16.3208H272.65V45.5641H318.236" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/>\n<rect x="260.609" y="5.99963" width="120.414" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="306.195" y="36.9631" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="306.195" y="67.9265" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="306.195" y="98.8899" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="306.195" y="129.853" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<path d="M166.857 16.3208H244.266V45.5641H258.888V169.418H229.644V152.216" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/>\n<path d="M229.644 45.5645H181.479V78.2481H229.644" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/>\n<path d="M229.643 107.491H181.478V169.418H152.234V149.636" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/>\n<rect x="154.816" y="6" width="77.4087" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="140.195" y="67.9268" width="106.652" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="140.195" y="36.9634" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="140.195" y="98.8901" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="140.195" y="129.854" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="217.604" y="36.9634" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="217.604" y="98.8901" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="217.604" y="129.854" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<path d="M421.449 16.3208H498.858V45.5641H513.48V169.418H484.236V152.216" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/>\n<path d="M484.236 45.5645H436.07V78.2481H484.236" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/>\n<path d="M484.237 107.491H436.071V169.418H406.828V149.636" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/>\n<rect x="409.406" y="6" width="77.4087" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="394.785" y="67.9268" width="106.652" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="394.785" y="36.9634" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="394.785" y="98.8901" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="394.785" y="129.854" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="472.193" y="36.9634" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="472.193" y="98.8901" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="472.193" y="129.854" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<path d="M12.0391 16.3208H110.09V45.5641H124.712V140.175H110.09V169.418H12.0391V156.947" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/>\n<path d="M95.4693 45.5645H41.2832V140.175H95.4693" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/>\n<rect x="7.74023" y="6" width="90.3101" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect y="129.854" width="98.051" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect y="36.9633" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="83.4297" y="36.9634" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect y="67.9268" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="83.4297" y="67.9268" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect y="98.8903" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n<rect x="83.4297" y="98.8901" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/>\n</mask>\n<g mask="url(#mask0_7186_508)">\n<rect x="-30.1034" y="-25.8237" width="1303.91" height="212.444" fill="#32323C" style="fill:#32323C;fill:color(display-p3 0.1955 0.1955 0.2357);fill-opacity:1;"/>\n</g>\n</svg>\n',
+  };
   window.DATABRICKS_EXPORT_CONFIG = {
     version: 1,
     typographyVersion: 2,
@@ -11,13 +37,13 @@
       loopState: false,
       timelineTrimStart: 1,
       timelineTrimEnd: 6,
-      timelineLoop: true,
+      timelineLoop: false,
     },
     stateAnimationSettings: {
       1: {
         speed: 1,
         delayBefore: 0,
-        delayAfter: 1000,
+        delayAfter: 500,
         powerOnEnabled: true,
         powerOnDuration: 2400,
         powerOnLineDuration: 1040,
@@ -36,22 +62,17 @@
         powerOnSceneYScale: 1.11,
         powerOnJitter: 10,
         powerOnWarmup: 1,
-        logoTubeWarmupEnabled: false,
-        logoTubeWarmupDuration: 0,
         logoTubeStartY: -67,
         logoTubeStartSquash: 0.17,
         logoTubeStartWidth: 1.07,
         logoTubeStartOpacity: 0.44,
-        logoTubeWarmupDepth: 520,
-        logoTubeWarmupJump: 0,
-        logoTubeWarmupBlur: 0,
-        installTextDelay: 900,
+        installTextDelay: 1460,
         installType: 0,
-        installFramePause: 280,
+        installFramePause: 360,
       },
       2: {
         speed: 1,
-        delayBefore: 0,
+        delayBefore: 300,
         delayAfter: 0,
         promptType: 2,
         promptTypingContrast: 3,
@@ -111,16 +132,13 @@
         windowBootAsciiDuration: 0,
         windowBootAsciiStagger: 0,
         windowBootAsciiNoise: 0,
-        prototypeBuildEnabled: false,
-        prototypeBuildDuration: 0,
-        prototypeBuildStagger: 0,
-        prototypeBuildDither: 0,
-        prototypeBuildJitter: 0,
-        prototypeBuildGlow: 0,
       },
-      6: { speed: 1.25, delayBefore: 80, delayAfter: 5000 },
+      6: {
+        speed: 1.25,
+        delayBefore: 80,
+        delayAfter: 5000,
+      },
     },
-    stateGridSettings: {},
     sharedTextLayers: {
       install: {
         x: 193,
@@ -148,8 +166,8 @@
         listIndent: 21,
         listY: -10,
         rowGap: 1,
-        starSize: 0.85,
-        bulletSize: 0.6,
+        starSize: 0.9,
+        bulletSize: 1.05,
       },
       final: {
         x: 171,
@@ -180,7 +198,11 @@
         linkRevealDuration: 160,
       },
     },
-    sharedAppSettings: { left: 576, top: 242, scale: 1 },
+    sharedAppSettings: {
+      left: 576,
+      top: 242,
+      scale: 1,
+    },
     staticAppSettings: {
       windowWidth: 768,
       windowHeight: 514,
@@ -215,7 +237,12 @@
       dashboardPanelPadding: 10,
       dashboardTitleMarginBottom: 15,
     },
-    preAppFocusSettings: { opacity: 0.6, scale: 1, duration: 760, steps: 4 },
+    preAppFocusSettings: {
+      opacity: 0.6,
+      scale: 1,
+      duration: 760,
+      steps: 4,
+    },
     dragEchoSettings: {
       color: "#2c2d3a",
       opacity: 1,
@@ -238,33 +265,48 @@
         lineFade: 240,
         grid: 5,
         corner: "tl",
-        originX: 19,
-        originY: 29,
+        originX: 0,
+        originY: 0,
         layers: 1,
       },
-      6: { preset: "none", intensity: 0, duration: 0 },
+      6: {
+        preset: "colorWave",
+        intensity: 10,
+        duration: 1200,
+        lineColor: "#878787",
+        lineDirection: "horizontal",
+        lineOpacity: 0.7,
+        lineGlow: 0,
+        lineHold: 80,
+        lineFade: 260,
+        grid: 12,
+        corner: "tl",
+        originX: 0,
+        originY: 0,
+        layers: 1,
+      },
     },
     stateLogoSettings: {
       1: {
-        x: 192,
-        y: 120,
-        width: 1280,
+        x: 205,
+        y: 129,
+        width: 1335,
         baseOpacity: 0.28,
         mainColor: "#32323c",
-        opacityDuration: 520,
-        revealDuration: 1385,
-        revealDelay: 280,
-        stutter: 3,
+        opacityDuration: 420,
+        revealDuration: 1365,
+        revealDelay: 0,
+        stutter: 6,
       },
     },
     groupGlitchSettings: {
-      preset: "vignette",
+      preset: "parallax",
       activePresets: [
         "vignette",
-        "parallax",
         "scanlines",
         "rgbsplit",
         "rgbgrid",
+        "parallax",
       ],
       presets: {
         vignette: {
@@ -275,26 +317,15 @@
           speed: 0,
           opacity: 1,
           edge: 180,
-          top: 312,
+          top: 80,
           right: 236,
-          bottom: 556,
+          bottom: 798,
           left: 284,
           roundness: 0,
-          blur: 82,
+          blur: 47,
           color: "#000000",
           x: 0,
           y: 76,
-        },
-        parallax: {
-          intensity: 1,
-          duration: 900,
-          loop: true,
-          detail: 5,
-          speed: 0,
-          xStrength: 0,
-          yStrength: 80,
-          balance: -0.45,
-          returnToCenter: true,
         },
         scanlines: {
           intensity: 5,
@@ -312,43 +343,46 @@
           reverse: true,
         },
         rgbsplit: {
-          intensity: 1,
+          intensity: 2,
+          logoIntensity: 2,
+          textIntensity: 0.8,
+          windowIntensity: 0,
           duration: 1000,
           loop: true,
           detail: 5.6,
           speed: 0,
-          splitX: 2.7,
+          splitX: 2.3,
           splitY: 0,
-          colorA: "#ff523d",
-          colorB: "#0fba84",
+          colorA: "#ff5542",
+          colorB: "#0e855d",
           colorC: "#465fff",
         },
         rgbgrid: {
-          intensity: 3,
+          intensity: 7.2,
           duration: 900,
           loop: true,
           detail: 3.4,
           speed: 0,
           stripeHeight: 1,
           stripeGap: 1,
-          opacity: 1,
+          opacity: 0.97,
           softness: 0,
-          redColor: "#3e0e15",
-          greenColor: "#0b3c20",
-          blueColor: "#1a1b2e",
+          redColor: "#1e0608",
+          greenColor: "#071c0d",
+          blueColor: "#070a1c",
+        },
+        parallax: {
+          intensity: 1,
+          duration: 900,
+          loop: true,
+          detail: 5,
+          speed: 0,
+          xStrength: 0,
+          yStrength: 80,
+          balance: -0.45,
+          returnToCenter: true,
         },
       },
-    },
-    guideSettings: {
-      enabled: false,
-      followState: true,
-      above: true,
-      state: 1,
-      opacity: 0.6,
-      x: 0,
-      y: 0,
-      width: 1920,
-      height: 1144,
     },
     logoClickSettings: {
       waveSpread: 2.25,
@@ -372,22 +406,6 @@
       splitRed: "#000000",
       splitBlue: "#616161",
     },
-    uiSettings: {
-      stageZoom: { value: 0.8760416666666668, fit: true },
-      quietPreview: {
-        enabled: false,
-        whenPaused: false,
-        whenWindowInactive: false,
-        stopCanvas: false,
-        pauseCss: false,
-        stopParallax: false,
-        slowMonitor: false,
-      },
-    },
-  };
-  window.DATABRICKS_EXPORT_ASSETS = {
-    logoSvg:
-      '\u003Csvg width="1280" height="176" viewBox="0 0 1280 176" fill="none" xmlns="http://www.w3.org/2000/svg"\u003E\n\u003Cmask id="mask0_7186_508" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="5" width="1251" height="167"\u003E\n\u003Cpath d="M954.706 16.3207H983.949V45.564H907.401V140.175H983.949V169.418H885.898V151.356" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/\u003E\n\u003Crect x="873.857" y="5.99976" width="98.051" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="873.857" y="129.853" width="98.051" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="866.117" y="36.963" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="866.117" y="67.9265" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="866.117" y="98.89" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Cpath d="M1155.11 16.3208H1248V45.5641H1171.45V78.2477H1230.8V107.491H1248V140.175H1235.1V169.418H1142.21V140.175" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/\u003E\n\u003Cpath d="M1218.76 107.491H1155.11V92.0093" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/\u003E\n\u003Crect x="1143.06" y="6" width="92.8904" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="1143.06" y="67.9268" width="75.6885" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="1130.16" y="129.854" width="92.8904" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="1130.16" y="36.9634" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="1206.71" y="98.8901" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Cpath d="M1026.95 16.3209H1040.71V78.2479H1068.24" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/\u003E\n\u003Cpath d="M1085.44 16.3208H1114.68V45.5641H1097.48V78.2477H1082.86V107.491H1097.48V140.175H1114.68V169.418H1085.44V140.175M1011.47 156.517V169.418H1040.71V107.491H1068.24V123.833" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/\u003E\n\u003Crect x="999.428" y="6" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="1073.4" y="6" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="999.428" y="98.8901" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="1056.2" y="98.8901" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="999.428" y="36.9634" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="1056.2" y="36.9634" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="999.428" y="129.854" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="1073.4" y="129.854" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="999.428" y="67.9268" width="71.388" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="809.352" y="6" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="809.352" y="36.9634" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="809.352" y="67.9268" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="809.352" y="98.8901" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="809.352" y="129.854" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Cpath d="M821.393 16.3208H850.636V169.418H821.393V149.206" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/\u003E\n\u003Cpath d="M540.998 16.3208H639.049V45.5641H653.671V78.2477H631.308V107.491H653.671V140.175H639.049V169.418H540.998V152.216" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/\u003E\n\u003Cpath d="M624.428 61.906V45.5642H570.242V78.2479H597.335" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/\u003E\n\u003Cpath d="M624.428 123.833V107.491H570.242V140.175H597.335" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/\u003E\n\u003Crect x="528.955" y="6" width="98.051" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="528.955" y="67.9268" width="90.3101" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="528.955" y="129.854" width="98.051" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="528.955" y="36.9634" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="528.955" y="98.8901" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="612.385" y="36.9634" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="612.385" y="98.8901" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Cpath d="M681.197 16.3208H779.248V45.5641H793.87V78.2477H771.507V107.491H793.87V169.418H764.627V154.366" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/\u003E\n\u003Cpath d="M764.626 61.9063V45.5645H710.439V78.2481H737.532" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/\u003E\n\u003Cpath d="M764.627 107.491H710.441V169.418H681.197V159.957" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/\u003E\n\u003Crect x="669.15" y="6" width="98.051" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="669.15" y="67.9268" width="90.3101" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="669.15" y="36.9634" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="669.15" y="98.8901" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="669.15" y="129.854" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="752.58" y="36.9634" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="752.58" y="98.8901" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="752.58" y="129.854" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Cpath d="M318.236 156.947V169.418H347.479V45.5641H393.064V16.3208H272.65V45.5641H318.236" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/\u003E\n\u003Crect x="260.609" y="5.99963" width="120.414" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="306.195" y="36.9631" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="306.195" y="67.9265" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="306.195" y="98.8899" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="306.195" y="129.853" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Cpath d="M166.857 16.3208H244.266V45.5641H258.888V169.418H229.644V152.216" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/\u003E\n\u003Cpath d="M229.644 45.5645H181.479V78.2481H229.644" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/\u003E\n\u003Cpath d="M229.643 107.491H181.478V169.418H152.234V149.636" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/\u003E\n\u003Crect x="154.816" y="6" width="77.4087" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="140.195" y="67.9268" width="106.652" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="140.195" y="36.9634" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="140.195" y="98.8901" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="140.195" y="129.854" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="217.604" y="36.9634" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="217.604" y="98.8901" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="217.604" y="129.854" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Cpath d="M421.449 16.3208H498.858V45.5641H513.48V169.418H484.236V152.216" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/\u003E\n\u003Cpath d="M484.236 45.5645H436.07V78.2481H484.236" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/\u003E\n\u003Cpath d="M484.237 107.491H436.071V169.418H406.828V149.636" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/\u003E\n\u003Crect x="409.406" y="6" width="77.4087" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="394.785" y="67.9268" width="106.652" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="394.785" y="36.9634" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="394.785" y="98.8901" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="394.785" y="129.854" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="472.193" y="36.9634" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="472.193" y="98.8901" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="472.193" y="129.854" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Cpath d="M12.0391 16.3208H110.09V45.5641H124.712V140.175H110.09V169.418H12.0391V156.947" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/\u003E\n\u003Cpath d="M95.4693 45.5645H41.2832V140.175H95.4693" stroke="#2E3038" style="stroke:#2E3038;stroke:color(display-p3 0.1804 0.1882 0.2196);stroke-opacity:1;" stroke-width="5.16058"/\u003E\n\u003Crect x="7.74023" y="6" width="90.3101" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect y="129.854" width="98.051" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect y="36.9633" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="83.4297" y="36.9634" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect y="67.9268" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="83.4297" y="67.9268" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect y="98.8903" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003Crect x="83.4297" y="98.8901" width="29.2433" height="29.2433" fill="#2E3038" style="fill:#2E3038;fill:color(display-p3 0.1804 0.1882 0.2196);fill-opacity:1;"/\u003E\n\u003C/mask\u003E\n\u003Cg mask="url(#mask0_7186_508)"\u003E\n\u003Crect x="-30.1034" y="-25.8237" width="1303.91" height="212.444" fill="#32323C" style="fill:#32323C;fill:color(display-p3 0.1955 0.1955 0.2357);fill-opacity:1;"/\u003E\n\u003C/g\u003E\n\u003C/svg\u003E\n',
   };
 
   const stage = document.querySelector("#stage");
@@ -421,10 +439,10 @@
   const logoSvgHosts = [...document.querySelectorAll("[data-logo-svg]")];
   const referenceGuide = document.querySelector("#referenceGuide");
   const gridCanvas = document.querySelector("#gridCanvas");
-  const gridCtx = gridCanvas.getContext("2d");
+  const gridCtx = gridCanvas?.getContext("2d") || null;
+  const shadeMapOverlay = document.querySelector("#shadeMapOverlay");
   const root =
     stage?.closest(".db-hero-animation-root") || document.documentElement;
-  const STORAGE_KEY = "databricks-hero-director-settings-v1";
   const RENDER_FPS_CAP = 30;
   const RENDER_FRAME_MS = 1000 / RENDER_FPS_CAP;
   const GRID_PIXEL_RATIO_CAP = 1;
@@ -438,517 +456,6 @@
     "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
   let logoWaveTimers = [];
   let terminalHoverCursor = null;
-
-  const controls = {
-    panel: document.querySelector("#directorPanel"),
-    panelToggle: document.querySelector("#panelToggle"),
-    panelOpen: document.querySelector("#panelOpen"),
-    playPause: document.querySelector("#playPause"),
-    restart: document.querySelector("#restart"),
-    copyShareLink: document.querySelector("#copyShareLink"),
-    compilePlayer: document.querySelector("#compilePlayer"),
-    saveSettingsFile: document.querySelector("#saveSettingsFile"),
-    loadSettingsFile: document.querySelector("#loadSettingsFile"),
-    settingsFileInput: document.querySelector("#settingsFileInput"),
-    resetSaved: document.querySelector("#resetSaved"),
-    saveStatus: document.querySelector("#saveStatus"),
-    perfRating: document.querySelector("#perfRating"),
-    perfLoadBar: document.querySelector("#perfLoadBar"),
-    perfFps: document.querySelector("#perfFps"),
-    perfCpu: document.querySelector("#perfCpu"),
-    perfWork: document.querySelector("#perfWork"),
-    perfFrame: document.querySelector("#perfFrame"),
-    perfPeak: document.querySelector("#perfPeak"),
-    perfBudget: document.querySelector("#perfBudget"),
-    perfMemory: document.querySelector("#perfMemory"),
-    perfFreezes: document.querySelector("#perfFreezes"),
-    perfEffects: document.querySelector("#perfEffects"),
-    stateReadout: document.querySelector("#stateReadout"),
-    stateButtons: [...document.querySelectorAll("[data-state-jump]")],
-    autoStep: document.querySelector("#autoStep"),
-    loopState: document.querySelector("#loopState"),
-    quietEnabled: document.querySelector("#quietEnabled"),
-    quietWhenPaused: document.querySelector("#quietWhenPaused"),
-    quietWhenWindowInactive: document.querySelector("#quietWhenWindowInactive"),
-    quietStopCanvas: document.querySelector("#quietStopCanvas"),
-    quietPauseCss: document.querySelector("#quietPauseCss"),
-    quietStopParallax: document.querySelector("#quietStopParallax"),
-    quietSlowMonitor: document.querySelector("#quietSlowMonitor"),
-    guideEnabled: document.querySelector("#guideEnabled"),
-    guideFollowState: document.querySelector("#guideFollowState"),
-    guideAbove: document.querySelector("#guideAbove"),
-    guideState: document.querySelector("#guideState"),
-    guideOpacity: document.querySelector("#guideOpacity"),
-    guideX: document.querySelector("#guideX"),
-    guideY: document.querySelector("#guideY"),
-    guideWidth: document.querySelector("#guideWidth"),
-    guideHeight: document.querySelector("#guideHeight"),
-    logoWaveSpread: document.querySelector("#logoWaveSpread"),
-    logoWaveCount: document.querySelector("#logoWaveCount"),
-    logoWaveGap: document.querySelector("#logoWaveGap"),
-    logoWaveHold: document.querySelector("#logoWaveHold"),
-    logoWaveOpacity: document.querySelector("#logoWaveOpacity"),
-    logoWaveTail: document.querySelector("#logoWaveTail"),
-    logoTailOpacity: document.querySelector("#logoTailOpacity"),
-    logoPressX: document.querySelector("#logoPressX"),
-    logoPressY: document.querySelector("#logoPressY"),
-    logoWaveGlow: document.querySelector("#logoWaveGlow"),
-    logoHoverGlowOpacity: document.querySelector("#logoHoverGlowOpacity"),
-    logoHoverGlowBlur: document.querySelector("#logoHoverGlowBlur"),
-    logoHoverGlowCore: document.querySelector("#logoHoverGlowCore"),
-    logoHoverGlowColor: document.querySelector("#logoHoverGlowColor"),
-    logoWaveColor: document.querySelector("#logoWaveColor"),
-    logoTailColor: document.querySelector("#logoTailColor"),
-    logoSplitAmount: document.querySelector("#logoSplitAmount"),
-    logoSplitOpacity: document.querySelector("#logoSplitOpacity"),
-    logoSplitRed: document.querySelector("#logoSplitRed"),
-    logoSplitBlue: document.querySelector("#logoSplitBlue"),
-    stateSpeed: document.querySelector("#stateSpeed"),
-    stateDelayBefore: document.querySelector("#stateDelayBefore"),
-    stateDelayAfter: document.querySelector("#stateDelayAfter"),
-    terminalHoverOpacity: document.querySelector("#terminalHoverOpacity"),
-    powerOnEnabled: document.querySelector("#powerOnEnabled"),
-    powerOnDuration: document.querySelector("#powerOnDuration"),
-    powerOnLineDuration: document.querySelector("#powerOnLineDuration"),
-    powerOnLineExpandDuration: document.querySelector(
-      "#powerOnLineExpandDuration",
-    ),
-    powerOnYScaleDuration: document.querySelector("#powerOnYScaleDuration"),
-    powerOnLineHold: document.querySelector("#powerOnLineHold"),
-    powerOnBloom: document.querySelector("#powerOnBloom"),
-    powerOnBrightness: document.querySelector("#powerOnBrightness"),
-    powerOnStretchBrightness: document.querySelector(
-      "#powerOnStretchBrightness",
-    ),
-    powerOnColor: document.querySelector("#powerOnColor"),
-    powerOnY: document.querySelector("#powerOnY"),
-    powerOnYStretch: document.querySelector("#powerOnYStretch"),
-    powerOnScale: document.querySelector("#powerOnScale"),
-    powerOnSceneStartY: document.querySelector("#powerOnSceneStartY"),
-    powerOnSceneStartSquash: document.querySelector("#powerOnSceneStartSquash"),
-    powerOnSceneYScale: document.querySelector("#powerOnSceneYScale"),
-    powerOnJitter: document.querySelector("#powerOnJitter"),
-    powerOnWarmup: document.querySelector("#powerOnWarmup"),
-    installTextDelay: document.querySelector("#installTextDelay"),
-    installType: document.querySelector("#installType"),
-    installFramePause: document.querySelector("#installFramePause"),
-    promptType: document.querySelector("#promptType"),
-    promptTypingContrast: document.querySelector("#promptTypingContrast"),
-    promptCursorBlink: document.querySelector("#promptCursorBlink"),
-    promptStartDelay: document.querySelector("#promptStartDelay"),
-    promptTypingMode: document.querySelector("#promptTypingMode"),
-    promptLinePause: document.querySelector("#promptLinePause"),
-    promptEnterMoment: document.querySelector("#promptEnterMoment"),
-    promptEnterColor: document.querySelector("#promptEnterColor"),
-    promptEnterFlashColor: document.querySelector("#promptEnterFlashColor"),
-    buildLineReveal: document.querySelector("#buildLineReveal"),
-    statusOkSteps: document.querySelector("#statusOkSteps"),
-    statusAsciiWindow: document.querySelector("#statusAsciiWindow"),
-    statusAsciiSpeed: document.querySelector("#statusAsciiSpeed"),
-    statusLeaderGap: document.querySelector("#statusLeaderGap"),
-    statusLeaderX: document.querySelector("#statusLeaderX"),
-    statusLeaderY: document.querySelector("#statusLeaderY"),
-    terminalScroll: document.querySelector("#terminalScroll"),
-    terminalScrollDuration: document.querySelector("#terminalScrollDuration"),
-    terminalScrollDistance: document.querySelector("#terminalScrollDistance"),
-    terminalScrollInstall: document.querySelector("#terminalScrollInstall"),
-    terminalScrollPrompt: document.querySelector("#terminalScrollPrompt"),
-    terminalScrollBuild: document.querySelector("#terminalScrollBuild"),
-    terminalScrollEndOpacity: document.querySelector(
-      "#terminalScrollEndOpacity",
-    ),
-    terminalScrollOpacityJitter: document.querySelector(
-      "#terminalScrollOpacityJitter",
-    ),
-    windowBootEnabled: document.querySelector("#windowBootEnabled"),
-    windowBootDuration: document.querySelector("#windowBootDuration"),
-    windowBootOrigin: document.querySelector("#windowBootOrigin"),
-    windowBootX: document.querySelector("#windowBootX"),
-    windowBootY: document.querySelector("#windowBootY"),
-    windowBootSize: document.querySelector("#windowBootSize"),
-    windowBootSteps: document.querySelector("#windowBootSteps"),
-    windowBootTraceIterations: document.querySelector(
-      "#windowBootTraceIterations",
-    ),
-    windowBootTrailCount: document.querySelector("#windowBootTrailCount"),
-    windowBootWindowHold: document.querySelector("#windowBootWindowHold"),
-    windowBootGrow1: document.querySelector("#windowBootGrow1"),
-    windowBootGrow2: document.querySelector("#windowBootGrow2"),
-    windowBootEchoCount: document.querySelector("#windowBootEchoCount"),
-    windowBootEchoSpread: document.querySelector("#windowBootEchoSpread"),
-    windowBootEchoOpacity: document.querySelector("#windowBootEchoOpacity"),
-    windowBootAsciiDuration: document.querySelector("#windowBootAsciiDuration"),
-    windowBootAsciiStagger: document.querySelector("#windowBootAsciiStagger"),
-    windowBootAsciiNoise: document.querySelector("#windowBootAsciiNoise"),
-    gridEnabled: document.querySelector("#gridEnabled"),
-    gridFrozen: document.querySelector("#gridFrozen"),
-    gridOpacity: document.querySelector("#gridOpacity"),
-    gridSize: document.querySelector("#gridSize"),
-    gridWarp: document.querySelector("#gridWarp"),
-    gridLineWidth: document.querySelector("#gridLineWidth"),
-    logoX: document.querySelector("#logoX"),
-    logoY: document.querySelector("#logoY"),
-    logoWidth: document.querySelector("#logoWidth"),
-    logoBaseOpacity: document.querySelector("#logoBaseOpacity"),
-    logoMainColor: document.querySelector("#logoMainColor"),
-    logoOpacityDuration: document.querySelector("#logoOpacityDuration"),
-    logoRevealDuration: document.querySelector("#logoRevealDuration"),
-    logoRevealDelay: document.querySelector("#logoRevealDelay"),
-    logoStutter: document.querySelector("#logoStutter"),
-    logoTubeWarmupEnabled: document.querySelector("#logoTubeWarmupEnabled"),
-    logoTubeWarmupDuration: document.querySelector("#logoTubeWarmupDuration"),
-    logoTubeStartY: document.querySelector("#logoTubeStartY"),
-    logoTubeStartSquash: document.querySelector("#logoTubeStartSquash"),
-    logoTubeStartWidth: document.querySelector("#logoTubeStartWidth"),
-    logoTubeStartOpacity: document.querySelector("#logoTubeStartOpacity"),
-    logoTubeWarmupDepth: document.querySelector("#logoTubeWarmupDepth"),
-    logoTubeWarmupJump: document.querySelector("#logoTubeWarmupJump"),
-    logoTubeWarmupBlur: document.querySelector("#logoTubeWarmupBlur"),
-    textLayer: document.querySelector("#textLayer"),
-    textX: document.querySelector("#textX"),
-    textY: document.querySelector("#textY"),
-    textWidth: document.querySelector("#textWidth"),
-    textSize: document.querySelector("#textSize"),
-    textLetterSpacing: document.querySelector("#textLetterSpacing"),
-    textOpacity: document.querySelector("#textOpacity"),
-    buildListIndent: document.querySelector("#buildListIndent"),
-    buildListY: document.querySelector("#buildListY"),
-    buildRowGap: document.querySelector("#buildRowGap"),
-    buildStarSize: document.querySelector("#buildStarSize"),
-    buildBulletSize: document.querySelector("#buildBulletSize"),
-    finalBlockX: document.querySelector("#finalBlockX"),
-    finalBlockY: document.querySelector("#finalBlockY"),
-    finalCheckSparkX: document.querySelector("#finalCheckSparkX"),
-    finalCheckSparkY: document.querySelector("#finalCheckSparkY"),
-    finalLinkIndent: document.querySelector("#finalLinkIndent"),
-    finalCheckSize: document.querySelector("#finalCheckSize"),
-    finalCheckX: document.querySelector("#finalCheckX"),
-    finalCheckY: document.querySelector("#finalCheckY"),
-    finalLinkY: document.querySelector("#finalLinkY"),
-    finalLinkSize: document.querySelector("#finalLinkSize"),
-    finalLinkLetterSpacing: document.querySelector("#finalLinkLetterSpacing"),
-    finalPromptX: document.querySelector("#finalPromptX"),
-    finalPromptY: document.querySelector("#finalPromptY"),
-    finalPromptSize: document.querySelector("#finalPromptSize"),
-    finalLinkAsciiDuration: document.querySelector("#finalLinkAsciiDuration"),
-    finalLinkAsciiNoise: document.querySelector("#finalLinkAsciiNoise"),
-    finalLinkAsciiHold: document.querySelector("#finalLinkAsciiHold"),
-    finalLinkRevealDelay: document.querySelector("#finalLinkRevealDelay"),
-    finalLinkRevealDuration: document.querySelector("#finalLinkRevealDuration"),
-    appLeft: document.querySelector("#appLeft"),
-    appTop: document.querySelector("#appTop"),
-    appScale: document.querySelector("#appScale"),
-    appWindowWidth: document.querySelector("#appWindowWidth"),
-    appWindowHeight: document.querySelector("#appWindowHeight"),
-    appSidebarWidth: document.querySelector("#appSidebarWidth"),
-    appContentPadX: document.querySelector("#appContentPadX"),
-    appContentPadTop: document.querySelector("#appContentPadTop"),
-    appHeaderGap: document.querySelector("#appHeaderGap"),
-    appTitleSize: document.querySelector("#appTitleSize"),
-    appSubtitleSize: document.querySelector("#appSubtitleSize"),
-    appSharedTitleSize: document.querySelector("#appSharedTitleSize"),
-    appSharedSubtitleSize: document.querySelector("#appSharedSubtitleSize"),
-    metricCardWidth: document.querySelector("#metricCardWidth"),
-    metricCardHeight: document.querySelector("#metricCardHeight"),
-    metricCardGap: document.querySelector("#metricCardGap"),
-    metricCardPadTop: document.querySelector("#metricCardPadTop"),
-    metricCardPadX: document.querySelector("#metricCardPadX"),
-    metricGridGapBottom: document.querySelector("#metricGridGapBottom"),
-    metricIconSize: document.querySelector("#metricIconSize"),
-    metricIconX: document.querySelector("#metricIconX"),
-    metricIconY: document.querySelector("#metricIconY"),
-    metricBadgeX: document.querySelector("#metricBadgeX"),
-    metricBadgeY: document.querySelector("#metricBadgeY"),
-    metricLabelSize: document.querySelector("#metricLabelSize"),
-    metricValueSize: document.querySelector("#metricValueSize"),
-    dashboardChartWidth: document.querySelector("#dashboardChartWidth"),
-    dashboardRegionWidth: document.querySelector("#dashboardRegionWidth"),
-    dashboardGap: document.querySelector("#dashboardGap"),
-    dashboardPanelHeight: document.querySelector("#dashboardPanelHeight"),
-    dashboardPanelPadding: document.querySelector("#dashboardPanelPadding"),
-    dashboardTitleGap: document.querySelector("#dashboardTitleGap"),
-    glitchPreset: document.querySelector("#glitchPreset"),
-    fxSettingsStack: document.querySelector("#fxSettingsStack"),
-    fxPresetControls: [...document.querySelectorAll("[data-fx-presets]")],
-    glitchPresetButtons: [...document.querySelectorAll("[data-glitch-preset]")],
-    appRevealPreset: document.querySelector("#appRevealPreset"),
-    appRevealIntensity: document.querySelector("#appRevealIntensity"),
-    appRevealDuration: document.querySelector("#appRevealDuration"),
-    appRevealLineColor: document.querySelector("#appRevealLineColor"),
-    appRevealLineDirection: document.querySelector("#appRevealLineDirection"),
-    appRevealLineOpacity: document.querySelector("#appRevealLineOpacity"),
-    appRevealLineGlow: document.querySelector("#appRevealLineGlow"),
-    appRevealLineHold: document.querySelector("#appRevealLineHold"),
-    appRevealLineFade: document.querySelector("#appRevealLineFade"),
-    appRevealGrid: document.querySelector("#appRevealGrid"),
-    appRevealCorner: document.querySelector("#appRevealCorner"),
-    appRevealOriginX: document.querySelector("#appRevealOriginX"),
-    appRevealOriginY: document.querySelector("#appRevealOriginY"),
-    appRevealLayers: document.querySelector("#appRevealLayers"),
-    dragEchoColor: document.querySelector("#dragEchoColor"),
-    dragEchoOpacity: document.querySelector("#dragEchoOpacity"),
-    dragEchoLifetime: document.querySelector("#dragEchoLifetime"),
-    dragEchoMaxFrames: document.querySelector("#dragEchoMaxFrames"),
-    dragEchoWidth: document.querySelector("#dragEchoWidth"),
-    dragEchoMinDistance: document.querySelector("#dragEchoMinDistance"),
-    dragEchoMinInterval: document.querySelector("#dragEchoMinInterval"),
-    prototypeBuildEnabled: document.querySelector("#prototypeBuildEnabled"),
-    prototypeBuildDuration: document.querySelector("#prototypeBuildDuration"),
-    prototypeBuildStagger: document.querySelector("#prototypeBuildStagger"),
-    prototypeBuildDither: document.querySelector("#prototypeBuildDither"),
-    prototypeBuildJitter: document.querySelector("#prototypeBuildJitter"),
-    prototypeBuildGlow: document.querySelector("#prototypeBuildGlow"),
-    preAppOpacity: document.querySelector("#preAppOpacity"),
-    preAppScale: document.querySelector("#preAppScale"),
-    preAppDuration: document.querySelector("#preAppDuration"),
-    preAppSteps: document.querySelector("#preAppSteps"),
-    timelineStart: document.querySelector("#timelineStart"),
-    timelinePlay: document.querySelector("#timelinePlay"),
-    timelineLoop: document.querySelector("#timelineLoop"),
-    timelineReadout: document.querySelector("#timelineReadout"),
-    timelineTrack: document.querySelector("#timelineTrack"),
-    timelineTrim: document.querySelector("#timelineTrim"),
-    timelineProgress: document.querySelector("#timelineProgress"),
-    timelineHandleStart: document.querySelector("#timelineHandleStart"),
-    timelineHandleEnd: document.querySelector("#timelineHandleEnd"),
-    timelinePlayhead: document.querySelector("#timelinePlayhead"),
-    timelineStates: [...document.querySelectorAll("[data-timeline-state]")],
-    stateScopedControls: [
-      ...document.querySelectorAll("[data-control-states]"),
-    ],
-    featureGroups: [...document.querySelectorAll("[data-feature-group]")],
-    stageZoomOut: document.querySelector("#stageZoomOut"),
-    stageZoomFit: document.querySelector("#stageZoomFit"),
-    stageZoomReadout: document.querySelector("#stageZoomReadout"),
-    stageZoomIn: document.querySelector("#stageZoomIn"),
-  };
-
-  const formatFixed = (digits) => (value) => Number(value).toFixed(digits);
-
-  const stateAnimationNumberControls = [
-    [controls.stateSpeed, "speed", "x", formatFixed(2)],
-    [controls.stateDelayBefore, "delayBefore", "ms", Math.round],
-    [controls.stateDelayAfter, "delayAfter", "ms", Math.round],
-    [controls.powerOnDuration, "powerOnDuration", "ms", Math.round],
-    [controls.powerOnLineDuration, "powerOnLineDuration", "ms", Math.round],
-    [
-      controls.powerOnLineExpandDuration,
-      "powerOnLineExpandDuration",
-      "ms",
-      Math.round,
-    ],
-    [controls.powerOnYScaleDuration, "powerOnYScaleDuration", "ms", Math.round],
-    [controls.powerOnLineHold, "powerOnLineHold", "ms", Math.round],
-    [controls.powerOnBloom, "powerOnBloom", "", formatFixed(2)],
-    [controls.powerOnBrightness, "powerOnBrightness", "", formatFixed(2)],
-    [
-      controls.powerOnStretchBrightness,
-      "powerOnStretchBrightness",
-      "",
-      formatFixed(2),
-    ],
-    [controls.powerOnY, "powerOnY", "%", Math.round],
-    [controls.powerOnYStretch, "powerOnYStretch", "x", Math.round],
-    [controls.powerOnScale, "powerOnScale", "x", formatFixed(2)],
-    [controls.powerOnSceneStartY, "powerOnSceneStartY", "px", Math.round],
-    [
-      controls.powerOnSceneStartSquash,
-      "powerOnSceneStartSquash",
-      "x",
-      formatFixed(2),
-    ],
-    [controls.powerOnSceneYScale, "powerOnSceneYScale", "x", formatFixed(2)],
-    [controls.powerOnJitter, "powerOnJitter", "px", formatFixed(1)],
-    [controls.powerOnWarmup, "powerOnWarmup", "", formatFixed(2)],
-    [
-      controls.logoTubeWarmupDuration,
-      "logoTubeWarmupDuration",
-      "ms",
-      Math.round,
-    ],
-    [controls.logoTubeStartY, "logoTubeStartY", "px", Math.round],
-    [controls.logoTubeStartSquash, "logoTubeStartSquash", "x", formatFixed(2)],
-    [controls.logoTubeStartWidth, "logoTubeStartWidth", "x", formatFixed(2)],
-    [controls.logoTubeStartOpacity, "logoTubeStartOpacity", "", formatFixed(2)],
-    [controls.logoTubeWarmupDepth, "logoTubeWarmupDepth", "px", Math.round],
-    [controls.logoTubeWarmupJump, "logoTubeWarmupJump", "px", Math.round],
-    [controls.logoTubeWarmupBlur, "logoTubeWarmupBlur", "px", formatFixed(1)],
-    [controls.installTextDelay, "installTextDelay", "ms", Math.round],
-    [controls.installType, "installType", "ms", Math.round],
-    [controls.installFramePause, "installFramePause", "ms", Math.round],
-    [controls.promptType, "promptType", "ms", Math.round],
-    [
-      controls.promptTypingContrast,
-      "promptTypingContrast",
-      "x",
-      formatFixed(2),
-    ],
-    [controls.promptCursorBlink, "promptCursorBlink", "ms", Math.round],
-    [controls.promptStartDelay, "promptStartDelay", "ms", Math.round],
-    [controls.promptLinePause, "promptLinePause", "ms", Math.round],
-    [controls.buildLineReveal, "buildLineReveal", "ms", Math.round],
-    [controls.statusOkSteps, "statusOkSteps", "", Math.round],
-    [controls.statusAsciiWindow, "statusAsciiWindow", "ch", Math.round],
-    [controls.statusAsciiSpeed, "statusAsciiSpeed", "ms", Math.round],
-    [controls.statusLeaderGap, "statusLeaderGap", "px", Math.round],
-    [controls.statusLeaderX, "statusLeaderX", "px", formatFixed(1)],
-    [controls.statusLeaderY, "statusLeaderY", "px", formatFixed(1)],
-    [
-      controls.terminalScrollDuration,
-      "terminalScrollDuration",
-      "ms",
-      Math.round,
-    ],
-    [
-      controls.terminalScrollDistance,
-      "terminalScrollDistance",
-      "px",
-      Math.round,
-    ],
-    [
-      controls.terminalScrollInstall,
-      "terminalScrollInstall",
-      "x",
-      formatFixed(2),
-    ],
-    [
-      controls.terminalScrollPrompt,
-      "terminalScrollPrompt",
-      "x",
-      formatFixed(2),
-    ],
-    [controls.terminalScrollBuild, "terminalScrollBuild", "x", formatFixed(2)],
-    [
-      controls.terminalScrollEndOpacity,
-      "terminalScrollEndOpacity",
-      "",
-      formatFixed(2),
-    ],
-    [
-      controls.terminalScrollOpacityJitter,
-      "terminalScrollOpacityJitter",
-      "",
-      formatFixed(2),
-    ],
-    [controls.windowBootDuration, "windowBootDuration", "ms", Math.round],
-    [controls.windowBootX, "windowBootX", "px", Math.round],
-    [controls.windowBootY, "windowBootY", "px", Math.round],
-    [controls.windowBootSize, "windowBootSize", "px", Math.round],
-    [controls.windowBootSteps, "windowBootSteps", "", Math.round],
-    [
-      controls.windowBootTraceIterations,
-      "windowBootTraceIterations",
-      "",
-      Math.round,
-    ],
-    [controls.windowBootTrailCount, "windowBootTrailCount", "", Math.round],
-    [controls.windowBootWindowHold, "windowBootWindowHold", "ms", Math.round],
-    [controls.windowBootGrow1, "windowBootGrow1", "x", formatFixed(1)],
-    [controls.windowBootGrow2, "windowBootGrow2", "x", formatFixed(1)],
-    [controls.windowBootEchoCount, "windowBootEchoCount", "", Math.round],
-    [controls.windowBootEchoSpread, "windowBootEchoSpread", "px", Math.round],
-    [
-      controls.windowBootEchoOpacity,
-      "windowBootEchoOpacity",
-      "",
-      formatFixed(2),
-    ],
-    [
-      controls.windowBootAsciiDuration,
-      "windowBootAsciiDuration",
-      "ms",
-      Math.round,
-    ],
-    [
-      controls.windowBootAsciiStagger,
-      "windowBootAsciiStagger",
-      "ms",
-      Math.round,
-    ],
-    [controls.windowBootAsciiNoise, "windowBootAsciiNoise", "", Math.round],
-    [
-      controls.prototypeBuildDuration,
-      "prototypeBuildDuration",
-      "ms",
-      Math.round,
-    ],
-    [controls.prototypeBuildStagger, "prototypeBuildStagger", "ms", Math.round],
-    [controls.prototypeBuildDither, "prototypeBuildDither", "", formatFixed(1)],
-    [
-      controls.prototypeBuildJitter,
-      "prototypeBuildJitter",
-      "px",
-      formatFixed(1),
-    ],
-    [controls.prototypeBuildGlow, "prototypeBuildGlow", "", formatFixed(1)],
-  ];
-
-  const stateAnimationCheckboxControls = [
-    [controls.powerOnEnabled, "powerOnEnabled"],
-    [controls.logoTubeWarmupEnabled, "logoTubeWarmupEnabled"],
-    [controls.promptEnterMoment, "promptEnterMoment"],
-    [controls.terminalScroll, "terminalScroll"],
-    [controls.windowBootEnabled, "windowBootEnabled"],
-    [controls.prototypeBuildEnabled, "prototypeBuildEnabled"],
-  ];
-
-  const stateAnimationColorControls = [
-    [controls.powerOnColor, "powerOnColor", "#8a8fa3"],
-    [controls.promptEnterColor, "promptEnterColor", "#8a8fa3"],
-    [controls.promptEnterFlashColor, "promptEnterFlashColor", "#ff6049"],
-  ];
-
-  const stateAnimationSelectControls = [
-    [controls.promptTypingMode, "promptTypingMode"],
-    [controls.windowBootOrigin, "windowBootOrigin", "custom"],
-  ];
-
-  function getStateAnimationInputs() {
-    return [
-      ...stateAnimationNumberControls,
-      ...stateAnimationCheckboxControls,
-      ...stateAnimationColorControls,
-      ...stateAnimationSelectControls,
-    ]
-      .map(([input]) => input)
-      .filter(Boolean);
-  }
-
-  const staticAppControlBindings = [
-    [controls.appWindowWidth, "windowWidth"],
-    [controls.appWindowHeight, "windowHeight"],
-    [controls.appSidebarWidth, "sidebarWidth"],
-    [controls.appContentPadX, "contentPadLeft"],
-    [controls.appContentPadTop, "contentPadTop"],
-    [controls.appHeaderGap, "headerMarginBottom"],
-    [controls.appTitleSize, "appTitleSize"],
-    [controls.appSubtitleSize, "appSubtitleSize"],
-    [controls.appSharedTitleSize, "sharedTitleSize"],
-    [controls.appSharedSubtitleSize, "sharedSubtitleSize"],
-    [controls.metricCardWidth, "metricCardWidth"],
-    [controls.metricCardHeight, "metricCardHeight"],
-    [controls.metricCardGap, "metricCardGap"],
-    [controls.metricCardPadTop, "metricCardPaddingTop"],
-    [controls.metricCardPadX, "metricCardPaddingX"],
-    [controls.metricGridGapBottom, "metricGridMarginBottom"],
-    [controls.metricIconSize, "metricIconSize"],
-    [controls.metricIconX, "metricIconLeft"],
-    [controls.metricIconY, "metricIconTop"],
-    [controls.metricBadgeX, "metricChangeRight"],
-    [controls.metricBadgeY, "metricChangeTop"],
-    [controls.metricLabelSize, "metricLabelSize"],
-    [controls.metricValueSize, "metricValueSize"],
-    [controls.dashboardChartWidth, "dashboardChartWidth"],
-    [controls.dashboardRegionWidth, "dashboardRegionWidth"],
-    [controls.dashboardGap, "dashboardGap"],
-    [controls.dashboardPanelHeight, "dashboardPanelHeight"],
-    [controls.dashboardPanelPadding, "dashboardPanelPadding"],
-    [controls.dashboardTitleGap, "dashboardTitleMarginBottom"],
-  ];
-
-  function getStaticAppInputs() {
-    return staticAppControlBindings.map(([input]) => input).filter(Boolean);
-  }
 
   const defaultTextLayers = {
     install: {
@@ -1075,19 +582,9 @@
     minInterval: 46,
   };
 
-  const defaultQuietPreviewSettings = {
-    enabled: true,
-    whenPaused: true,
-    whenWindowInactive: true,
-    stopCanvas: true,
-    pauseCss: true,
-    stopParallax: true,
-    slowMonitor: true,
-  };
+  const defaultQuietPreviewSettings = {};
 
-  const defaultTerminalHoverCursorSettings = {
-    opacity: 0.34,
-  };
+  const defaultTerminalHoverCursorSettings = {};
 
   const stateLogoSettings = {
     1: {
@@ -1100,6 +597,21 @@
       revealDuration: 1365,
       revealDelay: 0,
       stutter: 6,
+      reflexOpacity: 0,
+      reflexBlur: 12,
+      reflexX: 0,
+      reflexY: 0,
+      reflexLeft: 0,
+      reflexTop: 0,
+      reflexScaleX: 1,
+      reflexScaleY: 1,
+      reflexShadeOpacity: 0.58,
+      reflexShadeX: 0,
+      reflexShadeY: -4,
+      reflexShadeWidth: 1600,
+      reflexShadeHeight: 92,
+      reflexShadeBlur: 0,
+      reflexShadeColor: "#000000",
     },
   };
 
@@ -1107,111 +619,100 @@
     1: {
       speed: 1,
       delayBefore: 0,
-      delayAfter: 420,
+      delayAfter: 500,
       powerOnEnabled: true,
-      powerOnDuration: 920,
-      powerOnLineDuration: 920,
-      powerOnLineExpandDuration: 405,
-      powerOnYScaleDuration: 276,
-      powerOnLineHold: 0,
-      powerOnBloom: 0.72,
-      powerOnBrightness: 0.85,
-      powerOnStretchBrightness: 0.85,
-      powerOnColor: "#8a8fa3",
-      powerOnY: 42,
-      powerOnYStretch: 520,
-      powerOnScale: 0.08,
-      powerOnSceneStartY: 0,
-      powerOnSceneStartSquash: 0.04,
-      powerOnSceneYScale: 1.12,
-      powerOnJitter: 5,
-      powerOnWarmup: 0.55,
-      logoTubeWarmupEnabled: true,
-      logoTubeWarmupDuration: 1400,
-      logoTubeStartY: 32,
-      logoTubeStartSquash: 0.04,
-      logoTubeStartWidth: 0.62,
-      logoTubeStartOpacity: 0,
-      logoTubeWarmupDepth: 320,
-      logoTubeWarmupJump: 58,
-      logoTubeWarmupBlur: 11,
-      installTextDelay: 0,
-      installType: 34,
+      powerOnDuration: 2400,
+      powerOnLineDuration: 1040,
+      powerOnLineExpandDuration: 255,
+      powerOnYScaleDuration: 2000,
+      powerOnLineHold: 100,
+      powerOnBloom: 0,
+      powerOnBrightness: 0.69,
+      powerOnStretchBrightness: 0.2,
+      powerOnColor: "#dedede",
+      powerOnY: 36,
+      powerOnYStretch: 400,
+      powerOnScale: 0.1,
+      powerOnSceneStartY: -185,
+      powerOnSceneStartSquash: 0.29,
+      powerOnSceneYScale: 1.11,
+      powerOnJitter: 10,
+      powerOnWarmup: 1,
+      logoTubeStartY: -67,
+      logoTubeStartSquash: 0.17,
+      logoTubeStartWidth: 1.07,
+      logoTubeStartOpacity: 0.44,
+      installTextDelay: 1460,
+      installType: 0,
       installFramePause: 360,
     },
     2: {
       speed: 1,
-      delayBefore: 0,
-      delayAfter: 160,
-      promptType: 22,
-      promptTypingContrast: 1.2,
-      promptCursorBlink: 520,
-      promptStartDelay: 120,
+      delayBefore: 300,
+      delayAfter: 0,
+      promptType: 2,
+      promptTypingContrast: 3,
+      promptCursorBlink: 1500,
+      promptStartDelay: 0,
       promptTypingMode: "letters",
-      promptLinePause: 220,
+      promptLinePause: 240,
       promptEnterMoment: true,
-      promptEnterColor: "#8a8fa3",
-      promptEnterFlashColor: "#ff6049",
+      promptEnterColor: "#cfcfd2",
+      promptEnterFlashColor: "#808080",
     },
     3: {
       speed: 1,
       delayBefore: 0,
-      delayAfter: 900,
-      buildLineReveal: 360,
+      delayAfter: 600,
+      buildLineReveal: 500,
       statusOkSteps: 4,
-      statusAsciiWindow: 7,
+      statusAsciiWindow: 5,
       statusAsciiSpeed: 160,
-      statusLeaderGap: 44,
+      statusLeaderGap: 35,
       statusLeaderX: 0,
       statusLeaderY: 3,
       terminalScroll: true,
     },
     4: {
       speed: 1,
-      delayBefore: 0,
-      delayAfter: 800,
+      delayBefore: 600,
+      delayAfter: 1880,
       terminalScroll: true,
-      terminalScrollDuration: 620,
-      terminalScrollDistance: 260,
-      terminalScrollInstall: 1,
-      terminalScrollPrompt: 1,
-      terminalScrollBuild: 1,
+      terminalScrollDuration: 600,
+      terminalScrollDistance: 48,
+      terminalScrollInstall: 0.8,
+      terminalScrollPrompt: 0.8,
+      terminalScrollBuild: 0.8,
       terminalScrollEndOpacity: 0,
-      terminalScrollOpacityJitter: 0.18,
+      terminalScrollOpacityJitter: 0.5,
     },
     5: {
       speed: 1,
       delayBefore: 0,
-      delayAfter: 900,
+      delayAfter: 1820,
       windowBootEnabled: true,
-      windowBootDuration: 1180,
-      windowBootOrigin: "center",
-      windowBootX: 60,
-      windowBootY: 48,
+      windowBootDuration: 1800,
+      windowBootOrigin: "custom",
+      windowBootX: 123,
+      windowBootY: 85,
       windowBootSize: 10,
-      windowBootSteps: 4,
-      windowBootTraceIterations: 7,
-      windowBootTrailCount: 3,
-      windowBootWindowHold: 420,
-      windowBootGrow1: 2.4,
-      windowBootGrow2: 6.2,
+      windowBootSteps: 8,
+      windowBootTraceIterations: 10,
+      windowBootTrailCount: 5,
+      windowBootWindowHold: 1600,
+      windowBootGrow1: 1.9,
+      windowBootGrow2: 3.4,
       windowBootEchoCount: 0,
-      windowBootEchoSpread: 28,
+      windowBootEchoSpread: 35,
       windowBootEchoOpacity: 0,
       windowBootAsciiDuration: 0,
       windowBootAsciiStagger: 0,
       windowBootAsciiNoise: 0,
-      prototypeBuildEnabled: false,
-      prototypeBuildDuration: 0,
-      prototypeBuildStagger: 0,
-      prototypeBuildDither: 0,
-      prototypeBuildJitter: 0,
-      prototypeBuildGlow: 0,
     },
     6: {
-      speed: 1,
-      delayBefore: 0,
-      delayAfter: 0,
+      speed: 1.25,
+      delayBefore: 80,
+      delayAfter: 5000,
     },
   };
 
@@ -1221,17 +722,7 @@
     ),
   );
 
-  const defaultGridSettings = {
-    enabled: false,
-    frozen: false,
-    opacity: 0.08,
-    color: "#d7dde8",
-    gridSize: 10,
-    warp: 180,
-    edgeRadius: 18,
-    lineWidth: 0.6,
-    rgbSplit: 0.8,
-  };
+  const defaultGridSettings = {};
 
   const stateGridSettings = Object.fromEntries(
     Object.keys(visibleTextLayersByState).map((state) => [
@@ -1245,45 +736,44 @@
       preset: "colorWave",
       intensity: 6,
       duration: 980,
-      lineColor: "#63f1ff",
-      lineDirection: "vertical",
-      lineOpacity: 0.72,
-      lineGlow: 18,
-      lineHold: 280,
-      lineFade: 520,
-      grid: 14,
-      corner: "center",
-      originX: 50,
-      originY: 50,
-      layers: 3,
+      lineColor: "#bababa",
+      lineDirection: "horizontal",
+      lineOpacity: 0.4,
+      lineGlow: 0,
+      lineHold: 140,
+      lineFade: 240,
+      grid: 5,
+      corner: "tl",
+      originX: 0,
+      originY: 0,
+      layers: 1,
     },
     6: {
-      preset: "none",
-      intensity: 0,
-      duration: 0,
-      lineColor: "#63f1ff",
-      lineDirection: "vertical",
-      lineOpacity: 0.72,
-      lineGlow: 18,
-      lineHold: 280,
-      lineFade: 520,
-      grid: 14,
-      corner: "center",
-      originX: 50,
-      originY: 50,
-      layers: 3,
+      preset: "colorWave",
+      intensity: 10,
+      duration: 1200,
+      lineColor: "#878787",
+      lineDirection: "horizontal",
+      lineOpacity: 0.7,
+      lineGlow: 0,
+      lineHold: 80,
+      lineFade: 260,
+      grid: 12,
+      corner: "tl",
+      originX: 0,
+      originY: 0,
+      layers: 1,
     },
   };
 
-  function disableAppPreviewAnimationTracks() {
-    Object.assign(stateAnimationSettings[5], {
-      prototypeBuildEnabled: false,
-      prototypeBuildDuration: 0,
-      prototypeBuildStagger: 0,
-      prototypeBuildDither: 0,
-      prototypeBuildJitter: 0,
-      prototypeBuildGlow: 0,
-    });
+  function setAppRevealOriginTopLeft(revealSettings) {
+    if (!revealSettings || revealSettings.preset !== "colorWave") {
+      return;
+    }
+
+    revealSettings.corner = "tl";
+    revealSettings.originX = 0;
+    revealSettings.originY = 0;
   }
 
   function normalizeWindowBootSettings() {
@@ -1348,150 +838,88 @@
   }
 
   const legacyGroupFxPresetDefaults = {
-    off: { intensity: 0, duration: 720, loop: false, detail: 0, speed: 1 },
-    grid: {
-      ...defaultGridSettings,
-      intensity: 5,
-      duration: 720,
-      loop: true,
-      detail: 5,
-      speed: 1,
-    },
-    crt: { intensity: 0, duration: 720, loop: false, detail: 4, speed: 1 },
-    scan: { intensity: 4, duration: 680, loop: false, detail: 5, speed: 1.2 },
-    tear: { intensity: 7, duration: 520, loop: false, detail: 6, speed: 1.5 },
-    buzz: {
-      intensity: 8,
-      duration: 760,
-      loop: false,
-      detail: 8,
-      speed: 1.8,
-      splitX: 3.2,
-      splitY: 0.4,
-      jitterX: 7,
-      jitterY: 1.2,
-      skew: 44,
-      stretchY: 0.18,
-      tear: 38,
-      ghostOpacity: 0.72,
-      noiseLow: 0.84,
-      redColor: "#ff1f1f",
-      greenColor: "#00ff66",
-      blueColor: "#2860ff",
-    },
-    rgbsplit: {
-      intensity: 5,
-      duration: 620,
-      loop: false,
-      detail: 5,
-      speed: 1.2,
-      splitX: 2.1,
-      splitY: 0.4,
-      colorA: "#ff314a",
-      colorB: "#00e5ff",
-      colorC: "#465fff",
-    },
-    rgbgrid: {
-      intensity: 4,
-      duration: 900,
-      loop: true,
-      detail: 6,
-      speed: 0.4,
-      stripeHeight: 7,
-      stripeGap: 0,
-      opacity: 0.18,
-      softness: 0,
-      redColor: "#2c070c",
-      greenColor: "#072614",
-      blueColor: "#080c2d",
-    },
-    crtmask: { intensity: 5, duration: 820, loop: false, detail: 6, speed: 1 },
-    slices: {
-      intensity: 7,
-      duration: 820,
-      loop: false,
-      detail: 7,
-      speed: 1.4,
-      count: 5,
-      skew: 36,
-      jitter: 6,
-      hold: 42,
-    },
-    video: { intensity: 4, duration: 900, loop: false, detail: 5, speed: 0.8 },
-    glassglow: {
-      intensity: 4,
-      duration: 720,
-      loop: true,
-      detail: 6,
-      speed: 1,
-      x: 960,
-      y: 420,
-      scaleX: 1.25,
-      scaleY: 0.82,
-      blur: 34,
-      opacity: 0.55,
-    },
-    parallax: {
-      intensity: 3.2,
-      duration: 180,
-      loop: true,
-      detail: 5,
-      speed: 1,
-      xStrength: 48,
-      yStrength: 22,
-      balance: 0,
-      returnToCenter: true,
-    },
     vignette: {
-      intensity: 4,
+      intensity: 10,
       duration: 720,
       loop: true,
-      detail: 6,
-      speed: 1,
-      opacity: 0.38,
+      detail: 7.4,
+      speed: 0,
+      opacity: 1,
       edge: 180,
-      top: 180,
-      right: 180,
-      bottom: 180,
-      left: 180,
-      roundness: 28,
-      blur: 18,
+      top: 80,
+      right: 236,
+      bottom: 798,
+      left: 284,
+      roundness: 0,
+      blur: 47,
       color: "#000000",
+      x: 0,
+      y: 76,
     },
     scanlines: {
       intensity: 5,
       duration: 1200,
       loop: false,
-      detail: 6,
-      speed: 1,
+      detail: 0,
+      speed: 0.4,
       thickness: 2,
-      spacing: 3,
-      barHeight: 180,
-      sweepOpacity: 0.42,
-      sweepGlow: 0.2,
-      sweepShadow: 0.28,
-      sweepSoftness: 24,
-      reverse: false,
+      spacing: 1,
+      barHeight: 100,
+      sweepOpacity: 0.17,
+      sweepGlow: 0.27,
+      sweepShadow: 0.3,
+      sweepSoftness: 80,
+      reverse: true,
+    },
+    rgbsplit: {
+      intensity: 2,
+      logoIntensity: 2,
+      textIntensity: 0.8,
+      windowIntensity: 0,
+      duration: 1000,
+      loop: true,
+      detail: 5.6,
+      speed: 0,
+      splitX: 2.3,
+      splitY: 0,
+      colorA: "#ff5542",
+      colorB: "#0e855d",
+      colorC: "#465fff",
+    },
+    rgbgrid: {
+      intensity: 7.2,
+      duration: 900,
+      loop: true,
+      detail: 3.4,
+      speed: 0,
+      stripeHeight: 1,
+      stripeGap: 1,
+      opacity: 0.97,
+      softness: 0,
+      redColor: "#1e0608",
+      greenColor: "#071c0d",
+      blueColor: "#070a1c",
+    },
+    parallax: {
+      intensity: 1,
+      duration: 900,
+      loop: true,
+      detail: 5,
+      speed: 0,
+      xStrength: 0,
+      yStrength: 80,
+      balance: -0.45,
+      returnToCenter: true,
     },
   };
 
-  const groupFxPresetDefaults = window.DatabricksHeroEffectRegistry
-    ? window.DatabricksHeroEffectRegistry.getDefaults()
-    : legacyGroupFxPresetDefaults;
+  const groupFxPresetDefaults = legacyGroupFxPresetDefaults;
 
   const fxSettingLabels = {
     off: ["Amount", "Speed"],
-    grid: ["Grid opacity", "Color speed"],
-    crt: ["RGB split", "Flicker speed"],
-    scan: ["Scan lock", "Sweep speed"],
-    tear: ["Tear width", "Tear speed"],
-    buzz: ["RGB spread", "Jerk speed"],
     rgbsplit: ["Split amount", "Flicker speed"],
+    shademap: ["Shade density", "Static"],
     rgbgrid: ["Stripe strength", "Drift speed"],
-    crtmask: ["Mask opacity", "Mask drift"],
-    slices: ["Slice width", "Slice speed"],
-    video: ["Overlay strength", "Drift speed"],
-    glassglow: ["Glow strength", "Pulse speed"],
     parallax: ["Parallax X", "Parallax Y"],
     vignette: ["Edge strength", "Pulse speed"],
     scanlines: ["Line opacity", "Bar speed"],
@@ -1505,17 +933,9 @@
       )
     : {
         off: "Off",
-        grid: "Grid",
-        crt: "CRT",
-        scan: "Scan",
-        tear: "Tear",
-        buzz: "Buzz",
         rgbsplit: "RGB Split",
+        shademap: "Shade",
         rgbgrid: "RGB Grid",
-        crtmask: "Mask",
-        slices: "Slices",
-        video: "Video",
-        glassglow: "Glow",
         parallax: "Parallax",
         vignette: "Vignette",
         scanlines: "Lines",
@@ -1523,25 +943,10 @@
 
   const fxPresetOrder = window.DatabricksHeroEffectRegistry
     ? window.DatabricksHeroEffectRegistry.order
-    : [
-        "grid",
-        "crt",
-        "scan",
-        "tear",
-        "buzz",
-        "rgbsplit",
-        "rgbgrid",
-        "crtmask",
-        "slices",
-        "video",
-        "scanlines",
-        "glassglow",
-        "parallax",
-        "vignette",
-      ];
+    : ["rgbsplit", "shademap", "rgbgrid", "scanlines", "vignette", "parallax"];
 
   const groupGlitchSettings = {
-    preset: "crt",
+    preset: "off",
     activePresets: [],
     presets: cloneData(groupFxPresetDefaults),
   };
@@ -1569,15 +974,7 @@
     splitBlue: "#00dcff",
   };
 
-  const uiSettings = {
-    collapsedGroups: {},
-    stageZoom: {
-      value: 1,
-      fit: true,
-    },
-    quietPreview: cloneData(defaultQuietPreviewSettings),
-    terminalHoverCursor: cloneData(defaultTerminalHoverCursorSettings),
-  };
+  const uiSettings = {};
 
   const installFrames = [
     "Databricks CLI successfully installed.",
@@ -1604,17 +1001,7 @@
     paused: false,
   };
 
-  const guideSettings = {
-    enabled: false,
-    followState: true,
-    above: true,
-    state: 1,
-    opacity: 0.45,
-    x: 0,
-    y: 0,
-    width: 1920,
-    height: 1144,
-  };
+  const guideSettings = {};
 
   let runId = 0;
   let currentState = 1;
@@ -1625,25 +1012,24 @@
   let trimTimelineTimer = 0;
   let trimTimelinePlaying = false;
   let logoRunId = 0;
-  let prototypeBuildRunId = 0;
-  let prototypeBuildTimers = [];
   let windowBootRunId = 0;
   let windowBootTimers = [];
   let finalAsciiRunId = 0;
   let logoWaveInstanceId = 0;
   const logoWaveRects = new Set();
   const logoRectWaveStates = new WeakMap();
-  let gridMouseX = 960;
-  let gridMouseY = 572;
   let parallaxTargetX = 0;
   let parallaxTargetY = 0;
   let parallaxCurrentX = 0;
   let parallaxCurrentY = 0;
   let parallaxWasActive = false;
   let parallaxLastPointerAt = 0;
+  let draggingFxPreset = "";
   let lastRenderTickAt = 0;
   let renderFrameTimer = 0;
   let viewportPaused = false;
+  let intersectionPaused = false;
+  let documentVisibilityPaused = false;
   let quietPreviewActive = false;
   let quietWindowFocused =
     typeof document.hasFocus === "function" ? document.hasFocus() : true;
@@ -1664,124 +1050,12 @@
     rating: "Warming up",
   };
   let lastGridRenderKey = "";
+  let lastShadeMapRenderKey = "";
   let gridWasVisible = false;
   let gridCanvasDirty = true;
   const rawWait = (duration) =>
     new Promise((resolve) => window.setTimeout(resolve, duration));
 
-  function getQuietPreviewSettings() {
-    if (!uiSettings.quietPreview) {
-      uiSettings.quietPreview = cloneData(defaultQuietPreviewSettings);
-    }
-
-    Object.entries(defaultQuietPreviewSettings).forEach(([key, value]) => {
-      if (typeof uiSettings.quietPreview[key] !== typeof value) {
-        uiSettings.quietPreview[key] = value;
-      }
-    });
-
-    return uiSettings.quietPreview;
-  }
-
-  function getTerminalHoverCursorSettings() {
-    if (!uiSettings.terminalHoverCursor) {
-      uiSettings.terminalHoverCursor = cloneData(
-        defaultTerminalHoverCursorSettings,
-      );
-    }
-
-    const settings = uiSettings.terminalHoverCursor;
-    settings.opacity = Math.max(
-      0,
-      Math.min(
-        1,
-        Number(settings.opacity ?? defaultTerminalHoverCursorSettings.opacity),
-      ),
-    );
-    return settings;
-  }
-
-  function isQuietPreviewActive(now = performance.now()) {
-    if (isExportPlayer) {
-      return false;
-    }
-
-    const quietSettings = getQuietPreviewSettings();
-    if (!quietSettings.enabled) {
-      return false;
-    }
-
-    if (document.hidden) {
-      return true;
-    }
-
-    if (
-      quietSettings.whenWindowInactive &&
-      (!quietWindowFocused || !quietPointerInsideWindow)
-    ) {
-      return true;
-    }
-
-    const recentlyTouched =
-      now - quietLastInteractionAt < QUIET_INTERACTION_HOLD_MS;
-    return Boolean(
-      quietSettings.whenPaused && settings.paused && !recentlyTouched,
-    );
-  }
-
-  function syncQuietPreviewState(now = performance.now()) {
-    if (isExportPlayer) {
-      quietPreviewActive = false;
-      stage.classList.remove("is-quiet-preview", "is-quiet-css");
-      return false;
-    }
-
-    const quietSettings = getQuietPreviewSettings();
-    quietPreviewActive = isQuietPreviewActive(now);
-    stage.classList.toggle("is-quiet-preview", quietPreviewActive);
-    stage.classList.toggle(
-      "is-quiet-css",
-      quietPreviewActive && quietSettings.pauseCss,
-    );
-    return quietPreviewActive;
-  }
-
-  function wakeRenderLoop() {
-    if (viewportPaused) {
-      return;
-    }
-
-    quietLastInteractionAt = performance.now();
-    gridCanvasDirty = true;
-    syncQuietPreviewState();
-
-    if (renderFrameTimer) {
-      window.clearTimeout(renderFrameTimer);
-      renderFrameTimer = 0;
-    }
-
-    lastRenderTickAt = 0;
-    drawGrid(performance.now());
-  }
-
-  function markWindowInteraction() {
-    const now = performance.now();
-    if (!quietPreviewActive && now - quietLastInteractionAt < 120) {
-      quietPointerInsideWindow = true;
-      return;
-    }
-
-    quietPointerInsideWindow = true;
-    quietWindowFocused =
-      typeof document.hasFocus === "function" ? document.hasFocus() : true;
-    quietLastInteractionAt = now;
-
-    if (quietPreviewActive) {
-      wakeRenderLoop();
-    } else {
-      syncQuietPreviewState();
-    }
-  }
   const STAGE_BASE_WIDTH = 1920;
   const STAGE_BASE_HEIGHT = 1144;
   const STAGE_ZOOM_MIN = 0.2;
@@ -1804,47 +1078,14 @@
     );
   }
 
-  function applyStageZoom({ save = true } = {}) {
-    if (!uiSettings.stageZoom) {
-      uiSettings.stageZoom = { value: 1, fit: true };
-    }
-
-    const zoom = clampStageZoom(
-      uiSettings.stageZoom.fit ? getFitStageZoom() : uiSettings.stageZoom.value,
-    );
-    uiSettings.stageZoom.value = zoom;
+  function applyStageFit() {
+    const zoom = getFitStageZoom();
     root.style.setProperty("--stage-zoom", zoom.toFixed(4));
 
     if (stageViewport) {
       stageViewport.style.width = `${Math.ceil(STAGE_BASE_WIDTH * zoom)}px`;
       stageViewport.style.height = `${Math.ceil(STAGE_BASE_HEIGHT * zoom)}px`;
     }
-
-    if (controls.stageZoomReadout) {
-      controls.stageZoomReadout.textContent = `${Math.round(zoom * 100)}%`;
-    }
-
-    controls.stageZoomFit?.classList.toggle(
-      "is-active",
-      Boolean(uiSettings.stageZoom.fit),
-    );
-
-    if (save) {
-      scheduleSave();
-    }
-  }
-
-  function setStageZoom(value, { fit = false } = {}) {
-    uiSettings.stageZoom.fit = fit;
-    uiSettings.stageZoom.value = clampStageZoom(value);
-    applyStageZoom();
-  }
-
-  function nudgeStageZoom(delta) {
-    const currentZoom = uiSettings.stageZoom?.fit
-      ? getFitStageZoom()
-      : uiSettings.stageZoom?.value;
-    setStageZoom((Number(currentZoom) || 1) + delta);
   }
 
   function cloneData(value) {
@@ -1868,15 +1109,14 @@
     });
 
     if (!groupFxPresetDefaults[groupGlitchSettings.preset]) {
-      groupGlitchSettings.preset = "crt";
+      groupGlitchSettings.preset =
+        groupGlitchSettings.activePresets[0] || "off";
     }
   }
 
   function getGroupFxConfig(preset = groupGlitchSettings.preset) {
     normalizeGroupFxSettings();
-    return (
-      groupGlitchSettings.presets[preset] || groupGlitchSettings.presets.crt
-    );
+    return groupGlitchSettings.presets[preset] || {};
   }
 
   function isGroupFxActive(preset) {
@@ -1884,113 +1124,52 @@
     return groupGlitchSettings.activePresets.includes(preset);
   }
 
+  function getRgbSplitTargetIntensity(config, key) {
+    if (Object.prototype.hasOwnProperty.call(config || {}, key)) {
+      return Math.max(0, Number(config[key] || 0));
+    }
+
+    return key === "windowIntensity"
+      ? 0
+      : Math.max(0, Number(config?.intensity || 0));
+  }
+
+  function getRgbSplitMaxIntensity(config) {
+    return Math.max(
+      getRgbSplitTargetIntensity(config, "logoIntensity"),
+      getRgbSplitTargetIntensity(config, "textIntensity"),
+      getRgbSplitTargetIntensity(config, "windowIntensity"),
+    );
+  }
+
   function getPrimaryVisualFxPreset() {
     normalizeGroupFxSettings();
     const visualPresets = groupGlitchSettings.activePresets.filter(
       (preset) =>
-        ![
-          "grid",
-          "rgbgrid",
-          "scanlines",
-          "glassglow",
-          "parallax",
-          "vignette",
-        ].includes(preset),
+        !["rgbgrid", "scanlines", "parallax", "vignette"].includes(preset),
     );
-    return visualPresets.at(-1) || "off";
+    return visualPresets[0] || "off";
   }
 
-  function createConfig() {
+  function createSavedGroupFxSettings() {
     normalizeGroupFxSettings();
-    return {
-      version: 1,
-      typographyVersion: 2,
-      scrollTuningVersion: 1,
-      colorRevealVersion: 2,
-      currentState,
-      settings: {
-        autoStep: settings.autoStep,
-        loopState: settings.loopState,
-        timelineTrimStart: settings.timelineTrimStart,
-        timelineTrimEnd: settings.timelineTrimEnd,
-        timelineLoop: settings.timelineLoop,
-      },
-      stateAnimationSettings: cloneData(stateAnimationSettings),
-      stateGridSettings: cloneData(stateGridSettings),
-      sharedTextLayers: cloneData(sharedTextLayers),
-      sharedAppSettings: cloneData(sharedAppSettings),
-      staticAppSettings: cloneData(staticAppSettings),
-      preAppFocusSettings: cloneData(preAppFocusSettings),
-      dragEchoSettings: cloneData(dragEchoSettings),
-      stateAppRevealSettings: cloneData(stateAppRevealSettings),
-      stateLogoSettings: cloneData(stateLogoSettings),
-      groupGlitchSettings: cloneData(groupGlitchSettings),
-      guideSettings: cloneData(guideSettings),
-      logoClickSettings: cloneData(logoClickSettings),
-      uiSettings: cloneData(uiSettings),
-    };
-  }
-
-  function encodeConfig(config) {
-    const json = JSON.stringify(config);
-    const bytes = new TextEncoder().encode(json);
-    let binary = "";
-    bytes.forEach((byte) => {
-      binary += String.fromCharCode(byte);
-    });
-    return btoa(binary)
-      .replaceAll("+", "-")
-      .replaceAll("/", "_")
-      .replace(/=+$/, "");
-  }
-
-  function decodeConfig(encoded) {
-    const padded = encoded
-      .replaceAll("-", "+")
-      .replaceAll("_", "/")
-      .padEnd(Math.ceil(encoded.length / 4) * 4, "=");
-    const binary = atob(padded);
-    const bytes = Uint8Array.from(binary, (character) =>
-      character.charCodeAt(0),
+    const activePresets = groupGlitchSettings.activePresets.filter(
+      (preset) => preset !== "off" && groupFxPresetDefaults[preset],
     );
-    return JSON.parse(new TextDecoder().decode(bytes));
-  }
+    const focusedPreset = activePresets.includes(groupGlitchSettings.preset)
+      ? groupGlitchSettings.preset
+      : activePresets[0] || "off";
 
-  function getConfigFromHash() {
-    const params = new URLSearchParams(window.location.hash.replace(/^#/, ""));
-    const encodedConfig = params.get("cfg");
-    return encodedConfig ? decodeConfig(encodedConfig) : null;
-  }
-
-  function migrateLegacyAnimationSettings(legacySettings) {
-    if (typeof legacySettings.speed === "number") {
-      Object.values(stateAnimationSettings).forEach((stateSettings) => {
-        stateSettings.speed = legacySettings.speed;
-      });
-    }
-
-    const legacyMap = [
-      [1, "afterInstall", "delayAfter"],
-      [1, "installType", "installType"],
-      [1, "installFramePause", "installFramePause"],
-      [1, "installTextDelay", "installTextDelay"],
-      [2, "afterPrompt", "delayAfter"],
-      [2, "promptType", "promptType"],
-      [2, "promptCursorBlink", "promptCursorBlink"],
-      [2, "promptStartDelay", "promptStartDelay"],
-      [2, "promptTypingMode", "promptTypingMode"],
-      [2, "promptLinePause", "promptLinePause"],
-      [3, "beforeFinal", "delayAfter"],
-      [3, "buildLineReveal", "buildLineReveal"],
-      [4, "beforeApp", "delayAfter"],
-      [5, "beforePolish", "delayAfter"],
-    ];
-
-    legacyMap.forEach(([state, legacyKey, nextKey]) => {
-      if (typeof legacySettings[legacyKey] === "number") {
-        stateAnimationSettings[state][nextKey] = legacySettings[legacyKey];
-      }
-    });
+    return {
+      preset: focusedPreset,
+      activePresets,
+      presets: Object.fromEntries(
+        activePresets.map((preset) => [
+          preset,
+          cloneData(getGroupFxConfig(preset)),
+        ]),
+      ),
+    };
   }
 
   function applyConfig(config) {
@@ -1999,14 +1178,8 @@
     }
 
     Object.assign(settings, config.settings || {});
-    Object.assign(guideSettings, config.guideSettings || {});
     Object.assign(logoClickSettings, config.logoClickSettings || {});
     sanitizeLogoClickSettings();
-    Object.assign(
-      uiSettings.collapsedGroups,
-      config.uiSettings?.collapsedGroups || {},
-    );
-    Object.assign(uiSettings.stageZoom, config.uiSettings?.stageZoom || {});
 
     if (config.stateAnimationSettings) {
       Object.entries(config.stateAnimationSettings).forEach(
@@ -2098,24 +1271,6 @@
       },
     );
 
-    if (
-      !config.groupGlitchSettings?.presets?.grid &&
-      config.stateGridSettings
-    ) {
-      const legacyGridSettings =
-        config.stateGridSettings[config.currentState] ||
-        config.stateGridSettings[1];
-      if (legacyGridSettings) {
-        Object.assign(getGroupFxConfig("grid"), legacyGridSettings);
-        if (
-          legacyGridSettings.enabled &&
-          !groupGlitchSettings.activePresets.includes("grid")
-        ) {
-          groupGlitchSettings.activePresets.push("grid");
-        }
-      }
-    }
-
     Object.entries(config.stateAppRevealSettings || {}).forEach(
       ([state, revealSettings]) => {
         if (stateAppRevealSettings[state]) {
@@ -2131,11 +1286,10 @@
         stateAppRevealSettings[5],
         config.stateAppRevealSettings[6],
       );
-      Object.assign(stateAppRevealSettings[6], {
-        preset: "none",
-        intensity: 0,
-        duration: 0,
-      });
+      Object.assign(
+        stateAppRevealSettings[6],
+        config.stateAppRevealSettings[6],
+      );
     }
     if (config.colorRevealVersion !== 2) {
       const revealSettings = stateAppRevealSettings[5];
@@ -2149,21 +1303,15 @@
           intensity: 6,
           duration: 980,
           grid: 14,
-          corner: "center",
-          originX: 50,
-          originY: 50,
+          corner: "tl",
+          originX: 0,
+          originY: 0,
           layers: 3,
         });
       }
     }
-    if (
-      stateAppRevealSettings[5]?.preset === "colorWave" &&
-      stateAppRevealSettings[5].corner === "tl" &&
-      config.colorRevealVersion !== 2
-    ) {
-      stateAppRevealSettings[5].corner = "center";
-    }
-    disableAppPreviewAnimationTracks();
+    setAppRevealOriginTopLeft(stateAppRevealSettings[5]);
+    setAppRevealOriginTopLeft(stateAppRevealSettings[6]);
     normalizeWindowBootSettings();
     normalizeBuildStatusSettings();
 
@@ -2220,16 +1368,6 @@
     }
     if (config.dragEchoSettings) {
       Object.assign(dragEchoSettings, config.dragEchoSettings);
-    }
-
-    if (config.uiSettings?.quietPreview) {
-      Object.assign(getQuietPreviewSettings(), config.uiSettings.quietPreview);
-    }
-    if (config.uiSettings?.terminalHoverCursor) {
-      Object.assign(
-        getTerminalHoverCursorSettings(),
-        config.uiSettings.terminalHoverCursor,
-      );
     }
 
     Object.entries(config.stateLogoSettings || {}).forEach(
@@ -2296,341 +1434,6 @@
     }
   }
 
-  function loadSavedConfig() {
-    try {
-      if (isExportPlayer && window.DATABRICKS_EXPORT_CONFIG) {
-        applyConfig(window.DATABRICKS_EXPORT_CONFIG);
-        controls.saveStatus &&
-          (controls.saveStatus.textContent = "Export settings loaded");
-        return;
-      }
-
-      const savedConfig = window.localStorage.getItem(STORAGE_KEY);
-      const hashConfig = getConfigFromHash();
-      if (hashConfig) {
-        applyConfig(hashConfig);
-        saveConfig("Link settings saved as default");
-        controls.saveStatus &&
-          (controls.saveStatus.textContent = "Link settings saved as default");
-        return;
-      } else if (savedConfig) {
-        applyConfig(JSON.parse(savedConfig));
-        controls.saveStatus &&
-          (controls.saveStatus.textContent = "Settings restored");
-        return;
-      }
-
-      if (window.DATABRICKS_EXPORT_CONFIG) {
-        applyConfig(window.DATABRICKS_EXPORT_CONFIG);
-        controls.saveStatus &&
-          (controls.saveStatus.textContent = "Default settings loaded");
-      }
-    } catch (error) {
-      controls.saveStatus &&
-        (controls.saveStatus.textContent = "Settings could not be loaded");
-      console.warn("Failed to load director settings", error);
-    }
-  }
-
-  function getShareUrl() {
-    const url = new URL(window.location.href);
-    url.hash = `cfg=${encodeConfig(createConfig())}`;
-    return url.toString();
-  }
-
-  function saveConfig(statusText = "Settings saved") {
-    if (isExportPlayer) {
-      return;
-    }
-
-    try {
-      const config = createConfig();
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(config));
-
-      const url = new URL(window.location.href);
-      url.hash = `cfg=${encodeConfig(config)}`;
-      window.history.replaceState(null, "", url);
-
-      controls.saveStatus.textContent = statusText;
-    } catch (error) {
-      controls.saveStatus.textContent = "Settings could not be saved";
-      console.warn("Failed to save director settings", error);
-    }
-  }
-
-  function createSettingsFilePayload() {
-    commitDirectorControlsForExport();
-    const config = createConfig();
-    return {
-      type: "databricks-hero-director-settings",
-      exportedAt: new Date().toISOString(),
-      config,
-    };
-  }
-
-  function getConfigFromSettingsFilePayload(payload) {
-    if (
-      payload?.type === "databricks-hero-director-settings" &&
-      payload.config
-    ) {
-      return payload.config;
-    }
-    return payload;
-  }
-
-  function applyImportedSettings(config) {
-    if (!config || config.version !== 1) {
-      throw new Error("Unsupported settings file");
-    }
-
-    runId += 1;
-    timelineRunning = false;
-    clearStateModeTimer();
-    clearTrimTimelineTimer();
-    settings.paused = true;
-    applyConfig(config);
-    syncActiveStateControls();
-    applyStageZoom({ save: false });
-    renderState(Number(config.currentState || currentState || 1));
-    saveConfig("Settings file loaded");
-  }
-
-  function isExportVisibleFx(preset, config) {
-    if (window.DatabricksHeroEffectRegistry) {
-      return window.DatabricksHeroEffectRegistry.isExportVisible(
-        preset,
-        config,
-      );
-    }
-
-    if (!config || preset === "off") {
-      return false;
-    }
-
-    const intensity = Number(config.intensity ?? 1);
-
-    if (preset === "grid") {
-      return (
-        Number(config.opacity ?? 1) > 0 && Number(config.lineWidth ?? 1) > 0
-      );
-    }
-
-    if (preset === "rgbgrid") {
-      return (
-        Number(config.opacity ?? 1) > 0 && Number(config.stripeHeight ?? 1) > 0
-      );
-    }
-
-    if (preset === "scanlines") {
-      return (
-        (Number(config.lineOpacity ?? config.opacity ?? 1) > 0 ||
-          intensity > 0) &&
-        Number(config.thickness ?? config.lineThickness ?? 1) > 0
-      );
-    }
-
-    if (preset === "glassglow") {
-      return (
-        Number(config.opacity ?? 0) > 0 &&
-        (intensity > 0 || Number(config.blur ?? 0) > 0)
-      );
-    }
-
-    if (preset === "vignette") {
-      return Number(config.opacity ?? 0) > 0 && intensity > 0;
-    }
-
-    if (preset === "parallax") {
-      return (
-        intensity > 0 &&
-        Math.abs(Number(config.xStrength ?? 0)) +
-          Math.abs(Number(config.yStrength ?? 0)) >
-          0
-      );
-    }
-
-    return intensity > 0;
-  }
-
-  function isExportVisibleAppReveal(config) {
-    if (!config || config.preset === "none") {
-      return false;
-    }
-
-    return (
-      Number(config.intensity || 0) > 0 && Number(config.duration || 0) > 0
-    );
-  }
-
-  function sanitizeExportStateAnimationSettings(config) {
-    const stateOne = config.stateAnimationSettings?.[1];
-    if (stateOne) {
-      if (
-        !stateOne.powerOnEnabled ||
-        Number(stateOne.powerOnDuration || 0) <= 0 ||
-        Number(stateOne.powerOnBrightness ?? 1) <= 0
-      ) {
-        Object.assign(stateOne, {
-          powerOnEnabled: false,
-          powerOnDuration: 0,
-          powerOnLineDuration: 0,
-          powerOnLineExpandDuration: 0,
-          powerOnYScaleDuration: 0,
-          powerOnBloom: 0,
-          powerOnBrightness: 0,
-          powerOnStretchBrightness: 0,
-        });
-      }
-
-      if (
-        !stateOne.logoTubeWarmupEnabled ||
-        Number(stateOne.logoTubeWarmupDuration || 0) <= 0
-      ) {
-        Object.assign(stateOne, {
-          logoTubeWarmupEnabled: false,
-          logoTubeWarmupDuration: 0,
-        });
-      }
-    }
-
-    const stateFive = config.stateAnimationSettings?.[5];
-    if (stateFive) {
-      if (
-        !stateFive.windowBootEnabled ||
-        Number(stateFive.windowBootDuration || 0) <= 0
-      ) {
-        Object.assign(stateFive, {
-          windowBootEnabled: false,
-          windowBootDuration: 0,
-          windowBootEchoCount: 0,
-          windowBootEchoOpacity: 0,
-          windowBootAsciiDuration: 0,
-        });
-      }
-
-      if (
-        Number(stateFive.windowBootEchoOpacity ?? 0) <= 0 ||
-        Number(stateFive.windowBootEchoCount ?? 0) <= 0
-      ) {
-        stateFive.windowBootEchoCount = 0;
-        stateFive.windowBootEchoOpacity = 0;
-      }
-
-      if (Number(stateFive.windowBootAsciiDuration ?? 0) <= 0) {
-        stateFive.windowBootAsciiDuration = 0;
-        stateFive.windowBootAsciiStagger = 0;
-        stateFive.windowBootAsciiNoise = 0;
-      }
-
-      Object.assign(stateFive, {
-        prototypeBuildEnabled: false,
-        prototypeBuildDuration: 0,
-        prototypeBuildStagger: 0,
-        prototypeBuildDither: 0,
-        prototypeBuildJitter: 0,
-        prototypeBuildGlow: 0,
-      });
-    }
-  }
-
-  function sanitizeExportAppRevealSettings(config) {
-    const revealSettings = config.stateAppRevealSettings || {};
-    const exportReveal = revealSettings[5] || revealSettings[6];
-    if (!isExportVisibleAppReveal(exportReveal)) {
-      config.stateAppRevealSettings = {
-        5: { preset: "none", intensity: 0, duration: 0 },
-        6: { preset: "none", intensity: 0, duration: 0 },
-      };
-      return;
-    }
-
-    const cleanReveal = { ...exportReveal };
-    if (Number(cleanReveal.lineOpacity ?? 0) <= 0) {
-      cleanReveal.lineOpacity = 0;
-      cleanReveal.lineGlow = 0;
-      cleanReveal.lineHold = 0;
-    }
-
-    config.stateAppRevealSettings = {
-      5: cleanReveal,
-      6: { preset: "none", intensity: 0, duration: 0 },
-    };
-  }
-
-  function sanitizeExportGroupFxSettings(config) {
-    const fx = config.groupGlitchSettings;
-    if (!fx) {
-      return;
-    }
-
-    const presets = fx.presets || {};
-    const activePresets = Array.isArray(fx.activePresets)
-      ? fx.activePresets
-      : [];
-    const visiblePresets = activePresets.filter((preset) =>
-      isExportVisibleFx(preset, presets[preset]),
-    );
-
-    fx.activePresets = visiblePresets;
-    fx.preset = visiblePresets.includes(fx.preset)
-      ? fx.preset
-      : visiblePresets[0] || "off";
-    fx.presets = Object.fromEntries(
-      visiblePresets
-        .map((preset) => [preset, presets[preset]])
-        .filter(([, presetConfig]) => Boolean(presetConfig)),
-    );
-  }
-
-  function sanitizeExportConfig(config) {
-    sanitizeExportStateAnimationSettings(config);
-    sanitizeExportAppRevealSettings(config);
-    sanitizeExportGroupFxSettings(config);
-
-    config.stateGridSettings = Object.fromEntries(
-      Object.entries(config.stateGridSettings || {}).filter(
-        ([, gridSettings]) =>
-          gridSettings?.enabled &&
-          Number(gridSettings.opacity ?? 0) > 0 &&
-          Number(gridSettings.lineWidth ?? 0) > 0,
-      ),
-    );
-
-    if (Number(config.guideSettings?.opacity ?? 1) <= 0) {
-      config.guideSettings.enabled = false;
-    }
-
-    if (!config.guideSettings?.enabled) {
-      config.guideSettings = {
-        ...(config.guideSettings || {}),
-        enabled: false,
-      };
-    }
-
-    if (
-      Number(config.preAppFocusSettings?.opacity ?? 1) <= 0 ||
-      Number(config.preAppFocusSettings?.duration ?? 0) <= 0
-    ) {
-      config.preAppFocusSettings = {
-        ...(config.preAppFocusSettings || {}),
-        opacity: 0,
-        duration: 0,
-      };
-    }
-
-    if (
-      Number(config.dragEchoSettings?.opacity ?? 0) <= 0 ||
-      Number(config.dragEchoSettings?.lifetime ?? 0) <= 0
-    ) {
-      config.dragEchoSettings = {
-        ...(config.dragEchoSettings || {}),
-        opacity: 0,
-        lifetime: 0,
-        maxFrames: 0,
-      };
-    }
-  }
-
   function scheduleSave(statusText = "Settings autosaved") {
     window.clearTimeout(pendingSaveTimer);
     pendingSaveTimer = window.setTimeout(() => saveConfig(statusText), 120);
@@ -2648,131 +1451,8 @@
     return stateAnimationSettings[state] || stateAnimationSettings[1];
   }
 
-  function getGridSettings() {
-    return getGroupFxConfig("grid");
-  }
-
   function getAppRevealSettings(state = currentState) {
     return stateAppRevealSettings[state] || stateAppRevealSettings[5];
-  }
-
-  function syncTimelinePlayButton() {
-    if (!controls.timelinePlay) {
-      return;
-    }
-    const isPlaying = timelineRunning && !settings.paused;
-    const label = isPlaying ? "Pause" : "Play";
-    controls.timelinePlay.classList.toggle("is-playing", isPlaying);
-    controls.timelinePlay.setAttribute("aria-label", label);
-    const readableLabel = controls.timelinePlay.querySelector(".sr-only");
-    if (readableLabel) {
-      readableLabel.textContent = label;
-    }
-  }
-
-  function syncTimelineLoopButton() {
-    if (!controls.timelineLoop) {
-      return;
-    }
-
-    const loopButton = controls.timelineLoop.closest(".timeline-loop");
-    if (!loopButton) {
-      return;
-    }
-
-    const isActive = Boolean(settings.timelineLoop);
-    loopButton.classList.toggle("is-active", isActive);
-    loopButton.setAttribute("aria-pressed", String(isActive));
-  }
-
-  function setPlayPauseLabel(label) {
-    if (!controls.playPause) {
-      return;
-    }
-
-    const labelNode = controls.playPause.querySelector(".action-label");
-    if (labelNode) {
-      labelNode.textContent = label;
-    } else {
-      controls.playPause.textContent = label;
-    }
-  }
-
-  function setPlaybackPaused(paused) {
-    settings.paused = paused;
-    setPlayPauseLabel(paused ? "Play" : "Pause");
-    syncTimelinePlayButton();
-
-    if (paused) {
-      clearStateModeTimer();
-    }
-
-    syncTimelineControls();
-    syncQuietPreviewState();
-    if (!paused) {
-      wakeRenderLoop();
-    }
-  }
-
-  function scheduleStateMode() {
-    clearStateModeTimer();
-
-    if (timelineRunning || settings.paused || !usesStateMode()) {
-      return;
-    }
-
-    stateModeTimer = window.setTimeout(
-      () => {
-        if (timelineRunning || settings.paused || !usesStateMode()) {
-          return;
-        }
-
-        if (settings.loopState) {
-          renderState(currentState);
-          return;
-        }
-
-        const nextState = currentState >= 6 ? 1 : currentState + 1;
-        renderState(nextState);
-      },
-      Math.max(50, getAnimationSettings(currentState).delayAfter),
-    );
-  }
-
-  function clearTrimTimelineTimer() {
-    window.clearTimeout(trimTimelineTimer);
-  }
-
-  function normalizeTimelineTrim() {
-    settings.timelineTrimStart = Math.max(
-      1,
-      Math.min(
-        TIMELINE_STATE_COUNT,
-        Math.round(settings.timelineTrimStart || 1),
-      ),
-    );
-    settings.timelineTrimEnd = Math.max(
-      1,
-      Math.min(
-        TIMELINE_STATE_COUNT,
-        Math.round(settings.timelineTrimEnd || TIMELINE_STATE_COUNT),
-      ),
-    );
-
-    if (settings.timelineTrimStart > settings.timelineTrimEnd) {
-      [settings.timelineTrimStart, settings.timelineTrimEnd] = [
-        settings.timelineTrimEnd,
-        settings.timelineTrimStart,
-      ];
-    }
-  }
-
-  function formatDuration(duration) {
-    if (duration >= 1000) {
-      return `${(duration / 1000).toFixed(duration >= 10000 ? 1 : 2)}s`;
-    }
-
-    return `${Math.round(duration)}ms`;
   }
 
   function getTypingTokens(text, mode = "letters") {
@@ -3278,244 +1958,7 @@
     );
   }
 
-  function getPrototypeBuildDuration(stateSettings = getAnimationSettings(5)) {
-    if (!stateSettings.prototypeBuildEnabled) {
-      return 0;
-    }
-
-    const duration = Math.max(
-      0,
-      Number(stateSettings.prototypeBuildDuration || 0),
-    );
-    const stagger = Math.max(
-      0,
-      Number(stateSettings.prototypeBuildStagger || 0),
-    );
-    const pieceCount = Math.max(1, getPrototypeBuildPieces().length);
-    return duration + stagger * (pieceCount - 1);
-  }
-
-  const prototypeBuildSelectors = [
-    ".app-window-bar",
-    ".app-sidebar",
-    ".app-header",
-    ".metric-card",
-    ".chart-panel",
-    ".region-panel",
-  ];
-
-  const prototypeBuildTokenMap = {
-    window: ["[window.route?]", "[chrome://scan]", "[lock:window]"],
-    sidebar: ["[nav.schema?]", "[icons:shuffle]", "[lock:nav]"],
-    header: ["[title.variant?]", "[copy:scan]", "[lock:header]"],
-    metric: ["[card.variant?]", "[metric:calc]", "[lock:metric]"],
-    chart: ["[panel:chart?]", "[axis:probe]", "[lock:revenue_vs_target]"],
-    region: ["[panel:region?]", "[bars:sort]", "[lock:region_bars]"],
-  };
-
-  function getPrototypeBuildPieces() {
-    const pieces = [];
-    prototypeBuildSelectors.forEach((selector) => {
-      appPreview.querySelectorAll(selector).forEach((piece) => {
-        if (!pieces.includes(piece)) {
-          pieces.push(piece);
-        }
-      });
-    });
-    return pieces;
-  }
-
-  function getPrototypeBuildGroup(piece) {
-    if (piece.classList.contains("app-window-bar")) return "window";
-    if (piece.classList.contains("app-sidebar")) return "sidebar";
-    if (piece.classList.contains("app-header")) return "header";
-    if (piece.classList.contains("metric-card")) return "metric";
-    if (piece.classList.contains("chart-panel")) return "chart";
-    if (piece.classList.contains("region-panel")) return "region";
-    return "metric";
-  }
-
-  function getPrototypeBuildLabel(piece, index) {
-    if (piece.classList.contains("metric-card")) {
-      return (
-        piece
-          .querySelector("p")
-          ?.textContent?.trim()
-          .toUpperCase()
-          .replace(/\s+/g, "_") || `METRIC_${index + 1}`
-      );
-    }
-    if (piece.classList.contains("chart-panel")) return "REVENUE_VS_TARGET";
-    if (piece.classList.contains("region-panel")) return "REVENUE_BY_REGION";
-    if (piece.classList.contains("app-header")) return "SALES_OVERVIEW";
-    if (piece.classList.contains("app-sidebar")) return "LEFT_NAV";
-    return "WINDOW_FRAME";
-  }
-
-  function setPrototypeBuildToken(piece, index, frame = 0) {
-    const group = getPrototypeBuildGroup(piece);
-    const variants =
-      prototypeBuildTokenMap[group] || prototypeBuildTokenMap.metric;
-    const label = getPrototypeBuildLabel(piece, index);
-    const prefix = variants[frame % variants.length];
-    const loader = ["░▒▓", "▒▓█", "▓█▓", "█▓▒"][frame % 4];
-    const branch = ["A", "B", "C", "D"][(index + frame) % 4];
-    piece
-      .querySelector(".prototype-build-token")
-      ?.replaceChildren(`${prefix} ${label} :: ${branch} ${loader}`);
-  }
-
-  function clearPrototypeBuild({ cancelTimers = true } = {}) {
-    if (cancelTimers) {
-      prototypeBuildRunId += 1;
-    }
-    prototypeBuildTimers.forEach((timer) => window.clearTimeout(timer));
-    prototypeBuildTimers = [];
-    appPreview.classList.remove("prototype-build-running");
-    appPreview.style.removeProperty("--prototype-build-duration");
-    appPreview.style.removeProperty("--prototype-build-stagger");
-    appPreview.style.removeProperty("--prototype-build-dither");
-    appPreview.style.removeProperty("--prototype-build-glow");
-    getPrototypeBuildPieces().forEach((piece) => {
-      piece.classList.remove("prototype-build-piece");
-      piece.style.removeProperty("--prototype-build-index");
-      piece.style.removeProperty("--prototype-build-jitter-x");
-      piece.style.removeProperty("--prototype-build-jitter-y");
-      piece.querySelector(".prototype-build-token")?.remove();
-    });
-    appRevealOverlay.replaceChildren();
-  }
-
-  function buildPrototypeDitherPixels(stateSettings, playbackSpeed) {
-    const density = Math.max(
-      0,
-      Number(stateSettings.prototypeBuildDither || 0),
-    );
-    const glow = Math.max(0, Number(stateSettings.prototypeBuildGlow || 0));
-    const duration = Math.max(
-      80,
-      Number(stateSettings.prototypeBuildDuration || 0) / playbackSpeed,
-    );
-    const count = Math.round(10 + density * 9);
-    appRevealOverlay.replaceChildren();
-
-    for (let index = 0; index < count; index += 1) {
-      const pixel = document.createElement("span");
-      const width = 1.8 + Math.random() * (3.2 + density * 1.4);
-      const height = 0.9 + Math.random() * (1.5 + density * 0.45);
-      pixel.className = "prototype-build-pixel";
-      pixel.style.left = `${Math.random() * (100 - width)}%`;
-      pixel.style.top = `${Math.random() * (100 - height)}%`;
-      pixel.style.width = `${width}%`;
-      pixel.style.height = `${height}%`;
-      pixel.style.setProperty(
-        "--prototype-pixel-alpha",
-        (0.06 + density * 0.018).toFixed(3),
-      );
-      pixel.style.setProperty(
-        "--prototype-pixel-glow",
-        `${Math.round(2 + glow * 2.6)}px`,
-      );
-      pixel.style.animationDelay = `${Math.random() * duration * 0.72}ms`;
-      pixel.style.animationDuration = `${Math.max(120, duration * (0.24 + Math.random() * 0.42))}ms`;
-      appRevealOverlay.append(pixel);
-    }
-  }
-
-  function triggerPrototypeBuild() {
-    const stateSettings = getAnimationSettings(5);
-    clearPrototypeBuild({ cancelTimers: false });
-
-    if (!stateSettings.prototypeBuildEnabled) {
-      return 0;
-    }
-
-    const duration = Math.max(
-      0,
-      Number(stateSettings.prototypeBuildDuration || 0),
-    );
-    const stagger = Math.max(
-      0,
-      Number(stateSettings.prototypeBuildStagger || 0),
-    );
-    if (duration <= 0 && stagger <= 0) {
-      return 0;
-    }
-
-    const playbackSpeed = Math.max(0.1, stateSettings.speed || 1);
-    const dither = Math.max(0, Number(stateSettings.prototypeBuildDither || 0));
-    const jitter =
-      Math.max(0, Number(stateSettings.prototypeBuildJitter || 0)) * 0.2;
-    const glow = Math.max(0, Number(stateSettings.prototypeBuildGlow || 0));
-    const pieces = getPrototypeBuildPieces();
-
-    appPreview.style.setProperty(
-      "--prototype-build-duration",
-      `${Math.max(80, duration / playbackSpeed)}ms`,
-    );
-    appPreview.style.setProperty(
-      "--prototype-build-stagger",
-      `${stagger / playbackSpeed}ms`,
-    );
-    appPreview.style.setProperty("--prototype-build-dither", dither.toFixed(2));
-    appPreview.style.setProperty(
-      "--prototype-build-glow",
-      (glow / 10).toFixed(3),
-    );
-
-    pieces.forEach((piece, index) => {
-      const boundedIndex = index;
-      const tokenNode = document.createElement("span");
-      tokenNode.className = "prototype-build-token";
-      piece.append(tokenNode);
-      piece.classList.add("prototype-build-piece");
-      piece.style.setProperty("--prototype-build-index", boundedIndex);
-      piece.style.setProperty("--prototype-build-jitter-x", "0px");
-      piece.style.setProperty(
-        "--prototype-build-jitter-y",
-        `${(((index % 4) - 1.5) * jitter).toFixed(2)}px`,
-      );
-      setPrototypeBuildToken(piece, index, 0);
-
-      const localDuration = Math.max(80, duration / playbackSpeed);
-      const localStagger = stagger / playbackSpeed;
-      const frameGap = Math.max(28, localDuration / 5);
-      for (let frame = 1; frame < 5; frame += 1) {
-        const timer = window.setTimeout(
-          () => {
-            if (appPreview.classList.contains("prototype-build-running")) {
-              setPrototypeBuildToken(piece, index, frame);
-            }
-          },
-          localStagger * boundedIndex + frameGap * frame,
-        );
-        prototypeBuildTimers.push(timer);
-      }
-    });
-
-    buildPrototypeDitherPixels(stateSettings, playbackSpeed);
-    void appPreview.offsetWidth;
-    const token = ++prototypeBuildRunId;
-    appPreview.classList.add("prototype-build-running");
-
-    const total = getPrototypeBuildDuration(stateSettings);
-    window.setTimeout(
-      () => {
-        if (token === prototypeBuildRunId) {
-          clearPrototypeBuild({ cancelTimers: false });
-        }
-      },
-      total / playbackSpeed + 160,
-    );
-    return total;
-  }
-
-  async function playPrototypeBuild(token) {
-    const duration = triggerPrototypeBuild();
-    if (duration > 0) {
-      await wait(duration, token);
-    }
-  }
+  const prototypeBuildSelectors = [];
 
   function getWindowBootDuration(stateSettings = getAnimationSettings(5)) {
     if (!stateSettings.windowBootEnabled) {
@@ -4467,14 +2910,18 @@
     }
 
     if (state === 5) {
-      return Math.max(
-        getAppRevealTotalDuration(getAppRevealSettings(5)),
-        Math.max(0, Number(preAppFocusSettings.duration || 0)),
+      const bootDuration = getWindowBootDuration(getAnimationSettings(5));
+      const prototypeRevealDuration = getAppRevealTotalDuration(
+        getAppRevealSettings(5),
+      );
+      return (
+        Math.max(0, Number(preAppFocusSettings.duration || 0), bootDuration) +
+        prototypeRevealDuration
       );
     }
 
     if (state === 6) {
-      return getAppRevealTotalDuration(getAppRevealSettings(5));
+      return getAppRevealTotalDuration(getAppRevealSettings(6));
     }
 
     return 500;
@@ -4487,255 +2934,6 @@
       getStateActionDuration(state) +
       stateSettings.delayAfter;
     return Math.max(120, rawDuration / Math.max(0.1, stateSettings.speed));
-  }
-
-  function getTimelineMetrics() {
-    const durations = Array.from({ length: TIMELINE_STATE_COUNT }, (_, index) =>
-      getStateDuration(index + 1),
-    );
-    const starts = [];
-    const ends = [];
-    let elapsed = 0;
-
-    durations.forEach((duration) => {
-      starts.push(elapsed);
-      elapsed += duration;
-      ends.push(elapsed);
-    });
-
-    return {
-      durations,
-      starts,
-      ends,
-      total: Math.max(1, elapsed),
-    };
-  }
-
-  function stateStartPercent(state) {
-    const metrics = getTimelineMetrics();
-    return (metrics.starts[state - 1] / metrics.total) * 100;
-  }
-
-  function stateEndPercent(state) {
-    const metrics = getTimelineMetrics();
-    return (metrics.ends[state - 1] / metrics.total) * 100;
-  }
-
-  function stateCenterPercent(state) {
-    return (stateStartPercent(state) + stateEndPercent(state)) / 2;
-  }
-
-  function setTimelinePlayhead(percent, duration = 0) {
-    if (!controls.timelinePlayhead) {
-      return;
-    }
-
-    controls.timelinePlayhead.style.transition =
-      duration > 0 ? `left ${duration}ms linear` : "none";
-    controls.timelinePlayhead.style.left = `${percent}%`;
-  }
-
-  function setTimelineProgress(percent, duration = 0) {
-    if (!controls.timelineProgress) {
-      return;
-    }
-
-    const trimStart = stateStartPercent(settings.timelineTrimStart);
-    const clampedPercent = Math.max(
-      trimStart,
-      Math.min(stateEndPercent(settings.timelineTrimEnd), percent),
-    );
-    controls.timelineProgress.style.transition =
-      duration > 0 ? `width ${duration}ms linear` : "none";
-    controls.timelineProgress.style.left = `${trimStart}%`;
-    controls.timelineProgress.style.width = `${Math.max(0, clampedPercent - trimStart)}%`;
-  }
-
-  function animateTimelineState(state, duration) {
-    setTimelinePlayhead(stateStartPercent(state), 0);
-    setTimelineProgress(stateStartPercent(state), 0);
-    window.requestAnimationFrame(() => {
-      window.requestAnimationFrame(() => {
-        setTimelinePlayhead(stateEndPercent(state), duration);
-        setTimelineProgress(stateEndPercent(state), duration);
-      });
-    });
-  }
-
-  function syncTimelineControls() {
-    normalizeTimelineTrim();
-    if (
-      !controls.timelineLoop ||
-      !controls.timelineReadout ||
-      !controls.timelineTrim
-    ) {
-      return;
-    }
-
-    const metrics = getTimelineMetrics();
-    controls.timelineLoop.checked = settings.timelineLoop;
-    syncTimelineLoopButton();
-    syncTimelinePlayButton();
-    controls.timelineReadout.textContent =
-      `Trim: State ${settings.timelineTrimStart}-${settings.timelineTrimEnd} · ` +
-      `${formatDuration(metrics.starts[settings.timelineTrimStart - 1])}-${formatDuration(metrics.ends[settings.timelineTrimEnd - 1])}`;
-
-    const startPercent = stateStartPercent(settings.timelineTrimStart);
-    const endPercent = stateEndPercent(settings.timelineTrimEnd);
-    controls.timelineTrim.style.left = `${startPercent}%`;
-    controls.timelineTrim.style.right = `${100 - endPercent}%`;
-    controls.timelineHandleStart.style.left = `calc(${startPercent}% - 6px)`;
-    controls.timelineHandleEnd.style.left = `calc(${endPercent}% - 6px)`;
-    controls.timelineHandleStart.dataset.time = formatDuration(
-      metrics.starts[settings.timelineTrimStart - 1],
-    );
-    controls.timelineHandleEnd.dataset.time = formatDuration(
-      metrics.ends[settings.timelineTrimEnd - 1],
-    );
-    controls.timelineHandleStart.title = `Trim start: ${controls.timelineHandleStart.dataset.time}`;
-    controls.timelineHandleEnd.title = `Trim end: ${controls.timelineHandleEnd.dataset.time}`;
-
-    if (!trimTimelinePlaying) {
-      setTimelinePlayhead(stateStartPercent(currentState), 0);
-      setTimelineProgress(stateStartPercent(currentState), 0);
-    }
-
-    controls.timelineStates.forEach((button) => {
-      const state = Number(button.dataset.timelineState);
-      const left = stateStartPercent(state);
-      const width = stateEndPercent(state) - left;
-      button.style.left = `${left}%`;
-      button.style.width = `${width}%`;
-      button.dataset.duration = formatDuration(metrics.durations[state - 1]);
-      button.title = `State ${state}: ${formatDuration(metrics.durations[state - 1])}`;
-      button.classList.toggle("is-active", state === currentState);
-      button.classList.toggle(
-        "is-trimmed",
-        state >= settings.timelineTrimStart &&
-          state <= settings.timelineTrimEnd,
-      );
-      button.classList.toggle("is-tight", width < 6);
-    });
-  }
-
-  function stopTrimTimeline() {
-    clearTrimTimelineTimer();
-    trimTimelinePlaying = false;
-    syncTimelineControls();
-  }
-
-  function scheduleTrimTimelineStep() {
-    clearTrimTimelineTimer();
-
-    if (!trimTimelinePlaying) {
-      return;
-    }
-
-    const currentDelay = getStateDuration(currentState);
-    animateTimelineState(currentState, currentDelay);
-    trimTimelineTimer = window.setTimeout(() => {
-      if (!trimTimelinePlaying) {
-        return;
-      }
-
-      if (currentState < settings.timelineTrimEnd) {
-        renderState(currentState + 1);
-        scheduleTrimTimelineStep();
-        return;
-      }
-
-      if (settings.timelineLoop) {
-        renderState(settings.timelineTrimStart);
-        scheduleTrimTimelineStep();
-        return;
-      }
-
-      stopTrimTimeline();
-    }, currentDelay);
-  }
-
-  function playTrimTimeline() {
-    playTimeline(settings.timelineTrimStart, settings.timelineTrimEnd);
-  }
-
-  function jumpTimelineToTrimStart({ resumePlayback = false } = {}) {
-    clearTrimTimelineTimer();
-    trimTimelinePlaying = false;
-
-    const startState = settings.timelineTrimStart;
-    if (resumePlayback) {
-      playTimeline(startState, settings.timelineTrimEnd);
-      return;
-    }
-
-    setPlaybackPaused(true);
-    renderState(startState);
-    setTimelinePlayhead(stateStartPercent(startState), 0);
-    setTimelineProgress(stateStartPercent(startState), 0);
-  }
-
-  function setTimelineTrim(startState, endState = startState) {
-    settings.timelineTrimStart = startState;
-    settings.timelineTrimEnd = endState;
-    normalizeTimelineTrim();
-    syncTimelineControls();
-    scheduleSave();
-  }
-
-  function stateFromTimelinePointer(event, mode) {
-    const rect = controls.timelineTrack.getBoundingClientRect();
-    const progress = Math.max(
-      0,
-      Math.min(1, (event.clientX - rect.left) / rect.width),
-    );
-    const metrics = getTimelineMetrics();
-    const time = progress * metrics.total;
-    const stateIndex =
-      mode === "end"
-        ? metrics.ends.findIndex((end) => time <= end)
-        : metrics.ends.findIndex((end) => time < end);
-    return Math.max(
-      1,
-      Math.min(
-        TIMELINE_STATE_COUNT,
-        (stateIndex === -1 ? TIMELINE_STATE_COUNT - 1 : stateIndex) + 1,
-      ),
-    );
-  }
-
-  function startTimelineHandleDrag(mode, event) {
-    event.preventDefault();
-    const wasPlaying = timelineRunning && !settings.paused;
-    clearTrimTimelineTimer();
-    if (wasPlaying) {
-      runId += 1;
-      timelineRunning = false;
-    }
-
-    const move = (moveEvent) => {
-      const state = stateFromTimelinePointer(moveEvent, mode);
-      if (mode === "start") {
-        settings.timelineTrimStart = Math.min(state, settings.timelineTrimEnd);
-      } else {
-        settings.timelineTrimEnd = Math.max(state, settings.timelineTrimStart);
-      }
-      syncTimelineControls();
-    };
-
-    const stop = () => {
-      window.removeEventListener("pointermove", move);
-      window.removeEventListener("pointerup", stop);
-
-      if (wasPlaying) {
-        playTimeline(settings.timelineTrimStart, settings.timelineTrimEnd);
-      }
-
-      scheduleSave();
-    };
-
-    window.addEventListener("pointermove", move);
-    window.addEventListener("pointerup", stop);
-    move(event);
   }
 
   function resizeGridCanvas() {
@@ -4759,26 +2957,13 @@
     gridCanvas.style.width = `${width}px`;
     gridCanvas.style.height = `${height}px`;
     gridCtx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-    gridMouseX = width / 2;
-    gridMouseY = height / 2;
     gridCanvasDirty = false;
     lastGridRenderKey = "";
     return { width, height, resized: true };
   }
 
   function syncGridLayer() {
-    const gridSettings = getGridSettings();
-    const opacity = Math.max(0, Math.min(1, gridSettings.opacity ?? 0));
-    root.style.setProperty(
-      "--grid-opacity",
-      isGroupFxActive("grid") ? opacity : 0,
-    );
-  }
-
-  function syncGridControls() {
-    if (controls.gridEnabled) {
-      controls.gridEnabled.checked = isGroupFxActive("grid");
-    }
+    root.style.setProperty("--grid-opacity", 0);
   }
 
   function clamp(value, min, max) {
@@ -4975,10 +3160,7 @@
   function updateParallaxFrame() {
     const config = getGroupFxConfig("parallax");
     const active = isGroupFxActive("parallax") && (config.intensity ?? 0) > 0;
-    const quietSettings = getQuietPreviewSettings();
-    const quietStopsParallax = quietPreviewActive && quietSettings.stopParallax;
-
-    if (!active || quietStopsParallax) {
+    if (!active) {
       parallaxTargetX = 0;
       parallaxTargetY = 0;
     } else if (config.loop && performance.now() - parallaxLastPointerAt > 700) {
@@ -5025,71 +3207,6 @@
       parallaxCurrentY * yStrength * appFactor,
     );
     parallaxWasActive = active;
-  }
-
-  function projectGridPoint(x, y, width, height, bulge) {
-    const centerX = width / 2;
-    const centerY = height / 2;
-    const normalizedX = (x - centerX) / centerX;
-    const normalizedY = (y - centerY) / centerY;
-    const radius = normalizedX * normalizedX + normalizedY * normalizedY;
-    const lens = 1 - bulge * radius;
-
-    return [
-      centerX + normalizedX * centerX * lens,
-      centerY + normalizedY * centerY * lens,
-    ];
-  }
-
-  function strokeProjectedLine(
-    points,
-    strokeStyle,
-    lineWidth,
-    width,
-    height,
-    bulge,
-  ) {
-    gridCtx.beginPath();
-    points.forEach(([x, y], index) => {
-      const [projectedX, projectedY] = projectGridPoint(
-        x,
-        y,
-        width,
-        height,
-        bulge,
-      );
-      if (index === 0) {
-        gridCtx.moveTo(projectedX, projectedY);
-      } else {
-        gridCtx.lineTo(projectedX, projectedY);
-      }
-    });
-    gridCtx.strokeStyle = strokeStyle;
-    gridCtx.lineWidth = lineWidth;
-    gridCtx.stroke();
-  }
-
-  function buildVerticalGridLine(x, width, height) {
-    const overscan = height * 0.08;
-    const segments = 36;
-    const points = [];
-    for (let index = 0; index <= segments; index += 1) {
-      points.push([
-        x,
-        -overscan + ((height + overscan * 2) * index) / segments,
-      ]);
-    }
-    return points;
-  }
-
-  function buildHorizontalGridLine(y, width, height) {
-    const overscan = width * 0.08;
-    const segments = 36;
-    const points = [];
-    for (let index = 0; index <= segments; index += 1) {
-      points.push([-overscan + ((width + overscan * 2) * index) / segments, y]);
-    }
-    return points;
   }
 
   function hexToRgb(hex, fallback = { r: 215, g: 221, b: 232 }) {
@@ -5144,622 +3261,6 @@
     if (isYellowishColor(logoClickSettings.waveColor)) {
       logoClickSettings.waveColor = "#62636a";
     }
-  }
-
-  function getMemoryReadout() {
-    const memory = performance.memory;
-    if (!memory?.usedJSHeapSize) {
-      return "--";
-    }
-    const used = memory.usedJSHeapSize / 1048576;
-    const limit = memory.jsHeapSizeLimit ? memory.jsHeapSizeLimit / 1048576 : 0;
-    return limit
-      ? `${Math.round(used)} / ${Math.round(limit)}MB`
-      : `${Math.round(used)}MB`;
-  }
-
-  function average(values, fallback = 0) {
-    return values.length
-      ? values.reduce((sum, value) => sum + value, 0) / values.length
-      : fallback;
-  }
-
-  function percentile(values, ratio, fallback = 0) {
-    if (!values.length) {
-      return fallback;
-    }
-
-    const sorted = [...values].sort((a, b) => a - b);
-    const index = clamp(
-      Math.round((sorted.length - 1) * ratio),
-      0,
-      sorted.length - 1,
-    );
-    return sorted[index];
-  }
-
-  function getFrameBudget(samples) {
-    return RENDER_FRAME_MS;
-  }
-
-  function getPerformanceRating(
-    fps,
-    jsLoad,
-    avgWork,
-    peakWork,
-    jankFrames,
-    longTaskCount,
-  ) {
-    const targetFps = RENDER_FPS_CAP;
-    const quietWork =
-      jsLoad < 8 && avgWork < 2 && peakWork < 8 && longTaskCount === 0;
-    if (fps >= targetFps * 0.74 && quietWork && jankFrames <= 1) {
-      return { label: "Quiet", tone: "excellent" };
-    }
-    if (
-      fps >= targetFps * 0.94 &&
-      jsLoad < 18 &&
-      avgWork < 3.5 &&
-      peakWork < 10 &&
-      jankFrames === 0 &&
-      longTaskCount === 0
-    ) {
-      return { label: "Excellent", tone: "excellent" };
-    }
-    if (
-      fps >= targetFps * 0.82 &&
-      jsLoad < 24 &&
-      avgWork < 5 &&
-      peakWork < 14 &&
-      jankFrames <= 2 &&
-      longTaskCount === 0
-    ) {
-      return { label: "Good", tone: "good" };
-    }
-    if (
-      fps >= targetFps * 0.66 &&
-      jsLoad < 42 &&
-      peakWork < 24 &&
-      jankFrames <= 4
-    ) {
-      return { label: "OK", tone: "ok" };
-    }
-    if (fps >= targetFps * 0.5 && peakWork < 42) {
-      return { label: "Heavy", tone: "heavy" };
-    }
-    return { label: "Bad", tone: "bad" };
-  }
-
-  function updatePerformanceMonitorUi(now) {
-    const quietSettings = getQuietPreviewSettings();
-    const monitorInterval =
-      quietPreviewActive && quietSettings.slowMonitor
-        ? QUIET_MONITOR_INTERVAL_MS
-        : 450;
-    if (
-      !controls.perfRating ||
-      now - (perfMonitorState.lastUiAt || 0) < monitorInterval
-    ) {
-      return;
-    }
-
-    perfMonitorState.lastUiAt = now;
-    const samples = perfMonitorState.samples;
-    const workSamples = perfMonitorState.workSamples;
-    const avgFrame = average(samples, 16.7);
-    const fps = Math.min(99, 1000 / Math.max(1, avgFrame));
-    const budget = getFrameBudget(samples);
-    const avgWork = average(workSamples, 0);
-    const peakWork = workSamples.length ? Math.max(...workSamples) : 0;
-    const recentLongFrames = samples.filter(
-      (frame) => frame > budget * 2.5,
-    ).length;
-    perfMonitorState.longTaskTimes = perfMonitorState.longTaskTimes.filter(
-      (time) => now - time < 5000,
-    );
-    const recentLongTasks = perfMonitorState.longTaskTimes.length;
-    const jsLoad = clamp((avgWork / Math.max(1, budget)) * 100, 0, 180);
-    const rating = getPerformanceRating(
-      fps,
-      jsLoad,
-      avgWork,
-      peakWork,
-      recentLongFrames,
-      recentLongTasks,
-    );
-    const activeFxCount = groupGlitchSettings.activePresets.length;
-
-    controls.perfRating.textContent = rating.label;
-    controls.perfRating.dataset.rating = rating.tone;
-    controls.perfLoadBar.style.width = `${Math.min(100, jsLoad).toFixed(0)}%`;
-    controls.perfLoadBar.dataset.rating = rating.tone;
-    controls.perfFps.textContent = `${Math.round(fps)}`;
-    controls.perfCpu.textContent = `${Math.round(jsLoad)}%`;
-    controls.perfWork.textContent = `${avgWork.toFixed(1)}ms`;
-    controls.perfFrame.textContent = `${avgFrame.toFixed(1)}ms`;
-    controls.perfPeak.textContent = `${peakWork.toFixed(1)}ms`;
-    controls.perfBudget.textContent = `${budget.toFixed(1)}ms`;
-    controls.perfMemory.textContent = getMemoryReadout();
-    controls.perfFreezes.textContent = `${recentLongFrames}/${recentLongTasks}`;
-    controls.perfEffects.textContent = `${activeFxCount}`;
-  }
-
-  function samplePerformanceFrame(timestamp = performance.now(), workMs = 0) {
-    if (perfMonitorState.lastFrameAt) {
-      const delta = timestamp - perfMonitorState.lastFrameAt;
-      if (delta > 0 && delta < 1000) {
-        perfMonitorState.samples.push(delta);
-        if (perfMonitorState.samples.length > 90) {
-          perfMonitorState.samples.shift();
-        }
-        const budget = getFrameBudget(perfMonitorState.samples);
-        if (delta > budget * 2.5) {
-          perfMonitorState.longFrames += 1;
-        }
-        perfMonitorState.maxFrame = Math.max(perfMonitorState.maxFrame, delta);
-      }
-    }
-    if (workMs >= 0) {
-      perfMonitorState.workSamples.push(workMs);
-      if (perfMonitorState.workSamples.length > 90) {
-        perfMonitorState.workSamples.shift();
-      }
-    }
-    perfMonitorState.lastFrameAt = timestamp;
-    updatePerformanceMonitorUi(timestamp);
-  }
-
-  function startPerformanceObserver() {
-    if (!("PerformanceObserver" in window)) {
-      return;
-    }
-
-    try {
-      const observer = new PerformanceObserver((list) => {
-        const now = performance.now();
-        const count = list.getEntries().length;
-        perfMonitorState.longTasks += count;
-        for (let index = 0; index < count; index += 1) {
-          perfMonitorState.longTaskTimes.push(now);
-        }
-      });
-      observer.observe({ type: "longtask", buffered: true });
-    } catch (error) {
-      // Long Task API is not available in every browser.
-    }
-  }
-
-  function scheduleRenderFrame(delay = RENDER_FRAME_MS) {
-    if (renderFrameTimer) {
-      return;
-    }
-
-    renderFrameTimer = window.setTimeout(
-      () => {
-        renderFrameTimer = 0;
-        drawGrid(performance.now());
-      },
-      Math.max(0, delay),
-    );
-  }
-
-  function drawGrid(timestamp) {
-    if (viewportPaused) {
-      perfMonitorState.lastFrameAt = 0;
-      lastRenderTickAt = 0;
-      return;
-    }
-
-    const frameTimestamp = timestamp || performance.now();
-    const quietSettings = getQuietPreviewSettings();
-    const quietActive = syncQuietPreviewState(frameTimestamp);
-
-    if (document.hidden) {
-      perfMonitorState.lastFrameAt = 0;
-      lastRenderTickAt = 0;
-      scheduleRenderFrame(
-        quietSettings.slowMonitor ? QUIET_RENDER_POLL_MS : 500,
-      );
-      return;
-    }
-
-    if (quietActive && quietSettings.stopCanvas) {
-      perfMonitorState.lastFrameAt = 0;
-      lastRenderTickAt = 0;
-      updatePerformanceMonitorUi(frameTimestamp);
-      scheduleRenderFrame(
-        quietSettings.slowMonitor ? QUIET_RENDER_POLL_MS : 500,
-      );
-      return;
-    }
-
-    if (
-      lastRenderTickAt &&
-      frameTimestamp - lastRenderTickAt < RENDER_FRAME_MS - 0.6
-    ) {
-      scheduleRenderFrame(
-        RENDER_FRAME_MS - (frameTimestamp - lastRenderTickAt),
-      );
-      return;
-    }
-    lastRenderTickAt = lastRenderTickAt
-      ? frameTimestamp - ((frameTimestamp - lastRenderTickAt) % RENDER_FRAME_MS)
-      : frameTimestamp;
-
-    const workStartedAt = performance.now();
-    updateParallaxFrame();
-
-    const gridSettings = getGridSettings();
-    const gridActive =
-      isGroupFxActive("grid") &&
-      gridSettings.opacity > 0 &&
-      gridSettings.gridSize > 0 &&
-      gridSettings.lineWidth > 0;
-
-    if (gridActive) {
-      const { width, height } = resizeGridCanvas();
-      const gridKey = [
-        width,
-        height,
-        gridCanvas.width,
-        gridCanvas.height,
-        gridSettings.gridSize,
-        gridSettings.lineWidth,
-        gridSettings.rgbSplit,
-        gridSettings.warp,
-        gridSettings.edgeRadius,
-        gridSettings.color,
-      ].join("|");
-
-      if (gridKey !== lastGridRenderKey || !gridWasVisible) {
-        gridCtx.clearRect(0, 0, width, height);
-        gridWasVisible = true;
-        lastGridRenderKey = gridKey;
-
-        const step = Math.max(2, gridSettings.gridSize);
-        const lineWidth = Math.max(0.01, gridSettings.lineWidth);
-        const rgbShift = Math.max(0, gridSettings.rgbSplit ?? 0.8);
-        const bulge = Math.max(0, (gridSettings.warp ?? 180) / 2600);
-        const edgeRadius = Math.max(0, gridSettings.edgeRadius ?? 18);
-        const baseColor = gridSettings.color || "#d7dde8";
-        const mainStroke = rgbaFromColor(baseColor, 0.52);
-        const redStroke = "rgba(255, 58, 82, 0.24)";
-        const cyanStroke = "rgba(0, 230, 255, 0.22)";
-        const blueStroke = "rgba(78, 116, 255, 0.18)";
-
-        gridCtx.save();
-        if (edgeRadius > 0) {
-          gridCtx.beginPath();
-          gridCtx.roundRect(0, 0, width, height, edgeRadius);
-          gridCtx.clip();
-        }
-        gridCtx.globalCompositeOperation = "lighter";
-
-        for (let x = -width * 0.08; x <= width * 1.08; x += step) {
-          gridCtx.lineWidth = lineWidth;
-          if (rgbShift > 0) {
-            strokeProjectedLine(
-              buildVerticalGridLine(x - rgbShift, width, height),
-              redStroke,
-              lineWidth,
-              width,
-              height,
-              bulge,
-            );
-            strokeProjectedLine(
-              buildVerticalGridLine(x + rgbShift, width, height),
-              cyanStroke,
-              lineWidth,
-              width,
-              height,
-              bulge,
-            );
-          }
-          strokeProjectedLine(
-            buildVerticalGridLine(x, width, height),
-            mainStroke,
-            Math.max(0.01, lineWidth * 0.72),
-            width,
-            height,
-            bulge,
-          );
-        }
-
-        for (let y = -height * 0.08; y <= height * 1.08; y += step) {
-          if (rgbShift > 0) {
-            strokeProjectedLine(
-              buildHorizontalGridLine(y - rgbShift * 0.65, width, height),
-              redStroke,
-              lineWidth,
-              width,
-              height,
-              bulge,
-            );
-            strokeProjectedLine(
-              buildHorizontalGridLine(y + rgbShift * 0.65, width, height),
-              blueStroke,
-              lineWidth,
-              width,
-              height,
-              bulge,
-            );
-          }
-          strokeProjectedLine(
-            buildHorizontalGridLine(y, width, height),
-            mainStroke,
-            Math.max(0.01, lineWidth * 0.72),
-            width,
-            height,
-            bulge,
-          );
-        }
-
-        gridCtx.restore();
-      }
-    } else if (gridWasVisible) {
-      const { width, height } = resizeGridCanvas();
-      gridCtx.clearRect(0, 0, width, height);
-      gridWasVisible = false;
-      lastGridRenderKey = "off";
-    } else if (gridCanvasDirty) {
-      resizeGridCanvas();
-    }
-
-    samplePerformanceFrame(frameTimestamp, performance.now() - workStartedAt);
-    scheduleRenderFrame(RENDER_FRAME_MS);
-  }
-
-  function syncLogoSettings() {
-    const logoSettings = stateLogoSettings[1];
-    const height = Math.round(logoSettings.width * (352 / 2560));
-    root.style.setProperty("--logo-left", `${logoSettings.x}px`);
-    root.style.setProperty("--logo-top", `${logoSettings.y}px`);
-    root.style.setProperty("--logo-width", `${logoSettings.width}px`);
-    root.style.setProperty("--logo-height", `${height}px`);
-    root.style.setProperty(
-      "--logo-base-opacity",
-      logoSettings.baseOpacity ?? 0.28,
-    );
-    root.style.setProperty(
-      "--logo-main-color",
-      logoSettings.mainColor || "#32323c",
-    );
-
-    if (currentState === 1) {
-      const controlMap = [
-        [controls.logoX, logoSettings.x, "px", Math.round],
-        [controls.logoY, logoSettings.y, "px", Math.round],
-        [controls.logoWidth, logoSettings.width, "px", Math.round],
-        [
-          controls.logoBaseOpacity,
-          logoSettings.baseOpacity ?? 0.28,
-          "",
-          (value) => Number(value).toFixed(2),
-        ],
-        [
-          controls.logoOpacityDuration,
-          logoSettings.opacityDuration ?? 420,
-          "ms",
-          Math.round,
-        ],
-        [
-          controls.logoRevealDuration,
-          logoSettings.revealDuration,
-          "ms",
-          Math.round,
-        ],
-        [
-          controls.logoRevealDelay,
-          logoSettings.revealDelay ?? 0,
-          "ms",
-          Math.round,
-        ],
-        [controls.logoStutter, logoSettings.stutter, "", Math.round],
-      ];
-
-      syncControlMap(controlMap);
-      setColorControlOutput(
-        controls.logoMainColor,
-        logoSettings.mainColor,
-        "#32323c",
-      );
-    }
-  }
-
-  function syncLogoClickSettings() {
-    sanitizeLogoClickSettings();
-    root.style.setProperty("--logo-wave-color", logoClickSettings.waveColor);
-    root.style.setProperty(
-      "--logo-wave-rgb",
-      rgbTupleFromColor(logoClickSettings.waveColor, "#62636a"),
-    );
-    root.style.setProperty(
-      "--logo-wave-opacity",
-      Math.max(0, Math.min(1, logoClickSettings.waveOpacity ?? 1)).toFixed(2),
-    );
-    root.style.setProperty("--logo-tail-color", logoClickSettings.tailColor);
-    root.style.setProperty(
-      "--logo-tail-rgb",
-      rgbTupleFromColor(logoClickSettings.tailColor, "#62636a"),
-    );
-    root.style.setProperty(
-      "--logo-tail-opacity",
-      Math.max(0, Math.min(1, logoClickSettings.tailOpacity ?? 1)).toFixed(2),
-    );
-    root.style.setProperty("--logo-split-red", logoClickSettings.splitRed);
-    root.style.setProperty(
-      "--logo-split-red-rgb",
-      rgbTupleFromColor(logoClickSettings.splitRed, "#ff281e"),
-    );
-    root.style.setProperty("--logo-split-blue", logoClickSettings.splitBlue);
-    root.style.setProperty(
-      "--logo-split-blue-rgb",
-      rgbTupleFromColor(logoClickSettings.splitBlue, "#00dcff"),
-    );
-    root.style.setProperty(
-      "--logo-split-amount",
-      `${Math.max(0, logoClickSettings.splitAmount ?? 1.2)}px`,
-    );
-    root.style.setProperty(
-      "--logo-split-opacity",
-      Math.max(0, Math.min(1, logoClickSettings.splitOpacity ?? 0.7)).toFixed(
-        2,
-      ),
-    );
-    root.style.setProperty("--logo-press-x", `${logoClickSettings.pressX}px`);
-    root.style.setProperty("--logo-press-y", `${logoClickSettings.pressY}px`);
-    root.style.setProperty("--logo-wave-glow", logoClickSettings.glow);
-    if (
-      ["#ff3b30", "#ff3621"].includes(
-        (logoClickSettings.hoverGlowColor || "").toLowerCase(),
-      )
-    ) {
-      logoClickSettings.hoverGlowColor = "#62636a";
-    }
-    root.style.setProperty(
-      "--logo-hover-glow-rgb",
-      rgbTupleFromColor(logoClickSettings.hoverGlowColor, "#62636a"),
-    );
-    root.style.setProperty(
-      "--logo-hover-glow-opacity",
-      Math.max(
-        0,
-        Math.min(1, logoClickSettings.hoverGlowOpacity ?? 0.55),
-      ).toFixed(2),
-    );
-    root.style.setProperty(
-      "--logo-hover-glow-blur",
-      `${Math.max(0, logoClickSettings.hoverGlowBlur ?? 14)}px`,
-    );
-    root.style.setProperty(
-      "--logo-hover-glow-core",
-      `${Math.max(0, logoClickSettings.hoverGlowCore ?? 3)}px`,
-    );
-
-    const controlMap = [
-      [
-        controls.logoWaveSpread,
-        logoClickSettings.waveSpread,
-        "x",
-        (value) => Number(value).toFixed(2),
-      ],
-      [controls.logoWaveCount, logoClickSettings.waveCount, "", Math.round],
-      [controls.logoWaveGap, logoClickSettings.waveGap, "ms", Math.round],
-      [controls.logoWaveHold, logoClickSettings.waveHold, "ms", Math.round],
-      [
-        controls.logoWaveOpacity,
-        logoClickSettings.waveOpacity ?? 1,
-        "",
-        (value) => Number(value).toFixed(2),
-      ],
-      [controls.logoWaveTail, logoClickSettings.tailHold, "ms", Math.round],
-      [
-        controls.logoTailOpacity,
-        logoClickSettings.tailOpacity ?? 1,
-        "",
-        (value) => Number(value).toFixed(2),
-      ],
-      [
-        controls.logoPressX,
-        logoClickSettings.pressX,
-        "px",
-        (value) => Number(value).toFixed(1),
-      ],
-      [
-        controls.logoPressY,
-        logoClickSettings.pressY,
-        "px",
-        (value) => Number(value).toFixed(1),
-      ],
-      [
-        controls.logoWaveGlow,
-        logoClickSettings.glow,
-        "",
-        (value) => Number(value).toFixed(2),
-      ],
-      [
-        controls.logoHoverGlowOpacity,
-        logoClickSettings.hoverGlowOpacity ?? 0.55,
-        "",
-        (value) => Number(value).toFixed(2),
-      ],
-      [
-        controls.logoHoverGlowBlur,
-        logoClickSettings.hoverGlowBlur ?? 14,
-        "px",
-        Math.round,
-      ],
-      [
-        controls.logoHoverGlowCore,
-        logoClickSettings.hoverGlowCore ?? 3,
-        "px",
-        (value) => Number(value).toFixed(1),
-      ],
-      [
-        controls.logoSplitAmount,
-        logoClickSettings.splitAmount ?? 1.2,
-        "px",
-        (value) => Number(value).toFixed(1),
-      ],
-      [
-        controls.logoSplitOpacity,
-        logoClickSettings.splitOpacity ?? 0.7,
-        "",
-        (value) => Number(value).toFixed(2),
-      ],
-    ];
-
-    syncControlMap(controlMap);
-
-    [
-      [controls.logoWaveColor, logoClickSettings.waveColor],
-      [
-        controls.logoHoverGlowColor,
-        logoClickSettings.hoverGlowColor ?? "#62636a",
-      ],
-      [controls.logoTailColor, logoClickSettings.tailColor],
-      [controls.logoSplitRed, logoClickSettings.splitRed],
-      [controls.logoSplitBlue, logoClickSettings.splitBlue],
-    ].forEach(([input, value]) => setColorControlOutput(input, value));
-  }
-
-  function updateLogoClickSettings() {
-    logoClickSettings.waveSpread = Number(controls.logoWaveSpread.value);
-    logoClickSettings.waveCount = Number(controls.logoWaveCount.value);
-    logoClickSettings.waveGap = Number(controls.logoWaveGap.value);
-    logoClickSettings.waveHold = Number(controls.logoWaveHold.value);
-    logoClickSettings.waveOpacity = Number(controls.logoWaveOpacity.value);
-    logoClickSettings.tailHold = Number(controls.logoWaveTail.value);
-    logoClickSettings.tailOpacity = Number(controls.logoTailOpacity.value);
-    logoClickSettings.pressX = Number(controls.logoPressX.value);
-    logoClickSettings.pressY = Number(controls.logoPressY.value);
-    logoClickSettings.glow = Number(controls.logoWaveGlow.value);
-    if (controls.logoHoverGlowOpacity) {
-      logoClickSettings.hoverGlowOpacity = Number(
-        controls.logoHoverGlowOpacity.value,
-      );
-    }
-    if (controls.logoHoverGlowBlur) {
-      logoClickSettings.hoverGlowBlur = Number(
-        controls.logoHoverGlowBlur.value,
-      );
-    }
-    if (controls.logoHoverGlowCore) {
-      logoClickSettings.hoverGlowCore = Number(
-        controls.logoHoverGlowCore.value,
-      );
-    }
-    if (controls.logoHoverGlowColor) {
-      logoClickSettings.hoverGlowColor = controls.logoHoverGlowColor.value;
-    }
-    logoClickSettings.waveColor = controls.logoWaveColor.value;
-    logoClickSettings.tailColor = controls.logoTailColor.value;
-    logoClickSettings.splitAmount = Number(controls.logoSplitAmount.value);
-    logoClickSettings.splitOpacity = Number(controls.logoSplitOpacity.value);
-    logoClickSettings.splitRed = controls.logoSplitRed.value;
-    logoClickSettings.splitBlue = controls.logoSplitBlue.value;
-    syncLogoClickSettings();
-    scheduleSave();
   }
 
   function clearLogoWaveTimers() {
@@ -5946,7 +3447,9 @@
     maskedFill?.remove();
     mask.remove();
     svg.appendChild(shapes);
-    setupLogoRectInteraction(svg);
+    if (window.DATABRICKS_USED_FEATURES?.logoClick) {
+      setupLogoRectInteraction(svg);
+    }
   }
 
   async function loadLogoSvg() {
@@ -5955,16 +3458,11 @@
     }
 
     try {
-      const svgText =
-        window.DATABRICKS_EXPORT_ASSETS?.logoSvg ||
-        (await (async () => {
-          const response = await fetch("./assets/databricks-logo.svg");
-          if (!response.ok) {
-            throw new Error(`Logo SVG failed with ${response.status}`);
-          }
+      const svgText = window.DATABRICKS_EXPORT_ASSETS?.logoSvg;
 
-          return response.text();
-        })());
+      if (!svgText) {
+        return;
+      }
 
       logoSvgHosts.forEach((host) => {
         host.innerHTML = svgText;
@@ -6302,23 +3800,6 @@
       "--final-link-reveal-duration",
       `${sharedTextLayers.final.linkRevealDuration ?? 160}ms`,
     );
-  }
-
-  function syncRuntimeVisualSettings() {
-    syncPowerOnVariables(getAnimationSettings(1));
-    syncPromptCursorTiming(getAnimationSettings(2));
-    syncBuildStatusTuning(getAnimationSettings(3));
-    syncTextLayers();
-    syncLogoSettings();
-    syncLogoClickSettings();
-    syncSharedAppPositionCss();
-    syncStaticAppCss();
-    syncPreAppFocusCss();
-    syncDragEchoSettings();
-    syncTerminalHoverCursorSettings();
-    syncGlitchControl();
-    syncGridLayer();
-    syncGuideLayer();
   }
 
   function resetFinalAscii() {
@@ -6700,24 +4181,6 @@
     value.style.removeProperty("--status-ok-steps");
   }
 
-  function updateStateReadout(state) {
-    currentState = state;
-    if (controls.stateReadout) {
-      controls.stateReadout.textContent = `State ${state}`;
-    }
-    controls.stateButtons?.forEach((button) => {
-      button.classList.toggle(
-        "is-active",
-        Number(button.dataset.stateJump) === state,
-      );
-    });
-    syncTimelineControls();
-    if (!isExportPlayer) {
-      syncActiveStateControls();
-    }
-    scheduleSave();
-  }
-
   function resetStage() {
     logoRunId += 1;
     stage.classList.remove(
@@ -6741,6 +4204,7 @@
       "reveal-pixelate",
       "reveal-scanSweep",
       "reveal-crtBloom",
+      "is-prototype-visible",
     );
     appRevealOverlay.replaceChildren();
     installText.textContent = "";
@@ -6762,6 +4226,7 @@
       "is-wire",
       "is-polished",
       "is-image-backed",
+      "is-prototype-visible",
     );
   }
 
@@ -6831,67 +4296,6 @@
         hideLogoReveal();
       }
     }
-  }
-
-  function renderState(state) {
-    runId += 1;
-    timelineRunning = false;
-    resetStage();
-    resetFinalStatusScrollStyles();
-    syncPromptCursorTiming();
-    updateStateReadout(state);
-
-    if (state >= 1 && state < 4) {
-      installText.textContent = installFrames[installFrames.length - 1];
-      installText.classList.add("is-complete");
-    }
-
-    if (state >= 2 && state < 4) {
-      promptLayer.classList.add("is-visible");
-      promptText.textContent = promptCopy;
-    }
-
-    if (state >= 3 && state < 4) {
-      promptLayer.classList.add("is-submitted");
-      resetBuildStatus({ final: true });
-      buildLines.forEach((line) => line.classList.add("is-visible"));
-      statusRows.forEach(fillStatusLeaderDotsImmediately);
-    }
-
-    if (state === 4) {
-      triggerFinalReveal();
-    }
-
-    if (state >= 5) {
-      setPreAppFocus(true, true);
-    }
-
-    if (state === 5) {
-      finalStatus.classList.remove("is-visible");
-      resetFinalStatusScrollStyles();
-      appPreview.classList.remove("is-polished");
-      appPreview.classList.add("is-visible", "is-wire", "is-image-backed");
-      clearPrototypeBuild();
-      clearWindowBoot();
-      clearAppReveal();
-      triggerWindowBoot();
-    }
-
-    if (state === 6) {
-      appPreview.classList.add("is-visible", "is-polished", "is-image-backed");
-      updateAppChartHover();
-      clearWindowBoot();
-      clearAppReveal();
-    }
-
-    if (state === 1) {
-      triggerLogoReveal();
-    } else if (state > 1) {
-      showLogoReveal(100);
-    }
-
-    triggerTextGlitch();
-    scheduleStateMode();
   }
 
   async function wait(duration, token) {
@@ -7000,7 +4404,12 @@
     }
 
     if (state >= 6) {
-      appPreview.classList.add("is-visible", "is-wire", "is-image-backed");
+      appPreview.classList.add(
+        "is-visible",
+        "is-wire",
+        "is-image-backed",
+        "is-prototype-visible",
+      );
     }
   }
 
@@ -7204,7 +4613,7 @@
     if (state === 5) {
       setPreAppFocus(true, false);
       appPreview.classList.add("is-visible", "is-wire", "is-image-backed");
-      appPreview.classList.remove("is-polished");
+      appPreview.classList.remove("is-polished", "is-prototype-visible");
       clearPrototypeBuild();
       clearWindowBoot();
       clearAppReveal();
@@ -7215,678 +4624,32 @@
           )
         : Promise.resolve();
       await Promise.all([playWindowBoot(token), finalStatusScroll]);
-      await playAppReveal(token, "prototype");
       finalStatus.classList.remove("is-visible");
       resetFinalStatusScrollStyles();
+      await playAppReveal(token, "prototype");
     }
 
     if (state === 6) {
+      appPreview.classList.add(
+        "is-visible",
+        "is-wire",
+        "is-image-backed",
+        "is-prototype-visible",
+      );
       appPreview.classList.remove("is-polished");
-      appPreview.classList.add("is-visible", "is-wire", "is-image-backed");
       clearWindowBoot();
       clearPrototypeBuild();
       clearAppReveal();
-      await playAppReveal(token, "polished");
+      await playAppReveal(token, "polished", 6);
     }
 
     await wait(getAnimationSettings(state).delayAfter, token);
-  }
-
-  async function playTimeline(
-    startState = settings.timelineTrimStart,
-    endState = settings.timelineTrimEnd,
-  ) {
-    stopTrimTimeline();
-    normalizeTimelineTrim();
-    startState = Math.max(
-      1,
-      Math.min(TIMELINE_STATE_COUNT, Math.round(startState)),
-    );
-    endState = Math.max(
-      startState,
-      Math.min(TIMELINE_STATE_COUNT, Math.round(endState)),
-    );
-    runId += 1;
-    const token = runId;
-    timelineRunning = true;
-    clearStateModeTimer();
-
-    settings.paused = false;
-    setPlayPauseLabel("Pause");
-    syncTimelinePlayButton();
-    syncQuietPreviewState();
-    wakeRenderLoop();
-    prepareStateForAnimation(startState);
-
-    try {
-      do {
-        prepareStateForAnimation(startState);
-
-        for (let state = startState; state <= endState; state += 1) {
-          await runStateAnimation(state, token);
-        }
-      } while (settings.timelineLoop && token === runId);
-    } catch (error) {
-      if (error.message !== "Animation cancelled") {
-        throw error;
-      }
-    } finally {
-      if (token === runId) {
-        timelineRunning = false;
-        settings.paused = true;
-        setPlayPauseLabel("Play");
-        syncTimelinePlayButton();
-        syncTimelineControls();
-        syncQuietPreviewState();
-      }
-    }
-  }
-
-  function setControlOutput(
-    input,
-    value,
-    suffix = "ms",
-    formatter = Math.round,
-  ) {
-    if (!input) {
-      return;
-    }
-
-    input.value = value;
-    const output = input.parentElement?.querySelector("output");
-    if (output) {
-      output.textContent = `${formatter(value)}${suffix}`;
-    }
-  }
-
-  function setColorControlOutput(input, value, fallback = "#000000") {
-    if (!input) {
-      return;
-    }
-
-    const nextValue = value || fallback;
-    input.value = nextValue;
-    const output = input.parentElement?.querySelector("output");
-    if (output) {
-      output.textContent = nextValue;
-    }
-  }
-
-  function syncControlMap(controlMap) {
-    controlMap.forEach(
-      ([input, value, suffix = "", formatter = (nextValue) => nextValue]) => {
-        setControlOutput(input, value, suffix, formatter);
-      },
-    );
-  }
-
-  function getRangeNumberPrecision(rangeInput) {
-    const step = rangeInput.getAttribute("step");
-    if (!step || step === "any") {
-      return 2;
-    }
-
-    const [, decimals = ""] = String(step).split(".");
-    return Math.min(6, decimals.length);
-  }
-
-  function getRangeStep(rangeInput) {
-    const rawStep = rangeInput.getAttribute("step");
-    if (!rawStep || rawStep === "any") {
-      return 1;
-    }
-
-    const step = Number(rawStep);
-    return Number.isFinite(step) && step > 0 ? step : 1;
-  }
-
-  function getRangeBounds(rangeInput) {
-    const min = Number(rangeInput.getAttribute("min") ?? 0);
-    const max = Number(rangeInput.getAttribute("max") ?? 100);
-    return {
-      min: Number.isFinite(min) ? min : 0,
-      max: Number.isFinite(max) ? max : 100,
-    };
-  }
-
-  function parseNumericInputValue(value) {
-    const match = String(value)
-      .trim()
-      .replace(",", ".")
-      .match(/-?\d+(?:\.\d+)?/);
-    return match ? Number(match[0]) : NaN;
-  }
-
-  function snapRangeValue(rangeInput, value) {
-    const { min, max } = getRangeBounds(rangeInput);
-    const step = getRangeStep(rangeInput);
-    const precision = getRangeNumberPrecision(rangeInput);
-    const clamped = Math.max(min, Math.min(max, value));
-    const snapped = min + Math.round((clamped - min) / step) * step;
-    return Number(Math.max(min, Math.min(max, snapped)).toFixed(precision));
-  }
-
-  function readRangeDisplay(rangeInput) {
-    const output = rangeInput.parentElement?.querySelector("output");
-    const text = output?.textContent?.trim() || String(rangeInput.value);
-    const match = text.match(/^(-?\d+(?:[.,]\d+)?)(.*)$/);
-
-    if (!match) {
-      return {
-        value: String(rangeInput.value),
-        unit: "",
-      };
-    }
-
-    const unit = match[2].trim();
-    return {
-      value: match[1].replace(",", "."),
-      unit: unit.length <= 4 ? unit : "",
-    };
-  }
-
-  function getGuideState() {
-    return currentState;
-  }
-
-  function syncGuideLayer() {
-    if (!referenceGuide) {
-      return;
-    }
-
-    const guideState = Math.max(
-      1,
-      Math.min(TIMELINE_STATE_COUNT, Math.round(getGuideState() || 1)),
-    );
-    referenceGuide.src =
-      isExportPlayer && !guideSettings.enabled
-        ? transparentGuidePixel
-        : `./assets/reference-${guideState}.png`;
-    referenceGuide.classList.toggle("is-visible", guideSettings.enabled);
-    referenceGuide.style.setProperty("--guide-left", `${guideSettings.x}px`);
-    referenceGuide.style.setProperty("--guide-top", `${guideSettings.y}px`);
-    referenceGuide.style.setProperty(
-      "--guide-width",
-      `${guideSettings.width}px`,
-    );
-    referenceGuide.style.setProperty(
-      "--guide-height",
-      `${guideSettings.height}px`,
-    );
-    referenceGuide.style.setProperty("--guide-opacity", guideSettings.opacity);
-    referenceGuide.style.setProperty("--guide-z", guideSettings.above ? 88 : 1);
-  }
-
-  function updateGuideSettings() {
-    guideSettings.enabled = controls.guideEnabled.checked;
-    guideSettings.opacity = Number(controls.guideOpacity.value);
-    guideSettings.followState = true;
-    guideSettings.above = true;
-    guideSettings.x = 0;
-    guideSettings.y = 0;
-    guideSettings.width = 1920;
-    guideSettings.height = 1144;
-    syncGuideControls();
-    scheduleSave();
-  }
-
-  function syncPlaybackControls() {
-    controls.autoStep.checked = settings.autoStep;
-    controls.loopState.checked = settings.loopState;
-  }
-
-  function getQuietControlMap() {
-    return [
-      [controls.quietEnabled, "enabled"],
-      [controls.quietWhenPaused, "whenPaused"],
-      [controls.quietWhenWindowInactive, "whenWindowInactive"],
-      [controls.quietStopCanvas, "stopCanvas"],
-      [controls.quietPauseCss, "pauseCss"],
-      [controls.quietStopParallax, "stopParallax"],
-      [controls.quietSlowMonitor, "slowMonitor"],
-    ].filter(([input]) => input);
-  }
-
-  function syncQuietPreviewControls() {
-    const quietSettings = getQuietPreviewSettings();
-    getQuietControlMap().forEach(([input, key]) => {
-      input.checked = Boolean(quietSettings[key]);
-    });
-    syncQuietPreviewState();
-  }
-
-  function updateQuietPreviewSettings() {
-    const quietSettings = getQuietPreviewSettings();
-    getQuietControlMap().forEach(([input, key]) => {
-      quietSettings[key] = input.checked;
-    });
-    syncQuietPreviewControls();
-    scheduleSave();
-    wakeRenderLoop();
-  }
-
-  function syncAnimationControls() {
-    const stateSettings = getAnimationSettings();
-    stateAnimationNumberControls.forEach(([input, key, suffix, formatter]) => {
-      const value = stateSettings[key];
-      if (typeof value === "number") {
-        setControlOutput(input, value, suffix, formatter);
-      }
-    });
-    stateAnimationCheckboxControls.forEach(([input, key]) => {
-      if (input && Object.prototype.hasOwnProperty.call(stateSettings, key)) {
-        input.checked = Boolean(stateSettings[key]);
-      }
-    });
-    stateAnimationColorControls.forEach(([input, key, fallback]) => {
-      if (Object.prototype.hasOwnProperty.call(stateSettings, key)) {
-        setColorControlOutput(input, stateSettings[key], fallback);
-      }
-    });
-    stateAnimationSelectControls.forEach(([input, key, fallback = ""]) => {
-      if (input && Object.prototype.hasOwnProperty.call(stateSettings, key)) {
-        input.value = stateSettings[key] || fallback;
-      }
-    });
-    syncPromptCursorTiming(getAnimationSettings(2));
-    syncBuildStatusTuning(getAnimationSettings(3));
-    syncFeatureGroups();
-  }
-
-  function updateStateAnimationSettings() {
-    const stateSettings = getAnimationSettings();
-    stateAnimationNumberControls.forEach(([input, key]) => {
-      if (!input || !Object.prototype.hasOwnProperty.call(stateSettings, key)) {
-        return;
-      }
-
-      stateSettings[key] = Number(input.value);
-    });
-    stateAnimationCheckboxControls.forEach(([input, key]) => {
-      if (input && Object.prototype.hasOwnProperty.call(stateSettings, key)) {
-        stateSettings[key] = input.checked;
-      }
-    });
-    stateAnimationColorControls.forEach(([input, key, fallback]) => {
-      if (input && Object.prototype.hasOwnProperty.call(stateSettings, key)) {
-        stateSettings[key] = input.value;
-        setColorControlOutput(input, stateSettings[key], fallback);
-      }
-    });
-    stateAnimationSelectControls.forEach(([input, key]) => {
-      if (input && Object.prototype.hasOwnProperty.call(stateSettings, key)) {
-        stateSettings[key] = input.value;
-      }
-    });
-
-    if (
-      stateSettings.windowBootEnabled &&
-      Number(stateSettings.windowBootDuration || 0) <= 0
-    ) {
-      stateSettings.windowBootDuration = Number(
-        controls.windowBootDuration?.defaultValue || 1180,
-      );
-    }
-    disableAppPreviewAnimationTracks();
-    normalizeWindowBootSettings();
-
-    syncAnimationControls();
-    syncTimelineControls();
-    if (currentState === 1) {
-      syncPowerOnVariables(stateSettings);
-    }
-    if (currentState === 5) {
-      if (!timelineRunning && stateSettings.windowBootEnabled) {
-        triggerWindowBoot();
-      } else {
-        clearWindowBoot();
-        clearPrototypeBuild();
-      }
-    }
-    scheduleStateMode();
-    scheduleSave();
-  }
-
-  function updateTextLayerControls() {
-    const availableLayers = visibleTextLayersByState[currentState];
-
-    [...controls.textLayer.options].forEach((option) => {
-      const isVisible = availableLayers.includes(option.value);
-      option.hidden = !isVisible;
-      option.disabled = !isVisible;
-    });
-
-    if (!availableLayers.includes(controls.textLayer.value)) {
-      controls.textLayer.value = availableLayers[0];
-    }
-
-    const layer = sharedTextLayers[controls.textLayer.value];
-    const controlMap = [
-      [controls.textX, layer.x, "px", (value) => Math.round(value)],
-      [controls.textY, layer.y, "px", (value) => Math.round(value)],
-      [controls.textWidth, layer.width, "px", (value) => Math.round(value)],
-      [
-        controls.textSize,
-        layer.size,
-        "px",
-        (value) => Number(value).toFixed(value % 1 === 0 ? 0 : 1),
-      ],
-      [
-        controls.textLetterSpacing,
-        layer.letterSpacing ?? 0,
-        "px",
-        (value) => Number(value).toFixed(1),
-      ],
-      [
-        controls.textOpacity,
-        layer.opacity,
-        "",
-        (value) => Number(value).toFixed(2),
-      ],
-    ];
-
-    if (controls.textLayer.value === "final") {
-      controlMap.push([
-        controls.finalBlockX,
-        layer.blockX ?? 0,
-        "px",
-        (value) => Math.round(value),
-      ]);
-      controlMap.push([
-        controls.finalBlockY,
-        layer.blockY ?? 0,
-        "px",
-        (value) => Math.round(value),
-      ]);
-      controlMap.push([
-        controls.finalCheckSparkX,
-        layer.checkSparkX ?? 1,
-        "x",
-        (value) => Number(value).toFixed(2),
-      ]);
-      controlMap.push([
-        controls.finalCheckSparkY,
-        layer.checkSparkY ?? 1,
-        "x",
-        (value) => Number(value).toFixed(2),
-      ]);
-      controlMap.push([
-        controls.finalLinkIndent,
-        layer.linkIndent ?? 0,
-        "px",
-        (value) => Math.round(value),
-      ]);
-      controlMap.push([
-        controls.finalCheckSize,
-        layer.checkSize ?? layer.size ?? 18,
-        "px",
-        (value) => Number(value).toFixed(value % 1 === 0 ? 0 : 1),
-      ]);
-      controlMap.push([
-        controls.finalCheckX,
-        layer.checkX ?? 0,
-        "px",
-        (value) => Math.round(value),
-      ]);
-      controlMap.push([
-        controls.finalCheckY,
-        layer.checkY ?? 0,
-        "px",
-        (value) => Math.round(value),
-      ]);
-      controlMap.push([
-        controls.finalLinkY,
-        layer.linkY ?? 1,
-        "px",
-        (value) => Math.round(value),
-      ]);
-      controlMap.push([
-        controls.finalLinkSize,
-        layer.linkSize ?? 22,
-        "px",
-        (value) => Number(value).toFixed(value % 1 === 0 ? 0 : 1),
-      ]);
-      controlMap.push([
-        controls.finalLinkLetterSpacing,
-        layer.linkLetterSpacing ?? -0.36,
-        "px",
-        (value) => Number(value).toFixed(1),
-      ]);
-      controlMap.push([
-        controls.finalPromptX,
-        layer.promptX ?? 0,
-        "px",
-        (value) => Math.round(value),
-      ]);
-      controlMap.push([
-        controls.finalPromptY,
-        layer.promptY ?? 0,
-        "px",
-        (value) => Math.round(value),
-      ]);
-      controlMap.push([
-        controls.finalPromptSize,
-        layer.promptSize ?? layer.size ?? 18,
-        "px",
-        (value) => Number(value).toFixed(value % 1 === 0 ? 0 : 1),
-      ]);
-      controlMap.push([
-        controls.finalLinkAsciiDuration,
-        layer.linkAsciiDuration ?? 900,
-        "ms",
-        (value) => Math.round(value),
-      ]);
-      controlMap.push([
-        controls.finalLinkAsciiNoise,
-        layer.linkAsciiNoise ?? 8,
-        "",
-        (value) => Math.round(value),
-      ]);
-      controlMap.push([
-        controls.finalLinkAsciiHold,
-        layer.linkAsciiHold ?? 180,
-        "ms",
-        (value) => Math.round(value),
-      ]);
-      controlMap.push([
-        controls.finalLinkRevealDelay,
-        layer.linkRevealDelay ?? 620,
-        "ms",
-        (value) => Math.round(value),
-      ]);
-      controlMap.push([
-        controls.finalLinkRevealDuration,
-        layer.linkRevealDuration ?? 160,
-        "ms",
-        (value) => Math.round(value),
-      ]);
-    }
-
-    syncControlMap(controlMap);
-
-    if (availableLayers.includes("build")) {
-      const buildLayer = sharedTextLayers.build;
-      const buildControlMap = [
-        [
-          controls.buildListIndent,
-          buildLayer.listIndent ?? 0,
-          "px",
-          (value) => Math.round(value),
-        ],
-        [
-          controls.buildListY,
-          buildLayer.listY ?? 0,
-          "px",
-          (value) => Math.round(value),
-        ],
-        [
-          controls.buildRowGap,
-          buildLayer.rowGap ?? 8,
-          "px",
-          (value) => Math.round(value),
-        ],
-        [
-          controls.buildStarSize,
-          buildLayer.starSize ?? 1,
-          "x",
-          (value) => Number(value).toFixed(2),
-        ],
-        [
-          controls.buildBulletSize,
-          buildLayer.bulletSize ?? 1,
-          "x",
-          (value) => Number(value).toFixed(2),
-        ],
-      ];
-
-      syncControlMap(buildControlMap);
-    }
-  }
-
-  function updateSelectedTextLayer(event) {
-    const buildInputs = [
-      controls.buildListIndent,
-      controls.buildListY,
-      controls.buildRowGap,
-      controls.buildStarSize,
-      controls.buildBulletSize,
-    ];
-    const target = event?.target;
-
-    if (buildInputs.includes(target)) {
-      const buildLayer = sharedTextLayers.build;
-      buildLayer.listIndent = Number(controls.buildListIndent.value);
-      buildLayer.listY = Number(controls.buildListY.value);
-      buildLayer.rowGap = Number(controls.buildRowGap.value);
-      buildLayer.starSize = Number(controls.buildStarSize.value);
-      buildLayer.bulletSize = Number(controls.buildBulletSize.value);
-      syncTextLayers();
-      updateTextLayerControls();
-      scheduleSave();
-      return;
-    }
-
-    if (target === controls.finalLinkIndent) {
-      sharedTextLayers.final.linkIndent = Number(
-        controls.finalLinkIndent.value,
-      );
-      syncTextLayers();
-      updateTextLayerControls();
-      scheduleSave();
-      return;
-    }
-
-    if (
-      [
-        controls.finalBlockX,
-        controls.finalBlockY,
-        controls.finalCheckSparkX,
-        controls.finalCheckSparkY,
-        controls.finalLinkY,
-        controls.finalCheckSize,
-        controls.finalCheckX,
-        controls.finalCheckY,
-        controls.finalLinkSize,
-        controls.finalLinkLetterSpacing,
-        controls.finalPromptX,
-        controls.finalPromptY,
-        controls.finalPromptSize,
-        controls.finalLinkAsciiDuration,
-        controls.finalLinkAsciiNoise,
-        controls.finalLinkAsciiHold,
-        controls.finalLinkRevealDelay,
-        controls.finalLinkRevealDuration,
-      ].includes(target)
-    ) {
-      sharedTextLayers.final.blockX = Number(controls.finalBlockX.value);
-      sharedTextLayers.final.blockY = Number(controls.finalBlockY.value);
-      sharedTextLayers.final.checkSparkX = Number(
-        controls.finalCheckSparkX.value,
-      );
-      sharedTextLayers.final.checkSparkY = Number(
-        controls.finalCheckSparkY.value,
-      );
-      sharedTextLayers.final.linkY = Number(controls.finalLinkY.value);
-      sharedTextLayers.final.checkSize = Number(controls.finalCheckSize.value);
-      sharedTextLayers.final.checkX = Number(controls.finalCheckX.value);
-      sharedTextLayers.final.checkY = Number(controls.finalCheckY.value);
-      sharedTextLayers.final.linkSize = Number(controls.finalLinkSize.value);
-      sharedTextLayers.final.linkLetterSpacing = Number(
-        controls.finalLinkLetterSpacing.value,
-      );
-      sharedTextLayers.final.promptX = Number(controls.finalPromptX.value);
-      sharedTextLayers.final.promptY = Number(controls.finalPromptY.value);
-      sharedTextLayers.final.promptSize = Number(
-        controls.finalPromptSize.value,
-      );
-      sharedTextLayers.final.linkAsciiDuration = Number(
-        controls.finalLinkAsciiDuration.value,
-      );
-      sharedTextLayers.final.linkAsciiNoise = Number(
-        controls.finalLinkAsciiNoise.value,
-      );
-      sharedTextLayers.final.linkAsciiHold = Number(
-        controls.finalLinkAsciiHold.value,
-      );
-      sharedTextLayers.final.linkRevealDelay = Number(
-        controls.finalLinkRevealDelay.value,
-      );
-      sharedTextLayers.final.linkRevealDuration = Number(
-        controls.finalLinkRevealDuration.value,
-      );
-      syncTextLayers();
-      updateTextLayerControls();
-      scheduleSave();
-      return;
-    }
-
-    const layer = sharedTextLayers[controls.textLayer.value];
-    layer.x = Number(controls.textX.value);
-    layer.y = Number(controls.textY.value);
-    layer.width = Number(controls.textWidth.value);
-    layer.size = Number(controls.textSize.value);
-    layer.letterSpacing = Number(controls.textLetterSpacing.value);
-    layer.opacity = Number(controls.textOpacity.value);
-    syncTextLayers();
-    updateTextLayerControls();
-    scheduleSave();
-  }
-
-  function updateLogoSettings() {
-    const logoSettings = stateLogoSettings[1];
-    logoSettings.x = Number(controls.logoX.value);
-    logoSettings.y = Number(controls.logoY.value);
-    logoSettings.width = Number(controls.logoWidth.value);
-    logoSettings.baseOpacity = Number(controls.logoBaseOpacity.value);
-    logoSettings.mainColor = controls.logoMainColor.value;
-    logoSettings.opacityDuration = Number(controls.logoOpacityDuration.value);
-    logoSettings.revealDuration = Number(controls.logoRevealDuration.value);
-    logoSettings.revealDelay = Number(controls.logoRevealDelay.value);
-    logoSettings.stutter = Number(controls.logoStutter.value);
-    syncLogoSettings();
-    syncTimelineControls();
-    scheduleSave();
   }
 
   function syncSharedAppPositionCss() {
     root.style.setProperty("--app-left", `${sharedAppSettings.left}px`);
     root.style.setProperty("--app-top", `${sharedAppSettings.top}px`);
     root.style.setProperty("--app-scale", sharedAppSettings.scale);
-  }
-
-  function syncPositionControls() {
-    syncSharedAppPositionCss();
-
-    syncControlMap([
-      [controls.appLeft, sharedAppSettings.left, "px", Math.round],
-      [controls.appTop, sharedAppSettings.top, "px", Math.round],
-      [
-        controls.appScale,
-        sharedAppSettings.scale,
-        "x",
-        (value) => Number(value).toFixed(2),
-      ],
-    ]);
   }
 
   function syncStaticAppCss() {
@@ -7931,39 +4694,6 @@
     });
   }
 
-  function syncStaticAppControls() {
-    syncStaticAppCss();
-
-    syncControlMap(
-      staticAppControlBindings
-        .filter(([input]) => input)
-        .map(([input, key]) => [
-          input,
-          staticAppSettings[key],
-          "px",
-          (nextValue) => Number(nextValue).toFixed(nextValue % 1 === 0 ? 0 : 1),
-        ]),
-    );
-  }
-
-  function updateStaticAppSettings(event) {
-    const input = event.target;
-    const value = Number(input.value);
-    const binding = staticAppControlBindings.find(
-      ([boundInput]) => boundInput === input,
-    );
-
-    if (input === controls.appContentPadX) {
-      staticAppSettings.contentPadLeft = value;
-      staticAppSettings.contentPadRight = value;
-    } else if (binding) {
-      staticAppSettings[binding[1]] = value;
-    }
-
-    syncStaticAppControls();
-    scheduleSave();
-  }
-
   function setPreAppFocus(active, restart = false) {
     stage.classList.toggle("app-focus-active", active);
 
@@ -7972,33 +4702,6 @@
       void preAppScene.offsetWidth;
       preAppScene.style.animation = "";
     }
-  }
-
-  function setLogoInspectActive(active) {
-    const canInspect =
-      active &&
-      heroLogoReveal?.classList.contains("is-visible") &&
-      appPreview.classList.contains("is-visible");
-    stage.classList.toggle("logo-inspect-active", Boolean(canInspect));
-  }
-
-  function updateLogoInspectFromPointer(event) {
-    if (
-      !heroLogoReveal?.classList.contains("is-visible") ||
-      !appPreview.classList.contains("is-visible")
-    ) {
-      setLogoInspectActive(false);
-      return;
-    }
-
-    const rect = heroLogoReveal.getBoundingClientRect();
-    const isOverLogo =
-      event.clientX >= rect.left &&
-      event.clientX <= rect.right &&
-      event.clientY >= rect.top &&
-      event.clientY <= rect.bottom;
-
-    setLogoInspectActive(isOverLogo);
   }
 
   const terminalHoverTextSelector = [
@@ -8012,7 +4715,6 @@
     ".final-prompt",
     ".prototype-build-token",
     ".address-bar",
-    ".app-sidebar span",
     ".app-header h2",
     ".app-header p",
     ".metric-icon",
@@ -8033,196 +4735,6 @@
     ".chart-footer span",
   ].join(",");
 
-  function getTerminalHoverCursor() {
-    if (!terminalHoverCursor) {
-      terminalHoverCursor = document.createElement("div");
-      terminalHoverCursor.className = "terminal-hover-cursor";
-      terminalHoverCursor.setAttribute("aria-hidden", "true");
-      document.body.append(terminalHoverCursor);
-    }
-
-    return terminalHoverCursor;
-  }
-
-  function hideTerminalHoverCursor() {
-    terminalHoverCursor?.classList.remove("is-visible");
-  }
-
-  function syncTerminalHoverCursorSettings() {
-    const settings = getTerminalHoverCursorSettings();
-    root.style.setProperty(
-      "--terminal-hover-opacity",
-      settings.opacity.toFixed(2),
-    );
-    setControlOutput(
-      controls.terminalHoverOpacity,
-      settings.opacity,
-      "",
-      (value) => Number(value).toFixed(2),
-    );
-  }
-
-  function updateTerminalHoverCursorSettings() {
-    const settings = getTerminalHoverCursorSettings();
-    settings.opacity = Number(
-      controls.terminalHoverOpacity?.value ?? settings.opacity,
-    );
-    syncTerminalHoverCursorSettings();
-    scheduleSave();
-  }
-
-  function getTerminalHoverTarget(event) {
-    const elements = document.elementsFromPoint(event.clientX, event.clientY);
-    for (const element of elements) {
-      if (!stage.contains(element)) {
-        continue;
-      }
-
-      const target = element.closest?.(terminalHoverTextSelector);
-      if (target && stage.contains(target) && target.textContent.trim()) {
-        return target;
-      }
-    }
-
-    return null;
-  }
-
-  function getTextNodeNearCaret(container, offset, target) {
-    if (!container) {
-      return null;
-    }
-
-    if (container.nodeType === Node.TEXT_NODE) {
-      return container;
-    }
-
-    const walker = document.createTreeWalker(target, NodeFilter.SHOW_TEXT, {
-      acceptNode(node) {
-        return node.nodeValue
-          ? NodeFilter.FILTER_ACCEPT
-          : NodeFilter.FILTER_REJECT;
-      },
-    });
-    const textNodes = [];
-    while (walker.nextNode()) {
-      textNodes.push(walker.currentNode);
-    }
-
-    if (!textNodes.length) {
-      return null;
-    }
-
-    if (container.nodeType === Node.ELEMENT_NODE) {
-      const child =
-        container.childNodes[
-          Math.max(0, Math.min(container.childNodes.length - 1, offset))
-        ];
-      const directText = textNodes.find(
-        (node) => node === child || child?.contains?.(node),
-      );
-      if (directText) {
-        return directText;
-      }
-    }
-
-    return textNodes[0];
-  }
-
-  function getTerminalHoverRange(event, target) {
-    let caretNode = null;
-    let caretOffset = 0;
-
-    if (document.caretPositionFromPoint) {
-      const position = document.caretPositionFromPoint(
-        event.clientX,
-        event.clientY,
-      );
-      caretNode = position?.offsetNode || null;
-      caretOffset = position?.offset || 0;
-    } else if (document.caretRangeFromPoint) {
-      const range = document.caretRangeFromPoint(event.clientX, event.clientY);
-      caretNode = range?.startContainer || null;
-      caretOffset = range?.startOffset || 0;
-    }
-
-    if (!caretNode || !target.contains(caretNode)) {
-      return null;
-    }
-
-    const textNode = getTextNodeNearCaret(caretNode, caretOffset, target);
-    if (!textNode?.nodeValue) {
-      return null;
-    }
-
-    let offset = caretNode === textNode ? caretOffset : 0;
-    offset = Math.max(0, Math.min(textNode.nodeValue.length - 1, offset));
-    if (textNode.nodeValue[offset] === "\n" && offset > 0) {
-      offset -= 1;
-    }
-    if (textNode.nodeValue[offset] === "\n") {
-      return null;
-    }
-
-    const range = document.createRange();
-    range.setStart(textNode, offset);
-    range.setEnd(textNode, offset + 1);
-    return range;
-  }
-
-  function updateTerminalHoverCursor(event) {
-    const target = getTerminalHoverTarget(event);
-    if (!target) {
-      hideTerminalHoverCursor();
-      return;
-    }
-
-    const range = getTerminalHoverRange(event, target);
-    const characterRect = range?.getClientRects?.()[0];
-    if (
-      !characterRect ||
-      characterRect.width <= 0 ||
-      characterRect.height <= 0
-    ) {
-      hideTerminalHoverCursor();
-      return;
-    }
-
-    const targetRect = target.getBoundingClientRect();
-    const computed = getComputedStyle(target);
-    const fontSize =
-      Number.parseFloat(computed.fontSize) || characterRect.height;
-    const lineHeight =
-      Number.parseFloat(computed.lineHeight) || fontSize * 1.25;
-    const scaleY = target.offsetHeight
-      ? targetRect.height / target.offsetHeight
-      : 1;
-    const cursorHeight = Math.max(characterRect.height, lineHeight * scaleY);
-    const cursorWidth = Math.max(
-      characterRect.width,
-      fontSize * 0.58 * scaleY,
-      6 * scaleY,
-    );
-    const cursor = getTerminalHoverCursor();
-
-    cursor.style.setProperty(
-      "--terminal-hover-x",
-      `${Math.round(characterRect.left)}px`,
-    );
-    cursor.style.setProperty(
-      "--terminal-hover-y",
-      `${Math.round(characterRect.top + (characterRect.height - cursorHeight) * 0.5)}px`,
-    );
-    cursor.style.setProperty(
-      "--terminal-hover-w",
-      `${Math.ceil(cursorWidth)}px`,
-    );
-    cursor.style.setProperty(
-      "--terminal-hover-h",
-      `${Math.ceil(cursorHeight)}px`,
-    );
-    cursor.classList.add("is-visible");
-  }
-
   function syncPreAppFocusCss() {
     const scaleDelta = 1 - preAppFocusSettings.scale;
     root.style.setProperty("--pre-app-opacity", preAppFocusSettings.opacity);
@@ -8240,290 +4752,6 @@
       "--pre-app-easing",
       `steps(${Math.max(1, Math.round(preAppFocusSettings.steps))}, end)`,
     );
-  }
-
-  function syncPreAppFocusControls() {
-    syncPreAppFocusCss();
-
-    setControlOutput(
-      controls.preAppOpacity,
-      preAppFocusSettings.opacity,
-      "",
-      (value) => Number(value).toFixed(2),
-    );
-    setControlOutput(
-      controls.preAppScale,
-      preAppFocusSettings.scale,
-      "x",
-      (value) => Number(value).toFixed(2),
-    );
-    setControlOutput(
-      controls.preAppDuration,
-      preAppFocusSettings.duration,
-      "ms",
-      Math.round,
-    );
-    setControlOutput(
-      controls.preAppSteps,
-      preAppFocusSettings.steps,
-      "",
-      Math.round,
-    );
-  }
-
-  function updatePreAppFocusSettings() {
-    preAppFocusSettings.opacity = Number(controls.preAppOpacity.value);
-    preAppFocusSettings.scale = Number(controls.preAppScale.value);
-    preAppFocusSettings.duration = Number(controls.preAppDuration.value);
-    preAppFocusSettings.steps = Number(controls.preAppSteps.value);
-    syncPreAppFocusControls();
-    syncTimelineControls();
-
-    if (currentState >= 5) {
-      setPreAppFocus(true, false);
-    }
-
-    scheduleSave();
-  }
-
-  function syncDragEchoSettings() {
-    dragEchoSettings.color = dragEchoSettings.color || "#ffffff";
-    dragEchoSettings.opacity = clamp(
-      Number(dragEchoSettings.opacity ?? 0.74),
-      0,
-      1,
-    );
-    dragEchoSettings.lifetime = Math.max(
-      80,
-      Number(dragEchoSettings.lifetime ?? 760),
-    );
-    dragEchoSettings.maxFrames = Math.max(
-      1,
-      Math.round(Number(dragEchoSettings.maxFrames ?? 18)),
-    );
-    dragEchoSettings.width = clamp(
-      Number(dragEchoSettings.width ?? 1),
-      0.5,
-      16,
-    );
-    dragEchoSettings.minDistance = Math.max(
-      0,
-      Number(dragEchoSettings.minDistance ?? 7),
-    );
-    dragEchoSettings.minInterval = Math.max(
-      0,
-      Number(dragEchoSettings.minInterval ?? 46),
-    );
-
-    root.style.setProperty(
-      "--drag-echo-color-rgb",
-      rgbTupleFromColor(dragEchoSettings.color, "#ffffff"),
-    );
-    root.style.setProperty(
-      "--drag-echo-opacity",
-      dragEchoSettings.opacity.toFixed(2),
-    );
-    root.style.setProperty(
-      "--drag-echo-lifetime",
-      `${dragEchoSettings.lifetime}ms`,
-    );
-    root.style.setProperty(
-      "--drag-echo-stroke-width",
-      `${dragEchoSettings.width}px`,
-    );
-
-    setColorControlOutput(
-      controls.dragEchoColor,
-      dragEchoSettings.color,
-      "#ffffff",
-    );
-
-    setControlOutput(
-      controls.dragEchoOpacity,
-      dragEchoSettings.opacity,
-      "",
-      (value) => Number(value).toFixed(2),
-    );
-    setControlOutput(
-      controls.dragEchoLifetime,
-      dragEchoSettings.lifetime,
-      "ms",
-      Math.round,
-    );
-    setControlOutput(
-      controls.dragEchoMaxFrames,
-      dragEchoSettings.maxFrames,
-      "",
-      Math.round,
-    );
-    setControlOutput(
-      controls.dragEchoWidth,
-      dragEchoSettings.width,
-      "px",
-      (value) => Number(value).toFixed(1),
-    );
-    setControlOutput(
-      controls.dragEchoMinDistance,
-      dragEchoSettings.minDistance,
-      "px",
-      Math.round,
-    );
-    setControlOutput(
-      controls.dragEchoMinInterval,
-      dragEchoSettings.minInterval,
-      "ms",
-      Math.round,
-    );
-  }
-
-  function updateDragEchoSettings() {
-    if (controls.dragEchoColor) {
-      dragEchoSettings.color = controls.dragEchoColor.value;
-    }
-    if (controls.dragEchoOpacity) {
-      dragEchoSettings.opacity = Number(controls.dragEchoOpacity.value);
-    }
-    if (controls.dragEchoLifetime) {
-      dragEchoSettings.lifetime = Number(controls.dragEchoLifetime.value);
-    }
-    if (controls.dragEchoMaxFrames) {
-      dragEchoSettings.maxFrames = Number(controls.dragEchoMaxFrames.value);
-    }
-    if (controls.dragEchoWidth) {
-      dragEchoSettings.width = Number(controls.dragEchoWidth.value);
-    }
-    if (controls.dragEchoMinDistance) {
-      dragEchoSettings.minDistance = Number(controls.dragEchoMinDistance.value);
-    }
-    if (controls.dragEchoMinInterval) {
-      dragEchoSettings.minInterval = Number(controls.dragEchoMinInterval.value);
-    }
-
-    syncDragEchoSettings();
-    scheduleSave();
-  }
-
-  function syncAppRevealControls() {
-    const revealSettings = getAppRevealSettings(5);
-    controls.appRevealPreset.value = revealSettings.preset;
-    setControlOutput(
-      controls.appRevealIntensity,
-      revealSettings.intensity,
-      "",
-      (value) => Number(value).toFixed(1),
-    );
-    setControlOutput(
-      controls.appRevealDuration,
-      revealSettings.duration,
-      "ms",
-      Math.round,
-    );
-    setColorControlOutput(
-      controls.appRevealLineColor,
-      revealSettings.lineColor,
-      "#63f1ff",
-    );
-    if (controls.appRevealLineDirection) {
-      controls.appRevealLineDirection.value =
-        revealSettings.lineDirection || "vertical";
-    }
-    setControlOutput(
-      controls.appRevealLineOpacity,
-      revealSettings.lineOpacity ?? 0.72,
-      "",
-      (value) => Number(value).toFixed(2),
-    );
-    setControlOutput(
-      controls.appRevealLineGlow,
-      revealSettings.lineGlow ?? 18,
-      "px",
-      Math.round,
-    );
-    setControlOutput(
-      controls.appRevealLineHold,
-      revealSettings.lineHold ?? 280,
-      "ms",
-      Math.round,
-    );
-    setControlOutput(
-      controls.appRevealLineFade,
-      revealSettings.lineFade ?? 520,
-      "ms",
-      Math.round,
-    );
-    setControlOutput(
-      controls.appRevealGrid,
-      revealSettings.grid,
-      "",
-      Math.round,
-    );
-    if (controls.appRevealCorner) {
-      controls.appRevealCorner.value = revealSettings.corner || "tl";
-    }
-    setControlOutput(
-      controls.appRevealOriginX,
-      revealSettings.originX ?? 50,
-      "%",
-      Math.round,
-    );
-    setControlOutput(
-      controls.appRevealOriginY,
-      revealSettings.originY ?? 50,
-      "%",
-      Math.round,
-    );
-    setControlOutput(
-      controls.appRevealLayers,
-      revealSettings.layers ?? 3,
-      "",
-      Math.round,
-    );
-  }
-
-  function updateAppRevealSettings() {
-    const revealSettings = getAppRevealSettings(5);
-    revealSettings.preset = controls.appRevealPreset.value;
-    revealSettings.intensity = Number(controls.appRevealIntensity.value);
-    revealSettings.duration = Number(controls.appRevealDuration.value);
-    if (controls.appRevealLineColor) {
-      revealSettings.lineColor = controls.appRevealLineColor.value;
-    }
-    if (controls.appRevealLineDirection) {
-      revealSettings.lineDirection = controls.appRevealLineDirection.value;
-    }
-    if (controls.appRevealLineOpacity) {
-      revealSettings.lineOpacity = Number(controls.appRevealLineOpacity.value);
-    }
-    if (controls.appRevealLineGlow) {
-      revealSettings.lineGlow = Number(controls.appRevealLineGlow.value);
-    }
-    if (controls.appRevealLineHold) {
-      revealSettings.lineHold = Number(controls.appRevealLineHold.value);
-    }
-    if (controls.appRevealLineFade) {
-      revealSettings.lineFade = Number(controls.appRevealLineFade.value);
-    }
-    revealSettings.grid = Number(controls.appRevealGrid.value);
-    if (controls.appRevealCorner) {
-      revealSettings.corner = controls.appRevealCorner.value;
-    }
-    if (controls.appRevealOriginX) {
-      revealSettings.originX = Number(controls.appRevealOriginX.value);
-    }
-    if (controls.appRevealOriginY) {
-      revealSettings.originY = Number(controls.appRevealOriginY.value);
-    }
-    if (controls.appRevealLayers) {
-      revealSettings.layers = Number(controls.appRevealLayers.value);
-    }
-    disableAppPreviewAnimationTracks();
-    normalizeWindowBootSettings();
-    syncAppRevealControls();
-    syncTimelineControls();
-    if (currentState >= 5) {
-      clearAppReveal();
-    }
-    scheduleSave();
   }
 
   function buildAppRevealPixels(settings) {
@@ -8612,6 +4840,12 @@
     const previewWidth = appPreview.offsetWidth || 768;
     const previewHeight = appPreview.offsetHeight || 514;
     const maxDistance = cornerPoint.maxDistance || Math.SQRT2;
+    const revealImage = document.createElement("span");
+
+    revealImage.className = "app-reveal-image-mask";
+    revealImage.style.animationDuration = `${Math.max(160, duration).toFixed(1)}ms`;
+    appRevealOverlay.append(revealImage);
+
     const appendScanTile = (rect, className, order = 0, durationScale = 1) => {
       const centerX = (rect.x + rect.w / 2) / 100;
       const centerY = (rect.y + rect.h / 2) / 100;
@@ -8954,18 +5188,34 @@
     appRevealOverlay.replaceChildren();
   }
 
-  function triggerAppReveal(mode = "polished") {
-    const revealSettings = getAppRevealSettings(5);
+  function setAppRevealCompleteTarget(revealsPolished) {
+    appPreview.classList.remove(
+      "app-reveal-running",
+      "reveal-target-prototype",
+      "reveal-target-polished",
+      "reveal-colorWave",
+      "reveal-pixelTiles",
+      "reveal-pixelate",
+      "reveal-scanSweep",
+      "reveal-crtBloom",
+    );
+    appRevealOverlay.replaceChildren();
+    appPreview.classList.add("is-visible", "is-image-backed");
+    appPreview.classList.toggle("is-wire", !revealsPolished);
+    appPreview.classList.toggle("is-polished", revealsPolished);
+    appPreview.classList.toggle("is-prototype-visible", !revealsPolished);
+    if (revealsPolished) {
+      updateAppChartHover();
+    }
+  }
+
+  function triggerAppReveal(mode = "polished", state = currentState) {
+    const revealSettings = getAppRevealSettings(state);
     const revealsPolished = mode === "polished";
     clearAppReveal();
 
     if (revealSettings.preset === "none" || revealSettings.intensity <= 0) {
-      appPreview.classList.add("is-visible", "is-image-backed");
-      appPreview.classList.toggle("is-wire", !revealsPolished);
-      appPreview.classList.toggle("is-polished", revealsPolished);
-      if (revealsPolished) {
-        updateAppChartHover();
-      }
+      setAppRevealCompleteTarget(revealsPolished);
       return 0;
     }
 
@@ -9021,16 +5271,13 @@
 
     appPreview.classList.add("is-wire", "is-image-backed");
     appPreview.classList.toggle("is-polished", false);
+    appPreview.classList.toggle("is-prototype-visible", revealsPolished);
 
     if (revealSettings.preset === "colorWave") {
       buildAppColorWave(revealSettings);
     } else if (revealSettings.preset === "pixelTiles") {
       buildAppRevealPixels(revealSettings);
     }
-    if (!revealsPolished) {
-      buildAppRevealFrameEchoes(revealSettings);
-    }
-
     appPreview.classList.add("app-reveal-running");
     void appPreview.offsetWidth;
     const lineFadeTail =
@@ -9042,23 +5289,7 @@
     );
 
     window.setTimeout(() => {
-      appPreview.classList.remove(
-        "app-reveal-running",
-        "reveal-target-prototype",
-        "reveal-target-polished",
-        "reveal-colorWave",
-        "reveal-pixelTiles",
-        "reveal-pixelate",
-        "reveal-scanSweep",
-        "reveal-crtBloom",
-      );
-      appRevealOverlay.replaceChildren();
-      appPreview.classList.add("is-visible", "is-image-backed");
-      appPreview.classList.toggle("is-wire", !revealsPolished);
-      appPreview.classList.toggle("is-polished", revealsPolished);
-      if (revealsPolished) {
-        updateAppChartHover();
-      }
+      setAppRevealCompleteTarget(revealsPolished);
     }, cleanupDelay + 240);
     return Math.max(0, cleanupDelay);
   }
@@ -9086,11 +5317,12 @@
     return Math.max(revealDuration, revealDuration + lineFadeTail * 0.62);
   }
 
-  async function playAppReveal(token, mode = "polished") {
-    const duration = triggerAppReveal(mode);
+  async function playAppReveal(token, mode = "polished", state = currentState) {
+    const duration = triggerAppReveal(mode, state);
     if (duration > 0) {
-      await wait(duration, token);
+      await wait(duration + 260, token);
     }
+    setAppRevealCompleteTarget(mode === "polished");
   }
 
   appChartOverlay?.addEventListener("pointermove", (event) => {
@@ -9129,317 +5361,229 @@
     }
   });
 
-  function updateControlVisibility() {
-    controls.stateScopedControls.forEach((element) => {
-      const states = element.dataset.controlStates;
-      const isVisible =
-        states === "all" ||
-        states.split(",").map(Number).includes(currentState);
-      element.hidden = !isVisible;
-      element.querySelectorAll("input, select, button").forEach((control) => {
-        control.disabled = !isVisible;
-      });
-    });
-  }
-
-  function syncFeatureGroups() {
-    getFeatureGroups().forEach((group) => {
-      const toggle = group.querySelector(
-        "[data-feature-toggle] input[type='checkbox']",
-      );
-      const body = group.querySelector("[data-feature-body]");
-      const groupVisible = !group.hidden;
-      const isEnabled = !toggle || toggle.checked;
-
-      group.classList.toggle("is-feature-disabled", !isEnabled);
-
-      if (!body) {
-        return;
-      }
-
-      body.hidden = !isEnabled;
-      body.querySelectorAll("input, select, button").forEach((control) => {
-        control.disabled = !groupVisible || !isEnabled;
-      });
-    });
-  }
-
-  function bindFeatureToggles() {
-    getFeatureGroups().forEach((group) => {
-      const label = group.querySelector("[data-feature-toggle]");
-      const toggle = label?.querySelector("input[type='checkbox']");
-
-      if (!label || !toggle || label.dataset.featureToggleBound === "true") {
-        return;
-      }
-
-      label.dataset.featureToggleBound = "true";
-      let pointerHandled = false;
-      const toggleFeature = () => {
-        toggle.checked = !toggle.checked;
-        toggle.dispatchEvent(new Event("change", { bubbles: true }));
-        syncFeatureGroups();
-      };
-
-      label.addEventListener("pointerdown", (event) => {
-        if (toggle.disabled) {
-          return;
-        }
-
-        if (event.button !== 0) {
-          return;
-        }
-
-        event.preventDefault();
-        pointerHandled = true;
-        toggleFeature();
-      });
-
-      label.addEventListener("click", (event) => {
-        event.preventDefault();
-        if (toggle.disabled) {
-          pointerHandled = false;
-          return;
-        }
-
-        if (!pointerHandled) {
-          toggleFeature();
-        }
-        pointerHandled = false;
-      });
-
-      toggle.addEventListener("keydown", (event) => {
-        if (toggle.disabled || (event.key !== " " && event.key !== "Enter")) {
-          return;
-        }
-
-        event.preventDefault();
-        toggleFeature();
-      });
-    });
-  }
-
-  function formatFxValue(value, unit = "", formatter = (input) => input) {
-    return `${formatter(value)}${unit}`;
-  }
-
-  function formatParallaxBalance(value) {
-    const amount = Number(value);
-    if (amount <= -0.95) return "window fixed";
-    if (amount >= 0.95) return "terminal fixed";
-    if (Math.abs(amount) < 0.05) return "center";
-    return amount < 0
-      ? `terminal ${Math.round(Math.abs(amount) * 100)}%`
-      : `window ${Math.round(amount * 100)}%`;
-  }
-
   function getActiveFxSettingsPresets() {
     normalizeGroupFxSettings();
-    return fxPresetOrder.filter((preset) =>
-      groupGlitchSettings.activePresets.includes(preset),
+    return groupGlitchSettings.activePresets.filter((preset) =>
+      fxPresetOrder.includes(preset),
     );
   }
 
-  function syncFxFocusUi() {
-    controls.glitchPreset.value = groupGlitchSettings.preset;
-    controls.glitchPresetButtons.forEach((button) => {
-      const preset = button.dataset.glitchPreset;
-      button.classList.toggle(
-        "is-active",
-        preset === "off"
-          ? groupGlitchSettings.activePresets.length === 0
-          : isGroupFxActive(preset),
-      );
-      button.classList.toggle(
-        "is-focused",
-        preset === groupGlitchSettings.preset,
+  function syncGroupFxLayerOrder() {
+    const orderedPresets = getActiveFxSettingsPresets();
+    const layerKeys = [
+      "rgbsplit",
+      "shademap",
+      "rgbgrid",
+      "scanlines",
+      "vignette",
+      "parallax",
+    ];
+    layerKeys.forEach((preset) => {
+      root.style.setProperty(`--fx-z-${preset}`, "80");
+    });
+
+    orderedPresets.forEach((preset, index) => {
+      root.style.setProperty(
+        `--fx-z-${preset}`,
+        String(90 + (orderedPresets.length - index) * 10),
       );
     });
+  }
+
+  function clearFxDragState() {
     controls.fxSettingsStack
       .querySelectorAll("[data-fx-card]")
       .forEach((card) => {
-        card.classList.toggle(
-          "is-focused",
-          card.dataset.fxCard === groupGlitchSettings.preset,
+        card.classList.remove(
+          "is-dragging",
+          "is-drag-over-before",
+          "is-drag-over-after",
         );
       });
   }
 
-  function updateGlitchControls() {
-    syncGridControls();
-
-    const activePresets = getActiveFxSettingsPresets();
-    controls.fxSettingsStack.innerHTML = activePresets.length
-      ? activePresets.map(renderFxSettingsCard).join("")
-      : '<div class="fx-settings-empty">No group FX selected</div>';
-    syncFxFocusUi();
-    syncCollapseControls();
-    enhanceDirectorRangeInputs(controls.fxSettingsStack);
+  function getFxCardDropPlacement(event, card) {
+    const rect = card.getBoundingClientRect();
+    return event.clientY < rect.top + rect.height / 2 ? "before" : "after";
   }
 
-  function setCollapseGroup(groupKey, collapsed) {
-    uiSettings.collapsedGroups[groupKey] = collapsed;
+  function reorderActiveFxPreset(
+    sourcePreset,
+    targetPreset,
+    placement = "before",
+  ) {
+    if (!sourcePreset || !targetPreset || sourcePreset === targetPreset) {
+      return false;
+    }
 
-    document
-      .querySelectorAll(`[data-collapsible-group="${groupKey}"]`)
-      .forEach((group) => {
-        group.classList.toggle("is-collapsed-control", collapsed);
-      });
+    const orderedPresets = getActiveFxSettingsPresets();
+    const sourceIndex = orderedPresets.indexOf(sourcePreset);
+    const targetIndex = orderedPresets.indexOf(targetPreset);
+    if (sourceIndex < 0 || targetIndex < 0) {
+      return false;
+    }
 
-    document
-      .querySelectorAll(`[data-collapse-toggle="${groupKey}"]`)
-      .forEach((button) => {
-        button.setAttribute("aria-expanded", String(!collapsed));
-        const marker = button.querySelector("[data-collapse-marker]");
-        if (marker) {
-          marker.textContent = collapsed ? "+" : "-";
-        }
-      });
+    orderedPresets.splice(sourceIndex, 1);
+    const adjustedTargetIndex = orderedPresets.indexOf(targetPreset);
+    orderedPresets.splice(
+      placement === "after" ? adjustedTargetIndex + 1 : adjustedTargetIndex,
+      0,
+      sourcePreset,
+    );
+    groupGlitchSettings.activePresets = orderedPresets;
+    if (!orderedPresets.includes(groupGlitchSettings.preset)) {
+      groupGlitchSettings.preset = orderedPresets[0] || "off";
+    }
+    return true;
   }
 
-  function syncCollapseControls() {
-    document.querySelectorAll("[data-collapsible-group]").forEach((group) => {
-      const groupKey = group.dataset.collapsibleGroup;
-      setCollapseGroup(groupKey, Boolean(uiSettings.collapsedGroups[groupKey]));
-    });
+  function shadeMapHash(seed) {
+    let value = seed >>> 0;
+    value ^= value << 13;
+    value ^= value >>> 17;
+    value ^= value << 5;
+    return ((value >>> 0) % 100000) / 100000;
   }
 
-  function toggleCollapseGroup(groupKey) {
-    setCollapseGroup(groupKey, !uiSettings.collapsedGroups[groupKey]);
-    scheduleSave();
-  }
-
-  function updateFxControlOutput(input, preset, key, value) {
-    const output = input.parentElement.querySelector("output");
-    if (!output) {
+  function syncShadeMapCells({
+    active,
+    cellX,
+    cellY,
+    rectWidth,
+    rectHeight,
+    count,
+    randomness,
+    flickerNoise,
+    flickerScale,
+    speed,
+    smoothness,
+    opacity,
+  }) {
+    if (!shadeMapOverlay) {
       return;
     }
 
-    if (input.type === "color") {
-      output.textContent = value;
+    if (!active || count <= 0) {
+      shadeMapOverlay.replaceChildren();
+      lastShadeMapRenderKey = "off";
       return;
     }
 
-    const formatterByKey = {
-      duration: [Math.round, "ms"],
-      speed: [(inputValue) => Number(inputValue).toFixed(1), "x"],
-      thickness: [Math.round, "px"],
-      spacing: [Math.round, "px"],
-      barHeight: [Math.round, "%"],
-      sweepOpacity: [(inputValue) => Number(inputValue).toFixed(2), ""],
-      sweepGlow: [(inputValue) => Number(inputValue).toFixed(2), ""],
-      sweepShadow: [(inputValue) => Number(inputValue).toFixed(2), ""],
-      sweepSoftness: [Math.round, "%"],
-      opacity: [(inputValue) => Number(inputValue).toFixed(2), ""],
-      gridSize: [Math.round, "px"],
-      warp: [Math.round, "px"],
-      lineWidth: [(inputValue) => Number(inputValue).toFixed(1), "px"],
-      edgeRadius: [Math.round, "px"],
-      rgbSplit: [(inputValue) => Number(inputValue).toFixed(1), "px"],
-      splitX: [(inputValue) => Number(inputValue).toFixed(1), "px"],
-      splitY: [(inputValue) => Number(inputValue).toFixed(1), "px"],
-      jitterX: [(inputValue) => Number(inputValue).toFixed(1), "px"],
-      jitterY: [(inputValue) => Number(inputValue).toFixed(1), "px"],
-      stretchY: [(inputValue) => Number(inputValue).toFixed(2), ""],
-      tear: [Math.round, "%"],
-      ghostOpacity: [(inputValue) => Number(inputValue).toFixed(2), ""],
-      noiseLow: [(inputValue) => Number(inputValue).toFixed(2), ""],
-      stripeHeight: [Math.round, "px"],
-      stripeGap: [Math.round, "px"],
-      softness: [(inputValue) => Number(inputValue).toFixed(1), "px"],
-      count: [Math.round, ""],
-      skew: [Math.round, "deg"],
-      jitter: [(inputValue) => Number(inputValue).toFixed(1), "px"],
-      hold: [Math.round, "%"],
-      x: [Math.round, "px"],
-      y: [Math.round, "px"],
-      xStrength: [Math.round, "px"],
-      yStrength: [Math.round, "px"],
-      balance: [formatParallaxBalance, ""],
-      scaleX: [(inputValue) => Number(inputValue).toFixed(2), "x"],
-      scaleY: [(inputValue) => Number(inputValue).toFixed(2), "x"],
-      blur: [Math.round, "px"],
-      edge: [Math.round, "px"],
-      roundness: [Math.round, "px"],
-    };
-    const [formatter, unit] = formatterByKey[key] || [
-      (inputValue) => Number(inputValue).toFixed(1),
-      "",
-    ];
-    output.textContent = formatFxValue(value, unit, formatter);
-  }
+    const columns = Math.max(1, Math.floor(1920 / Math.max(1, cellX)));
+    const rows = Math.max(1, Math.floor(1144 / Math.max(1, cellY)));
+    const available = columns * rows;
+    const cellCount = Math.max(1, Math.min(Math.round(count), available, 360));
+    const renderKey = [
+      columns,
+      rows,
+      cellCount,
+      Math.round(rectWidth),
+      Math.round(rectHeight),
+      randomness.toFixed(2),
+      flickerNoise.toFixed(2),
+      flickerScale.toFixed(2),
+      speed.toFixed(2),
+      smoothness.toFixed(2),
+      opacity.toFixed(2),
+    ].join(":");
 
-  function updateFxSettingFromControl(input, eventType) {
-    const preset = input.dataset.preset;
-    const key = input.dataset.fxInput;
-    if (!preset || !key || !groupFxPresetDefaults[preset]) {
+    if (
+      renderKey === lastShadeMapRenderKey &&
+      shadeMapOverlay.childElementCount === cellCount
+    ) {
       return;
     }
 
-    groupGlitchSettings.preset = preset;
-    const config = getGroupFxConfig(preset);
-    if (input.type === "checkbox") {
-      config[key] = input.checked;
-    } else if (input.type === "color") {
-      config[key] = input.value;
-    } else {
-      config[key] = Number(input.value);
-    }
-    updateFxControlOutput(input, preset, key, config[key]);
-    syncFxFocusUi();
-    syncGlitchControl();
-    if (eventType === "input" && key !== "duration") {
-      triggerTextGlitch();
-    }
-    scheduleSave();
-  }
+    const cells = [];
+    const used = new Set();
+    const randomRatio = randomness / 10;
+    const noiseRatio = flickerNoise / 10;
+    const speedBase = speed <= 0 ? 999999 : Math.max(0.05, 0.72 / speed);
+    const highBase = clamp(opacity, 0, 1);
+    const lowBase = highBase * clamp(0.72 - noiseRatio * 0.7, 0, 0.72);
+    const midBase = highBase * clamp(0.55 + noiseRatio * 0.22, 0, 0.92);
+    const timing =
+      smoothness >= 9.75
+        ? "linear"
+        : `steps(${Math.max(1, Math.round(1 + smoothness * 1.7))}, end)`;
 
-  function syncActiveStateControls() {
-    syncAnimationControls();
-    syncGuideLayer();
-    syncGridLayer();
-    syncGridControls();
-    syncTextLayers();
-    syncLogoSettings();
-    syncLogoClickSettings();
-    updateTextLayerControls();
-    syncPositionControls();
-    syncStaticAppControls();
-    syncPreAppFocusControls();
-    syncAppRevealControls();
-    syncDragEchoSettings();
-    syncTerminalHoverCursorSettings();
-    updateGlitchControls();
-    updateControlVisibility();
-    syncFeatureGroups();
-    syncGlitchControl(false);
-    syncCollapseControls();
-    enhanceDirectorRangeInputs();
+    for (let index = 0; index < cellCount; index += 1) {
+      let slot = Math.floor(shadeMapHash(index * 92821 + 17) * available);
+      while (used.has(slot)) {
+        slot = (slot + 1) % available;
+      }
+      used.add(slot);
+
+      const column = slot % columns;
+      const row = Math.floor(slot / columns);
+      const jitterX =
+        (shadeMapHash(index * 31847 + 11) - 0.5) * cellX * randomRatio;
+      const jitterY =
+        (shadeMapHash(index * 51749 + 23) - 0.5) * cellY * randomRatio;
+      const sizeJitterX =
+        1 + (shadeMapHash(index * 71933 + 31) - 0.5) * randomRatio * 0.42;
+      const sizeJitterY =
+        1 + (shadeMapHash(index * 61357 + 37) - 0.5) * randomRatio * 0.42;
+      const durationJitter =
+        0.35 + shadeMapHash(index * 44131 + 43) * (1.3 + noiseRatio * 1.8);
+      const phase =
+        shadeMapHash(index * 67213 + 59) *
+        speedBase *
+        (2.5 + noiseRatio * 6 + flickerScale);
+      const pulseSeed = shadeMapHash(index * 19937 + 61);
+      const low = clamp(lowBase + (pulseSeed - 0.5) * noiseRatio * 0.22, 0, 1);
+      const mid = clamp(
+        midBase + (shadeMapHash(index * 45989 + 71) - 0.5) * noiseRatio * 0.24,
+        low,
+        1,
+      );
+      const high = clamp(
+        highBase -
+          shadeMapHash(index * 83561 + 83) * noiseRatio * highBase * 0.08,
+        mid,
+        1,
+      );
+
+      const cell = document.createElement("i");
+      cell.className = "shade-map-cell";
+      cell.style.left = `${column * cellX + jitterX}px`;
+      cell.style.top = `${row * cellY + jitterY}px`;
+      cell.style.width = `${Math.max(1, rectWidth * sizeJitterX)}px`;
+      cell.style.height = `${Math.max(1, rectHeight * sizeJitterY)}px`;
+      cell.style.animationDuration = `${speedBase * durationJitter}s`;
+      cell.style.animationDelay = `${-phase}s`;
+      cell.style.animationTimingFunction = timing;
+      cell.style.setProperty("--shade-cell-low", low.toFixed(3));
+      cell.style.setProperty("--shade-cell-mid", mid.toFixed(3));
+      cell.style.setProperty("--shade-cell-high", high.toFixed(3));
+      cells.push(cell);
+    }
+
+    shadeMapOverlay.replaceChildren(...cells);
+    lastShadeMapRenderKey = renderKey;
   }
 
   function syncGlitchControl() {
-    const config = getGroupFxConfig();
+    syncGroupFxLayerOrder();
     const primaryPreset = getPrimaryVisualFxPreset();
     const primaryConfig = getGroupFxConfig(primaryPreset);
-    const intensity = primaryConfig.intensity ?? 0;
+    const intensity =
+      primaryPreset === "rgbsplit"
+        ? getRgbSplitMaxIntensity(primaryConfig)
+        : (primaryConfig.intensity ?? 0);
     const detail = primaryConfig.detail ?? 0;
     const rawSpeed = primaryConfig.speed ?? 1;
     const speed = rawSpeed <= 0 ? 0 : Math.max(0.01, rawSpeed);
-    const presetMultiplier = {
-      off: 0,
-      crt: 0.42,
-      scan: 0.28,
-      tear: 0.72,
-      buzz: 1.05,
-      rgbsplit: 0.2,
-      rgbgrid: 0,
-      crtmask: 0.5,
-      slices: 0.9,
-      video: 0.34,
-      scanlines: 0.26,
-      parallax: 0,
-      vignette: 0,
-    }[primaryPreset];
+    const presetMultiplier =
+      {
+        off: 0,
+        rgbsplit: 0.2,
+        shademap: 0,
+        rgbgrid: 0,
+        scanlines: 0.26,
+        parallax: 0,
+        vignette: 0,
+      }[primaryPreset] ?? 0;
 
     stage.dataset.textFx = primaryPreset;
     root.style.setProperty(
@@ -9458,20 +5602,20 @@
       "--text-glitch-duration",
       `${primaryConfig.duration ?? 720}ms`,
     );
-    const sliceConfig = getGroupFxConfig("slices");
-    root.style.setProperty(
-      "--slice-count",
-      Math.max(1, sliceConfig.count ?? 5),
-    );
-    root.style.setProperty("--slice-skew", `${sliceConfig.skew ?? 36}deg`);
-    root.style.setProperty("--slice-jitter", `${sliceConfig.jitter ?? 6}px`);
-    root.style.setProperty("--slice-hold", `${sliceConfig.hold ?? 42}%`);
-    root.style.setProperty(
-      "--slice-hold-alpha",
-      Math.max(0, Math.min(1, (sliceConfig.hold ?? 42) / 100)).toFixed(2),
-    );
     const rgbSplitConfig = getGroupFxConfig("rgbsplit");
-    const rgbSplitIntensity = rgbSplitConfig.intensity ?? 0;
+    const rgbSplitLogoIntensity = getRgbSplitTargetIntensity(
+      rgbSplitConfig,
+      "logoIntensity",
+    );
+    const rgbSplitTextIntensity = getRgbSplitTargetIntensity(
+      rgbSplitConfig,
+      "textIntensity",
+    );
+    const rgbSplitWindowIntensity = getRgbSplitTargetIntensity(
+      rgbSplitConfig,
+      "windowIntensity",
+    );
+    const rgbSplitIntensity = getRgbSplitMaxIntensity(rgbSplitConfig);
     const rgbSplitSpeed =
       rgbSplitConfig.speed <= 0 ? 0 : Math.max(0.01, rgbSplitConfig.speed ?? 1);
     root.style.setProperty(
@@ -9485,6 +5629,18 @@
     root.style.setProperty(
       "--rgb-split-alpha",
       Math.min(0.92, Math.max(0, rgbSplitIntensity / 8)).toFixed(2),
+    );
+    root.style.setProperty(
+      "--rgb-split-logo-alpha",
+      Math.min(0.92, Math.max(0, rgbSplitLogoIntensity / 8)).toFixed(2),
+    );
+    root.style.setProperty(
+      "--rgb-split-text-alpha",
+      Math.min(0.92, Math.max(0, rgbSplitTextIntensity / 8)).toFixed(2),
+    );
+    root.style.setProperty(
+      "--rgb-split-window-alpha",
+      Math.min(0.92, Math.max(0, rgbSplitWindowIntensity / 8)).toFixed(2),
     );
     root.style.setProperty(
       "--rgb-split-color-a",
@@ -9508,66 +5664,180 @@
       "fx-rgb-split",
       isGroupFxActive("rgbsplit") && rgbSplitIntensity > 0,
     );
-    const buzzConfig = getGroupFxConfig("buzz");
-    const buzzIntensity = Math.max(0, buzzConfig.intensity ?? 0);
-    const buzzSpeed =
-      buzzConfig.speed <= 0 ? 0 : Math.max(0.01, buzzConfig.speed ?? 1);
+    const shadeMapConfig = getGroupFxConfig("shademap");
+    const shadeMapIntensity = Math.max(0, shadeMapConfig.intensity ?? 0);
+    const shadeMapDetail = Math.max(0, shadeMapConfig.detail ?? 6);
+    const shadeMapSpeed =
+      shadeMapConfig.speed <= 0 ? 0 : Math.max(0.01, shadeMapConfig.speed ?? 1);
+    const shadeMapSmoothness = clamp(
+      Number(shadeMapConfig.smoothness ?? 0),
+      0,
+      10,
+    );
+    const shadeMapFlickerNoise = clamp(
+      Number(shadeMapConfig.flickerNoise ?? 5),
+      0,
+      10,
+    );
+    const shadeMapFlickerScale = clamp(
+      Number(shadeMapConfig.flickerScale ?? 1),
+      0.25,
+      5,
+    );
+    const shadeMapOpacity = Math.max(
+      0,
+      Math.min(1, shadeMapConfig.opacity ?? 0.58),
+    );
+    const shadeMapXDensity = clamp(
+      Number(shadeMapConfig.xDensity ?? 18),
+      2,
+      80,
+    );
+    const shadeMapYDensity = clamp(
+      Number(shadeMapConfig.yDensity ?? 18),
+      2,
+      80,
+    );
+    const shadeMapRectWidth = clamp(
+      Number(shadeMapConfig.blockWidth ?? 210),
+      1,
+      720,
+    );
+    const shadeMapRectHeight = clamp(
+      Number(shadeMapConfig.blockHeight ?? 34),
+      1,
+      360,
+    );
+    const shadeMapQuantity = clamp(
+      Number(shadeMapConfig.quantity ?? 72),
+      1,
+      360,
+    );
+    const shadeMapRandomness = clamp(
+      Number(shadeMapConfig.randomness ?? 3),
+      0,
+      10,
+    );
+    const shadeMapRandomnessRatio = shadeMapRandomness / 10;
+    const shadeMapCellX = clamp(1920 / shadeMapXDensity, 4, 1920);
+    const shadeMapCellY = clamp(1144 / shadeMapYDensity, 4, 1144);
+    const shadeMapActive =
+      isGroupFxActive("shademap") &&
+      shadeMapIntensity > 0 &&
+      shadeMapOpacity > 0;
+    root.style.setProperty("--shade-map-alpha", shadeMapActive ? "1" : "0");
     root.style.setProperty(
-      "--buzz-rgb-x",
-      `${Math.max(0, buzzConfig.splitX ?? 3.2)}px`,
+      "--shade-map-detail",
+      Math.max(0, shadeMapDetail / 10).toFixed(2),
     );
     root.style.setProperty(
-      "--buzz-rgb-y",
-      `${Math.max(0, buzzConfig.splitY ?? 0.4)}px`,
+      "--shade-map-density-x",
+      shadeMapXDensity.toFixed(2),
     );
     root.style.setProperty(
-      "--buzz-jitter-x",
-      `${Math.max(0, buzzConfig.jitterX ?? 7)}px`,
+      "--shade-map-density-y",
+      shadeMapYDensity.toFixed(2),
+    );
+    root.style.setProperty("--shade-map-quantity", shadeMapQuantity.toFixed(2));
+    root.style.setProperty(
+      "--shade-map-randomness",
+      shadeMapRandomnessRatio.toFixed(2),
     );
     root.style.setProperty(
-      "--buzz-jitter-y",
-      `${Math.max(0, buzzConfig.jitterY ?? 1.2)}px`,
+      "--shade-map-blur",
+      `${Math.max(0, shadeMapConfig.blur ?? 12)}px`,
+    );
+    root.style.setProperty("--shade-map-cell-x", `${shadeMapCellX}px`);
+    root.style.setProperty("--shade-map-cell-y", `${shadeMapCellY}px`);
+    root.style.setProperty("--shade-map-square-x", `${shadeMapRectWidth}px`);
+    root.style.setProperty("--shade-map-square-y", `${shadeMapRectHeight}px`);
+    root.style.setProperty(
+      "--shade-map-cell-size",
+      `${Math.max(8, Math.min(shadeMapRectWidth, shadeMapRectHeight))}px`,
     );
     root.style.setProperty(
-      "--buzz-skew",
-      `${Math.max(0, buzzConfig.skew ?? 44)}deg`,
+      "--shade-map-offset-a-x",
+      `${17 + shadeMapRandomnessRatio * 83}px`,
     );
     root.style.setProperty(
-      "--buzz-stretch-y",
-      Math.max(0, buzzConfig.stretchY ?? 0.18).toFixed(2),
+      "--shade-map-offset-a-y",
+      `${9 + shadeMapRandomnessRatio * 41}px`,
     );
     root.style.setProperty(
-      "--buzz-tear",
-      `${Math.max(0, Math.min(80, buzzConfig.tear ?? 38))}%`,
+      "--shade-map-offset-b-x",
+      `${(0.45 + shadeMapRandomnessRatio * 0.37).toFixed(2)}`,
     );
     root.style.setProperty(
-      "--buzz-ghost-opacity",
-      Math.max(0, Math.min(1, buzzConfig.ghostOpacity ?? 0.72)).toFixed(2),
+      "--shade-map-offset-b-y",
+      `${(0.35 + shadeMapRandomnessRatio * 0.49).toFixed(2)}`,
     );
     root.style.setProperty(
-      "--buzz-noise-low",
-      Math.max(0, Math.min(1, buzzConfig.noiseLow ?? 0.84)).toFixed(2),
+      "--shade-map-offset-c-x",
+      `${(1.1 + shadeMapRandomnessRatio * 0.91).toFixed(2)}`,
     );
     root.style.setProperty(
-      "--buzz-color-red",
-      rgbTupleFromColor(buzzConfig.redColor, "#ff1f1f"),
+      "--shade-map-offset-c-y",
+      `${(0.72 + shadeMapRandomnessRatio * 0.67).toFixed(2)}`,
     );
     root.style.setProperty(
-      "--buzz-color-green",
-      rgbTupleFromColor(buzzConfig.greenColor, "#00ff66"),
+      "--shade-map-scale-b-x",
+      `${(1.6 + shadeMapRandomnessRatio * 1.15).toFixed(2)}`,
     );
     root.style.setProperty(
-      "--buzz-color-blue",
-      rgbTupleFromColor(buzzConfig.blueColor, "#2860ff"),
+      "--shade-map-scale-b-y",
+      `${(1.35 + shadeMapRandomnessRatio * 0.78).toFixed(2)}`,
     );
     root.style.setProperty(
-      "--buzz-alpha",
-      Math.min(1, Math.max(0, buzzIntensity / 8)).toFixed(2),
+      "--shade-map-scale-c-x",
+      `${(2.4 + shadeMapRandomnessRatio * 1.7).toFixed(2)}`,
     );
     root.style.setProperty(
-      "--group-fx-buzz-noise-duration",
-      buzzSpeed === 0 ? "999999s" : `${Math.max(12, 38 / buzzSpeed)}ms`,
+      "--shade-map-scale-c-y",
+      `${(1.9 + shadeMapRandomnessRatio * 1.25).toFixed(2)}`,
     );
+    root.style.setProperty(
+      "--shade-map-flicker-scale",
+      shadeMapFlickerScale.toFixed(2),
+    );
+    root.style.setProperty(
+      "--shade-map-layer-a-alpha",
+      shadeMapQuantity >= 1 ? "1.00" : "0.00",
+    );
+    root.style.setProperty(
+      "--shade-map-layer-b-alpha",
+      clamp((shadeMapQuantity - 5) / 5, 0, 1).toFixed(2),
+    );
+    root.style.setProperty(
+      "--shade-map-flicker-a",
+      shadeMapSpeed === 0
+        ? "999999s"
+        : `${Math.max(0.08, 1.45 / shadeMapSpeed)}s`,
+    );
+    root.style.setProperty(
+      "--shade-map-flicker-b",
+      shadeMapSpeed === 0
+        ? "999999s"
+        : `${Math.max(0.06, 0.98 / shadeMapSpeed)}s`,
+    );
+    root.style.setProperty(
+      "--shade-map-color",
+      rgbTupleFromColor(shadeMapConfig.color, "#ffffff"),
+    );
+    stage.classList.toggle("fx-shade-map", shadeMapActive);
+    syncShadeMapCells({
+      active: shadeMapActive,
+      cellX: shadeMapCellX,
+      cellY: shadeMapCellY,
+      rectWidth: shadeMapRectWidth,
+      rectHeight: shadeMapRectHeight,
+      count: shadeMapQuantity,
+      randomness: shadeMapRandomness,
+      flickerNoise: shadeMapFlickerNoise,
+      flickerScale: shadeMapFlickerScale,
+      speed: shadeMapSpeed,
+      smoothness: shadeMapSmoothness,
+      opacity: shadeMapOpacity,
+    });
     const rgbGridConfig = getGroupFxConfig("rgbgrid");
     const rgbGridIntensity = Math.max(0, rgbGridConfig.intensity ?? 0);
     const rgbGridStripe = Math.max(0, rgbGridConfig.stripeHeight ?? 7);
@@ -9651,18 +5921,6 @@
       "--group-fx-bar-duration",
       scanlineSpeed === 0 ? "999999s" : `${Math.max(0.3, 2 / scanlineSpeed)}s`,
     );
-    root.style.setProperty(
-      "--group-fx-mask-duration",
-      speed === 0 ? "999999s" : `${Math.max(80, 520 / speed)}ms`,
-    );
-    root.style.setProperty(
-      "--group-fx-video-duration",
-      speed === 0 ? "999999s" : `${Math.max(0.25, 1.6 / speed)}s`,
-    );
-    root.style.setProperty(
-      "--group-fx-slice-loop-duration",
-      speed === 0 ? "999999s" : `${Math.max(0.4, 3.2 / speed)}s`,
-    );
     const scanlineThickness = scanlineConfig.thickness ?? 2;
     const scanlineSpacing = scanlineConfig.spacing ?? 3;
     const scanlineDetail = scanlineConfig.detail ?? 6;
@@ -9706,52 +5964,7 @@
       "fx-scanlines",
       isGroupFxActive("scanlines") && scanlineConfig.intensity > 0,
     );
-    stage.classList.toggle(
-      "text-glitch-loop",
-      primaryConfig.loop && primaryPreset !== "off" && intensity > 0,
-    );
-    const glowConfig = getGroupFxConfig("glassglow");
-    const glowActive =
-      isGroupFxActive("glassglow") &&
-      glowConfig.intensity > 0 &&
-      (glowConfig.opacity ?? 0) > 0;
-    root.style.setProperty(
-      "--glass-glow-opacity",
-      glowActive
-        ? Math.min(1, Math.max(0, glowConfig.opacity ?? 0.55)).toFixed(2)
-        : "0",
-    );
-    root.style.setProperty("--glass-glow-x", `${glowConfig.x ?? 960}px`);
-    root.style.setProperty("--glass-glow-y", `${glowConfig.y ?? 420}px`);
-    root.style.setProperty(
-      "--glass-glow-scale-x",
-      Math.max(0, glowConfig.scaleX ?? 1.25).toFixed(2),
-    );
-    root.style.setProperty(
-      "--glass-glow-scale-y",
-      Math.max(0, glowConfig.scaleY ?? 0.82).toFixed(2),
-    );
-    root.style.setProperty(
-      "--glass-glow-blur",
-      `${Math.max(0, glowConfig.blur ?? 34)}px`,
-    );
-    const glowStrength = Math.min(
-      1,
-      Math.max(0, (glowConfig.intensity ?? 4) / 7),
-    );
-    root.style.setProperty("--glass-glow-strength", glowStrength.toFixed(2));
-    root.style.setProperty(
-      "--glass-glow-white-alpha",
-      Math.min(0.95, glowStrength * 1.15).toFixed(2),
-    );
-    root.style.setProperty(
-      "--glass-glow-blue-alpha",
-      Math.min(0.72, glowStrength * 0.72).toFixed(2),
-    );
-    root.style.setProperty(
-      "--glass-glow-red-alpha",
-      Math.min(0.42, glowStrength * 0.42).toFixed(2),
-    );
+    stage.classList.remove("text-glitch-loop");
     const vignetteConfig = getGroupFxConfig("vignette");
     const vignetteActive =
       isGroupFxActive("vignette") &&
@@ -9817,70 +6030,405 @@
     syncGridLayer();
   }
 
-  function triggerTextGlitch() {
-    const primaryPreset = getPrimaryVisualFxPreset();
-    const config = getGroupFxConfig(primaryPreset);
-
-    if (primaryPreset === "off" || config.intensity <= 0) {
-      stage.classList.remove("text-glitch-burst");
-      syncGlitchControl();
-      return;
-    }
-
+  function triggerTextGlitch({ force = false } = {}) {
     syncGlitchControl();
     stage.classList.remove("text-glitch-burst");
-    void stage.offsetWidth;
-    stage.classList.add("text-glitch-burst");
-    window.setTimeout(() => {
-      stage.classList.remove("text-glitch-burst");
-    }, config.duration + 40);
   }
 
-  window.addEventListener("resize", () => {
-    if (uiSettings.stageZoom?.fit) {
-      applyStageZoom({ save: false });
+  function getPlayerRuntimeFlags() {
+    const features = window.DATABRICKS_USED_FEATURES || {};
+    return {
+      parallax: Boolean(features.parallax && isGroupFxActive("parallax")),
+    };
+  }
+
+  function scheduleRenderFrame(delay = RENDER_FRAME_MS) {
+    if (renderFrameTimer) {
+      return;
     }
 
-    resizeGridCanvas();
-    statusRows.forEach((row) => {
-      const hadDots = syncStatusLeaderDots(row).some((dot) =>
-        dot.classList.contains("is-on"),
-      );
-      if (hadDots || row.classList.contains("is-visible")) {
-        syncStatusLeaderDots(row).forEach((dot) => dot.classList.add("is-on"));
+    if (viewportPaused) {
+      return;
+    }
+
+    const runtimeFlags = getPlayerRuntimeFlags();
+    if (!runtimeFlags.parallax) {
+      return;
+    }
+
+    renderFrameTimer = window.setTimeout(
+      () => {
+        renderFrameTimer = 0;
+        drawGrid(performance.now());
+      },
+      Math.max(0, delay),
+    );
+  }
+
+  function drawGrid(timestamp) {
+    if (viewportPaused) {
+      return;
+    }
+
+    const runtimeFlags = getPlayerRuntimeFlags();
+    if (!runtimeFlags.parallax) {
+      if (gridWasVisible && gridCtx) {
+        const { width, height } = resizeGridCanvas();
+        gridCtx.clearRect(0, 0, width, height);
+        gridWasVisible = false;
+        lastGridRenderKey = "off";
       }
+      return;
+    }
+
+    const frameTimestamp = timestamp || performance.now();
+    if (
+      lastRenderTickAt &&
+      frameTimestamp - lastRenderTickAt < RENDER_FRAME_MS - 0.6
+    ) {
+      scheduleRenderFrame(
+        RENDER_FRAME_MS - (frameTimestamp - lastRenderTickAt),
+      );
+      return;
+    }
+    lastRenderTickAt = lastRenderTickAt
+      ? frameTimestamp - ((frameTimestamp - lastRenderTickAt) % RENDER_FRAME_MS)
+      : frameTimestamp;
+
+    updateParallaxFrame();
+    if (gridWasVisible && gridCtx) {
+      const { width, height } = resizeGridCanvas();
+      gridCtx.clearRect(0, 0, width, height);
+      gridWasVisible = false;
+      lastGridRenderKey = "off";
+    } else if (gridCanvasDirty) {
+      resizeGridCanvas();
+    }
+
+    scheduleRenderFrame(RENDER_FRAME_MS);
+  }
+
+  function syncLogoSettings() {
+    const logoSettings = stateLogoSettings[1];
+    const height = Math.round(logoSettings.width * (352 / 2560));
+    root.style.setProperty("--logo-left", `${logoSettings.x}px`);
+    root.style.setProperty("--logo-top", `${logoSettings.y}px`);
+    root.style.setProperty("--logo-width", `${logoSettings.width}px`);
+    root.style.setProperty("--logo-height", `${height}px`);
+    root.style.setProperty(
+      "--logo-base-opacity",
+      logoSettings.baseOpacity ?? 0.28,
+    );
+    root.style.setProperty(
+      "--logo-main-color",
+      logoSettings.mainColor || "#32323c",
+    );
+    root.style.setProperty(
+      "--logo-reflex-opacity",
+      Math.max(0, Math.min(1, Number(logoSettings.reflexOpacity ?? 0))).toFixed(
+        2,
+      ),
+    );
+    root.style.setProperty(
+      "--logo-reflex-blur",
+      `${Math.max(0, Number(logoSettings.reflexBlur ?? 12))}px`,
+    );
+    root.style.setProperty(
+      "--logo-reflex-x",
+      `${Number(logoSettings.reflexX ?? 0)}px`,
+    );
+    root.style.setProperty(
+      "--logo-reflex-y",
+      `${Number(logoSettings.reflexY ?? 0)}px`,
+    );
+    root.style.setProperty(
+      "--logo-reflex-left",
+      `${Number(logoSettings.reflexLeft ?? 0)}px`,
+    );
+    root.style.setProperty(
+      "--logo-reflex-top",
+      `${Number(logoSettings.reflexTop ?? 0)}px`,
+    );
+    root.style.setProperty(
+      "--logo-reflex-scale-x",
+      Number(logoSettings.reflexScaleX ?? 1).toFixed(3),
+    );
+    root.style.setProperty(
+      "--logo-reflex-scale-y",
+      Number(logoSettings.reflexScaleY ?? 1).toFixed(3),
+    );
+    root.style.setProperty(
+      "--logo-reflex-shade-opacity",
+      Math.max(
+        0,
+        Math.min(1, Number(logoSettings.reflexShadeOpacity ?? 0.58)),
+      ).toFixed(2),
+    );
+    root.style.setProperty(
+      "--logo-reflex-shade-x",
+      `${Number(logoSettings.reflexShadeX ?? 0)}px`,
+    );
+    root.style.setProperty(
+      "--logo-reflex-shade-y",
+      `${Number(logoSettings.reflexShadeY ?? -4)}px`,
+    );
+    root.style.setProperty(
+      "--logo-reflex-shade-width",
+      `${Math.max(0, Number(logoSettings.reflexShadeWidth ?? 1600))}px`,
+    );
+    root.style.setProperty(
+      "--logo-reflex-shade-height",
+      `${Math.max(0, Number(logoSettings.reflexShadeHeight ?? 92))}px`,
+    );
+    root.style.setProperty(
+      "--logo-reflex-shade-blur",
+      `${Math.max(0, Number(logoSettings.reflexShadeBlur ?? 0))}px`,
+    );
+    root.style.setProperty(
+      "--logo-reflex-shade-color",
+      logoSettings.reflexShadeColor || "#000000",
+    );
+  }
+
+  function syncLogoClickSettings() {
+    sanitizeLogoClickSettings();
+    root.style.setProperty("--logo-wave-color", logoClickSettings.waveColor);
+    root.style.setProperty(
+      "--logo-wave-rgb",
+      rgbTupleFromColor(logoClickSettings.waveColor, "#62636a"),
+    );
+    root.style.setProperty(
+      "--logo-wave-opacity",
+      Math.max(0, Math.min(1, logoClickSettings.waveOpacity ?? 1)).toFixed(2),
+    );
+    root.style.setProperty("--logo-tail-color", logoClickSettings.tailColor);
+    root.style.setProperty(
+      "--logo-tail-rgb",
+      rgbTupleFromColor(logoClickSettings.tailColor, "#62636a"),
+    );
+    root.style.setProperty(
+      "--logo-tail-opacity",
+      Math.max(0, Math.min(1, logoClickSettings.tailOpacity ?? 1)).toFixed(2),
+    );
+    root.style.setProperty(
+      "--logo-press-x",
+      `${Number(logoClickSettings.pressX || 0).toFixed(2)}px`,
+    );
+    root.style.setProperty(
+      "--logo-press-y",
+      `${Number(logoClickSettings.pressY || 0).toFixed(2)}px`,
+    );
+    root.style.setProperty(
+      "--logo-wave-glow",
+      Math.max(0, Math.min(1, logoClickSettings.glow ?? 0)).toFixed(2),
+    );
+    root.style.setProperty(
+      "--logo-hover-glow-opacity",
+      Math.max(0, Math.min(1, logoClickSettings.hoverGlowOpacity ?? 0)).toFixed(
+        2,
+      ),
+    );
+    root.style.setProperty(
+      "--logo-hover-glow-blur",
+      `${Math.max(0, Number(logoClickSettings.hoverGlowBlur ?? 0))}px`,
+    );
+    root.style.setProperty(
+      "--logo-hover-glow-core",
+      `${Math.max(0, Number(logoClickSettings.hoverGlowCore ?? 0))}px`,
+    );
+    root.style.setProperty(
+      "--logo-hover-glow-color",
+      logoClickSettings.hoverGlowColor || "#62636a",
+    );
+    root.style.setProperty(
+      "--logo-split-amount",
+      `${Number(logoClickSettings.splitAmount || 0).toFixed(2)}px`,
+    );
+    root.style.setProperty(
+      "--logo-split-opacity",
+      Math.max(0, Math.min(1, logoClickSettings.splitOpacity ?? 0)).toFixed(2),
+    );
+    root.style.setProperty(
+      "--logo-split-red",
+      logoClickSettings.splitRed || "#ff281e",
+    );
+    root.style.setProperty(
+      "--logo-split-blue",
+      logoClickSettings.splitBlue || "#00dcff",
+    );
+  }
+
+  function syncRuntimeVisualSettings() {
+    syncPowerOnVariables(getAnimationSettings(1));
+    syncPromptCursorTiming(getAnimationSettings(2));
+    syncBuildStatusTuning(getAnimationSettings(3));
+    syncTextLayers();
+    syncLogoSettings();
+    syncLogoClickSettings();
+    syncSharedAppPositionCss();
+    syncStaticAppCss();
+    syncPreAppFocusCss();
+    const features = window.DATABRICKS_USED_FEATURES || {};
+    if (
+      features.parallax ||
+      features.rgbSplit ||
+      features.shadeMap ||
+      features.rgbGrid ||
+      features.scanlines ||
+      features.vignette
+    ) {
+      syncGlitchControl();
+    }
+  }
+
+  function updateStateReadout() {}
+  function animateTimelineState() {}
+  function clearPrototypeBuild() {}
+
+  function disableUnusedRuntimeFeatures() {
+    const features = window.DATABRICKS_USED_FEATURES || {};
+
+    if (!features.powerOn) {
+      Object.assign(stateAnimationSettings[1], {
+        powerOnEnabled: false,
+        powerOnDuration: 0,
+        powerOnLineDuration: 0,
+        powerOnLineExpandDuration: 0,
+        powerOnYScaleDuration: 0,
+        powerOnBloom: 0,
+        powerOnBrightness: 0,
+        powerOnStretchBrightness: 0,
+      });
+    }
+
+    if (!features.logoTubeWarmup) {
+      Object.assign(stateAnimationSettings[1], {
+        logoTubeWarmupEnabled: false,
+        logoTubeWarmupDuration: 0,
+      });
+    }
+
+    if (!features.terminalScroll) {
+      Object.assign(stateAnimationSettings[4], {
+        terminalScroll: false,
+        terminalScrollDistance: 0,
+        terminalScrollDuration: 0,
+      });
+    }
+
+    if (!features.buildStatus) {
+      Object.assign(stateAnimationSettings[3], {
+        statusOkSteps: 0,
+        statusRowDuration: 0,
+        statusRowStagger: 0,
+      });
+    }
+
+    if (!features.windowBoot) {
+      Object.assign(stateAnimationSettings[5], {
+        windowBootEnabled: false,
+        windowBootDuration: 0,
+        windowBootEchoCount: 0,
+        windowBootEchoOpacity: 0,
+        windowBootAsciiDuration: 0,
+      });
+    }
+
+    if (!features.appReveal) {
+      Object.keys(stateAppRevealSettings).forEach((state) => {
+        stateAppRevealSettings[state] = {
+          preset: "none",
+          intensity: 0,
+          duration: 0,
+        };
+      });
+    }
+
+    if (!features.dragEcho) {
+      Object.assign(dragEchoSettings, {
+        opacity: 0,
+        lifetime: 0,
+        maxFrames: 0,
+      });
+    }
+
+    if (!features.logoClick) {
+      Object.assign(logoClickSettings, {
+        waveOpacity: 0,
+        tailOpacity: 0,
+        pressX: 0,
+        pressY: 0,
+        glow: 0,
+        hoverGlowOpacity: 0,
+        splitOpacity: 0,
+      });
+    }
+
+    Object.values(stateGridSettings).forEach((settings) => {
+      settings.enabled = false;
+      settings.opacity = 0;
     });
-  });
 
-  document.addEventListener("visibilitychange", () => {
-    const isHidden = document.hidden;
-    quietWindowFocused =
-      !isHidden &&
-      (typeof document.hasFocus === "function" ? document.hasFocus() : true);
-    stage.classList.toggle("is-render-paused", !isExportPlayer && isHidden);
-    syncQuietPreviewState();
+    if (
+      !features.parallax &&
+      !features.rgbSplit &&
+      !features.shadeMap &&
+      !features.rgbGrid &&
+      !features.scanlines &&
+      !features.vignette
+    ) {
+      groupGlitchSettings.activePresets = [];
+      groupGlitchSettings.preset = "off";
+    }
+  }
 
-    if (!isExportPlayer && isHidden) {
-      perfMonitorState.lastFrameAt = 0;
-      lastRenderTickAt = 0;
+  async function playTimeline(
+    startState = settings.timelineTrimStart,
+    endState = settings.timelineTrimEnd,
+  ) {
+    startState = Math.max(
+      1,
+      Math.min(TIMELINE_STATE_COUNT, Math.round(startState)),
+    );
+    endState = Math.max(
+      startState,
+      Math.min(TIMELINE_STATE_COUNT, Math.round(endState)),
+    );
+    runId += 1;
+    const token = runId;
+    timelineRunning = true;
+    clearStateModeTimer();
+    settings.paused = false;
+    prepareStateForAnimation(startState);
+
+    try {
+      do {
+        prepareStateForAnimation(startState);
+        for (let state = startState; state <= endState; state += 1) {
+          await runStateAnimation(state, token);
+        }
+      } while (settings.timelineLoop && token === runId);
+    } catch (error) {
+      if (error.message !== "Animation cancelled") {
+        throw error;
+      }
+    } finally {
+      if (token === runId) {
+        timelineRunning = false;
+        settings.paused = true;
+      }
+    }
+  }
+
+  function setViewportPaused(paused) {
+    if (paused === viewportPaused) {
       return;
     }
 
-    wakeRenderLoop();
-  });
-
-  window.addEventListener("db-hero-viewport-change", (event) => {
-    const isInViewport = event.detail?.isInViewport !== false;
-    const nextViewportPaused = !isInViewport;
-
-    if (nextViewportPaused === viewportPaused) {
-      return;
-    }
-
-    viewportPaused = nextViewportPaused;
+    viewportPaused = paused;
     root.dataset.viewportPaused = String(viewportPaused);
     stage.classList.toggle("is-render-paused", viewportPaused);
-    setPlaybackPaused(viewportPaused);
+    settings.paused = viewportPaused;
 
     if (viewportPaused) {
       if (renderFrameTimer) {
@@ -9888,118 +6436,59 @@
         renderFrameTimer = 0;
       }
 
-      perfMonitorState.lastFrameAt = 0;
-      lastRenderTickAt = 0;
       return;
     }
 
-    wakeRenderLoop();
-  });
+    drawGrid(performance.now());
 
-  ["pointerdown", "pointermove", "wheel"].forEach((eventName) => {
-    window.addEventListener(eventName, markWindowInteraction, {
-      passive: true,
-      capture: true,
-    });
-  });
-
-  ["keydown", "input"].forEach((eventName) => {
-    window.addEventListener(eventName, markWindowInteraction, {
-      capture: true,
-    });
-  });
-
-  window.addEventListener("focus", () => {
-    quietWindowFocused = true;
-    markWindowInteraction();
-  });
-
-  window.addEventListener("blur", () => {
-    quietWindowFocused = false;
-    syncQuietPreviewState();
-  });
-
-  document.documentElement.addEventListener(
-    "mouseenter",
-    markWindowInteraction,
-  );
-  document.documentElement.addEventListener("mouseleave", () => {
-    quietPointerInsideWindow = false;
-    syncQuietPreviewState();
-  });
-
-  heroLogoReveal?.addEventListener("pointerenter", () =>
-    setLogoInspectActive(true),
-  );
-  heroLogoReveal?.addEventListener("pointerleave", () =>
-    setLogoInspectActive(false),
-  );
-  heroLogoReveal?.addEventListener("focusin", () => setLogoInspectActive(true));
-  heroLogoReveal?.addEventListener("focusout", () =>
-    setLogoInspectActive(false),
-  );
-
-  stage.addEventListener("mousemove", (event) => {
-    updateParallaxFromPointer(event);
-    updateLogoInspectFromPointer(event);
-    updateTerminalHoverCursor(event);
-
-    if (getGridSettings().frozen) {
-      return;
+    if (!timelineRunning) {
+      playTimeline(settings.timelineTrimStart, settings.timelineTrimEnd);
     }
-
-    const rect = stage.getBoundingClientRect();
-    gridMouseX = ((event.clientX - rect.left) / rect.width) * stage.clientWidth;
-    gridMouseY =
-      ((event.clientY - rect.top) / rect.height) * stage.clientHeight;
-  });
-
-  stage.addEventListener("mouseleave", () => {
-    setLogoInspectActive(false);
-    hideTerminalHoverCursor();
-    const config = getGroupFxConfig("parallax");
-    if (config.returnToCenter !== false) {
-      parallaxTargetX = 0;
-      parallaxTargetY = 0;
-    }
-  });
-
-  if ("ResizeObserver" in window) {
-    const stageResizeObserver = new ResizeObserver(() => {
-      gridCanvasDirty = true;
-    });
-    stageResizeObserver.observe(stage);
-  } else {
-    window.addEventListener("resize", () => {
-      gridCanvasDirty = true;
-    });
   }
 
-  loadSavedConfig();
-  if (isExportPlayer) {
+  window.addEventListener("db-hero-viewport-change", (event) => {
+    intersectionPaused = event.detail?.isInViewport === false;
+    setViewportPaused(intersectionPaused || documentVisibilityPaused);
+  });
+
+  document.addEventListener("visibilitychange", () => {
+    documentVisibilityPaused = document.hidden;
+    setViewportPaused(intersectionPaused || documentVisibilityPaused);
+  });
+
+  window.addEventListener("resize", () => {
+    applyStageFit();
+    resizeGridCanvas();
+    drawGrid(performance.now());
+  });
+
+  function bootExportPlayer() {
+    disableUnusedRuntimeFeatures();
+    applyConfig(window.DATABRICKS_EXPORT_CONFIG);
     syncRuntimeVisualSettings();
-  }
-  applyStageZoom({ save: false });
-  loadLogoSvg();
-  bindRuntimeAppWindowDrag();
-  if (!isExportPlayer) {
-    syncTimingControls();
-    wireDirectorControls();
-    enhanceDirectorRangeInputs();
-  }
-  resizeGridCanvas();
-  startPerformanceObserver();
-  drawGrid(performance.now());
+    loadLogoSvg();
+    applyStageFit();
+    resizeGridCanvas();
 
-  if (isExportPlayer) {
+    if (window.DATABRICKS_USED_FEATURES?.dragEcho) {
+      bindRuntimeAppWindowDrag();
+    }
+
+    if (window.DATABRICKS_USED_FEATURES?.parallax) {
+      stage.addEventListener("mousemove", updateParallaxFromPointer);
+      stage.addEventListener("mouseleave", () => {
+        const config = getGroupFxConfig("parallax");
+        if (config.returnToCenter !== false) {
+          parallaxTargetX = 0;
+          parallaxTargetY = 0;
+        }
+      });
+    }
+
+    drawGrid(performance.now());
     settings.paused = false;
     playTimeline(settings.timelineTrimStart, settings.timelineTrimEnd);
-  } else if (restoredState) {
-    settings.paused = true;
-    setPlayPauseLabel("Play");
-    renderState(restoredState);
-  } else {
-    syncActiveStateControls();
-    playTimeline();
   }
+
+  bootExportPlayer();
 })();

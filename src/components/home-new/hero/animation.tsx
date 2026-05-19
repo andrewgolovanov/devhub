@@ -160,7 +160,11 @@ function DbHeroPlayerScene() {
               className="rgb-grid-overlay"
               aria-hidden="true"
             ></div>
-            <div id="glassGlow" className="glass-glow" aria-hidden="true"></div>
+            <div
+              id="shadeMapOverlay"
+              className="shade-map-overlay"
+              aria-hidden="true"
+            ></div>
             <div
               id="screenVignette"
               className="screen-vignette"
