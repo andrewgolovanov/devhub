@@ -192,18 +192,33 @@ function DbHeroPlayerScene() {
                 alt=""
                 aria-hidden="true"
               />
-              <div className="app-chart-overlay" aria-hidden="true">
+              <div
+                className="app-chart-overlay"
+                aria-hidden="true"
+                aria-label="Revenue vs Target. Monthly actuals compared to quota."
+              >
                 <div className="app-chart-head">
                   <div>
                     <h3>Revenue vs Target</h3>
                     <p>Monthly actuals compared to quota</p>
                   </div>
-                  <span>
-                    3M  6M
-                    <b>12M</b>
+                  <span
+                    className="app-chart-toggle"
+                    aria-label="Selected range: 12 months"
+                  >
+                    <span className="app-chart-toggle-label">3M</span>
+                    <span className="app-chart-toggle-label">6M</span>
+                    <span className="app-chart-toggle-label app-chart-toggle-active">
+                      <span>12M</span>
+                    </span>
                   </span>
                 </div>
-                <div className="app-chart-stage">
+                <div
+                  className="app-chart-stage"
+                  role="img"
+                  tabIndex={0}
+                  aria-label="Line chart comparing monthly revenue to target from January through October."
+                >
                   <div className="app-chart-y-labels" aria-hidden="true">
                     <span>$800K</span>
                     <span>$600K</span>
@@ -213,20 +228,47 @@ function DbHeroPlayerScene() {
                   </div>
                   <svg
                     className="app-chart-svg"
-                    viewBox="0 0 428 164"
+                    viewBox="0 0 428 144"
                     preserveAspectRatio="none"
+                    aria-hidden="true"
                   >
+                    <defs>
+                      <linearGradient
+                        id="app-chart-revenue-fill"
+                        x1="231"
+                        y1="42"
+                        x2="231"
+                        y2="144"
+                        gradientUnits="userSpaceOnUse"
+                      >
+                        <stop
+                          offset="0.23"
+                          stopColor="#ff5f46"
+                          stopOpacity="0.20"
+                        ></stop>
+                        <stop
+                          offset="0.46"
+                          stopColor="#ff5f46"
+                          stopOpacity="0.05"
+                        ></stop>
+                        <stop
+                          offset="0.75"
+                          stopColor="#ff5f46"
+                          stopOpacity="0.01"
+                        ></stop>
+                      </linearGradient>
+                    </defs>
                     <path
                       className="app-chart-fill"
-                      d="M74 83 C91 89 108 87 125 74 C142 61 159 58 176 57 C193 62 210 71 227 69 C244 62 261 54 278 42 C295 44 312 49 329 45 C346 39 363 33 428 16 L428 164 L74 164 Z"
+                      d="M36 91 C50 95 65 95 79 88 C91 82 99 70 122 69 C139 68 153 75 166 80 C181 83 195 73 209 68 C224 63 238 61 253 58 C270 56 284 54 296 54 C311 54 325 55 339 54 C355 53 369 50 383 48 C399 45 414 40 426 37 L426 144 L36 144 Z"
                     ></path>
                     <path
                       className="app-chart-target"
-                      d="M74 101 L428 70"
+                      d="M36 101 L426 70"
                     ></path>
                     <path
                       className="app-chart-line-live"
-                      d="M74 83 C91 89 108 87 125 74 C142 61 159 58 176 57 C193 62 210 71 227 69 C244 62 261 54 278 42 C295 44 312 49 329 45 C346 39 363 33 428 16"
+                      d="M36 91 C50 95 65 95 79 88 C91 82 99 70 122 69 C139 68 153 75 166 80 C181 83 195 73 209 68 C224 63 238 61 253 58 C270 56 284 54 296 54 C311 54 325 55 339 54 C355 53 369 50 383 48 C399 45 414 40 426 37"
                     ></path>
                   </svg>
                   <div className="app-chart-marker">
@@ -234,16 +276,16 @@ function DbHeroPlayerScene() {
                     <span className="app-chart-marker-dot is-target"></span>
                   </div>
                   <div className="app-chart-hover-card">
-                    <b>May</b>
+                    <b>Jun</b>
                     <span>
                       <i></i>
                       Target:
-                      <strong>$450K</strong>
+                      <strong>$390K</strong>
                     </span>
                     <span>
                       <i></i>
                       Revenue:
-                      <strong>$467K</strong>
+                      <strong>$520K</strong>
                     </span>
                   </div>
                   <div className="app-chart-months" aria-hidden="true">

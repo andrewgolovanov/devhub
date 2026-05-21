@@ -14,12 +14,13 @@ import { FeatureInfographicCard } from "@/components/ui/feature-card";
 
 const autoScaleGraphSrc = "/img/home-new/features/auto-scale-compute.jpg";
 const postgresIconSrc = "/img/home-new/features/postgres-icon.svg";
-const CARD_MOVE_DURATION = 0.42;
+const CARD_MOVE_DURATION = 0.5;
+const CARD_OPACITY_DURATION = 0.1;
 const CARD_MOVE_EASE = [0.17, -0.17, 0, 1] as const;
-const CARD_MOVE_TRANSITION = {
-  duration: CARD_MOVE_DURATION,
-  ease: CARD_MOVE_EASE,
-} as const;
+const LOWER_CARD_MOVE_DELAY = 0.16;
+const AUTO_SCALE_GRAPH_DELAY = LOWER_CARD_MOVE_DELAY * 0.75;
+const AUTO_SCALE_GRAPH_OPACITY_DURATION = 0.12;
+const AUTO_SCALE_GRAPH_MOVE_DURATION = 0.32;
 const INNER_ANIMATION_DELAY = CARD_MOVE_DURATION / 2;
 const INNER_ANIMATION_DURATION = CARD_MOVE_DURATION;
 const CHANGELOG_ROW_DURATION = INNER_ANIMATION_DURATION * 1.5;
@@ -33,10 +34,13 @@ const INNER_BRANCH_LINES_TRANSITION = {
   duration: 0.24,
 } as const;
 const CHANGELOG_ROW_STAGGER = 0.035;
-const BACKGROUND_SCHEME_TRANSITION = {
-  delay: CARD_MOVE_DURATION,
-  duration: 0.24,
+const BACKGROUND_SCHEME_DRAW_DELAY = CARD_MOVE_DURATION / 4;
+const BACKGROUND_SCHEME_OPACITY_TRANSITION = {
+  delay: BACKGROUND_SCHEME_DRAW_DELAY,
+  duration: 0.05,
 } as const;
+const BACKGROUND_SCHEME_DRAW_DURATION = 0.34;
+const BACKGROUND_SCHEME_BOX_DURATION = 0.6;
 const INFOGRAPHIC_IN_VIEW_AMOUNT = 0.45;
 const CHANGELOG_ROWS = [
   ["10:01", "insert", "order #101", "created"],
@@ -55,9 +59,11 @@ type BranchCardProps = {
 type AnimatedInfographicCardProps = {
   children: ReactNode;
   className?: string;
+  delay?: number;
   isVisible: boolean;
   offsetY?: number;
   reduceMotion: boolean;
+  withOpacity?: boolean;
 };
 
 type BackgroundSchemeProps = {
@@ -78,16 +84,27 @@ function getChangelogRowTransition(index: number) {
 function AnimatedInfographicCard({
   children,
   className,
+  delay = 0,
   isVisible,
   offsetY,
   reduceMotion,
 }: AnimatedInfographicCardProps) {
   return (
     <m.div
-      animate={isVisible && !reduceMotion ? { y: 0 } : undefined}
+      animate={isVisible && !reduceMotion ? { opacity: 1, y: 0 } : undefined}
       className={className}
-      initial={reduceMotion ? false : { y: offsetY }}
-      transition={CARD_MOVE_TRANSITION}
+      initial={reduceMotion ? false : { opacity: 0, y: offsetY }}
+      transition={{
+        opacity: {
+          delay,
+          duration: CARD_OPACITY_DURATION,
+        },
+        y: {
+          delay,
+          duration: CARD_MOVE_DURATION,
+          ease: CARD_MOVE_EASE,
+        },
+      }}
     >
       {children}
     </m.div>
@@ -100,13 +117,28 @@ function AnimatedInnerBranchCard({
   isVisible,
   offsetY = -12,
   reduceMotion,
+  withOpacity = false,
 }: AnimatedInfographicCardProps) {
   return (
     <m.div
-      animate={isVisible && !reduceMotion ? { y: 0 } : undefined}
+      animate={
+        isVisible && !reduceMotion
+          ? { opacity: withOpacity ? 1 : undefined, y: 0 }
+          : undefined
+      }
       className={cn("relative z-20", className)}
-      initial={reduceMotion ? false : { y: offsetY }}
-      transition={INNER_CARD_MOVE_TRANSITION}
+      initial={
+        reduceMotion
+          ? false
+          : { opacity: withOpacity ? 0 : undefined, y: offsetY }
+      }
+      transition={{
+        opacity: {
+          delay: INNER_CARD_MOVE_TRANSITION.delay,
+          duration: CARD_OPACITY_DURATION,
+        },
+        y: INNER_CARD_MOVE_TRANSITION,
+      }}
     >
       {children}
     </m.div>
@@ -131,15 +163,46 @@ function AnimatedInnerBranchLines({
 }
 
 function BackgroundScheme({ isVisible, reduceMotion }: BackgroundSchemeProps) {
+  const shouldAnimate = isVisible && !reduceMotion;
+
   return (
     <m.div
-      animate={isVisible && !reduceMotion ? { opacity: 1 } : undefined}
+      animate={shouldAnimate ? { opacity: 1 } : undefined}
       className="absolute inset-y-1 left-1/2 top-0 -translate-x-1/2 w-full"
       initial={reduceMotion ? false : { opacity: 0 }}
-      transition={BACKGROUND_SCHEME_TRANSITION}
+      transition={BACKGROUND_SCHEME_OPACITY_TRANSITION}
     >
-      <div className="absolute left-1/2 top-0 -translate-x-1/2 h-20 w-px border-l border-dashed border-black" />
-      <div className="absolute top-10 h-[calc(100%-2.5rem)] w-full rounded-t-xs border-t border-dashed border-r border-l border-black" />
+      <m.div
+        animate={shouldAnimate ? { clipPath: "inset(0% 0% 0% 0%)" } : undefined}
+        className="absolute left-1/2 top-0 -translate-x-1/2 h-20 w-px border-l border-dashed border-black"
+        initial={reduceMotion ? false : { clipPath: "inset(0% 0% 100% 0%)" }}
+        transition={{
+          delay: BACKGROUND_SCHEME_DRAW_DELAY,
+          duration: BACKGROUND_SCHEME_DRAW_DURATION,
+          ease: CARD_MOVE_EASE,
+        }}
+      />
+      <m.div
+        animate={
+          shouldAnimate
+            ? {
+                clipPath: [
+                  "inset(0% 50% 100% 50%)",
+                  "inset(0% 0% 96% 0%)",
+                  "inset(0% 0% 0% 0%)",
+                ],
+              }
+            : undefined
+        }
+        className="absolute top-10 h-[calc(100%-2.5rem)] w-full rounded-t-xs border-t border-dashed border-r border-l border-black"
+        initial={reduceMotion ? false : { clipPath: "inset(0% 50% 100% 50%)" }}
+        transition={{
+          delay: 0.1,
+          duration: BACKGROUND_SCHEME_BOX_DURATION,
+          ease: CARD_MOVE_EASE,
+          times: [0, 0.8, 1],
+        }}
+      />
     </m.div>
   );
 }
@@ -205,7 +268,7 @@ export function LakebaseInfographic() {
       >
         <AnimatedInfographicCard
           isVisible={isVisible}
-          offsetY={10}
+          offsetY={0}
           reduceMotion={reduceMotion}
         >
           <FeatureInfographicCard className="flex w-3xs shrink-0 items-center gap-2 p-3 @md/infographic:gap-3">
@@ -237,26 +300,21 @@ export function LakebaseInfographic() {
           <AnimatedInfographicCard
             className="relative mx-auto shrink-0 max-w-80 w-4/5 @md/infographic:w-3/4"
             isVisible={isVisible}
-            offsetY={-12}
+            offsetY={-16}
             reduceMotion={reduceMotion}
           >
             <FeatureInfographicCard className="w-full p-1.5 @md/infographic:p-2.5 @xl/infographic:p-4">
               <h4 className="text-xs tracking-tight leading-tight font-medium @xl/infographic:text-[13px]">
                 Instant branching
               </h4>
-              <AnimatedInnerBranchCard
-                className="mt-3 w-full max-w-37 mx-auto"
-                isVisible={isVisible}
-                offsetY={12}
-                reduceMotion={reduceMotion}
-              >
+              <div className="relative z-20 mt-3 w-full max-w-37 mx-auto">
                 <BranchCard
                   name="main"
                   isProductionBranch={true}
                   size="120 GB"
                   tables={240}
                 />
-              </AnimatedInnerBranchCard>
+              </div>
               <AnimatedInnerBranchLines
                 isVisible={isVisible}
                 reduceMotion={reduceMotion}
@@ -267,6 +325,7 @@ export function LakebaseInfographic() {
                     key={branch}
                     isVisible={isVisible}
                     reduceMotion={reduceMotion}
+                    withOpacity
                   >
                     <BranchCard
                       name={branch}
@@ -283,8 +342,9 @@ export function LakebaseInfographic() {
         <div className="grid w-full grid-cols-2 gap-4 @xl/infographic:gap-x-8">
           <AnimatedInfographicCard
             className="md:h-full"
+            delay={LOWER_CARD_MOVE_DELAY}
             isVisible={isVisible}
-            offsetY={-12}
+            offsetY={-16}
             reduceMotion={reduceMotion}
           >
             <FeatureInfographicCard className="flex flex-col p-2 md:h-full @xl/infographic:p-4">
@@ -297,10 +357,25 @@ export function LakebaseInfographic() {
                   <span className="font-medium text-black">23%</span>
                 </p>
               </div>
-              <img
+              <m.img
+                animate={
+                  isVisible && !reduceMotion ? { opacity: 1, y: 0 } : undefined
+                }
                 src={autoScaleGraphSrc}
                 alt=""
                 className="mt-2 block min-h-0 flex-1 @xl/infographic:mt-5"
+                initial={reduceMotion ? false : { opacity: 0, y: -6 }}
+                transition={{
+                  opacity: {
+                    delay: AUTO_SCALE_GRAPH_DELAY,
+                    duration: AUTO_SCALE_GRAPH_OPACITY_DURATION,
+                  },
+                  y: {
+                    delay: AUTO_SCALE_GRAPH_DELAY,
+                    duration: AUTO_SCALE_GRAPH_MOVE_DURATION,
+                    ease: CARD_MOVE_EASE,
+                  },
+                }}
                 width={282}
                 height={129}
                 loading="lazy"
@@ -311,8 +386,9 @@ export function LakebaseInfographic() {
 
           <AnimatedInfographicCard
             className="md:h-full"
+            delay={LOWER_CARD_MOVE_DELAY}
             isVisible={isVisible}
-            offsetY={-12}
+            offsetY={-16}
             reduceMotion={reduceMotion}
           >
             <FeatureInfographicCard className="flex flex-col overflow-hidden p-2 md:h-full @xl/infographic:p-4 @xl/infographic:pb-2">

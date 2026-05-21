@@ -12,7 +12,7 @@
     appReveal: true,
     parallax: true,
     rgbSplit: true,
-    shadeMap: false,
+    shadeMap: true,
     rgbGrid: true,
     scanlines: true,
     vignette: true,
@@ -31,13 +31,13 @@
     typographyVersion: 2,
     scrollTuningVersion: 1,
     colorRevealVersion: 2,
-    currentState: 1,
+    currentState: 3,
     settings: {
       autoStep: false,
       loopState: false,
-      timelineTrimStart: 1,
+      timelineTrimStart: 3,
       timelineTrimEnd: 6,
-      timelineLoop: false,
+      timelineLoop: true,
     },
     stateAnimationSettings: {
       1: {
@@ -45,30 +45,30 @@
         delayBefore: 0,
         delayAfter: 500,
         powerOnEnabled: true,
-        powerOnDuration: 2400,
-        powerOnLineDuration: 1040,
-        powerOnLineExpandDuration: 255,
-        powerOnYScaleDuration: 2000,
-        powerOnLineHold: 100,
+        powerOnDuration: 1460,
+        powerOnLineDuration: 1800,
+        powerOnLineExpandDuration: 235,
+        powerOnYScaleDuration: 2200,
+        powerOnLineHold: 140,
         powerOnBloom: 0,
         powerOnBrightness: 0.69,
         powerOnStretchBrightness: 0.2,
         powerOnColor: "#dedede",
         powerOnY: 36,
-        powerOnYStretch: 400,
-        powerOnScale: 0.1,
-        powerOnSceneStartY: -185,
-        powerOnSceneStartSquash: 0.29,
-        powerOnSceneYScale: 1.11,
-        powerOnJitter: 10,
+        powerOnYStretch: 420,
+        powerOnScale: 0.03,
+        powerOnSceneStartY: -184,
+        powerOnSceneStartSquash: 0.41,
+        powerOnSceneYScale: 1.03,
+        powerOnJitter: 11,
         powerOnWarmup: 1,
         logoTubeStartY: -67,
         logoTubeStartSquash: 0.17,
         logoTubeStartWidth: 1.07,
         logoTubeStartOpacity: 0.44,
-        installTextDelay: 1460,
+        installTextDelay: 1840,
         installType: 0,
-        installFramePause: 360,
+        installFramePause: 600,
       },
       2: {
         speed: 1,
@@ -88,42 +88,57 @@
         speed: 1,
         delayBefore: 0,
         delayAfter: 600,
-        buildLineReveal: 500,
+        buildLineReveal: 860,
         statusOkSteps: 4,
         statusAsciiWindow: 5,
-        statusAsciiSpeed: 160,
-        statusLeaderGap: 35,
-        statusLeaderX: 0,
-        statusLeaderY: 3,
+        statusAsciiDelay: 120,
+        statusAsciiSpeed: 280,
         terminalScroll: true,
+        statusLeaderGap: 35,
+        statusLeaderX: -11.5,
+        statusLeaderY: 3,
+        statusDotBurstDuration: 160,
       },
       4: {
         speed: 1,
         delayBefore: 600,
-        delayAfter: 1880,
+        delayAfter: 1200,
         terminalScroll: true,
-        terminalScrollDuration: 600,
-        terminalScrollDistance: 48,
+        terminalScrollDuration: 400,
+        terminalScrollDistance: 12,
+        statusDotBurstDuration: 200,
+        statusLeaderGap: 44,
+        statusLeaderX: 0,
+        statusLeaderY: -7.5,
+        terminalScrollMotionJitter: 0,
         terminalScrollInstall: 0.8,
         terminalScrollPrompt: 0.8,
         terminalScrollBuild: 0.8,
         terminalScrollEndOpacity: 0,
         terminalScrollOpacityJitter: 0.5,
+        terminalScrollJitterX: 0,
+        terminalScrollJitterY: 0,
       },
       5: {
         speed: 1,
         delayBefore: 0,
-        delayAfter: 1820,
+        delayAfter: 1420,
         windowBootEnabled: true,
+        windowBootClip: false,
         windowBootDuration: 1800,
         windowBootOrigin: "custom",
-        windowBootX: 123,
-        windowBootY: 85,
+        windowBootX: -160,
+        windowBootY: 162,
         windowBootSize: 10,
         windowBootSteps: 8,
         windowBootTraceIterations: 10,
-        windowBootTrailCount: 5,
+        windowBootTrailCount: 3,
         windowBootWindowHold: 1600,
+        windowBootControlSize: 10,
+        windowBootControlGap: 8.5,
+        windowBootControlX: 0,
+        windowBootControlY: 1.5,
+        windowBootControlStroke: 1,
         windowBootGrow1: 1.9,
         windowBootGrow2: 3.4,
         windowBootEchoCount: 0,
@@ -142,10 +157,10 @@
     sharedTextLayers: {
       install: {
         x: 193,
-        y: 353,
-        width: 794,
-        size: 17,
-        letterSpacing: 0.2,
+        y: 355,
+        width: 710,
+        size: 19,
+        letterSpacing: 0,
         opacity: 1,
       },
       prompt: {
@@ -161,26 +176,28 @@
         y: 536,
         width: 749,
         size: 17,
-        letterSpacing: 0.1,
+        letterSpacing: 0.3,
         opacity: 1,
         listIndent: 21,
-        listY: -10,
+        listY: -9,
         rowGap: 1,
         starSize: 0.9,
         bulletSize: 1.05,
+        bulletX: 8,
+        bulletY: -2,
       },
       final: {
         x: 171,
-        y: 352,
+        y: 360,
         width: 760,
         size: 17,
         letterSpacing: 0.1,
         opacity: 1,
         blockX: 0,
-        blockY: 0,
-        checkSparkX: 1,
-        checkSparkY: 1,
-        linkIndent: 50,
+        blockY: -8,
+        checkSparkX: 0.6,
+        checkSparkY: 0.8,
+        linkIndent: 52,
         checkSize: 24,
         checkX: 12,
         checkY: 0,
@@ -188,10 +205,10 @@
         linkSize: 17,
         linkLetterSpacing: 0.2,
         promptX: 20,
-        promptY: -5,
+        promptY: -10,
         promptSize: 18,
         linkLineHeight: 1.5,
-        linkAsciiDuration: 1100,
+        linkAsciiDuration: 700,
         linkAsciiNoise: 2,
         linkAsciiHold: 60,
         linkRevealDelay: 560,
@@ -216,26 +233,6 @@
       appSubtitleSize: 12,
       sharedTitleSize: 14,
       sharedSubtitleSize: 10,
-      metricCardWidth: 160,
-      metricCardHeight: 93,
-      metricCardGap: 10,
-      metricCardPaddingTop: 49,
-      metricCardPaddingX: 10,
-      metricCardPaddingBottom: 10,
-      metricGridMarginBottom: 16,
-      metricIconSize: 22,
-      metricIconLeft: 10,
-      metricIconTop: 10,
-      metricChangeTop: 10,
-      metricChangeRight: 10,
-      metricLabelSize: 10,
-      metricValueSize: 16,
-      dashboardChartWidth: 428,
-      dashboardRegionWidth: 232,
-      dashboardGap: 10,
-      dashboardPanelHeight: 270,
-      dashboardPanelPadding: 10,
-      dashboardTitleMarginBottom: 15,
     },
     preAppFocusSettings: {
       opacity: 0.6,
@@ -255,19 +252,19 @@
     stateAppRevealSettings: {
       5: {
         preset: "colorWave",
-        intensity: 6,
+        intensity: 3.2,
         duration: 980,
-        lineColor: "#bababa",
+        lineColor: "#ffffff",
         lineDirection: "horizontal",
-        lineOpacity: 0.4,
+        lineOpacity: 1,
         lineGlow: 0,
-        lineHold: 140,
-        lineFade: 240,
-        grid: 5,
+        lineHold: 1120,
+        lineFade: 500,
+        grid: 4,
         corner: "tl",
         originX: 0,
         originY: 0,
-        layers: 1,
+        layers: 2,
       },
       6: {
         preset: "colorWave",
@@ -303,49 +300,35 @@
       preset: "parallax",
       activePresets: [
         "vignette",
-        "scanlines",
         "rgbsplit",
         "rgbgrid",
+        "scanlines",
+        "shademap",
         "parallax",
       ],
       presets: {
         vignette: {
           intensity: 10,
-          duration: 720,
+          duration: 0,
           loop: true,
           detail: 7.4,
           speed: 0,
           opacity: 1,
           edge: 180,
-          top: 80,
-          right: 236,
-          bottom: 798,
-          left: 284,
+          top: 184,
+          right: 426,
+          bottom: 600,
+          left: 270,
           roundness: 0,
-          blur: 47,
+          blur: 120,
           color: "#000000",
           x: 0,
           y: 76,
         },
-        scanlines: {
-          intensity: 5,
-          duration: 1200,
-          loop: false,
-          detail: 0,
-          speed: 0.4,
-          thickness: 2,
-          spacing: 1,
-          barHeight: 100,
-          sweepOpacity: 0.17,
-          sweepGlow: 0.27,
-          sweepShadow: 0.3,
-          sweepSoftness: 80,
-          reverse: true,
-        },
         rgbsplit: {
           intensity: 2,
-          logoIntensity: 2,
-          textIntensity: 0.8,
+          logoIntensity: 1.4,
+          textIntensity: 1.2,
           windowIntensity: 0,
           duration: 1000,
           loop: true,
@@ -358,28 +341,70 @@
           colorC: "#465fff",
         },
         rgbgrid: {
-          intensity: 7.2,
+          intensity: 10,
           duration: 900,
           loop: true,
           detail: 3.4,
           speed: 0,
           stripeHeight: 1,
           stripeGap: 1,
-          opacity: 0.97,
+          opacity: 1,
           softness: 0,
-          redColor: "#1e0608",
-          greenColor: "#071c0d",
-          blueColor: "#070a1c",
+          redColor: "#0d0d0d",
+          greenColor: "#121212",
+          blueColor: "#000000",
+          blendMode: "screen",
+          redOpacity: 1,
+          greenOpacity: 1,
+          blueOpacity: 0.83,
+        },
+        scanlines: {
+          intensity: 5,
+          duration: 1200,
+          loop: false,
+          detail: 0,
+          speed: 0.4,
+          thickness: 2,
+          spacing: 2,
+          barHeight: 100,
+          sweepOpacity: 0.07,
+          sweepGlow: 0.4,
+          sweepShadow: 0.12,
+          sweepSoftness: 80,
+          reverse: true,
+        },
+        shademap: {
+          intensity: 4,
+          duration: 0,
+          loop: false,
+          detail: 6,
+          speed: 0.14,
+          smoothness: 10,
+          flickerNoise: 5,
+          flickerScale: 1.4,
+          xDensity: 4.4,
+          yDensity: 7.4,
+          blockWidth: 371,
+          blockHeight: 197,
+          quantity: 71,
+          randomness: 8.8,
+          blur: 40,
+          opacity: 0.33,
+          color: "#000000",
+          cursorErase: true,
+          cursorEraseRadius: 510,
+          cursorEraseFade: 500,
+          cursorEraseStrength: 1,
         },
         parallax: {
           intensity: 1,
           duration: 900,
           loop: true,
           detail: 5,
-          speed: 0,
-          xStrength: 0,
-          yStrength: 80,
-          balance: -0.45,
+          speed: 1,
+          xStrength: 48,
+          yStrength: 22,
+          balance: 0,
           returnToCenter: true,
         },
       },
@@ -443,6 +468,7 @@
   const shadeMapOverlay = document.querySelector("#shadeMapOverlay");
   const root =
     stage?.closest(".db-hero-animation-root") || document.documentElement;
+  const rootStyleValueCache = new Map();
   const RENDER_FPS_CAP = 30;
   const RENDER_FRAME_MS = 1000 / RENDER_FPS_CAP;
   const GRID_PIXEL_RATIO_CAP = 1;
@@ -451,11 +477,27 @@
   let appWindowDragOffset = { x: 0, y: 0 };
   let appWindowDragState = null;
   let appWindowEchoLayer = null;
+  let shadeMapEraseFrame = 0;
+  let shadeMapErasePointer = null;
   const isExportPlayer = Boolean(window.DATABRICKS_EXPORT_MODE);
   const transparentGuidePixel =
     "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
   let logoWaveTimers = [];
   let terminalHoverCursor = null;
+
+  const nativeSetRootStyleProperty = root.style.setProperty.bind(root.style);
+
+  function setRootVar(property, value = "", priority = "") {
+    const nextValue = String(value);
+    const nextPriority = String(priority || "");
+    const cacheKey = `${property}\n${nextPriority}`;
+    if (rootStyleValueCache.get(cacheKey) === nextValue) {
+      return;
+    }
+
+    rootStyleValueCache.set(cacheKey, nextValue);
+    nativeSetRootStyleProperty(property, nextValue, nextPriority);
+  }
 
   const defaultTextLayers = {
     install: {
@@ -486,6 +528,8 @@
       rowGap: 8,
       starSize: 1,
       bulletSize: 1,
+      bulletX: 0,
+      bulletY: 0,
     },
     final: {
       x: 205,
@@ -543,27 +587,30 @@
     appSubtitleSize: 12,
     sharedTitleSize: 14,
     sharedSubtitleSize: 10,
-    metricCardWidth: 160,
-    metricCardHeight: 93,
-    metricCardGap: 10,
-    metricCardPaddingTop: 49,
-    metricCardPaddingX: 10,
-    metricCardPaddingBottom: 10,
-    metricGridMarginBottom: 16,
-    metricIconSize: 22,
-    metricIconLeft: 10,
-    metricIconTop: 10,
-    metricChangeTop: 10,
-    metricChangeRight: 10,
-    metricLabelSize: 10,
-    metricValueSize: 16,
-    dashboardChartWidth: 428,
-    dashboardRegionWidth: 232,
-    dashboardGap: 10,
-    dashboardPanelHeight: 270,
-    dashboardPanelPadding: 10,
-    dashboardTitleMarginBottom: 15,
   };
+
+  const deprecatedStaticAppSettingKeys = [
+    "metricCardWidth",
+    "metricCardHeight",
+    "metricCardGap",
+    "metricCardPaddingTop",
+    "metricCardPaddingX",
+    "metricCardPaddingBottom",
+    "metricGridMarginBottom",
+    "metricIconSize",
+    "metricIconLeft",
+    "metricIconTop",
+    "metricChangeTop",
+    "metricChangeRight",
+    "metricLabelSize",
+    "metricValueSize",
+    "dashboardChartWidth",
+    "dashboardRegionWidth",
+    "dashboardGap",
+    "dashboardPanelHeight",
+    "dashboardPanelPadding",
+    "dashboardTitleMarginBottom",
+  ];
 
   const preAppFocusSettings = {
     opacity: 0.34,
@@ -621,30 +668,30 @@
       delayBefore: 0,
       delayAfter: 500,
       powerOnEnabled: true,
-      powerOnDuration: 2400,
-      powerOnLineDuration: 1040,
-      powerOnLineExpandDuration: 255,
-      powerOnYScaleDuration: 2000,
-      powerOnLineHold: 100,
+      powerOnDuration: 1460,
+      powerOnLineDuration: 1800,
+      powerOnLineExpandDuration: 235,
+      powerOnYScaleDuration: 2200,
+      powerOnLineHold: 140,
       powerOnBloom: 0,
       powerOnBrightness: 0.69,
       powerOnStretchBrightness: 0.2,
       powerOnColor: "#dedede",
       powerOnY: 36,
-      powerOnYStretch: 400,
-      powerOnScale: 0.1,
-      powerOnSceneStartY: -185,
-      powerOnSceneStartSquash: 0.29,
-      powerOnSceneYScale: 1.11,
-      powerOnJitter: 10,
+      powerOnYStretch: 420,
+      powerOnScale: 0.03,
+      powerOnSceneStartY: -184,
+      powerOnSceneStartSquash: 0.41,
+      powerOnSceneYScale: 1.03,
+      powerOnJitter: 11,
       powerOnWarmup: 1,
       logoTubeStartY: -67,
       logoTubeStartSquash: 0.17,
       logoTubeStartWidth: 1.07,
       logoTubeStartOpacity: 0.44,
-      installTextDelay: 1460,
+      installTextDelay: 1840,
       installType: 0,
-      installFramePause: 360,
+      installFramePause: 600,
     },
     2: {
       speed: 1,
@@ -664,42 +711,57 @@
       speed: 1,
       delayBefore: 0,
       delayAfter: 600,
-      buildLineReveal: 500,
+      buildLineReveal: 860,
       statusOkSteps: 4,
       statusAsciiWindow: 5,
-      statusAsciiSpeed: 160,
-      statusLeaderGap: 35,
-      statusLeaderX: 0,
-      statusLeaderY: 3,
+      statusAsciiDelay: 120,
+      statusAsciiSpeed: 280,
       terminalScroll: true,
+      statusLeaderGap: 35,
+      statusLeaderX: -11.5,
+      statusLeaderY: 3,
+      statusDotBurstDuration: 160,
     },
     4: {
       speed: 1,
       delayBefore: 600,
-      delayAfter: 1880,
+      delayAfter: 1200,
       terminalScroll: true,
-      terminalScrollDuration: 600,
-      terminalScrollDistance: 48,
+      terminalScrollDuration: 400,
+      terminalScrollDistance: 12,
+      statusDotBurstDuration: 200,
+      statusLeaderGap: 44,
+      statusLeaderX: 0,
+      statusLeaderY: -7.5,
+      terminalScrollMotionJitter: 0,
       terminalScrollInstall: 0.8,
       terminalScrollPrompt: 0.8,
       terminalScrollBuild: 0.8,
       terminalScrollEndOpacity: 0,
       terminalScrollOpacityJitter: 0.5,
+      terminalScrollJitterX: 0,
+      terminalScrollJitterY: 0,
     },
     5: {
       speed: 1,
       delayBefore: 0,
-      delayAfter: 1820,
+      delayAfter: 1420,
       windowBootEnabled: true,
+      windowBootClip: false,
       windowBootDuration: 1800,
       windowBootOrigin: "custom",
-      windowBootX: 123,
-      windowBootY: 85,
+      windowBootX: -160,
+      windowBootY: 162,
       windowBootSize: 10,
       windowBootSteps: 8,
       windowBootTraceIterations: 10,
-      windowBootTrailCount: 5,
+      windowBootTrailCount: 3,
       windowBootWindowHold: 1600,
+      windowBootControlSize: 10,
+      windowBootControlGap: 8.5,
+      windowBootControlX: 0,
+      windowBootControlY: 1.5,
+      windowBootControlStroke: 1,
       windowBootGrow1: 1.9,
       windowBootGrow2: 3.4,
       windowBootEchoCount: 0,
@@ -734,19 +796,19 @@
   const stateAppRevealSettings = {
     5: {
       preset: "colorWave",
-      intensity: 6,
+      intensity: 3.2,
       duration: 980,
-      lineColor: "#bababa",
+      lineColor: "#ffffff",
       lineDirection: "horizontal",
-      lineOpacity: 0.4,
+      lineOpacity: 1,
       lineGlow: 0,
-      lineHold: 140,
-      lineFade: 240,
-      grid: 5,
+      lineHold: 1120,
+      lineFade: 500,
+      grid: 4,
       corner: "tl",
       originX: 0,
       originY: 0,
-      layers: 1,
+      layers: 2,
     },
     6: {
       preset: "colorWave",
@@ -788,6 +850,7 @@
     ) {
       stateSettings.windowBootDuration = 1180;
     }
+    stateSettings.windowBootClip = Boolean(stateSettings.windowBootClip);
     if (
       !Number.isFinite(Number(stateSettings.windowBootSteps)) ||
       Number(stateSettings.windowBootSteps) <= 0
@@ -821,6 +884,30 @@
     ) {
       stateSettings.windowBootSize = 10;
     }
+    if (
+      !Number.isFinite(Number(stateSettings.windowBootControlSize)) ||
+      Number(stateSettings.windowBootControlSize) <= 0
+    ) {
+      stateSettings.windowBootControlSize = 8;
+    }
+    if (
+      !Number.isFinite(Number(stateSettings.windowBootControlGap)) ||
+      Number(stateSettings.windowBootControlGap) < 0
+    ) {
+      stateSettings.windowBootControlGap = 8;
+    }
+    if (!Number.isFinite(Number(stateSettings.windowBootControlX))) {
+      stateSettings.windowBootControlX = 0;
+    }
+    if (!Number.isFinite(Number(stateSettings.windowBootControlY))) {
+      stateSettings.windowBootControlY = 0;
+    }
+    if (
+      !Number.isFinite(Number(stateSettings.windowBootControlStroke)) ||
+      Number(stateSettings.windowBootControlStroke) <= 0
+    ) {
+      stateSettings.windowBootControlStroke = 1.5;
+    }
   }
 
   function normalizeBuildStatusSettings() {
@@ -835,46 +922,75 @@
     ) {
       stateSettings.statusAsciiSpeed = 160;
     }
+
+    if (
+      !Number.isFinite(Number(stateSettings.statusAsciiDelay)) ||
+      Number(stateSettings.statusAsciiDelay) < 0
+    ) {
+      stateSettings.statusAsciiDelay = 0;
+    }
+  }
+
+  function normalizeTerminalScrollSettings() {
+    const stateSettings = stateAnimationSettings[4];
+    const legacyBuildSettings = stateAnimationSettings[3] || {};
+    if (!stateSettings) {
+      return;
+    }
+
+    if (
+      !Number.isFinite(Number(stateSettings.statusDotBurstDuration)) ||
+      Number(stateSettings.statusDotBurstDuration) <= 0
+    ) {
+      stateSettings.statusDotBurstDuration =
+        Number(stateAnimationSettings[3]?.statusAsciiSpeed) || 160;
+    }
+    if (!Number.isFinite(Number(stateSettings.statusLeaderGap))) {
+      stateSettings.statusLeaderGap = Number.isFinite(
+        Number(legacyBuildSettings.statusLeaderGap),
+      )
+        ? Number(legacyBuildSettings.statusLeaderGap)
+        : 44;
+    }
+    if (!Number.isFinite(Number(stateSettings.statusLeaderX))) {
+      stateSettings.statusLeaderX = Number.isFinite(
+        Number(legacyBuildSettings.statusLeaderX),
+      )
+        ? Number(legacyBuildSettings.statusLeaderX)
+        : 0;
+    }
+    if (!Number.isFinite(Number(stateSettings.statusLeaderY))) {
+      stateSettings.statusLeaderY = Number.isFinite(
+        Number(legacyBuildSettings.statusLeaderY),
+      )
+        ? Number(legacyBuildSettings.statusLeaderY)
+        : 3;
+    }
   }
 
   const legacyGroupFxPresetDefaults = {
     vignette: {
       intensity: 10,
-      duration: 720,
+      duration: 0,
       loop: true,
       detail: 7.4,
       speed: 0,
       opacity: 1,
       edge: 180,
-      top: 80,
-      right: 236,
-      bottom: 798,
-      left: 284,
+      top: 184,
+      right: 426,
+      bottom: 600,
+      left: 270,
       roundness: 0,
-      blur: 47,
+      blur: 120,
       color: "#000000",
       x: 0,
       y: 76,
     },
-    scanlines: {
-      intensity: 5,
-      duration: 1200,
-      loop: false,
-      detail: 0,
-      speed: 0.4,
-      thickness: 2,
-      spacing: 1,
-      barHeight: 100,
-      sweepOpacity: 0.17,
-      sweepGlow: 0.27,
-      sweepShadow: 0.3,
-      sweepSoftness: 80,
-      reverse: true,
-    },
     rgbsplit: {
       intensity: 2,
-      logoIntensity: 2,
-      textIntensity: 0.8,
+      logoIntensity: 1.4,
+      textIntensity: 1.2,
       windowIntensity: 0,
       duration: 1000,
       loop: true,
@@ -887,28 +1003,70 @@
       colorC: "#465fff",
     },
     rgbgrid: {
-      intensity: 7.2,
+      intensity: 10,
       duration: 900,
       loop: true,
       detail: 3.4,
       speed: 0,
       stripeHeight: 1,
       stripeGap: 1,
-      opacity: 0.97,
+      opacity: 1,
       softness: 0,
-      redColor: "#1e0608",
-      greenColor: "#071c0d",
-      blueColor: "#070a1c",
+      redColor: "#0d0d0d",
+      greenColor: "#121212",
+      blueColor: "#000000",
+      blendMode: "screen",
+      redOpacity: 1,
+      greenOpacity: 1,
+      blueOpacity: 0.83,
+    },
+    scanlines: {
+      intensity: 5,
+      duration: 1200,
+      loop: false,
+      detail: 0,
+      speed: 0.4,
+      thickness: 2,
+      spacing: 2,
+      barHeight: 100,
+      sweepOpacity: 0.07,
+      sweepGlow: 0.4,
+      sweepShadow: 0.12,
+      sweepSoftness: 80,
+      reverse: true,
+    },
+    shademap: {
+      intensity: 4,
+      duration: 0,
+      loop: false,
+      detail: 6,
+      speed: 0.14,
+      smoothness: 10,
+      flickerNoise: 5,
+      flickerScale: 1.4,
+      xDensity: 4.4,
+      yDensity: 7.4,
+      blockWidth: 371,
+      blockHeight: 197,
+      quantity: 71,
+      randomness: 8.8,
+      blur: 40,
+      opacity: 0.33,
+      color: "#000000",
+      cursorErase: true,
+      cursorEraseRadius: 510,
+      cursorEraseFade: 500,
+      cursorEraseStrength: 1,
     },
     parallax: {
       intensity: 1,
       duration: 900,
       loop: true,
       detail: 5,
-      speed: 0,
-      xStrength: 0,
-      yStrength: 80,
-      balance: -0.45,
+      speed: 1,
+      xStrength: 48,
+      yStrength: 22,
+      balance: 0,
       returnToCenter: true,
     },
   };
@@ -921,6 +1079,7 @@
     shademap: ["Shade density", "Static"],
     rgbgrid: ["Stripe strength", "Drift speed"],
     parallax: ["Parallax X", "Parallax Y"],
+    perspective: ["Tilt X", "Tilt Y"],
     vignette: ["Edge strength", "Pulse speed"],
     scanlines: ["Line opacity", "Bar speed"],
   };
@@ -937,13 +1096,32 @@
         shademap: "Shade",
         rgbgrid: "RGB Grid",
         parallax: "Parallax",
+        perspective: "Perspective",
         vignette: "Vignette",
         scanlines: "Lines",
       };
 
   const fxPresetOrder = window.DatabricksHeroEffectRegistry
     ? window.DatabricksHeroEffectRegistry.order
-    : ["rgbsplit", "shademap", "rgbgrid", "scanlines", "vignette", "parallax"];
+    : [
+        "rgbsplit",
+        "shademap",
+        "rgbgrid",
+        "scanlines",
+        "vignette",
+        "parallax",
+        "perspective",
+      ];
+
+  const fxSettingsPanelOrder = [
+    "vignette",
+    "rgbsplit",
+    "shademap",
+    "rgbgrid",
+    "scanlines",
+    "parallax",
+    "perspective",
+  ];
 
   const groupGlitchSettings = {
     preset: "off",
@@ -1024,6 +1202,13 @@
   let parallaxCurrentY = 0;
   let parallaxWasActive = false;
   let parallaxLastPointerAt = 0;
+  let perspectiveTargetX = 0;
+  let perspectiveTargetY = 0;
+  let perspectiveCurrentX = 0;
+  let perspectiveCurrentY = 0;
+  let perspectiveWasActive = false;
+  let perspectiveLastPointerAt = 0;
+  let perspectiveFrameRequest = 0;
   let draggingFxPreset = "";
   let lastRenderTickAt = 0;
   let renderFrameTimer = 0;
@@ -1146,7 +1331,13 @@
     normalizeGroupFxSettings();
     const visualPresets = groupGlitchSettings.activePresets.filter(
       (preset) =>
-        !["rgbgrid", "scanlines", "parallax", "vignette"].includes(preset),
+        ![
+          "rgbgrid",
+          "scanlines",
+          "parallax",
+          "vignette",
+          "perspective",
+        ].includes(preset),
     );
     return visualPresets[0] || "off";
   }
@@ -1170,6 +1361,14 @@
         ]),
       ),
     };
+  }
+
+  function getCurrentConfigHash() {
+    return window.location.hash.replace(/^#/, "");
+  }
+
+  function encodeConfigHash(config) {
+    return `cfg=${encodeConfig(config)}`;
   }
 
   function applyConfig(config) {
@@ -1314,6 +1513,7 @@
     setAppRevealOriginTopLeft(stateAppRevealSettings[6]);
     normalizeWindowBootSettings();
     normalizeBuildStatusSettings();
+    normalizeTerminalScrollSettings();
 
     if (config.sharedTextLayers) {
       Object.entries(config.sharedTextLayers).forEach(([layerKey, layer]) => {
@@ -1361,6 +1561,9 @@
 
     if (config.staticAppSettings) {
       Object.assign(staticAppSettings, config.staticAppSettings);
+      deprecatedStaticAppSettingKeys.forEach((key) => {
+        delete staticAppSettings[key];
+      });
     }
 
     if (config.preAppFocusSettings) {
@@ -1434,9 +1637,34 @@
     }
   }
 
+  function isControlActiveInCurrentState(control) {
+    const stateScopedElement = control?.closest?.("[data-control-states]");
+    if (!stateScopedElement) {
+      return true;
+    }
+
+    const states = stateScopedElement.dataset.controlStates;
+    return (
+      states === "all" || states.split(",").map(Number).includes(currentState)
+    );
+  }
+
   function scheduleSave(statusText = "Settings autosaved") {
     window.clearTimeout(pendingSaveTimer);
-    pendingSaveTimer = window.setTimeout(() => saveConfig(statusText), 120);
+    pendingSaveTimer = window.setTimeout(() => {
+      pendingSaveTimer = 0;
+      saveConfig(statusText);
+    }, 120);
+  }
+
+  function flushPendingSave(statusText = "Settings saved") {
+    if (isExportPlayer || !pendingSaveTimer) {
+      return;
+    }
+
+    window.clearTimeout(pendingSaveTimer);
+    pendingSaveTimer = 0;
+    saveConfig(statusText);
   }
 
   function clearStateModeTimer() {
@@ -1742,150 +1970,141 @@
       ? Math.max(0.1, sceneYScaleValue)
       : legacySceneYScale;
     const chroma = colorSaturation(stateSettings.powerOnColor, "#8a8fa3");
-    root.style.setProperty(
+    setRootVar(
       "--power-on-duration",
       `${Math.max(40, activeDuration) / playbackSpeed}ms`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--power-on-line-duration",
       `${Math.max(40, lineDuration) / playbackSpeed}ms`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--power-on-line-expand-duration",
       `${Math.max(40, lineExpandDuration) / playbackSpeed}ms`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--power-on-y-scale-duration",
       `${Math.max(40, yScaleDuration) / playbackSpeed}ms`,
     );
-    root.style.setProperty("--power-on-bloom", bloom.toFixed(3));
-    root.style.setProperty("--power-on-bloom-radius", "18px");
-    root.style.setProperty("--power-on-brightness", brightness.toFixed(3));
-    root.style.setProperty(
-      "--power-on-stretch-brightness",
-      stretchBrightness.toFixed(3),
-    );
-    root.style.setProperty(
+    setRootVar("--power-on-bloom", bloom.toFixed(3));
+    setRootVar("--power-on-bloom-radius", "18px");
+    setRootVar("--power-on-brightness", brightness.toFixed(3));
+    setRootVar("--power-on-stretch-brightness", stretchBrightness.toFixed(3));
+    setRootVar(
       "--power-on-rgb",
       rgbTupleFromColor(stateSettings.powerOnColor, "#8a8fa3"),
     );
-    root.style.setProperty("--power-on-y", `${powerY.toFixed(1)}%`);
-    root.style.setProperty("--power-on-y-stretch", yStretch.toFixed(0));
-    root.style.setProperty("--power-on-scene-y-scale", sceneYScale.toFixed(3));
-    root.style.setProperty(
-      "--power-on-scene-start-y",
-      `${sceneStartY.toFixed(1)}px`,
-    );
-    root.style.setProperty(
+    setRootVar("--power-on-y", `${powerY.toFixed(1)}%`);
+    setRootVar("--power-on-y-stretch", yStretch.toFixed(0));
+    setRootVar("--power-on-scene-y-scale", sceneYScale.toFixed(3));
+    setRootVar("--power-on-scene-start-y", `${sceneStartY.toFixed(1)}px`);
+    setRootVar(
       "--power-on-scene-mid-y",
       `${(sceneStartY * 0.48).toFixed(1)}px`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--power-on-scene-overshoot-y",
       `${(sceneStartY * -0.16).toFixed(1)}px`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--power-on-scene-settle-y",
       `${(sceneStartY * 0.08).toFixed(1)}px`,
     );
-    root.style.setProperty(
-      "--power-on-scene-start-squash",
-      sceneStartSquash.toFixed(3),
-    );
-    root.style.setProperty(
+    setRootVar("--power-on-scene-start-squash", sceneStartSquash.toFixed(3));
+    setRootVar(
       "--power-on-core-opacity",
       Math.min(1, 0.92 * brightness).toFixed(3),
     );
-    root.style.setProperty(
+    setRootVar(
       "--power-on-accent-opacity",
       Math.min(0.48, (0.12 + chroma * 0.3) * stretchBrightness).toFixed(3),
     );
-    root.style.setProperty(
+    setRootVar(
       "--power-on-edge-opacity",
       Math.min(0.32, (0.08 + chroma * 0.16) * stretchBrightness).toFixed(3),
     );
-    root.style.setProperty(
+    setRootVar(
       "--power-on-haze-core-opacity",
       Math.min(0.34, 0.16 * stretchBrightness).toFixed(3),
     );
-    root.style.setProperty(
+    setRootVar(
       "--power-on-haze-soft-opacity",
       Math.min(0.16, 0.06 * stretchBrightness).toFixed(3),
     );
-    root.style.setProperty(
+    setRootVar(
       "--power-on-haze-edge-opacity",
       Math.min(0.08, 0.03 * stretchBrightness).toFixed(3),
     );
-    root.style.setProperty(
+    setRootVar(
       "--power-on-bloom-opacity",
       Math.min(1, (0.16 + bloom * 0.76) * stretchBrightness).toFixed(3),
     );
-    root.style.setProperty(
+    setRootVar(
       "--power-on-haze-opacity",
       Math.min(
         0.6,
         (0.08 + bloom * 0.3) * Math.max(0.25, stretchBrightness),
       ).toFixed(3),
     );
-    root.style.setProperty(
+    setRootVar(
       "--power-on-line-stretch-opacity",
       Math.min(0.72, 0.38 * stretchBrightness).toFixed(3),
     );
-    root.style.setProperty(
+    setRootVar(
       "--power-on-line-end-opacity",
       Math.min(0.34, 0.14 * stretchBrightness).toFixed(3),
     );
-    root.style.setProperty(
+    setRootVar(
       "--power-on-scale",
       Number(stateSettings.powerOnScale || 0).toFixed(3),
     );
-    root.style.setProperty(
+    setRootVar(
       "--power-on-jitter",
       `${Number(stateSettings.powerOnJitter || 0).toFixed(2)}px`,
     );
-    root.style.setProperty("--power-on-warmup", warmup.toFixed(3));
-    root.style.setProperty("--power-on-warmup-blur", "0px");
-    root.style.setProperty("--power-on-warmup-blur-mid", "0px");
-    root.style.setProperty(
+    setRootVar("--power-on-warmup", warmup.toFixed(3));
+    setRootVar("--power-on-warmup-blur", "0px");
+    setRootVar("--power-on-warmup-blur-mid", "0px");
+    setRootVar(
       "--power-on-warmup-brightness",
       ((0.72 + warmup * 0.52) * Math.max(0.22, brightness)).toFixed(3),
     );
-    root.style.setProperty(
+    setRootVar(
       "--logo-tube-warmup-duration",
       `${Math.max(0, Number(stateSettings.logoTubeWarmupDuration ?? 1400)) / playbackSpeed}ms`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--logo-tube-start-y",
       `${Number(stateSettings.logoTubeStartY ?? 32).toFixed(1)}px`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--logo-tube-start-squash",
       Math.max(0.01, Number(stateSettings.logoTubeStartSquash ?? 0.04)).toFixed(
         3,
       ),
     );
-    root.style.setProperty(
+    setRootVar(
       "--logo-tube-start-width",
       Math.max(0.01, Number(stateSettings.logoTubeStartWidth ?? 0.62)).toFixed(
         3,
       ),
     );
-    root.style.setProperty(
+    setRootVar(
       "--logo-tube-start-opacity",
       Math.max(
         0,
         Math.min(1, Number(stateSettings.logoTubeStartOpacity ?? 0)),
       ).toFixed(3),
     );
-    root.style.setProperty(
+    setRootVar(
       "--logo-tube-depth",
       `${Math.max(0, Number(stateSettings.logoTubeWarmupDepth ?? 320)).toFixed(1)}px`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--logo-tube-jump",
       `${Math.max(0, Number(stateSettings.logoTubeWarmupJump ?? 58)).toFixed(1)}px`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--logo-tube-blur",
       `${Math.max(0, Number(stateSettings.logoTubeWarmupBlur ?? 11)).toFixed(1)}px`,
     );
@@ -1935,27 +2154,25 @@
       "--prompt-enter-flash-rgb",
       rgbTupleFromColor(flashColor, "#ff6049"),
     );
-    root.style.setProperty("--text-glitch-red-color", flashColor);
+    setRootVar("--text-glitch-red-color", flashColor);
     promptLayer.classList.toggle("prompt-cursor-static", blinkDuration <= 0);
   }
 
-  function syncBuildStatusTuning(stateSettings = getAnimationSettings(3)) {
+  function syncBuildStatusTuning(stateSettings = getAnimationSettings(4)) {
     const leaderGap = Number(stateSettings.statusLeaderGap ?? 44);
     const leaderX = Number(stateSettings.statusLeaderX ?? 0);
     const leaderY = Number(stateSettings.statusLeaderY ?? 3);
+    const safeLeaderX = Number.isFinite(leaderX) ? leaderX : 0;
+    const safeLeaderY = Number.isFinite(leaderY) ? leaderY : 3;
     const target = buildStatus || root;
     target.style.setProperty(
       "--status-leader-status-gap",
       `${Number.isFinite(leaderGap) ? leaderGap : 44}px`,
     );
-    target.style.setProperty(
-      "--status-leader-x",
-      `${Number.isFinite(leaderX) ? leaderX : 0}px`,
-    );
-    target.style.setProperty(
-      "--status-leader-y",
-      `${Number.isFinite(leaderY) ? leaderY : 3}px`,
-    );
+    target.style.setProperty("--status-leader-x", `${safeLeaderX}px`);
+    target.style.setProperty("--status-leader-y", `${safeLeaderY}px`);
+    setRootVar("--final-check-burst-x", `${safeLeaderX}px`);
+    setRootVar("--final-check-burst-y", `${safeLeaderY}px`);
   }
 
   const prototypeBuildSelectors = [];
@@ -1968,7 +2185,52 @@
     return Math.max(0, Number(stateSettings.windowBootDuration || 0));
   }
 
-  function clearWindowBoot({ cancelTimers = true } = {}) {
+  function getWindowBootExpansionDuration(
+    stateSettings = getAnimationSettings(5),
+  ) {
+    if (!stateSettings.windowBootEnabled) {
+      return 0;
+    }
+
+    const playbackSpeed = Math.max(0.1, stateSettings.speed || 1);
+    const duration =
+      Math.max(0, Number(stateSettings.windowBootDuration || 0)) /
+      playbackSpeed;
+    const holdDuration = Math.min(
+      duration * 0.45,
+      Math.max(0, Number(stateSettings.windowBootWindowHold || 0)) /
+        playbackSpeed,
+    );
+    return Math.max(
+      140,
+      Math.min(duration * 0.48, Math.max(140, duration - holdDuration - 180)),
+    );
+  }
+
+  function getWindowBootFrameReadyDelay(
+    stateSettings = getAnimationSettings(5),
+  ) {
+    const expansionDuration = getWindowBootExpansionDuration(stateSettings);
+    if (expansionDuration <= 0) {
+      return 0;
+    }
+
+    const iterations = Math.max(
+      2,
+      Math.round(Number(stateSettings.windowBootTraceIterations || 7)),
+    );
+    const frameGap = expansionDuration / Math.max(1, iterations);
+    return expansionDuration + Math.max(40, frameGap * 0.9);
+  }
+
+  const WINDOW_BOOT_TEMP_NODE_SELECTOR =
+    ".app-boot-square, .app-boot-trace, .app-boot-echo, .app-boot-block, .app-boot-scaffold";
+  const WINDOW_BOOT_NODE_SELECTOR = `${WINDOW_BOOT_TEMP_NODE_SELECTOR}, .app-boot-full-frame`;
+
+  function clearWindowBoot({
+    cancelTimers = true,
+    preserveFrame = false,
+  } = {}) {
     if (cancelTimers) {
       windowBootRunId += 1;
     }
@@ -1979,7 +2241,11 @@
       "app-boot-running",
       "app-boot-finalizing",
       "app-boot-scaffolding",
+      "app-boot-final-frame-ready",
     );
+    if (!preserveFrame) {
+      appPreview.classList.remove("app-boot-clip-enabled");
+    }
     [
       "--app-boot-duration",
       "--app-boot-x",
@@ -2007,7 +2273,9 @@
     ].forEach((property) => appPreview.style.removeProperty(property));
     appRevealOverlay
       .querySelectorAll(
-        ".app-boot-square, .app-boot-trace, .app-boot-full-frame, .app-boot-echo, .app-boot-block, .app-boot-scaffold",
+        preserveFrame
+          ? WINDOW_BOOT_TEMP_NODE_SELECTOR
+          : WINDOW_BOOT_NODE_SELECTOR,
       )
       .forEach((node) => node.remove());
   }
@@ -2113,10 +2381,14 @@
       1,
       Math.round(Number(stateSettings.windowBootSteps || 4)),
     );
-    const steppedProgress =
-      frame <= 0
-        ? 0
-        : Math.min(1, Math.ceil(rawProgress * geometrySteps) / geometrySteps);
+    const steppedFrame =
+      frame <= 0 ? 0 : Math.ceil(rawProgress * geometrySteps);
+    const maxVisibleStep =
+      frame >= frameCount ? geometrySteps : Math.max(0, geometrySteps - 1);
+    const steppedProgress = Math.min(
+      1,
+      Math.min(steppedFrame, maxVisibleStep) / geometrySteps,
+    );
     const progress = steppedProgress >= 1 ? 1 : Math.pow(steppedProgress, 1.18);
     const width = startSize + (finalWidth - startSize) * progress;
     const height = startSize + (finalHeight - startSize) * progress;
@@ -2160,7 +2432,10 @@
     appRevealOverlay.append(trace);
   }
 
-  function setWindowBootFullFrame(rect) {
+  function setWindowBootFullFrame(
+    rect,
+    stateSettings = getAnimationSettings(5),
+  ) {
     appRevealOverlay
       .querySelectorAll(".app-boot-full-frame")
       .forEach((node) => node.remove());
@@ -2172,14 +2447,54 @@
     frame.style.width = `${rect.width.toFixed(1)}px`;
     frame.style.height = `${rect.height.toFixed(1)}px`;
 
-    ["top", "right", "bottom", "left", "header", "sidebar"].forEach((side) => {
+    ["top", "right", "bottom", "left", "header"].forEach((side) => {
       const line = document.createElement("span");
       line.className = `app-boot-frame-side is-${side}`;
       frame.append(line);
     });
 
+    const controls = document.createElement("span");
+    controls.className = "app-boot-window-controls";
+    syncWindowBootControlStyles(controls, stateSettings);
+    for (let index = 0; index < 3; index += 1) {
+      controls.append(document.createElement("span"));
+    }
+    frame.append(controls);
+
     appRevealOverlay.append(frame);
     return frame;
+  }
+
+  function syncWindowBootControlStyles(
+    target = appRevealOverlay,
+    stateSettings = getAnimationSettings(5),
+  ) {
+    const nodes = target?.classList?.contains("app-boot-window-controls")
+      ? [target]
+      : [...(target?.querySelectorAll?.(".app-boot-window-controls") || [])];
+
+    nodes.forEach((node) => {
+      node.style.setProperty(
+        "--app-boot-control-size",
+        `${Math.max(1, Number(stateSettings.windowBootControlSize ?? 8))}px`,
+      );
+      node.style.setProperty(
+        "--app-boot-control-gap",
+        `${Math.max(0, Number(stateSettings.windowBootControlGap ?? 8))}px`,
+      );
+      node.style.setProperty(
+        "--app-boot-control-x",
+        `${Number(stateSettings.windowBootControlX ?? 0)}px`,
+      );
+      node.style.setProperty(
+        "--app-boot-control-y",
+        `${Number(stateSettings.windowBootControlY ?? 0)}px`,
+      );
+      node.style.setProperty(
+        "--app-boot-control-stroke",
+        `${Math.max(0.1, Number(stateSettings.windowBootControlStroke ?? 1.5))}px`,
+      );
+    });
   }
 
   function pruneWindowBootTraces(maxVisible) {
@@ -2437,6 +2752,7 @@
       Math.round(Number(stateSettings.windowBootTrailCount || 3)),
     );
     const frameGap = duration / Math.max(1, iterations);
+    const finalFrameDelay = Math.max(40, frameGap * 0.9);
 
     addWindowBootTrace(
       setWindowBootSquareFrame(square, stateSettings, 0, iterations),
@@ -2455,9 +2771,23 @@
             iterations,
           );
           if (frame === iterations) {
-            square.style.opacity = "0";
-            setWindowBootFullFrame(rect);
             pruneWindowBootTraces(0);
+            const finalTimer = window.setTimeout(() => {
+              if (appPreview.classList.contains("app-boot-running")) {
+                setWindowBootSquareFrame(
+                  square,
+                  stateSettings,
+                  iterations,
+                  iterations,
+                );
+                square.style.opacity = "0";
+                pruneWindowBootTraces(0);
+                appPreview.classList.add("app-boot-final-frame-ready");
+                setWindowBootFullFrame(rect, stateSettings);
+                revealGatedAppPreviewSection();
+              }
+            }, finalFrameDelay);
+            windowBootTimers.push(finalTimer);
             return;
           }
           addWindowBootTrace(rect, frame, iterations + 1);
@@ -2474,11 +2804,14 @@
     }
 
     appRevealOverlay
-      .querySelectorAll(
-        ".app-boot-square, .app-boot-trace, .app-boot-full-frame, .app-boot-echo, .app-boot-block, .app-boot-scaffold",
-      )
+      .querySelectorAll(WINDOW_BOOT_NODE_SELECTOR)
       .forEach((node) => node.remove());
-    appPreview.classList.remove("app-boot-running", "app-boot-scaffolding");
+    appPreview.classList.remove(
+      "app-boot-running",
+      "app-boot-scaffolding",
+      "app-boot-final-frame-ready",
+    );
+    appPreview.classList.remove("app-boot-clip-enabled");
     appPreview.classList.add("app-boot-finalizing");
     const timer = window.setTimeout(() => {
       if (token === windowBootRunId) {
@@ -2488,13 +2821,15 @@
     windowBootTimers.push(timer);
   }
 
-  function triggerWindowBoot() {
+  function triggerWindowBoot({ autoFinish = true } = {}) {
     const stateSettings = getAnimationSettings(5);
     clearWindowBoot({ cancelTimers: false });
     clearPrototypeBuild();
     clearAppReveal();
+    appPreview.classList.remove("app-boot-final-frame-ready");
 
     if (!stateSettings.windowBootEnabled) {
+      revealGatedAppPreviewSection();
       return 0;
     }
 
@@ -2503,6 +2838,7 @@
       Number(stateSettings.windowBootDuration || 0),
     );
     if (rawDuration <= 0) {
+      revealGatedAppPreviewSection();
       return 0;
     }
 
@@ -2513,10 +2849,7 @@
       Math.max(0, Number(stateSettings.windowBootWindowHold || 0)) /
         playbackSpeed,
     );
-    const expansionDuration = Math.max(
-      140,
-      Math.min(duration * 0.48, Math.max(140, duration - holdDuration - 180)),
-    );
+    const expansionDuration = getWindowBootExpansionDuration(stateSettings);
     const scaffoldStart = expansionDuration + holdDuration;
     const scaffoldDuration = Math.max(180, duration - scaffoldStart);
     const squareSize = Math.max(1, Number(stateSettings.windowBootSize || 8));
@@ -2555,6 +2888,7 @@
 
     appPreview.classList.remove("is-polished");
     appPreview.classList.add("is-visible", "is-wire", "is-image-backed");
+    gateAppPreviewSection();
     appPreview.style.setProperty(
       "--app-boot-duration",
       `${Math.max(120, duration)}ms`,
@@ -2630,13 +2964,19 @@
 
     const token = ++windowBootRunId;
     appPreview.classList.add("app-boot-running", "app-boot-scaffolding");
+    appPreview.classList.toggle(
+      "app-boot-clip-enabled",
+      Boolean(stateSettings.windowBootClip),
+    );
     scheduleWindowBootSquareSteps(square, stateSettings, expansionDuration);
     const total = getWindowBootDuration(stateSettings);
-    const finishTimer = window.setTimeout(
-      () => finishWindowBoot(token),
-      total / playbackSpeed,
-    );
-    windowBootTimers.push(finishTimer);
+    if (autoFinish) {
+      const finishTimer = window.setTimeout(
+        () => finishWindowBoot(token),
+        total / playbackSpeed,
+      );
+      windowBootTimers.push(finishTimer);
+    }
     return total;
   }
 
@@ -2721,6 +3061,22 @@
     ];
   }
 
+  function getTerminalScrollProgress(
+    frame,
+    stateSettings = getAnimationSettings(4),
+  ) {
+    const motionJitter = Math.max(
+      0,
+      Math.min(2, Number(stateSettings.terminalScrollMotionJitter ?? 1)),
+    );
+    const smoothProgress = Math.max(0, Math.min(1, Number(frame.at ?? 0)));
+    const rawProgress = Math.max(
+      0,
+      Math.min(1, Number(frame.progress ?? smoothProgress)),
+    );
+    return smoothProgress + (rawProgress - smoothProgress) * motionJitter;
+  }
+
   function applyTerminalScrollFrame(
     frame,
     stateSettings = getAnimationSettings(4),
@@ -2737,7 +3093,23 @@
       0,
       Math.min(0.5, Number(stateSettings.terminalScrollOpacityJitter ?? 0.18)),
     );
+    const jitterX = Math.max(
+      0,
+      Number(stateSettings.terminalScrollJitterX ?? 0),
+    );
+    const jitterY = Math.max(
+      0,
+      Number(stateSettings.terminalScrollJitterY ?? 0),
+    );
+    const progress = getTerminalScrollProgress(frame, stateSettings);
     const jitter = Math.max(0, Number(frame.jitter || 0)) * opacityJitter;
+    const jitterSeed = Math.round(Number(frame.at || 0) * 100);
+    const shakeX =
+      ((jitterSeed % 2) * 2 - 1) *
+      Math.max(0, Number(frame.jitter || 0)) *
+      jitterX;
+    const shakeY =
+      ((jitterSeed % 3) - 1) * Math.max(0, Number(frame.jitter || 0)) * jitterY;
     const opacity = Math.max(
       endOpacity,
       Math.min(
@@ -2750,9 +3122,10 @@
       stateSettings,
     )) {
       const safeAmount = Math.max(0, Number.isFinite(amount) ? amount : 1);
+      const scrollY = distance * progress * safeAmount;
       layer.style.setProperty(
         "transform",
-        `translate3d(0, ${(distance * frame.progress * safeAmount).toFixed(2)}px, 0)`,
+        `translate3d(${shakeX.toFixed(2)}px, ${(scrollY + shakeY).toFixed(2)}px, 0)`,
         "important",
       );
       layer.style.setProperty("opacity", String(opacity), "important");
@@ -2777,7 +3150,23 @@
       0,
       Math.min(0.5, Number(stateSettings.terminalScrollOpacityJitter ?? 0.18)),
     );
+    const jitterX = Math.max(
+      0,
+      Number(stateSettings.terminalScrollJitterX ?? 0),
+    );
+    const jitterY = Math.max(
+      0,
+      Number(stateSettings.terminalScrollJitterY ?? 0),
+    );
+    const progress = getTerminalScrollProgress(frame, stateSettings);
     const jitter = Math.max(0, Number(frame.jitter || 0)) * opacityJitter;
+    const jitterSeed = Math.round(Number(frame.at || 0) * 100);
+    const shakeX =
+      ((jitterSeed % 2) * 2 - 1) *
+      Math.max(0, Number(frame.jitter || 0)) *
+      jitterX;
+    const shakeY =
+      ((jitterSeed % 3) - 1) * Math.max(0, Number(frame.jitter || 0)) * jitterY;
     const opacity = Math.max(
       endOpacity,
       Math.min(
@@ -2788,7 +3177,7 @@
 
     finalStatus.style.setProperty(
       "transform",
-      `translate3d(0, ${(distance * frame.progress * amount).toFixed(2)}px, 0)`,
+      `translate3d(${shakeX.toFixed(2)}px, ${(distance * progress * amount + shakeY).toFixed(2)}px, 0)`,
       "important",
     );
     finalStatus.style.setProperty("opacity", String(opacity), "important");
@@ -2856,6 +3245,19 @@
     finishWindowBoot(bootToken);
   }
 
+  async function playAppRevealOverWindowBoot(
+    token,
+    mode = "prototype",
+    state = 5,
+  ) {
+    const duration = triggerAppReveal(mode, state, { preserveBootFrame: true });
+    clearWindowBoot({ preserveFrame: true });
+    if (duration > 0) {
+      await wait(duration + 260, token);
+    }
+    setAppRevealCompleteTarget(mode === "polished");
+  }
+
   function getStateActionDuration(state) {
     const stateSettings = getAnimationSettings(state);
 
@@ -2910,7 +3312,9 @@
     }
 
     if (state === 5) {
-      const bootDuration = getWindowBootDuration(getAnimationSettings(5));
+      const bootDuration = getWindowBootFrameReadyDelay(
+        getAnimationSettings(5),
+      );
       const prototypeRevealDuration = getAppRevealTotalDuration(
         getAppRevealSettings(5),
       );
@@ -2963,7 +3367,7 @@
   }
 
   function syncGridLayer() {
-    root.style.setProperty("--grid-opacity", 0);
+    setRootVar("--grid-opacity", 0);
   }
 
   function clamp(value, min, max) {
@@ -2971,8 +3375,8 @@
   }
 
   function setAppDragVars(x = 0, y = 0) {
-    root.style.setProperty("--app-drag-x", `${x.toFixed(2)}px`);
-    root.style.setProperty("--app-drag-y", `${y.toFixed(2)}px`);
+    setRootVar("--app-drag-x", `${x.toFixed(2)}px`);
+    setRootVar("--app-drag-y", `${y.toFixed(2)}px`);
   }
 
   function getAppWindowEchoLayer() {
@@ -3136,10 +3540,41 @@
   }
 
   function setParallaxVars(bgX = 0, bgY = 0, appX = 0, appY = 0) {
-    root.style.setProperty("--parallax-bg-x", `${bgX.toFixed(2)}px`);
-    root.style.setProperty("--parallax-bg-y", `${bgY.toFixed(2)}px`);
-    root.style.setProperty("--parallax-app-x", `${appX.toFixed(2)}px`);
-    root.style.setProperty("--parallax-app-y", `${appY.toFixed(2)}px`);
+    setRootVar("--parallax-bg-x", `${bgX.toFixed(2)}px`);
+    setRootVar("--parallax-bg-y", `${bgY.toFixed(2)}px`);
+    setRootVar("--parallax-app-x", `${appX.toFixed(2)}px`);
+    setRootVar("--parallax-app-y", `${appY.toFixed(2)}px`);
+  }
+
+  function setPerspectiveVars(
+    rotateX = 0,
+    rotateY = 0,
+    shiftX = 0,
+    shiftY = 0,
+    depth = 1000,
+    glareX = 50,
+    glareY = 50,
+    glareOpacity = 0,
+    windowLift = 0,
+  ) {
+    const perspectiveDepth = Math.max(320, depth);
+    const zLift = Math.max(0, Math.min(windowLift, perspectiveDepth - 1));
+    const zScale = clamp(
+      (perspectiveDepth - zLift) / perspectiveDepth,
+      0.05,
+      1,
+    );
+
+    setRootVar("--perspective-rotate-x", `${rotateX.toFixed(3)}deg`);
+    setRootVar("--perspective-rotate-y", `${rotateY.toFixed(3)}deg`);
+    setRootVar("--perspective-shift-x", `${shiftX.toFixed(2)}px`);
+    setRootVar("--perspective-shift-y", `${shiftY.toFixed(2)}px`);
+    setRootVar("--perspective-depth", `${perspectiveDepth.toFixed(0)}px`);
+    setRootVar("--perspective-window-lift", `${zLift.toFixed(2)}px`);
+    setRootVar("--perspective-window-z-scale", zScale.toFixed(5));
+    setRootVar("--perspective-glare-x", `${glareX.toFixed(1)}%`);
+    setRootVar("--perspective-glare-y", `${glareY.toFixed(1)}%`);
+    setRootVar("--perspective-glare-opacity", glareOpacity.toFixed(3));
   }
 
   function updateParallaxFromPointer(event) {
@@ -3155,6 +3590,11 @@
       1,
     );
     parallaxLastPointerAt = performance.now();
+
+    perspectiveTargetX = parallaxTargetX;
+    perspectiveTargetY = parallaxTargetY;
+    perspectiveLastPointerAt = parallaxLastPointerAt;
+    schedulePerspectiveFrame();
   }
 
   function updateParallaxFrame() {
@@ -3207,6 +3647,115 @@
       parallaxCurrentY * yStrength * appFactor,
     );
     parallaxWasActive = active;
+  }
+
+  function updatePerspectiveFrame() {
+    const config = getGroupFxConfig("perspective");
+    const active =
+      isGroupFxActive("perspective") && (config.intensity ?? 0) > 0;
+
+    if (!active) {
+      perspectiveTargetX = 0;
+      perspectiveTargetY = 0;
+    } else if (
+      config.loop &&
+      performance.now() - perspectiveLastPointerAt > 700
+    ) {
+      const driftTime =
+        (performance.now() / 1000) * Math.max(0, config.speed ?? 1);
+      perspectiveTargetX = Math.sin(driftTime * 0.84) * 0.22;
+      perspectiveTargetY = Math.cos(driftTime * 0.72) * 0.16;
+    }
+
+    const delay = Math.max(0, config.duration ?? 220);
+    const ease = delay <= 0 ? 1 : clamp(16 / (delay + 16), 0.015, 0.28);
+    perspectiveCurrentX += (perspectiveTargetX - perspectiveCurrentX) * ease;
+    perspectiveCurrentY += (perspectiveTargetY - perspectiveCurrentY) * ease;
+
+    if (
+      !active &&
+      !perspectiveWasActive &&
+      Math.abs(perspectiveCurrentX) < 0.001 &&
+      Math.abs(perspectiveCurrentY) < 0.001
+    ) {
+      return;
+    }
+
+    if (
+      !active &&
+      Math.abs(perspectiveCurrentX) < 0.001 &&
+      Math.abs(perspectiveCurrentY) < 0.001
+    ) {
+      perspectiveCurrentX = 0;
+      perspectiveCurrentY = 0;
+    }
+
+    const strength = clamp(config.intensity ?? 0, 0, 10) / 5;
+    const tiltX =
+      Math.max(0, Number(config.tiltX ?? config.tilt ?? 7)) * strength;
+    const tiltY =
+      Math.max(0, Number(config.tiltY ?? config.tilt ?? 7)) * strength;
+    const shiftX =
+      Math.max(0, Number(config.shiftX ?? config.shift ?? 12)) * strength;
+    const shiftY =
+      Math.max(0, Number(config.shiftY ?? (config.shift ?? 12) * 0.72)) *
+      strength;
+    const depth = Math.max(320, Number(config.depth ?? 980));
+    const windowLift = active
+      ? Math.max(0, Number(config.windowLift ?? 34))
+      : 0;
+    const glareX = 50 + perspectiveCurrentX * 28;
+    const glareY = 50 + perspectiveCurrentY * 22;
+
+    setPerspectiveVars(
+      -perspectiveCurrentY * tiltY,
+      perspectiveCurrentX * tiltX,
+      perspectiveCurrentX * shiftX,
+      perspectiveCurrentY * shiftY,
+      depth,
+      glareX,
+      glareY,
+      0,
+      windowLift,
+    );
+    perspectiveWasActive = active;
+  }
+
+  function isPerspectiveLoopActive() {
+    const config = getGroupFxConfig("perspective");
+    return isGroupFxActive("perspective") && (config.intensity ?? 0) > 0;
+  }
+
+  function hasPerspectiveFrameWork() {
+    return (
+      isPerspectiveLoopActive() ||
+      Math.abs(perspectiveCurrentX) > 0.001 ||
+      Math.abs(perspectiveCurrentY) > 0.001 ||
+      Math.abs(perspectiveTargetX) > 0.001 ||
+      Math.abs(perspectiveTargetY) > 0.001
+    );
+  }
+
+  function runPerspectiveFrame() {
+    perspectiveFrameRequest = 0;
+
+    if (document.hidden) {
+      return;
+    }
+
+    updatePerspectiveFrame();
+
+    if (hasPerspectiveFrameWork()) {
+      schedulePerspectiveFrame();
+    }
+  }
+
+  function schedulePerspectiveFrame() {
+    if (perspectiveFrameRequest || document.hidden) {
+      return;
+    }
+
+    perspectiveFrameRequest = window.requestAnimationFrame(runPerspectiveFrame);
   }
 
   function hexToRgb(hex, fallback = { r: 215, g: 221, b: 232 }) {
@@ -3477,12 +4026,12 @@
   }
 
   function setLogoReveal(percent, shift = 0) {
-    root.style.setProperty("--logo-reveal", `${percent}%`);
-    root.style.setProperty("--logo-shift", `${shift}px`);
+    setRootVar("--logo-reveal", `${percent}%`);
+    setRootVar("--logo-shift", `${shift}px`);
   }
 
   function setLogoBlockOpacity(value) {
-    root.style.setProperty(
+    setRootVar(
       "--logo-block-opacity",
       Math.max(0, Math.min(1, Number(value) || 0)).toFixed(3),
     );
@@ -3700,7 +4249,7 @@
   }
 
   function setScaledProperty(name, value) {
-    root.style.setProperty(name, `${value}px`);
+    setRootVar(name, `${value}px`);
   }
 
   function syncTextLayers() {
@@ -3709,94 +4258,66 @@
       setScaledProperty(`--${key}-top`, layer.y);
       setScaledProperty(`--${key}-width`, layer.width);
       setScaledProperty(`--${key}-font-size`, layer.size);
-      root.style.setProperty(
-        `--${key}-letter-spacing`,
-        `${layer.letterSpacing ?? 0}px`,
-      );
-      root.style.setProperty(`--${key}-opacity`, layer.opacity);
+      setRootVar(`--${key}-letter-spacing`, `${layer.letterSpacing ?? 0}px`);
+      setRootVar(`--${key}-opacity`, layer.opacity);
     });
 
-    root.style.setProperty(
+    setRootVar(
       "--build-list-indent",
       `${sharedTextLayers.build.listIndent ?? 0}px`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--build-list-offset-y",
       `${sharedTextLayers.build.listY ?? 0}px`,
     );
-    root.style.setProperty(
-      "--build-row-gap",
-      `${sharedTextLayers.build.rowGap ?? 8}px`,
-    );
-    root.style.setProperty(
-      "--build-star-scale",
-      sharedTextLayers.build.starSize ?? 1,
-    );
-    root.style.setProperty(
-      "--build-bullet-scale",
-      sharedTextLayers.build.bulletSize ?? 1,
-    );
-    root.style.setProperty(
-      "--final-block-x",
-      `${sharedTextLayers.final.blockX ?? 0}px`,
-    );
-    root.style.setProperty(
-      "--final-block-y",
-      `${sharedTextLayers.final.blockY ?? 0}px`,
-    );
-    root.style.setProperty(
+    setRootVar("--build-row-gap", `${sharedTextLayers.build.rowGap ?? 8}px`);
+    setRootVar("--build-star-scale", sharedTextLayers.build.starSize ?? 1);
+    setRootVar("--build-bullet-scale", sharedTextLayers.build.bulletSize ?? 1);
+    setRootVar("--build-bullet-x", `${sharedTextLayers.build.bulletX ?? 0}px`);
+    setRootVar("--build-bullet-y", `${sharedTextLayers.build.bulletY ?? 0}px`);
+    setRootVar("--final-block-x", `${sharedTextLayers.final.blockX ?? 0}px`);
+    setRootVar("--final-block-y", `${sharedTextLayers.final.blockY ?? 0}px`);
+    setRootVar(
       "--final-check-spark-x",
       sharedTextLayers.final.checkSparkX ?? 1,
     );
-    root.style.setProperty(
+    setRootVar(
       "--final-check-spark-y",
       sharedTextLayers.final.checkSparkY ?? 1,
     );
-    root.style.setProperty(
+    setRootVar(
       "--final-link-indent",
       `${sharedTextLayers.final.linkIndent ?? 0}px`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--final-check-size",
       `${sharedTextLayers.final.checkSize ?? sharedTextLayers.final.size ?? 18}px`,
     );
-    root.style.setProperty(
-      "--final-check-x",
-      `${sharedTextLayers.final.checkX ?? 0}px`,
-    );
-    root.style.setProperty(
-      "--final-check-y",
-      `${sharedTextLayers.final.checkY ?? 0}px`,
-    );
-    root.style.setProperty(
+    setRootVar("--final-check-x", `${sharedTextLayers.final.checkX ?? 0}px`);
+    setRootVar("--final-check-y", `${sharedTextLayers.final.checkY ?? 0}px`);
+    setRootVar(
       "--final-link-offset-y",
       `${sharedTextLayers.final.linkY ?? 1}px`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--final-link-size",
       `${sharedTextLayers.final.linkSize ?? 22}px`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--final-link-line-height",
       sharedTextLayers.final.linkLineHeight ?? 1.5,
     );
-    root.style.setProperty(
+    setRootVar(
       "--final-link-letter-spacing",
       `${sharedTextLayers.final.linkLetterSpacing ?? -0.36}px`,
     );
-    root.style.setProperty(
-      "--final-prompt-x",
-      `${sharedTextLayers.final.promptX ?? 0}px`,
-    );
-    root.style.setProperty(
-      "--final-prompt-y",
-      `${sharedTextLayers.final.promptY ?? 0}px`,
-    );
-    root.style.setProperty(
+    setRootVar("--final-prompt-x", `${sharedTextLayers.final.promptX ?? 0}px`);
+    setRootVar("--final-prompt-y", `${sharedTextLayers.final.promptY ?? 0}px`);
+    setRootVar(
       "--final-prompt-size",
       `${sharedTextLayers.final.promptSize ?? sharedTextLayers.final.size ?? 18}px`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--final-link-reveal-duration",
       `${sharedTextLayers.final.linkRevealDuration ?? 160}ms`,
     );
@@ -4122,9 +4643,18 @@
 
   async function switchStatusToOk(value, token) {
     const stateThreeSettings = getAnimationSettings(3);
+    const stateFourSettings = getAnimationSettings(4);
+    const asciiDelay = Math.max(
+      0,
+      Number(stateThreeSettings.statusAsciiDelay ?? 0),
+    );
     const revealDuration = Math.max(
       40,
       Number(stateThreeSettings.statusAsciiSpeed ?? 160),
+    );
+    const dotBurstDuration = Math.max(
+      40,
+      Number(stateFourSettings.statusDotBurstDuration ?? revealDuration),
     );
     const row = value.closest(".status-row");
     if (!row) {
@@ -4133,6 +4663,9 @@
 
     setStatusLeaderProgress(row, 1);
     row?.classList.add("is-complete");
+    if (asciiDelay > 0) {
+      await wait(asciiDelay, token);
+    }
     value.classList.add("status-ok", "is-switching");
     value.style.setProperty(
       "--status-switch-duration",
@@ -4148,18 +4681,32 @@
     );
     value.style.setProperty("--status-ok-steps", steps);
     const dots = syncStatusLeaderDots(row);
-    const stepDuration = Math.max(28, revealDuration / steps);
+    const totalDuration = Math.max(revealDuration, dotBurstDuration);
+    const frameCount = Math.max(steps, Math.ceil(totalDuration / 28));
+    const frameDuration = Math.max(20, totalDuration / frameCount);
 
-    for (let step = 0; step < steps; step += 1) {
+    for (let frame = 0; frame < frameCount; frame += 1) {
       if (token !== runId) {
         throw new Error("Animation cancelled");
       }
 
-      value.textContent = makeStatusAsciiFrame(step, steps, asciiWindow);
+      const elapsed =
+        frameCount <= 1
+          ? totalDuration
+          : (totalDuration * frame) / (frameCount - 1);
+      const asciiProgress = Math.max(0, Math.min(1, elapsed / revealDuration));
+      const dotProgress = Math.max(0, Math.min(1, elapsed / dotBurstDuration));
+      const asciiStep = Math.min(steps - 1, Math.floor(asciiProgress * steps));
+      const dotStep = Math.min(steps - 1, Math.floor(dotProgress * steps));
+
+      value.textContent =
+        asciiProgress >= 1
+          ? "OK"
+          : makeStatusAsciiFrame(asciiStep, steps, asciiWindow);
       value.dataset.trail = "";
       setStatusLeaderProgress(row, 1);
       dots.forEach((dot, index) => {
-        const gradientIndex = (index + step) % 3;
+        const gradientIndex = (index + dotStep) % 3;
         dot.style.background =
           gradientIndex === 0
             ? "rgba(0, 189, 134, 0.82)"
@@ -4167,7 +4714,7 @@
               ? "rgba(244, 189, 23, 0.66)"
               : "rgba(174, 176, 188, 0.72)";
       });
-      await wait(stepDuration, token);
+      await wait(frameDuration, token);
     }
 
     dots.forEach((dot) => {
@@ -4179,6 +4726,34 @@
     value.classList.remove("is-switching");
     value.style.removeProperty("--status-switch-duration");
     value.style.removeProperty("--status-ok-steps");
+  }
+
+  function hideAppPreviewShell() {
+    appPreview.classList.remove(
+      "is-visible",
+      "is-wire",
+      "is-polished",
+      "is-image-backed",
+      "is-prototype-visible",
+      "is-section-reveal-gated",
+      "terminal-window-enter",
+      "app-reveal-running",
+      "reveal-target-prototype",
+      "reveal-target-polished",
+      "reveal-colorWave",
+      "reveal-pixelTiles",
+      "reveal-pixelate",
+      "reveal-scanSweep",
+      "reveal-crtBloom",
+    );
+    appPreview.classList.remove(
+      "app-boot-running",
+      "app-boot-finalizing",
+      "app-boot-scaffolding",
+      "app-boot-final-frame-ready",
+      "app-boot-clip-enabled",
+    );
+    appRevealOverlay.replaceChildren();
   }
 
   function resetStage() {
@@ -4196,17 +4771,7 @@
     clearAppWindowEchoes();
     clearPrototypeBuild();
     clearWindowBoot();
-    appPreview.classList.remove(
-      "terminal-window-enter",
-      "app-reveal-running",
-      "reveal-colorWave",
-      "reveal-pixelTiles",
-      "reveal-pixelate",
-      "reveal-scanSweep",
-      "reveal-crtBloom",
-      "is-prototype-visible",
-    );
-    appRevealOverlay.replaceChildren();
+    hideAppPreviewShell();
     installText.textContent = "";
     installText.classList.add("is-complete");
     promptLayer.classList.remove(
@@ -4221,13 +4786,6 @@
     resetBuildStatus();
     resetFinalAscii();
     finalStatus.classList.remove("is-visible");
-    appPreview.classList.remove(
-      "is-visible",
-      "is-wire",
-      "is-polished",
-      "is-image-backed",
-      "is-prototype-visible",
-    );
   }
 
   async function playPowerOn(stateSettings, token, options = {}) {
@@ -4369,6 +4927,7 @@
 
   function prepareStateForAnimation(state) {
     resetStage();
+    stage.dataset.currentState = String(state);
 
     if (state >= 2) {
       installText.textContent = installFrames[installFrames.length - 1];
@@ -4575,6 +5134,7 @@
     }
 
     if (state === 4) {
+      hideAppPreviewShell();
       const stateFourSettings = getAnimationSettings(4);
       let finalRevealTask = null;
       if (stateFourSettings.terminalScroll) {
@@ -4617,16 +5177,26 @@
       clearPrototypeBuild();
       clearWindowBoot();
       clearAppReveal();
+      gateAppPreviewSection();
       const finalStatusScroll = finalStatus.classList.contains("is-visible")
         ? playFinalStatusScrollDown(
             token,
             getTerminalScrollDuration(getAnimationSettings(4)),
           )
         : Promise.resolve();
-      await Promise.all([playWindowBoot(token), finalStatusScroll]);
+      triggerWindowBoot({ autoFinish: false });
+      const bootFrameReadyDelay = getWindowBootFrameReadyDelay(
+        getAnimationSettings(5),
+      );
+      if (bootFrameReadyDelay > 0) {
+        await wait(bootFrameReadyDelay, token);
+      }
       finalStatus.classList.remove("is-visible");
       resetFinalStatusScrollStyles();
-      await playAppReveal(token, "prototype");
+      await Promise.all([
+        playAppRevealOverWindowBoot(token, "prototype", 5),
+        finalStatusScroll,
+      ]);
     }
 
     if (state === 6) {
@@ -4646,10 +5216,46 @@
     await wait(getAnimationSettings(state).delayAfter, token);
   }
 
+  function commitLogoControlsForSave() {
+    if (!isControlActiveInCurrentState(controls.logoX)) {
+      return;
+    }
+
+    const logoSettings = stateLogoSettings[1];
+    logoSettings.x = Number(controls.logoX.value);
+    logoSettings.y = Number(controls.logoY.value);
+    logoSettings.width = Number(controls.logoWidth.value);
+    logoSettings.baseOpacity = Number(controls.logoBaseOpacity.value);
+    logoSettings.mainColor = controls.logoMainColor.value;
+    logoSettings.reflexOpacity = Number(controls.logoReflexOpacity.value);
+    logoSettings.reflexBlur = Number(controls.logoReflexBlur.value);
+    logoSettings.reflexX = Number(controls.logoReflexX.value);
+    logoSettings.reflexY = Number(controls.logoReflexY.value);
+    logoSettings.reflexLeft = Number(controls.logoReflexLeft.value);
+    logoSettings.reflexTop = Number(controls.logoReflexTop.value);
+    logoSettings.reflexScaleX = Number(controls.logoReflexScaleX.value);
+    logoSettings.reflexScaleY = Number(controls.logoReflexScaleY.value);
+    logoSettings.reflexShadeOpacity = Number(
+      controls.logoReflexShadeOpacity.value,
+    );
+    logoSettings.reflexShadeX = Number(controls.logoReflexShadeX.value);
+    logoSettings.reflexShadeY = Number(controls.logoReflexShadeY.value);
+    logoSettings.reflexShadeWidth = Number(controls.logoReflexShadeWidth.value);
+    logoSettings.reflexShadeHeight = Number(
+      controls.logoReflexShadeHeight.value,
+    );
+    logoSettings.reflexShadeBlur = Number(controls.logoReflexShadeBlur.value);
+    logoSettings.reflexShadeColor = controls.logoReflexShadeColor.value;
+    logoSettings.opacityDuration = Number(controls.logoOpacityDuration.value);
+    logoSettings.revealDuration = Number(controls.logoRevealDuration.value);
+    logoSettings.revealDelay = Number(controls.logoRevealDelay.value);
+    logoSettings.stutter = Number(controls.logoStutter.value);
+  }
+
   function syncSharedAppPositionCss() {
-    root.style.setProperty("--app-left", `${sharedAppSettings.left}px`);
-    root.style.setProperty("--app-top", `${sharedAppSettings.top}px`);
-    root.style.setProperty("--app-scale", sharedAppSettings.scale);
+    setRootVar("--app-left", `${sharedAppSettings.left}px`);
+    setRootVar("--app-top", `${sharedAppSettings.top}px`);
+    setRootVar("--app-scale", sharedAppSettings.scale);
   }
 
   function syncStaticAppCss() {
@@ -4666,31 +5272,10 @@
       "--app-subtitle-size": staticAppSettings.appSubtitleSize,
       "--app-shared-title-size": staticAppSettings.sharedTitleSize,
       "--app-shared-subtitle-size": staticAppSettings.sharedSubtitleSize,
-      "--metric-card-width": staticAppSettings.metricCardWidth,
-      "--metric-card-height": staticAppSettings.metricCardHeight,
-      "--metric-card-gap": staticAppSettings.metricCardGap,
-      "--metric-card-padding-top": staticAppSettings.metricCardPaddingTop,
-      "--metric-card-padding-x": staticAppSettings.metricCardPaddingX,
-      "--metric-card-padding-bottom": staticAppSettings.metricCardPaddingBottom,
-      "--metric-grid-margin-bottom": staticAppSettings.metricGridMarginBottom,
-      "--metric-icon-size": staticAppSettings.metricIconSize,
-      "--metric-icon-left": staticAppSettings.metricIconLeft,
-      "--metric-icon-top": staticAppSettings.metricIconTop,
-      "--metric-change-top": staticAppSettings.metricChangeTop,
-      "--metric-change-right": staticAppSettings.metricChangeRight,
-      "--metric-label-size": staticAppSettings.metricLabelSize,
-      "--metric-value-size": staticAppSettings.metricValueSize,
-      "--dashboard-chart-width": staticAppSettings.dashboardChartWidth,
-      "--dashboard-region-width": staticAppSettings.dashboardRegionWidth,
-      "--dashboard-gap": staticAppSettings.dashboardGap,
-      "--dashboard-panel-height": staticAppSettings.dashboardPanelHeight,
-      "--dashboard-panel-padding": staticAppSettings.dashboardPanelPadding,
-      "--dashboard-title-margin-bottom":
-        staticAppSettings.dashboardTitleMarginBottom,
     };
 
     Object.entries(cssMap).forEach(([name, value]) => {
-      root.style.setProperty(name, `${value}px`);
+      setRootVar(name, `${value}px`);
     });
   }
 
@@ -4737,25 +5322,44 @@
 
   function syncPreAppFocusCss() {
     const scaleDelta = 1 - preAppFocusSettings.scale;
-    root.style.setProperty("--pre-app-opacity", preAppFocusSettings.opacity);
-    root.style.setProperty("--pre-app-scale", preAppFocusSettings.scale);
-    root.style.setProperty("--pre-app-scale-step-1", 1 - scaleDelta * 0.35);
-    root.style.setProperty("--pre-app-scale-step-2", 1 - scaleDelta * 0.55);
-    root.style.setProperty("--pre-app-scale-step-3", 1 - scaleDelta * 0.75);
-    root.style.setProperty("--pre-app-scale-step-4", 1 - scaleDelta * 0.92);
-    root.style.setProperty(
-      "--pre-app-duration",
-      `${preAppFocusSettings.duration}ms`,
-    );
-    root.style.setProperty("--pre-app-steps", preAppFocusSettings.steps);
-    root.style.setProperty(
+    setRootVar("--pre-app-opacity", preAppFocusSettings.opacity);
+    setRootVar("--pre-app-scale", preAppFocusSettings.scale);
+    setRootVar("--pre-app-scale-step-1", 1 - scaleDelta * 0.35);
+    setRootVar("--pre-app-scale-step-2", 1 - scaleDelta * 0.55);
+    setRootVar("--pre-app-scale-step-3", 1 - scaleDelta * 0.75);
+    setRootVar("--pre-app-scale-step-4", 1 - scaleDelta * 0.92);
+    setRootVar("--pre-app-duration", `${preAppFocusSettings.duration}ms`);
+    setRootVar("--pre-app-steps", preAppFocusSettings.steps);
+    setRootVar(
       "--pre-app-easing",
       `steps(${Math.max(1, Math.round(preAppFocusSettings.steps))}, end)`,
     );
   }
 
-  function buildAppRevealPixels(settings) {
-    appRevealOverlay.replaceChildren();
+  const APP_REVEAL_NODE_SELECTOR = [
+    ".app-reveal-pixel",
+    ".app-reveal-mask-tile",
+    ".app-reveal-color-bit",
+    ".app-reveal-type-token",
+    ".app-reveal-image-mask",
+    ".app-reveal-chart-overlay",
+    ".app-reveal-solid-tile",
+    ".app-reveal-scan-tile",
+    ".app-reveal-frame-echo",
+  ].join(", ");
+
+  function clearAppRevealOverlayNodes() {
+    appRevealOverlay
+      .querySelectorAll(APP_REVEAL_NODE_SELECTOR)
+      .forEach((node) => node.remove());
+  }
+
+  function buildAppRevealPixels(settings, { preserveExisting = false } = {}) {
+    if (preserveExisting) {
+      clearAppRevealOverlayNodes();
+    } else {
+      appRevealOverlay.replaceChildren();
+    }
     const grid = Math.max(4, Math.round(settings.grid));
     const totalPixels = grid * grid;
     const indexes = Array.from({ length: totalPixels }, (_, index) => index);
@@ -4827,8 +5431,39 @@
     return { column, row, maxDistance: Math.SQRT2 };
   }
 
-  function buildAppColorWave(settings) {
-    appRevealOverlay.replaceChildren();
+  function cloneChartOverlayForReveal() {
+    if (!appChartOverlay) {
+      return null;
+    }
+
+    updateAppChartHover();
+    const clone = appChartOverlay.cloneNode(true);
+    clone.classList.add("app-reveal-chart-overlay");
+    clone.setAttribute("aria-hidden", "true");
+    [
+      "--chart-hover-x",
+      "--chart-hover-revenue-y",
+      "--chart-hover-target-y",
+      "--chart-card-x",
+      "--chart-card-y",
+    ].forEach((name) => {
+      const value = appChartOverlay.style.getPropertyValue(name);
+      if (value) {
+        clone.style.setProperty(name, value);
+      }
+    });
+    return clone;
+  }
+
+  function buildAppColorWave(
+    settings,
+    { preserveExisting = false, includeChart = false } = {},
+  ) {
+    if (preserveExisting) {
+      clearAppRevealOverlayNodes();
+    } else {
+      appRevealOverlay.replaceChildren();
+    }
     const grid = Math.max(4, Math.round(Number(settings.grid || 14)));
     const intensity = Math.max(0, Number(settings.intensity || 0));
     const duration = Math.max(0, Number(settings.duration || 980));
@@ -4840,10 +5475,16 @@
     const previewWidth = appPreview.offsetWidth || 768;
     const previewHeight = appPreview.offsetHeight || 514;
     const maxDistance = cornerPoint.maxDistance || Math.SQRT2;
-    const revealImage = document.createElement("span");
+    const revealImage = document.createElement("div");
 
     revealImage.className = "app-reveal-image-mask";
     revealImage.style.animationDuration = `${Math.max(160, duration).toFixed(1)}ms`;
+    if (includeChart) {
+      const chartClone = cloneChartOverlayForReveal();
+      if (chartClone) {
+        revealImage.append(chartClone);
+      }
+    }
     appRevealOverlay.append(revealImage);
 
     const appendScanTile = (rect, className, order = 0, durationScale = 1) => {
@@ -4994,6 +5635,7 @@
     );
     const duration = Math.max(260, Number(settings.duration || 980));
     const hold = Math.max(120, duration * 0.55);
+    let finalFrameDelay = 0;
 
     for (let index = 0; index < count; index += 1) {
       const progress = count <= 1 ? 1 : index / (count - 1);
@@ -5001,86 +5643,144 @@
       const width = targetRect.width * (0.2 + eased * 0.8);
       const height = targetRect.height * (0.2 + eased * 0.8);
       const frame = document.createElement("span");
+      const delay = index * Math.max(28, duration * 0.055);
 
       frame.className = "app-reveal-frame-echo";
       frame.style.left = `${(targetRect.left + (targetRect.width - width) / 2).toFixed(1)}px`;
       frame.style.top = `${(targetRect.top + (targetRect.height - height) / 2).toFixed(1)}px`;
       frame.style.width = `${width.toFixed(1)}px`;
       frame.style.height = `${height.toFixed(1)}px`;
-      frame.style.animationDelay = `${(index * Math.max(28, duration * 0.055)).toFixed(1)}ms`;
+      frame.style.animationDelay = `${delay.toFixed(1)}ms`;
       frame.style.animationDuration = `${hold.toFixed(1)}ms`;
       appRevealOverlay.append(frame);
+      finalFrameDelay = delay;
     }
+
+    return finalFrameDelay;
   }
 
-  function updateAppChartHover(clientX = null) {
+  function hidePreservedBootFrame() {
+    const frames = [
+      ...appRevealOverlay.querySelectorAll(".app-boot-full-frame"),
+    ];
+    frames.forEach((frame) => frame.classList.add("is-reveal-gated"));
+    return frames;
+  }
+
+  function revealPreservedBootFrameAfterEcho(frames, delay = 0) {
+    if (!frames?.length) {
+      return;
+    }
+
+    window.setTimeout(
+      () => {
+        frames.forEach((frame) => {
+          if (frame.isConnected) {
+            frame.classList.remove("is-reveal-gated");
+          }
+        });
+      },
+      Math.max(0, delay),
+    );
+  }
+
+  function gateAppPreviewSectionUntilEcho(delay = 0) {
+    appPreview.classList.add("is-section-reveal-gated");
+    window.setTimeout(
+      () => {
+        appPreview.classList.remove("is-section-reveal-gated");
+      },
+      Math.max(0, delay),
+    );
+  }
+
+  function gateAppPreviewSection() {
+    appPreview.classList.add("is-section-reveal-gated");
+  }
+
+  function revealGatedAppPreviewSection() {
+    appPreview.classList.remove("is-section-reveal-gated");
+  }
+
+  const appChartHoverData = [
+    { month: "Jan", x: 36, target: 250, revenue: 310 },
+    { month: "Feb", x: 79, target: 280, revenue: 330 },
+    { month: "Mar", x: 122, target: 300, revenue: 455 },
+    { month: "Apr", x: 166, target: 320, revenue: 385 },
+    { month: "May", x: 209, target: 350, revenue: 467 },
+    { month: "Jun", x: 253, target: 390, revenue: 520 },
+    { month: "Jul", x: 296, target: 395, revenue: 565 },
+    { month: "Aug", x: 339, target: 410, revenue: 552 },
+    { month: "Sep", x: 383, target: 430, revenue: 595 },
+    { month: "Oct", x: 426, target: 450, revenue: 670 },
+  ];
+
+  function getAppChartRevenuePoint(svgX) {
+    const path = appChartOverlay?.querySelector(".app-chart-line-live");
+    if (!path?.getTotalLength) {
+      return { x: svgX, y: 58 };
+    }
+
+    const total = path.getTotalLength();
+    let low = 0;
+    let high = total;
+
+    for (let index = 0; index < 18; index += 1) {
+      const mid = (low + high) / 2;
+      const point = path.getPointAtLength(mid);
+      if (point.x < svgX) {
+        low = mid;
+      } else {
+        high = mid;
+      }
+    }
+
+    return path.getPointAtLength((low + high) / 2);
+  }
+
+  function getNearestAppChartMonth(svgX) {
+    return appChartHoverData.reduce((best, item) => {
+      if (!best || Math.abs(item.x - svgX) < Math.abs(best.x - svgX)) {
+        return item;
+      }
+      return best;
+    }, null);
+  }
+
+  function updateAppChartHover(event) {
     if (!appPreview || !appChartOverlay) {
       return;
     }
 
     const chartStage = appChartOverlay.querySelector(".app-chart-stage");
-    const rect = (chartStage || appChartOverlay).getBoundingClientRect();
-    const viewBoxWidth = 428;
-    const localX =
-      clientX === null
-        ? 261
-        : (clientX - rect.left) * (viewBoxWidth / Math.max(1, rect.width));
-    const revenuePoints = [
-      [74, 83],
-      [91, 89],
-      [108, 87],
-      [125, 74],
-      [142, 61],
-      [159, 58],
-      [176, 57],
-      [193, 62],
-      [210, 71],
-      [227, 69],
-      [244, 62],
-      [261, 54],
-      [278, 42],
-      [295, 44],
-      [312, 49],
-      [329, 45],
-      [346, 39],
-      [363, 33],
-      [428, 16],
-    ];
-    const chartX = clamp(
-      localX,
-      revenuePoints[0][0],
-      revenuePoints[revenuePoints.length - 1][0],
+    const stageRect = chartStage?.getBoundingClientRect();
+    const stageWidth = stageRect?.width || 408;
+    const svgWidth = 428;
+    const leftBound = 36;
+    const rightBound = 426;
+    const fallbackSvgX = 253;
+    const svgX =
+      event && stageRect
+        ? clamp(
+            ((event.clientX - stageRect.left) / Math.max(1, stageWidth)) *
+              svgWidth,
+            leftBound,
+            rightBound,
+          )
+        : fallbackSvgX;
+    const revenuePoint = getAppChartRevenuePoint(svgX);
+    const targetProgress = (svgX - leftBound) / (rightBound - leftBound);
+    const targetY = 101 + (70 - 101) * clamp(targetProgress, 0, 1);
+    const chartX = (svgX / svgWidth) * stageWidth;
+    const revenueY = revenuePoint.y;
+    const cardWidth = 112;
+    const cardX = clamp(
+      chartX + 16,
+      40,
+      Math.max(40, stageWidth - cardWidth - 4),
     );
-    const segmentIndex = Math.max(
-      0,
-      revenuePoints.findIndex((point) => point[0] >= chartX) - 1,
-    );
-    const start = revenuePoints[segmentIndex] || revenuePoints[0];
-    const end = revenuePoints[segmentIndex + 1] || revenuePoints.at(-1);
-    const segmentProgress =
-      (chartX - start[0]) / Math.max(1, end[0] - start[0]);
-    const revenueY = start[1] + (end[1] - start[1]) * segmentProgress;
-    const targetY = 101 + ((70 - 101) * (chartX - 74)) / (428 - 74);
-    const progress = clamp((chartX - 74) / (428 - 74), 0, 1);
-    const monthIndex = Math.max(0, Math.min(9, Math.round(progress * 9)));
-    const month = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-    ][monthIndex];
-    const revenueByMonth = [330, 305, 430, 505, 467, 520, 535, 560, 620, 700];
-    const targetByMonth = [270, 292, 318, 342, 450, 390, 410, 428, 448, 467];
-    const revenue = revenueByMonth[monthIndex];
-    const target = targetByMonth[monthIndex];
-    const cardX = clamp(chartX + 16, 188, 310);
-    const cardY = clamp(revenueY - 40, 18, 84);
+    const cardY = clamp(Math.min(revenueY, targetY) - 40, 10, 92);
+    const nearest = getNearestAppChartMonth(svgX) || appChartHoverData[5];
 
     appChartOverlay.style.setProperty(
       "--chart-hover-x",
@@ -5104,12 +5804,12 @@
     );
     appChartOverlay
       .querySelector(".app-chart-hover-card b")
-      ?.replaceChildren(month);
+      ?.replaceChildren(nearest.month);
     const values = appChartOverlay.querySelectorAll(
       ".app-chart-hover-card strong",
     );
-    values[0]?.replaceChildren(`$${target}K`);
-    values[1]?.replaceChildren(`$${revenue}K`);
+    values[0]?.replaceChildren(`$${nearest.target}K`);
+    values[1]?.replaceChildren(`$${nearest.revenue}K`);
   }
 
   function buildAppRevealTypographyTokens(settings, tileDuration) {
@@ -5174,9 +5874,11 @@
     }, duration + 80);
   }
 
-  function clearAppReveal() {
+  function clearAppReveal({ preserveBootFrame = false } = {}) {
     appPreview.classList.remove(
       "app-reveal-running",
+      "app-reveal-fading",
+      "is-section-reveal-gated",
       "reveal-target-prototype",
       "reveal-target-polished",
       "reveal-colorWave",
@@ -5185,12 +5887,21 @@
       "reveal-scanSweep",
       "reveal-crtBloom",
     );
-    appRevealOverlay.replaceChildren();
+    if (!preserveBootFrame) {
+      appPreview.classList.remove("app-boot-clip-enabled");
+    }
+    if (preserveBootFrame) {
+      clearAppRevealOverlayNodes();
+    } else {
+      appRevealOverlay.replaceChildren();
+    }
   }
 
   function setAppRevealCompleteTarget(revealsPolished) {
     appPreview.classList.remove(
       "app-reveal-running",
+      "app-reveal-fading",
+      "is-section-reveal-gated",
       "reveal-target-prototype",
       "reveal-target-polished",
       "reveal-colorWave",
@@ -5199,6 +5910,7 @@
       "reveal-scanSweep",
       "reveal-crtBloom",
     );
+    appPreview.classList.remove("app-boot-clip-enabled");
     appRevealOverlay.replaceChildren();
     appPreview.classList.add("is-visible", "is-image-backed");
     appPreview.classList.toggle("is-wire", !revealsPolished);
@@ -5209,58 +5921,59 @@
     }
   }
 
-  function triggerAppReveal(mode = "polished", state = currentState) {
+  function triggerAppReveal(
+    mode = "polished",
+    state = currentState,
+    { preserveBootFrame = false } = {},
+  ) {
     const revealSettings = getAppRevealSettings(state);
     const revealsPolished = mode === "polished";
-    clearAppReveal();
+    clearAppReveal({ preserveBootFrame });
 
     if (revealSettings.preset === "none" || revealSettings.intensity <= 0) {
       setAppRevealCompleteTarget(revealsPolished);
       return 0;
     }
 
-    root.style.setProperty(
-      "--app-reveal-duration",
-      `${revealSettings.duration}ms`,
-    );
-    root.style.setProperty("--app-reveal-strength", revealSettings.intensity);
-    root.style.setProperty(
+    setRootVar("--app-reveal-duration", `${revealSettings.duration}ms`);
+    setRootVar("--app-reveal-strength", revealSettings.intensity);
+    setRootVar(
       "--app-reveal-alpha",
       Math.min(0.95, 0.25 + revealSettings.intensity * 0.07).toFixed(2),
     );
-    root.style.setProperty(
+    setRootVar(
       "--app-reveal-image",
       revealsPolished
         ? 'url("/img/home-new/hero/app-done.png")'
         : 'url("/img/home-new/hero/app-prototype.png")',
     );
-    root.style.setProperty(
+    setRootVar(
       "--app-reveal-line-rgb",
       rgbTupleFromColor(revealSettings.lineColor, "#63f1ff"),
     );
     const lineDirection =
       revealSettings.lineDirection === "horizontal" ? "horizontal" : "vertical";
-    root.style.setProperty(
+    setRootVar(
       "--app-reveal-line-angle",
       lineDirection === "horizontal" ? "0deg" : "90deg",
     );
-    root.style.setProperty(
+    setRootVar(
       "--app-reveal-shadow-line-angle",
       lineDirection === "horizontal" ? "90deg" : "0deg",
     );
-    root.style.setProperty(
+    setRootVar(
       "--app-reveal-line-opacity",
       clamp(Number(revealSettings.lineOpacity ?? 0.72), 0, 1).toFixed(2),
     );
-    root.style.setProperty(
+    setRootVar(
       "--app-reveal-line-glow",
       `${Math.max(0, Number(revealSettings.lineGlow ?? 18)).toFixed(1)}px`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--app-reveal-line-hold",
       `${Math.max(0, Number(revealSettings.lineHold ?? 280)).toFixed(1)}ms`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--app-reveal-line-fade",
       `${Math.max(80, Number(revealSettings.lineFade ?? 520)).toFixed(1)}ms`,
     );
@@ -5274,10 +5987,16 @@
     appPreview.classList.toggle("is-prototype-visible", revealsPolished);
 
     if (revealSettings.preset === "colorWave") {
-      buildAppColorWave(revealSettings);
+      buildAppColorWave(revealSettings, {
+        preserveExisting: preserveBootFrame,
+        includeChart: revealsPolished,
+      });
     } else if (revealSettings.preset === "pixelTiles") {
-      buildAppRevealPixels(revealSettings);
+      buildAppRevealPixels(revealSettings, {
+        preserveExisting: preserveBootFrame,
+      });
     }
+
     appPreview.classList.add("app-reveal-running");
     void appPreview.offsetWidth;
     const lineFadeTail =
@@ -5287,11 +6006,17 @@
       Number(revealSettings.duration || 0),
       Number(revealSettings.duration || 0) + lineFadeTail * 0.62,
     );
+    const finalFadeDuration = Math.min(560, Math.max(260, lineFadeTail * 0.5));
+    setRootVar("--app-reveal-final-fade", `${finalFadeDuration.toFixed(1)}ms`);
+
+    window.setTimeout(() => {
+      appPreview.classList.add("app-reveal-fading");
+    }, cleanupDelay);
 
     window.setTimeout(() => {
       setAppRevealCompleteTarget(revealsPolished);
-    }, cleanupDelay + 240);
-    return Math.max(0, cleanupDelay);
+    }, cleanupDelay + finalFadeDuration);
+    return Math.max(0, cleanupDelay + finalFadeDuration);
   }
 
   function getAppRevealDuration(revealSettings = getAppRevealSettings(5)) {
@@ -5326,7 +6051,7 @@
   }
 
   appChartOverlay?.addEventListener("pointermove", (event) => {
-    updateAppChartHover(event.clientX);
+    updateAppChartHover(event);
   });
 
   appChartOverlay?.addEventListener("pointerleave", () => {
@@ -5355,35 +6080,33 @@
       event.clientY <= overlayRect.bottom;
 
     if (insideOverlay) {
-      updateAppChartHover(
-        Math.max(rect.left, Math.min(rect.right, event.clientX)),
-      );
+      updateAppChartHover(event);
     }
   });
 
   function getActiveFxSettingsPresets() {
     normalizeGroupFxSettings();
-    return groupGlitchSettings.activePresets.filter((preset) =>
-      fxPresetOrder.includes(preset),
-    );
+    return groupGlitchSettings.activePresets
+      .filter((preset) => fxPresetOrder.includes(preset))
+      .sort((a, b) => {
+        const aIndex = fxSettingsPanelOrder.indexOf(a);
+        const bIndex = fxSettingsPanelOrder.indexOf(b);
+        return (
+          (aIndex < 0 ? Number.MAX_SAFE_INTEGER : aIndex) -
+          (bIndex < 0 ? Number.MAX_SAFE_INTEGER : bIndex)
+        );
+      });
   }
 
   function syncGroupFxLayerOrder() {
     const orderedPresets = getActiveFxSettingsPresets();
-    const layerKeys = [
-      "rgbsplit",
-      "shademap",
-      "rgbgrid",
-      "scanlines",
-      "vignette",
-      "parallax",
-    ];
+    const layerKeys = fxSettingsPanelOrder;
     layerKeys.forEach((preset) => {
-      root.style.setProperty(`--fx-z-${preset}`, "80");
+      setRootVar(`--fx-z-${preset}`, "80");
     });
 
     orderedPresets.forEach((preset, index) => {
-      root.style.setProperty(
+      setRootVar(
         `--fx-z-${preset}`,
         String(90 + (orderedPresets.length - index) * 10),
       );
@@ -5498,7 +6221,7 @@
     const used = new Set();
     const randomRatio = randomness / 10;
     const noiseRatio = flickerNoise / 10;
-    const speedBase = speed <= 0 ? 999999 : Math.max(0.05, 0.72 / speed);
+    const speedBase = speed <= 0 ? 999999 : 2.4 / speed;
     const highBase = clamp(opacity, 0, 1);
     const lowBase = highBase * clamp(0.72 - noiseRatio * 0.7, 0, 0.72);
     const midBase = highBase * clamp(0.55 + noiseRatio * 0.22, 0, 0.92);
@@ -5550,6 +6273,16 @@
       cell.style.top = `${row * cellY + jitterY}px`;
       cell.style.width = `${Math.max(1, rectWidth * sizeJitterX)}px`;
       cell.style.height = `${Math.max(1, rectHeight * sizeJitterY)}px`;
+      cell.dataset.centerX = (
+        column * cellX +
+        jitterX +
+        (rectWidth * sizeJitterX) / 2
+      ).toFixed(2);
+      cell.dataset.centerY = (
+        row * cellY +
+        jitterY +
+        (rectHeight * sizeJitterY) / 2
+      ).toFixed(2);
       cell.style.animationDuration = `${speedBase * durationJitter}s`;
       cell.style.animationDelay = `${-phase}s`;
       cell.style.animationTimingFunction = timing;
@@ -5561,6 +6294,80 @@
 
     shadeMapOverlay.replaceChildren(...cells);
     lastShadeMapRenderKey = renderKey;
+    if (shadeMapErasePointer && !shadeMapEraseFrame) {
+      shadeMapEraseFrame = window.requestAnimationFrame(
+        applyShadeMapCursorErase,
+      );
+    }
+  }
+
+  function clearShadeMapCursorErase() {
+    shadeMapErasePointer = null;
+    if (shadeMapEraseFrame) {
+      window.cancelAnimationFrame(shadeMapEraseFrame);
+      shadeMapEraseFrame = 0;
+    }
+    shadeMapOverlay
+      ?.querySelectorAll(".shade-map-cell.is-cursor-erased")
+      .forEach((cell) => {
+        cell.classList.remove("is-cursor-erased");
+      });
+  }
+
+  function applyShadeMapCursorErase() {
+    shadeMapEraseFrame = 0;
+    const config = getGroupFxConfig("shademap");
+    const active =
+      isGroupFxActive("shademap") &&
+      config.cursorErase !== false &&
+      Number(config.intensity ?? 0) > 0 &&
+      Number(config.opacity ?? 0) > 0 &&
+      shadeMapErasePointer;
+
+    if (!shadeMapOverlay || !active) {
+      clearShadeMapCursorErase();
+      return;
+    }
+
+    const radius = Math.max(0, Number(config.cursorEraseRadius ?? 150));
+    const fade = Math.max(0, Number(config.cursorEraseFade ?? 200));
+    const strength = clamp(Number(config.cursorEraseStrength ?? 1), 0, 1);
+    const rect = stage.getBoundingClientRect();
+    const x =
+      ((shadeMapErasePointer.clientX - rect.left) / Math.max(1, rect.width)) *
+      1920;
+    const y =
+      ((shadeMapErasePointer.clientY - rect.top) / Math.max(1, rect.height)) *
+      1144;
+    const radiusSq = radius * radius;
+
+    setRootVar("--shade-map-cursor-fade", `${fade}ms`);
+    setRootVar("--shade-map-cursor-erased-opacity", (1 - strength).toFixed(2));
+
+    shadeMapOverlay.querySelectorAll(".shade-map-cell").forEach((cell) => {
+      const centerX = Number(cell.dataset.centerX);
+      const centerY = Number(cell.dataset.centerY);
+      if (!Number.isFinite(centerX) || !Number.isFinite(centerY)) {
+        return;
+      }
+      const dx = centerX - x;
+      const dy = centerY - y;
+      cell.classList.toggle("is-cursor-erased", dx * dx + dy * dy <= radiusSq);
+    });
+  }
+
+  function updateShadeMapCursorErase(event) {
+    const config = getGroupFxConfig("shademap");
+    if (!isGroupFxActive("shademap") || config.cursorErase === false) {
+      clearShadeMapCursorErase();
+      return;
+    }
+    shadeMapErasePointer = event;
+    if (!shadeMapEraseFrame) {
+      shadeMapEraseFrame = window.requestAnimationFrame(
+        applyShadeMapCursorErase,
+      );
+    }
   }
 
   function syncGlitchControl() {
@@ -5583,25 +6390,23 @@
         scanlines: 0.26,
         parallax: 0,
         vignette: 0,
+        perspective: 0,
       }[primaryPreset] ?? 0;
 
     stage.dataset.textFx = primaryPreset;
-    root.style.setProperty(
+    setRootVar(
       "--text-glitch-x",
       `${Math.max(1, intensity) * presetMultiplier * Math.max(0.2, detail / 5)}px`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--text-glitch-y",
       `${Math.max(1, intensity) * 0.08 * Math.max(0.2, detail / 5)}px`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--text-glitch-rgb",
       `${Math.max(0.25, intensity) * 0.18 * Math.max(0.2, detail / 5)}px`,
     );
-    root.style.setProperty(
-      "--text-glitch-duration",
-      `${primaryConfig.duration ?? 720}ms`,
-    );
+    setRootVar("--text-glitch-duration", `${primaryConfig.duration ?? 720}ms`);
     const rgbSplitConfig = getGroupFxConfig("rgbsplit");
     const rgbSplitLogoIntensity = getRgbSplitTargetIntensity(
       rgbSplitConfig,
@@ -5618,43 +6423,43 @@
     const rgbSplitIntensity = getRgbSplitMaxIntensity(rgbSplitConfig);
     const rgbSplitSpeed =
       rgbSplitConfig.speed <= 0 ? 0 : Math.max(0.01, rgbSplitConfig.speed ?? 1);
-    root.style.setProperty(
+    setRootVar(
       "--rgb-split-x",
       `${Math.max(0, rgbSplitConfig.splitX ?? 2.1)}px`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--rgb-split-y",
       `${Math.max(0, rgbSplitConfig.splitY ?? 0.4)}px`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--rgb-split-alpha",
       Math.min(0.92, Math.max(0, rgbSplitIntensity / 8)).toFixed(2),
     );
-    root.style.setProperty(
+    setRootVar(
       "--rgb-split-logo-alpha",
       Math.min(0.92, Math.max(0, rgbSplitLogoIntensity / 8)).toFixed(2),
     );
-    root.style.setProperty(
+    setRootVar(
       "--rgb-split-text-alpha",
       Math.min(0.92, Math.max(0, rgbSplitTextIntensity / 8)).toFixed(2),
     );
-    root.style.setProperty(
+    setRootVar(
       "--rgb-split-window-alpha",
       Math.min(0.92, Math.max(0, rgbSplitWindowIntensity / 8)).toFixed(2),
     );
-    root.style.setProperty(
+    setRootVar(
       "--rgb-split-color-a",
       rgbTupleFromColor(rgbSplitConfig.colorA, "#ff314a"),
     );
-    root.style.setProperty(
+    setRootVar(
       "--rgb-split-color-b",
       rgbTupleFromColor(rgbSplitConfig.colorB, "#00e5ff"),
     );
-    root.style.setProperty(
+    setRootVar(
       "--rgb-split-color-c",
       rgbTupleFromColor(rgbSplitConfig.colorC, "#465fff"),
     );
-    root.style.setProperty(
+    setRootVar(
       "--rgb-split-duration",
       rgbSplitSpeed === 0
         ? "999999s"
@@ -5725,101 +6530,99 @@
       isGroupFxActive("shademap") &&
       shadeMapIntensity > 0 &&
       shadeMapOpacity > 0;
-    root.style.setProperty("--shade-map-alpha", shadeMapActive ? "1" : "0");
-    root.style.setProperty(
+    setRootVar("--shade-map-alpha", shadeMapActive ? "1" : "0");
+    setRootVar(
       "--shade-map-detail",
       Math.max(0, shadeMapDetail / 10).toFixed(2),
     );
-    root.style.setProperty(
-      "--shade-map-density-x",
-      shadeMapXDensity.toFixed(2),
-    );
-    root.style.setProperty(
-      "--shade-map-density-y",
-      shadeMapYDensity.toFixed(2),
-    );
-    root.style.setProperty("--shade-map-quantity", shadeMapQuantity.toFixed(2));
-    root.style.setProperty(
-      "--shade-map-randomness",
-      shadeMapRandomnessRatio.toFixed(2),
-    );
-    root.style.setProperty(
+    setRootVar("--shade-map-density-x", shadeMapXDensity.toFixed(2));
+    setRootVar("--shade-map-density-y", shadeMapYDensity.toFixed(2));
+    setRootVar("--shade-map-quantity", shadeMapQuantity.toFixed(2));
+    setRootVar("--shade-map-randomness", shadeMapRandomnessRatio.toFixed(2));
+    setRootVar(
       "--shade-map-blur",
       `${Math.max(0, shadeMapConfig.blur ?? 12)}px`,
     );
-    root.style.setProperty("--shade-map-cell-x", `${shadeMapCellX}px`);
-    root.style.setProperty("--shade-map-cell-y", `${shadeMapCellY}px`);
-    root.style.setProperty("--shade-map-square-x", `${shadeMapRectWidth}px`);
-    root.style.setProperty("--shade-map-square-y", `${shadeMapRectHeight}px`);
-    root.style.setProperty(
+    setRootVar("--shade-map-cell-x", `${shadeMapCellX}px`);
+    setRootVar("--shade-map-cell-y", `${shadeMapCellY}px`);
+    setRootVar("--shade-map-square-x", `${shadeMapRectWidth}px`);
+    setRootVar("--shade-map-square-y", `${shadeMapRectHeight}px`);
+    setRootVar(
       "--shade-map-cell-size",
       `${Math.max(8, Math.min(shadeMapRectWidth, shadeMapRectHeight))}px`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--shade-map-offset-a-x",
       `${17 + shadeMapRandomnessRatio * 83}px`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--shade-map-offset-a-y",
       `${9 + shadeMapRandomnessRatio * 41}px`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--shade-map-offset-b-x",
       `${(0.45 + shadeMapRandomnessRatio * 0.37).toFixed(2)}`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--shade-map-offset-b-y",
       `${(0.35 + shadeMapRandomnessRatio * 0.49).toFixed(2)}`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--shade-map-offset-c-x",
       `${(1.1 + shadeMapRandomnessRatio * 0.91).toFixed(2)}`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--shade-map-offset-c-y",
       `${(0.72 + shadeMapRandomnessRatio * 0.67).toFixed(2)}`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--shade-map-scale-b-x",
       `${(1.6 + shadeMapRandomnessRatio * 1.15).toFixed(2)}`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--shade-map-scale-b-y",
       `${(1.35 + shadeMapRandomnessRatio * 0.78).toFixed(2)}`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--shade-map-scale-c-x",
       `${(2.4 + shadeMapRandomnessRatio * 1.7).toFixed(2)}`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--shade-map-scale-c-y",
       `${(1.9 + shadeMapRandomnessRatio * 1.25).toFixed(2)}`,
     );
-    root.style.setProperty(
-      "--shade-map-flicker-scale",
-      shadeMapFlickerScale.toFixed(2),
+    setRootVar("--shade-map-flicker-scale", shadeMapFlickerScale.toFixed(2));
+    setRootVar(
+      "--shade-map-cursor-fade",
+      `${Math.max(0, Number(shadeMapConfig.cursorEraseFade ?? 200))}ms`,
     );
-    root.style.setProperty(
+    setRootVar(
+      "--shade-map-cursor-erased-opacity",
+      (
+        1 - clamp(Number(shadeMapConfig.cursorEraseStrength ?? 1), 0, 1)
+      ).toFixed(2),
+    );
+    setRootVar(
       "--shade-map-layer-a-alpha",
       shadeMapQuantity >= 1 ? "1.00" : "0.00",
     );
-    root.style.setProperty(
+    setRootVar(
       "--shade-map-layer-b-alpha",
       clamp((shadeMapQuantity - 5) / 5, 0, 1).toFixed(2),
     );
-    root.style.setProperty(
+    setRootVar(
       "--shade-map-flicker-a",
       shadeMapSpeed === 0
         ? "999999s"
         : `${Math.max(0.08, 1.45 / shadeMapSpeed)}s`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--shade-map-flicker-b",
       shadeMapSpeed === 0
         ? "999999s"
         : `${Math.max(0.06, 0.98 / shadeMapSpeed)}s`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--shade-map-color",
       rgbTupleFromColor(shadeMapConfig.color, "#ffffff"),
     );
@@ -5838,6 +6641,9 @@
       smoothness: shadeMapSmoothness,
       opacity: shadeMapOpacity,
     });
+    if (!shadeMapActive || shadeMapConfig.cursorErase === false) {
+      clearShadeMapCursorErase();
+    }
     const rgbGridConfig = getGroupFxConfig("rgbgrid");
     const rgbGridIntensity = Math.max(0, rgbGridConfig.intensity ?? 0);
     const rgbGridStripe = Math.max(0, rgbGridConfig.stripeHeight ?? 7);
@@ -5853,22 +6659,22 @@
       rgbGridIntensity > 0 &&
       rgbGridOpacity > 0 &&
       rgbGridStripe > 0;
-    root.style.setProperty("--rgb-grid-stripe", `${rgbGridStripe}px`);
-    root.style.setProperty("--rgb-grid-stop-2", `${rgbGridStripe * 2}px`);
-    root.style.setProperty("--rgb-grid-stop-3", `${rgbGridStripe * 3}px`);
-    root.style.setProperty(
+    setRootVar("--rgb-grid-stripe", `${rgbGridStripe}px`);
+    setRootVar("--rgb-grid-stop-2", `${rgbGridStripe * 2}px`);
+    setRootVar("--rgb-grid-stop-3", `${rgbGridStripe * 3}px`);
+    setRootVar(
       "--rgb-grid-cycle",
       `${Math.max(1, rgbGridStripe * 3 + rgbGridGap)}px`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--rgb-grid-softness",
       `${Math.max(0, rgbGridConfig.softness ?? 0)}px`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--rgb-grid-strength",
       Math.min(10, rgbGridIntensity).toFixed(2),
     );
-    root.style.setProperty(
+    setRootVar(
       "--rgb-grid-opacity",
       rgbGridActive
         ? Math.min(
@@ -5877,19 +6683,19 @@
           ).toFixed(2)
         : "0",
     );
-    root.style.setProperty(
+    setRootVar(
       "--rgb-grid-duration",
       rgbGridSpeed === 0 ? "999999s" : `${Math.max(0.5, 9 / rgbGridSpeed)}s`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--rgb-grid-red",
       rgbTupleFromColor(rgbGridConfig.redColor, "#2c070c"),
     );
-    root.style.setProperty(
+    setRootVar(
       "--rgb-grid-green",
       rgbTupleFromColor(rgbGridConfig.greenColor, "#072614"),
     );
-    root.style.setProperty(
+    setRootVar(
       "--rgb-grid-blue",
       rgbTupleFromColor(rgbGridConfig.blueColor, "#080c2d"),
     );
@@ -5902,64 +6708,55 @@
       intensity,
       isGroupFxActive("scanlines") ? scanlineConfig.intensity : 0,
     );
-    root.style.setProperty(
+    setRootVar(
       "--group-fx-alpha",
       Math.min(0.85, Math.max(0, overlayIntensity / 10)).toFixed(2),
     );
-    root.style.setProperty(
-      "--group-fx-detail",
-      Math.max(0, detail / 10).toFixed(2),
-    );
-    root.style.setProperty("--group-fx-speed", speed.toFixed(2));
-    root.style.setProperty(
+    setRootVar("--group-fx-detail", Math.max(0, detail / 10).toFixed(2));
+    setRootVar("--group-fx-speed", speed.toFixed(2));
+    setRootVar(
       "--group-fx-scan-duration",
       scanlineSpeed === 0
         ? "999999s"
         : `${Math.max(20, 166 / scanlineSpeed)}ms`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--group-fx-bar-duration",
       scanlineSpeed === 0 ? "999999s" : `${Math.max(0.3, 2 / scanlineSpeed)}s`,
     );
     const scanlineThickness = scanlineConfig.thickness ?? 2;
     const scanlineSpacing = scanlineConfig.spacing ?? 3;
     const scanlineDetail = scanlineConfig.detail ?? 6;
-    root.style.setProperty("--scanline-thickness", `${scanlineThickness}px`);
-    root.style.setProperty("--scanline-spacing", `${scanlineSpacing}px`);
-    root.style.setProperty(
+    setRootVar("--scanline-thickness", `${scanlineThickness}px`);
+    setRootVar("--scanline-spacing", `${scanlineSpacing}px`);
+    setRootVar(
       "--scanline-step",
       `${Math.max(1, scanlineThickness + scanlineSpacing)}px`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--scanline-line-alpha",
       scanlineThickness <= 0
         ? "0"
         : Math.max(0, scanlineDetail / 10).toFixed(2),
     );
-    root.style.setProperty(
-      "--scanline-bar-height",
-      `${scanlineConfig.barHeight ?? 180}%`,
-    );
-    root.style.setProperty(
+    setRootVar("--scanline-bar-height", `${scanlineConfig.barHeight ?? 180}%`);
+    setRootVar(
       "--scanline-sweep-opacity",
       Math.max(0, Math.min(1, scanlineConfig.sweepOpacity ?? 0.42)).toFixed(2),
     );
-    root.style.setProperty(
+    setRootVar(
       "--scanline-sweep-glow",
       Math.max(0, Math.min(1, scanlineConfig.sweepGlow ?? 0.2)).toFixed(2),
     );
-    root.style.setProperty(
+    setRootVar(
       "--scanline-sweep-shadow",
       Math.max(0, Math.min(1, scanlineConfig.sweepShadow ?? 0.28)).toFixed(2),
     );
-    root.style.setProperty(
+    setRootVar(
       "--scanline-sweep-softness",
       `${Math.max(0, Math.min(80, scanlineConfig.sweepSoftness ?? 24))}%`,
     );
-    root.style.setProperty(
-      "--scanline-direction",
-      scanlineConfig.reverse ? -1 : 1,
-    );
+    setRootVar("--scanline-direction", scanlineConfig.reverse ? -1 : 1);
     stage.classList.toggle(
       "fx-scanlines",
       isGroupFxActive("scanlines") && scanlineConfig.intensity > 0,
@@ -5972,7 +6769,7 @@
       (vignetteConfig.opacity ?? 0) > 0;
     const vignetteOpacity = vignetteActive
       ? Math.min(
-          0.95,
+          1,
           Math.max(0, vignetteConfig.opacity ?? 0.38) *
             Math.max(0.15, Math.min(1, (vignetteConfig.intensity ?? 4) / 6)),
         )
@@ -5991,42 +6788,66 @@
       0,
       vignetteConfig.left ?? fallbackVignetteEdge,
     );
-    root.style.setProperty(
-      "--screen-vignette-opacity",
-      vignetteOpacity.toFixed(2),
-    );
-    root.style.setProperty("--screen-vignette-top", `${vignetteTop}px`);
-    root.style.setProperty(
+    setRootVar("--screen-vignette-opacity", vignetteOpacity.toFixed(2));
+    setRootVar("--screen-vignette-top", `${vignetteTop}px`);
+    setRootVar(
       "--screen-vignette-top-mid",
       `${Math.round(vignetteTop * 0.35)}px`,
     );
-    root.style.setProperty("--screen-vignette-right", `${vignetteRight}px`);
-    root.style.setProperty(
+    setRootVar("--screen-vignette-right", `${vignetteRight}px`);
+    setRootVar(
       "--screen-vignette-right-mid",
       `${Math.round(vignetteRight * 0.35)}px`,
     );
-    root.style.setProperty("--screen-vignette-bottom", `${vignetteBottom}px`);
-    root.style.setProperty(
+    setRootVar("--screen-vignette-bottom", `${vignetteBottom}px`);
+    setRootVar(
       "--screen-vignette-bottom-mid",
       `${Math.round(vignetteBottom * 0.35)}px`,
     );
-    root.style.setProperty("--screen-vignette-left", `${vignetteLeft}px`);
-    root.style.setProperty(
+    setRootVar("--screen-vignette-left", `${vignetteLeft}px`);
+    setRootVar(
       "--screen-vignette-left-mid",
       `${Math.round(vignetteLeft * 0.35)}px`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--screen-vignette-radius",
       `${Math.max(0, vignetteConfig.roundness ?? 28)}px`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--screen-vignette-blur",
       `${Math.max(0, vignetteConfig.blur ?? 18)}px`,
     );
-    root.style.setProperty(
+    setRootVar(
       "--screen-vignette-color",
       rgbTupleFromColor(vignetteConfig.color, "#000000"),
     );
+    const perspectiveConfig = getGroupFxConfig("perspective");
+    const perspectiveTiltX = Number(
+      perspectiveConfig.tiltX ?? perspectiveConfig.tilt ?? 0,
+    );
+    const perspectiveTiltY = Number(
+      perspectiveConfig.tiltY ?? perspectiveConfig.tilt ?? 0,
+    );
+    const perspectiveShiftX = Number(
+      perspectiveConfig.shiftX ?? perspectiveConfig.shift ?? 0,
+    );
+    const perspectiveShiftY = Number(
+      perspectiveConfig.shiftY ?? perspectiveConfig.shift ?? 0,
+    );
+    const perspectiveActive =
+      isGroupFxActive("perspective") &&
+      Number(perspectiveConfig.intensity ?? 0) > 0 &&
+      Math.abs(perspectiveTiltX) +
+        Math.abs(perspectiveTiltY) +
+        Math.abs(perspectiveShiftX) +
+        Math.abs(perspectiveShiftY) >
+        0;
+    stage.classList.toggle("fx-perspective", perspectiveActive);
+    if (perspectiveActive) {
+      schedulePerspectiveFrame();
+    } else {
+      setPerspectiveVars();
+    }
     syncGridLayer();
   }
 
@@ -6039,6 +6860,9 @@
     const features = window.DATABRICKS_USED_FEATURES || {};
     return {
       parallax: Boolean(features.parallax && isGroupFxActive("parallax")),
+      perspective: Boolean(
+        features.perspective && isGroupFxActive("perspective"),
+      ),
     };
   }
 
@@ -6052,7 +6876,7 @@
     }
 
     const runtimeFlags = getPlayerRuntimeFlags();
-    if (!runtimeFlags.parallax) {
+    if (!runtimeFlags.parallax && !runtimeFlags.perspective) {
       return;
     }
 
@@ -6071,7 +6895,7 @@
     }
 
     const runtimeFlags = getPlayerRuntimeFlags();
-    if (!runtimeFlags.parallax) {
+    if (!runtimeFlags.parallax && !runtimeFlags.perspective) {
       if (gridWasVisible && gridCtx) {
         const { width, height } = resizeGridCanvas();
         gridCtx.clearRect(0, 0, width, height);
@@ -6096,6 +6920,7 @@
       : frameTimestamp;
 
     updateParallaxFrame();
+    updatePerspectiveFrame();
     if (gridWasVisible && gridCtx) {
       const { width, height } = resizeGridCanvas();
       gridCtx.clearRect(0, 0, width, height);
@@ -6271,6 +7096,7 @@
     const features = window.DATABRICKS_USED_FEATURES || {};
     if (
       features.parallax ||
+      features.perspective ||
       features.rgbSplit ||
       features.shadeMap ||
       features.rgbGrid ||
@@ -6371,6 +7197,7 @@
 
     if (
       !features.parallax &&
+      !features.perspective &&
       !features.rgbSplit &&
       !features.shadeMap &&
       !features.rgbGrid &&
@@ -6474,7 +7301,10 @@
       bindRuntimeAppWindowDrag();
     }
 
-    if (window.DATABRICKS_USED_FEATURES?.parallax) {
+    if (
+      window.DATABRICKS_USED_FEATURES?.parallax ||
+      window.DATABRICKS_USED_FEATURES?.perspective
+    ) {
       stage.addEventListener("mousemove", updateParallaxFromPointer);
       stage.addEventListener("mouseleave", () => {
         const config = getGroupFxConfig("parallax");
@@ -6482,7 +7312,19 @@
           parallaxTargetX = 0;
           parallaxTargetY = 0;
         }
+        const perspectiveConfig = getGroupFxConfig("perspective");
+        if (perspectiveConfig.returnToCenter !== false) {
+          perspectiveTargetX = 0;
+          perspectiveTargetY = 0;
+        }
       });
+    }
+
+    if (window.DATABRICKS_USED_FEATURES?.shadeMap) {
+      stage.addEventListener("mousemove", updateShadeMapCursorErase);
+      stage.addEventListener("pointermove", updateShadeMapCursorErase);
+      stage.addEventListener("mouseleave", clearShadeMapCursorErase);
+      stage.addEventListener("pointerleave", clearShadeMapCursorErase);
     }
 
     drawGrid(performance.now());

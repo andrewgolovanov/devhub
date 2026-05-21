@@ -22,11 +22,11 @@ const STEP_MOVE_EASE = [0.17, -0.17, 0, 1] as const;
 const STEP_INITIAL_Y_BY_INDEX = [-10, -15, -20] as const;
 const CONNECTOR_LINE_DELAY = 0.18;
 const CONNECTOR_LINE_DURATION = 0.24;
-const CONTENT_LINE_INITIAL_Y = 8;
-const CONTENT_LINE_STAGGER = 0.055;
-const CONTENT_LINE_DURATION = 0.24;
+const CONTENT_LINE_INITIAL_Y = 4;
+const CONTENT_LINE_STAGGER = 0.085;
+const CONTENT_LINE_DURATION = 0.46;
 const CONTENT_LINE_DELAY = 0.08;
-const CONTENT_LINE_EASE = [0.22, 1, 0.36, 1] as const;
+const CONTENT_LINE_EASE = [0.16, 1, 0.3, 1] as const;
 const INFOGRAPHIC_IN_VIEW_AMOUNT = 0.45;
 
 const AGENT_BRICKS_PROGRESS_LINES = [
@@ -40,11 +40,11 @@ const AGENT_BRICKS_PROGRESS_LINES = [
       <div className="flex flex-col gap-1 @md/infographic:gap-1.5">
         <span>Loading data</span>
         <span className="mt-1 flex flex-row gap-x-1.5 text-black pl-7.5">
-          <span className="relative top-1 inline-block size-1.25 bg-[#FF5F46]" />
+          <span className="relative top-1 inline-block size-1.25 bg-[#2272B4]" />
           Lakehouse <span className="text-black/80">(sales_fact_table)</span>
         </span>
         <span className="flex flex-row gap-x-1.5 text-black pl-7.5">
-          <span className="relative top-1 inline-block size-1.25 bg-[#FF5F46]" />
+          <span className="relative top-1 inline-block size-1.25 bg-[#2272B4]" />
           SQL Warehouse <span className="text-black/80">(KPIs)</span>
         </span>
       </div>
@@ -56,7 +56,7 @@ const AGENT_BRICKS_PROGRESS_LINES = [
       <div className="flex flex-col gap-1 @md/infographic:gap-1.5">
         <span>Running tools</span>
         <span className="mt-1 flex flex-row gap-x-1.5 text-black pl-7.5">
-          <span className="relative top-1 inline-block size-1.25 bg-[#FF5F46]" />
+          <span className="relative top-1 inline-block size-1.25 bg-[#2272B4]" />
           Python analytics{" "}
           <span className="text-black/80">(trends, anomalies)</span>
         </span>
@@ -76,7 +76,7 @@ const PYTHON_CODE_LINES = [
       <>
         <span className="text-[#8D8D8D]">output</span>{" "}
         <span className="text-[#00A972]">=</span>{" "}
-        <span className="text-[#FF3621]">{"{"}</span>
+        <span className="text-[#2272B4]">{"{"}</span>
       </>
     ),
   },
@@ -86,7 +86,7 @@ const PYTHON_CODE_LINES = [
       <>
         {"    "}
         "forecast"
-        <span className="text-[#FF3621]">:</span> "+13% (10-17%)",
+        <span className="text-[#2272B4]">:</span> "+13% (10-17%)",
       </>
     ),
   },
@@ -96,9 +96,9 @@ const PYTHON_CODE_LINES = [
       <>
         {"    "}
         "drivers"
-        <span className="text-[#FF3621]">:</span>{" "}
-        <span className="text-[#FF3621]">[</span>"demand", "history", "market"
-        <span className="text-[#FF3621]">]</span>,
+        <span className="text-[#2272B4]">:</span>{" "}
+        <span className="text-[#2272B4]">[</span>"demand", "history", "market"
+        <span className="text-[#2272B4]">]</span>,
       </>
     ),
   },
@@ -108,15 +108,15 @@ const PYTHON_CODE_LINES = [
       <>
         {"    "}
         "actions"
-        <span className="text-[#FF3621]">:</span>{" "}
-        <span className="text-[#FF3621]">[</span>"scale SKUs", "optimize
-        pricing"<span className="text-[#FF3621]">]</span>
+        <span className="text-[#2272B4]">:</span>{" "}
+        <span className="text-[#2272B4]">[</span>"scale SKUs", "optimize
+        pricing"<span className="text-[#2272B4]">]</span>
       </>
     ),
   },
   {
     id: "output-close",
-    content: <span className="text-[#FF3621]">{"}"}</span>,
+    content: <span className="text-[#2272B4]">{"}"}</span>,
   },
 ] as const;
 

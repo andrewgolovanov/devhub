@@ -93,18 +93,18 @@ function Hero({ className }: HeroProps) {
     <section
       className={cn("hero relative block bg-black text-white", className)}
     >
-      <div className="relative min-h-[36rem] w-full overflow-hidden md:min-h-[44rem] xl:min-h-286">
-        <div className="absolute top-0 left-1/2 h-full w-screen -translate-x-1/2">
+      <div className="relative min-h-[36rem] w-full overflow-hidden md:min-h-[44rem] xl:min-h-270">
+        <div className="absolute -top-6 left-1/2 h-full w-screen -translate-x-1/2 md:-top-12 lg:-top-18 xl:left-[calc(50%-4rem)]">
           <DbHeroAnimation />
           <div className="pointer-events-none absolute inset-x-0 top-0 h-[74%] bg-linear-to-b from-transparent from-20% to-black/95 md:from-40% md:to-black/92 xl:from-58%" />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-black to-60%" />
         </div>
-        <header className="pointer-events-none relative z-10 flex min-h-[36rem] flex-col justify-end py-14 md:min-h-[44rem] md:py-16 xl:min-h-286 xl:py-16">
+        <header className="pointer-events-none relative z-10 flex min-h-[36rem] flex-col justify-end py-14 md:min-h-[44rem] md:py-16 xl:min-h-270 xl:py-16">
           <div className="pointer-events-auto mx-auto grid w-full max-w-400 grid-cols-1 px-5 md:px-8 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-7">
             <h1 className="max-w-sm md:max-w-4xl pb-1 font-heading text-[2rem]/[0.98] tracking-normal text-white md:text-6xl/none lg:max-xl:text-5xl/[0.96] xl:text-7xl/none">
               Build{" "}
-              <HeroTitleHighlight>agentic applications</HeroTitleHighlight> in
-              minutes, not months.
+              <HeroTitleHighlight>agentic applications</HeroTitleHighlight>{" "}
+              in&nbsp;minutes, not months.
             </h1>
             <p className="max-w-sm text-sm/tight tracking-normal mt-4 text-grey-80 md:text-base/tight lg:mt-0 lg:row-span-2">
               Open your agent in any folder and paste. Works with Cursor, Claude

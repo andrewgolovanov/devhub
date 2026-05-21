@@ -1,4 +1,3 @@
-import { Sparkles } from "lucide-react";
 import {
   LazyMotion,
   domAnimation,
@@ -11,9 +10,14 @@ import { useRef, type ReactNode } from "react";
 import { FeatureInfographicCard } from "@/components/ui/feature-card";
 import { cn } from "@site/src/lib/utils";
 
+const appLogoSrc = "/img/home-new/features/db-apps-logo.svg";
+const browserGraphOneSrc = "/img/home-new/features/db-apps-graph.svg";
+const browserGraphTwoSrc = "/img/home-new/features/db-apps-graph-2.svg";
 const sparklesIconSrc = "/img/home-new/features/sparkles-icon.svg";
 const STEP_MOVE_DURATION = 0.68;
 const DEPLOYING_LABEL = "Deploying...";
+const DEPLOYING_WORD = "Deploying";
+const DEPLOYED_LABEL = "Deployed";
 const DEPLOYING_TYPE_DELAY = 0.08;
 const DEPLOYING_TYPE_DURATION = 0.25;
 const DEPLOYING_STEP_INDEX = 1;
@@ -29,7 +33,26 @@ const BROWSER_CONTENT_DELAY =
 const BROWSER_CONTENT_STAGGER = 0.08;
 const BROWSER_CONTENT_DURATION = 0.26;
 const BROWSER_CONTENT_INITIAL_Y = 10;
+const BROWSER_CARD_SHIMMER_DELAY = 0.14;
+const BROWSER_CARD_SHIMMER_DURATION = 1.25;
+const BROWSER_LOADED_ASSET_OVERLAP = 0.42;
+const BROWSER_LOADED_ASSET_DURATION = 0.34;
+const BROWSER_LOADED_ASSET_INITIAL_Y = -6;
 const STEP_MOVE_DELAYS = [0, 0.16, 0.54] as const;
+const BROWSER_LOADED_ASSET_REVEAL_DELAY =
+  STEP_MOVE_DELAYS[BROWSER_STEP_INDEX] +
+  BROWSER_CONTENT_DELAY +
+  BROWSER_CONTENT_STAGGER * 5 +
+  BROWSER_CARD_SHIMMER_DELAY +
+  BROWSER_CARD_SHIMMER_DURATION -
+  BROWSER_LOADED_ASSET_OVERLAP;
+const DEPLOY_SUCCESS_DELAY = BROWSER_LOADED_ASSET_REVEAL_DELAY - 0.35;
+const DEPLOY_ICON_CROSSFADE_DURATION = 0.18;
+const CHECK_PATH_DRAW_DURATION = 0.36;
+const DEPLOY_TEXT_EXIT_DURATION = 0.5;
+const DEPLOY_TEXT_ENTER_DURATION = 0.7;
+const DEPLOY_TEXT_EASE = [0.16, 1, 0.3, 1] as const;
+const DEPLOY_TEXT_EXIT_EASE = [0.7, 0, 0.84, 0] as const;
 const STEP_MOVE_EASE = [0.17, -0.17, 0, 1] as const;
 const STEP_INITIAL_Y_BY_INDEX = [-10, -12, -18] as const;
 const CONNECTOR_LINE_DELAY = 0.18;
@@ -133,8 +156,25 @@ function getDeployingCharacterTransition(characterIndex: number) {
       getStepDelay(DEPLOYING_STEP_INDEX) +
       DEPLOYING_TYPE_DELAY +
       characterIndex *
-        (DEPLOYING_TYPE_DURATION / Math.max(DEPLOYING_LABEL.length - 1, 1)),
+        (DEPLOYING_TYPE_DURATION / Math.max(DEPLOYING_WORD.length - 1, 1)),
     duration: 0.01,
+  };
+}
+
+function getLoadingDotTransition(dotIndex: number) {
+  if (dotIndex === 0) {
+    return {
+      delay: DEPLOYING_TYPE_END_DELAY,
+      duration: 0.01,
+    };
+  }
+
+  return {
+    delay: DEPLOYING_TYPE_END_DELAY + dotIndex * 0.08,
+    duration: 0.72,
+    repeat: Infinity,
+    repeatDelay: 0,
+    times: [0, 0.22, 0.58, 1],
   };
 }
 
@@ -156,6 +196,26 @@ function getBrowserContentTransition(itemIndex: number) {
       BROWSER_CONTENT_DELAY +
       itemIndex * BROWSER_CONTENT_STAGGER,
     duration: BROWSER_CONTENT_DURATION,
+    ease: TEXT_LINE_EASE,
+  };
+}
+
+function getBrowserCardShimmerTransition(itemIndex: number) {
+  return {
+    delay:
+      getStepDelay(BROWSER_STEP_INDEX) +
+      BROWSER_CONTENT_DELAY +
+      itemIndex * BROWSER_CONTENT_STAGGER +
+      BROWSER_CARD_SHIMMER_DELAY,
+    duration: BROWSER_CARD_SHIMMER_DURATION,
+    ease: [0.16, 1, 0.3, 1] as const,
+  };
+}
+
+function getBrowserLoadedAssetTransition(_itemIndex: number) {
+  return {
+    delay: BROWSER_LOADED_ASSET_REVEAL_DELAY,
+    duration: BROWSER_LOADED_ASSET_DURATION,
     ease: TEXT_LINE_EASE,
   };
 }
@@ -249,6 +309,113 @@ function TerminalCursor({
   );
 }
 
+function DeployStatusIcon({
+  isVisible,
+  reduceMotion,
+}: {
+  isVisible: boolean;
+  reduceMotion: boolean;
+}) {
+  if (reduceMotion) {
+    return (
+      <svg
+        aria-hidden="true"
+        className="size-4 shrink-0"
+        fill="none"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M3.5 8.5L6 11L12.5 4.5"
+          stroke="#00A972"
+          strokeLinejoin="round"
+          strokeWidth="2"
+        />
+      </svg>
+    );
+  }
+
+  return (
+    <span className="relative size-4 shrink-0">
+      <m.img
+        animate={isVisible ? { opacity: [1, 1, 0] } : undefined}
+        src={sparklesIconSrc}
+        alt=""
+        className="absolute inset-0 size-4"
+        initial={{ opacity: 1 }}
+        transition={{
+          delay: DEPLOY_SUCCESS_DELAY,
+          duration: DEPLOY_ICON_CROSSFADE_DURATION,
+          times: [0, 0.2, 1],
+        }}
+        width={16}
+        height={16}
+        loading="lazy"
+        decoding="async"
+      />
+      <m.svg
+        animate={isVisible ? { opacity: 1, scale: 1 } : undefined}
+        aria-hidden="true"
+        className="absolute inset-0 size-4"
+        fill="none"
+        initial={{ opacity: 0, scale: 0.92 }}
+        transition={{
+          delay: DEPLOY_SUCCESS_DELAY + 0.2,
+          duration: DEPLOY_ICON_CROSSFADE_DURATION,
+          ease: DEPLOY_TEXT_EASE,
+        }}
+        viewBox="0 0 16 16"
+      >
+        <m.path
+          animate={isVisible ? { pathLength: 1 } : undefined}
+          d="M3.5 8.5L6 11L12.5 4.5"
+          initial={{ pathLength: 0 }}
+          stroke="#00A972"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          transition={{
+            delay: DEPLOY_SUCCESS_DELAY + 0.3,
+            duration: CHECK_PATH_DRAW_DURATION,
+            ease: DEPLOY_TEXT_EASE,
+          }}
+        />
+      </m.svg>
+    </span>
+  );
+}
+
+function LoadingDots({
+  isVisible,
+  reduceMotion,
+}: {
+  isVisible: boolean;
+  reduceMotion: boolean;
+}) {
+  if (reduceMotion) {
+    return <span>...</span>;
+  }
+
+  return (
+    <span aria-hidden="true">
+      {[0, 1, 2].map((dotIndex) => (
+        <m.span
+          animate={
+            isVisible
+              ? {
+                  opacity: dotIndex === 0 ? 1 : [0, 1, 1, 0],
+                }
+              : undefined
+          }
+          initial={{ opacity: 0 }}
+          key={dotIndex}
+          transition={getLoadingDotTransition(dotIndex)}
+        >
+          .
+        </m.span>
+      ))}
+    </span>
+  );
+}
+
 function DeployingText({
   isVisible,
   reduceMotion,
@@ -257,21 +424,51 @@ function DeployingText({
   reduceMotion: boolean;
 }) {
   if (reduceMotion) {
-    return <span>{DEPLOYING_LABEL}</span>;
+    return <span>{DEPLOYED_LABEL}</span>;
   }
 
   return (
-    <span aria-label={DEPLOYING_LABEL}>
-      {Array.from(DEPLOYING_LABEL).map((character, index) => (
-        <m.span
-          animate={isVisible ? { opacity: 1 } : undefined}
-          initial={{ opacity: 0 }}
-          key={`${character}-${index}`}
-          transition={getDeployingCharacterTransition(index)}
-        >
-          {character}
-        </m.span>
-      ))}
+    <span
+      aria-live="polite"
+      className="relative inline-block whitespace-nowrap text-center w-[8ch]"
+    >
+      <m.span
+        animate={isVisible ? { opacity: [1, 1, 0], y: [0, 0, -6] } : undefined}
+        aria-label={DEPLOYING_LABEL}
+        className="absolute left-1/2 top-0 -translate-x-1/2"
+        initial={{ opacity: 1, y: 0 }}
+        transition={{
+          delay: DEPLOY_SUCCESS_DELAY,
+          duration: DEPLOY_TEXT_EXIT_DURATION,
+          ease: DEPLOY_TEXT_EXIT_EASE,
+          times: [0, 0.12, 1],
+        }}
+      >
+        {Array.from(DEPLOYING_WORD).map((character, index) => (
+          <m.span
+            animate={isVisible ? { opacity: 1 } : undefined}
+            initial={{ opacity: 0 }}
+            key={`${character}-${index}`}
+            transition={getDeployingCharacterTransition(index)}
+          >
+            {character}
+          </m.span>
+        ))}
+        <LoadingDots isVisible={isVisible} reduceMotion={reduceMotion} />
+      </m.span>
+      <span className="invisible block ml-5">{DEPLOYING_LABEL}</span>
+      <m.span
+        animate={isVisible ? { opacity: 1, x: 0, y: 0 } : undefined}
+        className="absolute left-1/2 top-0 -translate-x-1/2"
+        initial={{ opacity: 0, x: 0, y: 8 }}
+        transition={{
+          delay: DEPLOY_SUCCESS_DELAY + DEPLOY_TEXT_EXIT_DURATION - 0.17 + 0.07,
+          duration: DEPLOY_TEXT_ENTER_DURATION,
+          ease: DEPLOY_TEXT_EASE,
+        }}
+      >
+        <span className="relative -left-0.5">{DEPLOYED_LABEL}</span>
+      </m.span>
     </span>
   );
 }
@@ -341,6 +538,87 @@ function Placeholder({ className }: { className: string }) {
   );
 }
 
+function BrowserCardLoadingLayer({
+  isVisible,
+  itemIndex,
+  reduceMotion,
+}: {
+  isVisible: boolean;
+  itemIndex: number;
+  reduceMotion: boolean;
+}) {
+  if (reduceMotion) {
+    return (
+      <div className="absolute inset-0 bg-linear-[125deg] from-[#F1EFEC] from-20% via-white via-45% to-[#F1EFEC] to-80%" />
+    );
+  }
+
+  return (
+    <m.div
+      animate={isVisible ? { opacity: [1, 1, 0] } : undefined}
+      className="absolute inset-0"
+      initial={{ opacity: 1 }}
+      transition={{
+        delay: BROWSER_LOADED_ASSET_REVEAL_DELAY - 0.1,
+        duration: 0.3,
+        times: [0, 0.3, 1],
+      }}
+    >
+      <div className="absolute inset-0 bg-[#F8F7F5]" />
+      <m.div
+        animate={
+          isVisible
+            ? {
+                opacity: [0, 0.9, 0],
+                x: ["-140%", "140%"],
+              }
+            : undefined
+        }
+        className="absolute inset-y-0 left-0 w-2/3 bg-linear-[110deg] from-transparent from-10% via-white via-50% to-transparent to-90%"
+        initial={{ opacity: 0, x: "-140%" }}
+        transition={getBrowserCardShimmerTransition(itemIndex)}
+      />
+    </m.div>
+  );
+}
+
+function BrowserLoadedAsset({
+  alt,
+  className,
+  height,
+  isVisible,
+  itemIndex,
+  reduceMotion,
+  src,
+  width,
+}: {
+  alt: string;
+  className?: string;
+  height: number;
+  isVisible: boolean;
+  itemIndex: number;
+  reduceMotion: boolean;
+  src: string;
+  width: number;
+}) {
+  return (
+    <m.img
+      animate={isVisible && !reduceMotion ? { opacity: 1, y: 0 } : undefined}
+      alt={alt}
+      className={className}
+      decoding="async"
+      height={height}
+      initial={
+        reduceMotion ? false : { opacity: 0, y: BROWSER_LOADED_ASSET_INITIAL_Y }
+      }
+      loading="lazy"
+      src={src}
+      transition={getBrowserLoadedAssetTransition(itemIndex)}
+      width={width}
+    />
+  );
+}
+
 export function DatabricksAppsInfographic() {
   const infographicRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(infographicRef, {
@@ -397,14 +675,9 @@ export function DatabricksAppsInfographic() {
           stepIndex={1}
         >
           <div className="flex shrink-0 h-8 items-center justify-center pl-2.5 pr-3 gap-1.5 border border-black/10 tracking-[-0.02em] bg-white text-[11px] font-medium shadow-[0_.625rem_1.25rem_rgba(0,0,0,.06)] @md/infographic:gap-1.5 @md/infographic:text-[13px]">
-            <img
-              src={sparklesIconSrc}
-              alt=""
-              className="size-4 shrink-0"
-              width={16}
-              height={16}
-              loading="lazy"
-              decoding="async"
+            <DeployStatusIcon
+              isVisible={isVisible}
+              reduceMotion={reduceMotion}
             />
             <DeployingText isVisible={isVisible} reduceMotion={reduceMotion} />
           </div>
@@ -437,42 +710,82 @@ export function DatabricksAppsInfographic() {
             </div>
             <div className="flex flex-col bg-white p-4 @md/infographic:p-6">
               <div className="flex items-start justify-between">
-                <div className="flex flex-col gap-2 @sm/infographic:gap-2.5">
+                <div className="flex flex-row gap-2.5 @sm/infographic:gap-3">
                   <AnimatedBrowserElement
+                    className="relative"
                     isVisible={isVisible}
                     itemIndex={0}
                     reduceMotion={reduceMotion}
                   >
-                    <Placeholder className="w-28 @sm/infographic:w-42" />
+                    <Placeholder className="size-5 rounded bg-[#EEEDE9] @sm/infographic:size-7" />
+                    <span className="absolute top-1/2 left-1/2 size-3 -translate-x-1/2 -translate-y-1/2 @sm/infographic:size-3.5">
+                      <BrowserLoadedAsset
+                        alt=""
+                        className="size-full"
+                        height={14}
+                        isVisible={isVisible}
+                        itemIndex={0}
+                        reduceMotion={reduceMotion}
+                        src={appLogoSrc}
+                        width={14}
+                      />
+                    </span>
                   </AnimatedBrowserElement>
-                  <AnimatedBrowserElement
-                    isVisible={isVisible}
-                    itemIndex={1}
-                    reduceMotion={reduceMotion}
-                  >
-                    <Placeholder className="w-20 @sm/infographic:w-30" />
-                  </AnimatedBrowserElement>
+                  <div className="flex flex-col gap-2 @sm/infographic:gap-2.5">
+                    <AnimatedBrowserElement
+                      isVisible={isVisible}
+                      itemIndex={1}
+                      reduceMotion={reduceMotion}
+                    >
+                      <Placeholder className="w-28 @sm/infographic:w-42" />
+                    </AnimatedBrowserElement>
+                    <AnimatedBrowserElement
+                      isVisible={isVisible}
+                      itemIndex={2}
+                      reduceMotion={reduceMotion}
+                    >
+                      <Placeholder className="w-20 @sm/infographic:w-30" />
+                    </AnimatedBrowserElement>
+                  </div>
                 </div>
                 <AnimatedBrowserElement
                   className="flex items-center gap-2.5 @sm/infographic:gap-4"
                   isVisible={isVisible}
-                  itemIndex={2}
+                  itemIndex={3}
                   reduceMotion={reduceMotion}
                 >
-                  <Placeholder className="w-12" />
-                  <Placeholder className="size-5 @sm/infographic:size-7" />
+                  <Placeholder className="w-13" />
                 </AnimatedBrowserElement>
               </div>
               <div className="mt-4.5 grid h-[62%] grid-cols-2 gap-4 @sm/infographic:gap-5">
-                {[3, 4].map((itemIndex) => (
+                {[4, 5].map((itemIndex) => (
                   <AnimatedBrowserElement
                     isVisible={isVisible}
                     itemIndex={itemIndex}
                     key={itemIndex}
                     reduceMotion={reduceMotion}
                   >
-                    <div className="relative aspect-222/183 border border-[#D4D2CF] bg-linear-[125deg] from-[#F1EFEC] from-20% via-white via-45% to-[#F1EFEC] to-80% p-3">
-                      <Placeholder className="w-16.5 bg-[#DCDAD7]" />
+                    <div className="relative flex aspect-222/183 flex-col justify-between overflow-hidden border border-[#D4D2CF] bg-white p-3">
+                      <BrowserCardLoadingLayer
+                        isVisible={isVisible}
+                        itemIndex={itemIndex}
+                        reduceMotion={reduceMotion}
+                      />
+                      <Placeholder className="relative z-10 w-16.5 bg-[#DCDAD7]" />
+                      <BrowserLoadedAsset
+                        alt=""
+                        className="relative z-10 mt-auto w-full"
+                        height={itemIndex === 4 ? 109 : 110}
+                        isVisible={isVisible}
+                        itemIndex={itemIndex}
+                        reduceMotion={reduceMotion}
+                        src={
+                          itemIndex === 4
+                            ? browserGraphOneSrc
+                            : browserGraphTwoSrc
+                        }
+                        width={itemIndex === 4 ? 199 : 198}
+                      />
                     </div>
                   </AnimatedBrowserElement>
                 ))}

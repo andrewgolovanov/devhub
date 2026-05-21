@@ -130,7 +130,7 @@ function FeatureCardFooter({
           [ {label} ]
         </span>
       </span>
-      <p className="text-sm/tight tracking-tight text-pretty max-w-sm text-black md:text-base xl:max-w-120">
+      <p className="text-base/tight tracking-tight text-pretty max-w-sm text-black xl:max-w-120">
         {description}
       </p>
     </div>

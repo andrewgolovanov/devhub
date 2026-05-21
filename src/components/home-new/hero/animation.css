@@ -184,6 +184,24 @@
   --parallax-bg-y: 0px;
   --parallax-app-x: 0px;
   --parallax-app-y: 0px;
+  --perspective-rotate-x: 0deg;
+  --perspective-rotate-y: 0deg;
+  --perspective-shift-x: 0px;
+  --perspective-shift-y: 0px;
+  --perspective-depth: 1000px;
+  --perspective-window-lift: 0px;
+  --perspective-window-z-scale: 1;
+  --perspective-glare-x: 50%;
+  --perspective-glare-y: 50%;
+  --perspective-glare-opacity: 0;
+  --pre-app-perspective-transform: perspective(var(--perspective-depth, 1000px))
+    translate3d(
+      var(--perspective-shift-x, 0px),
+      var(--perspective-shift-y, 0px),
+      0
+    )
+    rotateX(var(--perspective-rotate-x, 0deg))
+    rotateY(var(--perspective-rotate-y, 0deg));
   --app-drag-x: 0px;
   --app-drag-y: 0px;
   --drag-echo-color-rgb: 255 255 255;
@@ -254,8 +272,8 @@
   position: fixed;
   inset: 0 var(--tool-director-active-width) var(--tool-timeline-height) 0;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
   overflow: auto;
   padding: 32px;
   background:
@@ -267,11 +285,154 @@
     #242424;
 }
 
+.db-hero-animation-root .top-guide-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: var(--tool-director-active-width);
+  z-index: 140;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0;
+  min-height: 42px;
+  padding: 0 16px;
+  color: #f4f4f5;
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  font-size: 11px;
+  line-height: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(41, 41, 41, 0.98),
+    rgba(31, 31, 31, 0.98)
+  );
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.035),
+    0 1px 0 rgba(0, 0, 0, 0.38);
+}
+
+.db-hero-animation-root .top-guide-bar .section-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 28px;
+  padding: 0 12px 0 0;
+  color: #f4f4f5;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.db-hero-animation-root .top-guide-bar .section-toggle [data-collapse-marker] {
+  color: rgba(244, 244, 245, 0.42);
+  font-weight: 700;
+}
+
+.db-hero-animation-root .top-guide-bar label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  margin: 0;
+  padding: 0 14px;
+  color: rgba(244, 244, 245, 0.68);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.db-hero-animation-root .top-guide-bar .checkbox-label {
+  flex-direction: row;
+}
+
+.db-hero-animation-root .top-guide-bar input[type="checkbox"] {
+  width: 17px;
+  height: 17px;
+  margin: 0;
+  accent-color: #f4f4f5;
+  cursor: pointer;
+}
+
+.db-hero-animation-root .top-guide-bar input[type="range"] {
+  width: 156px;
+  height: 18px;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+  appearance: none;
+}
+
+.db-hero-animation-root
+  .top-guide-bar
+  input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+}
+
+.db-hero-animation-root
+  .top-guide-bar
+  input[type="range"]::-webkit-slider-thumb {
+  width: 12px;
+  height: 12px;
+  margin-top: -4px;
+  appearance: none;
+  background: #8a8fa3;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  box-shadow: 0 0 0 3px rgba(138, 143, 163, 0.12);
+}
+
+.db-hero-animation-root .top-guide-bar input[type="range"]::-moz-range-track {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+}
+
+.db-hero-animation-root .top-guide-bar input[type="range"]::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  background: #8a8fa3;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  box-shadow: 0 0 0 3px rgba(138, 143, 163, 0.12);
+}
+
+.db-hero-animation-root .top-guide-bar output {
+  min-width: 46px;
+  padding: 6px 9px;
+  color: #f4f4f5;
+  background: rgba(255, 255, 255, 0.075);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+.db-hero-animation-root .top-guide-bar.is-collapsed-control {
+  gap: 0;
+}
+
 .db-hero-animation-root .stage-viewport {
   position: relative;
   flex: 0 0 auto;
   width: var(--stage-width);
   height: var(--stage-height);
+  margin: 0px auto;
 }
 
 .db-hero-animation-root .stage-scaler {
@@ -414,13 +575,14 @@
   translate: var(--parallax-bg-x, 0px) var(--parallax-bg-y, 0px);
   transform-origin: 50% 50%;
   opacity: 1;
-  transform: scale(1) translate(0, 0);
+  transform: var(--pre-app-perspective-transform) scale(1) translate(0, 0);
+  transform-style: preserve-3d;
   will-change: opacity, transform, translate;
 }
 
 .db-hero-animation-root .stage.app-focus-active .pre-app-scene {
   opacity: var(--pre-app-opacity);
-  transform: scale(var(--pre-app-scale));
+  transform: var(--pre-app-perspective-transform) scale(var(--pre-app-scale));
   animation-name: pre-app-terminal-settle;
   animation-duration: var(--pre-app-duration);
   animation-timing-function: var(--pre-app-easing);
@@ -819,12 +981,26 @@
   position: absolute;
   display: block;
   pointer-events: none;
-  opacity: var(--shade-cell-low, 0.18);
+  opacity: 1;
+  background: none;
+  transition: opacity var(--shade-map-cursor-fade, 200ms) ease;
+  will-change: opacity;
+}
+
+.db-hero-animation-root .shade-map-cell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
   background: rgb(var(--shade-map-color, 255 255 255) / 1);
+  opacity: var(--shade-cell-low, 0.18);
   animation-name: shade-map-cell-flick;
   animation-iteration-count: infinite;
   animation-fill-mode: both;
   will-change: opacity;
+}
+
+.db-hero-animation-root .shade-map-cell.is-cursor-erased {
+  opacity: var(--shade-map-cursor-erased-opacity, 0);
 }
 
 .db-hero-animation-root .stage.fx-shade-map .shade-map-overlay {
@@ -835,7 +1011,9 @@
   animation-play-state: running !important;
 }
 
-.db-hero-animation-root .stage.is-quiet-css.fx-shade-map .shade-map-cell {
+.db-hero-animation-root
+  .stage.is-quiet-css.fx-shade-map
+  .shade-map-cell::before {
   animation-play-state: running !important;
 }
 
@@ -843,12 +1021,20 @@
   position: absolute;
   inset: 0;
   z-index: var(--fx-z-vignette, 98);
-  overflow: hidden;
+  overflow: visible;
   opacity: var(--screen-vignette-opacity, 0);
   pointer-events: none;
   mix-blend-mode: multiply;
-  filter: blur(var(--screen-vignette-blur, 18px));
   border-radius: var(--screen-vignette-radius, 36px);
+}
+
+.db-hero-animation-root .screen-vignette::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  filter: blur(var(--screen-vignette-blur, 18px));
   background:
     linear-gradient(
       to right,
@@ -870,6 +1056,37 @@
       transparent calc(100% - var(--screen-vignette-bottom, 180px)),
       rgb(var(--screen-vignette-color, 0 0 0) / 0.7)
         calc(100% - var(--screen-vignette-bottom-mid, 64px)),
+      rgb(var(--screen-vignette-color, 0 0 0) / 1) 100%
+    );
+}
+
+.db-hero-animation-root .screen-vignette::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      to right,
+      rgb(var(--screen-vignette-color, 0 0 0) / 1) 0,
+      rgb(var(--screen-vignette-color, 0 0 0) / 1)
+        min(36px, var(--screen-vignette-left-mid, 64px)),
+      transparent var(--screen-vignette-left, 180px),
+      transparent calc(100% - var(--screen-vignette-right, 180px)),
+      rgb(var(--screen-vignette-color, 0 0 0) / 1)
+        calc(100% - min(36px, var(--screen-vignette-right-mid, 64px))),
+      rgb(var(--screen-vignette-color, 0 0 0) / 1) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      rgb(var(--screen-vignette-color, 0 0 0) / 1) 0,
+      rgb(var(--screen-vignette-color, 0 0 0) / 1)
+        min(36px, var(--screen-vignette-top-mid, 64px)),
+      transparent var(--screen-vignette-top, 180px),
+      transparent calc(100% - var(--screen-vignette-bottom, 180px)),
+      rgb(var(--screen-vignette-color, 0 0 0) / 1)
+        calc(100% - min(36px, var(--screen-vignette-bottom-mid, 64px))),
       rgb(var(--screen-vignette-color, 0 0 0) / 1) 100%
     );
 }
@@ -1441,7 +1658,11 @@
   font-size: 1.35em;
   line-height: 1;
   text-shadow: 0 0 9px rgba(0, 168, 118, 0.24);
-  transform: translateY(0.08em) scale(var(--build-bullet-scale, 1));
+  transform: translate(
+      var(--build-bullet-x, 0px),
+      calc(var(--build-bullet-y, 0px) + 0.08em)
+    )
+    scale(var(--build-bullet-scale, 1));
   transform-origin: center;
 }
 
@@ -1994,6 +2215,8 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
+  margin-left: var(--final-check-burst-x, 0px);
+  margin-top: var(--final-check-burst-y, 0px);
 }
 
 .db-hero-animation-root .final-check-pixel {
@@ -2072,13 +2295,22 @@
     monospace;
   background: #040406;
   border: 1px solid rgba(255, 255, 255, 0.92);
-  transform: translate3d(
-      calc(var(--parallax-app-x, 0px) + var(--app-drag-x, 0px)),
-      calc(var(--parallax-app-y, 0px) + var(--app-drag-y, 0px)),
-      0
+  transform: perspective(var(--perspective-depth, 1000px))
+    translate3d(
+      calc(
+        var(--parallax-app-x, 0px) + var(--app-drag-x, 0px) +
+          var(--perspective-shift-x, 0px)
+      ),
+      calc(
+        var(--parallax-app-y, 0px) + var(--app-drag-y, 0px) +
+          var(--perspective-shift-y, 0px)
+      ),
+      var(--perspective-window-lift, 0px)
     )
-    scale(var(--app-scale));
-  transform-origin: top left;
+    scale(var(--perspective-window-z-scale, 1))
+    rotateX(var(--perspective-rotate-x, 0deg))
+    rotateY(var(--perspective-rotate-y, 0deg)) scale(var(--app-scale));
+  transform-origin: center center;
   will-change: transform, opacity;
   box-shadow: 0 24px 72px rgba(0, 0, 0, 0.56);
 }
@@ -2120,6 +2352,10 @@
 .db-hero-animation-root .app-preview.is-visible {
   display: block;
   animation: none;
+}
+
+.db-hero-animation-root .stage[data-current-state="4"] .app-preview {
+  display: none !important;
 }
 
 .db-hero-animation-root .app-prototype-image,
@@ -2165,6 +2401,351 @@
   z-index: 5;
   opacity: 0;
   pointer-events: auto;
+}
+
+.db-hero-animation-root .app-chart-overlay {
+  position: absolute;
+  left: 82px;
+  top: 229px;
+  z-index: 3;
+  display: none;
+  width: 428px;
+  height: 270px;
+  padding: 10px;
+  box-sizing: border-box;
+  pointer-events: auto;
+  color: #fff;
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  background: rgb(28 29 34 / 80%);
+  border-radius: 6px;
+  --chart-hover-x: 253px;
+  --chart-hover-revenue-y: 58px;
+  --chart-hover-target-y: 83.8px;
+  --chart-card-x: 269px;
+  --chart-card-y: 18px;
+}
+
+.db-hero-animation-root
+  .app-preview.is-image-backed.is-polished
+  > .app-chart-overlay {
+  display: block;
+  z-index: 92;
+}
+
+.db-hero-animation-root
+  .app-preview.app-reveal-running.reveal-target-polished
+  > .app-chart-overlay {
+  display: none;
+  pointer-events: none;
+}
+
+.db-hero-animation-root .app-reveal-image-mask > .app-reveal-chart-overlay {
+  display: block;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.db-hero-animation-root .app-chart-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.db-hero-animation-root .app-chart-head h3,
+.db-hero-animation-root .app-chart-head p {
+  margin: 0;
+}
+
+.db-hero-animation-root .app-chart-head h3 {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: 0;
+}
+
+.db-hero-animation-root .app-chart-head p {
+  margin-top: 3px;
+  color: #9194a1;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: 0;
+}
+
+.db-hero-animation-root .app-chart-toggle {
+  display: flex;
+  align-items: center;
+  height: 22px;
+  padding: 4px 3px;
+  color: #9194a1;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1;
+  background: rgb(18 19 23 / 80%);
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.db-hero-animation-root .app-chart-toggle-label {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  padding: 4px 3px;
+  color: #9194a1;
+  font-weight: 500;
+  text-align: center;
+}
+
+.db-hero-animation-root .app-chart-toggle-active {
+  margin-left: 4px;
+  color: #c7c9d1;
+}
+
+.db-hero-animation-root .app-chart-toggle-active::before {
+  content: "";
+  position: absolute;
+  inset: 0 -1px;
+  z-index: -1;
+  height: 18px;
+  background: #2e3038;
+  border-radius: 2px;
+}
+
+.db-hero-animation-root .app-chart-toggle-active span {
+  color: #c7c9d1;
+}
+
+.db-hero-animation-root .app-chart-stage {
+  position: relative;
+  height: 164px;
+  overflow: hidden;
+  background: none;
+  outline: none;
+}
+
+.db-hero-animation-root .app-chart-stage::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 2px;
+  left: 36px;
+  height: 144px;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgb(145 148 161 / 10%) 0 4px, transparent 4px 8px) 0
+      22px / 8px 1px repeat-x,
+    linear-gradient(90deg, rgb(145 148 161 / 10%) 0 4px, transparent 4px 8px) 0
+      52px / 8px 1px repeat-x,
+    linear-gradient(90deg, rgb(145 148 161 / 10%) 0 4px, transparent 4px 8px) 0
+      82px / 8px 1px repeat-x,
+    linear-gradient(90deg, rgb(145 148 161 / 10%) 0 4px, transparent 4px 8px) 0
+      112px / 8px 1px repeat-x,
+    linear-gradient(90deg, rgb(145 148 161 / 10%) 0 4px, transparent 4px 8px) 0
+      142px / 8px 1px repeat-x;
+}
+
+.db-hero-animation-root .app-chart-svg {
+  position: absolute;
+  inset: 0 0 auto 0;
+  width: 100%;
+  height: 144px;
+  overflow: visible;
+}
+
+.db-hero-animation-root .app-chart-fill {
+  fill: url("#app-chart-revenue-fill");
+}
+
+.db-hero-animation-root .app-chart-target {
+  fill: none;
+  stroke: rgb(199 201 209 / 72%);
+  stroke-width: 1;
+  stroke-dasharray: 7 7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.db-hero-animation-root .app-chart-line-live {
+  fill: none;
+  stroke: #ff5f46;
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.db-hero-animation-root .app-chart-marker {
+  position: absolute;
+  top: 0;
+  bottom: 20px;
+  left: var(--chart-hover-x);
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    rgb(94 97 110 / 0%),
+    rgb(94 97 110 / 88%) 32%,
+    rgb(94 97 110 / 88%) 76%,
+    rgb(94 97 110 / 0%)
+  );
+  opacity: 0;
+  transform: translateX(-0.5px);
+  transition: opacity 120ms ease;
+}
+
+.db-hero-animation-root .app-chart-marker-dot {
+  position: absolute;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  transform: translate3d(-50%, -50%, 0);
+}
+
+.db-hero-animation-root .app-chart-marker-dot.is-revenue {
+  top: var(--chart-hover-revenue-y);
+  background: #ff5f46;
+}
+
+.db-hero-animation-root .app-chart-marker-dot.is-target {
+  top: var(--chart-hover-target-y);
+  background: rgb(145 148 161 / 50%);
+}
+
+.db-hero-animation-root .app-chart-marker-dot.is-target::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  border-radius: 100%;
+  background: #9194a1;
+  transform: translate(-50%, -50%);
+}
+
+.db-hero-animation-root .app-chart-hover-card {
+  position: absolute;
+  left: var(--chart-card-x);
+  top: var(--chart-card-y);
+  display: grid;
+  width: 96px;
+  gap: 5px;
+  padding: 7px;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 500;
+  line-height: 1.1;
+  background: #23242a;
+  border: 1px solid #464853;
+  border-radius: 2px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateZ(0);
+  transition: opacity 120ms ease;
+}
+
+.db-hero-animation-root .app-chart-stage:hover .app-chart-marker,
+.db-hero-animation-root .app-chart-stage:hover .app-chart-hover-card,
+.db-hero-animation-root .app-chart-overlay:hover .app-chart-marker,
+.db-hero-animation-root .app-chart-overlay:hover .app-chart-hover-card,
+.db-hero-animation-root .app-chart-stage:focus .app-chart-marker,
+.db-hero-animation-root .app-chart-stage:focus .app-chart-hover-card,
+.db-hero-animation-root .app-chart-stage:focus-within .app-chart-marker,
+.db-hero-animation-root .app-chart-stage:focus-within .app-chart-hover-card {
+  opacity: 1;
+}
+
+.db-hero-animation-root .app-chart-hover-card span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #c7c9d1;
+}
+
+.db-hero-animation-root .app-chart-hover-card i {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: #9194a1;
+}
+
+.db-hero-animation-root .app-chart-hover-card span:last-child i {
+  background: #ff5f46;
+}
+
+.db-hero-animation-root .app-chart-hover-card strong {
+  margin-left: auto;
+  color: #fff;
+  font-weight: 600;
+}
+
+.db-hero-animation-root .app-chart-y-labels {
+  position: absolute;
+  top: 14px;
+  bottom: 22px;
+  left: 0;
+  z-index: 2;
+  display: flex;
+  width: 28px;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #9194a1;
+  font-size: 8px;
+  font-weight: 500;
+  line-height: 1;
+  text-align: right;
+  pointer-events: none;
+}
+
+.db-hero-animation-root .app-chart-months {
+  position: absolute;
+  right: 10px;
+  bottom: 8px;
+  left: 42px;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  color: #9194a1;
+  font-size: 8px;
+  font-weight: 500;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.db-hero-animation-root .app-chart-foot {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  margin-top: 20px;
+  color: #9194a1;
+  font-size: 9px;
+  font-weight: 500;
+  line-height: 1.15;
+}
+
+.db-hero-animation-root .app-chart-foot span {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.db-hero-animation-root .app-chart-foot b {
+  display: block;
+  color: #fff;
+  font-size: 12px;
+  line-height: 1.25;
+  font-weight: 500;
+}
+
+.db-hero-animation-root .app-chart-foot span:last-child b {
+  color: #00a972;
 }
 
 .db-hero-animation-root .app-preview.terminal-window-enter {
@@ -2279,6 +2860,12 @@
   background: transparent;
   border-color: transparent;
   box-shadow: none;
+  overflow: visible;
+}
+
+.db-hero-animation-root .app-preview.app-boot-running.app-boot-clip-enabled,
+.db-hero-animation-root .app-preview.app-reveal-running.app-boot-clip-enabled {
+  overflow: hidden;
 }
 
 .db-hero-animation-root
@@ -2290,6 +2877,10 @@
 .db-hero-animation-root .app-preview.app-boot-running .app-reveal-overlay {
   z-index: 90;
   display: block;
+  overflow: visible;
+}
+
+.db-hero-animation-root .app-preview.app-boot-clip-enabled .app-reveal-overlay {
   overflow: hidden;
 }
 
@@ -2345,6 +2936,21 @@
   opacity: 1;
 }
 
+.db-hero-animation-root .app-boot-full-frame.is-reveal-gated {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.db-hero-animation-root
+  .app-preview.app-boot-running:not(.app-boot-final-frame-ready)
+  .app-boot-full-frame {
+  display: none;
+}
+
+.db-hero-animation-root .app-preview.app-reveal-running .app-boot-full-frame {
+  z-index: 0;
+}
+
 .db-hero-animation-root .app-boot-frame-side {
   position: absolute;
   display: block;
@@ -2390,11 +2996,27 @@
   height: 1px;
 }
 
-.db-hero-animation-root .app-boot-frame-side.is-sidebar {
-  top: 7.2%;
-  bottom: 0;
-  left: 8.4%;
-  width: 1px;
+.db-hero-animation-root .app-boot-window-controls {
+  position: absolute;
+  top: calc(2.45% + var(--app-boot-control-y, 0px));
+  left: calc(1.75% + var(--app-boot-control-x, 0px));
+  z-index: 2;
+  display: flex;
+  gap: var(--app-boot-control-gap, clamp(5px, 0.42vw, 8px));
+  pointer-events: none;
+}
+
+.db-hero-animation-root .app-boot-window-controls span {
+  display: block;
+  width: var(--app-boot-control-size, clamp(6px, 0.52vw, 9px));
+  height: var(--app-boot-control-size, clamp(6px, 0.52vw, 9px));
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.08);
+  border: var(--app-boot-control-stroke, 1.5px) solid rgba(247, 248, 250, 0.95);
+  box-shadow:
+    0 0 6px rgba(247, 248, 250, 0.14),
+    1px 0 rgba(255, 96, 73, 0.18),
+    -1px 0 rgba(0, 220, 255, 0.14);
 }
 
 .db-hero-animation-root .app-boot-scaffold {
@@ -2749,6 +3371,16 @@
   display: block;
 }
 
+.db-hero-animation-root .app-preview.app-reveal-fading .app-reveal-solid-tile,
+.db-hero-animation-root .app-preview.app-reveal-fading .app-reveal-scan-tile,
+.db-hero-animation-root
+  .app-preview.app-reveal-fading
+  .app-reveal-scan-tile::after {
+  animation-name: none;
+  opacity: 0;
+  transition: opacity var(--app-reveal-final-fade, 360ms) linear;
+}
+
 .db-hero-animation-root
   .app-preview.app-reveal-running.reveal-colorWave
   .app-reveal-overlay {
@@ -2759,6 +3391,41 @@
 
 .db-hero-animation-root .app-preview.app-reveal-running.reveal-colorWave {
   animation: none;
+}
+
+.db-hero-animation-root .app-preview.is-section-reveal-gated {
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.db-hero-animation-root .app-preview.is-section-reveal-gated::before {
+  opacity: 0;
+}
+
+.db-hero-animation-root
+  .app-preview.is-section-reveal-gated
+  > :not(.app-reveal-overlay) {
+  opacity: 0 !important;
+}
+
+.db-hero-animation-root
+  .app-preview.is-section-reveal-gated
+  .app-reveal-overlay {
+  display: block;
+}
+
+.db-hero-animation-root
+  .app-preview.is-section-reveal-gated
+  .app-boot-full-frame,
+.db-hero-animation-root
+  .app-preview.is-section-reveal-gated
+  .app-boot-frame-side,
+.db-hero-animation-root
+  .app-preview.is-section-reveal-gated
+  .app-boot-window-controls {
+  visibility: hidden !important;
+  opacity: 0 !important;
 }
 
 .db-hero-animation-root
@@ -2793,6 +3460,7 @@
   inset: 0;
   z-index: 0;
   display: block;
+  overflow: hidden;
   background-image: var(--app-reveal-image);
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -4121,8 +4789,11 @@
     opacity: 0;
   }
   18%,
-  100% {
+  46% {
     opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }
 
@@ -4788,48 +5459,53 @@
 @keyframes crt-power-scene {
   0% {
     opacity: 0;
-    transform: translateY(var(--power-on-scene-start-y))
+    transform: var(--pre-app-perspective-transform)
+      translateY(var(--power-on-scene-start-y))
       scaleX(calc(1 - var(--power-on-scale)))
       scaleY(var(--power-on-scene-start-squash));
   }
 
   10% {
     opacity: 0.16;
-    transform: translateY(var(--power-on-scene-mid-y))
+    transform: var(--pre-app-perspective-transform)
+      translateY(var(--power-on-scene-mid-y))
       scaleX(calc(1 - var(--power-on-scale)))
       scaleY(calc(var(--power-on-scene-start-squash) + 0.18));
   }
 
   18% {
     opacity: 0.55;
-    transform: translateY(var(--power-on-scene-overshoot-y)) scaleX(0.99)
+    transform: var(--pre-app-perspective-transform)
+      translateY(var(--power-on-scene-overshoot-y)) scaleX(0.99)
       scaleY(var(--power-on-scene-y-scale));
   }
 
   26% {
     opacity: 0.72;
-    transform: translateY(var(--power-on-scene-settle-y)) scaleX(1.004)
-      scaleY(1.08);
+    transform: var(--pre-app-perspective-transform)
+      translateY(var(--power-on-scene-settle-y)) scaleX(1.004) scaleY(1.08);
   }
 
   36% {
     opacity: 0.92;
-    transform: translateY(0) scaleX(0.998) scaleY(1.02);
+    transform: var(--pre-app-perspective-transform) translateY(0) scaleX(0.998)
+      scaleY(1.02);
   }
 
   52% {
     opacity: 0.86;
-    transform: translateY(0) scaleX(1.001) scaleY(1);
+    transform: var(--pre-app-perspective-transform) translateY(0) scaleX(1.001)
+      scaleY(1);
   }
 
   70% {
     opacity: 1;
-    transform: scale(1) translate(0, 0);
+    transform: var(--pre-app-perspective-transform) scale(1) translate(0, 0);
   }
 
   100% {
     opacity: 1;
-    transform: scale(1) translate(0, 0);
+    transform: var(--pre-app-perspective-transform) scale(1) translate(0, 0);
   }
 }
 
@@ -4868,33 +5544,38 @@
 @keyframes pre-app-terminal-settle {
   0% {
     opacity: 1;
-    transform: scale(1) translate(0, 0);
+    transform: var(--pre-app-perspective-transform) scale(1) translate(0, 0);
     filter: none;
   }
 
   18% {
     opacity: min(1, calc(var(--pre-app-opacity) + 0.22));
-    transform: scale(var(--pre-app-scale-step-1)) translate(1px, 0);
+    transform: var(--pre-app-perspective-transform)
+      scale(var(--pre-app-scale-step-1)) translate(1px, 0);
   }
 
   36% {
     opacity: min(1, calc(var(--pre-app-opacity) + 0.14));
-    transform: scale(var(--pre-app-scale-step-2)) translate(-1px, 0);
+    transform: var(--pre-app-perspective-transform)
+      scale(var(--pre-app-scale-step-2)) translate(-1px, 0);
   }
 
   58% {
     opacity: var(--pre-app-opacity);
-    transform: scale(var(--pre-app-scale-step-3)) translate(0, 1px);
+    transform: var(--pre-app-perspective-transform)
+      scale(var(--pre-app-scale-step-3)) translate(0, 1px);
   }
 
   76% {
     opacity: var(--pre-app-opacity);
-    transform: scale(var(--pre-app-scale-step-4)) translate(0, 0);
+    transform: var(--pre-app-perspective-transform)
+      scale(var(--pre-app-scale-step-4)) translate(0, 0);
   }
 
   100% {
     opacity: var(--pre-app-opacity);
-    transform: scale(var(--pre-app-scale)) translate(0, 0);
+    transform: var(--pre-app-perspective-transform) scale(var(--pre-app-scale))
+      translate(0, 0);
     filter: none;
   }
 }
