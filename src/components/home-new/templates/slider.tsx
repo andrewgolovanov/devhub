@@ -107,38 +107,27 @@ const CAROUSEL_TEMPLATE_ITEMS = Array.from(
   () => TEMPLATE_ITEMS,
 ).flat();
 
-function TemplateCarouselCard({
-  item,
-  isActive,
-}: {
-  item: TemplateCardItem;
-  isActive: boolean;
-}) {
+function TemplateCarouselCard({ item }: { item: TemplateCardItem }) {
   const imageSrc = useBaseUrl(item.imageUrl);
 
   return (
     <Link
+      className="group/card mt-auto flex h-fit w-full flex-col justify-end text-white no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-db-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-[#121317]"
       to={item.href}
       draggable={false}
-      className="mt-auto flex h-full w-full flex-col justify-end text-white no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-db-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-[#121317]"
       aria-label={`${item.title} template`}
       onDragStart={(event) => event.preventDefault()}
     >
       <h3 className="text-xl leading-tight font-medium tracking-tight text-white text-pretty">
-        <span className="group/title inline-flex items-center gap-1.5 text-white">
+        <span className="inline-flex items-center gap-1.5 text-white">
           <span>{item.title}</span>
           <TitleLinkIcon
-            className="size-6 text-db-lava-light opacity-0 transition-[opacity,transform] duration-200 group-hover/title:-translate-y-0.5 group-hover/title:translate-x-0.5 group-hover/title:opacity-100 group-focus-visible/title:-translate-y-0.5 group-focus-visible/title:translate-x-0.5 group-focus-visible/title:opacity-100"
+            className="size-6 text-db-lava-light opacity-0 transition-[opacity,transform] duration-200 group-hover/card:-translate-y-0.5 group-hover/card:translate-x-0.5 group-hover/card:opacity-100 group-focus-visible/card:-translate-y-0.5 group-focus-visible/card:translate-x-0.5 group-focus-visible/card:opacity-100"
             aria-hidden="true"
           />
         </span>
       </h3>
-      <p
-        className={cn(
-          "max-w-104 mt-2.5 text-[15px] leading-normal tracking-tight text-grey-70",
-          isActive && "max-w-136",
-        )}
-      >
+      <p className="max-w-104 mt-2.5 text-[15px] leading-normal tracking-tight text-grey-70">
         {item.description}
       </p>
       <img
@@ -209,7 +198,7 @@ export function TemplateSlider({
         <LazyMotion features={domAnimation}>
           <div
             className={cn(
-              "mx-auto w-full max-w-400 overflow-visible px-5 transition-opacity duration-150 md:px-8",
+              "@container mx-auto w-full max-w-400 overflow-visible px-5 transition-opacity duration-150 md:px-8",
               slider.isCarouselMeasured
                 ? "opacity-100"
                 : "pointer-events-none opacity-0",
@@ -220,6 +209,7 @@ export function TemplateSlider({
               animate={{ x: slider.trackX }}
               className="flex w-max min-h-[70vw] md:min-h-96 lg:min-h-112 2xl:min-h-136"
               initial={false}
+              ref={slider.carouselTrackRef}
               style={{ columnGap: slider.cardGap }}
               transition={
                 slider.shouldAnimateTrack
@@ -239,7 +229,6 @@ export function TemplateSlider({
                   slider.shouldUseThreeCardLayout
                     ? indexDistance < -1
                     : indexDistance < 0;
-                const cardWidth = slider.getCardWidth(isActive);
 
                 return (
                   <m.div
@@ -250,12 +239,14 @@ export function TemplateSlider({
                           : isVisibleCard
                             ? 1
                             : 0.5,
-                      ...(slider.shouldAnimateCardWidth
-                        ? { width: cardWidth }
-                        : {}),
                     }}
+                    data-active={isActive}
                     className={cn(
-                      "shrink-0 flex flex-col justify-end overflow-hidden",
+                      "w-[var(--template-card-width)] shrink-0 flex flex-col justify-end overflow-hidden transition-[width] duration-500 ease-out",
+                      "[--template-card-width:min(72cqw,360px)]",
+                      "md:[--template-card-width:min(calc((100cqw-48px)/2.5),576px)]",
+                      "xl:[--template-card-width:344px] 2xl:[--template-card-width:448px]",
+                      "data-[active=true]:xl:[--template-card-width:448px] data-[active=true]:2xl:[--template-card-width:576px]",
                       isVisibleCard
                         ? "pointer-events-auto cursor-grab touch-pan-y active:cursor-grabbing"
                         : "pointer-events-none",
@@ -269,14 +260,9 @@ export function TemplateSlider({
                     onPointerLeave={slider.handleCarouselPointerLeave}
                     onPointerMove={slider.handleCarouselPointerMove}
                     onPointerUp={slider.handleCarouselPointerUp}
-                    style={
-                      slider.shouldAnimateCardWidth
-                        ? undefined
-                        : { width: cardWidth }
-                    }
                     transition={{ duration: 0.5, ease: "easeOut" }}
                   >
-                    <TemplateCarouselCard item={item} isActive={isActive} />
+                    <TemplateCarouselCard item={item} />
                   </m.div>
                 );
               })}

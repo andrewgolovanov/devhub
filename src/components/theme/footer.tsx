@@ -131,7 +131,7 @@ function NewFooter({ className }: { className?: string }) {
         <div className="flex flex-col items-start gap-x-16 gap-y-10 lg:flex-row lg:flex-wrap lg:justify-between xl:gap-x-20">
           <div className="self-stretch flex flex-col justify-between">
             <Link
-              className="inline-flex max-w-48 rounded pt-0.5 lg:mr-auto"
+              className="inline-flex max-w-48 rounded lg:mr-auto"
               aria-label="Databricks Developer home"
               to="/"
             >

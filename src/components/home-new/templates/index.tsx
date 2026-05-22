@@ -46,7 +46,7 @@ function Templates({ className }: TemplatesProps) {
     <section
       ref={sectionRef}
       className={cn(
-        "templates overflow-hidden bg-grey-8 text-white pt-20 md:pt-28 lg:pt-34",
+        "templates overflow-hidden bg-grey-8 text-white pt-24 md:pt-32 lg:pt-40",
         className,
       )}
       aria-labelledby="home-new-templates-title"

@@ -278,7 +278,7 @@ function AnimatedConnectorLine({
     <m.div
       animate={isVisible && !reduceMotion ? { opacity: 1 } : undefined}
       className={cn(
-        "h-12 border-l border-dashed border-black @md/infographic:h-16",
+        "h-10 border-l border-dashed border-black @md/infographic:h-14",
         className,
       )}
       initial={reduceMotion ? false : { opacity: 0 }}
@@ -632,7 +632,7 @@ export function DatabricksAppsInfographic() {
   return (
     <LazyMotion features={domAnimation}>
       <div
-        className="@container/infographic flex w-full flex-col items-center py-6 font-sans text-black md:min-h-0 md:py-18"
+        className="@container/infographic flex w-full flex-col items-center gap-y-1 py-6 font-sans text-black md:min-h-0 md:py-18"
         ref={infographicRef}
       >
         <AnimatedAppsStep

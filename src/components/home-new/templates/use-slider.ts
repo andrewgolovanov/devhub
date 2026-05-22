@@ -9,9 +9,7 @@ import {
 } from "react";
 
 export const TEMPLATE_CARD_WIDTH = {
-  active: 576,
   inactive: 448,
-  compactActive: 448,
   compactInactive: 344,
   desktopGap: 32,
   responsiveGap: 24,
@@ -35,6 +33,7 @@ export function useTemplateSlider({
   sectionRef: RefObject<HTMLElement | null>;
 }) {
   const carouselViewportRef = useRef<HTMLDivElement>(null);
+  const carouselTrackRef = useRef<HTMLDivElement>(null);
   const shouldCancelCarouselClickRef = useRef(false);
   const dragStartXRef = useRef(0);
   const dragLastXRef = useRef(0);
@@ -51,19 +50,15 @@ export function useTemplateSlider({
   const [shouldUseThreeCardLayout, setShouldUseThreeCardLayout] =
     useState(false);
   const [carouselViewportWidth, setCarouselViewportWidth] = useState(0);
+  const [renderedCardWidth, setRenderedCardWidth] = useState(0);
   const [dragOffset, setDragOffset] = useState(0);
   const [hasCarouselMoved, setHasCarouselMoved] = useState(false);
   const [isAutoplayInViewport, setIsAutoplayInViewport] = useState(false);
   const [isBrowserTabActive, setIsBrowserTabActive] = useState(true);
-  const [shouldAnimateCardWidth, setShouldAnimateCardWidth] = useState(false);
   const isCarouselMeasured = carouselViewportWidth > 0;
-  const activeCarouselIndex = shouldUseThreeCardLayout
-    ? selectedIndex + 1
-    : selectedIndex;
-  const maxSelectedIndex = Math.max(
-    0,
-    itemCount - (shouldUseThreeCardLayout ? 3 : 1),
-  );
+  const activeCarouselOffset = shouldUseThreeCardLayout ? 1 : 0;
+  const activeCarouselIndex = selectedIndex + activeCarouselOffset;
+  const maxSelectedIndex = Math.max(0, itemCount - activeCarouselOffset - 1);
   const isPreviousSlideDisabled = selectedIndex <= 0;
   const isNextSlideDisabled = selectedIndex >= maxSelectedIndex;
   const viewportWidth =
@@ -86,27 +81,14 @@ export function useTemplateSlider({
       ? TEMPLATE_CARD_WIDTH.compactInactive
       : shouldUseThreeCardLayout
         ? Math.max((viewportWidth - cardGap * 2) / 2.5, 0)
-        : viewportWidth * 0.78;
-  const activeCardWidth = shouldUseDesktopLayout
-    ? TEMPLATE_CARD_WIDTH.active
-    : shouldUseCompactDesktopLayout
-      ? TEMPLATE_CARD_WIDTH.compactActive
-      : inactiveCardWidth;
-  const cardStep = inactiveCardWidth + cardGap;
+        : viewportWidth * 0.72;
+  const cardStep = (renderedCardWidth || inactiveCardWidth) + cardGap;
   const firstVisibleCardOffset = selectedIndex * cardStep;
   const trackX = -firstVisibleCardOffset + dragOffset;
   const dragThreshold = Math.min(cardStep * 0.22, 96);
   const dragActivationThreshold = 8;
   const shouldUseTwoFullCardsLayout =
     shouldUseThreeCardLayout && !shouldUseFixedCardWidths;
-
-  const getCardWidth = useCallback(
-    (isActive: boolean) =>
-      shouldUseFixedCardWidths && isActive
-        ? activeCardWidth
-        : inactiveCardWidth,
-    [activeCardWidth, inactiveCardWidth, shouldUseFixedCardWidths],
-  );
 
   const handlePreviousSlide = useCallback(() => {
     setHasCarouselMoved(true);
@@ -299,6 +281,25 @@ export function useTemplateSlider({
   }, []);
 
   useEffect(() => {
+    const carouselTrack = carouselTrackRef.current;
+    const firstCard = carouselTrack?.firstElementChild;
+
+    if (!firstCard) return;
+
+    const updateRenderedCardWidth = () => {
+      setRenderedCardWidth(firstCard.getBoundingClientRect().width);
+    };
+    const cardObserver = new ResizeObserver(updateRenderedCardWidth);
+
+    updateRenderedCardWidth();
+    cardObserver.observe(firstCard);
+
+    return () => {
+      cardObserver.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
     if (
       isAutoplayPaused ||
       !isAutoplayInViewport ||
@@ -325,18 +326,6 @@ export function useTemplateSlider({
       Math.min(currentIndex, maxSelectedIndex),
     );
   }, [maxSelectedIndex]);
-
-  useEffect(() => {
-    if (!isCarouselMeasured) return;
-
-    const animationFrameId = window.requestAnimationFrame(() => {
-      setShouldAnimateCardWidth(true);
-    });
-
-    return () => {
-      window.cancelAnimationFrame(animationFrameId);
-    };
-  }, [isCarouselMeasured]);
 
   useEffect(() => {
     const sectionElement = sectionRef.current;
@@ -379,8 +368,8 @@ export function useTemplateSlider({
   return {
     activeCarouselIndex,
     cardGap,
+    carouselTrackRef,
     carouselViewportRef,
-    getCardWidth,
     handleCarouselClickCapture,
     handleCarouselPointerCancel,
     handleCarouselPointerDown,
@@ -394,7 +383,6 @@ export function useTemplateSlider({
     isNextSlideDisabled,
     isPreviousSlideDisabled,
     setIsAutoplayPaused,
-    shouldAnimateCardWidth,
     shouldUseFixedCardWidths,
     shouldAnimateTrack,
     shouldUseThreeCardLayout,

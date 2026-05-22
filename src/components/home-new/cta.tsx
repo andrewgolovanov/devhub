@@ -48,28 +48,28 @@ function titleSegments(title: string): {
 
 function CTATitleHighlight({ children }: { children: string }) {
   const cornerClassName =
-    "absolute hidden size-3 md:block before:absolute before:top-0 before:left-1/2 before:h-full before:w-px before:-translate-x-1/2 before:bg-white/50 after:absolute after:top-1/2 after:left-0 after:h-px after:w-full after:-translate-y-1/2 after:bg-white/50";
+    "absolute hidden size-4 md:block before:absolute before:top-0 before:left-1/2 before:h-full before:w-px before:-translate-x-1/2 before:bg-grey-60 after:absolute after:top-1/2 after:left-0 after:h-px after:w-full after:-translate-y-1/2 after:bg-grey-60";
 
   return (
     <span className="relative inline-block text-db-lava md:whitespace-nowrap">
       <span
-        className="pointer-events-none absolute -inset-x-2 -inset-y-1 hidden border border-white/14 md:block"
+        className="pointer-events-none absolute -inset-x-0.5 inset-y-0 hidden border border-grey-20 md:block"
         aria-hidden="true"
       />
       <span
-        className={cn(cornerClassName, "-top-2.5 -left-3.5")}
+        className={cn(cornerClassName, "-top-2 -left-2.25")}
         aria-hidden="true"
       />
       <span
-        className={cn(cornerClassName, "-top-2.5 -right-3.5")}
+        className={cn(cornerClassName, "-top-2 -right-2.25")}
         aria-hidden="true"
       />
       <span
-        className={cn(cornerClassName, "-bottom-2.5 -left-3.5")}
+        className={cn(cornerClassName, "-bottom-2 -left-2.25")}
         aria-hidden="true"
       />
       <span
-        className={cn(cornerClassName, "-right-3.5 -bottom-2.5")}
+        className={cn(cornerClassName, "-right-2.25 -bottom-2")}
         aria-hidden="true"
       />
       <span className="relative">{children}</span>
@@ -172,11 +172,11 @@ function CTA({
       <div className="relative mx-auto px-5 md:px-8 lg:px-16 2xl:px-24">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end mt-10 md:mt-16 lg:mt-20">
           <h2 className="relative font-heading text-4xl/none font-normal tracking-normal text-balance text-white md:text-5xl/none xl:text-6xl/none 2xl:text-[5rem]">
-            {before}
+            <span className="relative z-10">{before}</span>
             {highlight ? (
               <CTATitleHighlight>{highlight}</CTATitleHighlight>
             ) : null}
-            {after}
+            <span className="relative z-10">{after}</span>
           </h2>
 
           {actions ?? <CTAButtons copyState={copyState} onCopy={handleCopy} />}

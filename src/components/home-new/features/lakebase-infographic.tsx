@@ -174,7 +174,7 @@ function BackgroundScheme({ isVisible, reduceMotion }: BackgroundSchemeProps) {
     >
       <m.div
         animate={shouldAnimate ? { clipPath: "inset(0% 0% 0% 0%)" } : undefined}
-        className="absolute left-1/2 top-0 -translate-x-1/2 h-20 w-px border-l border-dashed border-black"
+        className="absolute left-1/2 top-1 -translate-x-1/2 h-20 w-px border-l border-dashed border-black"
         initial={reduceMotion ? false : { clipPath: "inset(0% 0% 100% 0%)" }}
         transition={{
           delay: BACKGROUND_SCHEME_DRAW_DELAY,
@@ -354,7 +354,7 @@ export function LakebaseInfographic() {
                 </h4>
                 <p className="text-[8px] leading-tight tracking-tight text-black/70 @xl/infographic:text-[11px]">
                   Currect load:{" "}
-                  <span className="font-medium text-black">23%</span>
+                  <span className="font-medium text-black">65%</span>
                 </p>
               </div>
               <m.img

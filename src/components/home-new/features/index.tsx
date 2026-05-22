@@ -100,7 +100,7 @@ function Features({ className }: { className?: string }) {
   return (
     <section
       className={cn(
-        "features bg-background pt-12 pb-16 md:pt-20 md:pb-24 lg:pt-28 lg:pb-32 xl:pt-44 xl:pb-54",
+        "features bg-[#F9F7F4] pt-12 pb-16 md:pt-20 md:pb-24 lg:pt-28 lg:pb-32 xl:pt-44 xl:pb-54",
         className,
       )}
       aria-labelledby="home-features-heading"

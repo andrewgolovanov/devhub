@@ -242,7 +242,7 @@ function AgentBricksInfographicCard({
         {!isLast && (
           <m.span
             animate={isVisible && !reduceMotion ? { opacity: 1 } : undefined}
-            className="absolute top-8 left-1/2 -translate-x-1/2 border-l border-black w-fit h-[calc(100%-1.75rem)] mx-auto border-dashed @md/infographic:top-10.5"
+            className="absolute top-8 left-1/2 -translate-x-1/2 border-l border-black w-fit h-[calc(100%-1.5rem)] mx-auto border-dashed @md/infographic:top-10.5 @md/infographic:h-[calc(100%-1.625rem)]"
             initial={reduceMotion ? false : { opacity: 0 }}
             transition={getConnectorLineTransition(stepIndex)}
           />
