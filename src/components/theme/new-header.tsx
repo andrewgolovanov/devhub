@@ -13,7 +13,7 @@ interface NewHeaderProps {
 }
 
 const HEADER_LINKS = [
-  { label: "Product", href: "https://www.databricks.com/product" },
+  { label: "Product", href: "/product/data-lakehouse" },
   { label: "Solutions", href: "/solutions" },
   { label: "Resources", href: "/templates" },
   { label: "Docs", href: "/docs/start-here" },
@@ -106,5 +106,3 @@ export function NewHeader({ className }: NewHeaderProps) {
     </>
   );
 }
-
-export default NewHeader;

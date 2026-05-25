@@ -1,7 +1,15 @@
 import Link from "@docusaurus/Link";
 import { useLocation } from "@docusaurus/router";
-import { useMemo } from "react";
+import type { ReactNode } from "react";
 
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
 
 type HeaderNavItem = {
@@ -14,6 +22,12 @@ interface HeaderNavProps {
   items: readonly HeaderNavItem[];
 }
 
+const PRODUCT_LINKS = [
+  { label: "Lakebase", href: "/product/data-lakehouse" },
+  { label: "AgentBricks", href: "/product/agent-bricks" },
+  { label: "Databricks Apps", href: "/product/databricks-apps" },
+] as const;
+
 function normalizePath(path: string) {
   if (path === "/") return path;
 
@@ -24,50 +38,113 @@ function isExternalHref(href: string) {
   return /^https?:\/\//.test(href);
 }
 
+function isHrefActive(href: string, pathname: string) {
+  if (isExternalHref(href)) return false;
+
+  const hrefPath = normalizePath(href);
+  const currentPath = normalizePath(pathname);
+
+  return hrefPath === "/"
+    ? currentPath === "/"
+    : currentPath === hrefPath || currentPath.startsWith(`${hrefPath}/`);
+}
+
+function NavItemChrome({
+  active,
+  children,
+  className,
+}: {
+  active: boolean;
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <span
+      data-active={active ? "true" : undefined}
+      className={cn(
+        "group/nav-item relative inline-flex px-3 py-2 font-mono text-[15px] leading-none text-white no-underline hover:no-underline",
+        className,
+      )}
+    >
+      <span
+        className="pointer-events-none absolute inset-0 overflow-hidden bg-grey-12 opacity-0 transition-opacity duration-300 group-hover/nav-item:opacity-100 group-data-[state=open]/product-trigger:opacity-100 group-data-[active=true]/nav-item:opacity-100"
+        aria-hidden="true"
+      >
+        <span className="absolute top-0 right-0 size-3 translate-x-1/2 -translate-y-1/2 rotate-45 overflow-hidden border-2 border-black bg-orange" />
+      </span>
+      <span className="relative z-10">{children}</span>
+    </span>
+  );
+}
+
 function Nav({ className, items }: HeaderNavProps) {
   const { pathname } = useLocation();
-
-  const activeIndex = useMemo(
-    () =>
-      items.findIndex(({ href }) => {
-        if (isExternalHref(href)) return false;
-
-        const hrefPath = normalizePath(href);
-        const currentPath = normalizePath(pathname);
-
-        return hrefPath === "/"
-          ? currentPath === "/"
-          : currentPath === hrefPath || currentPath.startsWith(`${hrefPath}/`);
-      }),
-    [items, pathname],
-  );
+  const activeProductHref = PRODUCT_LINKS.find(({ href }) =>
+    isHrefActive(href, pathname),
+  )?.href;
 
   return (
-    <nav className={cn("flex", className)}>
-      {items.map(({ href, label }, index) => {
-        const isActive = index === activeIndex;
+    <NavigationMenu
+      viewport={false}
+      delayDuration={0}
+      className={cn("flex max-w-none flex-none justify-start", className)}
+    >
+      <NavigationMenuList className="flex justify-start gap-0">
+        {items.map(({ href, label }) => {
+          if (label === "Product") {
+            const isActive = Boolean(activeProductHref);
 
-        return (
-          <Link
-            key={href}
-            to={href}
-            data-active={isActive ? "true" : undefined}
-            className={cn(
-              "group relative inline-flex px-3 py-2 font-mono text-[15px] leading-none text-white no-underline hover:no-underline",
-              isActive && "text-white",
-            )}
-          >
-            <span
-              className="pointer-events-none absolute inset-0 bg-grey-8 overflow-hidden opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-data-[active=true]:opacity-100"
-              aria-hidden="true"
-            >
-              <span className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 size-3 rotate-45 overflow-hidden border-2 border-black bg-orange"></span>
-            </span>
-            <span className="relative z-10">[{label}]</span>
-          </Link>
-        );
-      })}
-    </nav>
+            return (
+              <NavigationMenuItem key={href}>
+                <NavigationMenuTrigger className="group/product-trigger h-auto rounded-none !bg-transparent p-0 font-mono text-white shadow-none hover:!bg-transparent hover:!text-white focus:!bg-transparent focus:!text-white focus-visible:!ring-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-db-cyan data-[state=open]:!bg-transparent data-[state=open]:!text-white [&>svg]:hidden">
+                  <NavItemChrome active={isActive}>[{label}]</NavItemChrome>
+                </NavigationMenuTrigger>
+                <NavigationMenuContent className="z-[60] !mt-0 !w-[165px] !rounded-none !border-0 !bg-grey-12 !p-4 font-sans !shadow-none">
+                  <div className="flex flex-col gap-[18px]">
+                    {PRODUCT_LINKS.map((product) => {
+                      const isProductActive =
+                        product.href === activeProductHref;
+
+                      return (
+                        <NavigationMenuLink
+                          active={isProductActive}
+                          asChild
+                          className={cn(
+                            "block !rounded-none !bg-transparent !p-0 font-sans text-sm leading-none tracking-tight no-underline outline-none transition-colors hover:!bg-transparent hover:no-underline focus:!bg-transparent data-[active=true]:!bg-transparent",
+                            isProductActive
+                              ? "!text-orange hover:!text-orange focus:!text-orange"
+                              : "!text-grey-60 hover:!text-white focus:!text-white",
+                          )}
+                          key={product.href}
+                        >
+                          <Link to={product.href}>{product.label}</Link>
+                        </NavigationMenuLink>
+                      );
+                    })}
+                  </div>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            );
+          }
+
+          const isActive = isHrefActive(href, pathname);
+
+          return (
+            <NavigationMenuItem key={href}>
+              <NavigationMenuLink
+                active={isActive}
+                asChild
+                className="block !rounded-none !bg-transparent !p-0 !text-white no-underline hover:!bg-transparent hover:!text-white hover:no-underline focus:!bg-transparent focus:!text-white data-[active=true]:!bg-transparent"
+              >
+                <Link to={href}>
+                  <NavItemChrome active={isActive}>[{label}]</NavItemChrome>
+                </Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+          );
+        })}
+      </NavigationMenuList>
+    </NavigationMenu>
   );
 }
 
