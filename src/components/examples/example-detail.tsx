@@ -1,10 +1,8 @@
 import Link from "@docusaurus/Link";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import Layout from "@theme/Layout";
 import { MDXProvider } from "@mdx-js/react";
 import { useRef, type ReactNode } from "react";
 import { Code2, ExternalLink, FolderGit2 } from "lucide-react";
-import { TemplateUsageBanner } from "@/components/template-usage-banner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,7 +13,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { RecipePre } from "@/components/cookbooks/recipe-code-block";
-import { RecipeToc } from "@/components/cookbooks/recipe-toc";
 import {
   buildFullPrompt,
   buildAdditionalMarkdown,
@@ -29,6 +26,10 @@ import { TemplatePreviewImage } from "@/components/examples/template-preview-ima
 import { FallbackCardArt } from "@/components/examples/fallback-card-art";
 import { siteUrlFromConfig } from "@/lib/site-url";
 import { BaseUrlAnchor } from "@/components/base-url-anchor";
+import { MarkdownProse } from "@/components/markdown-prose";
+import { TemplateDetailShell } from "@/components/templates/template-detail-shell";
+import type { TemplateItem } from "@/components/templates/template-card";
+import { Toc } from "@site/src/components/templates/toc";
 
 const mdxComponents = { a: BaseUrlAnchor, pre: RecipePre };
 
@@ -155,107 +156,86 @@ export function ExampleDetail({
   };
   const additionalMarkdown = buildAdditionalMarkdown(mdOpts);
   const fullPrompt = buildFullPrompt({ ...mdOpts, sections });
+  const relatedItems: TemplateItem[] = [
+    ...includedCookbooks.map((data) => ({ kind: "cookbook" as const, data })),
+    ...includedRecipes.map((data) => ({ kind: "recipe" as const, data })),
+  ];
 
   return (
-    <Layout title={example.name} description={example.description}>
-      <main>
-        <div className="container px-4 py-8 md:py-12">
-          <div className="mx-auto max-w-5xl">
-            <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_220px]">
-              <div className="min-w-0">
-                <Link
-                  to="/templates"
-                  className="mb-6 inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground no-underline transition-colors hover:text-foreground"
-                >
-                  <span aria-hidden="true">&larr;</span>
-                  All templates
-                </Link>
-
-                <TemplateUsageBanner
-                  kind="example"
-                  rawMarkdown={rawMarkdown}
-                  additionalMarkdown={additionalMarkdown}
-                  customTemplateBody={fullPrompt}
-                  title={example.name}
-                  description={example.description}
-                  permalink={permalink}
-                />
-
-                <h1 className="mb-3 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-                  {example.name}
-                </h1>
-                <p className="mb-6 max-w-2xl text-base leading-relaxed text-muted-foreground">
-                  {example.description}
-                </p>
-
-                {example.galleryImages && example.galleryImages.length > 0 ? (
-                  <TemplateImageCarousel
-                    images={example.galleryImages}
-                    exampleName={example.name}
+    <TemplateDetailShell
+      title={example.name}
+      description={example.description}
+      contentRef={contentRef}
+      eyebrow="Solution Apps"
+      usage={{
+        kind: "example",
+        rawMarkdown,
+        additionalMarkdown,
+        customTemplateBody: fullPrompt,
+        title: example.name,
+        description: example.description,
+        permalink,
+      }}
+      heroMedia={
+        example.galleryImages && example.galleryImages.length > 0 ? (
+          <TemplateImageCarousel
+            images={example.galleryImages}
+            exampleName={example.name}
+          />
+        ) : (
+          <div className="relative aspect-[16/9] w-full overflow-hidden border border-black/12 bg-black/4 dark:border-white/15 dark:bg-white/5">
+            <TemplatePreviewImage
+              lightUrl={example.previewImageLightUrl}
+              darkUrl={example.previewImageDarkUrl}
+              alt={`${example.name} preview`}
+              fallback={<FallbackCardArt index={0} />}
+            />
+          </div>
+        )
+      }
+      toc={<Toc contentRef={contentRef} />}
+      relatedItems={relatedItems}
+      belowContent={
+        <>
+          <StarterCodeCard
+            githubUrl={githubUrl}
+            githubPath={example.githubPath}
+          />
+          {(includedCookbooks.length > 0 || includedRecipes.length > 0) && (
+            <div className="mt-12">
+              <h2 className="mb-2 text-xl font-semibold tracking-tight">
+                Built on these templates
+              </h2>
+              <p className="mb-6 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+                This example's codebase and the agent prompt above both build on
+                top of the templates below.
+              </p>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                {includedCookbooks.map((c) => (
+                  <IncludedTemplateCard
+                    key={c.id}
+                    name={c.name}
+                    description={c.description}
+                    href={`/templates/${c.id}`}
                   />
-                ) : (
-                  <div className="relative mb-8 aspect-[16/9] w-full overflow-hidden rounded-xl border border-border/60 bg-muted/30">
-                    <TemplatePreviewImage
-                      lightUrl={example.previewImageLightUrl}
-                      darkUrl={example.previewImageDarkUrl}
-                      alt={`${example.name} preview`}
-                      fallback={<FallbackCardArt index={0} />}
-                    />
-                  </div>
-                )}
-
-                <StarterCodeCard
-                  githubUrl={githubUrl}
-                  githubPath={example.githubPath}
-                />
-
-                <div className="recipe-content-card" ref={contentRef}>
-                  <MDXProvider components={mdxComponents}>
-                    <div className="prose-solution">{children}</div>
-                  </MDXProvider>
-                </div>
-
-                {(includedCookbooks.length > 0 ||
-                  includedRecipes.length > 0) && (
-                  <div className="mt-12">
-                    <h2 className="mb-2 text-xl font-semibold tracking-tight">
-                      Built on these templates
-                    </h2>
-                    <p className="mb-6 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-                      This example's codebase and the agent prompt above both
-                      build on top of the templates below. Open one to dive into
-                      a specific technique on its own or apply it to a different
-                      project.
-                    </p>
-                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                      {includedCookbooks.map((c) => (
-                        <IncludedTemplateCard
-                          key={c.id}
-                          name={c.name}
-                          description={c.description}
-                          href={`/templates/${c.id}`}
-                        />
-                      ))}
-                      {includedRecipes.map((r) => (
-                        <IncludedTemplateCard
-                          key={r.id}
-                          name={r.name}
-                          description={r.description}
-                          href={`/templates/${r.id}`}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <div className="hidden lg:block">
-                <RecipeToc contentRef={contentRef} />
+                ))}
+                {includedRecipes.map((r) => (
+                  <IncludedTemplateCard
+                    key={r.id}
+                    name={r.name}
+                    description={r.description}
+                    href={`/templates/${r.id}`}
+                  />
+                ))}
               </div>
             </div>
-          </div>
-        </div>
-      </main>
-    </Layout>
+          )}
+        </>
+      }
+    >
+      <MDXProvider components={mdxComponents}>
+        <MarkdownProse variant="dark">{children}</MarkdownProse>
+      </MDXProvider>
+    </TemplateDetailShell>
   );
 }

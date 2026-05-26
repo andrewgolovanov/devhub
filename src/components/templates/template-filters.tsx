@@ -9,27 +9,21 @@ export function TemplateFilters({
   onToggleService: (service: Service) => void;
 }) {
   return (
-    <nav className="space-y-6" aria-label="Filters">
-      <div>
-        <h3 className="mb-3 text-xs font-semibold tracking-wider text-black/50 uppercase dark:text-white/50">
-          Services
-        </h3>
-        <div className="space-y-2">
-          {SERVICES.map((service) => (
-            <label
-              key={service}
-              className="flex cursor-pointer items-center gap-2.5 rounded-md px-1 py-1 text-sm text-black/80 transition-colors hover:bg-black/4 dark:text-white/80 dark:hover:bg-white/4"
-            >
-              <Checkbox
-                checked={selectedServices.has(service)}
-                onCheckedChange={() => onToggleService(service)}
-                aria-label={service}
-              />
-              <span className="leading-tight">{service}</span>
-            </label>
-          ))}
-        </div>
-      </div>
+    <nav className="space-y-1" aria-label="Filters">
+      {SERVICES.map((service) => (
+        <label
+          className="flex min-h-9 cursor-pointer items-center gap-2.5 text-base/snug text-black transition-colors hover:text-black"
+          key={service}
+        >
+          <Checkbox
+            className="size-5 rounded-none border-grey-60 bg-transparent data-[state=checked]:border-orange data-[state=checked]:bg-orange"
+            checked={selectedServices.has(service)}
+            onCheckedChange={() => onToggleService(service)}
+            aria-label={service}
+          />
+          <span>{service}</span>
+        </label>
+      ))}
     </nav>
   );
 }

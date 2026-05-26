@@ -3,6 +3,7 @@ import {
   useState,
   useRef,
   useCallback,
+  type MouseEvent,
   type ReactNode,
 } from "react";
 
@@ -44,6 +45,7 @@ export function RecipeToc({ contentRef }: RecipeTocProps): ReactNode {
     });
 
     setItems(tocItems);
+    setActiveId((currentActiveId) => currentActiveId || tocItems[0]?.id || "");
   }, [contentRef]);
 
   useEffect(() => {
@@ -86,6 +88,18 @@ export function RecipeToc({ contentRef }: RecipeTocProps): ReactNode {
     return () => observerRef.current?.disconnect();
   }, [items, contentRef]);
 
+  const handleTocClick = useCallback(
+    (e: MouseEvent<HTMLAnchorElement>, itemId: string) => {
+      e.preventDefault();
+      const el = document.getElementById(itemId);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+        setActiveId(itemId);
+      }
+    },
+    [],
+  );
+
   if (items.length < 2) return null;
 
   return (
@@ -104,14 +118,7 @@ export function RecipeToc({ contentRef }: RecipeTocProps): ReactNode {
                   ? "border-db-lava font-medium text-db-lava"
                   : "border-transparent text-muted-foreground hover:text-foreground hover:border-db-navy dark:text-[rgb(245_247_248/0.55)] dark:hover:text-white dark:hover:border-white",
               ].join(" ")}
-              onClick={(e) => {
-                e.preventDefault();
-                const el = document.getElementById(item.id);
-                if (el) {
-                  el.scrollIntoView({ behavior: "smooth", block: "start" });
-                  setActiveId(item.id);
-                }
-              }}
+              onClick={(e) => handleTocClick(e, item.id)}
             >
               {item.text}
             </a>

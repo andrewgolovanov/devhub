@@ -10,7 +10,8 @@
     "unified",
     "unist",
     "unist-util-visit",
-    "prism-react-renderer"
+    "prism-react-renderer",
+    "@tailwindcss/typography"
   ],
   "ignoreExports": [
     {

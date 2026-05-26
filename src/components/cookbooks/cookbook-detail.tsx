@@ -1,13 +1,13 @@
-import Link from "@docusaurus/Link";
 import useBaseUrl from "@docusaurus/useBaseUrl";
-import Layout from "@theme/Layout";
 import { MDXProvider } from "@mdx-js/react";
 import { useRef, type ReactNode } from "react";
-import { TemplateUsageBanner } from "@/components/template-usage-banner";
 import { RecipePre } from "@/components/cookbooks/recipe-code-block";
-import { RecipeToc } from "@/components/cookbooks/recipe-toc";
-import type { Cookbook } from "@/lib/recipes/recipes";
+import { recipes, type Cookbook } from "@/lib/recipes/recipes";
 import { BaseUrlAnchor } from "@/components/base-url-anchor";
+import { MarkdownProse } from "@/components/markdown-prose";
+import { TemplateDetailShell } from "@/components/templates/template-detail-shell";
+import type { TemplateItem } from "@/components/templates/template-card";
+import { Toc } from "@site/src/components/templates/toc";
 
 const recipeComponents = { a: BaseUrlAnchor, pre: RecipePre };
 
@@ -25,60 +25,40 @@ export function CookbookDetail({
   const contentRef = useRef<HTMLDivElement>(null);
   const heroImageUrl = useBaseUrl("/img/template-detail-hero.svg");
   const permalink = `/templates/${cookbook.id}`;
+  const relatedItems: TemplateItem[] = cookbook.recipeIds
+    .map((id) => recipes.find((recipe) => recipe.id === id))
+    .filter(Boolean)
+    .map((data) => ({ kind: "recipe" as const, data }));
 
   return (
-    <Layout title={cookbook.name} description={cookbook.description}>
-      <main>
-        <div className="container px-4 py-8 md:py-12">
-          <div className="mx-auto max-w-5xl">
-            <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_220px]">
-              <div className="min-w-0">
-                <Link
-                  to="/templates"
-                  className="mb-6 inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground no-underline transition-colors hover:text-foreground"
-                >
-                  <span aria-hidden="true">&larr;</span>
-                  All templates
-                </Link>
-
-                <TemplateUsageBanner
-                  kind="cookbook"
-                  rawMarkdown={rawMarkdown}
-                  title={cookbook.name}
-                  description={cookbook.description}
-                  permalink={permalink}
-                />
-
-                <h1 className="mb-3 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-                  {cookbook.name}
-                </h1>
-                <p className="mb-8 max-w-2xl text-base leading-relaxed text-muted-foreground">
-                  {cookbook.description}
-                </p>
-
-                <div className="mb-12 overflow-hidden rounded-xl bg-gradient-to-br from-[#0f172a] to-[#1e293b]">
-                  <img
-                    src={heroImageUrl}
-                    alt="Template architecture preview"
-                    className="h-auto w-full object-cover"
-                    loading="lazy"
-                  />
-                </div>
-
-                <div className="recipe-content-card" ref={contentRef}>
-                  <MDXProvider components={recipeComponents}>
-                    <div className="prose-solution">{children}</div>
-                  </MDXProvider>
-                </div>
-              </div>
-
-              <div className="hidden lg:block">
-                <RecipeToc contentRef={contentRef} />
-              </div>
-            </div>
-          </div>
+    <TemplateDetailShell
+      title={cookbook.name}
+      description={cookbook.description}
+      contentRef={contentRef}
+      eyebrow="Template"
+      usage={{
+        kind: "cookbook",
+        rawMarkdown,
+        title: cookbook.name,
+        description: cookbook.description,
+        permalink,
+      }}
+      heroMedia={
+        <div className="overflow-hidden border border-black/12 bg-[#0f172a] dark:border-white/15">
+          <img
+            src={heroImageUrl}
+            alt="Template architecture preview"
+            className="h-auto w-full object-cover"
+            loading="lazy"
+          />
         </div>
-      </main>
-    </Layout>
+      }
+      toc={<Toc className="mt-6" contentRef={contentRef} />}
+      relatedItems={relatedItems}
+    >
+      <MDXProvider components={recipeComponents}>
+        <MarkdownProse variant="dark">{children}</MarkdownProse>
+      </MDXProvider>
+    </TemplateDetailShell>
   );
 }

@@ -1,0 +1,197 @@
+import { FilterIcon } from "lucide-react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from "react";
+
+import { TemplateCard } from "@/components/templates/template-card";
+import { TemplateFilters } from "@/components/templates/template-filters";
+import { TemplateSearch } from "@/components/templates/template-search";
+import { Pagination } from "@site/src/components/templates/pagination";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
+import { useFeatureFlags } from "@/lib/feature-flags";
+import { matchesTemplateFilter, type Service } from "@/lib/recipes/recipes";
+import { buildTemplateItems } from "@/lib/templates/template-items";
+
+const ITEMS_PER_PAGE = 6;
+
+export function TemplatesIndexContent(): ReactNode {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedServices, setSelectedServices] = useState<Set<Service>>(
+    new Set(),
+  );
+  const [activeTags, setActiveTags] = useState<Set<string>>(new Set());
+  const [currentPage, setCurrentPage] = useState(1);
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+
+  const { showDrafts: includeDrafts } = useFeatureFlags();
+
+  const allItems = useMemo(
+    () => buildTemplateItems(includeDrafts),
+    [includeDrafts],
+  );
+
+  const filteredItems = useMemo(
+    () =>
+      allItems.filter((item) =>
+        matchesTemplateFilter(item.data, {
+          searchQuery,
+          selectedServices,
+          activeTags,
+        }),
+      ),
+    [searchQuery, selectedServices, activeTags, allItems],
+  );
+
+  const hasActiveFilters =
+    searchQuery.trim().length > 0 ||
+    activeTags.size > 0 ||
+    selectedServices.size > 0;
+  const hasSelectedFilters = activeTags.size > 0 || selectedServices.size > 0;
+  const visibleItemsPerPage = hasActiveFilters
+    ? Math.max(filteredItems.length, 1)
+    : ITEMS_PER_PAGE;
+  const pageCount = Math.max(
+    1,
+    Math.ceil(filteredItems.length / visibleItemsPerPage),
+  );
+  const visibleItems = useMemo(
+    () =>
+      filteredItems.slice(
+        (currentPage - 1) * visibleItemsPerPage,
+        currentPage * visibleItemsPerPage,
+      ),
+    [filteredItems, currentPage, visibleItemsPerPage],
+  );
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, selectedServices, activeTags]);
+
+  const handleToggleService = useCallback((service: Service) => {
+    setSelectedServices((prev) => {
+      const next = new Set(prev);
+      if (next.has(service)) next.delete(service);
+      else next.add(service);
+      return next;
+    });
+  }, []);
+
+  const handleClearAllFilters = useCallback(() => {
+    setSelectedServices(new Set());
+    setActiveTags(new Set());
+    setSearchQuery("");
+  }, []);
+
+  return (
+    <>
+      <section className="pt-16 md:pt-22" id="templates-list">
+        <h2 className="sr-only">Templates</h2>
+        <div className="mx-auto grid w-full max-w-400 gap-12 px-5 md:px-8 lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-32">
+          <aside className="hidden lg:block">
+            <div className="sticky top-24 flex flex-col gap-y-8">
+              <TemplateSearch value={searchQuery} onChange={setSearchQuery} />
+              <TemplateFilters
+                selectedServices={selectedServices}
+                onToggleService={handleToggleService}
+              />
+            </div>
+          </aside>
+
+          <div className="min-w-0">
+            <div className="mb-8 flex flex-col gap-4 lg:hidden">
+              <TemplateSearch value={searchQuery} onChange={setSearchQuery} />
+              <Button
+                className="w-fit gap-1.5 rounded-none"
+                variant="outline"
+                size="sm"
+                onClick={() => setMobileFiltersOpen(true)}
+              >
+                <FilterIcon className="size-3.5" />
+                Filters
+                {hasSelectedFilters && (
+                  <Badge className="ml-0.5 size-5 justify-center rounded-full p-0 text-[10px]">
+                    {selectedServices.size + activeTags.size}
+                  </Badge>
+                )}
+              </Button>
+            </div>
+
+            {filteredItems.length === 0 ? (
+              <TemplateEmptyState onClearAll={handleClearAllFilters} />
+            ) : (
+              <>
+                {visibleItems.map((item, index) => (
+                  <TemplateCard
+                    key={item.data.id}
+                    item={item}
+                    index={(currentPage - 1) * visibleItemsPerPage + index}
+                    isLast={index === visibleItems.length - 1}
+                  />
+                ))}
+                {pageCount > 1 ? (
+                  <Pagination
+                    className="mt-20 w-full max-w-104 md:mt-30"
+                    currentPage={currentPage}
+                    pageCount={pageCount}
+                    onPageChange={setCurrentPage}
+                  />
+                ) : null}
+              </>
+            )}
+          </div>
+        </div>
+      </section>
+
+      <Sheet open={mobileFiltersOpen} onOpenChange={setMobileFiltersOpen}>
+        <SheetContent
+          side="bottom"
+          className="max-h-[80vh] overflow-y-auto p-6"
+        >
+          <SheetHeader className="p-0 pb-4">
+            <SheetTitle>Filters</SheetTitle>
+          </SheetHeader>
+          <TemplateFilters
+            selectedServices={selectedServices}
+            onToggleService={handleToggleService}
+          />
+        </SheetContent>
+      </Sheet>
+    </>
+  );
+}
+
+function TemplateEmptyState({
+  onClearAll,
+}: {
+  onClearAll: () => void;
+}): ReactNode {
+  return (
+    <div className="flex flex-col items-start justify-center border border-dashed border-black/15 px-8 py-20 dark:border-white/15">
+      <p className="mb-2 text-xl font-medium text-black/55 dark:text-white/60">
+        No results found
+      </p>
+      <p className="mb-5 text-sm text-black/45 dark:text-white/45">
+        Try adjusting your search or filters.
+      </p>
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={onClearAll}
+        className="rounded-none"
+      >
+        Clear all filters
+      </Button>
+    </div>
+  );
+}

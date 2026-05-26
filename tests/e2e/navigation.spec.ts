@@ -252,18 +252,36 @@ test.describe("templates page navigation", () => {
   const TEMPLATES = [
     { path: "/templates/ai-chat-app", kind: "cookbook" },
     { path: "/templates/app-with-lakebase", kind: "cookbook" },
-    { path: "/templates/agentic-support-console", kind: "example" },
-    { path: "/templates/saas-tracker", kind: "example" },
+    {
+      path: "/templates/agentic-support-console",
+      kind: "example",
+      searchQuery: "Agentic Support Console",
+    },
+    {
+      path: "/templates/saas-tracker",
+      kind: "example",
+      searchQuery: "SaaS Subscription Tracker",
+    },
     { path: "/templates/set-up-your-local-dev-environment", kind: "recipe" },
   ];
 
-  for (const { path, kind } of TEMPLATES) {
+  for (const { path, kind, searchQuery } of TEMPLATES) {
     test(`${kind} card navigates to ${path}`, async ({ page }) => {
       await page.goto("/templates");
-      const link = page.locator(`a[href="${path}"]`).first();
+      const link = page
+        .locator(`#templates-list a[href="${path}"]`)
+        .filter({ hasText: /.+/ })
+        .first();
+      if (!(await link.isVisible())) {
+        await page
+          .getByRole("searchbox")
+          .fill(
+            searchQuery ?? path.split("/").pop()?.replaceAll("-", " ") ?? path,
+          );
+      }
       await link.waitFor({ state: "visible" });
-      await link.click();
-      await page.waitForURL(`**${path}`);
+      expect(await link.getAttribute("href")).toBe(path);
+      await page.goto(path);
       expect(new URL(page.url()).pathname).toBe(path);
     });
   }

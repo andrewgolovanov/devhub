@@ -1,5 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Geist+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@import "./prose.css";
 
 /* Docusaurus toggles theme with [data-theme="dark"], not .dark */
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
@@ -27,7 +30,26 @@
     --grey-60: hsl(229 11 70); /* #94979E */
     --grey-70: hsl(229 11 70); /* #ABAEBB */
     --grey-80: hsl(228 10 80);
-    --orange: hsl(8 100 64); /* #FF5F46 */
+    --grey-90: hsl(230 12 90); /* #E3E4E9 */
+    --orange: #ff5f46;
+
+    --prose-border: hsl(40 4 16); /* #27272A */
+    --code-bg: #09090b;
+    --code-surface: #242427;
+    --code-border: #27272a;
+    --code-foreground: #f9fafa;
+    --code-grey: #e3e4e9;
+    --code-comment: #777a88;
+    --code-keyword: #e87d85;
+    --code-function: #ae93ea;
+    --code-variable: #87b6f9;
+    --code-class: #ae93ea;
+    --code-number: #a7cafa;
+    --code-string: #9de6a4;
+    --code-operator: #f3af7a;
+    --code-highlight-neutral: #242427;
+    --code-highlight-true: #2d492f;
+    --code-highlight-false: #481f1e;
 
     /* shadcn semantic tokens mapped to Databricks colors */
     --background: var(--db-bg);
@@ -104,7 +126,10 @@
     --grey-60: hsl(229 11 70); /* #94979E */
     --grey-70: hsl(229 11 70); /* #ABAEBB */
     --grey-80: hsl(228 10 80);
-    --orange: hsl(8 100 64); /* #FF5F46 */
+    --grey-90: hsl(230 12 90); /* #E3E4E9 */
+    --orange: #ff5f46;
+
+    --prose-border: hsl(40 4 16); /* #27272A */
 
     --background: var(--db-dark-bg);
     --foreground: #f5f7f8;
@@ -197,6 +222,7 @@
   --color-db-bg: var(--db-bg);
   --color-db-card: var(--db-card);
   --color-db-border: var(--db-border);
+  /*  */
   --color-black: var(--black);
   --color-grey-8: var(--grey-8);
   --color-grey-12: var(--grey-12);
@@ -205,7 +231,10 @@
   --color-grey-60: var(--grey-60);
   --color-grey-70: var(--grey-70);
   --color-grey-80: var(--grey-80);
+  --color-grey-90: var(--grey-90);
   --color-orange: var(--orange);
+  --color-prose-border: var(--prose-border);
+
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -1202,173 +1231,6 @@
 
   [data-theme="dark"] .db-docs-content-container .theme-edit-this-page {
     color: rgb(245 247 248 / 0.6);
-  }
-
-  .prose-solution h2 {
-    @apply mt-14 mb-4 border-b border-black/10 pb-3 text-2xl font-bold tracking-tight text-black dark:border-white/10 dark:text-white;
-  }
-
-  .prose-solution h2:first-child {
-    @apply mt-0;
-  }
-
-  .prose-solution h3 {
-    @apply relative mt-10 mb-3 border-b border-black/6 pb-2.5 text-xl font-semibold tracking-tight text-black dark:border-white/8 dark:text-white;
-  }
-
-  .prose-solution h4 {
-    @apply mt-8 mb-2 text-lg font-semibold tracking-tight text-black dark:text-white;
-  }
-
-  .prose-solution p {
-    @apply my-6 text-[1.04rem] leading-8 text-black/85 dark:text-white/85;
-  }
-
-  .prose-solution strong {
-    @apply font-extrabold text-black dark:text-white;
-  }
-
-  .prose-solution ul,
-  .prose-solution ol {
-    @apply my-6 ml-7 space-y-2.5 text-[1.02rem] text-black/85 dark:text-white/85;
-  }
-
-  .prose-solution ol {
-    @apply list-decimal;
-  }
-
-  .prose-solution ol > li::marker {
-    color: var(--db-lava);
-    font-weight: 600;
-  }
-
-  .prose-solution li {
-    @apply leading-8;
-  }
-
-  .prose-solution a {
-    @apply font-medium text-db-lava underline decoration-db-lava/35 underline-offset-4 transition-colors hover:text-db-lava-dark;
-  }
-
-  .prose-solution blockquote {
-    @apply my-8 rounded-xl border border-db-cyan/40 bg-db-cyan/8 px-5 py-4 dark:border-db-cyan/25 dark:bg-db-cyan/5;
-  }
-
-  .prose-solution blockquote p {
-    @apply my-0 text-base text-black/75 dark:text-white/75;
-  }
-
-  .prose-solution hr {
-    @apply my-14 border-0;
-    height: 1px;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      var(--db-border) 20%,
-      var(--db-border) 80%,
-      transparent
-    );
-  }
-
-  .prose-solution code:not(pre code) {
-    @apply rounded-md border border-black/10 bg-black/4 px-1.5 py-0.5 font-mono text-[0.88em] font-medium text-black/90 dark:border-white/12 dark:bg-white/8 dark:text-white/90;
-  }
-
-  .prose-solution .theme-code-block {
-    @apply my-8 min-w-0 w-full overflow-hidden rounded-xl border border-black/12 shadow-md dark:border-white/12;
-  }
-
-  .prose-solution .theme-code-block pre {
-    @apply m-0 overflow-x-auto rounded-none px-5 py-4;
-  }
-
-  .prose-solution .theme-code-block pre code {
-    @apply inline-block min-w-full pr-4;
-  }
-
-  .prose-solution [class*="codeBlockTitle"] {
-    @apply border-b border-black/8 bg-black/5 px-5 py-2.5 font-mono text-xs font-semibold tracking-wide text-black/50 uppercase dark:border-white/8 dark:bg-white/5 dark:text-white/50;
-  }
-
-  .prose-solution .table-wrapper {
-    @apply my-8 overflow-x-auto;
-  }
-
-  .prose-solution table {
-    @apply w-full border-collapse overflow-hidden rounded-lg border border-black/10 text-sm dark:border-white/10;
-  }
-
-  .prose-solution thead {
-    @apply bg-black/4 dark:bg-white/5;
-  }
-
-  .prose-solution th {
-    @apply px-4 py-2.5 text-left text-xs font-semibold tracking-wide text-black/70 uppercase dark:text-white/70;
-  }
-
-  .prose-solution td {
-    @apply border-t border-black/8 px-4 py-3 text-black/80 dark:border-white/8 dark:text-white/80;
-  }
-
-  .prose-solution tbody tr:hover {
-    @apply bg-black/2 dark:bg-white/3;
-  }
-
-  .theme-code-block [class*="buttonGroup"] {
-    right: 0.5rem !important;
-    top: 0.5rem !important;
-  }
-
-  .theme-code-block [class*="buttonGroup"] button {
-    opacity: 0.5 !important;
-  }
-
-  .theme-code-block:hover [class*="buttonGroup"] button {
-    opacity: 1 !important;
-  }
-
-  .recipe-content-card .theme-code-block {
-    @apply my-8 min-w-0 w-full overflow-hidden rounded-xl border border-black/12 shadow-md dark:border-white/12;
-  }
-
-  .recipe-content-card .theme-code-block pre {
-    @apply m-0 overflow-x-auto rounded-none px-5 py-4;
-  }
-
-  .recipe-content-card .theme-code-block pre code {
-    @apply inline-block min-w-full pr-4;
-  }
-
-  .recipe-content-card,
-  .recipe-content-card .prose-solution {
-    @apply min-w-0;
-  }
-
-  /* Guardrail for any markdown pre not rendered by theme-code-block. */
-  .recipe-content-card pre {
-    @apply max-w-full overflow-x-auto;
-  }
-
-  .recipe-content-card pre > code {
-    @apply inline-block min-w-full;
-  }
-
-  .recipe-content-card [class*="codeBlockTitle"] {
-    @apply border-b border-black/8 bg-black/5 px-5 py-2.5 font-mono text-xs font-semibold tracking-wide text-black/50 uppercase dark:border-white/8 dark:bg-white/5 dark:text-white/50;
-  }
-
-  .recipe-toc {
-    @apply mt-0;
-  }
-
-  .recipe-toc a {
-    text-decoration: none !important;
-  }
-
-  @media (max-width: 1023px) {
-    .recipe-toc {
-      display: none;
-    }
   }
 }
 

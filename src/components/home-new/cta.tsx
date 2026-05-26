@@ -166,7 +166,7 @@ function CTA({
   return (
     <section
       aria-label={label}
-      className={cn("cta bg-black text-white pt-1.5", className)}
+      className={cn("cta bg-black text-white", className)}
     >
       <Topbar />
       <div className="relative mx-auto px-5 md:px-8 lg:px-16 2xl:px-24">

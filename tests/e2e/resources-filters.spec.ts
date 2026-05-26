@@ -1,99 +1,112 @@
-import { test, expect } from "@playwright/test";
-import {
-  examples,
-  recipesInOrder,
-  cookbooks,
-} from "../../src/lib/recipes/recipes";
+import { test, expect, type Locator, type Page } from "@playwright/test";
 
-const TEMPLATE_COUNT =
-  examples.length + cookbooks.length + recipesInOrder.length;
-const TOTAL_TEMPLATES = `${TEMPLATE_COUNT} of ${TEMPLATE_COUNT} templates`;
+function templateLinks(page: Page) {
+  return page.locator('#templates-list a[href^="/templates/"]');
+}
+
+function templateTextLink(page: Page, href: string) {
+  return page.locator(`#templates-list a[href="${href}"]`).filter({
+    hasText: /.+/,
+  });
+}
+
+async function visibleCount(locator: Locator): Promise<number> {
+  return locator.evaluateAll(
+    (elements) =>
+      elements.filter((element) => {
+        const rect = element.getBoundingClientRect();
+        const style = window.getComputedStyle(element);
+        return (
+          rect.width > 0 &&
+          rect.height > 0 &&
+          style.display !== "none" &&
+          style.visibility !== "hidden"
+        );
+      }).length,
+  );
+}
 
 test.describe("templates page search", () => {
   test("search bar filters results and clearing restores all", async ({
     page,
   }) => {
     await page.goto("/templates");
-    await expect(page.getByText(TOTAL_TEMPLATES)).toBeVisible();
+    const initialCount = await visibleCount(templateLinks(page));
+    expect(initialCount).toBeGreaterThan(0);
 
     await page.getByRole("searchbox").fill("genie");
     await expect(
-      page.getByText(`8 of ${TEMPLATE_COUNT} templates`),
+      templateTextLink(page, "/templates/inventory-intelligence"),
     ).toBeVisible();
     await expect(
-      page.locator('a[href="/templates/inventory-intelligence"]'),
+      templateTextLink(page, "/templates/agentic-support-console"),
     ).toBeVisible();
     await expect(
-      page.locator('a[href="/templates/agentic-support-console"]'),
+      templateTextLink(page, "/templates/saas-tracker"),
     ).toBeVisible();
     await expect(
-      page.locator('a[href="/templates/saas-tracker"]'),
+      templateTextLink(page, "/templates/content-moderator"),
     ).toBeVisible();
     await expect(
-      page.locator('a[href="/templates/content-moderator"]'),
+      templateTextLink(page, "/templates/vacation-rentals"),
     ).toBeVisible();
     await expect(
-      page.locator('a[href="/templates/vacation-rentals"]'),
+      templateTextLink(page, "/templates/genie-analytics-app"),
     ).toBeVisible();
     await expect(
-      page.locator('a[href="/templates/genie-analytics-app"]'),
+      templateTextLink(page, "/templates/genie-conversational-analytics"),
     ).toBeVisible();
     await expect(
-      page.locator('a[href="/templates/genie-conversational-analytics"]'),
-    ).toBeVisible();
-    await expect(
-      page.locator('a[href="/templates/genie-multi-space"]'),
+      templateTextLink(page, "/templates/genie-multi-space"),
     ).toBeVisible();
 
     await page.getByRole("searchbox").fill("");
-    await expect(page.getByText(TOTAL_TEMPLATES)).toBeVisible();
+    expect(await visibleCount(templateLinks(page))).toBe(initialCount);
   });
 
   test("search matches terms that only appear in tags or services", async ({
     page,
   }) => {
     await page.goto("/templates");
-    await expect(page.getByText(TOTAL_TEMPLATES)).toBeVisible();
+    expect(await visibleCount(templateLinks(page))).toBeGreaterThan(0);
 
     await page.getByRole("searchbox").fill("postgres");
     await expect(
-      page.locator('a[href="/templates/lakebase-pgvector"]'),
+      templateTextLink(page, "/templates/lakebase-pgvector"),
     ).toBeVisible();
     await expect(
-      page.locator('a[href="/templates/lakebase-token-management"]'),
+      templateTextLink(page, "/templates/lakebase-token-management"),
     ).toBeVisible();
     await expect(
-      page.locator('a[href="/templates/genie-conversational-analytics"]'),
+      templateTextLink(page, "/templates/genie-conversational-analytics"),
     ).toBeHidden();
 
     await page.getByRole("searchbox").fill("appkit");
     await expect(
-      page.locator('a[href="/templates/spin-up-databricks-app"]'),
+      templateTextLink(page, "/templates/spin-up-databricks-app"),
     ).toBeVisible();
   });
 });
 
 test.describe("templates page service filter", () => {
-  test("checking a service narrows results and shows active pill", async ({
-    page,
-  }) => {
+  test("checking a service narrows results", async ({ page }) => {
     await page.goto("/templates");
-    await expect(page.getByText(TOTAL_TEMPLATES)).toBeVisible();
+    const initialCount = await visibleCount(templateLinks(page));
+    expect(initialCount).toBeGreaterThan(0);
 
     await page
       .getByRole("checkbox", { name: "Lakebase Postgres", exact: true })
       .check();
 
-    const count = page.getByText(
-      new RegExp(`^\\d+ of ${TEMPLATE_COUNT} templates$`),
-    );
-    await expect(count).not.toHaveText(TOTAL_TEMPLATES);
+    const filteredCount = await visibleCount(templateLinks(page));
+    expect(filteredCount).toBeGreaterThan(0);
+    expect(filteredCount).not.toBe(initialCount);
 
     await expect(
-      page.locator('a[href="/templates/lakebase-off-platform"]'),
+      templateTextLink(page, "/templates/lakebase-off-platform"),
     ).toBeVisible();
     await expect(
-      page.locator('a[href="/templates/query-ai-gateway-endpoints"]'),
+      templateTextLink(page, "/templates/query-ai-gateway-endpoints"),
     ).toBeHidden();
   });
 
@@ -101,53 +114,51 @@ test.describe("templates page service filter", () => {
     page,
   }) => {
     await page.goto("/templates");
-    await expect(page.getByText(TOTAL_TEMPLATES)).toBeVisible();
-
-    const countLocator = page.getByText(
-      new RegExp(`^(\\d+) of ${TEMPLATE_COUNT} templates$`),
-    );
+    expect(await visibleCount(templateLinks(page))).toBeGreaterThan(0);
 
     await page
       .getByRole("checkbox", { name: "Databricks Apps", exact: true })
       .check();
-    const afterFirst = (await countLocator.textContent()) ?? "";
-    const firstCount = Number(afterFirst.split(" ")[0]);
+    const firstCount = await visibleCount(templateLinks(page));
 
     await page
       .getByRole("checkbox", { name: "Lakebase Postgres", exact: true })
       .check();
-    await expect(countLocator).not.toHaveText(afterFirst);
-    const afterSecond = (await countLocator.textContent()) ?? "";
-    const secondCount = Number(afterSecond.split(" ")[0]);
+    const secondCount = await visibleCount(templateLinks(page));
 
     expect(secondCount).toBeLessThan(firstCount);
     expect(secondCount).toBeGreaterThan(0);
 
     await expect(
-      page.locator('a[href="/templates/lakebase-data-persistence"]'),
+      templateTextLink(page, "/templates/lakebase-data-persistence"),
     ).toBeVisible();
     await expect(
-      page.locator('a[href="/templates/lakebase-pgvector"]'),
+      templateTextLink(page, "/templates/lakebase-pgvector"),
     ).toBeHidden();
   });
 });
 
-test.describe("templates page clear all filters", () => {
-  test("clear all resets search, service filter, and tag filters", async ({
+test.describe("templates page empty state", () => {
+  test("empty state reset clears search and service filters", async ({
     page,
   }) => {
     await page.goto("/templates");
 
-    await page.getByRole("searchbox").fill("lakebase");
+    await page.getByRole("searchbox").fill("not-a-real-template");
     await page
       .getByRole("checkbox", { name: "Lakebase Postgres", exact: true })
       .check();
-    await expect(page.getByRole("button", { name: "Clear all" })).toBeVisible();
+    await expect(page.getByText("No results found")).toBeVisible();
+    await expect(
+      page.getByRole("button", { name: "Clear all filters" }),
+    ).toBeVisible();
 
-    await page.getByRole("button", { name: "Clear all" }).click();
+    await page.getByRole("button", { name: "Clear all filters" }).click();
 
     await expect(page.getByRole("searchbox")).toHaveValue("");
-    await expect(page.getByText(TOTAL_TEMPLATES)).toBeVisible();
-    await expect(page.getByRole("button", { name: "Clear all" })).toBeHidden();
+    expect(await visibleCount(templateLinks(page))).toBeGreaterThan(0);
+    await expect(
+      page.getByRole("button", { name: "Clear all filters" }),
+    ).toBeHidden();
   });
 });

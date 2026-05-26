@@ -9,6 +9,7 @@ export default function Navbar(): ReactNode {
   if (
     pathname === "/home-new" ||
     pathname === "/home-new/" ||
+    pathname.startsWith("/templates") ||
     pathname.startsWith("/product/")
   ) {
     return <NewHeader />;

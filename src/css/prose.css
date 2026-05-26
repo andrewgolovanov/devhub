@@ -1,0 +1,400 @@
+.prose {
+  @apply tracking-tight text-grey-90 text-lg leading-normal;
+
+  @apply prose-h2:mt-12 prose-h2:mb-6 prose-h2:scroll-mt-8 prose-h2:w-full prose-h2:self-stretch prose-h2:border-0 prose-h2:border-b-0 prose-h2:pb-0 prose-h2:text-2xl/normal prose-h2:font-medium prose-h2:tracking-tight prose-h2:text-white;
+
+  @apply prose-h3:mt-8 prose-h3:mb-6 prose-h3:scroll-mt-6 prose-h3:w-full prose-h3:self-stretch prose-h3:border-0 prose-h3:border-b-0 prose-h3:pb-0 prose-h3:text-xl/normal prose-h3:font-medium prose-h3:tracking-tight prose-h3:text-white;
+
+  @apply prose-h4:mt-6 prose-h4:mb-2.5 prose-h4:w-full prose-h4:self-stretch prose-h4:border-0 prose-h4:border-b-0 prose-h4:pb-0 prose-h4:text-xl/normal prose-h4:font-medium prose-h4:tracking-tight prose-h4:text-white;
+
+  @apply prose-p:my-6 prose-p:overflow-x-auto prose-p:leading-normal prose-p:tracking-tight prose-p:text-grey-90 prose-p:text-lg/normal;
+
+  @apply prose-a:rounded-sm prose-a:font-normal prose-a:break-words prose-a:text-orange prose-a:no-underline prose-a:transition-colors prose-a:duration-300 prose-a:hover:text-orange/80;
+
+  @apply prose-ol:flex prose-ol:flex-col prose-ul:flex prose-ul:flex-col;
+
+  @apply prose-ul:my-6 prose-ul:gap-y-2.5 prose-ul:pl-8 md:prose-ul:pl-11;
+
+  @apply prose-ol:my-6 prose-ol:gap-y-2.5 prose-ol:pl-7 md:prose-ol:pl-10;
+
+  @apply prose-li:m-0 prose-li:leading-normal prose-li:tracking-tight prose-li:text-grey-90 prose-li:text-lg/normal;
+
+  @apply prose-strong:font-medium prose-strong:text-white;
+
+  @apply prose-figure:my-8;
+
+  @apply prose-hr:my-8 prose-hr:border-prose-border;
+
+  @apply prose-blockquote:text-foreground prose-blockquote:not-italic;
+
+  @apply prose-img:my-0 prose-img:rounded-lg;
+
+  @apply prose-table:w-full prose-table:border-separate prose-table:border-spacing-0 prose-table:text-sm;
+
+  @apply prose-th:min-w-36 prose-th:border-b prose-th:border-prose-border prose-th:pb-1.5 prose-th:text-left prose-th:align-top prose-th:text-sm prose-th:leading-snug prose-th:font-medium prose-th:tracking-tight prose-th:text-white;
+
+  @apply prose-td:min-w-36 prose-td:border-b prose-td:border-prose-border prose-td:pt-3 prose-td:pr-10 prose-td:pb-3 prose-td:text-left prose-td:align-top prose-td:text-sm prose-td:leading-snug prose-td:tracking-tight prose-td:text-grey-90;
+
+  @apply prose-img:my-0 prose-img:rounded-lg;
+
+  &.prose-clear-first-child > * {
+    &:first-child {
+      @apply !mt-0;
+    }
+  }
+
+  > * {
+    &:last-child {
+      @apply !mb-0;
+    }
+  }
+
+  h2 a,
+  h3 a,
+  h4 a,
+  h5 a,
+  h6 a {
+    font-weight: inherit;
+    color: inherit;
+  }
+
+  .not-prose {
+    table a {
+      @apply rounded-sm font-normal break-words text-orange underline decoration-transparent underline-offset-[0.3em] transition-colors duration-300 hover:decoration-orange;
+    }
+  }
+
+  h2 + p,
+  h3 + p,
+  h4 + p {
+    @apply mt-0;
+  }
+
+  h2 + h3 {
+    @apply mt-6;
+  }
+
+  h2 + h4,
+  h3 + h4 {
+    @apply mt-0;
+  }
+
+  a {
+    @apply hover:decoration-orange;
+
+    strong {
+      @apply text-orange transition-colors duration-300 hover:text-orange/85;
+    }
+  }
+
+  > * {
+    &:last-child {
+      @apply mb-0;
+    }
+  }
+
+  ol ol,
+  ul ol {
+    @apply mt-2.5 mb-0 pl-5;
+  }
+  ol ul,
+  ul ul {
+    @apply mt-2.5 mb-0 pl-6;
+  }
+
+  ol strong,
+  ul strong {
+    @apply font-medium;
+  }
+
+  ul {
+    @apply prose-li:marker:text-[0px];
+
+    li {
+      @apply relative;
+
+      @apply before:absolute before:top-3 before:-left-6 before:h-px before:w-2 before:rounded-full before:bg-white md:before:top-3.5;
+    }
+  }
+
+  ol {
+    li {
+      @apply relative pl-1;
+    }
+    li::marker {
+      @apply text-white!;
+    }
+  }
+
+  li {
+    padding-inline-start: 0;
+
+    > * {
+      &:first-child:not(ol, ul) {
+        @apply mt-0;
+      }
+
+      &:last-child {
+        @apply mb-0;
+      }
+    }
+  }
+
+  details {
+    @apply my-8;
+
+    summary {
+      @apply cursor-pointer rounded text-lg leading-snug font-medium tracking-tight text-foreground normal-case outline-offset-4 transition-colors duration-300 hover:text-db-lava;
+    }
+
+    summary + * {
+      @apply !mt-4;
+    }
+  }
+
+  figure.code-block {
+    @apply my-8;
+  }
+
+  :not(pre) {
+    > code {
+      @apply inline-flex max-w-full flex-col items-center justify-center gap-2.5 overflow-x-auto border border-prose-border bg-prose-border/50 rounded px-1 py-px text-sm leading-snug font-normal tracking-tight text-white before:hidden after:hidden;
+    }
+
+    table {
+      td code:first-child {
+        @apply ml-0;
+      }
+    }
+  }
+
+  p:has(> img) {
+    @apply my-8;
+  }
+}
+
+@layer components {
+  .theme-code-block {
+    @apply relative rounded-none border bg-transparent;
+    border-color: var(--code-border);
+
+    > div[class*="codeBlockTitle"] {
+      @apply border-b px-4 py-3.5 text-[13px] font-medium tracking-tight;
+      border-color: var(--code-border);
+      color: var(--code-comment);
+    }
+
+    > div[class*="codeBlockContent"] {
+      @apply relative text-base font-mono;
+
+      [class*="buttonGroup"] {
+        @apply absolute right-4 top-4 flex;
+
+        button {
+          @apply flex size-7 shrink-0 items-center justify-center border text-white hover:text-grey-90;
+          border-color: var(--code-border);
+          background: var(--code-bg);
+
+          > svg {
+            @apply size-3.5!;
+          }
+        }
+      }
+    }
+
+    pre {
+      @apply bg-transparent! my-0! p-4!;
+      color: var(--code-foreground);
+    }
+
+    .theme-code-block-highlighted-line,
+    .token-line.highlight-line {
+      background: var(--code-highlight-neutral);
+    }
+
+    .token-line.diff-line-add,
+    .token-line.inserted,
+    .token.inserted {
+      background: var(--code-highlight-true);
+    }
+
+    .token-line.diff-line-delete,
+    .token-line.deleted,
+    .token.deleted {
+      background: var(--code-highlight-false);
+    }
+
+    .token.plain,
+    .token.punctuation,
+    .token.namespace,
+    .token.entity {
+      color: var(--code-foreground);
+    }
+
+    .token.comment,
+    .token.comments,
+    .token.prolog,
+    .token.doctype,
+    .token.cdata {
+      color: var(--code-comment);
+    }
+
+    .token.keyword,
+    .token.atrule,
+    .token.rule,
+    .token.important,
+    .token.boolean,
+    .token.deleted {
+      color: var(--code-keyword);
+    }
+
+    .token.function,
+    .token.method,
+    .token.function-variable {
+      color: var(--code-function);
+    }
+
+    .token.class-name,
+    .token.constant,
+    .token.builtin,
+    .token.attr-name,
+    .token.symbol {
+      color: var(--code-class);
+    }
+
+    .token.number,
+    .token.unit,
+    .token.attr-value,
+    .token.hexcode {
+      color: var(--code-number);
+    }
+
+    .token.string,
+    .token.char,
+    .token.regex,
+    .token.url,
+    .token.tag,
+    .token.selector,
+    .token.inserted {
+      color: var(--code-string);
+    }
+
+    .token.variable,
+    .token.parameter,
+    .token.parameter.variable {
+      color: var(--code-variable);
+    }
+
+    .token.operator,
+    .token.property,
+    .token.module,
+    .token.imports,
+    .token.exports,
+    .token.directive,
+    .token.directive-hash {
+      color: var(--code-operator);
+    }
+  }
+
+  .template-dark-prose [class*="codeBlockTitle"] {
+    @apply border-0 bg-transparent text-white;
+  }
+
+  .recipe-toc {
+    @apply mt-0;
+  }
+
+  .recipe-toc a {
+    text-decoration: none !important;
+  }
+
+  @media (max-width: 1023px) {
+    .recipe-toc {
+      display: none;
+    }
+  }
+}
+
+.recipe-content-card .theme-code-block pre,
+.recipe-content-card .theme-code-block pre code,
+.recipe-content-card .theme-code-block pre code span,
+.recipe-content-card .theme-code-block pre code .token.plain,
+.recipe-content-card .theme-code-block pre code .token.plain-text,
+.recipe-content-card .theme-code-block pre code .token.maybe-class-name,
+.recipe-content-card .theme-code-block pre code .token.script,
+.recipe-content-card .theme-code-block pre code .token.punctuation,
+.recipe-content-card .theme-code-block pre code .token.namespace,
+.recipe-content-card .theme-code-block pre code .token.entity {
+  color: var(--code-foreground) !important;
+}
+
+.recipe-content-card .theme-code-block pre code .token.comment,
+.recipe-content-card .theme-code-block pre code .token.comments,
+.recipe-content-card .theme-code-block pre code .token.prolog,
+.recipe-content-card .theme-code-block pre code .token.doctype,
+.recipe-content-card .theme-code-block pre code .token.cdata {
+  color: var(--code-comment) !important;
+}
+
+.recipe-content-card .theme-code-block pre code .token.keyword,
+.recipe-content-card .theme-code-block pre code .token.atrule,
+.recipe-content-card .theme-code-block pre code .token.rule,
+.recipe-content-card .theme-code-block pre code .token.important,
+.recipe-content-card .theme-code-block pre code .token.boolean,
+.recipe-content-card .theme-code-block pre code .token.deleted {
+  color: var(--code-keyword) !important;
+}
+
+.recipe-content-card .theme-code-block pre code .token.function,
+.recipe-content-card .theme-code-block pre code .token.method,
+.recipe-content-card .theme-code-block pre code .token.function-variable {
+  color: var(--code-function) !important;
+}
+
+.recipe-content-card .theme-code-block pre code .token.tag,
+.recipe-content-card .theme-code-block pre code .token.selector {
+  color: var(--code-string) !important;
+}
+
+.recipe-content-card .theme-code-block pre code .token.number,
+.recipe-content-card .theme-code-block pre code .token.unit,
+.recipe-content-card .theme-code-block pre code .token.attr-value,
+.recipe-content-card .theme-code-block pre code .token.hexcode {
+  color: var(--code-number) !important;
+}
+
+.recipe-content-card .theme-code-block pre code .token.string,
+.recipe-content-card .theme-code-block pre code .token.char,
+.recipe-content-card .theme-code-block pre code .token.regex,
+.recipe-content-card .theme-code-block pre code .token.url,
+.recipe-content-card .theme-code-block pre code .token.inserted {
+  color: var(--code-string) !important;
+}
+
+.recipe-content-card .theme-code-block pre code .token.class-name,
+.recipe-content-card .theme-code-block pre code .token.attr-name,
+.recipe-content-card .theme-code-block pre code .token.constant,
+.recipe-content-card .theme-code-block pre code .token.builtin,
+.recipe-content-card .theme-code-block pre code .token.symbol {
+  color: var(--code-class) !important;
+}
+
+.recipe-content-card .theme-code-block pre code .token.variable,
+.recipe-content-card .theme-code-block pre code .token.parameter,
+.recipe-content-card .theme-code-block pre code .token.parameter.variable {
+  color: var(--code-variable) !important;
+}
+
+.recipe-content-card .theme-code-block pre code .token.operator {
+  color: var(--code-operator) !important;
+}
+
+.recipe-content-card .theme-code-block pre code .token.property,
+.recipe-content-card .theme-code-block pre code .token.property-access,
+.recipe-content-card .theme-code-block pre code .token.module,
+.recipe-content-card .theme-code-block pre code .token.imports,
+.recipe-content-card .theme-code-block pre code .token.exports,
+.recipe-content-card .theme-code-block pre code .token.directive,
+.recipe-content-card .theme-code-block pre code .token.directive-hash {
+  color: var(--code-foreground) !important;
+}

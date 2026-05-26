@@ -7,6 +7,7 @@ import { AIExportMenu } from "@/components/ai-export-menu";
 import { Badge } from "@/components/ui/badge";
 import { RecipePre } from "@/components/cookbooks/recipe-code-block";
 import { RecipeToc } from "@/components/cookbooks/recipe-toc";
+import { MarkdownProse } from "@/components/markdown-prose";
 import {
   AuthorBioCard,
   SolutionByline,
@@ -99,7 +100,7 @@ export function SolutionDetail({
 
                 <div className="recipe-content-card" ref={contentRef}>
                   <MDXProvider components={recipeComponents}>
-                    <article className="prose-solution">{children}</article>
+                    <MarkdownProse as="article">{children}</MarkdownProse>
                   </MDXProvider>
                 </div>
 
