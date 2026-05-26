@@ -97,10 +97,8 @@ function Hero({ className }: HeroProps) {
       )}
     >
       <div className="relative flex flex-col justify-end min-h-144 w-full overflow-hidden pb-16 md:min-h-160 md:pb-20 lg:min-h-280 lg:pb-26">
-        <div className="absolute -top-6 left-1/2 h-full w-screen -translate-x-1/2 md:-top-12 lg:-top-18 xl:left-[calc(50%-4rem)]">
+        <div className="absolute -top-6 left-1/2 h-full w-screen -translate-x-1/2 md:-top-12 lg:-top-16 xl:w-420 xl:-left-33 xl:translate-x-0 2xl:w-450 2xl:left-[calc(50%-2.875rem)] 2xl:-translate-x-1/2">
           <DbHeroAnimation />
-          <div className="pointer-events-none absolute inset-x-0 top-0 h-[74%] bg-linear-to-b from-transparent from-20% to-black/95 md:from-40% md:to-black/92 xl:from-58%" />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-black to-60%" />
         </div>
         <header className="pointer-events-none relative z-10 flex flex-col justify-end">
           <div className="pointer-events-auto mx-auto grid w-full max-w-400 grid-cols-1 px-5 md:px-8 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-7">

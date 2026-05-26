@@ -10,12 +10,13 @@
     finalStatus: true,
     windowBoot: true,
     appReveal: true,
-    parallax: true,
+    parallax: false,
     rgbSplit: true,
     shadeMap: true,
     rgbGrid: true,
     scanlines: true,
     vignette: true,
+    perspective: true,
     dragEcho: true,
     logoClick: true,
     guide: false,
@@ -31,13 +32,13 @@
     typographyVersion: 2,
     scrollTuningVersion: 1,
     colorRevealVersion: 2,
-    currentState: 3,
+    currentState: 1,
     settings: {
       autoStep: false,
       loopState: false,
-      timelineTrimStart: 3,
+      timelineTrimStart: 1,
       timelineTrimEnd: 6,
-      timelineLoop: true,
+      timelineLoop: false,
     },
     stateAnimationSettings: {
       1: {
@@ -66,7 +67,7 @@
         logoTubeStartSquash: 0.17,
         logoTubeStartWidth: 1.07,
         logoTubeStartOpacity: 0.44,
-        installTextDelay: 1840,
+        installTextDelay: 1800,
         installType: 0,
         installFramePause: 600,
       },
@@ -102,7 +103,7 @@
       4: {
         speed: 1,
         delayBefore: 600,
-        delayAfter: 1200,
+        delayAfter: 1880,
         terminalScroll: true,
         terminalScrollDuration: 400,
         terminalScrollDistance: 12,
@@ -122,13 +123,13 @@
       5: {
         speed: 1,
         delayBefore: 0,
-        delayAfter: 1420,
+        delayAfter: 0,
         windowBootEnabled: true,
         windowBootClip: false,
         windowBootDuration: 1800,
         windowBootOrigin: "custom",
         windowBootX: -160,
-        windowBootY: 162,
+        windowBootY: 171,
         windowBootSize: 10,
         windowBootSteps: 8,
         windowBootTraceIterations: 10,
@@ -138,7 +139,7 @@
         windowBootControlGap: 8.5,
         windowBootControlX: 0,
         windowBootControlY: 1.5,
-        windowBootControlStroke: 1,
+        windowBootControlStroke: 3,
         windowBootGrow1: 1.9,
         windowBootGrow2: 3.4,
         windowBootEchoCount: 0,
@@ -156,11 +157,11 @@
     },
     sharedTextLayers: {
       install: {
-        x: 193,
-        y: 355,
+        x: 195,
+        y: 353,
         width: 710,
-        size: 19,
-        letterSpacing: 0,
+        size: 17,
+        letterSpacing: 0.2,
         opacity: 1,
       },
       prompt: {
@@ -229,6 +230,7 @@
       contentPadBottom: 14,
       contentPadLeft: 18,
       headerMarginBottom: 39,
+      chartPlotY: 34,
       appTitleSize: 20,
       appSubtitleSize: 12,
       sharedTitleSize: 14,
@@ -241,13 +243,13 @@
       steps: 4,
     },
     dragEchoSettings: {
-      color: "#2c2d3a",
+      color: "#27272a",
       opacity: 1,
-      lifetime: 1800,
-      maxFrames: 4,
-      width: 3,
+      lifetime: 1000,
+      maxFrames: 5,
+      width: 2,
       minDistance: 160,
-      minInterval: 400,
+      minInterval: 20,
     },
     stateAppRevealSettings: {
       5: {
@@ -256,27 +258,27 @@
         duration: 980,
         lineColor: "#ffffff",
         lineDirection: "horizontal",
-        lineOpacity: 1,
+        lineOpacity: 0.3,
         lineGlow: 0,
-        lineHold: 1120,
-        lineFade: 500,
-        grid: 4,
+        lineHold: 380,
+        lineFade: 460,
+        grid: 5,
         corner: "tl",
         originX: 0,
         originY: 0,
-        layers: 2,
+        layers: 1,
       },
       6: {
         preset: "colorWave",
-        intensity: 10,
-        duration: 1200,
-        lineColor: "#878787",
+        intensity: 3.2,
+        duration: 980,
+        lineColor: "#ffffff",
         lineDirection: "horizontal",
-        lineOpacity: 0.7,
+        lineOpacity: 0.3,
         lineGlow: 0,
-        lineHold: 80,
-        lineFade: 260,
-        grid: 12,
+        lineHold: 380,
+        lineFade: 460,
+        grid: 5,
         corner: "tl",
         originX: 0,
         originY: 0,
@@ -285,51 +287,48 @@
     },
     stateLogoSettings: {
       1: {
-        x: 205,
-        y: 129,
-        width: 1335,
-        baseOpacity: 0.28,
+        x: 190,
+        y: 123,
+        width: 1285,
+        baseOpacity: 0.15,
         mainColor: "#32323c",
         opacityDuration: 420,
-        revealDuration: 1365,
+        revealDuration: 1500,
         revealDelay: 0,
-        stutter: 6,
+        stutter: 0,
       },
     },
     groupGlitchSettings: {
-      preset: "parallax",
+      preset: "perspective",
       activePresets: [
-        "vignette",
+        "scanlines",
         "rgbsplit",
         "rgbgrid",
-        "scanlines",
+        "perspective",
         "shademap",
-        "parallax",
+        "vignette",
       ],
       presets: {
-        vignette: {
-          intensity: 10,
-          duration: 0,
-          loop: true,
-          detail: 7.4,
-          speed: 0,
-          opacity: 1,
-          edge: 180,
-          top: 184,
-          right: 426,
-          bottom: 600,
-          left: 270,
-          roundness: 0,
-          blur: 120,
-          color: "#000000",
-          x: 0,
-          y: 76,
+        scanlines: {
+          intensity: 5,
+          duration: 1200,
+          loop: false,
+          detail: 0,
+          speed: 0.4,
+          thickness: 2,
+          spacing: 2,
+          barHeight: 50,
+          sweepOpacity: 0.16,
+          sweepGlow: 0.4,
+          sweepShadow: 0.12,
+          sweepSoftness: 80,
+          reverse: true,
         },
         rgbsplit: {
           intensity: 2,
-          logoIntensity: 1.4,
-          textIntensity: 1.2,
-          windowIntensity: 0,
+          logoIntensity: 2.4,
+          textIntensity: 1.6,
+          windowIntensity: 1.6,
           duration: 1000,
           loop: true,
           detail: 5.6,
@@ -350,62 +349,68 @@
           stripeGap: 1,
           opacity: 1,
           softness: 0,
-          redColor: "#0d0d0d",
+          redColor: "#1c1c1c",
           greenColor: "#121212",
-          blueColor: "#000000",
+          blueColor: "#1c1c1c",
           blendMode: "screen",
           redOpacity: 1,
           greenOpacity: 1,
           blueOpacity: 0.83,
         },
-        scanlines: {
-          intensity: 5,
-          duration: 1200,
+        perspective: {
+          intensity: 0.8,
+          duration: 900,
           loop: false,
-          detail: 0,
-          speed: 0.4,
-          thickness: 2,
-          spacing: 2,
-          barHeight: 100,
-          sweepOpacity: 0.07,
-          sweepGlow: 0.4,
-          sweepShadow: 0.12,
-          sweepSoftness: 80,
-          reverse: true,
+          detail: 5,
+          speed: 0,
+          tiltX: 0,
+          tiltY: 18,
+          depth: 2200,
+          shiftX: 0,
+          shiftY: 48,
+          windowLift: 0,
+          returnToCenter: false,
+          tilt: 5.6,
+          shift: 0,
         },
         shademap: {
           intensity: 4,
           duration: 0,
           loop: false,
           detail: 6,
-          speed: 0.14,
+          speed: 0,
           smoothness: 10,
-          flickerNoise: 5,
-          flickerScale: 1.4,
-          xDensity: 4.4,
-          yDensity: 7.4,
-          blockWidth: 371,
-          blockHeight: 197,
-          quantity: 71,
-          randomness: 8.8,
+          flickerNoise: 0,
+          flickerScale: 0.8,
+          xDensity: 7.9,
+          yDensity: 4.4,
+          blockWidth: 385,
+          blockHeight: 220,
+          quantity: 72,
+          randomness: 3,
           blur: 40,
-          opacity: 0.33,
-          color: "#000000",
+          opacity: 0.4,
+          color: "#141414",
           cursorErase: true,
-          cursorEraseRadius: 510,
+          cursorEraseRadius: 943,
           cursorEraseFade: 500,
           cursorEraseStrength: 1,
         },
-        parallax: {
-          intensity: 1,
-          duration: 900,
+        vignette: {
+          intensity: 4,
+          duration: 720,
           loop: true,
-          detail: 5,
+          detail: 6,
           speed: 1,
-          xStrength: 48,
-          yStrength: 22,
-          balance: 0,
-          returnToCenter: true,
+          opacity: 1,
+          edge: 180,
+          top: 140,
+          right: 468,
+          bottom: 520,
+          left: 262,
+          roundness: 28,
+          blur: 80,
+          color: "#000000",
         },
       },
     },
@@ -431,9 +436,15 @@
       splitRed: "#000000",
       splitBlue: "#616161",
     },
+    exportSettings: {
+      includeStaticPng: false,
+    },
   };
 
   const stage = document.querySelector("#stage");
+  const stagePerspectiveShell = document.querySelector(
+    "#stagePerspectiveShell",
+  );
   const toolWorkspace = document.querySelector("#toolWorkspace");
   const stageViewport = document.querySelector("#stageViewport");
   const preAppScene = document.querySelector("#preAppScene");
@@ -479,6 +490,8 @@
   let appWindowEchoLayer = null;
   let shadeMapEraseFrame = 0;
   let shadeMapErasePointer = null;
+  let shadeMapEraseTarget = null;
+  let shadeMapEraseCurrent = null;
   const isExportPlayer = Boolean(window.DATABRICKS_EXPORT_MODE);
   const transparentGuidePixel =
     "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
@@ -583,6 +596,7 @@
     contentPadBottom: 14,
     contentPadLeft: 18,
     headerMarginBottom: 39,
+    chartPlotY: 22,
     appTitleSize: 20,
     appSubtitleSize: 12,
     sharedTitleSize: 14,
@@ -689,7 +703,7 @@
       logoTubeStartSquash: 0.17,
       logoTubeStartWidth: 1.07,
       logoTubeStartOpacity: 0.44,
-      installTextDelay: 1840,
+      installTextDelay: 1800,
       installType: 0,
       installFramePause: 600,
     },
@@ -725,7 +739,7 @@
     4: {
       speed: 1,
       delayBefore: 600,
-      delayAfter: 1200,
+      delayAfter: 1880,
       terminalScroll: true,
       terminalScrollDuration: 400,
       terminalScrollDistance: 12,
@@ -745,13 +759,13 @@
     5: {
       speed: 1,
       delayBefore: 0,
-      delayAfter: 1420,
+      delayAfter: 0,
       windowBootEnabled: true,
       windowBootClip: false,
       windowBootDuration: 1800,
       windowBootOrigin: "custom",
       windowBootX: -160,
-      windowBootY: 162,
+      windowBootY: 171,
       windowBootSize: 10,
       windowBootSteps: 8,
       windowBootTraceIterations: 10,
@@ -761,7 +775,7 @@
       windowBootControlGap: 8.5,
       windowBootControlX: 0,
       windowBootControlY: 1.5,
-      windowBootControlStroke: 1,
+      windowBootControlStroke: 3,
       windowBootGrow1: 1.9,
       windowBootGrow2: 3.4,
       windowBootEchoCount: 0,
@@ -800,27 +814,27 @@
       duration: 980,
       lineColor: "#ffffff",
       lineDirection: "horizontal",
-      lineOpacity: 1,
+      lineOpacity: 0.3,
       lineGlow: 0,
-      lineHold: 1120,
-      lineFade: 500,
-      grid: 4,
+      lineHold: 380,
+      lineFade: 460,
+      grid: 5,
       corner: "tl",
       originX: 0,
       originY: 0,
-      layers: 2,
+      layers: 1,
     },
     6: {
       preset: "colorWave",
-      intensity: 10,
-      duration: 1200,
-      lineColor: "#878787",
+      intensity: 3.2,
+      duration: 980,
+      lineColor: "#ffffff",
       lineDirection: "horizontal",
-      lineOpacity: 0.7,
+      lineOpacity: 0.3,
       lineGlow: 0,
-      lineHold: 80,
-      lineFade: 260,
-      grid: 12,
+      lineHold: 380,
+      lineFade: 460,
+      grid: 5,
       corner: "tl",
       originX: 0,
       originY: 0,
@@ -969,29 +983,26 @@
   }
 
   const legacyGroupFxPresetDefaults = {
-    vignette: {
-      intensity: 10,
-      duration: 0,
-      loop: true,
-      detail: 7.4,
-      speed: 0,
-      opacity: 1,
-      edge: 180,
-      top: 184,
-      right: 426,
-      bottom: 600,
-      left: 270,
-      roundness: 0,
-      blur: 120,
-      color: "#000000",
-      x: 0,
-      y: 76,
+    scanlines: {
+      intensity: 5,
+      duration: 1200,
+      loop: false,
+      detail: 0,
+      speed: 0.4,
+      thickness: 2,
+      spacing: 2,
+      barHeight: 50,
+      sweepOpacity: 0.16,
+      sweepGlow: 0.4,
+      sweepShadow: 0.12,
+      sweepSoftness: 80,
+      reverse: true,
     },
     rgbsplit: {
       intensity: 2,
-      logoIntensity: 1.4,
-      textIntensity: 1.2,
-      windowIntensity: 0,
+      logoIntensity: 2.4,
+      textIntensity: 1.6,
+      windowIntensity: 1.6,
       duration: 1000,
       loop: true,
       detail: 5.6,
@@ -1012,62 +1023,68 @@
       stripeGap: 1,
       opacity: 1,
       softness: 0,
-      redColor: "#0d0d0d",
+      redColor: "#1c1c1c",
       greenColor: "#121212",
-      blueColor: "#000000",
+      blueColor: "#1c1c1c",
       blendMode: "screen",
       redOpacity: 1,
       greenOpacity: 1,
       blueOpacity: 0.83,
     },
-    scanlines: {
-      intensity: 5,
-      duration: 1200,
+    perspective: {
+      intensity: 0.8,
+      duration: 900,
       loop: false,
-      detail: 0,
-      speed: 0.4,
-      thickness: 2,
-      spacing: 2,
-      barHeight: 100,
-      sweepOpacity: 0.07,
-      sweepGlow: 0.4,
-      sweepShadow: 0.12,
-      sweepSoftness: 80,
-      reverse: true,
+      detail: 5,
+      speed: 0,
+      tiltX: 0,
+      tiltY: 18,
+      depth: 2200,
+      shiftX: 0,
+      shiftY: 48,
+      windowLift: 0,
+      returnToCenter: false,
+      tilt: 5.6,
+      shift: 0,
     },
     shademap: {
       intensity: 4,
       duration: 0,
       loop: false,
       detail: 6,
-      speed: 0.14,
+      speed: 0,
       smoothness: 10,
-      flickerNoise: 5,
-      flickerScale: 1.4,
-      xDensity: 4.4,
-      yDensity: 7.4,
-      blockWidth: 371,
-      blockHeight: 197,
-      quantity: 71,
-      randomness: 8.8,
+      flickerNoise: 0,
+      flickerScale: 0.8,
+      xDensity: 7.9,
+      yDensity: 4.4,
+      blockWidth: 385,
+      blockHeight: 220,
+      quantity: 72,
+      randomness: 3,
       blur: 40,
-      opacity: 0.33,
-      color: "#000000",
+      opacity: 0.4,
+      color: "#141414",
       cursorErase: true,
-      cursorEraseRadius: 510,
+      cursorEraseRadius: 943,
       cursorEraseFade: 500,
       cursorEraseStrength: 1,
     },
-    parallax: {
-      intensity: 1,
-      duration: 900,
+    vignette: {
+      intensity: 4,
+      duration: 720,
       loop: true,
-      detail: 5,
+      detail: 6,
       speed: 1,
-      xStrength: 48,
-      yStrength: 22,
-      balance: 0,
-      returnToCenter: true,
+      opacity: 1,
+      edge: 180,
+      top: 140,
+      right: 468,
+      bottom: 520,
+      left: 262,
+      roundness: 28,
+      blur: 80,
+      color: "#000000",
     },
   };
 
@@ -1209,17 +1226,21 @@
   let perspectiveWasActive = false;
   let perspectiveLastPointerAt = 0;
   let perspectiveFrameRequest = 0;
+  let perspectiveHasPointerTarget = false;
   let draggingFxPreset = "";
   let lastRenderTickAt = 0;
   let renderFrameTimer = 0;
   let viewportPaused = false;
   let intersectionPaused = false;
   let documentVisibilityPaused = false;
+  let renderIdleSettled = false;
   let quietPreviewActive = false;
   let quietWindowFocused =
     typeof document.hasFocus === "function" ? document.hasFocus() : true;
   let quietPointerInsideWindow = true;
   let quietLastInteractionAt = performance.now();
+  const IDLE_SETTLE_HOLD_MS = 1800;
+  const IDLE_SETTLE_EPSILON = 0.002;
   const QUIET_INTERACTION_HOLD_MS = 900;
   const QUIET_RENDER_POLL_MS = 1200;
   const QUIET_MONITOR_INTERVAL_MS = 1800;
@@ -1240,6 +1261,72 @@
   let gridCanvasDirty = true;
   const rawWait = (duration) =>
     new Promise((resolve) => window.setTimeout(resolve, duration));
+
+  function hasActiveAnimationWork() {
+    return (
+      timelineRunning ||
+      trimTimelinePlaying ||
+      !settings.paused ||
+      usesStateMode() ||
+      stage.classList.contains("power-on-active") ||
+      stage.classList.contains("terminal-scroll") ||
+      appPreview.classList.contains("app-boot-running") ||
+      appPreview.classList.contains("app-reveal-running")
+    );
+  }
+
+  function shouldSettleIdlePreview(now = performance.now()) {
+    if (document.hidden || hasActiveAnimationWork()) {
+      return false;
+    }
+
+    return now - quietLastInteractionAt >= IDLE_SETTLE_HOLD_MS;
+  }
+
+  function setRenderIdleSettled(settled) {
+    if (renderIdleSettled === settled) {
+      return;
+    }
+
+    renderIdleSettled = settled;
+    stage.classList.toggle("is-idle-settled", settled);
+    stage.classList.toggle(
+      "is-render-paused",
+      !isExportPlayer && (document.hidden || settled),
+    );
+
+    if (settled) {
+      perfMonitorState.lastFrameAt = 0;
+      lastRenderTickAt = 0;
+      parallaxLastPointerAt = performance.now();
+      perspectiveLastPointerAt = performance.now();
+    }
+  }
+
+  function isInteractiveMotionSettled() {
+    return (
+      Math.abs(parallaxTargetX) < IDLE_SETTLE_EPSILON &&
+      Math.abs(parallaxTargetY) < IDLE_SETTLE_EPSILON &&
+      Math.abs(parallaxCurrentX) < IDLE_SETTLE_EPSILON &&
+      Math.abs(parallaxCurrentY) < IDLE_SETTLE_EPSILON &&
+      Math.abs(perspectiveTargetX) < IDLE_SETTLE_EPSILON &&
+      Math.abs(perspectiveTargetY) < IDLE_SETTLE_EPSILON &&
+      Math.abs(perspectiveCurrentX) < IDLE_SETTLE_EPSILON &&
+      Math.abs(perspectiveCurrentY) < IDLE_SETTLE_EPSILON
+    );
+  }
+
+  function settleInteractiveMotionFrame(now = performance.now()) {
+    parallaxTargetX = 0;
+    parallaxTargetY = 0;
+    perspectiveTargetX = 0;
+    perspectiveTargetY = 0;
+    parallaxLastPointerAt = now;
+    perspectiveLastPointerAt = now;
+    updateParallaxFrame();
+    updatePerspectiveFrame();
+    return isInteractiveMotionSettled();
+  }
 
   const STAGE_BASE_WIDTH = 1920;
   const STAGE_BASE_HEIGHT = 1144;
@@ -1266,6 +1353,7 @@
   function applyStageFit() {
     const zoom = getFitStageZoom();
     root.style.setProperty("--stage-zoom", zoom.toFixed(4));
+    root.style.setProperty("--stage-zoom-inverse", (1 / zoom).toFixed(4));
 
     if (stageViewport) {
       stageViewport.style.width = `${Math.ceil(STAGE_BASE_WIDTH * zoom)}px`;
@@ -1275,6 +1363,19 @@
 
   function cloneData(value) {
     return JSON.parse(JSON.stringify(value));
+  }
+
+  function syncAppRevealSettingsPair(sourceState = 5) {
+    const source =
+      stateAppRevealSettings[sourceState] ||
+      stateAppRevealSettings[5] ||
+      stateAppRevealSettings[6];
+    if (!source) {
+      return;
+    }
+
+    const targetState = Number(sourceState) === 6 ? 5 : 6;
+    stateAppRevealSettings[targetState] = cloneData(source);
   }
 
   function normalizeGroupFxSettings() {
@@ -1511,6 +1612,7 @@
     }
     setAppRevealOriginTopLeft(stateAppRevealSettings[5]);
     setAppRevealOriginTopLeft(stateAppRevealSettings[6]);
+    syncAppRevealSettingsPair(5);
     normalizeWindowBootSettings();
     normalizeBuildStatusSettings();
     normalizeTerminalScrollSettings();
@@ -1649,6 +1751,33 @@
     );
   }
 
+  function ensureCompiledPerspectiveFx(config) {
+    const defaults =
+      groupFxPresetDefaults.perspective ||
+      legacyGroupFxPresetDefaults.perspective ||
+      {};
+    const fx = config.groupGlitchSettings || {};
+    const presets = fx.presets || {};
+    const activePresets = Array.isArray(fx.activePresets)
+      ? fx.activePresets.filter((preset) => preset !== "off")
+      : [];
+
+    config.groupGlitchSettings = {
+      ...fx,
+      preset: fx.preset && fx.preset !== "off" ? fx.preset : "perspective",
+      activePresets: activePresets.includes("perspective")
+        ? activePresets
+        : [...activePresets, "perspective"],
+      presets: {
+        ...presets,
+        perspective: {
+          ...defaults,
+          ...(presets.perspective || {}),
+        },
+      },
+    };
+  }
+
   function scheduleSave(statusText = "Settings autosaved") {
     window.clearTimeout(pendingSaveTimer);
     pendingSaveTimer = window.setTimeout(() => {
@@ -1680,6 +1809,10 @@
   }
 
   function getAppRevealSettings(state = currentState) {
+    if (Number(state) === 5 || Number(state) === 6) {
+      return stateAppRevealSettings[5];
+    }
+
     return stateAppRevealSettings[state] || stateAppRevealSettings[5];
   }
 
@@ -3384,7 +3517,7 @@
       appWindowEchoLayer = document.createElement("div");
       appWindowEchoLayer.className = "app-drag-echo-layer";
       appWindowEchoLayer.setAttribute("aria-hidden", "true");
-      stage.append(appWindowEchoLayer);
+      (stagePerspectiveShell || stage).append(appWindowEchoLayer);
     }
 
     return appWindowEchoLayer;
@@ -3414,10 +3547,11 @@
       return;
     }
 
-    const stageRect = stage.getBoundingClientRect();
+    const echoRoot = stagePerspectiveShell || stage;
+    const stageRect = echoRoot.getBoundingClientRect();
     const appRect = appPreview.getBoundingClientRect();
-    const scaleX = stageRect.width / Math.max(1, stage.offsetWidth);
-    const scaleY = stageRect.height / Math.max(1, stage.offsetHeight);
+    const scaleX = stageRect.width / Math.max(1, echoRoot.offsetWidth);
+    const scaleY = stageRect.height / Math.max(1, echoRoot.offsetHeight);
     const echo = document.createElement("span");
     echo.className = "app-drag-echo-frame";
     echo.style.left = `${((appRect.left - stageRect.left) / Math.max(0.001, scaleX)).toFixed(1)}px`;
@@ -3558,20 +3692,18 @@
     windowLift = 0,
   ) {
     const perspectiveDepth = Math.max(320, depth);
-    const zLift = Math.max(0, Math.min(windowLift, perspectiveDepth - 1));
-    const zScale = clamp(
-      (perspectiveDepth - zLift) / perspectiveDepth,
-      0.05,
-      1,
-    );
+    const lift = Math.max(0, Number(windowLift || 0));
+    const zScale =
+      1 + Math.min(0.08, lift / Math.max(1200, perspectiveDepth * 2.4));
 
     setRootVar("--perspective-rotate-x", `${rotateX.toFixed(3)}deg`);
     setRootVar("--perspective-rotate-y", `${rotateY.toFixed(3)}deg`);
     setRootVar("--perspective-shift-x", `${shiftX.toFixed(2)}px`);
     setRootVar("--perspective-shift-y", `${shiftY.toFixed(2)}px`);
     setRootVar("--perspective-depth", `${perspectiveDepth.toFixed(0)}px`);
-    setRootVar("--perspective-window-lift", `${zLift.toFixed(2)}px`);
-    setRootVar("--perspective-window-z-scale", zScale.toFixed(5));
+    setRootVar("--perspective-window-lift", `${lift.toFixed(2)}px`);
+    setRootVar("--perspective-window-z-scale", zScale.toFixed(4));
+    setRootVar("--perspective-logo-lift", `${(lift * 0.28).toFixed(2)}px`);
     setRootVar("--perspective-glare-x", `${glareX.toFixed(1)}%`);
     setRootVar("--perspective-glare-y", `${glareY.toFixed(1)}%`);
     setRootVar("--perspective-glare-opacity", glareOpacity.toFixed(3));
@@ -3579,6 +3711,12 @@
 
   function updateParallaxFromPointer(event) {
     const rect = stage.getBoundingClientRect();
+    const now = performance.now();
+    quietLastInteractionAt = now;
+    if (renderIdleSettled) {
+      setRenderIdleSettled(false);
+    }
+
     parallaxTargetX = clamp(
       ((event.clientX - rect.left) / rect.width) * 2 - 1,
       -1,
@@ -3589,18 +3727,29 @@
       -1,
       1,
     );
-    parallaxLastPointerAt = performance.now();
+    parallaxLastPointerAt = now;
 
-    perspectiveTargetX = parallaxTargetX;
-    perspectiveTargetY = parallaxTargetY;
-    perspectiveLastPointerAt = parallaxLastPointerAt;
+    perspectiveTargetX = clamp(
+      ((event.clientX - rect.left) / rect.width) * 2 - 1,
+      -1,
+      1,
+    );
+    perspectiveTargetY = clamp(
+      ((event.clientY - rect.top) / rect.height) * 2 - 1,
+      -1,
+      1,
+    );
+    perspectiveLastPointerAt = now;
+    perspectiveHasPointerTarget = true;
     schedulePerspectiveFrame();
   }
 
   function updateParallaxFrame() {
     const config = getGroupFxConfig("parallax");
     const active = isGroupFxActive("parallax") && (config.intensity ?? 0) > 0;
-    if (!active) {
+    const idleStopsParallax = renderIdleSettled || shouldSettleIdlePreview();
+
+    if (!active || idleStopsParallax) {
       parallaxTargetX = 0;
       parallaxTargetY = 0;
     } else if (config.loop && performance.now() - parallaxLastPointerAt > 700) {
@@ -3653,10 +3802,12 @@
     const config = getGroupFxConfig("perspective");
     const active =
       isGroupFxActive("perspective") && (config.intensity ?? 0) > 0;
+    const idleStopsPerspective = renderIdleSettled || shouldSettleIdlePreview();
 
-    if (!active) {
+    if (!active || idleStopsPerspective) {
       perspectiveTargetX = 0;
       perspectiveTargetY = 0;
+      perspectiveHasPointerTarget = false;
     } else if (
       config.loop &&
       performance.now() - perspectiveLastPointerAt > 700
@@ -3665,6 +3816,7 @@
         (performance.now() / 1000) * Math.max(0, config.speed ?? 1);
       perspectiveTargetX = Math.sin(driftTime * 0.84) * 0.22;
       perspectiveTargetY = Math.cos(driftTime * 0.72) * 0.16;
+      perspectiveHasPointerTarget = false;
     }
 
     const delay = Math.max(0, config.duration ?? 220);
@@ -3729,6 +3881,7 @@
   function hasPerspectiveFrameWork() {
     return (
       isPerspectiveLoopActive() ||
+      perspectiveHasPointerTarget ||
       Math.abs(perspectiveCurrentX) > 0.001 ||
       Math.abs(perspectiveCurrentY) > 0.001 ||
       Math.abs(perspectiveTargetX) > 0.001 ||
@@ -3739,7 +3892,7 @@
   function runPerspectiveFrame() {
     perspectiveFrameRequest = 0;
 
-    if (document.hidden) {
+    if (document.hidden || renderIdleSettled) {
       return;
     }
 
@@ -3751,7 +3904,7 @@
   }
 
   function schedulePerspectiveFrame() {
-    if (perspectiveFrameRequest || document.hidden) {
+    if (perspectiveFrameRequest || document.hidden || renderIdleSettled) {
       return;
     }
 
@@ -5216,6 +5369,28 @@
     await wait(getAnimationSettings(state).delayAfter, token);
   }
 
+  function getExportUiSettings() {
+    if (!uiSettings.export) {
+      uiSettings.export = { includeStaticPng: true };
+    }
+    return uiSettings.export;
+  }
+
+  function syncExportSettingsControls() {
+    if (controls.exportIncludeStaticPng) {
+      controls.exportIncludeStaticPng.checked =
+        getExportUiSettings().includeStaticPng !== false;
+    }
+  }
+
+  function updateExportSettings() {
+    const exportSettings = getExportUiSettings();
+    exportSettings.includeStaticPng =
+      controls.exportIncludeStaticPng?.checked !== false;
+    syncExportSettingsControls();
+    scheduleSave();
+  }
+
   function commitLogoControlsForSave() {
     if (!isControlActiveInCurrentState(controls.logoX)) {
       return;
@@ -5268,6 +5443,7 @@
       "--app-content-pad-bottom": staticAppSettings.contentPadBottom,
       "--app-content-pad-left": staticAppSettings.contentPadLeft,
       "--app-header-margin-bottom": staticAppSettings.headerMarginBottom,
+      "--chart-plot-top": staticAppSettings.chartPlotY,
       "--app-title-size": staticAppSettings.appTitleSize,
       "--app-subtitle-size": staticAppSettings.appSubtitleSize,
       "--app-shared-title-size": staticAppSettings.sharedTitleSize,
@@ -5277,6 +5453,8 @@
     Object.entries(cssMap).forEach(([name, value]) => {
       setRootVar(name, `${value}px`);
     });
+
+    updateAppChartHover();
   }
 
   function setPreAppFocus(active, restart = false) {
@@ -5703,22 +5881,116 @@
   }
 
   const appChartHoverData = [
-    { month: "Jan", x: 36, target: 250, revenue: 310 },
-    { month: "Feb", x: 79, target: 280, revenue: 330 },
-    { month: "Mar", x: 122, target: 300, revenue: 455 },
-    { month: "Apr", x: 166, target: 320, revenue: 385 },
-    { month: "May", x: 209, target: 350, revenue: 467 },
-    { month: "Jun", x: 253, target: 390, revenue: 520 },
-    { month: "Jul", x: 296, target: 395, revenue: 565 },
-    { month: "Aug", x: 339, target: 410, revenue: 552 },
-    { month: "Sep", x: 383, target: 430, revenue: 595 },
-    { month: "Oct", x: 426, target: 450, revenue: 670 },
+    { month: "Jan", x: 0, target: 250, revenue: 405 },
+    { month: "Feb", x: 39.1694, target: 275, revenue: 370 },
+    { month: "Mar", x: 65.0814, target: 300, revenue: 505 },
+    { month: "Apr", x: 104.853, target: 325, revenue: 535 },
+    { month: "May", x: 135.586, target: 350, revenue: 470 },
+    { month: "Jun", x: 165.114, target: 375, revenue: 570 },
+    { month: "Jul", x: 230.195, target: 395, revenue: 650 },
+    { month: "Aug", x: 266.954, target: 410, revenue: 585 },
+    { month: "Sep", x: 318.176, target: 430, revenue: 695 },
+    { month: "Oct", x: 370, target: 450, revenue: 800 },
   ];
+
+  const appChartRevenueSegments = [
+    [
+      [0, 54.675],
+      [9.44083, 56.925],
+      [30.4919, 60.75],
+      [39.1694, 58.05],
+    ],
+    [
+      [39.1694, 58.05],
+      [50.0163, 54.675],
+      [54.8371, 43.2],
+      [65.0814, 39.825],
+    ],
+    [
+      [65.0814, 39.825],
+      [75.3257, 36.45],
+      [99.43, 35.775],
+      [104.853, 35.775],
+    ],
+    [
+      [104.853, 35.775],
+      [110.277, 35.775],
+      [128.958, 44.55],
+      [135.586, 44.55],
+    ],
+    [
+      [135.586, 44.55],
+      [142.215, 44.55],
+      [158.485, 33.75],
+      [165.114, 31.05],
+    ],
+    [
+      [165.114, 31.05],
+      [171.743, 28.35],
+      [222.362, 20.25],
+      [230.195, 20.25],
+    ],
+    [
+      [230.195, 20.25],
+      [238.029, 20.25],
+      [257.313, 29.025],
+      [266.954, 29.025],
+    ],
+    [
+      [266.954, 29.025],
+      [276.596, 29.025],
+      [301.906, 14.85],
+      [318.176, 14.175],
+    ],
+    [
+      [318.176, 14.175],
+      [331.192, 13.635],
+      [358.149, 4.5],
+      [370, 0],
+    ],
+  ];
+
+  function getCubicPoint(points, t) {
+    const [p0, p1, p2, p3] = points;
+    const mt = 1 - t;
+    const a = mt * mt * mt;
+    const b = 3 * mt * mt * t;
+    const c = 3 * mt * t * t;
+    const d = t * t * t;
+    return {
+      x: a * p0[0] + b * p1[0] + c * p2[0] + d * p3[0],
+      y: a * p0[1] + b * p1[1] + c * p2[1] + d * p3[1],
+    };
+  }
+
+  function getAppChartRevenuePointFromSegments(svgX) {
+    const segment =
+      appChartRevenueSegments.find(
+        (points) => svgX >= points[0][0] && svgX <= points[3][0],
+      ) ||
+      (svgX < appChartRevenueSegments[0][0][0]
+        ? appChartRevenueSegments[0]
+        : appChartRevenueSegments[appChartRevenueSegments.length - 1]);
+    let low = 0;
+    let high = 1;
+
+    for (let index = 0; index < 18; index += 1) {
+      const mid = (low + high) / 2;
+      const point = getCubicPoint(segment, mid);
+      if (point.x < svgX) {
+        low = mid;
+      } else {
+        high = mid;
+      }
+    }
+
+    return getCubicPoint(segment, (low + high) / 2);
+  }
 
   function getAppChartRevenuePoint(svgX) {
     const path = appChartOverlay?.querySelector(".app-chart-line-live");
     if (!path?.getTotalLength) {
-      return { x: svgX, y: 58 };
+      return getAppChartRevenuePointFromSegments(svgX);
     }
 
     const total = path.getTotalLength();
@@ -5755,14 +6027,21 @@
     const chartStage = appChartOverlay.querySelector(".app-chart-stage");
     const stageRect = chartStage?.getBoundingClientRect();
     const stageWidth = stageRect?.width || 408;
-    const svgWidth = 428;
-    const leftBound = 36;
-    const rightBound = 426;
-    const fallbackSvgX = 253;
+    const svgWidth = 370;
+    const plotLeft = 36;
+    const plotTop =
+      parseFloat(
+        getComputedStyle(appChartOverlay).getPropertyValue("--chart-plot-top"),
+      ) || 22;
+    const plotWidth = 370;
+    const leftBound = 0;
+    const rightBound = 370;
+    const fallbackSvgX = 165.114;
     const svgX =
       event && stageRect
         ? clamp(
-            ((event.clientX - stageRect.left) / Math.max(1, stageWidth)) *
+            ((event.clientX - stageRect.left - plotLeft) /
+              Math.max(1, plotWidth)) *
               svgWidth,
             leftBound,
             rightBound,
@@ -5770,9 +6049,15 @@
         : fallbackSvgX;
     const revenuePoint = getAppChartRevenuePoint(svgX);
     const targetProgress = (svgX - leftBound) / (rightBound - leftBound);
-    const targetY = 101 + (70 - 101) * clamp(targetProgress, 0, 1);
-    const chartX = (svgX / svgWidth) * stageWidth;
-    const revenueY = revenuePoint.y;
+    const targetY =
+      plotTop + 67.5588 + (35.7056 - 67.5588) * clamp(targetProgress, 0, 1);
+    const dotRadius = 4;
+    const chartX = clamp(
+      plotLeft + (svgX / svgWidth) * plotWidth,
+      plotLeft + dotRadius,
+      plotLeft + plotWidth - dotRadius,
+    );
+    const revenueY = plotTop + revenuePoint.y;
     const cardWidth = 112;
     const cardX = clamp(
       chartX + 16,
@@ -6006,12 +6291,8 @@
       Number(revealSettings.duration || 0),
       Number(revealSettings.duration || 0) + lineFadeTail * 0.62,
     );
-    const finalFadeDuration = Math.min(560, Math.max(260, lineFadeTail * 0.5));
+    const finalFadeDuration = 0;
     setRootVar("--app-reveal-final-fade", `${finalFadeDuration.toFixed(1)}ms`);
-
-    window.setTimeout(() => {
-      appPreview.classList.add("app-reveal-fading");
-    }, cleanupDelay);
 
     window.setTimeout(() => {
       setAppRevealCompleteTarget(revealsPolished);
@@ -6052,10 +6333,6 @@
 
   appChartOverlay?.addEventListener("pointermove", (event) => {
     updateAppChartHover(event);
-  });
-
-  appChartOverlay?.addEventListener("pointerleave", () => {
-    updateAppChartHover();
   });
 
   appPreview?.addEventListener("pointermove", (event) => {
@@ -6102,13 +6379,15 @@
     const orderedPresets = getActiveFxSettingsPresets();
     const layerKeys = fxSettingsPanelOrder;
     layerKeys.forEach((preset) => {
-      setRootVar(`--fx-z-${preset}`, "80");
+      setRootVar(`--fx-z-${preset}`, preset === "vignette" ? "300" : "80");
     });
 
     orderedPresets.forEach((preset, index) => {
       setRootVar(
         `--fx-z-${preset}`,
-        String(90 + (orderedPresets.length - index) * 10),
+        preset === "vignette"
+          ? "300"
+          : String(90 + (orderedPresets.length - index) * 10),
       );
     });
   }
@@ -6294,15 +6573,15 @@
 
     shadeMapOverlay.replaceChildren(...cells);
     lastShadeMapRenderKey = renderKey;
-    if (shadeMapErasePointer && !shadeMapEraseFrame) {
-      shadeMapEraseFrame = window.requestAnimationFrame(
-        applyShadeMapCursorErase,
-      );
+    if (shadeMapEraseTarget) {
+      scheduleShadeMapCursorErase();
     }
   }
 
   function clearShadeMapCursorErase() {
     shadeMapErasePointer = null;
+    shadeMapEraseTarget = null;
+    shadeMapEraseCurrent = null;
     if (shadeMapEraseFrame) {
       window.cancelAnimationFrame(shadeMapEraseFrame);
       shadeMapEraseFrame = 0;
@@ -6314,6 +6593,52 @@
       });
   }
 
+  function getShadeMapEraseCenter() {
+    return { x: 960, y: 572 };
+  }
+
+  function scheduleShadeMapCursorErase() {
+    if (!shadeMapEraseFrame) {
+      shadeMapEraseFrame = window.requestAnimationFrame(
+        applyShadeMapCursorErase,
+      );
+    }
+  }
+
+  function getShadeMapErasePointFromEvent(event) {
+    const rect = stage.getBoundingClientRect();
+    return {
+      x: ((event.clientX - rect.left) / Math.max(1, rect.width)) * 1920,
+      y: ((event.clientY - rect.top) / Math.max(1, rect.height)) * 1144,
+    };
+  }
+
+  function returnShadeMapCursorEraseToCenter() {
+    const config = getGroupFxConfig("shademap");
+    if (!isGroupFxActive("shademap") || config.cursorErase === false) {
+      clearShadeMapCursorErase();
+      return;
+    }
+
+    shadeMapErasePointer = null;
+    shadeMapEraseTarget = getShadeMapEraseCenter();
+    shadeMapEraseCurrent ||= { ...shadeMapEraseTarget };
+    scheduleShadeMapCursorErase();
+  }
+
+  function returnShadeMapCursorEraseToCenterWhenOutside(event) {
+    const rect = stage.getBoundingClientRect();
+    const isInside =
+      event.clientX >= rect.left &&
+      event.clientX <= rect.right &&
+      event.clientY >= rect.top &&
+      event.clientY <= rect.bottom;
+
+    if (!isInside) {
+      returnShadeMapCursorEraseToCenter();
+    }
+  }
+
   function applyShadeMapCursorErase() {
     shadeMapEraseFrame = 0;
     const config = getGroupFxConfig("shademap");
@@ -6322,7 +6647,7 @@
       config.cursorErase !== false &&
       Number(config.intensity ?? 0) > 0 &&
       Number(config.opacity ?? 0) > 0 &&
-      shadeMapErasePointer;
+      shadeMapEraseTarget;
 
     if (!shadeMapOverlay || !active) {
       clearShadeMapCursorErase();
@@ -6332,13 +6657,13 @@
     const radius = Math.max(0, Number(config.cursorEraseRadius ?? 150));
     const fade = Math.max(0, Number(config.cursorEraseFade ?? 200));
     const strength = clamp(Number(config.cursorEraseStrength ?? 1), 0, 1);
-    const rect = stage.getBoundingClientRect();
-    const x =
-      ((shadeMapErasePointer.clientX - rect.left) / Math.max(1, rect.width)) *
-      1920;
-    const y =
-      ((shadeMapErasePointer.clientY - rect.top) / Math.max(1, rect.height)) *
-      1144;
+    shadeMapEraseCurrent ||= { ...shadeMapEraseTarget };
+    const dxTarget = shadeMapEraseTarget.x - shadeMapEraseCurrent.x;
+    const dyTarget = shadeMapEraseTarget.y - shadeMapEraseCurrent.y;
+    shadeMapEraseCurrent.x += dxTarget * 0.22;
+    shadeMapEraseCurrent.y += dyTarget * 0.22;
+    const x = shadeMapEraseCurrent.x;
+    const y = shadeMapEraseCurrent.y;
     const radiusSq = radius * radius;
 
     setRootVar("--shade-map-cursor-fade", `${fade}ms`);
@@ -6354,6 +6679,10 @@
       const dy = centerY - y;
       cell.classList.toggle("is-cursor-erased", dx * dx + dy * dy <= radiusSq);
     });
+
+    if (dxTarget * dxTarget + dyTarget * dyTarget > 0.25) {
+      scheduleShadeMapCursorErase();
+    }
   }
 
   function updateShadeMapCursorErase(event) {
@@ -6363,11 +6692,9 @@
       return;
     }
     shadeMapErasePointer = event;
-    if (!shadeMapEraseFrame) {
-      shadeMapEraseFrame = window.requestAnimationFrame(
-        applyShadeMapCursorErase,
-      );
-    }
+    shadeMapEraseTarget = getShadeMapErasePointFromEvent(event);
+    shadeMapEraseCurrent ||= { ...shadeMapEraseTarget };
+    scheduleShadeMapCursorErase();
   }
 
   function syncGlitchControl() {
@@ -6834,13 +7161,15 @@
     const perspectiveShiftY = Number(
       perspectiveConfig.shiftY ?? perspectiveConfig.shift ?? 0,
     );
+    const perspectiveWindowLift = Number(perspectiveConfig.windowLift ?? 0);
     const perspectiveActive =
       isGroupFxActive("perspective") &&
       Number(perspectiveConfig.intensity ?? 0) > 0 &&
       Math.abs(perspectiveTiltX) +
         Math.abs(perspectiveTiltY) +
         Math.abs(perspectiveShiftX) +
-        Math.abs(perspectiveShiftY) >
+        Math.abs(perspectiveShiftY) +
+        Math.abs(perspectiveWindowLift) >
         0;
     stage.classList.toggle("fx-perspective", perspectiveActive);
     if (perspectiveActive) {
@@ -6867,11 +7196,11 @@
   }
 
   function scheduleRenderFrame(delay = RENDER_FRAME_MS) {
-    if (renderFrameTimer) {
+    if (viewportPaused) {
       return;
     }
 
-    if (viewportPaused) {
+    if (renderFrameTimer) {
       return;
     }
 
@@ -7083,6 +7412,27 @@
     );
   }
 
+  function syncRuntimeDragEchoSettings() {
+    const settings = dragEchoSettings || {};
+    const color = settings.color || "#ffffff";
+    root.style.setProperty(
+      "--drag-echo-color-rgb",
+      rgbTupleFromColor(color, "#ffffff"),
+    );
+    root.style.setProperty(
+      "--drag-echo-opacity",
+      Math.max(0, Math.min(1, Number(settings.opacity ?? 0.74))).toFixed(2),
+    );
+    root.style.setProperty(
+      "--drag-echo-lifetime",
+      `${Math.max(0, Number(settings.lifetime ?? 760))}ms`,
+    );
+    root.style.setProperty(
+      "--drag-echo-stroke-width",
+      `${Math.max(0, Number(settings.width ?? 1))}px`,
+    );
+  }
+
   function syncRuntimeVisualSettings() {
     syncPowerOnVariables(getAnimationSettings(1));
     syncPromptCursorTiming(getAnimationSettings(2));
@@ -7093,6 +7443,7 @@
     syncSharedAppPositionCss();
     syncStaticAppCss();
     syncPreAppFocusCss();
+    syncRuntimeDragEchoSettings();
     const features = window.DATABRICKS_USED_FEATURES || {};
     if (
       features.parallax ||
@@ -7305,7 +7656,25 @@
       window.DATABRICKS_USED_FEATURES?.parallax ||
       window.DATABRICKS_USED_FEATURES?.perspective
     ) {
+      const updateFxPointerFromWindow = (event) => {
+        if (stage.contains(event.target)) {
+          return;
+        }
+        const rect = stage.getBoundingClientRect();
+        if (
+          event.clientX < rect.left ||
+          event.clientX > rect.right ||
+          event.clientY < rect.top ||
+          event.clientY > rect.bottom
+        ) {
+          return;
+        }
+        updateParallaxFromPointer(event);
+      };
       stage.addEventListener("mousemove", updateParallaxFromPointer);
+      window.addEventListener("pointermove", updateFxPointerFromWindow, {
+        passive: true,
+      });
       stage.addEventListener("mouseleave", () => {
         const config = getGroupFxConfig("parallax");
         if (config.returnToCenter !== false) {
@@ -7323,8 +7692,13 @@
     if (window.DATABRICKS_USED_FEATURES?.shadeMap) {
       stage.addEventListener("mousemove", updateShadeMapCursorErase);
       stage.addEventListener("pointermove", updateShadeMapCursorErase);
-      stage.addEventListener("mouseleave", clearShadeMapCursorErase);
-      stage.addEventListener("pointerleave", clearShadeMapCursorErase);
+      stage.addEventListener("mouseleave", returnShadeMapCursorEraseToCenter);
+      stage.addEventListener("pointerleave", returnShadeMapCursorEraseToCenter);
+      window.addEventListener(
+        "pointermove",
+        returnShadeMapCursorEraseToCenterWhenOutside,
+        { passive: true },
+      );
     }
 
     drawGrid(performance.now());
