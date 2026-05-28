@@ -27,6 +27,7 @@
     --grey-12: hsl(230 10 12);
     --grey-20: hsl(228 10 20); /* #2E3038 */
     --grey-40: hsl(222 5 40); /* #61646B */
+    --grey-50: hsl(229 7 50); /* #777A88 */
     --grey-60: hsl(229 11 70); /* #94979E */
     --grey-70: hsl(229 11 70); /* #ABAEBB */
     --grey-80: hsl(228 10 80);
@@ -123,6 +124,7 @@
     --grey-12: hsl(230 10 12);
     --grey-20: hsl(228 10 20); /* #2E3038 */
     --grey-40: hsl(222 5 40); /* #61646B */
+    --grey-50: hsl(229 7 50); /* #777A88 */
     --grey-60: hsl(229 11 70); /* #94979E */
     --grey-70: hsl(229 11 70); /* #ABAEBB */
     --grey-80: hsl(228 10 80);
@@ -228,6 +230,7 @@
   --color-grey-12: var(--grey-12);
   --color-grey-20: var(--grey-20);
   --color-grey-40: var(--grey-40);
+  --color-grey-50: var(--grey-50);
   --color-grey-60: var(--grey-60);
   --color-grey-70: var(--grey-70);
   --color-grey-80: var(--grey-80);
@@ -852,6 +855,19 @@
 
   [data-theme="dark"] .text-db-navy\/60 {
     color: rgb(245 247 248 / 0.6) !important;
+  }
+}
+
+@utility remove-autocomplete-styles {
+  &:-webkit-autofill,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:hover {
+    -webkit-transition:
+      background-color 5000s,
+      color 5000s;
+    transition:
+      background-color 5000s,
+      color 5000s;
   }
 }
 

@@ -32,19 +32,18 @@ export default function TemplatesPage(): ReactNode {
           })}
         </script>
       </Head>
-      <main className="bg-[#f9f7f4] text-black">
+      <main className="bg-black text-white">
         <Hero />
-        <div className="h-13.5 bg-orange" aria-hidden="true" />
-        <TemplatesIndexContent />
-        <div className="px-5 pb-0 md:px-8 mt-20 md:mt-32 lg:mt-40 xl:mt-60">
-          <div className="mx-auto max-w-432 bg-black">
-            <CTA
-              label="Start building"
-              title="Ready to ship your next agentic app in minutes?"
-              className="mx-auto max-w-432 border-x border-white/10 pt-1.5 pb-18 lg:pb-24"
-            />
-            <NewFooter className="mx-auto max-w-432 border-x border-t border-white/10 lg:px-8" />
-          </div>
+
+        <div className="bg-[#f9f7f4] text-black">
+          <div className="h-13.5 bg-orange" aria-hidden="true" />
+          <TemplatesIndexContent />
+          <CTA
+            label="Start building"
+            title="Ready to ship your next agentic app in minutes?"
+            className="max-w-432 mx-auto mt-24 pt-1.5 md:mt-36 lg:mt-44 xl:mt-60 pb-16 lg:pb-22"
+          />
+          <NewFooter className="mx-auto max-w-432 border-t border-white/10 lg:px-8" />
         </div>
       </main>
     </Layout>

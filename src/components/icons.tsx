@@ -25,6 +25,33 @@ function IconWrapper({ children, size, width, height, ...props }: IconProps) {
 }
 
 export const Icons = {
+  copy: (props: IconProps) => {
+    const { size = 14, width, height, ...svgProps } = props;
+
+    return (
+      <svg
+        fill="none"
+        height={height ?? size}
+        viewBox="0 0 14 14"
+        width={width ?? size}
+        xmlns="http://www.w3.org/2000/svg"
+        {...svgProps}
+      >
+        <path
+          d="M10.0625 0.4375H0.4375V10.0625H10.0625V0.4375Z"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M11.8125 3.9375H13.5625V13.5625H3.9375V11.8125"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  },
   discord: (props: IconProps) => (
     <IconWrapper {...props}>
       <path

@@ -40,7 +40,7 @@ export function Pagination({
               event.preventDefault();
               onPageChange(Math.max(1, currentPage - 1));
             }}
-            className="rounded-none bg-transparent px-0 has-[>svg]:px-0 text-sm text-grey-50 hover:bg-transparent hover:text-black"
+            className="rounded-none bg-transparent px-0 has-[>svg]:px-0 text-sm/none tracking-tight text-grey-50 hover:bg-transparent hover:text-black"
           />
         </PaginationItem>
         {pageItems.map((page) => (
@@ -52,7 +52,7 @@ export function Pagination({
                 event.preventDefault();
                 onPageChange(page);
               }}
-              className="mx-0.5 size-9 rounded-none border-0 bg-transparent text-base text-black shadow-none hover:bg-transparent data-[active=true]:bg-orange data-[active=true]:text-white"
+              className="mx-0.5 size-9 rounded-none border-0 bg-transparent text-sm/none text-black shadow-none hover:bg-transparent data-[active=true]:bg-orange data-[active=true]:text-white"
             >
               {page}
             </PaginationLink>
@@ -72,7 +72,7 @@ export function Pagination({
                 event.preventDefault();
                 onPageChange(pageCount);
               }}
-              className="mx-0.5 size-9 rounded-none border-0 bg-transparent text-base text-black shadow-none hover:bg-transparent data-[active=true]:bg-orange data-[active=true]:text-white"
+              className="mx-0.5 size-9 rounded-none border-0 bg-transparent text-sm/none text-black shadow-none hover:bg-transparent data-[active=true]:bg-orange data-[active=true]:text-white"
             >
               {pageCount}
             </PaginationLink>
@@ -86,7 +86,7 @@ export function Pagination({
               event.preventDefault();
               onPageChange(Math.min(pageCount, currentPage + 1));
             }}
-            className="rounded-none bg-transparent px-0 has-[>svg]:px-0 text-sm text-grey-50 hover:bg-transparent hover:text-black"
+            className="rounded-none bg-transparent px-0 has-[>svg]:px-0 text-sm/none tracking-tight text-grey-50 hover:bg-transparent hover:text-black"
           />
         </PaginationItem>
       </PaginationContent>

@@ -195,7 +195,7 @@
           border-color: var(--code-border);
           background: var(--code-bg);
 
-          > svg {
+          > span[class*="copyButtonIcons"] {
             @apply size-3.5!;
           }
         }

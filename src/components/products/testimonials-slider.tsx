@@ -1,9 +1,9 @@
 import useBaseUrl from "@docusaurus/useBaseUrl";
-import { type UIEvent, useEffect, useRef, useState } from "react";
 
 import { SectionKicker } from "@/components/products/section-kicker";
 import { Button } from "@/components/ui/button";
 import { SliderArrowIcon } from "@/components/ui/slider-arrow-icon";
+import { useScrollSlider } from "@/components/ui/use-scroll-slider";
 import type { ProductPageContent } from "@/lib/products/product-page";
 import { cn } from "@/lib/utils";
 
@@ -93,100 +93,13 @@ function TestimonialCard({
   );
 }
 
-function getNearestTestimonialIndex(track: HTMLDivElement): number {
-  const cards = Array.from(track.children).filter(
-    (child): child is HTMLElement => child instanceof HTMLElement,
-  );
-  const trackCenter = track.scrollLeft + track.clientWidth / 2;
-
-  return cards.reduce((nearestIndex, card, index) => {
-    const currentCard = cards[nearestIndex];
-    const cardCenter =
-      card.offsetLeft - track.offsetLeft + card.offsetWidth / 2;
-    const currentCardCenter =
-      currentCard.offsetLeft - track.offsetLeft + currentCard.offsetWidth / 2;
-
-    return Math.abs(cardCenter - trackCenter) <
-      Math.abs(currentCardCenter - trackCenter)
-      ? index
-      : nearestIndex;
-  }, 0);
-}
-
 export function TestimonialsSlider({ content }: TestimonialsSliderProps) {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [targetIndex, setTargetIndex] = useState<number | null>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const scrollEndTimerRef = useRef<number | null>(null);
-  const targetIndexRef = useRef<number | null>(null);
-  const lastIndex = content.testimonials.length - 1;
-  const currentIndex = targetIndex ?? activeIndex;
+  const slider = useScrollSlider({ itemCount: content.testimonials.length });
+  const { activeIndex, currentIndex, lastIndex } = slider;
   const progress = `${Math.min(
     100,
     ((currentIndex + 2) / (content.testimonials.length + 1)) * 100,
   )}%`;
-
-  useEffect(() => {
-    return () => {
-      if (scrollEndTimerRef.current !== null) {
-        window.clearTimeout(scrollEndTimerRef.current);
-      }
-    };
-  }, []);
-
-  function scrollToTestimonial(index: number) {
-    const nextIndex = Math.max(0, Math.min(index, lastIndex));
-    const track = trackRef.current;
-    const card = trackRef.current?.children.item(nextIndex);
-
-    if (!track || !(card instanceof HTMLElement)) {
-      setActiveIndex(nextIndex);
-      setTargetIndex(null);
-      targetIndexRef.current = null;
-      return;
-    }
-
-    const trackStyles = window.getComputedStyle(track);
-    const trackLeftInset = Number.parseFloat(trackStyles.paddingLeft) || 0;
-
-    targetIndexRef.current = nextIndex;
-    setTargetIndex(nextIndex);
-
-    track.scrollTo({
-      left: Math.min(
-        Math.max(0, card.offsetLeft - track.offsetLeft - trackLeftInset),
-        track.scrollWidth - track.clientWidth,
-      ),
-      behavior: "smooth",
-    });
-    settleProgrammaticScroll(track);
-  }
-
-  function settleProgrammaticScroll(track: HTMLDivElement) {
-    if (scrollEndTimerRef.current !== null) {
-      window.clearTimeout(scrollEndTimerRef.current);
-    }
-
-    scrollEndTimerRef.current = window.setTimeout(() => {
-      const settledTargetIndex = targetIndexRef.current;
-      targetIndexRef.current = null;
-      setActiveIndex(settledTargetIndex ?? getNearestTestimonialIndex(track));
-      setTargetIndex(null);
-    }, 140);
-  }
-
-  function handleScroll(event: UIEvent<HTMLDivElement>) {
-    const track = event.currentTarget;
-
-    if (targetIndexRef.current !== null) {
-      settleProgrammaticScroll(track);
-      return;
-    }
-
-    const nextIndex = getNearestTestimonialIndex(track);
-
-    setActiveIndex((index) => (nextIndex === index ? index : nextIndex));
-  }
 
   return (
     <section className="overflow-hidden bg-db-navy pb-18 text-white md:pb-20">
@@ -223,7 +136,7 @@ export function TestimonialsSlider({ content }: TestimonialsSliderProps) {
                 "[&_svg]:size-6",
               )}
               type="button"
-              onClick={() => scrollToTestimonial(currentIndex - 1)}
+              onClick={() => slider.scrollToIndex(currentIndex - 1)}
               disabled={currentIndex === 0}
               aria-label="Previous testimonial"
             >
@@ -239,7 +152,7 @@ export function TestimonialsSlider({ content }: TestimonialsSliderProps) {
                 "[&_svg]:size-6",
               )}
               type="button"
-              onClick={() => scrollToTestimonial(currentIndex + 1)}
+              onClick={() => slider.scrollToIndex(currentIndex + 1)}
               disabled={currentIndex === lastIndex}
               aria-label="Next testimonial"
             >
@@ -255,8 +168,8 @@ export function TestimonialsSlider({ content }: TestimonialsSliderProps) {
       >
         <div
           className="flex snap-x snap-mandatory gap-8 overflow-x-auto scroll-smooth pb-2 pl-[var(--testimonial-left)] pr-[var(--testimonial-left)] [scroll-padding-left:var(--testimonial-left)] [scroll-padding-right:var(--testimonial-left)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-          ref={trackRef}
-          onScroll={handleScroll}
+          ref={slider.trackRef}
+          onScroll={slider.handleScroll}
         >
           {content.testimonials.map((testimonial, index) => (
             <TestimonialCard

@@ -97,7 +97,7 @@ export function TemplatesIndexContent(): ReactNode {
     <>
       <section className="pt-16 md:pt-22" id="templates-list">
         <h2 className="sr-only">Templates</h2>
-        <div className="mx-auto grid w-full max-w-400 gap-12 px-5 md:px-8 lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-32">
+        <div className="mx-auto grid w-full max-w-400 gap-12 px-5 md:px-8 lg:grid-cols-[16rem_minmax(0,1fr)] xl:gap-x-20 2xl:gap-32">
           <aside className="hidden lg:block">
             <div className="sticky top-24 flex flex-col gap-y-8">
               <TemplateSearch value={searchQuery} onChange={setSearchQuery} />
@@ -177,20 +177,20 @@ function TemplateEmptyState({
   onClearAll: () => void;
 }): ReactNode {
   return (
-    <div className="flex flex-col items-start justify-center border border-dashed border-black/15 px-8 py-20 dark:border-white/15">
-      <p className="mb-2 text-xl font-medium text-black/55 dark:text-white/60">
-        No results found
-      </p>
-      <p className="mb-5 text-sm text-black/45 dark:text-white/45">
-        Try adjusting your search or filters.
+    <div className="flex flex-col items-center justify-center text-center w-full max-w-77.5 mx-auto mt-14 lg:-translate-x-4 lg:mt-29">
+      <h3 className="text-xl/normal tracking-[-0.04em] font-normal text-black">
+        No templates match your filters.
+      </h3>
+      <p className="mt-2 text-base tracking-[-0.04em] text-black/30">
+        Browse by category above, or try a different search term.
       </p>
       <Button
-        variant="outline"
-        size="sm"
+        className="rounded-none mt-8 uppercase text-base font-mono font-medium tracking-tight"
+        variant="orange"
+        size="xl"
         onClick={onClearAll}
-        className="rounded-none"
       >
-        Clear all filters
+        Clear filters
       </Button>
     </div>
   );

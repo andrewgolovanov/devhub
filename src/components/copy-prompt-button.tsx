@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { track } from "@vercel/analytics";
 import { toast } from "sonner";
-import { Check, Copy, LoaderCircle } from "lucide-react";
+import { Check, LoaderCircle } from "lucide-react";
+import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
@@ -65,7 +66,7 @@ export function CopyPromptButton({
           <TooltipTrigger asChild>
             <span className="inline-flex">
               <Button size="sm" className={className} disabled>
-                <Copy className="h-4 w-4 rotate-180" />
+                <Icons.copy className="h-4 w-4" />
                 Copy prompt
               </Button>
             </span>
@@ -97,7 +98,7 @@ export function CopyPromptButton({
         "Try again"
       ) : (
         <>
-          <Copy className="h-4 w-4 rotate-180" />
+          <Icons.copy className="h-4 w-4" />
           Copy prompt
         </>
       )}

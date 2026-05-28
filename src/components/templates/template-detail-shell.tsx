@@ -7,10 +7,8 @@ import type { ComponentProps, ReactNode } from "react";
 
 import { CopyPromptButton } from "@/components/copy-prompt-button";
 import CTA from "@/components/home-new/cta";
-import {
-  TemplateCompactCard,
-  type TemplateItem,
-} from "@/components/templates/template-card";
+import { MoreTemplatesSlider } from "@/components/templates/more-templates-slider";
+import type { TemplateItem } from "@/components/templates/template-card";
 import NewFooter from "@/components/theme/footer";
 import { siteUrlFromConfig } from "@/lib/site-url";
 
@@ -125,7 +123,7 @@ export function TemplateDetailShell({
               </ol>
             </nav>
 
-            <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-16">
+            <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_20rem] xl:grid-cols-[minmax(0,1fr)_22rem] xl:gap-16">
               <div className="min-w-0">
                 <h1 className="font-sans text-balance text-3xl/[1.125] md:text-4xl/[1.125] font-normal tracking-[-0.04em] text-white lg:text-[3.5rem]/[1.125]">
                   {title}
@@ -146,39 +144,22 @@ export function TemplateDetailShell({
                 {belowContent}
               </div>
 
-              <TemplateDetailRail usage={usage} toc={toc} />
+              <div>
+                <TemplateDetailRail usage={usage} toc={toc} />
+              </div>
             </div>
           </article>
         </section>
 
-        {relatedItems.length > 0 ? (
-          <section className="border-t border-white/12 py-18 md:py-24">
-            <div className="mx-auto w-full max-w-400 px-5 md:px-8">
-              <h2 className="m-0 text-4xl leading-tight font-normal tracking-tight md:text-5xl">
-                Explore more templates
-              </h2>
-              <div className="mt-12 grid gap-10 md:grid-cols-3">
-                {relatedItems.slice(0, 3).map((item, index) => (
-                  <TemplateCompactCard
-                    key={item.data.id}
-                    item={item}
-                    index={index}
-                  />
-                ))}
-              </div>
-            </div>
-          </section>
-        ) : null}
-
-        <div className="px-5 pb-0 md:px-8">
-          <div className="mx-auto max-w-432 bg-black">
-            <CTA
-              label="Start building"
-              title="Ready to ship your next agentic app in minutes?"
-              className="mx-auto max-w-432 border-x border-white/10 pt-1.5 pb-18 lg:pb-24"
-            />
-            <NewFooter className="mx-auto max-w-432 border-x border-t border-white/10 lg:px-8" />
-          </div>
+        <div className="bg-[#f9f7f4] text-black">
+          <div className="h-13.5 bg-orange" aria-hidden="true" />
+          <MoreTemplatesSlider items={relatedItems} />
+          <CTA
+            label="Start building"
+            title="Ready to ship your next agentic app in minutes?"
+            className="max-w-432 mx-auto mt-24 pt-1.5 md:mt-36 lg:mt-44 xl:mt-60 pb-16 lg:pb-22"
+          />
+          <NewFooter className="mx-auto max-w-432 border-t border-white/10 lg:px-8" />
         </div>
       </main>
     </Layout>

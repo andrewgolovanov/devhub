@@ -44,12 +44,13 @@ export function CookbookDetail({
         permalink,
       }}
       heroMedia={
-        <div className="overflow-hidden border border-black/12 bg-[#0f172a] dark:border-white/15">
+        <div className="overflow-hidden bg-[#0f172a]">
           <img
             src={heroImageUrl}
             alt="Template architecture preview"
             className="h-auto w-full object-cover"
-            loading="lazy"
+            loading="eager"
+            width={736}
           />
         </div>
       }

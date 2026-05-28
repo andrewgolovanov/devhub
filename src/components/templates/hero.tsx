@@ -8,7 +8,7 @@ export function Hero(): ReactNode {
           <span className="text-db-lava xl:ml-36 2xl:ml-50">Templates.</span>{" "}
           <span>[Jumpstart your next Databricks app]</span>
         </h1>
-        <p className="max-w-md text-base leading-tight tracking-normal text-grey-80 xl:max-w-2xs xl:absolute xl:right-8 xl:-bottom-1 2xl:max-w-79">
+        <p className="max-w-md text-base leading-tight tracking-normal text-grey-80 xl:max-w-2xs xl:absolute xl:right-8 xl:-bottom-1 2xl:max-w-68 min-[100rem]:max-w-79">
           Use each template step by step, or copy it as a prompt for your coding
           agent to build for you.
         </p>

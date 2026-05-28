@@ -1,8 +1,9 @@
 import Link from "@docusaurus/Link";
 import useBaseUrl from "@docusaurus/useBaseUrl";
-import { Check, Copy, LoaderCircle } from "lucide-react";
+import { Check, LoaderCircle } from "lucide-react";
 import { type ReactNode, useCallback, useState } from "react";
 
+import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { getBootstrapPromptApiPath } from "@/lib/bootstrap-prompt";
 import { cn } from "@/lib/utils";
@@ -119,7 +120,7 @@ function CTAButtons({
         ) : copyState === "copied" ? (
           <Check className="size-4" aria-hidden="true" />
         ) : (
-          <Copy className="size-4 rotate-180" aria-hidden="true" />
+          <Icons.copy className="size-3.5" aria-hidden="true" />
         )}
       </Button>
       <Button
