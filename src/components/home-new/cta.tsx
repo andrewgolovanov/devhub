@@ -105,7 +105,7 @@ function CTAButtons({
   return (
     <div className="flex w-full flex-col gap-y-3 gap-x-5 sm:w-auto sm:flex-row sm:items-center lg:justify-end">
       <Button
-        className="font-mono gap-x-4.5 text-base leading-none tracking-tight text-black uppercase shadow-none"
+        className="font-mono gap-x-4.5 text-base leading-none tracking-tight text-black uppercase shadow-none h-10 lg:h-11"
         onClick={onCopy}
         disabled={copyState === "copying"}
         title="Copy agent prompt"
@@ -123,7 +123,7 @@ function CTAButtons({
         )}
       </Button>
       <Button
-        className="h-11 rounded-none bg-white pl-7 pr-6 font-mono text-base leading-none font-medium tracking-tight text-black uppercase shadow-none hover:bg-white/90"
+        className="h-10 lg:h-11 rounded-none bg-white pl-7 pr-6 font-mono text-base leading-none font-medium tracking-tight text-black uppercase shadow-none hover:bg-white/90"
         asChild
       >
         <Link className="no-underline hover:no-underline" to="/docs/start-here">

@@ -19,7 +19,10 @@ const benefitIconSrc = {
   plus: "/img/products/benefits/plus.svg",
 } satisfies Record<ProductBenefitIconName, string>;
 
-export function BenefitIcon({ className = "size-12", icon }: BenefitIconProps) {
+export function BenefitIcon({
+  className = "size-9 md:size-10 lg:size-11 2xl:size-12",
+  icon,
+}: BenefitIconProps) {
   const src = useBaseUrl(benefitIconSrc[icon]);
 
   return (

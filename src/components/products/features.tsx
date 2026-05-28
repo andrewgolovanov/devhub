@@ -24,42 +24,42 @@ function FeatureRow({ feature }: { feature: ProductFeature }) {
   const src = featureVisualSrc[feature.visual];
 
   return (
-    <article className="mx-auto grid w-full max-w-184 gap-12 lg:gap-16 xl:max-w-none xl:grid-cols-2 2xl:max-w-384 2xl:grid-cols-[minmax(0,672px)_minmax(0,736px)] 2xl:gap-32">
+    <article className="mx-auto grid grid-cols-1 w-full max-w-184 gap-6 md:gap-12 lg:max-w-none lg:grid-cols-2 lg:items-stretch lg:gap-16 xl:max-w-none xl:grid-cols-2 2xl:max-w-384 2xl:grid-cols-[minmax(0,672px)_minmax(0,736px)] 2xl:gap-32">
       <div className="flex h-full flex-col">
         <SectionKicker index={feature.index}>{feature.eyebrow}</SectionKicker>
-        <div className="mt-8 flex flex-1 flex-col justify-between gap-12 2xl:pl-16">
-          <h3 className="max-w-152 text-3xl leading-tight font-normal -tracking-[1.6px] text-black md:text-[2.5rem] text-balance">
+        <div className="mt-5 flex flex-1 flex-col justify-between gap-6 md:gap-8 md:mt-6 lg:gap-12 lg:mt-7 lg:pl-8">
+          <h3 className="max-w-152 text-[28px] leading-tight font-normal -tracking-[1.6px] text-black md:max-w-none md:text-[32px] lg:max-w-152 lg:text-[36px] 2xl:text-[40px] text-balance">
             {feature.title}{" "}
             <span className="text-black/35">[{feature.description}]</span>
           </h3>
-          <div className="max-w-152">
-            <p className="text-base tracking-[-0.025em] text-black">
+          <div>
+            <p className="max-w-152 text-base tracking-[-0.025em] text-black">
               {feature.body}
             </p>
-            <ul className="mt-7 grid h-[148px] grid-rows-3 divide-y divide-black/10 border-y border-black/10">
+            <ul className="mt-5 max-w-152 grid grid-cols-1 grid-rows-3 divide-y divide-black/10 border-y border-black/10 md:mt-6 md:max-w-none lg:mt-7 lg:max-w-152">
               {feature.details.map((detail) => (
                 <li
-                  className="flex items-center gap-2.5 text-base tracking-[-0.025em] text-black"
+                  className="py-3 min-w-0 flex items-center gap-2.5 text-base tracking-[-0.025em] text-black"
                   key={detail}
                 >
                   <span
                     className="size-2 shrink-0 bg-orange"
                     aria-hidden="true"
                   />
-                  <span>{detail}</span>
+                  <span className="min-w-0 flex-1">{detail}</span>
                 </li>
               ))}
             </ul>
           </div>
         </div>
       </div>
-      <div className="relative aspect-square w-full overflow-hidden border border-black bg-[#F2F0ED]">
+      <div className="relative aspect-square w-full overflow-hidden border border-black bg-[#F2F0ED] lg:aspect-auto lg:h-full">
         {src ? (
           <img
             src={src}
             alt=""
             aria-hidden="true"
-            className="block h-full w-full object-cover"
+            className="block h-full w-full object-cover lg:object-contain lg:object-center"
             loading="lazy"
             decoding="async"
           />
@@ -76,10 +76,10 @@ export function Features({ content }: ProductFeaturesProps) {
         <SectionKicker className="text-grey-40">
           {content.featuresIntro.eyebrow}
         </SectionKicker>
-        <h2 className="mt-6 max-w-384 whitespace-pre-line font-sans text-4xl tracking-[-3.84px] text-balance md:text-6xl xl:text-[96px] xl:leading-[1.125]">
+        <h2 className="mt-4 max-w-384 whitespace-pre-line font-sans text-[36px] tracking-[-3.84px] text-balance md:mt-[18px] md:text-[48px] lg:mt-5 lg:text-[64px] 2xl:text-[96px] 2xl:leading-[1.125]">
           {content.featuresIntro.title}
         </h2>
-        <div className="mt-22 grid gap-28 md:mt-34 lg:mt-[200px] lg:gap-50">
+        <div className="mt-16 grid grid-cols-1 gap-16 md:gap-28 md:mt-24 lg:mt-[120px] xl:mt-[200px] lg:gap-50">
           {content.features.map((feature) => (
             <FeatureRow feature={feature} key={feature.index} />
           ))}

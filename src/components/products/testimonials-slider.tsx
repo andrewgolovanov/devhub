@@ -52,9 +52,9 @@ function TestimonialLogo({
   return (
     <img
       alt={`${company} logo`}
-      className="h-12 max-w-full object-contain"
+      className="h-9 max-w-full self-start object-contain object-left md:h-10 lg:h-11 xl:h-12"
       decoding="async"
-      height={48}
+      height={36}
       loading="lazy"
       src={src}
       style={{ width: logo.width }}
@@ -79,7 +79,7 @@ function TestimonialCard({
     >
       <TestimonialLogo company={testimonial.company} />
       <div>
-        <blockquote className="mt-10 max-w-[448px] text-lg leading-normal tracking-[-0.6px] text-white sm:text-xl md:text-2xl">
+        <blockquote className="mt-10 max-w-[448px] text-lg leading-normal tracking-[-0.6px] text-white md:text-xl lg:text-2xl">
           "{testimonial.quote}"
         </blockquote>
         <p className="mt-auto pt-12 text-base text-white/80 tracking-[-0.4px]">
@@ -194,7 +194,7 @@ export function TestimonialsSlider({ content }: TestimonialsSliderProps) {
         <SectionKicker className="text-grey-70">
           {content.testimonialsIntro.eyebrow}
         </SectionKicker>
-        <h2 className="mt-6 max-w-304 font-sans text-3xl leading-tight font-normal tracking-[-1.76px] md:text-[44px] text-balance">
+        <h2 className="mt-6 max-w-304 font-sans text-[36px] leading-tight font-normal tracking-[-1.76px] md:text-[40px] lg:text-[44px] text-balance">
           {content.testimonialsIntro.titleLead}{" "}
           <span className="text-white/60">
             {content.testimonialsIntro.titleMuted}
@@ -215,7 +215,7 @@ export function TestimonialsSlider({ content }: TestimonialsSliderProps) {
           <div className="hidden shrink-0 items-center gap-5 md:flex">
             <Button
               className={cn(
-                "static size-11 translate-0 rounded-none shadow-none transition-colors duration-150 disabled:opacity-30",
+                "static size-9 md:size-10 lg:size-11 translate-0 rounded-none shadow-none transition-colors duration-150 disabled:opacity-30",
                 currentIndex === 0
                   ? "border border-white bg-transparent text-white"
                   : "border border-db-lava-light bg-db-lava-light text-white hover:border-db-lava hover:bg-db-lava",
@@ -231,7 +231,7 @@ export function TestimonialsSlider({ content }: TestimonialsSliderProps) {
             </Button>
             <Button
               className={cn(
-                "static size-11 translate-0 rounded-none shadow-none transition-colors duration-150 disabled:opacity-30",
+                "static size-9 md:size-10 lg:size-11 translate-0 rounded-none shadow-none transition-colors duration-150 disabled:opacity-30",
                 currentIndex === lastIndex
                   ? "border border-white bg-transparent text-white"
                   : "border border-db-lava-light bg-db-lava-light text-white hover:border-db-lava hover:bg-db-lava",
