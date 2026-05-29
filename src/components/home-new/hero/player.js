@@ -12,10 +12,10 @@
     appReveal: true,
     parallax: false,
     rgbSplit: true,
-    shadeMap: true,
+    shadeMap: false,
     rgbGrid: true,
     scanlines: true,
-    vignette: true,
+    vignette: false,
     perspective: true,
     dragEcho: true,
     logoClick: true,
@@ -36,6 +36,7 @@
     settings: {
       autoStep: false,
       loopState: false,
+      loopRestartDelay: 20000,
       timelineTrimStart: 1,
       timelineTrimEnd: 6,
       timelineLoop: false,
@@ -300,15 +301,22 @@
     },
     groupGlitchSettings: {
       preset: "perspective",
-      activePresets: [
-        "scanlines",
-        "rgbsplit",
-        "rgbgrid",
-        "perspective",
-        "shademap",
-        "vignette",
-      ],
+      activePresets: ["perspective", "scanlines", "rgbsplit", "rgbgrid"],
       presets: {
+        perspective: {
+          intensity: 0.8,
+          duration: 900,
+          loop: false,
+          detail: 5,
+          speed: 0,
+          tiltX: 0,
+          tiltY: 4,
+          depth: 2200,
+          shiftX: 0,
+          shiftY: 20,
+          windowLift: 0,
+          returnToCenter: false,
+        },
         scanlines: {
           intensity: 5,
           duration: 1200,
@@ -317,7 +325,7 @@
           speed: 0.4,
           thickness: 2,
           spacing: 2,
-          barHeight: 50,
+          barHeight: 110,
           sweepOpacity: 0.16,
           sweepGlow: 0.4,
           sweepShadow: 0.12,
@@ -328,7 +336,7 @@
           intensity: 2,
           logoIntensity: 2.4,
           textIntensity: 1.6,
-          windowIntensity: 1.6,
+          windowIntensity: 0,
           duration: 1000,
           loop: true,
           detail: 5.6,
@@ -349,68 +357,13 @@
           stripeGap: 1,
           opacity: 1,
           softness: 0,
-          redColor: "#1c1c1c",
+          redColor: "#0d0d0d",
           greenColor: "#121212",
-          blueColor: "#1c1c1c",
+          blueColor: "#000000",
           blendMode: "screen",
           redOpacity: 1,
           greenOpacity: 1,
           blueOpacity: 0.83,
-        },
-        perspective: {
-          intensity: 0.8,
-          duration: 900,
-          loop: false,
-          detail: 5,
-          speed: 0,
-          tiltX: 0,
-          tiltY: 18,
-          depth: 2200,
-          shiftX: 0,
-          shiftY: 48,
-          windowLift: 0,
-          returnToCenter: false,
-          tilt: 5.6,
-          shift: 0,
-        },
-        shademap: {
-          intensity: 4,
-          duration: 0,
-          loop: false,
-          detail: 6,
-          speed: 0,
-          smoothness: 10,
-          flickerNoise: 0,
-          flickerScale: 0.8,
-          xDensity: 7.9,
-          yDensity: 4.4,
-          blockWidth: 385,
-          blockHeight: 220,
-          quantity: 72,
-          randomness: 3,
-          blur: 40,
-          opacity: 0.4,
-          color: "#141414",
-          cursorErase: true,
-          cursorEraseRadius: 943,
-          cursorEraseFade: 500,
-          cursorEraseStrength: 1,
-        },
-        vignette: {
-          intensity: 4,
-          duration: 720,
-          loop: true,
-          detail: 6,
-          speed: 1,
-          opacity: 1,
-          edge: 180,
-          top: 140,
-          right: 468,
-          bottom: 520,
-          left: 262,
-          roundness: 28,
-          blur: 80,
-          color: "#000000",
         },
       },
     },
@@ -983,6 +936,20 @@
   }
 
   const legacyGroupFxPresetDefaults = {
+    perspective: {
+      intensity: 0.8,
+      duration: 900,
+      loop: false,
+      detail: 5,
+      speed: 0,
+      tiltX: 0,
+      tiltY: 4,
+      depth: 2200,
+      shiftX: 0,
+      shiftY: 20,
+      windowLift: 0,
+      returnToCenter: false,
+    },
     scanlines: {
       intensity: 5,
       duration: 1200,
@@ -991,7 +958,7 @@
       speed: 0.4,
       thickness: 2,
       spacing: 2,
-      barHeight: 50,
+      barHeight: 110,
       sweepOpacity: 0.16,
       sweepGlow: 0.4,
       sweepShadow: 0.12,
@@ -1002,7 +969,7 @@
       intensity: 2,
       logoIntensity: 2.4,
       textIntensity: 1.6,
-      windowIntensity: 1.6,
+      windowIntensity: 0,
       duration: 1000,
       loop: true,
       detail: 5.6,
@@ -1023,68 +990,13 @@
       stripeGap: 1,
       opacity: 1,
       softness: 0,
-      redColor: "#1c1c1c",
+      redColor: "#0d0d0d",
       greenColor: "#121212",
-      blueColor: "#1c1c1c",
+      blueColor: "#000000",
       blendMode: "screen",
       redOpacity: 1,
       greenOpacity: 1,
       blueOpacity: 0.83,
-    },
-    perspective: {
-      intensity: 0.8,
-      duration: 900,
-      loop: false,
-      detail: 5,
-      speed: 0,
-      tiltX: 0,
-      tiltY: 18,
-      depth: 2200,
-      shiftX: 0,
-      shiftY: 48,
-      windowLift: 0,
-      returnToCenter: false,
-      tilt: 5.6,
-      shift: 0,
-    },
-    shademap: {
-      intensity: 4,
-      duration: 0,
-      loop: false,
-      detail: 6,
-      speed: 0,
-      smoothness: 10,
-      flickerNoise: 0,
-      flickerScale: 0.8,
-      xDensity: 7.9,
-      yDensity: 4.4,
-      blockWidth: 385,
-      blockHeight: 220,
-      quantity: 72,
-      randomness: 3,
-      blur: 40,
-      opacity: 0.4,
-      color: "#141414",
-      cursorErase: true,
-      cursorEraseRadius: 943,
-      cursorEraseFade: 500,
-      cursorEraseStrength: 1,
-    },
-    vignette: {
-      intensity: 4,
-      duration: 720,
-      loop: true,
-      detail: 6,
-      speed: 1,
-      opacity: 1,
-      edge: 180,
-      top: 140,
-      right: 468,
-      bottom: 520,
-      left: 262,
-      roundness: 28,
-      blur: 80,
-      color: "#000000",
     },
   };
 
@@ -1186,10 +1098,14 @@
 
   const FINAL_CHECK_SEQUENCE_DURATION = 760;
   const TIMELINE_STATE_COUNT = 6;
+  const STAGE_BASE_WIDTH = 2300;
+  const CONTENT_FRAME_WIDTH = 1920;
+  const STAGE_BASE_HEIGHT = 1144;
 
   const settings = {
     autoStep: false,
     loopState: false,
+    loopRestartDelay: 0,
     timelineTrimStart: 1,
     timelineTrimEnd: 6,
     timelineLoop: false,
@@ -1328,8 +1244,6 @@
     return isInteractiveMotionSettled();
   }
 
-  const STAGE_BASE_WIDTH = 1920;
-  const STAGE_BASE_HEIGHT = 1144;
   const STAGE_ZOOM_MIN = 0.2;
   const STAGE_ZOOM_MAX = 1.25;
   const STAGE_ZOOM_STEP = 0.05;
@@ -1478,6 +1392,7 @@
     }
 
     Object.assign(settings, config.settings || {});
+    settings.loopRestartDelay = getLoopRestartDelay();
     Object.assign(logoClickSettings, config.logoClickSettings || {});
     sanitizeLogoClickSettings();
 
@@ -1751,33 +1666,6 @@
     );
   }
 
-  function ensureCompiledPerspectiveFx(config) {
-    const defaults =
-      groupFxPresetDefaults.perspective ||
-      legacyGroupFxPresetDefaults.perspective ||
-      {};
-    const fx = config.groupGlitchSettings || {};
-    const presets = fx.presets || {};
-    const activePresets = Array.isArray(fx.activePresets)
-      ? fx.activePresets.filter((preset) => preset !== "off")
-      : [];
-
-    config.groupGlitchSettings = {
-      ...fx,
-      preset: fx.preset && fx.preset !== "off" ? fx.preset : "perspective",
-      activePresets: activePresets.includes("perspective")
-        ? activePresets
-        : [...activePresets, "perspective"],
-      presets: {
-        ...presets,
-        perspective: {
-          ...defaults,
-          ...(presets.perspective || {}),
-        },
-      },
-    };
-  }
-
   function scheduleSave(statusText = "Settings autosaved") {
     window.clearTimeout(pendingSaveTimer);
     pendingSaveTimer = window.setTimeout(() => {
@@ -1802,6 +1690,10 @@
 
   function usesStateMode() {
     return settings.autoStep || settings.loopState;
+  }
+
+  function getLoopRestartDelay() {
+    return clamp(Number(settings.loopRestartDelay ?? 0), 0, 60000);
   }
 
   function getAnimationSettings(state = currentState) {
@@ -5498,6 +5390,21 @@
     ".chart-footer span",
   ].join(",");
 
+  function isTerminalHoverTargetVisible(target) {
+    const computed = getComputedStyle(target);
+    if (
+      computed.display === "none" ||
+      computed.visibility === "hidden" ||
+      Number(computed.opacity) <= 0.05 ||
+      Number.parseFloat(computed.fontSize) <= 0
+    ) {
+      return false;
+    }
+
+    const rect = target.getBoundingClientRect();
+    return rect.width > 0 && rect.height > 0;
+  }
+
   function syncPreAppFocusCss() {
     const scaleDelta = 1 - preAppFocusSettings.scale;
     setRootVar("--pre-app-opacity", preAppFocusSettings.opacity);
@@ -6378,8 +6285,16 @@
   function syncGroupFxLayerOrder() {
     const orderedPresets = getActiveFxSettingsPresets();
     const layerKeys = fxSettingsPanelOrder;
+    const scanlinesZ = "330";
     layerKeys.forEach((preset) => {
-      setRootVar(`--fx-z-${preset}`, preset === "vignette" ? "300" : "80");
+      setRootVar(
+        `--fx-z-${preset}`,
+        preset === "vignette"
+          ? "300"
+          : preset === "scanlines"
+            ? scanlinesZ
+            : "80",
+      );
     });
 
     orderedPresets.forEach((preset, index) => {
@@ -6387,7 +6302,9 @@
         `--fx-z-${preset}`,
         preset === "vignette"
           ? "300"
-          : String(90 + (orderedPresets.length - index) * 10),
+          : preset === "scanlines"
+            ? scanlinesZ
+            : String(90 + (orderedPresets.length - index) * 10),
       );
     });
   }
@@ -6471,8 +6388,14 @@
       return;
     }
 
-    const columns = Math.max(1, Math.floor(1920 / Math.max(1, cellX)));
-    const rows = Math.max(1, Math.floor(1144 / Math.max(1, cellY)));
+    const columns = Math.max(
+      1,
+      Math.floor(STAGE_BASE_WIDTH / Math.max(1, cellX)),
+    );
+    const rows = Math.max(
+      1,
+      Math.floor(STAGE_BASE_HEIGHT / Math.max(1, cellY)),
+    );
     const available = columns * rows;
     const cellCount = Math.max(1, Math.min(Math.round(count), available, 360));
     const renderKey = [
@@ -6594,7 +6517,7 @@
   }
 
   function getShadeMapEraseCenter() {
-    return { x: 960, y: 572 };
+    return { x: STAGE_BASE_WIDTH / 2, y: STAGE_BASE_HEIGHT / 2 };
   }
 
   function scheduleShadeMapCursorErase() {
@@ -6608,8 +6531,12 @@
   function getShadeMapErasePointFromEvent(event) {
     const rect = stage.getBoundingClientRect();
     return {
-      x: ((event.clientX - rect.left) / Math.max(1, rect.width)) * 1920,
-      y: ((event.clientY - rect.top) / Math.max(1, rect.height)) * 1144,
+      x:
+        ((event.clientX - rect.left) / Math.max(1, rect.width)) *
+        STAGE_BASE_WIDTH,
+      y:
+        ((event.clientY - rect.top) / Math.max(1, rect.height)) *
+        STAGE_BASE_HEIGHT,
     };
   }
 
@@ -6851,8 +6778,16 @@
       10,
     );
     const shadeMapRandomnessRatio = shadeMapRandomness / 10;
-    const shadeMapCellX = clamp(1920 / shadeMapXDensity, 4, 1920);
-    const shadeMapCellY = clamp(1144 / shadeMapYDensity, 4, 1144);
+    const shadeMapCellX = clamp(
+      STAGE_BASE_WIDTH / shadeMapXDensity,
+      4,
+      STAGE_BASE_WIDTH,
+    );
+    const shadeMapCellY = clamp(
+      STAGE_BASE_HEIGHT / shadeMapYDensity,
+      4,
+      STAGE_BASE_HEIGHT,
+    );
     const shadeMapActive =
       isGroupFxActive("shademap") &&
       shadeMapIntensity > 0 &&
@@ -6970,6 +6905,10 @@
     });
     if (!shadeMapActive || shadeMapConfig.cursorErase === false) {
       clearShadeMapCursorErase();
+    } else if (!shadeMapEraseTarget) {
+      returnShadeMapCursorEraseToCenter();
+    } else {
+      scheduleShadeMapCursorErase();
     }
     const rgbGridConfig = getGroupFxConfig("rgbgrid");
     const rgbGridIntensity = Math.max(0, rgbGridConfig.intensity ?? 0);
@@ -7090,10 +7029,14 @@
     );
     stage.classList.remove("text-glitch-loop");
     const vignetteConfig = getGroupFxConfig("vignette");
+    const vignetteHardOpacityRaw = Math.max(
+      0,
+      Math.min(1, vignetteConfig.hardOpacity ?? 0.38),
+    );
     const vignetteActive =
       isGroupFxActive("vignette") &&
       vignetteConfig.intensity > 0 &&
-      (vignetteConfig.opacity ?? 0) > 0;
+      ((vignetteConfig.opacity ?? 0) > 0 || vignetteHardOpacityRaw > 0);
     const vignetteOpacity = vignetteActive
       ? Math.min(
           1,
@@ -7101,6 +7044,7 @@
             Math.max(0.15, Math.min(1, (vignetteConfig.intensity ?? 4) / 6)),
         )
       : 0;
+    const vignetteHardOpacity = vignetteActive ? vignetteHardOpacityRaw : 0;
     const fallbackVignetteEdge = Math.max(0, vignetteConfig.edge ?? 180);
     const vignetteTop = Math.max(0, vignetteConfig.top ?? fallbackVignetteEdge);
     const vignetteRight = Math.max(
@@ -7116,6 +7060,10 @@
       vignetteConfig.left ?? fallbackVignetteEdge,
     );
     setRootVar("--screen-vignette-opacity", vignetteOpacity.toFixed(2));
+    setRootVar(
+      "--screen-vignette-hard-opacity",
+      vignetteHardOpacity.toFixed(2),
+    );
     setRootVar("--screen-vignette-top", `${vignetteTop}px`);
     setRootVar(
       "--screen-vignette-top-mid",

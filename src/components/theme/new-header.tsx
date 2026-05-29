@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "@docusaurus/Link";
+import { useLocation } from "@docusaurus/router";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
 import { cn } from "@/lib/utils";
@@ -20,16 +21,19 @@ const HEADER_LINKS = [
 ] as const;
 
 export function NewHeader({ className }: NewHeaderProps) {
-  const [isIntersecting, setIsIntersecting] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
   const triggerRef = useRef<HTMLDivElement | null>(null);
   const logoSrc = useBaseUrl("/img/databricks-logo.svg");
+  const { pathname } = useLocation();
+  const isHomepage =
+    pathname === "/" || pathname === "/home-new" || pathname === "/home-new/";
 
   useEffect(() => {
     if (!triggerRef.current) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setIsIntersecting(!entry.isIntersecting);
+        setHasScrolled(!entry.isIntersecting);
       },
       {
         root: null,
@@ -53,8 +57,9 @@ export function NewHeader({ className }: NewHeaderProps) {
       />
       <header
         className={cn(
-          "sticky top-0 z-50 flex min-h-16 items-center border-b border-transparent bg-black backdrop-blur py-3.5",
-          isIntersecting && "border-white/4",
+          "sticky top-0 z-50 flex min-h-16 items-center border-b border-transparent py-3.5",
+          (!isHomepage || hasScrolled) && "bg-black backdrop-blur",
+          hasScrolled && "border-white/4",
           className,
         )}
       >

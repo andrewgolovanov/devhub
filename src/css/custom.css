@@ -34,10 +34,10 @@
     --grey-90: hsl(230 12 90); /* #E3E4E9 */
     --orange: #ff5f46;
 
-    --prose-border: hsl(40 4 16); /* #27272A */
+    --prose-border: #464853;
     --code-bg: #09090b;
     --code-surface: #242427;
-    --code-border: #27272a;
+    --code-border: #464853;
     --code-foreground: #f9fafa;
     --code-grey: #e3e4e9;
     --code-comment: #777a88;
@@ -131,7 +131,7 @@
     --grey-90: hsl(230 12 90); /* #E3E4E9 */
     --orange: #ff5f46;
 
-    --prose-border: hsl(40 4 16); /* #27272A */
+    --prose-border: #464853;
 
     --background: var(--db-dark-bg);
     --foreground: #f5f7f8;

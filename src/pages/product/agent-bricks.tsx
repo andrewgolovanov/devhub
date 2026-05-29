@@ -48,7 +48,7 @@ export default function AgentBricksProductPage(): ReactNode {
         <UseCases content={agentBricksProduct} />
         <TestimonialsSlider content={agentBricksProduct} />
         <div className="flow-root bg-db-navy">
-          <CTA className="mx-auto mt-18 max-w-432 pb-16 md:mt-24 lg:mt-32 lg:pb-22 xl:mt-38" />
+          <CTA className="mx-auto mt-18 max-w-432 pt-1.5 pb-16 md:mt-24 lg:mt-32 lg:pb-22 xl:mt-38" />
           <NewFooter className="mx-auto max-w-432 border-t border-white/10 lg:px-8" />
         </div>
       </main>

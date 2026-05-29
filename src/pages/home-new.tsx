@@ -43,7 +43,7 @@ export default function HomeNew(): ReactNode {
         <div className="bg-linear-to-b from-[#1A2E2F] from-35% to-[#2A4647]">
           <LovedByDevelopers />
           <CTA
-            className="max-w-432 mx-auto mt-18 md:mt-24 lg:mt-32 xl:mt-38 pb-16 lg:pb-22"
+            className="max-w-432 mx-auto mt-18 pt-1.5 md:mt-24 lg:mt-32 xl:mt-38 pb-16 lg:pb-22"
             label="Start building"
             title="Ready to ship your next agentic app in minutes?"
             description="Start from Databricks templates, connect your data, and deploy with the tools your team already uses."

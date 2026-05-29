@@ -93,19 +93,27 @@ function Hero({ className }: HeroProps) {
   return (
     <section
       className={cn(
-        "hero relative block bg-black text-white border-b border-grey-20",
+        "hero relative -mt-16 block bg-black text-white border-b border-grey-20",
         className,
       )}
     >
-      <div className="relative flex flex-col justify-end min-h-144 w-full overflow-hidden pb-16 md:min-h-160 md:pb-20 lg:min-h-280 lg:pb-26">
-        <div className="absolute -top-6 left-1/2 h-full w-screen -translate-x-1/2 md:-top-12 lg:-top-16 xl:w-420 xl:-left-33 xl:translate-x-0 2xl:w-450 2xl:left-[calc(50%-2.875rem)] 2xl:-translate-x-1/2">
+      <div className="relative flex flex-col justify-end min-h-[max(125vw,600px)] w-full overflow-hidden pb-16 sm:min-h-[max(100vw,700px)] md:min-h-200 md:pb-20 lg:min-h-240 xl:min-h-276 2xl:min-h-296 lg:pb-26">
+        <div
+          className="absolute top-8 left-[-20%] w-[150vw] aspect-2300/1144 sm:left-[-22%] md:top-8 md:w-5xl md:-left-34 lg:top-0 lg:w-400 lg:-left-58 xl:w-500 xl:-left-74 2xl:-translate-x-1/2 2xl:w-575 2xl:left-[max(50rem,50%)]"
+          aria-hidden="true"
+        >
           <DbHeroAnimation />
+          <div className="absolute inset-x-0 top-0 pointer-events-none bg-linear-to-t from-transparent to-black h-16 lg:h-24" />
+          <div className="absolute inset-x-0 bottom-0 pointer-events-none bg-linear-to-b from-transparent to-black h-1/3" />
+          <div className="absolute inset-y-0 left-0 pointer-events-none bg-linear-to-l from-transparent via-black/90 via-80% to-black w-1/7" />
+          <div className="absolute inset-y-0 right-0 pointer-events-none bg-linear-to-r from-transparent via-black/90 via-80% to-black w-1/7" />
         </div>
         <header className="pointer-events-none relative z-10 flex flex-col justify-end">
           <div className="pointer-events-auto mx-auto grid w-full max-w-400 grid-cols-1 px-5 md:px-8 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-7">
-            <h1 className="max-w-md md:max-w-4xl pb-1 font-heading text-3xl/none tracking-normal text-white md:text-6xl/none lg:max-xl:text-5xl/[0.96] xl:text-7xl/none">
-              <span className="relative z-10">Build</span>{" "}
-              <HeroTitleHighlight>agentic applications</HeroTitleHighlight>{" "}
+            <h1 className="max-w-md pb-1 font-heading text-3xl leading-none tracking-normal text-white md:max-w-4xl md:text-6xl md:leading-none lg:text-5xl/[0.96] xl:text-7xl/none">
+              <span className="relative z-10">Build </span>
+              <HeroTitleHighlight>agentic applications</HeroTitleHighlight>
+              <br />
               <span className="relative z-10">
                 in&nbsp;minutes, not months.
               </span>
