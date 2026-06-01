@@ -1,28 +1,27 @@
 /**
  * Server-side resolution of the site-wide hackathon banner.
  *
- * Activation precedence (mirrors the `showDrafts` env pattern — strict string
- * matching, no implicit dev/CI handling):
+ * The banner is purely env-driven (strict string matching, like the `showDrafts`
+ * flag — no implicit dev/CI handling and no date windows):
  *
- *   1. `HACKATHON_BANNER_ENABLED="true"`  → force on, ignore dates
- *   2. `HACKATHON_BANNER_ENABLED="false"` → force off, ignore dates
- *   3. otherwise → on iff `now` is between `HACKATHON_START` 00:00 UTC and
- *      `HACKATHON_END` 23:59:59.999 UTC (both required, both ISO `YYYY-MM-DD`,
- *      and `start <= end`).
+ *   - `HACKATHON_BANNER_ENABLED="true"` → banner on. Any other value (including
+ *     unset) → off.
+ *   - `HACKATHON_EVENT_SLUG` → which event the banner points at. The link
+ *     targets `/hackathon/<slug>`; with no slug it falls back to `/hackathon`,
+ *     which itself redirects to the active event.
+ *   - `HACKATHON_BANNER_TEXT` → optional override of the lead-in copy. The "See
+ *     resources" link is always appended so a misconfigured override can never
+ *     strand visitors on a banner with no way in.
  *
- * Optional `HACKATHON_BANNER_TEXT` overrides the banner copy so messaging can
- * change without a code edit.
- *
- * The resolver is a pure function so it can be unit-tested with synthetic
- * envs and a fixed `now`. The config builder is the thin imperative shell
- * consumed by `docusaurus.config.ts` at build time.
+ * The resolver is a pure function so it can be unit-tested with synthetic envs.
+ * The config builder is the thin imperative shell consumed by
+ * `docusaurus.config.ts` at build time.
  */
 
-export type HackathonBannerEnv = {
+type HackathonBannerEnv = {
   HACKATHON_BANNER_ENABLED?: string;
-  HACKATHON_START?: string;
-  HACKATHON_END?: string;
   HACKATHON_BANNER_TEXT?: string;
+  HACKATHON_EVENT_SLUG?: string;
 };
 
 type HackathonBannerConfig = {
@@ -33,57 +32,35 @@ type HackathonBannerConfig = {
   isCloseable: boolean;
 };
 
-const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
-
-function parseStartOfDayUtc(value: string | undefined): number | null {
-  if (!value || !ISO_DATE.test(value)) return null;
-  const ms = Date.parse(`${value}T00:00:00.000Z`);
-  return Number.isNaN(ms) ? null : ms;
-}
-
-function parseEndOfDayUtc(value: string | undefined): number | null {
-  if (!value || !ISO_DATE.test(value)) return null;
-  const ms = Date.parse(`${value}T23:59:59.999Z`);
-  return Number.isNaN(ms) ? null : ms;
-}
-
-export function resolveHackathonBannerActive(
-  env: HackathonBannerEnv,
-  now: Date,
-): boolean {
-  if (env.HACKATHON_BANNER_ENABLED === "true") return true;
-  if (env.HACKATHON_BANNER_ENABLED === "false") return false;
-
-  const start = parseStartOfDayUtc(env.HACKATHON_START);
-  const end = parseEndOfDayUtc(env.HACKATHON_END);
-  if (start === null || end === null) return false;
-  if (start > end) return false;
-
-  const nowMs = now.getTime();
-  return nowMs >= start && nowMs <= end;
+export function resolveHackathonBannerActive(env: HackathonBannerEnv): boolean {
+  return env.HACKATHON_BANNER_ENABLED === "true";
 }
 
 const DEFAULT_BANNER_LEAD_TEXT = "Databricks Developer Hackathon is live.";
-const BANNER_LINK_HTML = '<a href="/hackathon"><b>See resources &rarr;</b></a>';
+
+function bannerLinkHtml(slug: string): string {
+  const target = slug ? `/hackathon/${slug}` : "/hackathon";
+  return `<a href="${target}"><b>See resources &rarr;</b></a>`;
+}
 
 export function getHackathonBannerConfig(
   env: HackathonBannerEnv = process.env as HackathonBannerEnv,
-  now: Date = new Date(),
 ): HackathonBannerConfig | undefined {
-  if (!resolveHackathonBannerActive(env, now)) return undefined;
+  if (!resolveHackathonBannerActive(env)) return undefined;
+  const slug = (env.HACKATHON_EVENT_SLUG ?? "").trim();
   const leadText = (
     env.HACKATHON_BANNER_TEXT ?? DEFAULT_BANNER_LEAD_TEXT
   ).trim();
   return {
     // Non-dismissible by design: the banner is the only on-site entry point to
-    // /hackathon during the event window, so we don't want visitors to close
-    // it and lose the way in. `id` is retained for future per-event resets if
-    // we re-enable dismissals.
-    id: "hackathon-2026",
+    // the event during its window, so we don't want visitors to close it and
+    // lose the way in. `id` is namespaced per event so any future re-enabling
+    // of dismissals resets cleanly between events.
+    id: `hackathon-${slug || "event"}`,
     // HACKATHON_BANNER_TEXT overrides only the lead-in copy; the "See
     // resources" link is always appended so visitors can never end up on a
-    // banner with no way to reach /hackathon.
-    content: `${leadText} ${BANNER_LINK_HTML}`,
+    // banner with no way to reach the event.
+    content: `${leadText} ${bannerLinkHtml(slug)}`,
     backgroundColor: "var(--db-lava)",
     textColor: "#ffffff",
     isCloseable: false,
