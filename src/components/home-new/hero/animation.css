@@ -378,6 +378,10 @@
   pointer-events: auto;
 }
 
+.db-hero-animation-root .stage.app-focus-active .stage-perspective-shell {
+  z-index: 120;
+}
+
 .db-hero-animation-root .stage.fx-perspective {
   perspective: var(--perspective-depth, 1000px);
   perspective-origin: 50% 50%;
@@ -674,7 +678,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  z-index: var(--fx-z-scanlines, 330);
+  z-index: 95;
   display: block;
   opacity: calc(var(--group-fx-alpha) * var(--scanline-sweep-opacity, 0.42));
   height: var(--scanline-bar-height, 180%);
@@ -853,7 +857,7 @@
 .db-hero-animation-root .rgb-grid-overlay {
   position: absolute;
   inset: 0;
-  z-index: var(--fx-z-rgbgrid, 87);
+  z-index: 87;
   display: none;
   opacity: var(--rgb-grid-opacity, 0);
   pointer-events: none;
@@ -881,7 +885,7 @@
 .db-hero-animation-root .shade-map-overlay {
   position: absolute;
   inset: 0;
-  z-index: var(--fx-z-shademap, 100);
+  z-index: 100;
   display: none;
   opacity: var(--shade-map-alpha, 0);
   pointer-events: none;
@@ -1251,12 +1255,8 @@
 }
 
 .db-hero-animation-root .hero-logo-svg rect:hover {
-  fill: rgb(
-    var(--logo-wave-rgb, 98 99 106) / var(--logo-wave-opacity, 1)
-  ) !important;
-  stroke: rgb(
-    var(--logo-wave-rgb, 98 99 106) / var(--logo-wave-opacity, 1)
-  ) !important;
+  fill: rgba(100, 101, 108, 1);
+  stroke: rgba(100, 101, 108, 1);
   opacity: var(--logo-wave-opacity, 1) !important;
   filter: none;
 }

@@ -31,14 +31,14 @@ export function TemplateFilters({
   onToggleService: (service: Service) => void;
 }) {
   return (
-    <nav className="space-y-1" aria-label="Filters">
+    <nav className="flex flex-col gap-y-1" aria-label="Filters">
       {SERVICES.map((service) => (
         <label
           className="flex min-h-9 cursor-pointer items-center gap-2.5 text-base/snug text-black transition-colors hover:text-black"
           key={service}
         >
           <Checkbox
-            className="size-5 rounded-none border-grey-60 bg-transparent data-[state=checked]:border-orange data-[state=checked]:bg-orange data-[state=checked]:text-white"
+            className="size-5 rounded-none border-grey-60 bg-transparent data-[state=checked]:border-orange data-[state=checked]:bg-orange data-[state=checked]:text-white dark:border-grey-60 dark:bg-transparent"
             indicatorIcon={<FilterCheckIcon className="size-4" />}
             checked={selectedServices.has(service)}
             onCheckedChange={() => onToggleService(service)}

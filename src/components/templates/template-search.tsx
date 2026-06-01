@@ -41,7 +41,7 @@ export function TemplateSearch({
     <div className="relative bg-db-oat-medium">
       <SearchIcon className="absolute top-1/2 left-3 size-5 -translate-y-1/2 text-grey-70" />
       <Input
-        className="h-11 rounded-none border-grey-80 bg-transparent pr-11 pl-11 text-base tracking-tight shadow-none placeholder:text-grey-60 md:text-base active:border-db-lava focus-visible:ring-0 focus-visible:border-db-lava [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden"
+        className="h-11 rounded-none border-grey-80 bg-transparent pr-11 pl-11 text-base tracking-tight shadow-none placeholder:text-grey-60 md:text-base active:border-db-lava focus-visible:ring-0 focus-visible:border-db-lava [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden dark:border-grey-80 dark:bg-transparent"
         type="search"
         placeholder="Search template"
         value={value}
