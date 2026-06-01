@@ -33,7 +33,10 @@ export function OpenPromptInButton({
           <ChevronDown />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="start" className="min-w-44">
+      <DropdownMenuContent
+        align="start"
+        className="w-[var(--radix-dropdown-menu-trigger-width)]"
+      >
         {targets.map((target) => {
           const Icon = target.icon;
           return (
