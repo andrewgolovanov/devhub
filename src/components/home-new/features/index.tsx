@@ -100,12 +100,12 @@ function Features({ className }: { className?: string }) {
   return (
     <section
       className={cn(
-        "features bg-[#F9F7F4] pt-12 pb-16 md:pt-20 md:pb-24 lg:pt-28 lg:pb-32 xl:pt-44 xl:pb-54",
+        "features bg-[#F9F7F4] pt-18 pb-18 md:pt-28 md:pb-28 lg:pt-40 lg:pb-50 xl:pt-44 xl:pb-54",
         className,
       )}
       aria-labelledby="home-features-heading"
     >
-      <div className="mx-auto flex max-w-400 flex-col gap-12 px-5 md:gap-16 md:px-8 lg:gap-20 xl:gap-60">
+      <div className="mx-auto flex max-w-400 flex-col gap-16 px-5 md:gap-28 md:px-8 lg:gap-50 xl:gap-60">
         <h2 id="home-features-heading" className="sr-only">
           Databricks developer platform features
         </h2>
@@ -146,18 +146,15 @@ function FeatureCard({
           <span className="font-mono text-sm/none">0{index + 1}</span>
           {eyebrow}
         </FeatureCardEyebrow>
-        <div className="flex grow flex-col justify-between xl:pl-16">
+        <div className="flex grow flex-col justify-between md:w-full lg:mt-7 lg:pl-8 xl:mt-0 xl:pl-16">
           <FeatureCardTitle>
             {title}
-            <span className="text-black/30 max-xl:mt-2 max-xl:block max-xl:text-base/tight max-xl:tracking-normal">
-              {" "}
-              [{description}]
-            </span>
+            <span className="text-black/30"> [{description}]</span>
           </FeatureCardTitle>
           <FeatureCardAction>
             <Link
               to={href}
-              className="inline-flex w-full items-center justify-between border-b-[3px] border-orange pb-4 font-sans text-xl leading-none font-normal tracking-[-0.04em] text-orange no-underline transition-colors hover:border-primary hover:text-primary md:text-2xl lg:text-3xl xl:text-[2.5625rem]"
+              className="inline-flex w-full items-center justify-between border-b-[3px] border-orange pb-4 font-sans text-2xl leading-none font-normal tracking-[-0.04em] text-orange no-underline transition-colors hover:border-primary hover:text-primary md:text-[28px] lg:text-3xl xl:text-[2.5625rem]"
             >
               <span>Learn more</span>
               <FeatureLinkArrowIcon className="size-5 md:size-7" />
@@ -166,7 +163,10 @@ function FeatureCard({
         </div>
       </FeatureCardHeader>
       <FeatureCardVisual className="mt-8 lg:mt-0" reversed={reversed}>
-        <div className="mx-auto my-auto w-full max-w-184" aria-hidden="true">
+        <div
+          className="mx-auto my-auto w-full max-w-184 max-md:min-w-[800px] max-md:[zoom:0.37] md:max-w-[66.67%] lg:max-w-75 xl:max-w-184"
+          aria-hidden="true"
+        >
           <FeatureVisualContent visual={visual} />
         </div>
       </FeatureCardVisual>

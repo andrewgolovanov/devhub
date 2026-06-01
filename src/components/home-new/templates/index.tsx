@@ -46,13 +46,13 @@ function Templates({ className }: TemplatesProps) {
     <section
       ref={sectionRef}
       className={cn(
-        "templates overflow-hidden bg-grey-8 text-white pt-24 md:pt-32 lg:pt-40",
+        "templates overflow-hidden bg-grey-8 text-white pt-18 md:pt-22 lg:pt-26 xl:pt-40",
         className,
       )}
       aria-labelledby="home-new-templates-title"
     >
       <div className="mx-auto flex w-full max-w-400 flex-col px-5 md:px-8">
-        <header className="flex flex-col gap-y-6">
+        <header className="flex flex-col gap-y-5 lg:gap-y-6">
           <div className="flex items-center gap-1.5">
             <span className="size-1.5 bg-[#FF6038]" aria-hidden="true" />
             <p className="font-mono text-sm/none font-medium tracking-normal text-[#5e616e] uppercase">
@@ -60,7 +60,7 @@ function Templates({ className }: TemplatesProps) {
             </p>
           </div>
           <h2
-            className="text-4xl leading-[1.125] max-w-184 font-normal tracking-[-0.04em] text-balance text-white md:text-5xl md:leading-[1.125] lg:text-[3.5rem]"
+            className="text-3xl leading-[1.125] max-w-184 font-normal tracking-[-0.04em] text-balance text-white md:text-4xl md:leading-[1.125] lg:text-5xl lg:leading-[1.125] xl:text-[3.5rem]"
             id="home-new-templates-title"
           >
             Start from working templates to fork, deploy,{" "}
@@ -74,16 +74,16 @@ function Templates({ className }: TemplatesProps) {
       <TemplateSlider sectionRef={sectionRef} />
 
       <Button
-        className="mt-14 w-full flex rounded-none bg-orange px-5 font-mono text-xl font-medium tracking-normal text-white uppercase shadow-none hover:bg-primary/90 focus-visible:ring-2 focus-visible:ring-db-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-[#121317] md:mt-18 md:text-[2rem]"
+        className="mt-10 w-full flex rounded-none bg-orange px-5 font-mono text-base font-medium tracking-normal text-white uppercase shadow-none hover:bg-primary/90 focus-visible:ring-2 focus-visible:ring-db-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-[#121317] md:mt-14 md:text-lg lg:mt-18 lg:text-xl xl:text-[2rem]"
         asChild
       >
         <Link
           to="/templates"
-          className="gap-5 h-14 no-underline tracking-tight md:gap-8"
+          className="gap-3 h-10 no-underline tracking-tight lg:gap-5 lg:h-14 xl:gap-8"
         >
-          <LinkArrowIcon className="size-8" />
+          <LinkArrowIcon className="size-5 lg:size-8" />
           <span>See all templates</span>
-          <LinkArrowIcon className="size-8 rotate-180" />
+          <LinkArrowIcon className="size-5 rotate-180 lg:size-8" />
         </Link>
       </Button>
     </section>

@@ -39,7 +39,7 @@ function HeroCopyPromptButton() {
   return (
     <Button
       // inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap transition-all outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 px-4 py-2 has-[>svg]:px-3 h-11 rounded-none bg-orange pl-7 pr-6 font-mono gap-x-4.5 text-base leading-none font-medium tracking-tight text-black uppercase shadow-none hover:bg-primary
-      className="font-mono gap-x-4.5 text-base leading-none tracking-tight text-black uppercase shadow-none"
+      className="h-10 font-mono gap-x-4.5 text-sm leading-none tracking-tight text-black uppercase shadow-none lg:h-11 lg:text-base"
       onClick={handleCopy}
       disabled={copyState === "copying"}
       title="Copy agent prompt"
@@ -108,6 +108,10 @@ function Hero({ className }: HeroProps) {
           <div className="absolute inset-y-0 left-0 pointer-events-none bg-linear-to-l from-transparent via-black/90 via-80% to-black w-1/7" />
           <div className="absolute inset-y-0 right-0 pointer-events-none bg-linear-to-r from-transparent via-black/90 via-80% to-black w-1/7" />
         </div>
+        <div
+          className="block h-14 md:h-16 lg:h-10 xl:hidden"
+          aria-hidden="true"
+        />
         <header className="pointer-events-none relative z-10 flex flex-col justify-end">
           <div className="pointer-events-auto mx-auto grid w-full max-w-400 grid-cols-1 px-5 md:px-8 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-7">
             <h1 className="max-w-md pb-1 font-heading text-3xl leading-none tracking-normal text-white md:max-w-4xl md:text-6xl md:leading-none lg:text-5xl/[0.96] xl:text-7xl/none">
@@ -118,13 +122,13 @@ function Hero({ className }: HeroProps) {
                 in&nbsp;minutes, not months.
               </span>
             </h1>
-            <p className="max-w-sm text-sm/tight tracking-normal mt-4 text-grey-80 md:text-base/tight lg:mt-0 lg:row-span-2">
+            <p className="order-last max-w-sm text-base/tight tracking-normal mt-4 text-grey-80 xl:order-none xl:mt-0 xl:row-span-2">
               Open your agent in any folder and paste. Works with Cursor, Claude
               Code, Codex, or your favorite coding agent.
             </p>
-            <div className="mt-6 flex flex-col gap-x-5 gap-y-3 sm:flex-row lg:mt-0">
+            <div className="mt-4.5 flex flex-col gap-x-5 gap-y-3 sm:flex-row md:mt-5 lg:mt-6 xl:mt-0">
               <Button
-                className="h-11 rounded-none bg-white pl-7 pr-6 font-mono text-base leading-none font-medium tracking-tight text-black uppercase shadow-none hover:bg-white/90"
+                className="h-10 rounded-none bg-white pl-7 pr-6 font-mono text-sm leading-none font-medium tracking-tight text-black uppercase shadow-none hover:bg-white/90 lg:h-11 lg:text-base"
                 asChild
               >
                 <Link

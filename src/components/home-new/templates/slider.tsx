@@ -147,7 +147,7 @@ export function TemplateSlider({
             disabled={slider.isPreviousSlideDisabled}
             onClick={slider.handlePreviousSlide}
             className={cn(
-              "static size-11 translate-0 rounded-none shadow-none transition-colors duration-150 disabled:opacity-30",
+              "static size-10 translate-0 rounded-none shadow-none transition-colors duration-150 disabled:opacity-30 lg:size-11",
               slider.isPreviousSlideDisabled
                 ? "border border-white bg-transparent text-white"
                 : "border border-db-lava-light bg-db-lava-light text-white hover:border-db-lava hover:bg-db-lava",
@@ -162,7 +162,7 @@ export function TemplateSlider({
             disabled={slider.isNextSlideDisabled}
             onClick={slider.handleNextSlide}
             className={cn(
-              "static size-11 translate-0 rounded-none shadow-none transition-colors duration-150 disabled:opacity-30",
+              "static size-10 translate-0 rounded-none shadow-none transition-colors duration-150 disabled:opacity-30 lg:size-11",
               slider.isNextSlideDisabled
                 ? "border border-white bg-transparent text-white"
                 : "border border-db-lava-light bg-db-lava-light text-white hover:border-db-lava hover:bg-db-lava",

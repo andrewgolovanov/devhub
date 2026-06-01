@@ -29,7 +29,7 @@ function LovedByDevelopers({ className }: { className?: string }) {
         className,
       )}
     >
-      <div className="relative z-10 mx-auto flex flex-col px-5 py-18 max-w-272 xl:max-w-304 md:px-8 md:py-24 lg:py-32 xl:py-46 2xl:max-w-376">
+      <div className="relative z-10 mx-auto flex flex-col px-5 pt-18 pb-14 max-w-272 xl:max-w-304 md:px-8 md:py-24 lg:py-32 xl:py-46 2xl:max-w-376">
         <header className="relative z-10 flex flex-col">
           <h2 className="font-heading text-5xl leading-none font-normal tracking-normal max-w-sm sm:max-w-none md:text-7xl/none lg:text-9xl/none xl:text-[10rem] 2xl:text-[13.125rem]">
             <span className="block max-w-342 text-balance">
@@ -66,12 +66,12 @@ function LovedByDevelopers({ className }: { className?: string }) {
                 {metrics.map(({ value, label }) => (
                   <li
                     key={value}
-                    className="flex items-baseline gap-3 md:gap-4"
+                    className="flex items-baseline gap-3 md:flex-col md:items-start xl:flex-row xl:items-baseline xl:gap-4"
                   >
                     <span className="font-mono text-5xl leading-[1.125] font-normal tracking-normal text-white md:text-6xl lg:text-7xl xl:text-7xl 2xl:text-[7rem]">
                       {value}
                     </span>
-                    <span className="text-xs leading-normal ml-1 text-white/60 md:max-w-66 md:text-sm lg:text-lg">
+                    <span className="text-xs leading-normal ml-1 text-white/60 md:ml-0 md:max-w-66 md:text-sm lg:text-lg">
                       {label}
                     </span>
                   </li>

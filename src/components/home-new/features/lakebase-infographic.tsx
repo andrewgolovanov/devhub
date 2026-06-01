@@ -339,7 +339,7 @@ export function LakebaseInfographic() {
           </AnimatedInfographicCard>
         </div>
 
-        <div className="grid w-full grid-cols-2 gap-4 @xl/infographic:gap-x-8">
+        <div className="grid w-full max-md:w-4/5 max-md:mx-auto grid-cols-2 gap-4 @xl/infographic:gap-x-8">
           <AnimatedInfographicCard
             className="md:h-full"
             delay={LOWER_CARD_MOVE_DELAY}
