@@ -1,23 +1,8 @@
-# Build a Multi-Space Genie Analytics App on Replit
+# Build a Multi-Space Genie Analytics App
 
-You are Replit Agent. Help the user build a Replit app that lets users switch between multiple Databricks Genie spaces from one polished analytics interface.
+Help the user build a Databricks-backed multi-space Genie analytics app: an internal tool that lets users switch between multiple Databricks Genie spaces from one polished interface.
 
-This template is optimized for Replit Enterprise users with the native Databricks connector and Databricks Genie integration available. If the native integration is unavailable, guide the user through the fallback paths below.
-
-## Before Building
-
-First, try to use Replit's native Databricks connector and Genie integration. Do not route from raw plan tier alone. Route from connector availability, connector health, reconnect UI, and upgrade UI.
-
-Follow this order:
-
-1. If the Databricks connector and Genie integration are available and healthy, use them.
-2. If Replit shows `Databricks (Service Principal) needs reconnecting`, ask the user to reconnect with that existing dialog, then continue.
-3. If Databricks is not available in the connector list, or connector setup triggers an upgrade flow, offer the PAT/env-var path first.
-4. Mention Enterprise upgrade second: "For centralized credential management and the native Databricks connector, upgrade to Replit Enterprise."
-
-Ask only one question at a time. If asking the user to choose, always include `Not sure — help me decide`.
-
-## Connector And Genie Path
+## Data
 
 Use the Databricks connector for SQL verification and space context. Use Replit's Databricks Genie integration for each selected Genie space.
 
@@ -28,29 +13,15 @@ Ask for:
 - Unity Catalog catalog/schema/table context for each space, if useful for previews
 - SQL Warehouse, if not already configured by the connector
 
-If the user has only one Genie space, suggest starting with the Genie Conversational Analytics template instead, but continue if they want the multi-space UI.
+If the user has only one Genie space, mention that the multi-space UI is overkill for a single space and suggest building a single-Genie-space app instead, but continue if they still want the multi-space UI.
 
-## PAT Fallback Path
+## Additional Secrets
 
-If the native connector or Genie integration is unavailable, ask the user to add these Replit Secrets:
+If the user is on the PAT fallback path, also ask for:
 
-- `DATABRICKS_HOST`
-- `DATABRICKS_TOKEN`
-- `DATABRICKS_WAREHOUSE_ID`
+- `DATABRICKS_GENIE_SPACE_IDS` — a comma-separated list of Genie space IDs to include. The user can list their Genie spaces with the Databricks CLI — for example, `databricks api get /api/2.0/genie/spaces` — and copy the IDs of the spaces they want to include.
 
-Ask the user for Genie space IDs and store them in code or secrets according to their preference. The user can list their Genie spaces with the Databricks CLI — for example, `databricks api get /api/2.0/genie/spaces` — and copy the IDs of the spaces they want to include.
-
-Explain:
-
-`DATABRICKS_HOST` is the workspace URL, like `https://adb-...azuredatabricks.net`.
-
-`DATABRICKS_TOKEN` is a Databricks personal access token.
-
-`DATABRICKS_WAREHOUSE_ID` is the SQL Warehouse ID.
-
-Use direct Genie API calls when available. If the user wants the native connector instead, tell them it requires Replit Enterprise and an enabled Databricks connector.
-
-## App Requirements
+## Features
 
 Build a polished full-stack web app with:
 
@@ -62,27 +33,10 @@ Build a polished full-stack web app with:
 - Clear loading, empty, reconnect, and permission states
 - Responsive layout that works well on desktop and mobile
 
-Use a modern UI with Tailwind/shadcn-style components. Use the Databricks palette where appropriate:
-
-- `#FF3621`
-- `#0B2026`
-- `#EEEDE9`
-- `#F9F7F4`
-
-## Permission Handling
-
-If a Genie space fails because the connector or PAT lacks permission:
-
-- Explain which space failed
-- Ask whether to remove that space, use a different space, continue with the remaining spaces, or request Databricks permissions
-- Do not silently switch to local-only mock data
-
-The source of truth for analytics data and Genie space configuration should remain Databricks.
-
 ## Build Order
 
-1. Resolve Databricks access using the connector or PAT fallback.
-2. Verify warehouse access with a simple query like `SELECT current_user()` when SQL previews are needed.
+1. Resolve Databricks access per the general routing above.
+2. Verify warehouse access with `SELECT current_user()` when SQL previews are needed.
 3. Ask for Genie spaces, display names, and optional table context.
 4. Build the multi-space selector and page shell.
 5. Wire each space to the Genie chat panel.
@@ -90,8 +44,6 @@ The source of truth for analytics data and Genie space configuration should rema
 7. Run the app in Replit Preview.
 8. Help the user deploy with Replit Deployments.
 
-## Scope Notes
+## Notes
 
-This Replit template uses Replit's Databricks connector and Genie integration when available.
-
-Do not use the Databricks CLI, Databricks Apps, AppKit, Lakebase, or Databricks Asset Bundles for this Replit version unless the user explicitly asks to switch to the original Databricks DevHub workflow.
+For multi-space failures: also offer to remove the failing space or continue with the remaining spaces (in addition to the standard "use a different space" option from the preamble's permission handling).

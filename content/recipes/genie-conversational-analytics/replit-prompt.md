@@ -1,100 +1,44 @@
 # Add Genie Conversational Analytics to a Replit App
 
-You are Replit Agent. Help the user build a Replit app with Databricks Genie conversational analytics over their Unity Catalog data.
+Help the user add a Databricks Genie conversational analytics panel to a Replit app that already reads from Unity Catalog. Scope is intentionally narrow: this recipe adds the chat panel and a few small affordances around it — it does NOT build a full analytics dashboard.
 
-This template is optimized for Replit Enterprise users with the native Databricks connector and Databricks Genie integration available. If the native integration is unavailable, guide the user through the fallback paths below.
+## Data
 
-## Before Building
-
-First, try to use Replit's native Databricks connector and Genie integration. Do not route from raw plan tier alone. Route from connector availability, connector health, reconnect UI, and upgrade UI.
-
-Follow this order:
-
-1. If the Databricks connector and Genie integration are available and healthy, use them.
-2. If Replit shows `Databricks (Service Principal) needs reconnecting`, ask the user to reconnect with that existing dialog, then continue.
-3. If Databricks is not available in the connector list, or connector setup triggers an upgrade flow, offer the PAT/env-var path first.
-4. Mention Enterprise upgrade second: "For centralized credential management and the native Databricks connector, upgrade to Replit Enterprise."
-
-Ask only one question at a time. If asking the user to choose, always include `Not sure — help me decide`.
-
-## Connector And Genie Path
-
-Use the Databricks connector for SQL verification and table previews. Use Replit's Databricks Genie integration for conversational analytics.
+Use the Databricks connector for SQL verification of the existing tables, and use Replit's Databricks Genie integration to power the chat panel.
 
 Ask for:
 
-- Unity Catalog catalog name
-- Unity Catalog schema name
-- table names or Genie space to use
+- which Unity Catalog catalog/schema/tables the app already reads from
+- the Genie space to use for natural-language questions
 - SQL Warehouse, if not already configured by the connector
 
-If the user does not already have a Genie space, ask whether they want to continue with SQL dashboard previews only, configure a Genie space in Databricks, or use the PAT fallback for direct Genie API access if available.
+If the user does not already have a Genie space, ask whether to continue without conversational analytics, configure a Genie space in Databricks first, or use the PAT fallback for direct Genie API access if available.
 
-## PAT Fallback Path
+## Additional Secrets
 
-If the native connector or Genie integration is unavailable, ask the user to add these Replit Secrets:
+If the user is on the PAT fallback path and wants direct Genie API access, also ask for:
 
-- `DATABRICKS_HOST`
-- `DATABRICKS_TOKEN`
-- `DATABRICKS_WAREHOUSE_ID`
-- `DATABRICKS_GENIE_SPACE_ID` if using direct Genie API access
+- `DATABRICKS_GENIE_SPACE_ID` — the Genie space ID to use for conversational analytics. The user can list their Genie spaces with the Databricks CLI — for example, `databricks api get /api/2.0/genie/spaces` — and copy the ID of the space they want to use.
 
-Explain:
+## Features
 
-`DATABRICKS_HOST` is the workspace URL, like `https://adb-...azuredatabricks.net`.
+Add this to the existing app:
 
-`DATABRICKS_TOKEN` is a Databricks personal access token.
+- A Genie chat panel for natural-language analytics questions over the configured tables
+- Suggested-question chips generated from the selected tables (rendered above the chat input)
+- SQL preview or citations beneath each Genie answer when the answer is query-backed
+- Conversation history for the current session (the panel resets when the user navigates away)
+- Empty state, loading state, and clear permission/error states for the panel
 
-`DATABRICKS_WAREHOUSE_ID` is the SQL Warehouse ID.
-
-`DATABRICKS_GENIE_SPACE_ID` is the Genie space ID to use for conversational analytics. The user can list their Genie spaces with the Databricks CLI — for example, `databricks api get /api/2.0/genie/spaces` — and copy the ID of the space they want to use.
-
-Use the SQL Statement Execution API for table previews and direct Genie API calls for conversations when available.
-
-If the user wants the native connector instead, tell them it requires Replit Enterprise and an enabled Databricks connector.
-
-## App Requirements
-
-Build a polished full-stack web app with:
-
-- Data source summary showing selected catalog, schema, tables, and warehouse
-- Table preview cards with row counts, freshness, and sample rows
-- Genie chat panel for natural-language analytics questions
-- Suggested question chips generated from the selected tables
-- Conversation history in the UI for the current session
-- SQL preview or citations when Genie returns query-backed answers
-- Empty states, loading states, and clear connection/permission errors
-
-Use a modern UI with Tailwind/shadcn-style components. Use the Databricks palette where appropriate:
-
-- `#FF3621`
-- `#0B2026`
-- `#EEEDE9`
-- `#F9F7F4`
-
-## Permission Handling
-
-If SQL or Genie access fails because the connector or PAT lacks permission:
-
-- Explain the failed operation
-- Ask whether to use a different table, a different Genie space, continue with SQL-only previews, or request Databricks permissions
-- Do not silently switch to local-only mock data
-
-The source of truth for analytics data should remain Databricks.
+The panel should integrate into the existing app's layout (sidebar, modal, drawer, or dedicated route) without restyling the rest of the app.
 
 ## Build Order
 
-1. Resolve Databricks access using the connector or PAT fallback.
-2. Verify warehouse access with a simple query like `SELECT current_user()`.
-3. Ask for catalog, schema, tables, and Genie space.
-4. Build table previews and metadata cards.
-5. Add the Genie conversational analytics panel.
-6. Add suggested questions and conversation UI polish.
+1. Resolve Databricks access per the general routing above.
+2. Verify warehouse access with `SELECT current_user()`.
+3. Ask for the existing tables and the Genie space.
+4. Add the Genie chat panel component and wire it into the existing app's layout.
+5. Add suggested-question chips generated from the configured tables.
+6. Add SQL preview/citations beneath query-backed answers.
 7. Run the app in Replit Preview.
-8. Help the user deploy with Replit Deployments.
-
-## Scope Notes
-
-This Replit template uses Replit's Databricks connector and Genie integration when available.
-
-Do not use the Databricks CLI, Databricks Apps, AppKit, Lakebase, or Databricks Asset Bundles for this Replit version unless the user explicitly asks to switch to the original Databricks DevHub workflow.
+8. Help the user verify the panel against their existing app's flow.

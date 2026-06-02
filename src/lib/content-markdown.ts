@@ -110,9 +110,21 @@ export function readCookbookGoal(
 type ReplitPromptTier = "recipes" | "examples" | "cookbooks";
 
 /**
- * Reads `content/<tier>/<slug>/replit-prompt.md` if present. Replit prompts
- * are an opt-in export target, not a content section, so they live next to
- * `goal.md` but stay out of `ContentSections` / `readContentSections`.
+ * Reads `content/<tier>/<slug>/replit-prompt.md` if present, prepended with
+ * the shared `content/replit-shared/preamble.md` separated by `---`. This
+ * mirrors the "shared boilerplate + per-template body" composition that
+ * `composeAgentPrompt` uses for the Copy prompt feature: each per-template
+ * file holds only the unique task; universal routing, PAT fallback,
+ * permission handling, style, and out-of-scope rules live in the preamble.
+ *
+ * Replit prompts are an opt-in export target, not a content section, so
+ * they live next to `goal.md` but stay out of `ContentSections` /
+ * `readContentSections`.
+ *
+ * Composition order:
+ *   <preamble>
+ *   ---
+ *   <per-template task>
  */
 export function readReplitPrompt(
   rootDir: string,
@@ -123,9 +135,24 @@ export function readReplitPrompt(
     tier === "cookbooks"
       ? cookbookDirectory(rootDir)
       : markdownDirectory(rootDir, tier);
-  const filePath = resolve(dir, slug, "replit-prompt.md");
-  if (!existsSync(filePath)) return undefined;
-  return readFileSync(filePath, "utf-8");
+  const perTemplatePath = resolve(dir, slug, "replit-prompt.md");
+  if (!existsSync(perTemplatePath)) return undefined;
+
+  const preamblePath = resolve(
+    rootDir,
+    "content",
+    "replit-shared",
+    "preamble.md",
+  );
+  if (!existsSync(preamblePath)) {
+    throw new Error(
+      `Required shared file missing: ${preamblePath}. ` +
+        `Every replit-prompt.md composes against this preamble; restore the file or remove the per-template prompts.`,
+    );
+  }
+  const preamble = readFileSync(preamblePath, "utf-8").trimEnd();
+  const perTemplate = readFileSync(perTemplatePath, "utf-8").trimEnd();
+  return `${preamble}\n\n---\n\n${perTemplate}\n`;
 }
 
 /** Reads all present section files; throws when goal.md is missing. */

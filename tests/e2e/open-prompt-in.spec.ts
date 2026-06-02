@@ -1,7 +1,6 @@
 import { test, expect, type Page } from "@playwright/test";
-import { readFileSync } from "node:fs";
-import { resolve } from "node:path";
 import { decompressFromEncodedURIComponent } from "lz-string";
+import { readReplitPrompt } from "../../src/lib/content-markdown";
 
 // Playwright is run from the repo root (per package.json scripts and CI).
 const REPO_ROOT = process.cwd();
@@ -67,15 +66,17 @@ test.describe("Open prompt in dropdown", () => {
     expect(encoded).toBeTruthy();
 
     // End-to-end roundtrip: the prompt Replit Agent will see after decoding
-    // must equal the on-disk replit-prompt.md byte-for-byte. Catches any
-    // future regression in lz-string encoding, the plugin pipeline, the
-    // useReplitPrompt aggregator, or the buildReplitUrl helper.
+    // must equal the COMPOSED replit-prompt (shared preamble + --- +
+    // per-template task) byte-for-byte. Catches any future regression in
+    // lz-string encoding, the plugin pipeline, the useReplitPrompt
+    // aggregator, the buildReplitUrl helper, or the preamble composition.
     const decoded = decompressFromEncodedURIComponent(encoded!);
-    const onDisk = readFileSync(
-      resolve(REPO_ROOT, "content/examples/saas-tracker/replit-prompt.md"),
-      "utf-8",
-    );
-    expect(decoded).toBe(onDisk);
+    const composed = readReplitPrompt(REPO_ROOT, "examples", "saas-tracker");
+    expect(
+      composed,
+      "saas-tracker should ship a replit-prompt.md",
+    ).toBeTruthy();
+    expect(decoded).toBe(composed);
   });
 
   test("does not render on a template without a replit-prompt.md", async ({
