@@ -33,7 +33,7 @@ export function PostsSection({
 }: PostsSectionProps): ReactNode {
   return (
     <section
-      className="posts-section mt-31 scroll-mt-24 md:scroll-mt-28"
+      className="posts-section mt-16 scroll-mt-24 md:mt-22 md:scroll-mt-28 lg:mt-26 xl:mt-31"
       id={BLOG_POSTS_SECTION_ID}
       aria-labelledby="blog-posts-heading"
     >
@@ -69,7 +69,7 @@ export function PostsSection({
           onClearFilters={() => onSelectCategory(null)}
         />
       ) : (
-        <div className="grid grid-cols-1 gap-x-8.25 gap-y-16 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid grid-cols-1 gap-x-8.25 gap-y-10 md:grid-cols-2 md:gap-y-12 lg:gap-y-14 xl:grid-cols-3 xl:gap-y-16">
           {pagination.posts.map((post) => (
             <PostCard key={post.id} post={post} />
           ))}

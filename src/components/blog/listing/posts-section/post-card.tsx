@@ -55,7 +55,7 @@ function CardBody({ post }: { post: BlogPost }): ReactNode {
   return (
     <div className="w-full max-w-105 pt-3">
       <CardMeta post={post} />
-      <h2 className="m-0 mt-5 text-2xl leading-tight font-normal tracking-[-0.04em]">
+      <h2 className="m-0 mt-5 text-lg leading-tight font-normal tracking-[-0.04em] md:text-xl xl:text-2xl">
         <PostLink
           className="line-clamp-2 text-white no-underline outline-none transition-colors hover:text-white/80 hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-db-cyan"
           post={post}
@@ -63,7 +63,7 @@ function CardBody({ post }: { post: BlogPost }): ReactNode {
           {post.title}
         </PostLink>
       </h2>
-      <p className="m-0 mt-3 line-clamp-3 text-base leading-6 tracking-[-0.04em] text-grey-60">
+      <p className="m-0 mt-1.5 line-clamp-3 text-base leading-6 tracking-[-0.04em] text-grey-60 md:mt-2 lg:mt-2.5 xl:mt-3">
         {post.description}
       </p>
     </div>
