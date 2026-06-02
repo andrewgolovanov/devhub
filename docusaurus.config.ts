@@ -1,8 +1,10 @@
 import { themes as prismThemes } from "prism-react-renderer";
 import type { Config } from "@docusaurus/types";
 import type * as Preset from "@docusaurus/preset-classic";
+import { normalizeUrl } from "@docusaurus/utils";
 import path from "path";
 import aboutDevhubPlugin from "./plugins/about-devhub";
+import blogRssFeedPlugin from "./plugins/blog-rss-feed";
 import contentEntriesPlugin from "./plugins/content-entries";
 import cookbooksPlugin from "./plugins/cookbooks";
 import llmsTxtPlugin from "./plugins/llms-txt";
@@ -126,6 +128,18 @@ const config: Config = {
         },
       };
     },
+    function blogPaginationRoutesPlugin() {
+      return {
+        name: "blog-pagination-routes",
+        contentLoaded({ actions }) {
+          actions.addRoute({
+            path: normalizeUrl([siteBaseUrl, "/blog/page/:page"]),
+            component: path.resolve(__dirname, "src/pages/blog/index.tsx"),
+            exact: true,
+          });
+        },
+      };
+    },
     [
       contentEntriesPlugin,
       {
@@ -156,6 +170,7 @@ const config: Config = {
     llmsTxtPlugin,
     robotsTxtPlugin,
     aboutDevhubPlugin,
+    blogRssFeedPlugin,
     cookbooksPlugin,
     perspectivesPlugin,
   ],
@@ -173,6 +188,7 @@ const config: Config = {
       },
       items: [
         { to: "/solutions", label: "Solutions", position: "left" },
+        { to: "/blog", label: "Blog", position: "left" },
         { to: "/templates", label: "Templates", position: "left" },
         {
           to: "/docs/start-here",

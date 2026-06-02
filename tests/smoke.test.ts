@@ -44,6 +44,15 @@ describe("production build smoke tests", () => {
     expect(text).toContain("> Documentation, templates, and examples");
   });
 
+  test("blog RSS feed exists and uses the resolved site URL", () => {
+    const text = readBuildFile("blog/rss.xml");
+    const expectedSiteUrl = resolveExpectedSiteUrl();
+    expect(text).toContain("<rss");
+    expect(text).toContain(
+      `<atom:link href="${expectedSiteUrl}/blog/rss.xml" rel="self" type="application/rss+xml" />`,
+    );
+  });
+
   test("llms.txt internal links use the resolved site URL", () => {
     const text = readBuildFile("llms.txt");
     const expectedSiteUrl = resolveExpectedSiteUrl();

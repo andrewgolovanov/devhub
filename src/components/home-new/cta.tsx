@@ -13,6 +13,7 @@ const TOPBAR_DOTS = ["bg-db-lava", "bg-yellow-400", "bg-green-500"] as const;
 const TITLE_HIGHLIGHT = "agentic app";
 
 type CopyState = "idle" | "copying" | "copied";
+type CTATheme = "filled" | "outline";
 
 type CTAProps = {
   label?: string;
@@ -20,6 +21,7 @@ type CTAProps = {
   description?: string;
   actions?: ReactNode;
   className?: string;
+  theme?: CTATheme;
 };
 
 function titleSegments(title: string): {
@@ -78,13 +80,24 @@ function CTATitleHighlight({ children }: { children: string }) {
   );
 }
 
-function Topbar() {
+function Topbar({ theme }: { theme: CTATheme }) {
   return (
-    <header className="flex gap-x-6.5 mx-1.5 items-center bg-[#202021] py-4.5 px-6.5">
+    <header
+      className={cn(
+        "flex items-center gap-x-6.5 py-4.5 px-6.5",
+        theme === "outline"
+          ? "mx-0 border-y border-grey-20 bg-black"
+          : "mx-1.5 bg-[#202021]",
+      )}
+    >
       <div className="flex items-center gap-4" aria-hidden="true">
         {TOPBAR_DOTS.map((dotClassName) => (
           <span
-            className={cn("size-4 shrink-0", dotClassName)}
+            className={cn(
+              "size-4 shrink-0",
+              theme === "outline" && "border border-grey-20",
+              dotClassName,
+            )}
             key={dotClassName}
           />
         ))}
@@ -140,6 +153,7 @@ function CTA({
   label = "Start building",
   title = "Ready to ship your next agentic app in minutes?",
   actions,
+  theme = "filled",
 }: CTAProps) {
   const bootstrapPromptApiPath = useBaseUrl(getBootstrapPromptApiPath());
   const [copyState, setCopyState] = useState<CopyState>("idle");
@@ -169,7 +183,7 @@ function CTA({
       aria-label={label}
       className={cn("cta bg-black text-white", className)}
     >
-      <Topbar />
+      <Topbar theme={theme} />
       <div className="relative mx-auto px-5 md:px-8 lg:px-16 2xl:px-24">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end mt-10 md:mt-16 lg:mt-20">
           <h2 className="relative font-heading text-4xl/none font-normal tracking-normal text-balance text-white md:text-5xl/none xl:text-6xl/none 2xl:text-[5rem]">

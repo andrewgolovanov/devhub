@@ -15,6 +15,7 @@ const BOOTSTRAP_PROMPT_MARKDOWN = composeAgentPrompt({
 test.describe("navbar navigation", () => {
   const NAVBAR_LINKS = [
     { label: "Solutions", expectedPath: "/solutions" },
+    { label: "Blog", expectedPath: "/blog" },
     { label: "Templates", expectedPath: "/templates" },
     { label: "Docs", expectedPath: "/docs/start-here" },
   ];
@@ -45,6 +46,7 @@ test.describe("footer navigation", () => {
     { href: "/docs/agents/overview", label: "Agent Bricks" },
     { href: "/docs/apps/overview", label: "Databricks Apps" },
     { href: "/docs/lakebase/overview", label: "Lakebase" },
+    { href: "/blog", label: "Blog" },
     { href: "/templates", label: "Templates" },
     { href: "/solutions", label: "Solutions" },
   ];
@@ -88,6 +90,7 @@ test.describe("footer navigation", () => {
     "https://www.databricks.com/product/databricks-apps",
     "https://www.databricks.com/product/lakebase",
     "https://www.databricks.com/product/artificial-intelligence/agent-bricks",
+    "/blog",
     "/templates",
     "/solutions",
     "/docs/start-here",

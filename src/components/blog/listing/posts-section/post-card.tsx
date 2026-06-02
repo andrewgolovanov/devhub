@@ -1,0 +1,80 @@
+import type { ReactNode } from "react";
+import {
+  ArrowIcon,
+  PostLink,
+  PostVisual,
+  formatPostDate,
+} from "@/components/blog/listing/shared";
+import { isDatabricksBlogPost, type BlogPost } from "@/lib/blog/blog-posts";
+
+function DatabricksBadge(): ReactNode {
+  return (
+    <span className="inline-flex shrink-0 items-center gap-2 font-mono text-base leading-snug font-normal tracking-[-0.04em] text-orange">
+      <span>Databricks blog</span>
+      <span
+        className="relative size-3.5 shrink-0 overflow-visible"
+        aria-hidden="true"
+      >
+        <span className="absolute top-[-0.081875rem] left-[-0.101875rem] flex h-[1.0745625rem] w-[1.0745625rem] items-center justify-center">
+          <ArrowIcon className="h-[0.9521875rem] w-[0.5675rem] rotate-45" />
+        </span>
+      </span>
+    </span>
+  );
+}
+
+function CardMeta({ post }: { post: BlogPost }): ReactNode {
+  return (
+    <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+      <time
+        className="shrink-0 font-mono text-base leading-none font-medium text-grey-60 uppercase"
+        dateTime={post.publishedAt}
+      >
+        {formatPostDate(post.publishedAt)}
+      </time>
+      {isDatabricksBlogPost(post) ? <DatabricksBadge /> : null}
+    </div>
+  );
+}
+
+function CardVisualLink({ post }: { post: BlogPost }): ReactNode {
+  return (
+    <PostLink
+      className="group block no-underline outline-none focus-visible:ring-2 focus-visible:ring-db-cyan focus-visible:ring-offset-4 focus-visible:ring-offset-black"
+      post={post}
+      ariaLabel={`Read ${post.title}`}
+    >
+      <div className="relative aspect-490/257 overflow-hidden bg-grey-20">
+        <PostVisual post={post} variant="card" />
+      </div>
+    </PostLink>
+  );
+}
+
+function CardBody({ post }: { post: BlogPost }): ReactNode {
+  return (
+    <div className="w-full max-w-105 pt-3">
+      <CardMeta post={post} />
+      <h2 className="m-0 mt-5 text-2xl leading-tight font-normal tracking-[-0.04em]">
+        <PostLink
+          className="line-clamp-2 text-white no-underline outline-none transition-colors hover:text-white/80 hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-db-cyan"
+          post={post}
+        >
+          {post.title}
+        </PostLink>
+      </h2>
+      <p className="m-0 mt-3 line-clamp-3 text-base leading-6 tracking-[-0.04em] text-grey-60">
+        {post.description}
+      </p>
+    </div>
+  );
+}
+
+export function PostCard({ post }: { post: BlogPost }): ReactNode {
+  return (
+    <article className="post-card h-full">
+      <CardVisualLink post={post} />
+      <CardBody post={post} />
+    </article>
+  );
+}

@@ -37,6 +37,7 @@ const FOOTER_SECTIONS: FooterSection[] = [
   {
     title: "Explore",
     items: [
+      { label: "Blog", to: "/blog" },
       { label: "Templates", to: "/templates" },
       { label: "Solutions", to: "/solutions" },
     ],
@@ -91,7 +92,7 @@ export default function Footer(): ReactNode {
   return (
     <footer className="border-t border-white/12 bg-black text-white">
       <div className="container px-4 py-4 md:py-5">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-[220px_1fr] md:items-start">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-[13.75rem_1fr] md:items-start">
           <div>
             <Link to="/" className="inline-flex items-center no-underline">
               <img src={logoSrc} alt="Databricks" className="h-5 w-auto" />
@@ -100,7 +101,7 @@ export default function Footer(): ReactNode {
           <div className="grid grid-cols-2 gap-x-7 gap-y-6 md:grid-cols-4">
             {FOOTER_SECTIONS.map((section) => (
               <section key={section.title}>
-                <h3 className="mb-2 text-[10px] font-semibold tracking-[0.12em] text-white/64 uppercase">
+                <h3 className="mb-2 text-[0.625rem] font-semibold tracking-[0.12em] text-white/64 uppercase">
                   {section.title}
                 </h3>
                 <ul className="m-0 list-none space-y-1.5 p-0">
@@ -117,8 +118,8 @@ export default function Footer(): ReactNode {
 
         <Separator className="my-4 bg-white/10" />
 
-        <p className="m-0 text-[11px] text-white/55">{COPYRIGHT_LINE}</p>
-        <ul className="mt-4 flex list-none flex-wrap gap-x-2 gap-y-1 p-0 text-[11px] text-white/55">
+        <p className="m-0 text-[0.6875rem] text-white/55">{COPYRIGHT_LINE}</p>
+        <ul className="mt-4 flex list-none flex-wrap gap-x-2 gap-y-1 p-0 text-[0.6875rem] text-white/55">
           {LEGAL_LINKS.map((link) => (
             <li
               key={link.label}
