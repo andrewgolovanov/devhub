@@ -22,7 +22,7 @@ function getCopiedText(page: import("@playwright/test").Page) {
 async function clickCopyMarkdownAndWaitForToast(
   page: import("@playwright/test").Page,
 ) {
-  const trigger = page.getByRole("button", { name: "Copy as" });
+  const trigger = page.getByRole("button", { name: /copy (as|article)/i });
   await trigger.waitFor({ state: "visible" });
   await trigger.click();
   const menuItem = page.getByRole("menuitem", { name: "Copy Markdown" });
@@ -40,6 +40,28 @@ async function clickCopyPromptAndWaitForToast(
   await button.waitFor({ state: "visible" });
   await button.click();
   await expect(page.getByText("Prompt copied")).toBeVisible({ timeout: 5000 });
+}
+
+async function expectCopyMarkdownWithoutPreamble({
+  page,
+  path,
+  expectedFragments,
+}: {
+  page: import("@playwright/test").Page;
+  path: string;
+  expectedFragments: string[];
+}) {
+  await setupClipboardMock(page);
+  await page.goto(path);
+
+  await clickCopyMarkdownAndWaitForToast(page);
+
+  const copied = await getCopiedText(page);
+  expect(copied).not.toContain("# About DevHub");
+  expect(copied).not.toContain("/llms.txt");
+  for (const fragment of expectedFragments) {
+    expect(copied).toContain(fragment);
+  }
 }
 
 test.describe("copy markdown exports raw markdown on recipe pages", () => {
@@ -190,16 +212,34 @@ test.describe("copy markdown exports raw markdown on solution pages", () => {
   test("solution detail page copies actual markdown without the About DevHub preamble", async ({
     page,
   }) => {
-    await setupClipboardMock(page);
-    await page.goto("/solutions/devhub-launch");
+    await expectCopyMarkdownWithoutPreamble({
+      page,
+      path: "/solutions/devhub-launch",
+      expectedFragments: [
+        "**dev.databricks.com**",
+        'title: "Introducing DevHub"',
+      ],
+    });
+  });
+});
 
-    await clickCopyMarkdownAndWaitForToast(page);
-
-    const copied = await getCopiedText(page);
-    expect(copied).not.toContain("# About DevHub");
-    expect(copied).not.toContain("/llms.txt");
-    expect(copied).toContain("**dev.databricks.com**");
-    expect(copied).toContain('title: "Introducing DevHub"');
+test.describe("copy markdown exports raw markdown on blog pages", () => {
+  test("blog detail page uses Copy Article and copies markdown without the About DevHub preamble", async ({
+    page,
+  }) => {
+    await expectCopyMarkdownWithoutPreamble({
+      page,
+      path: "/blog/devhub-launch",
+      expectedFragments: [
+        "**dev.databricks.com**",
+        'title: "Introducing dev.databricks.com"',
+        "publishedAt: 2026-04-14",
+        "name: Andre Landgraf",
+      ],
+    });
+    await expect(
+      page.getByRole("button", { name: /copy (agent )?prompt/i }),
+    ).toHaveCount(0);
   });
 });
 
@@ -207,16 +247,11 @@ test.describe("copy markdown exports raw markdown on docs pages", () => {
   test("docs page copies raw markdown without the About DevHub preamble", async ({
     page,
   }) => {
-    await setupClipboardMock(page);
-    await page.goto("/docs/start-here");
-
-    await clickCopyMarkdownAndWaitForToast(page);
-
-    const copied = await getCopiedText(page);
-    expect(copied).not.toContain("# About DevHub");
-    expect(copied).not.toContain("/llms.txt");
-    expect(copied).toContain("# Start here");
-    expect(copied).toContain("## Where to start");
+    await expectCopyMarkdownWithoutPreamble({
+      page,
+      path: "/docs/start-here",
+      expectedFragments: ["# Start here", "## Where to start"],
+    });
   });
 
   test("raw-docs static files are served", async ({ request }) => {

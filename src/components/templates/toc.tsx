@@ -14,6 +14,7 @@ type TocItem = {
 };
 
 type TocProps = {
+  ariaLabel?: string;
   className?: string;
   contentRef: React.RefObject<HTMLDivElement | null>;
 };
@@ -25,7 +26,11 @@ function headingIdFromText(text: string): string {
     .replace(/(^-|-$)/g, "");
 }
 
-export function Toc({ className, contentRef }: TocProps): ReactNode {
+export function Toc({
+  ariaLabel = "Template sections",
+  className,
+  contentRef,
+}: TocProps): ReactNode {
   const [items, setItems] = useState<TocItem[]>([]);
   const [activeId, setActiveId] = useState("");
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -106,7 +111,7 @@ export function Toc({ className, contentRef }: TocProps): ReactNode {
   if (items.length === 0) return null;
 
   return (
-    <nav className={cn(className)} aria-label="Template sections">
+    <nav className={cn(className)} aria-label={ariaLabel}>
       <ul className="flex list-none flex-col gap-y-2.5">
         {items.map((item) => (
           <li key={item.id} className="m-0 p-0">

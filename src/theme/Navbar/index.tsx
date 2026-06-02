@@ -11,7 +11,7 @@ export default function Navbar(): ReactNode {
     pathname === "/home-new/" ||
     pathname === "/blog" ||
     pathname === "/blog/" ||
-    pathname.startsWith("/blog/page/") ||
+    pathname.startsWith("/blog/") ||
     pathname.startsWith("/templates") ||
     pathname.startsWith("/product/")
   ) {

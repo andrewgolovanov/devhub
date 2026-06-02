@@ -13,12 +13,14 @@ import { resolveSiteBaseUrl, resolveSiteUrl } from "./src/lib/site-url";
 const SECTION_PREFIXES: Record<string, string> = {
   "/docs/": "docs",
   "/templates/": "templates",
+  "/blog/": "blog",
   "/solutions/": "solutions",
 };
 
 // Sections that have an index page (e.g., /templates → /templates.md)
 const BARE_SECTIONS: Record<string, string> = {
   "/templates": "templates",
+  "/blog": "blog",
   "/solutions": "solutions",
 };
 
@@ -42,7 +44,7 @@ export default function middleware(request: Request): Response | undefined {
   if (!accept.includes("text/markdown") && !accept.includes("text/plain"))
     return undefined;
 
-  const path = url.pathname;
+  const path = sitePath;
 
   let section: string | undefined;
   let slug = "";

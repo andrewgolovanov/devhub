@@ -2,18 +2,18 @@ import Link from "@docusaurus/Link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import type { MouseEvent, ReactNode } from "react";
 import {
-  BLOG_POSTS_SCROLL_STORAGE_KEY,
+  BLOG_ITEMS_SCROLL_STORAGE_KEY,
   getBlogPagePath,
-} from "@/lib/blog/blog-posts";
+} from "@/lib/blog/blog-items";
 import { cn } from "@/lib/utils";
 
-type PaginationProps = {
+type BlogPaginationProps = {
   currentPage: number;
   pageCount: number;
 };
 
-function requestPostsScroll(): void {
-  window.sessionStorage.setItem(BLOG_POSTS_SCROLL_STORAGE_KEY, "true");
+function requestBlogItemsScroll(): void {
+  window.sessionStorage.setItem(BLOG_ITEMS_SCROLL_STORAGE_KEY, "true");
 }
 
 function handlePaginationClick(event: MouseEvent<HTMLAnchorElement>): void {
@@ -27,7 +27,7 @@ function handlePaginationClick(event: MouseEvent<HTMLAnchorElement>): void {
     return;
   }
 
-  requestPostsScroll();
+  requestBlogItemsScroll();
 }
 
 function getVisiblePages(pageCount: number): Array<number | "..."> {
@@ -37,10 +37,10 @@ function getVisiblePages(pageCount: number): Array<number | "..."> {
   return [1, 2, 3, "...", pageCount];
 }
 
-export function Pagination({
+export function BlogPagination({
   currentPage,
   pageCount,
-}: PaginationProps): ReactNode {
+}: BlogPaginationProps): ReactNode {
   if (pageCount <= 1) return null;
 
   const pages = getVisiblePages(pageCount);
@@ -49,7 +49,7 @@ export function Pagination({
 
   return (
     <nav
-      className="pagination mx-auto mt-16 flex w-full max-w-104 items-center justify-between"
+      className="mx-auto mt-16 flex w-full max-w-104 items-center justify-between"
       aria-label="Blog pagination"
     >
       <Link

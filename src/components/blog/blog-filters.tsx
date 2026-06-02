@@ -7,7 +7,7 @@ import {
 } from "react";
 import { cn } from "@/lib/utils";
 
-type CategoryFilterProps = {
+type BlogFiltersProps = {
   categories: string[];
   selectedCategory: string | null;
   onSelectCategory: (category: string | null) => void;
@@ -56,11 +56,11 @@ function getCenteredScrollLeft({
   return itemOffsetLeft + itemWidth / 2 - containerWidth / 2;
 }
 
-export function CategoryFilter({
+export function BlogFilters({
   categories,
   selectedCategory,
   onSelectCategory,
-}: CategoryFilterProps): ReactNode {
+}: BlogFiltersProps): ReactNode {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const selectedButtonRef = useRef<HTMLButtonElement | null>(null);
   const [scrollEdgeState, setScrollEdgeState] = useState<ScrollEdgeState>(
@@ -68,7 +68,7 @@ export function CategoryFilter({
   );
 
   const items: Array<{ label: string; value: string | null }> = [
-    { label: "All Posts", value: null },
+    { label: "All Articles", value: null },
     ...categories.map((category) => ({ label: category, value: category })),
   ];
 
@@ -142,7 +142,7 @@ export function CategoryFilter({
 
   return (
     <nav
-      className="category-filter relative -mx-5 md:-mx-8 lg:mx-0"
+      className="relative -mx-5 md:-mx-8 lg:mx-0"
       aria-label="Blog categories"
     >
       <div

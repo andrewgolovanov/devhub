@@ -89,3 +89,57 @@ describe("middleware base-path API routing", () => {
     });
   });
 });
+
+describe("middleware markdown content negotiation", () => {
+  test("rewrites blog detail requests to markdown when requested", () => {
+    const response = middleware(
+      new Request("https://dev.databricks.com/blog/devhub-launch", {
+        headers: { accept: "text/markdown" },
+      }),
+    );
+
+    expect(response?.headers.get("x-middleware-rewrite")).toBe(
+      "https://dev.databricks.com/api/markdown?section=blog&slug=devhub-launch",
+    );
+  });
+
+  test("rewrites the blog index to markdown when requested", () => {
+    const response = middleware(
+      new Request("https://dev.databricks.com/blog", {
+        headers: { accept: "text/plain" },
+      }),
+    );
+
+    expect(response?.headers.get("x-middleware-rewrite")).toBe(
+      "https://dev.databricks.com/api/markdown?section=blog&slug=",
+    );
+  });
+
+  test("rewrites base-path blog detail requests to markdown when requested", () => {
+    withSiteUrl("https://stage.databricks.com/devhub", () => {
+      const response = middleware(
+        new Request("https://stage.databricks.com/devhub/blog/devhub-launch", {
+          headers: { accept: "text/markdown" },
+        }),
+      );
+
+      expect(response?.headers.get("x-middleware-rewrite")).toBe(
+        "https://stage.databricks.com/api/markdown?section=blog&slug=devhub-launch",
+      );
+    });
+  });
+
+  test("rewrites the base-path blog index to markdown when requested", () => {
+    withSiteUrl("https://stage.databricks.com/devhub", () => {
+      const response = middleware(
+        new Request("https://stage.databricks.com/devhub/blog", {
+          headers: { accept: "text/plain" },
+        }),
+      );
+
+      expect(response?.headers.get("x-middleware-rewrite")).toBe(
+        "https://stage.databricks.com/api/markdown?section=blog&slug=",
+      );
+    });
+  });
+});

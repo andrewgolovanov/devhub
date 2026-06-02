@@ -30,6 +30,14 @@ import {
   type NativeSolution,
 } from "../src/lib/solutions/solutions";
 import { getAuthor } from "../src/lib/solutions/authors";
+import {
+  blogItems,
+  buildBlogItems,
+  isLinkedBlogItem,
+  isNativeBlogItem,
+  type NativeBlogItem,
+} from "../src/lib/blog/blog-items";
+import { buildNativeBlogMarkdown } from "../src/lib/blog/blog-markdown";
 import { resolveSiteUrl } from "../src/lib/site-url";
 
 export type MarkdownSection =
@@ -37,6 +45,7 @@ export type MarkdownSection =
   | "recipes"
   | "solutions"
   | "examples"
+  | "blog"
   | "templates";
 
 /**
@@ -209,6 +218,29 @@ function readExampleMarkdown(rootDir: string, slug: string): string {
   return lines.join("\n");
 }
 
+function readBlogMarkdown(
+  rootDir: string,
+  slug: string,
+  siteOrigin: string,
+): string {
+  if (!hasContentSlug(rootDir, "blog", slug)) {
+    throw new Error(`Blog article not found: "${slug}"`);
+  }
+
+  const item = blogItems.find(
+    (entry): entry is NativeBlogItem =>
+      entry.id === slug && isNativeBlogItem(entry),
+  );
+  if (!item) {
+    throw new Error(`Blog article not found: "${slug}"`);
+  }
+
+  const content = joinContentSections(
+    readContentSections(rootDir, "blog", slug),
+  );
+  return buildNativeBlogMarkdown(content, item, siteOrigin);
+}
+
 function readCookbookMarkdown(rootDir: string, slug: string): string {
   const cookbook = cookbooks.find((entry) => entry.id === slug);
   if (!cookbook) {
@@ -299,6 +331,25 @@ function readSolutionsIndex(): string {
   return lines.join("\n");
 }
 
+/** Markdown index served at /blog.md — lists every blog item in one flat catalog. */
+function readBlogIndex(): string {
+  const lines: string[] = [
+    "# Blog",
+    "",
+    "Developer-first articles for building on Databricks.",
+    "",
+  ];
+
+  for (const item of buildBlogItems(showDrafts())) {
+    const target = isLinkedBlogItem(item) ? item.href : `/blog/${item.id}.md`;
+    const suffix = isLinkedBlogItem(item) ? ` (${item.source})` : "";
+    lines.push(`- [${item.title}](${target}): ${item.description}${suffix}`);
+  }
+  lines.push("");
+
+  return lines.join("\n");
+}
+
 export function getDetailMarkdown(
   section: MarkdownSection,
   rawSlug: string,
@@ -311,6 +362,7 @@ export function getDetailMarkdown(
   if (!slug || slug.trim() === "") {
     if (section === "templates") return readTemplatesIndex();
     if (section === "solutions") return readSolutionsIndex();
+    if (section === "blog") return readBlogIndex();
     throw new Error("Missing slug");
   }
 
@@ -325,6 +377,8 @@ export function getDetailMarkdown(
       return readSolutionMarkdown(rootDir, slug, siteOrigin);
     case "examples":
       return readExampleMarkdown(rootDir, slug);
+    case "blog":
+      return readBlogMarkdown(rootDir, slug, siteOrigin);
     case "templates":
       return readTemplateMarkdown(rootDir, slug);
     default:
@@ -353,8 +407,8 @@ export function loadAgentPromptParts(
 
 /**
  * Resolves the agent-prompt kind for a section + slug combination. Returns
- * undefined for sections/slugs that should _not_ be wrapped (docs, solutions,
- * empty-slug index pages).
+ * undefined for sections/slugs that should _not_ be wrapped (docs, blog,
+ * solutions, empty-slug index pages).
  */
 export function resolveTemplateKind(
   section: MarkdownSection,

@@ -1,14 +1,14 @@
 import fs from "fs";
 import path from "path";
 import type { LoadContext, Plugin } from "@docusaurus/types";
-import { buildBlogPosts } from "../src/lib/blog/blog-posts";
+import { buildBlogItems } from "../src/lib/blog/blog-items";
 import { BLOG_RSS_PATH, buildBlogRssFeed } from "../src/lib/blog/rss-feed";
 import { siteUrlFromConfig } from "../src/lib/site-url";
 
 function writeBlogRssFeed(baseDir: string, siteUrl: string): void {
   const filePath = path.join(baseDir, BLOG_RSS_PATH.replace(/^\//, ""));
   fs.mkdirSync(path.dirname(filePath), { recursive: true });
-  fs.writeFileSync(filePath, buildBlogRssFeed(buildBlogPosts(), siteUrl));
+  fs.writeFileSync(filePath, buildBlogRssFeed(buildBlogItems(), siteUrl));
 }
 
 export default function blogRssFeedPlugin(context: LoadContext): Plugin {

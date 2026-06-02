@@ -174,6 +174,15 @@ const config: Config = {
         contentSection: "examples",
       },
     ],
+    [
+      contentEntriesPlugin,
+      {
+        id: "blog",
+        entryType: "blog",
+        routeBasePath: "/blog",
+        contentSection: "blog",
+      },
+    ],
     llmsTxtPlugin,
     robotsTxtPlugin,
     aboutDevhubPlugin,

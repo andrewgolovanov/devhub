@@ -30,14 +30,19 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Kbd } from "@/components/ui/kbd";
-import { filterBlogPosts, type BlogPost } from "@/lib/blog/blog-posts";
+import {
+  filterBlogItems,
+  getBlogItemHref,
+  isLinkedBlogItem,
+  type BlogItem,
+} from "@/lib/blog/blog-items";
 import { cn } from "@/lib/utils";
 
-type SearchProps = {
-  posts: BlogPost[];
+type BlogSearchProps = {
+  items: BlogItem[];
 };
 
-type SearchItem = {
+type BlogSearchItem = {
   id: string;
   title: string;
   description: string;
@@ -45,26 +50,26 @@ type SearchItem = {
   external: boolean;
   source: string;
   category: string;
-  icon: SearchDialogIcon;
+  icon: BlogSearchDialogIcon;
 };
 
-type SearchResultGroup = {
+type BlogSearchResultGroupItems = {
   category: string;
-  items: SearchItem[];
+  items: BlogSearchItem[];
 };
 
-const searchDialogStyle = {
-  "--search-dialog-width": "51.5rem",
-  "--search-list-max-height": "36.25rem",
+const blogSearchDialogStyle = {
+  "--blog-search-dialog-width": "51.5rem",
+  "--blog-search-list-max-height": "36.25rem",
 } as CSSProperties;
 
-const SEARCH_PREVIEW_LIMIT = 7;
+const BLOG_SEARCH_PREVIEW_LIMIT = 7;
 
-type SearchDialogIcon = ComponentType<
+type BlogSearchDialogIcon = ComponentType<
   SVGProps<SVGSVGElement> & { title?: string }
 >;
 
-const categoryIcons = [
+const blogSearchCategoryIcons = [
   { category: "Launch", icon: rocketIcon },
   { category: "Developer Experience", icon: docsIcon },
   { category: "Updates", icon: docsIcon },
@@ -72,46 +77,52 @@ const categoryIcons = [
   { category: "Lakebase", icon: databaseIcon },
   { category: "Databricks Apps", icon: docsIcon },
   { category: "Agent Bricks", icon: bricksIcon },
-] satisfies { category: string; icon: SearchDialogIcon }[];
+] satisfies { category: string; icon: BlogSearchDialogIcon }[];
 
-function getCategoryIcon(category: string): SearchDialogIcon {
+function getBlogSearchCategoryIcon(category: string): BlogSearchDialogIcon {
   return (
-    categoryIcons.find((categoryIcon) => categoryIcon.category === category)
-      ?.icon ?? docsIcon
+    blogSearchCategoryIcons.find(
+      (categoryIcon) => categoryIcon.category === category,
+    )?.icon ?? docsIcon
   );
 }
 
-function buildSearchItems(posts: BlogPost[]): SearchItem[] {
-  return posts.map((post) => {
-    const category = post.tags.at(0) ?? "Blog";
+function buildBlogSearchItems(items: BlogItem[]): BlogSearchItem[] {
+  return items.map((item) => {
+    const category = item.tags.at(0) ?? "Blog";
 
     return {
-      id: post.id,
-      title: post.title,
-      description: post.description,
-      href: post.href,
-      external: post.external,
-      source: post.source,
+      id: item.id,
+      title: item.title,
+      description: item.description,
+      href: getBlogItemHref(item),
+      external: isLinkedBlogItem(item),
+      source: item.source,
       category,
-      icon: getCategoryIcon(category),
+      icon: getBlogSearchCategoryIcon(category),
     };
   });
 }
 
-function getSearchResultPosts(posts: BlogPost[], query: string): BlogPost[] {
+function getBlogSearchResultItems(
+  items: BlogItem[],
+  query: string,
+): BlogItem[] {
   const normalizedQuery = query.trim().toLowerCase();
   if (normalizedQuery.length === 0) {
-    return posts.slice(0, SEARCH_PREVIEW_LIMIT);
+    return items.slice(0, BLOG_SEARCH_PREVIEW_LIMIT);
   }
 
-  return filterBlogPosts(posts, {
+  return filterBlogItems(items, {
     category: null,
     searchQuery: normalizedQuery,
   });
 }
 
-function groupSearchItemsByCategory(items: SearchItem[]): SearchResultGroup[] {
-  const groups = new Map<string, SearchItem[]>();
+function groupBlogSearchItemsByCategory(
+  items: BlogSearchItem[],
+): BlogSearchResultGroupItems[] {
+  const groups = new Map<string, BlogSearchItem[]>();
 
   for (const item of items) {
     const groupItems = groups.get(item.category) ?? [];
@@ -125,13 +136,13 @@ function groupSearchItemsByCategory(items: SearchItem[]): SearchResultGroup[] {
   }));
 }
 
-function SearchResultItem({
+function BlogSearchResultItem({
   item,
   showDescription,
   highlighted,
   onSelect,
 }: {
-  item: SearchItem;
+  item: BlogSearchItem;
   showDescription: boolean;
   highlighted?: boolean;
   onSelect: () => void;
@@ -141,8 +152,8 @@ function SearchResultItem({
   return (
     <CommandItem
       className={cn(
-        "group flex cursor-pointer items-center gap-x-3 rounded-none px-4 py-3 text-left font-normal text-white no-underline outline-none transition-colors duration-150 hover:bg-[rgba(255,255,255,0.09)] data-[selected=true]:bg-[rgba(255,255,255,0.055)] data-[selected=true]:hover:bg-[rgba(255,255,255,0.09)]",
-        highlighted && "bg-[rgba(255,255,255,0.055)]",
+        "group flex cursor-pointer items-center gap-x-3 rounded-none px-4 py-3 text-left font-normal text-white no-underline outline-none transition-colors duration-150 hover:bg-white/8 data-[selected=true]:bg-white/6 data-[selected=true]:hover:bg-white/8",
+        highlighted && "bg-white/6",
         !showDescription && "py-2.5",
       )}
       value={item.id}
@@ -167,7 +178,7 @@ function SearchResultItem({
   );
 }
 
-function SearchResultGroup({
+function BlogSearchResultGroup({
   group,
   items,
   showDescription = false,
@@ -175,10 +186,10 @@ function SearchResultGroup({
   onSelect,
 }: {
   group: string;
-  items: SearchItem[];
+  items: BlogSearchItem[];
   showDescription?: boolean;
   highlightFirst?: boolean;
-  onSelect: (item: SearchItem) => void;
+  onSelect: (item: BlogSearchItem) => void;
 }): ReactNode {
   if (items.length === 0) return null;
 
@@ -193,7 +204,7 @@ function SearchResultGroup({
     >
       <div className="flex flex-col gap-y-2">
         {items.map((item, index) => (
-          <SearchResultItem
+          <BlogSearchResultItem
             key={item.id}
             item={item}
             showDescription={showDescription}
@@ -206,25 +217,25 @@ function SearchResultGroup({
   );
 }
 
-function SearchDialog({
+function BlogSearchDialog({
   query,
   onQueryChange,
   onOpenChange,
-  posts,
+  items,
 }: {
   query: string;
   onQueryChange: (query: string) => void;
   onOpenChange: (open: boolean) => void;
-  posts: BlogPost[];
+  items: BlogItem[];
 }): ReactNode {
   const history = useHistory();
   const resultGroups = useMemo(() => {
-    const resultPosts = getSearchResultPosts(posts, query);
-    return groupSearchItemsByCategory(buildSearchItems(resultPosts));
-  }, [posts, query]);
+    const resultItems = getBlogSearchResultItems(items, query);
+    return groupBlogSearchItemsByCategory(buildBlogSearchItems(resultItems));
+  }, [items, query]);
   const hasQuery = query.trim().length > 0;
 
-  function handleSelect(item: SearchItem): void {
+  function handleSelect(item: BlogSearchItem): void {
     onOpenChange(false);
 
     if (item.external) {
@@ -237,13 +248,13 @@ function SearchDialog({
 
   return (
     <DialogContent
-      className="search-dialog top-auto bottom-0 h-[75dvh] w-full max-w-[calc(100%-2rem)] translate-y-0 overflow-hidden rounded-none border-grey-20 bg-black p-0 text-white shadow-none outline-none data-[state=closed]:slide-out-to-bottom-1/2 data-[state=closed]:zoom-out-100 data-[state=open]:slide-in-from-bottom-1/2 data-[state=open]:zoom-in-100 sm:top-[19dvh] sm:bottom-auto sm:h-auto sm:max-w-(--search-dialog-width) sm:data-[state=closed]:slide-out-to-bottom-1 sm:data-[state=closed]:zoom-out-95 sm:data-[state=open]:slide-in-from-bottom-1 sm:data-[state=open]:zoom-in-95"
+      className="top-auto bottom-0 h-[75dvh] w-full max-w-[calc(100%-2rem)] translate-y-0 overflow-hidden rounded-none border-grey-20 bg-black p-0 text-white shadow-none outline-none data-[state=closed]:slide-out-to-bottom-1/2 data-[state=closed]:zoom-out-100 data-[state=open]:slide-in-from-bottom-1/2 data-[state=open]:zoom-in-100 sm:top-[19dvh] sm:bottom-auto sm:h-auto sm:max-w-(--blog-search-dialog-width) sm:data-[state=closed]:slide-out-to-bottom-1 sm:data-[state=closed]:zoom-out-95 sm:data-[state=open]:slide-in-from-bottom-1 sm:data-[state=open]:zoom-in-95"
       overlayClassName="bg-black/85"
       onCloseAutoFocus={(event) => event.preventDefault()}
       showCloseButton={false}
-      style={searchDialogStyle}
+      style={blogSearchDialogStyle}
     >
-      <DialogTitle className="sr-only">Search blog posts</DialogTitle>
+      <DialogTitle className="sr-only">Search blog articles</DialogTitle>
       <Command
         className={cn(
           "relative rounded-none bg-black font-normal text-white",
@@ -275,15 +286,15 @@ function SearchDialog({
 
         <section aria-labelledby="blog-search-results-heading">
           <h2 className="sr-only" id="blog-search-results-heading">
-            {hasQuery ? "Search results" : "Suggested posts"}
+            {hasQuery ? "Search results" : "Suggested articles"}
           </h2>
-          <CommandList className="max-h-[calc(75dvh-4rem)] overflow-y-auto px-5 py-6 sm:max-h-(--search-list-max-height)">
+          <CommandList className="max-h-[calc(75dvh-4rem)] overflow-y-auto px-5 py-6 sm:max-h-(--blog-search-list-max-height)">
             <CommandEmpty className="py-3 text-center text-base leading-tight font-normal tracking-normal text-grey-60">
               No results found.
             </CommandEmpty>
             <div className="flex flex-col gap-y-6">
               {resultGroups.map((group, groupIndex) => (
-                <SearchResultGroup
+                <BlogSearchResultGroup
                   key={group.category}
                   group={group.category}
                   items={group.items}
@@ -300,7 +311,7 @@ function SearchDialog({
   );
 }
 
-export function Search({ posts }: SearchProps): ReactNode {
+export function BlogSearch({ items }: BlogSearchProps): ReactNode {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
 
@@ -328,11 +339,11 @@ export function Search({ posts }: SearchProps): ReactNode {
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
         <Button
-          className="h-8 w-full justify-start rounded-none border-[#9194A1] bg-transparent pr-2.5 pl-2.5 text-[0.8125rem] leading-none font-normal tracking-normal text-[#71717A] shadow-none hover:bg-transparent hover:text-[#71717A] focus-visible:ring-db-cyan lg:w-69 lg:has-[>kbd]:!pr-1.5"
+          className="h-8 w-full justify-start rounded-none border-grey-60 bg-transparent pr-2.5 pl-2.5 text-[0.8125rem] leading-none font-normal tracking-normal text-grey-50 shadow-none hover:bg-transparent hover:text-grey-50 focus-visible:ring-db-cyan lg:w-69 lg:has-[>kbd]:!pr-1.5"
           type="button"
           variant="outline"
           size="sm"
-          aria-label="Search blog posts"
+          aria-label="Search blog articles"
         >
           <SearchIcon
             className="size-3.5"
@@ -340,16 +351,16 @@ export function Search({ posts }: SearchProps): ReactNode {
             data-icon="inline-start"
           />
           <span className="mr-auto min-w-0 truncate">Search...</span>
-          <Kbd className="hidden h-5.5 w-8.75 min-w-0 rounded-none border border-[#D9D9DD] bg-transparent px-1.5 py-1 text-sm leading-none font-normal tracking-normal text-[#71717A] lg:inline-flex">
+          <Kbd className="hidden h-5.5 w-8.75 min-w-0 rounded-none border border-grey-80 bg-transparent px-1.5 py-1 text-sm leading-none font-normal tracking-normal text-grey-50 lg:inline-flex">
             ⌘K
           </Kbd>
         </Button>
       </DialogTrigger>
-      <SearchDialog
+      <BlogSearchDialog
         query={query}
         onQueryChange={setQuery}
         onOpenChange={handleOpenChange}
-        posts={posts}
+        items={items}
       />
     </Dialog>
   );
