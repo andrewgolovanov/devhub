@@ -95,7 +95,7 @@ export function TemplatesIndexContent(): ReactNode {
 
   return (
     <>
-      <section className="pt-16 md:pt-22" id="templates-list">
+      <section className="pt-12 md:pt-16" id="templates-list">
         <h2 className="sr-only">Templates</h2>
         <div className="mx-auto grid w-full max-w-400 gap-12 px-5 md:px-8 lg:grid-cols-[16rem_minmax(0,1fr)] xl:gap-x-20 2xl:gap-32">
           <aside className="hidden lg:block">

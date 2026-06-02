@@ -69,6 +69,13 @@ const config: Config = {
     {
       tagName: "meta",
       attributes: {
+        name: "theme-color",
+        content: "#040406",
+      },
+    },
+    {
+      tagName: "meta",
+      attributes: {
         name: "google-site-verification",
         content: "r9cgLLCpOwLqma0I_MXet4Ix8AK6v_UNHMe1CHsfNr8",
       },

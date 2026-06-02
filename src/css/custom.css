@@ -249,6 +249,11 @@
 }
 
 @layer base {
+  html,
+  body {
+    @apply bg-black text-white;
+  }
+
   body {
     @apply selection:bg-orange selection:text-white;
   }

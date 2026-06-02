@@ -36,7 +36,7 @@ export default function TemplatesPage(): ReactNode {
         <Hero />
 
         <div className="bg-[#f9f7f4] text-black">
-          <div className="h-13.5 bg-orange" aria-hidden="true" />
+          <div className="h-12 bg-orange" aria-hidden="true" />
           <TemplatesIndexContent />
           <CTA
             label="Start building"

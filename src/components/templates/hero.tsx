@@ -2,9 +2,9 @@ import type { ReactNode } from "react";
 
 export function Hero(): ReactNode {
   return (
-    <section className="bg-black py-20 text-white md:pt-24 md:pb-24 lg:pt-36 xl:pt-40 lg:pb-29">
-      <div className="relative mx-auto flex flex-col w-full max-w-400 gap-6 px-5 md:px-8">
-        <h1 className="max-w-330 font-sans text-4xl leading-[0.98] font-normal tracking-normal text-balance md:text-6xl 2xl:text-8xl">
+    <section className="bg-black py-16 text-white md:pt-24 md:pb-24 lg:pt-36 xl:pt-40 lg:pb-29">
+      <div className="relative mx-auto flex w-full max-w-400 flex-col gap-4 px-5 md:gap-6 md:px-8">
+        <h1 className="max-w-330 font-sans text-3xl leading-[0.98] font-normal tracking-normal md:text-5xl md:text-balance lg:text-6xl 2xl:text-8xl">
           <span className="text-db-lava xl:ml-36 2xl:ml-50">Templates.</span>{" "}
           <span>[Jumpstart your next Databricks app]</span>
         </h1>

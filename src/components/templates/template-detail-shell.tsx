@@ -27,6 +27,40 @@ type TemplateDetailShellProps = {
   relatedItems?: TemplateItem[];
 };
 
+function TemplateAiBlock({
+  usage,
+  className = "",
+  titleClassName = "text-2xl/snug",
+  showDivider = false,
+}: {
+  usage: TemplateUsageProps;
+  className?: string;
+  titleClassName?: string;
+  showDivider?: boolean;
+}) {
+  return (
+    <div className={className}>
+      {showDivider ? (
+        <div className="h-px w-full bg-grey-20" aria-hidden="true" />
+      ) : (
+        <span className="block size-1.5 bg-orange" aria-hidden="true" />
+      )}
+      <h2
+        className={`mt-4.5 leading-tight font-normal tracking-tight text-white ${titleClassName}`}
+      >
+        Build with AI
+      </h2>
+      <p className="mt-1 text-base tracking-tight text-grey-70">
+        [Agent asks questions and ships the app.]
+      </p>
+      <CopyPromptButton
+        {...usage}
+        className="mt-5 h-10 gap-x-2.5 rounded-none bg-orange pl-4 pr-4.5 font-mono text-sm/none font-medium tracking-tight text-black uppercase hover:bg-primary focus-visible:ring-orange/60 has-[>svg]:pl-4 has-[>svg]:pr-4.5 [&_svg:not([class*='size-'])]:size-4"
+      />
+    </div>
+  );
+}
+
 function TemplateDetailRail({
   usage,
   toc,
@@ -36,21 +70,9 @@ function TemplateDetailRail({
 }) {
   return (
     <aside className="sticky top-24 flex flex-col gap-y-7">
-      <div className="border-b border-grey-20 pb-7">
-        <span className="block size-1.5 bg-orange" aria-hidden="true" />
-        <h2 className="mt-4.5 text-2xl/snug leading-tight font-normal tracking-tight text-white">
-          Build with AI
-        </h2>
-        <p className="mt-1 text-base tracking-tight text-grey-70">
-          [Agent asks questions and ships the app.]
-        </p>
-        <CopyPromptButton
-          {...usage}
-          className="mt-5 h-10 gap-x-2.5 rounded-none bg-orange pl-4 pr-4.5 font-mono text-sm/none font-medium tracking-tight text-black uppercase hover:bg-primary focus-visible:ring-orange/60 has-[>svg]:pl-4 has-[>svg]:pr-4.5 [&_svg:not([class*='size-'])]:size-4"
-        />
-      </div>
+      <TemplateAiBlock usage={usage} className="border-b border-grey-20 pb-7" />
 
-      <div>
+      <div className="hidden lg:block">
         <span className="block size-1.5 bg-orange" aria-hidden="true" />
         <h2 className="mt-4.5 text-2xl/snug leading-tight font-normal tracking-tight text-white">
           Build manually
@@ -125,17 +147,24 @@ export function TemplateDetailShell({
 
             <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_20rem] xl:grid-cols-[minmax(0,1fr)_22rem] xl:gap-16">
               <div className="min-w-0">
-                <h1 className="font-sans text-balance text-3xl/[1.125] md:text-4xl/[1.125] font-normal tracking-[-0.04em] text-white lg:text-[3.5rem]/[1.125]">
+                <h1 className="font-sans text-balance text-[28px]/[1.125] font-normal tracking-[-0.04em] text-white md:text-4xl/[1.125] lg:text-[3.5rem]/[1.125]">
                   {title}
                 </h1>
-                <p className="mt-4 text-lg/snug tracking-tight text-grey-90 md:text-xl/snug">
+                <p className="mt-4 text-base/snug tracking-tight text-grey-90 md:text-xl/snug">
                   {description}
                 </p>
 
                 {heroMedia ? <div className="mt-8">{heroMedia}</div> : null}
 
+                <TemplateAiBlock
+                  usage={usage}
+                  className="mt-5 md:mt-6 lg:hidden"
+                  titleClassName="text-xl/snug md:text-2xl/snug"
+                  showDivider
+                />
+
                 <div
-                  className="mt-12 recipe-content-card template-dark-prose"
+                  className="mt-10 recipe-content-card template-dark-prose md:mt-12"
                   ref={contentRef}
                 >
                   {children}
@@ -144,7 +173,7 @@ export function TemplateDetailShell({
                 {belowContent}
               </div>
 
-              <div>
+              <div className="hidden lg:block">
                 <TemplateDetailRail usage={usage} toc={toc} />
               </div>
             </div>
@@ -152,7 +181,7 @@ export function TemplateDetailShell({
         </section>
 
         <div className="bg-[#f9f7f4] text-black">
-          <div className="h-13.5 bg-orange" aria-hidden="true" />
+          <div className="h-12 bg-orange" aria-hidden="true" />
           <MoreTemplatesSlider items={relatedItems} />
           <CTA
             label="Start building"

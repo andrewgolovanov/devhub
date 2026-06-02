@@ -35,10 +35,13 @@ function MoreTemplateCard({ item }: { item: TemplateItem }) {
         </div>
       </Link>
 
-      <h3 className="mt-5 mb-0 text-2xl leading-tight font-normal tracking-[-0.04em] text-black md:text-[1.75rem]">
-        <Link className="text-black no-underline hover:no-underline" to={href}>
-          {item.data.name}.{" "}
-          <span className="text-black/30">[{item.data.description}]</span>
+      <h3 className="mt-5 mb-0 line-clamp-3 text-xl leading-tight font-normal tracking-[-0.04em] text-black/30 md:text-2xl xl:text-[1.75rem] xl:line-clamp-4 2xl:line-clamp-5">
+        <Link
+          className="text-inherit no-underline hover:no-underline"
+          to={href}
+        >
+          <span className="text-black">{item.data.name}.</span> [
+          {item.data.description}]
         </Link>
       </h3>
       <p className="mt-6 flex items-center gap-1.5 font-mono text-sm leading-none font-medium tracking-tight text-black/30 uppercase">
@@ -59,15 +62,15 @@ export function MoreTemplatesSlider({ items }: { items: TemplateItem[] }) {
   )}%`;
 
   return (
-    <section className="overflow-hidden pt-20 text-black md:pt-30">
+    <section className="overflow-hidden pt-18 text-black md:pt-22 lg:pt-26 xl:pt-30">
       <div className="mx-auto w-full max-w-400 px-5 md:px-8">
-        <h2 className="m-0 text-4xl leading-tight font-normal tracking-[-0.04em] md:text-5xl/[1.125] lg:text-[3.5rem]">
+        <h2 className="m-0 text-3xl leading-tight font-normal tracking-[-0.04em] md:text-5xl/[1.125] lg:text-[3.5rem]">
           Explore more templates
         </h2>
 
         <div className="mt-6 flex items-center gap-x-4 md:gap-8 lg:mt-14 xl:mt-18">
           <div
-            className="h-2 grow bg-db-oat-medium"
+            className="h-1.5 grow bg-db-oat-medium lg:h-2"
             role="presentation"
             aria-hidden="true"
           >
@@ -113,9 +116,9 @@ export function MoreTemplatesSlider({ items }: { items: TemplateItem[] }) {
         </div>
       </div>
 
-      <div className="mt-6 [--templates-slider-left:max(1.25rem,calc((100vw-97rem)/2))] md:[--templates-slider-left:max(2rem,calc((100vw-97rem)/2))] md:mt-10">
+      <div className="mt-6 [--templates-slider-left:1.25rem] md:[--templates-slider-left:2rem] md:mt-10 2xl:[--templates-slider-left:max(2rem,calc((100vw-96rem)/2))]">
         <div
-          className="flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pb-2 pl-(--templates-slider-left) pr-(--templates-slider-left) [scroll-padding-left:var(--templates-slider-left)] [scroll-padding-right:var(--templates-slider-left)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:gap-9"
+          className="flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pb-2 pl-(--templates-slider-left) pr-(--templates-slider-left) [scroll-padding-left:var(--templates-slider-left)] [scroll-padding-right:var(--templates-slider-left)] [scrollbar-width:none] md:gap-8 xl:gap-10 [&::-webkit-scrollbar]:hidden"
           ref={slider.trackRef}
           onScroll={slider.handleScroll}
         >
