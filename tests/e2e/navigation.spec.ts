@@ -31,6 +31,32 @@ test.describe("navbar navigation", () => {
       expect(new URL(page.url()).pathname).toBe(expectedPath);
     });
   }
+
+  test("product dropdown hover state is visible in production CSS", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto("/product/data-lakehouse");
+
+    await page.getByRole("button", { name: "[Product]" }).hover();
+    const productMenu = page.locator('[data-slot="navigation-menu-content"]');
+    await expect(productMenu).toBeVisible();
+
+    const activeLink = productMenu.getByRole("link", {
+      name: "Lakebase",
+      exact: true,
+    });
+    const hoverLink = productMenu.getByRole("link", {
+      name: "AgentBricks",
+      exact: true,
+    });
+
+    await expect(activeLink).toHaveAttribute("aria-current", "page");
+    await expect(activeLink).toHaveCSS("color", "rgb(255, 95, 70)");
+
+    await hoverLink.hover();
+    await expect(hoverLink).toHaveCSS("color", "rgb(255, 255, 255)");
+  });
 });
 
 test.describe("footer navigation", () => {

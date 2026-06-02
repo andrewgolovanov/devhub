@@ -96,10 +96,10 @@ function Nav({ className, items }: HeaderNavProps) {
 
             return (
               <NavigationMenuItem key={href}>
-                <NavigationMenuTrigger className="group/product-trigger h-auto rounded-none !bg-transparent p-0 font-mono text-white shadow-none hover:!bg-transparent hover:!text-white focus:!bg-transparent focus:!text-white focus-visible:!ring-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-db-cyan data-[state=open]:!bg-transparent data-[state=open]:!text-white [&>svg]:hidden">
+                <NavigationMenuTrigger className="group/product-trigger h-auto rounded-none bg-transparent! p-0 font-mono text-white shadow-none hover:bg-transparent! hover:text-white! focus:bg-transparent! focus:text-white! focus-visible:ring-0! focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-db-cyan data-[state=open]:bg-transparent! data-[state=open]:text-white! [&>svg]:hidden">
                   <NavItemChrome active={isActive}>[{label}]</NavItemChrome>
                 </NavigationMenuTrigger>
-                <NavigationMenuContent className="z-[60] !mt-0 !w-[165px] !rounded-none !border-0 !bg-grey-12 !p-4 font-sans !shadow-none">
+                <NavigationMenuContent className="z-60 mt-0! w-[165px]! rounded-none! border-0! bg-grey-12! p-4! font-sans shadow-none!">
                   <div className="flex flex-col gap-[18px]">
                     {PRODUCT_LINKS.map((product) => {
                       const isProductActive =
@@ -109,15 +109,15 @@ function Nav({ className, items }: HeaderNavProps) {
                         <NavigationMenuLink
                           active={isProductActive}
                           asChild
-                          className={cn(
-                            "block !rounded-none !bg-transparent !p-0 font-sans text-sm leading-none tracking-tight no-underline outline-none transition-colors hover:!bg-transparent hover:no-underline focus:!bg-transparent data-[active=true]:!bg-transparent",
-                            isProductActive
-                              ? "!text-orange hover:!text-orange focus:!text-orange"
-                              : "!text-grey-60 hover:!text-white focus:!text-white",
-                          )}
+                          className="block rounded-none! bg-transparent! p-0! font-sans text-sm leading-none tracking-tight text-grey-60 no-underline outline-none transition-colors hover:bg-transparent! hover:text-white hover:no-underline focus:bg-transparent! focus:text-white data-active:bg-transparent! data-active:text-orange data-active:hover:text-orange data-active:focus:text-orange"
                           key={product.href}
                         >
-                          <Link to={product.href}>{product.label}</Link>
+                          <Link
+                            aria-current={isProductActive ? "page" : undefined}
+                            to={product.href}
+                          >
+                            {product.label}
+                          </Link>
                         </NavigationMenuLink>
                       );
                     })}
