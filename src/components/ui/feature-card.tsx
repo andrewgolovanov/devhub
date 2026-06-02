@@ -22,7 +22,7 @@ function FeatureCardRoot({ className, ...props }: ComponentProps<"article">) {
     <article
       data-slot="feature-card"
       className={cn(
-        "grid text-foreground max-w-176 mx-auto lg:max-w-none lg:grid-cols-2 lg:gap-x-16",
+        "grid text-foreground max-w-xl mx-auto md:max-w-none lg:grid-cols-2 lg:gap-x-16",
         className,
       )}
       {...props}
@@ -69,7 +69,7 @@ function FeatureCardTitle({ className, ...props }: ComponentProps<"h3">) {
     <h3
       data-slot="feature-card-title"
       className={cn(
-        "mt-7 font-sans text-xl font-normal tracking-[-0.04em] text-pretty leading-tight text-black md:mt-8 md:text-[2rem] lg:text-4xl xl:text-[2.5rem]",
+        "mt-5 font-sans text-[28px]/tight font-normal tracking-[-0.04em] text-pretty text-black md:mt-6 md:text-[32px]/tight lg:mt-0 lg:text-[36px]/tight xl:mt-7 xl:text-[2.5rem]/tight",
         className,
       )}
       {...props}
@@ -81,7 +81,10 @@ function FeatureCardAction({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
       data-slot="feature-card-action"
-      className={cn("mt-6 w-full lg:max-w-152 md:mt-8 xl:mt-auto", className)}
+      className={cn(
+        "mt-5 w-full max-w-152 md:mt-6 md:max-w-none lg:mt-7 xl:mt-auto xl:max-w-152",
+        className,
+      )}
       {...props}
     />
   );
@@ -96,7 +99,7 @@ function FeatureCardVisual({
     <div
       data-slot="feature-card-visual"
       className={cn(
-        "flex overflow-hidden border border-black bg-[#F2F0ED] lg:justify-end max-xl:p-3 md:max-xl:p-4",
+        "flex overflow-hidden border border-black bg-[#F2F0ED] aspect-square md:aspect-auto max-md:items-center max-md:justify-center max-md:p-3 lg:justify-end",
         reversed && "lg:order-1 lg:justify-start",
         className,
       )}
@@ -115,7 +118,7 @@ function FeatureCardFooter({
   return (
     <div
       className={cn(
-        "mt-4 flex flex-col gap-2 md:mt-6 md:flex-row md:justify-between lg:flex-col xl:flex-row xl:gap-4",
+        "mt-4 flex flex-col gap-2 md:mt-6 md:flex-row md:justify-between md:gap-4 lg:flex-col lg:gap-2 xl:flex-row xl:justify-between xl:gap-4",
         className,
       )}
       data-slot="feature-card-footer"
@@ -130,7 +133,7 @@ function FeatureCardFooter({
           [ {label} ]
         </span>
       </span>
-      <p className="text-base/tight tracking-tight text-pretty max-w-sm md:max-w-lg lg:max-w-full text-black xl:max-w-120">
+      <p className="text-base/tight tracking-tight text-pretty text-black xl:max-w-120">
         {description}
       </p>
     </div>

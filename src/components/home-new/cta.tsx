@@ -1,9 +1,8 @@
 import Link from "@docusaurus/Link";
 import useBaseUrl from "@docusaurus/useBaseUrl";
-import { Check, LoaderCircle } from "lucide-react";
+import { Check, Copy, LoaderCircle } from "lucide-react";
 import { type ReactNode, useCallback, useState } from "react";
 
-import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { getBootstrapPromptApiPath } from "@/lib/bootstrap-prompt";
 import { cn } from "@/lib/utils";
@@ -60,19 +59,31 @@ function CTATitleHighlight({ children }: { children: string }) {
         aria-hidden="true"
       />
       <span
-        className={cn(cornerClassName, "-top-2 -left-2.25")}
+        className={cn(
+          cornerClassName,
+          "-top-[--spacing(1.9)] -left-[--spacing(2.4)]",
+        )}
         aria-hidden="true"
       />
       <span
-        className={cn(cornerClassName, "-top-2 -right-2.25")}
+        className={cn(
+          cornerClassName,
+          "-top-[--spacing(1.9)] -right-[--spacing(2.4)] lg:-right-[--spacing(2.3)]",
+        )}
         aria-hidden="true"
       />
       <span
-        className={cn(cornerClassName, "-bottom-2 -left-2.25")}
+        className={cn(
+          cornerClassName,
+          "-bottom-[--spacing(1.8)] lg:-bottom-[--spacing(1.9)] -left-[--spacing(2.4)]",
+        )}
         aria-hidden="true"
       />
       <span
-        className={cn(cornerClassName, "-right-2.25 -bottom-2")}
+        className={cn(
+          cornerClassName,
+          "-right-[--spacing(2.4)] lg:-right-[--spacing(2.3)] -bottom-[--spacing(1.8)] lg:-bottom-[--spacing(1.9)]",
+        )}
         aria-hidden="true"
       />
       <span className="relative">{children}</span>
@@ -133,7 +144,7 @@ function CTAButtons({
         ) : copyState === "copied" ? (
           <Check className="size-4" aria-hidden="true" />
         ) : (
-          <Icons.copy className="size-3.5" aria-hidden="true" />
+          <Copy className="size-4 rotate-180" aria-hidden="true" />
         )}
       </Button>
       <Button
@@ -181,7 +192,7 @@ function CTA({
   return (
     <section
       aria-label={label}
-      className={cn("cta bg-black text-white", className)}
+      className={cn("cta bg-black text-white pt-1.5", className)}
     >
       <Topbar theme={theme} />
       <div className="relative mx-auto px-5 md:px-8 lg:px-16 2xl:px-24">

@@ -69,19 +69,31 @@ function HeroTitleHighlight({ children }: { children: string }) {
         aria-hidden="true"
       />
       <span
-        className={cn(cornerClassName, "-top-2 -left-3.5")}
+        className={cn(
+          cornerClassName,
+          "-top-[--spacing(1.9)] -left-[--spacing(3.4)] xl:-left-[--spacing(3.3)]",
+        )}
         aria-hidden="true"
       />
       <span
-        className={cn(cornerClassName, "-top-2 -right-3.5")}
+        className={cn(
+          cornerClassName,
+          "-top-[--spacing(1.9)] -right-[--spacing(3.4)]",
+        )}
         aria-hidden="true"
       />
       <span
-        className={cn(cornerClassName, "-bottom-2 -left-3.5")}
+        className={cn(
+          cornerClassName,
+          "-bottom-[--spacing(1.9)] -left-[--spacing(3.4)] xl:-left-[--spacing(3.3)]",
+        )}
         aria-hidden="true"
       />
       <span
-        className={cn(cornerClassName, "-right-3.5 -bottom-2")}
+        className={cn(
+          cornerClassName,
+          "-right-[--spacing(3.4)] -bottom-[--spacing(1.9)]",
+        )}
         aria-hidden="true"
       />
       <span className="relative">{children}</span>
@@ -97,7 +109,7 @@ function Hero({ className }: HeroProps) {
         className,
       )}
     >
-      <div className="relative flex flex-col justify-end min-h-[max(125vw,600px)] w-full overflow-hidden pb-16 sm:min-h-[max(100vw,700px)] md:min-h-200 md:pb-20 lg:min-h-240 xl:min-h-276 2xl:min-h-296 lg:pb-26">
+      <div className="relative flex flex-col justify-end min-h-[max(125vw,660px)] w-full overflow-hidden pb-16 sm:min-h-[max(100vw,700px)] md:min-h-200 md:pb-20 lg:min-h-240 xl:min-h-276 2xl:min-h-296 lg:pb-26">
         <div
           className="absolute top-8 left-[-20%] w-[150vw] aspect-2300/1144 sm:left-[-22%] md:top-8 md:w-5xl md:-left-34 lg:top-0 lg:w-400 lg:-left-58 xl:w-500 xl:-left-74 2xl:-translate-x-1/2 2xl:w-575 2xl:left-[max(50rem,50%)]"
           aria-hidden="true"
@@ -113,8 +125,8 @@ function Hero({ className }: HeroProps) {
           aria-hidden="true"
         />
         <header className="pointer-events-none relative z-10 flex flex-col justify-end">
-          <div className="pointer-events-auto mx-auto grid w-full max-w-400 grid-cols-1 px-5 md:px-8 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-7">
-            <h1 className="max-w-md pb-1 font-heading text-3xl leading-none tracking-normal text-white md:max-w-4xl md:text-6xl md:leading-none lg:text-5xl/[0.96] xl:text-7xl/none">
+          <div className="pointer-events-auto mx-auto grid w-full max-w-400 grid-cols-1 px-5 md:px-8 xl:grid-cols-[1fr_auto] xl:items-end xl:gap-7">
+            <h1 className="max-w-md md:max-w-4xl pb-1 font-heading text-4xl/none tracking-normal text-white md:text-5xl/none lg:text-[64px]/none xl:text-7xl/none">
               <span className="relative z-10">Build </span>
               <HeroTitleHighlight>agentic applications</HeroTitleHighlight>
               <br />
