@@ -31,6 +31,9 @@ const config: Config = {
   favicon: "img/favicon.png",
   customFields: {
     showDrafts: showDrafts(),
+    // Slug of the active hackathon event. `/hackathon` redirects here and the
+    // announcement banner links to it. See src/lib/hackathon-banner-server.ts.
+    hackathonEventSlug: process.env.HACKATHON_EVENT_SLUG,
   },
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -100,7 +103,7 @@ const config: Config = {
           customCss: "./src/css/custom.css",
         },
         sitemap: {
-          ignorePatterns: ["/hackathon", "/hackathon/"],
+          ignorePatterns: ["/hackathon", "/hackathon/", "/hackathon/**"],
         },
       } satisfies Preset.Options,
     ],
