@@ -78,3 +78,34 @@ export function useReplitPrompt(slug: string): string | undefined {
     cookbooks.replitPromptsBySlug?.[slug]
   );
 }
+
+/**
+ * Set of every template slug that ships a `replit-prompt.md`. Powers the
+ * "Build with > Replit Apps" filter on /templates. Derived from plugin
+ * data so authors only need to drop a `replit-prompt.md` next to their
+ * `goal.md` — no separate registry flag to maintain.
+ */
+export function useReplitTemplateIds(): ReadonlySet<string> {
+  const examples = usePluginData(
+    "docusaurus-plugin-content-entries",
+    "examples",
+  ) as ContentEntriesGlobalData;
+  const recipes = usePluginData(
+    "docusaurus-plugin-content-entries",
+    "recipes",
+  ) as ContentEntriesGlobalData;
+  const cookbooks = usePluginData(
+    "docusaurus-plugin-cookbooks",
+  ) as CookbooksGlobalData;
+  const ids = new Set<string>();
+  for (const slug of Object.keys(examples.replitPromptsBySlug ?? {})) {
+    ids.add(slug);
+  }
+  for (const slug of Object.keys(recipes.replitPromptsBySlug ?? {})) {
+    ids.add(slug);
+  }
+  for (const slug of Object.keys(cookbooks.replitPromptsBySlug ?? {})) {
+    ids.add(slug);
+  }
+  return ids;
+}

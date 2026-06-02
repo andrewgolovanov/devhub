@@ -151,3 +151,43 @@ test.describe("templates page clear all filters", () => {
     await expect(page.getByRole("button", { name: "Clear all" })).toBeHidden();
   });
 });
+
+test.describe("templates page Build-with Replit filter", () => {
+  test("checking 'Replit' narrows the grid to templates with a replit prompt and shows a removable chip", async ({
+    page,
+  }) => {
+    await page.goto("/templates");
+    await expect(page.getByText(TOTAL_TEMPLATES)).toBeVisible();
+
+    await page.getByRole("checkbox", { name: "Replit", exact: true }).check();
+
+    // saas-tracker ships a replit-prompt.md, so it should still be visible.
+    await expect(
+      page.locator('a[href="/templates/saas-tracker"]'),
+    ).toBeVisible();
+    // set-up-your-local-dev-environment does NOT ship one, so it should hide.
+    await expect(
+      page.locator('a[href="/templates/set-up-your-local-dev-environment"]'),
+    ).toBeHidden();
+
+    // The active-filters chip should appear and clicking it should turn the
+    // filter back off.
+    const chip = page.getByRole("button", { name: /^Replit$/ });
+    await expect(chip).toBeVisible();
+    await chip.click();
+    await expect(page.getByText(TOTAL_TEMPLATES)).toBeVisible();
+  });
+
+  test("Build-with Replit filter participates in 'Clear all'", async ({
+    page,
+  }) => {
+    await page.goto("/templates");
+
+    await page.getByRole("checkbox", { name: "Replit", exact: true }).check();
+    await expect(page.getByRole("button", { name: "Clear all" })).toBeVisible();
+
+    await page.getByRole("button", { name: "Clear all" }).click();
+    await expect(page.getByText(TOTAL_TEMPLATES)).toBeVisible();
+    await expect(page.getByRole("button", { name: "Clear all" })).toBeHidden();
+  });
+});
