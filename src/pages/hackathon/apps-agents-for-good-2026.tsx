@@ -103,23 +103,17 @@ const event: HackathonEvent = {
       label: "Opening + hacking begins",
       date: "June 15, 2026 \u00b7 8:00am\u20134:00pm PT",
       detail:
-        "Opening ceremony and kickoff at Marriott Marquis, San Francisco.",
+        "A full day of hacking, kicking off with the opening ceremony at Marriott Marquis, San Francisco.",
     },
     {
       label: "Hacker's Corner (optional)",
       date: "June 16, 2026 \u00b7 11:00am\u20135:00pm PT",
-      detail: "Open collaboration space.",
+      detail: "Open collaboration space with mentors on hand to help.",
     },
     {
       label: "Judging + awards",
       date: "June 16, 2026 \u00b7 6:00pm\u20139:00pm PT",
       detail: "Live judging, followed by the awards ceremony.",
-    },
-    {
-      label: "Winners showcase",
-      date: "June 17, 2026",
-      detail:
-        "Winning teams and selected projects presented at Hacker's Corner for Data + AI Summit attendees.",
     },
   ],
   submission:
