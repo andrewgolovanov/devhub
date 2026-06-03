@@ -1,4 +1,8 @@
-import type { BlogPost } from "./blog-posts";
+import {
+  getBlogItemAuthorNames,
+  getBlogItemHref,
+  type BlogItem,
+} from "./blog-items";
 
 export const BLOG_RSS_PATH = "/blog/rss.xml";
 
@@ -31,27 +35,27 @@ export function getBlogRssUrl(siteUrl: string): string {
   return `${stripTrailingSlash(siteUrl)}${BLOG_RSS_PATH}`;
 }
 
-export function buildBlogRssFeed(posts: BlogPost[], siteUrl: string): string {
+export function buildBlogRssFeed(items: BlogItem[], siteUrl: string): string {
   const normalizedSiteUrl = stripTrailingSlash(siteUrl);
   const feedUrl = getBlogRssUrl(normalizedSiteUrl);
   const blogUrl = `${normalizedSiteUrl}/blog`;
-  const lastBuildDate = posts[0]
-    ? toRfc822Date(posts[0].publishedAt)
+  const lastBuildDate = items[0]
+    ? toRfc822Date(items[0].publishedAt)
     : new Date().toUTCString();
 
-  const items = posts.flatMap((post) => {
-    const postUrl = toAbsoluteUrl(normalizedSiteUrl, post.href);
+  const rssItems = items.flatMap((item) => {
+    const itemUrl = toAbsoluteUrl(normalizedSiteUrl, getBlogItemHref(item));
 
     return [
       "    <item>",
-      `      <title>${escapeXml(post.title)}</title>`,
-      `      <link>${escapeXml(postUrl)}</link>`,
-      `      <guid isPermaLink="false">${escapeXml(post.id)}</guid>`,
-      `      <description>${escapeXml(post.description)}</description>`,
-      `      <pubDate>${toRfc822Date(post.publishedAt)}</pubDate>`,
-      `      <dc:creator>${escapeXml(post.authors.join(", "))}</dc:creator>`,
-      ...post.tags.map((tag) => `      <category>${escapeXml(tag)}</category>`),
-      `      <source url="${escapeXml(blogUrl)}">${escapeXml(post.source)}</source>`,
+      `      <title>${escapeXml(item.title)}</title>`,
+      `      <link>${escapeXml(itemUrl)}</link>`,
+      `      <guid isPermaLink="false">${escapeXml(item.id)}</guid>`,
+      `      <description>${escapeXml(item.description)}</description>`,
+      `      <pubDate>${toRfc822Date(item.publishedAt)}</pubDate>`,
+      `      <dc:creator>${escapeXml(getBlogItemAuthorNames(item).join(", "))}</dc:creator>`,
+      ...item.tags.map((tag) => `      <category>${escapeXml(tag)}</category>`),
+      `      <source url="${escapeXml(blogUrl)}">${escapeXml(item.source)}</source>`,
       "    </item>",
     ];
   });
@@ -66,7 +70,7 @@ export function buildBlogRssFeed(posts: BlogPost[], siteUrl: string): string {
     "    <language>en</language>",
     `    <lastBuildDate>${lastBuildDate}</lastBuildDate>`,
     `    <atom:link href="${escapeXml(feedUrl)}" rel="self" type="application/rss+xml" />`,
-    ...items,
+    ...rssItems,
     "  </channel>",
     "</rss>",
     "",

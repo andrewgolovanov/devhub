@@ -6,7 +6,7 @@
       "maxDuration": 30
     },
     "api/markdown.ts": {
-      "includeFiles": "{docs/**,content/about-devhub.md,content/solutions/**,content/recipes/**/*.md,content/examples/**/*.md}",
+      "includeFiles": "{docs/**,content/about-devhub.md,content/solutions/**,content/blog/**/*.md,content/recipes/**/*.md,content/examples/**/*.md}",
       "maxDuration": 30
     },
     "api/bootstrap-prompt.ts": {
@@ -52,6 +52,14 @@
       "destination": "/api/markdown?section=solutions&slug="
     },
     {
+      "source": "/devhub/blog.md",
+      "destination": "/api/markdown?section=blog&slug="
+    },
+    {
+      "source": "/devhub/blog/(.+)\\.md",
+      "destination": "/api/markdown?section=blog&slug=$1"
+    },
+    {
       "source": "/devhub/solutions/(.+)\\.md",
       "destination": "/api/markdown?section=solutions&slug=$1"
     },
@@ -74,6 +82,14 @@
     {
       "source": "/devhub/solutions/(.*)",
       "destination": "/solutions/$1"
+    },
+    {
+      "source": "/devhub/blog",
+      "destination": "/blog"
+    },
+    {
+      "source": "/devhub/blog/(.*)",
+      "destination": "/blog/$1"
     },
     {
       "source": "/devhub/perspectives",
@@ -134,6 +150,14 @@
     {
       "source": "/solutions.md",
       "destination": "/api/markdown?section=solutions&slug="
+    },
+    {
+      "source": "/blog.md",
+      "destination": "/api/markdown?section=blog&slug="
+    },
+    {
+      "source": "/blog/(.+)\\.md",
+      "destination": "/api/markdown?section=blog&slug=$1"
     },
     {
       "source": "/solutions/(.+)\\.md",

@@ -58,11 +58,11 @@ describe("production build smoke tests", () => {
     const expectedSiteUrl = resolveExpectedSiteUrl();
     const expectedSiteUrlPattern = escapeRegex(expectedSiteUrl);
     // Internal links in llms.txt are absolute URLs whose path starts with
-    // /docs, /templates, /solutions, or ends in .md.
+    // /docs, /templates, /blog, /solutions, or ends in .md.
     const internalLinks = Array.from(
       text.matchAll(
         new RegExp(
-          `\\((${expectedSiteUrlPattern}/(?:docs|templates|solutions)[^)\\s]*)\\)`,
+          `\\((${expectedSiteUrlPattern}/(?:docs|templates|blog|solutions)[^)\\s]*)\\)`,
           "g",
         ),
       ),
@@ -73,7 +73,7 @@ describe("production build smoke tests", () => {
       expect(link.startsWith(`${expectedSiteUrl}/`)).toBe(true);
     }
     expect(text).not.toMatch(
-      /\]\(\/(?:docs|templates|solutions|api|llms\.txt)[^)]+\)/,
+      /\]\(\/(?:docs|templates|blog|solutions|api|llms\.txt)[^)]+\)/,
     );
   });
 
@@ -121,11 +121,12 @@ describe("production build smoke tests", () => {
       readBuildFile("docs/start-here/index.html"),
       readBuildFile("docs/tools/ai-tools/docs-mcp-server/index.html"),
       readBuildFile("templates/ai-chat-app/index.html"),
+      readBuildFile("blog/devhub-launch/index.html"),
       readBuildFile("solutions/devhub-launch/index.html"),
     ].join("\n");
 
     expect(renderedHtml).not.toMatch(
-      /href="\/(?:docs|templates|solutions|api|llms\.txt)(?:[/"#?]|$)/,
+      /href="\/(?:docs|templates|blog|solutions|api|llms\.txt)(?:[/"#?]|$)/,
     );
     expect(renderedHtml).toContain(`href="${basePath}/docs/start-here"`);
     expect(renderedHtml).toContain(`href="${basePath}/templates`);
@@ -146,7 +147,18 @@ describe("production build smoke tests", () => {
     const text = readBuildFile("llms.txt");
     expect(text).toContain("/docs/start-here.md");
     expect(text).toContain("/templates/ai-chat-app.md");
+    expect(text).toContain("/blog.md");
+    expect(text).toContain("/blog/devhub-launch.md");
     expect(text).toContain("/solutions.md");
+  });
+
+  test("llms.txt links to native blog items internally and to linked blog items externally", () => {
+    const text = readBuildFile("llms.txt");
+    expect(text).toContain("/blog/devhub-launch.md");
+    expect(text).toContain(
+      "https://www.databricks.com/blog/how-build-production-ready-data-and-ai-apps-databricks-apps-and-lakebase",
+    );
+    expect(text).toContain("(Databricks Blog)");
   });
 
   test("llms.txt links to native solutions internally and to linked solutions externally", () => {
@@ -161,14 +173,16 @@ describe("production build smoke tests", () => {
     expect(text).toContain("(Databricks Blog)");
   });
 
-  test("llms.txt section order: Start Here before Templates before Solutions", () => {
+  test("llms.txt section order: Start Here before Templates before Blog before Solutions", () => {
     const text = readBuildFile("llms.txt");
     const startHereIdx = text.indexOf("## Start Here");
     const templatesIdx = text.indexOf("## Templates");
+    const blogIdx = text.indexOf("## Blog");
     const solutionsIdx = text.indexOf("## Solutions");
     expect(startHereIdx).toBeGreaterThan(-1);
     expect(templatesIdx).toBeGreaterThan(startHereIdx);
-    expect(solutionsIdx).toBeGreaterThan(templatesIdx);
+    expect(blogIdx).toBeGreaterThan(templatesIdx);
+    expect(solutionsIdx).toBeGreaterThan(blogIdx);
   });
 
   test("llms.txt Templates section is flat (no Cookbooks/Recipes/Examples subheadings)", () => {
@@ -203,6 +217,8 @@ describe("production build smoke tests", () => {
 
     const expectedTemplates = [
       "/solutions.md",
+      "/blog.md",
+      "/blog/devhub-launch.md",
       "/templates.md",
       "/templates/set-up-your-local-dev-environment.md",
       "/templates/spin-up-databricks-app.md",
@@ -313,6 +329,22 @@ describe("production build smoke tests", () => {
     const text = readBuildFile("raw-docs/start-here.md");
     expect(text).not.toMatch(/^---\n/);
     expect(text).toMatch(/^# Start here/);
+  });
+
+  test("pretty markdown routes are emitted as static files for local serving", () => {
+    expect(readBuildFile("docs/start-here.md")).toContain("# Start here");
+    expect(readBuildFile("solutions/devhub-launch.md")).toContain(
+      'title: "Introducing DevHub"',
+    );
+    expect(readBuildFile("blog/devhub-launch.md")).toContain(
+      "title: Introducing dev.databricks.com",
+    );
+    expect(readBuildFile("templates/ai-chat-app.md")).toContain(
+      "# About DevHub",
+    );
+    expect(readBuildFile("templates.md")).toContain("# Templates");
+    expect(readBuildFile("blog.md")).toContain("# Blog");
+    expect(readBuildFile("solutions.md")).toContain("# Solutions");
   });
 
   test("raw-docs preserve closing HTML tags inside code examples", () => {

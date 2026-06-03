@@ -3,9 +3,9 @@ import type { ReactNode } from "react";
 import CTA from "@/components/home-new/cta";
 import NewFooter from "@/components/theme/footer";
 
-export function CtaFooter(): ReactNode {
+export function BlogCtaFooter(): ReactNode {
   return (
-    <div className="cta-footer mx-auto mt-18 max-w-432 border-x border-grey-20 bg-black md:mt-24 lg:mt-32 xl:mt-37">
+    <div className="blog-cta-footer mx-auto mt-18 max-w-432 border-x border-grey-20 bg-black md:mt-24 lg:mt-32 xl:mt-37">
       <CTA
         className="pt-0 pb-16 lg:pb-22"
         theme="outline"

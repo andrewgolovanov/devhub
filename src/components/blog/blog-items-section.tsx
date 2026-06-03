@@ -1,48 +1,48 @@
 import { Rss } from "lucide-react";
 import type { ReactNode } from "react";
 
-import { BLOG_POSTS_SECTION_ID, type BlogPost } from "@/lib/blog/blog-posts";
-import { CategoryFilter } from "./category-filter";
-import { EmptyState } from "./empty-state";
-import { Pagination } from "./pagination";
-import { PostCard } from "./post-card";
-import { Search } from "./search";
+import { BlogCard } from "@/components/blog/blog-card";
+import { BlogEmptyState } from "@/components/blog/blog-empty-state";
+import { BlogFilters } from "@/components/blog/blog-filters";
+import { BlogPagination } from "@/components/blog/blog-pagination";
+import { BlogSearch } from "@/components/blog/blog-search";
+import { BLOG_ITEMS_SECTION_ID, type BlogItem } from "@/lib/blog/blog-items";
 
-type PostsPagination = {
+type BlogItemsPaginationState = {
   currentPage: number;
   pageCount: number;
-  posts: BlogPost[];
+  items: BlogItem[];
 };
 
-type PostsSectionProps = {
-  allPosts: BlogPost[];
+type BlogItemsSectionProps = {
+  allItems: BlogItem[];
   categories: string[];
   selectedCategory: string | null;
-  pagination: PostsPagination;
+  pagination: BlogItemsPaginationState;
   rssHref: string;
   onSelectCategory: (category: string | null) => void;
 };
 
-export function PostsSection({
-  allPosts,
+export function BlogItemsSection({
+  allItems,
   categories,
   selectedCategory,
   pagination,
   rssHref,
   onSelectCategory,
-}: PostsSectionProps): ReactNode {
+}: BlogItemsSectionProps): ReactNode {
   return (
     <section
       className="posts-section mt-16 scroll-mt-24 md:mt-22 md:scroll-mt-28 lg:mt-26 xl:mt-31"
-      id={BLOG_POSTS_SECTION_ID}
-      aria-labelledby="blog-posts-heading"
+      id={BLOG_ITEMS_SECTION_ID}
+      aria-labelledby="blog-items-heading"
     >
       <div className="mb-10 flex flex-col gap-4 lg:h-8 lg:flex-row lg:items-center lg:justify-between">
         <div className="order-2 min-w-0 lg:order-0 lg:flex-1">
-          <h2 className="sr-only" id="blog-posts-heading">
-            Blog posts
+          <h2 className="sr-only" id="blog-items-heading">
+            Blog articles
           </h2>
-          <CategoryFilter
+          <BlogFilters
             categories={categories}
             selectedCategory={selectedCategory}
             onSelectCategory={onSelectCategory}
@@ -51,7 +51,7 @@ export function PostsSection({
 
         <div className="order-1 flex w-full flex-col gap-4 sm:flex-row sm:items-center lg:order-0 lg:w-auto lg:shrink-0">
           <a
-            className="hidden items-center gap-1.25 rounded-sm pr-2 text-sm leading-none font-medium tracking-[-0.025em] text-white no-underline transition-colors hover:text-white/80 hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-db-cyan lg:inline-flex"
+            className="hidden items-center gap-1.25 rounded-sm pr-2 text-sm leading-none font-medium tracking-normal text-white no-underline transition-colors hover:text-white/80 hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-db-cyan lg:inline-flex"
             href={rssHref}
             type="application/rss+xml"
             aria-label="Subscribe to the Databricks Developer Blog RSS feed"
@@ -59,24 +59,24 @@ export function PostsSection({
             <Rss className="size-5" aria-hidden="true" />
             RSS
           </a>
-          <Search posts={allPosts} />
+          <BlogSearch items={allItems} />
         </div>
       </div>
 
-      {pagination.posts.length === 0 ? (
-        <EmptyState
+      {pagination.items.length === 0 ? (
+        <BlogEmptyState
           className="mt-66"
           onClearFilters={() => onSelectCategory(null)}
         />
       ) : (
         <div className="grid grid-cols-1 gap-x-8.25 gap-y-10 md:grid-cols-2 md:gap-y-12 lg:gap-y-14 xl:grid-cols-3 xl:gap-y-16">
-          {pagination.posts.map((post) => (
-            <PostCard key={post.id} post={post} />
+          {pagination.items.map((item) => (
+            <BlogCard key={item.id} item={item} />
           ))}
         </div>
       )}
 
-      <Pagination
+      <BlogPagination
         currentPage={pagination.currentPage}
         pageCount={pagination.pageCount}
       />

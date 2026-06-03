@@ -1,3 +1,4 @@
+import matter from "gray-matter";
 import { describe, expect, test } from "vitest";
 import handler from "../api/markdown";
 import { resolveSiteUrlForRequest } from "../src/lib/site-url";
@@ -146,11 +147,41 @@ describe("/api/markdown about-devhub preamble policy", () => {
     expect(result.body).toMatch(/^authors:$/m);
   });
 
+  test("blog responses do NOT include the About DevHub preamble", () => {
+    const result = call({ section: "blog", slug: "devhub-launch" });
+    expect(result.statusCode).toBe(200);
+    expect(result.body).not.toContain("# About DevHub");
+    expect(result.body).not.toContain("/llms.txt");
+    expect(result.body).toContain("Introducing dev.databricks.com");
+  });
+
+  test("blog frontmatter url is absolute and reflects the request host", () => {
+    const host = "localhost:3001";
+    const result = call({
+      section: "blog",
+      slug: "devhub-launch",
+      host,
+    });
+    expect(result.statusCode).toBe(200);
+    const { data } = matter(result.body);
+    expect(data.url).toBe(
+      `${resolveSiteUrlForRequest(host)}/blog/devhub-launch`,
+    );
+  });
+
   test("solutions index does NOT include the preamble", () => {
     const result = call({ section: "solutions", slug: "" });
     expect(result.statusCode).toBe(200);
     expect(result.body).not.toContain("# About DevHub");
     expect(result.body).toContain("# Solutions");
+  });
+
+  test("blog index does NOT include the preamble", () => {
+    const result = call({ section: "blog", slug: "" });
+    expect(result.statusCode).toBe(200);
+    expect(result.body).not.toContain("# About DevHub");
+    expect(result.body).toContain("# Blog");
+    expect(result.body).toContain("/blog/devhub-launch.md");
   });
 
   test("recipe responses DO include the About DevHub preamble", () => {
@@ -245,6 +276,9 @@ describe("/api/markdown about-devhub preamble policy", () => {
       );
       expect(result.body).toContain(
         "https://stage.databricks.com/devhub/templates.md",
+      );
+      expect(result.body).toContain(
+        "https://stage.databricks.com/devhub/blog.md",
       );
       expect(result.body).not.toContain("](/llms.txt)");
     });

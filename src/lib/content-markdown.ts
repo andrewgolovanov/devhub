@@ -6,8 +6,8 @@ import {
   type ContentSections,
 } from "./content-sections";
 
-type ContentMarkdownSection = "recipes" | "solutions" | "examples";
-type FolderContentSection = "recipes" | "examples";
+type ContentMarkdownSection = "recipes" | "solutions" | "examples" | "blog";
+type FolderContentSection = "recipes" | "examples" | "blog";
 
 function markdownDirectory(
   rootDir: string,
@@ -29,7 +29,7 @@ export function hasSolutionSlug(rootDir: string, slug: string): boolean {
   return getSolutionSlugs(rootDir).includes(slug);
 }
 
-/** Recipes and examples live in `content/<section>/<slug>/` folders with a required content.md. */
+/** Recipes, examples, and blog articles live in `content/<section>/<slug>/` folders with a required content.md. */
 export function getContentSlugs(
   rootDir: string,
   section: FolderContentSection,

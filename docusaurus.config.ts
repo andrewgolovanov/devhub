@@ -8,6 +8,7 @@ import blogRssFeedPlugin from "./plugins/blog-rss-feed";
 import contentEntriesPlugin from "./plugins/content-entries";
 import cookbooksPlugin from "./plugins/cookbooks";
 import llmsTxtPlugin from "./plugins/llms-txt";
+import markdownStaticRoutesPlugin from "./plugins/markdown-static-routes";
 import perspectivesPlugin from "./plugins/perspectives";
 import remarkCliTabs from "./plugins/remark-cli-tabs";
 import remarkSiteUrl from "./plugins/remark-site-url";
@@ -174,7 +175,17 @@ const config: Config = {
         contentSection: "examples",
       },
     ],
+    [
+      contentEntriesPlugin,
+      {
+        id: "blog",
+        entryType: "blog",
+        routeBasePath: "/blog",
+        contentSection: "blog",
+      },
+    ],
     llmsTxtPlugin,
+    markdownStaticRoutesPlugin,
     robotsTxtPlugin,
     aboutDevhubPlugin,
     blogRssFeedPlugin,

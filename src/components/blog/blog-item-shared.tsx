@@ -1,10 +1,14 @@
 import Link from "@docusaurus/Link";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 import type { CSSProperties, ReactNode } from "react";
-import type { BlogPost } from "@/lib/blog/blog-posts";
+import {
+  getBlogItemHref,
+  isLinkedBlogItem,
+  type BlogItem,
+} from "@/lib/blog/blog-items";
 import { cn } from "@/lib/utils";
 
-export function ArrowIcon({
+export function BlogArrowIcon({
   className,
   style,
 }: {
@@ -35,7 +39,7 @@ export function ArrowIcon({
   );
 }
 
-export function formatPostDate(date: string): string {
+export function formatBlogDate(date: string): string {
   return new Date(`${date}T00:00:00Z`).toLocaleDateString("en-US", {
     year: "numeric",
     month: "short",
@@ -44,22 +48,24 @@ export function formatPostDate(date: string): string {
   });
 }
 
-export function PostLink({
+export function BlogItemLink({
   className,
-  post,
+  item,
   ariaLabel,
   children,
 }: {
   className: string;
-  post: BlogPost;
+  item: BlogItem;
   ariaLabel?: string;
   children: ReactNode;
 }): ReactNode {
-  if (post.external) {
+  const href = getBlogItemHref(item);
+
+  if (isLinkedBlogItem(item)) {
     return (
       <a
         className={className}
-        href={post.href}
+        href={href}
         target="_blank"
         rel="noopener noreferrer"
         aria-label={ariaLabel}
@@ -70,22 +76,26 @@ export function PostLink({
   }
 
   return (
-    <Link className={className} to={post.href} aria-label={ariaLabel}>
+    <Link className={className} to={href} aria-label={ariaLabel}>
       {children}
     </Link>
   );
 }
 
-export function PostVisual({
-  post,
+export function BlogItemVisual({
+  item,
   variant,
+  width,
+  height,
 }: {
-  post: BlogPost;
+  item: BlogItem;
   variant: "card" | "featured";
+  width?: number;
+  height?: number;
 }): ReactNode {
-  const imageUrl = useBaseUrl(post.previewImage ?? "");
+  const imageUrl = useBaseUrl(item.previewImage ?? "");
 
-  if (post.previewImage) {
+  if (item.previewImage) {
     return (
       <img
         className={cn(
@@ -94,21 +104,17 @@ export function PostVisual({
             "transition-transform duration-300 group-hover:scale-102",
         )}
         src={imageUrl}
-        alt={post.previewImageAlt ?? ""}
-        loading={variant === "card" ? "lazy" : undefined}
+        alt={item.previewImageAlt ?? ""}
+        width={width}
+        height={height}
+        loading={variant === "card" ? "lazy" : "eager"}
       />
     );
   }
 
   if (variant === "featured") {
     return (
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage:
-            "linear-gradient(180deg, rgb(26, 46, 47) 0%, rgb(74, 116, 119) 100%)",
-        }}
-      />
+      <div className="absolute inset-0 bg-linear-to-b from-db-navy-light to-grey-40" />
     );
   }
 

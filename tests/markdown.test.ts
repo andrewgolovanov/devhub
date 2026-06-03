@@ -1,8 +1,11 @@
+import matter from "gray-matter";
 import { describe, expect, test } from "vitest";
 import {
   composeTemplateAgentPrompt,
   getDetailMarkdown,
 } from "../api/content-markdown";
+import { buildNativeBlogMarkdown } from "../src/lib/blog/blog-markdown";
+import type { NativeBlogItem } from "../src/lib/blog/blog-items";
 
 describe("detail markdown resolver", () => {
   test("resolves docs markdown", () => {
@@ -13,6 +16,12 @@ describe("detail markdown resolver", () => {
 
   test("resolves solution markdown", () => {
     const markdown = getDetailMarkdown("solutions", "devhub-launch");
+    expect(markdown).toContain("Hello World, dev.databricks.com!");
+    expect(markdown).not.toMatch(/^# /m);
+  });
+
+  test("resolves blog markdown", () => {
+    const markdown = getDetailMarkdown("blog", "devhub-launch");
     expect(markdown).toContain("Hello World, dev.databricks.com!");
     expect(markdown).not.toMatch(/^# /m);
   });
@@ -52,6 +61,52 @@ describe("detail markdown resolver", () => {
     expect(frontmatter[1]).toMatch(
       /^url:\s+http:\/\/localhost:3001\/solutions\/devhub-launch$/m,
     );
+  });
+
+  test("blog markdown frontmatter is built from the registry", () => {
+    const markdown = getDetailMarkdown(
+      "blog",
+      "devhub-launch",
+      process.cwd(),
+      "https://dev.databricks.com",
+    );
+    const { data } = matter(markdown);
+    expect(data).toMatchObject({
+      title: "Introducing dev.databricks.com",
+      url: "https://dev.databricks.com/blog/devhub-launch",
+      publishedAt: "2026-04-14",
+      authors: [
+        {
+          name: "Andre Landgraf",
+          role: "Staff Developer Advocate, Databricks",
+        },
+      ],
+    });
+    expect(data.summary).toEqual(expect.any(String));
+  });
+
+  test("blog markdown strips existing source frontmatter before adding registry metadata", () => {
+    const item: NativeBlogItem = {
+      type: "native",
+      id: "mock-blog-entry",
+      title: "Registry title",
+      description: "Registry description",
+      tags: ["Updates"],
+      authors: ["andre-landgraf"],
+      publishedAt: "2026-04-14",
+      source: "DevHub",
+    };
+
+    const markdown = buildNativeBlogMarkdown(
+      "---\ntitle: Stale source title\n---\n\nBody",
+      item,
+      "https://dev.databricks.com/",
+    );
+    const { data, content } = matter(markdown);
+
+    expect(data.title).toBe("Registry title");
+    expect(data.url).toBe("https://dev.databricks.com/blog/mock-blog-entry");
+    expect(content.trim()).toBe("Body");
   });
 
   test("source .md file no longer carries its own frontmatter (registry is the source of truth)", () => {
@@ -172,6 +227,14 @@ describe("empty-slug index pages", () => {
     expect(markdown).toMatch(/\(\/solutions\/[\w-]+\.md\)/);
   });
 
+  test("blog index contains heading and blog item links", () => {
+    const markdown = getDetailMarkdown("blog", "");
+    expect(markdown).toContain("# Blog");
+    expect(markdown).toContain("/blog/devhub-launch.md");
+    expect(markdown).toContain("https://www.databricks.com/blog/");
+    expect(markdown).toContain("(Databricks Blog)");
+  });
+
   test("docs with empty slug throws", () => {
     expect(() => getDetailMarkdown("docs", "")).toThrow("Missing slug");
   });
@@ -290,5 +353,10 @@ describe("slug normalization strips .md extension", () => {
       "agentic-support-console.md",
     );
     expect(markdown).toContain("## Agentic Support Console");
+  });
+
+  test("blog slug with .md extension resolves", () => {
+    const markdown = getDetailMarkdown("blog", "devhub-launch.md");
+    expect(markdown).toContain("Hello World, dev.databricks.com!");
   });
 });

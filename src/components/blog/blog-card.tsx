@@ -1,80 +1,80 @@
 import type { ReactNode } from "react";
 import {
-  ArrowIcon,
-  PostLink,
-  PostVisual,
-  formatPostDate,
-} from "@/components/blog/listing/shared";
-import { isDatabricksBlogPost, type BlogPost } from "@/lib/blog/blog-posts";
+  BlogArrowIcon,
+  BlogItemLink,
+  BlogItemVisual,
+  formatBlogDate,
+} from "@/components/blog/blog-item-shared";
+import { isDatabricksBlogItem, type BlogItem } from "@/lib/blog/blog-items";
 
-function DatabricksBadge(): ReactNode {
+function BlogDatabricksBadge(): ReactNode {
   return (
-    <span className="inline-flex shrink-0 items-center gap-2 font-mono text-base leading-snug font-normal tracking-[-0.04em] text-orange">
+    <span className="inline-flex shrink-0 items-center gap-2 font-mono text-base leading-snug font-normal tracking-normal text-orange">
       <span>Databricks blog</span>
       <span
         className="relative size-3.5 shrink-0 overflow-visible"
         aria-hidden="true"
       >
         <span className="absolute top-[-0.081875rem] left-[-0.101875rem] flex h-[1.0745625rem] w-[1.0745625rem] items-center justify-center">
-          <ArrowIcon className="h-[0.9521875rem] w-[0.5675rem] rotate-45" />
+          <BlogArrowIcon className="h-[0.9521875rem] w-[0.5675rem] rotate-45" />
         </span>
       </span>
     </span>
   );
 }
 
-function CardMeta({ post }: { post: BlogPost }): ReactNode {
+function BlogCardMeta({ item }: { item: BlogItem }): ReactNode {
   return (
     <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
       <time
         className="shrink-0 font-mono text-base leading-none font-medium text-grey-60 uppercase"
-        dateTime={post.publishedAt}
+        dateTime={item.publishedAt}
       >
-        {formatPostDate(post.publishedAt)}
+        {formatBlogDate(item.publishedAt)}
       </time>
-      {isDatabricksBlogPost(post) ? <DatabricksBadge /> : null}
+      {isDatabricksBlogItem(item) ? <BlogDatabricksBadge /> : null}
     </div>
   );
 }
 
-function CardVisualLink({ post }: { post: BlogPost }): ReactNode {
+function BlogCardVisualLink({ item }: { item: BlogItem }): ReactNode {
   return (
-    <PostLink
+    <BlogItemLink
       className="group block no-underline outline-none focus-visible:ring-2 focus-visible:ring-db-cyan focus-visible:ring-offset-4 focus-visible:ring-offset-black"
-      post={post}
-      ariaLabel={`Read ${post.title}`}
+      item={item}
+      ariaLabel={`Read ${item.title}`}
     >
       <div className="relative aspect-490/257 overflow-hidden bg-grey-20">
-        <PostVisual post={post} variant="card" />
+        <BlogItemVisual item={item} variant="card" />
       </div>
-    </PostLink>
+    </BlogItemLink>
   );
 }
 
-function CardBody({ post }: { post: BlogPost }): ReactNode {
+function BlogCardBody({ item }: { item: BlogItem }): ReactNode {
   return (
     <div className="w-full max-w-105 pt-3">
-      <CardMeta post={post} />
+      <BlogCardMeta item={item} />
       <h2 className="m-0 mt-5 text-lg leading-tight font-normal tracking-[-0.04em] md:text-xl xl:text-2xl">
-        <PostLink
+        <BlogItemLink
           className="line-clamp-2 text-white no-underline outline-none transition-colors hover:text-white/80 hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-db-cyan"
-          post={post}
+          item={item}
         >
-          {post.title}
-        </PostLink>
+          {item.title}
+        </BlogItemLink>
       </h2>
       <p className="m-0 mt-1.5 line-clamp-3 text-base leading-6 tracking-[-0.04em] text-grey-60 md:mt-2 lg:mt-2.5 xl:mt-3">
-        {post.description}
+        {item.description}
       </p>
     </div>
   );
 }
 
-export function PostCard({ post }: { post: BlogPost }): ReactNode {
+export function BlogCard({ item }: { item: BlogItem }): ReactNode {
   return (
-    <article className="post-card h-full">
-      <CardVisualLink post={post} />
-      <CardBody post={post} />
+    <article className="h-full">
+      <BlogCardVisualLink item={item} />
+      <BlogCardBody item={item} />
     </article>
   );
 }

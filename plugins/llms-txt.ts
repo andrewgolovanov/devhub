@@ -3,6 +3,11 @@ import path from "path";
 import type { LoadContext, Plugin } from "@docusaurus/types";
 import { solutions, isLinkedSolution } from "../src/lib/solutions/solutions";
 import {
+  buildBlogItems,
+  getBlogItemHref,
+  isLinkedBlogItem,
+} from "../src/lib/blog/blog-items";
+import {
   cookbooks,
   recipesInOrder,
   examples,
@@ -223,6 +228,22 @@ export function generateLlmsTxt(baseUrl: string, docsDir: string): string {
     ...allTemplates.map(
       (t) => `- [${t.name}](${baseUrl}/templates/${t.id}.md): ${t.description}`,
     ),
+    "",
+  );
+
+  const allBlogItems = buildBlogItems(showDrafts());
+  lines.push(
+    "## Blog",
+    "",
+    `Developer-first articles for building on Databricks. Browse the blog at ${baseUrl}/blog.`,
+    "",
+    `- [All Blog Articles](${baseUrl}/blog.md): Browse all blog articles`,
+    ...allBlogItems.map((item) => {
+      if (isLinkedBlogItem(item)) {
+        return `- [${item.title}](${getBlogItemHref(item)}): ${item.description} (${item.source})`;
+      }
+      return `- [${item.title}](${baseUrl}/blog/${item.id}.md): ${item.description}`;
+    }),
     "",
   );
 
