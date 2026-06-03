@@ -77,7 +77,13 @@ const event: HackathonEvent = {
       title: "Ask questions",
       description:
         "Stuck? Join our hackathon Discord server to ask questions and get help!",
-      links: [{ label: "Join Discord", href: "#", external: true }],
+      links: [
+        {
+          label: "Join Discord",
+          href: "https://discord.com/invite/bedRGCjFq",
+          external: true,
+        },
+      ],
       Icon: MessageSquare,
     },
     {
