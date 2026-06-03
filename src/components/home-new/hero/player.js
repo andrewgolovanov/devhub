@@ -449,6 +449,7 @@
   const transparentGuidePixel =
     "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
   let logoWaveTimers = [];
+  const logoHoverSuppressionTimers = new Map();
   let terminalHoverCursor = null;
 
   const nativeSetRootStyleProperty = root.style.setProperty.bind(root.style);
@@ -3860,6 +3861,11 @@
   function clearLogoWaveTimers() {
     logoWaveTimers.forEach((timer) => window.clearTimeout(timer));
     logoWaveTimers = [];
+    logoHoverSuppressionTimers.forEach((timer, rect) => {
+      window.clearTimeout(timer);
+      rect.classList.remove("is-logo-hover-suppressed");
+    });
+    logoHoverSuppressionTimers.clear();
     logoWaveRects.forEach((rect) => {
       const state = getLogoRectWaveState(rect);
       state.wave.clear();
@@ -3881,6 +3887,27 @@
     );
 
     logoWaveTimers.push(timer);
+  }
+
+  function releaseLogoRectHoverSuppression(rect) {
+    window.clearTimeout(logoHoverSuppressionTimers.get(rect));
+    logoHoverSuppressionTimers.delete(rect);
+    rect.classList.remove("is-logo-hover-suppressed");
+  }
+
+  function suppressLogoRectHover(rect, duration) {
+    rect.classList.add("is-logo-hover-suppressed");
+    window.clearTimeout(logoHoverSuppressionTimers.get(rect));
+    const timer = window.setTimeout(
+      () => releaseLogoRectHoverSuppression(rect),
+      Math.max(0, duration),
+    );
+    logoHoverSuppressionTimers.set(rect, timer);
+    rect.addEventListener(
+      "pointerleave",
+      () => releaseLogoRectHoverSuppression(rect),
+      { once: true },
+    );
   }
 
   function getLogoRectWaveState(rect) {
@@ -3938,6 +3965,7 @@
     const sourceCenter = getSvgRectCenter(sourceRect);
     const waveCount = Math.max(1, Math.round(logoClickSettings.waveCount || 1));
     const waveGap = Math.max(0, logoClickSettings.waveGap || 0);
+    let waveDuration = 0;
 
     for (let waveIndex = 0; waveIndex < waveCount; waveIndex += 1) {
       const waveId = ++logoWaveInstanceId;
@@ -3953,6 +3981,7 @@
           waveOffset + Math.round(distance * logoClickSettings.waveSpread);
         const hold = logoClickSettings.waveHold;
         const tailHold = logoClickSettings.tailHold;
+        waveDuration = Math.max(waveDuration, delay + hold + tailHold);
 
         queueLogoWaveTimer(() => {
           setLogoRectWaveState(rect, "tail", waveId, false);
@@ -3977,6 +4006,8 @@
         );
       });
     }
+
+    suppressLogoRectHover(sourceRect, waveDuration + 50);
   }
 
   function setupLogoRectInteraction(svg) {

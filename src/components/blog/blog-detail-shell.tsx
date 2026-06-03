@@ -31,6 +31,8 @@ import {
 import { siteUrlFromConfig } from "@/lib/site-url";
 
 const blogComponents = { a: BaseUrlAnchor, pre: RecipePre };
+const BLOG_DETAIL_HERO_IMAGE_SIZE = { width: 832, height: 476 };
+const BLOG_READ_MORE_IMAGE_SIZE = { width: 383, height: 200 };
 
 function BlogCtaActions(): ReactNode {
   return (
@@ -63,7 +65,11 @@ function BlogCtaActions(): ReactNode {
 function BlogHeroMedia({ item }: { item: NativeBlogItem }): ReactNode {
   return (
     <div className="relative aspect-416/238 w-full overflow-hidden bg-grey-20 md:aspect-[832/476]">
-      <BlogItemVisual item={item} variant="featured" />
+      <BlogItemVisual
+        item={item}
+        variant="featured"
+        renderedSize={BLOG_DETAIL_HERO_IMAGE_SIZE}
+      />
     </div>
   );
 }
@@ -181,7 +187,11 @@ function BlogReadMore({ currentItem }: { currentItem: BlogItem }): ReactNode {
                   ariaLabel={`Read ${item.title}`}
                 >
                   <div className="relative aspect-[385/202] overflow-hidden border border-db-navy bg-db-oat-medium md:aspect-auto md:h-[12.625rem]">
-                    <BlogItemVisual item={item} variant="card" />
+                    <BlogItemVisual
+                      item={item}
+                      variant="card"
+                      renderedSize={BLOG_READ_MORE_IMAGE_SIZE}
+                    />
                   </div>
                 </BlogItemLink>
                 <div className="flex min-w-0 flex-col justify-between gap-2 md:h-[12.625rem]">

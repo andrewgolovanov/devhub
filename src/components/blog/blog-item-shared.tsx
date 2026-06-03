@@ -82,15 +82,19 @@ export function BlogItemLink({
   );
 }
 
-const BLOG_COVER_IMAGE_WIDTH = 1200;
-const BLOG_COVER_IMAGE_HEIGHT = 630;
+type BlogItemVisualRenderedSize = {
+  width: number;
+  height: number;
+};
 
 export function BlogItemVisual({
   item,
   variant,
+  renderedSize,
 }: {
   item: BlogItem;
   variant: "card" | "featured";
+  renderedSize?: BlogItemVisualRenderedSize;
 }): ReactNode {
   const imageUrl = useBaseUrl(item.previewImage ?? "");
 
@@ -104,8 +108,8 @@ export function BlogItemVisual({
         )}
         src={imageUrl}
         alt={item.previewImageAlt ?? ""}
-        width={BLOG_COVER_IMAGE_WIDTH}
-        height={BLOG_COVER_IMAGE_HEIGHT}
+        width={renderedSize?.width}
+        height={renderedSize?.height}
         loading={variant === "card" ? "lazy" : "eager"}
       />
     );

@@ -10,43 +10,17 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+import {
+  getActiveProductHref,
+  isHrefActive,
+  PRODUCT_LINKS,
+  type HeaderNavItem,
+} from "@/lib/header-navigation";
 import { cn } from "@/lib/utils";
-
-type HeaderNavItem = {
-  label: string;
-  href: string;
-};
 
 interface HeaderNavProps {
   className?: string;
   items: readonly HeaderNavItem[];
-}
-
-const PRODUCT_LINKS = [
-  { label: "Lakebase", href: "/product/data-lakehouse" },
-  { label: "AgentBricks", href: "/product/agent-bricks" },
-  { label: "Databricks Apps", href: "/product/databricks-apps" },
-] as const;
-
-function normalizePath(path: string) {
-  if (path === "/") return path;
-
-  return path.replace(/\/$/, "");
-}
-
-function isExternalHref(href: string) {
-  return /^https?:\/\//.test(href);
-}
-
-function isHrefActive(href: string, pathname: string) {
-  if (isExternalHref(href)) return false;
-
-  const hrefPath = normalizePath(href);
-  const currentPath = normalizePath(pathname);
-
-  return hrefPath === "/"
-    ? currentPath === "/"
-    : currentPath === hrefPath || currentPath.startsWith(`${hrefPath}/`);
 }
 
 function NavItemChrome({
@@ -79,9 +53,7 @@ function NavItemChrome({
 
 function Nav({ className, items }: HeaderNavProps) {
   const { pathname } = useLocation();
-  const activeProductHref = PRODUCT_LINKS.find(({ href }) =>
-    isHrefActive(href, pathname),
-  )?.href;
+  const activeProductHref = getActiveProductHref(pathname);
 
   return (
     <NavigationMenu

@@ -98,7 +98,7 @@ export function BlogIndexContent(): ReactNode {
 
   return (
     <main className="border-t border-white/10 bg-black text-white">
-      <div className="container px-4 py-16 md:pt-28 md:pb-24 2xl:px-0">
+      <div className="container px-5 py-16 md:px-8 md:pt-20 md:pb-24 lg:pt-24 xl:px-4 xl:pt-28 2xl:px-0">
         <div className="mx-auto max-w-384">
           <BlogHero />
           {featuredItem ? <BlogFeaturedItem item={featuredItem} /> : null}

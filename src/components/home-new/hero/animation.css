@@ -1254,9 +1254,11 @@
   stroke: var(--logo-main-color, #32323c);
 }
 
-.db-hero-animation-root .hero-logo-svg rect:hover {
-  fill: rgba(100, 101, 108, 1);
-  stroke: rgba(100, 101, 108, 1);
+.db-hero-animation-root
+  .hero-logo-svg
+  rect:not(.is-logo-hover-suppressed):hover {
+  fill: rgba(84, 85, 92, 1);
+  stroke: rgba(84, 85, 92, 1);
   opacity: var(--logo-wave-opacity, 1) !important;
   filter: none;
 }
