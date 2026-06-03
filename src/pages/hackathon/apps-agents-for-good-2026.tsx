@@ -117,7 +117,7 @@ const event: HackathonEvent = {
     },
   ],
   submission:
-    "Submit a Git repo. Be prepared to give a three-minute demo explaining the user, workflow, technical approach, and key tradeoffs.",
+    "Submit a Git repo and a description of your project. Be prepared to give a three-minute demo explaining the user, workflow, technical approach, and key tradeoffs.",
   submissionUrl: "https://dais-for-good-2026.devpost.com/",
   judgingIntro: "Submissions will be judged on four dimensions:",
   judgingCriteria: [
