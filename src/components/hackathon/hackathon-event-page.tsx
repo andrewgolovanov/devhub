@@ -1,12 +1,16 @@
 import Head from "@docusaurus/Head";
 import Link from "@docusaurus/Link";
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
 import {
   ArrowRight,
   ArrowUpRight,
   CalendarDays,
+  Database,
   HelpCircle,
+  Lock,
   MapPin,
+  Rocket,
   Trophy,
   Upload,
 } from "lucide-react";
@@ -52,7 +56,7 @@ type HackathonJudgingCriterion = {
 
 type HackathonFaqItem = {
   q: string;
-  a: string;
+  a: ReactNode;
 };
 
 export type HackathonEvent = {
@@ -66,9 +70,29 @@ export type HackathonEvent = {
   applyUrl: string;
   applyLabel?: string;
   applyNote?: ReactNode;
+  /**
+   * When true, the apply button is replaced with a non-interactive
+   * "registration closed" notice that shows `applyNote` as the reason.
+   */
+  registrationClosed?: boolean;
   resources: HackathonResource[];
+  /**
+   * Optional setup guide URL. When set, a "Set up Free Edition" callout is
+   * rendered above the resources grid.
+   */
+  setupGuideUrl?: string;
+  /**
+   * Optional marketplace listing for the event dataset. When set, an "Open in
+   * Databricks" button is rendered below the resources grid.
+   */
+  datasetUrl?: string;
   timeline: HackathonTimelineItem[];
   submission: ReactNode;
+  /**
+   * Optional URL where teams submit their project. When set, a "Submit your
+   * project" button is rendered in the Submission section.
+   */
+  submissionUrl?: string;
   judgingIntro?: ReactNode;
   judgingCriteria: HackathonJudgingCriterion[];
   faq: HackathonFaqItem[];
@@ -179,6 +203,71 @@ function ResourceCard({
   );
 }
 
+function OpenInDatabricksButton({ href }: { href: string }): ReactNode {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex shrink-0 items-center gap-1 rounded bg-db-lava px-2 py-1 text-sm leading-normal font-semibold whitespace-nowrap text-white no-underline transition-colors hover:bg-db-lava/90"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="14"
+        height="14"
+        viewBox="0 0 16 16"
+        fill="none"
+        aria-hidden
+        focusable={false}
+        className="shrink-0"
+      >
+        <path
+          fill="currentColor"
+          d="M10 1h5v5h-1.5V3.56L8.53 8.53 7.47 7.47l4.97-4.97H10z"
+        />
+        <path
+          fill="currentColor"
+          d="M1 2.75A.75.75 0 0 1 1.75 2H8v1.5H2.5v10h10V8H14v6.25a.75.75 0 0 1-.75.75H1.75a.75.75 0 0 1-.75-.75z"
+        />
+      </svg>
+      Open in Databricks
+    </a>
+  );
+}
+
+function ResourceCallout({
+  Icon,
+  title,
+  description,
+  className,
+  children,
+}: {
+  Icon: ComponentType<{ className?: string; "aria-hidden"?: boolean }>;
+  title: string;
+  description: ReactNode;
+  className?: string;
+  children: ReactNode;
+}): ReactNode {
+  return (
+    <div
+      className={`flex flex-col items-start gap-4 rounded-xl border border-black/10 bg-[#f7f6f4] p-6 sm:flex-row sm:items-center sm:justify-between dark:border-white/10 dark:bg-[#182a32] ${className ?? ""}`}
+    >
+      <div>
+        <div className="mb-1 flex items-center gap-2">
+          <Icon className="h-5 w-5 text-db-lava" aria-hidden />
+          <h3 className="m-0 text-lg font-medium text-black dark:text-white">
+            {title}
+          </h3>
+        </div>
+        <p className="m-0 text-[14px] leading-relaxed text-black/68 dark:text-white/68">
+          {description}
+        </p>
+      </div>
+      {children}
+    </div>
+  );
+}
+
 export function HackathonEventPage({
   event,
 }: {
@@ -191,6 +280,10 @@ export function HackathonEventPage({
   const applyLabel = event.applyLabel ?? "Apply";
   const judgingIntro =
     event.judgingIntro ?? "Submissions will be judged on the following:";
+  const { siteConfig } = useDocusaurusContext();
+  const showHackathonDataset = Boolean(
+    (siteConfig.customFields as Record<string, unknown>).showHackathonDataset,
+  );
 
   return (
     <Layout title={metaTitle} description={metaDescription}>
@@ -235,17 +328,24 @@ export function HackathonEventPage({
               </p>
             )}
             <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center">
-              <a
-                href={event.applyUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-db-lava px-5 py-2 text-sm font-semibold text-white no-underline transition-colors hover:bg-db-lava/90"
-              >
-                {applyLabel}
-                <ArrowUpRight aria-hidden className="h-4 w-4" />
-              </a>
+              {event.registrationClosed ? (
+                <p className="m-0 flex items-center gap-2 rounded-lg border border-black/10 bg-black/4 px-4 py-2.5 text-sm font-medium text-black/70 dark:border-white/10 dark:bg-white/6 dark:text-white/70">
+                  <Lock aria-hidden className="h-4 w-4 shrink-0 text-db-lava" />
+                  {event.applyNote}
+                </p>
+              ) : (
+                <a
+                  href={event.applyUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full bg-db-lava px-5 py-2 text-sm font-semibold text-white no-underline transition-colors hover:bg-db-lava/90"
+                >
+                  {applyLabel}
+                  <ArrowUpRight aria-hidden className="h-4 w-4" />
+                </a>
+              )}
             </div>
-            {event.applyNote && (
+            {event.applyNote && !event.registrationClosed && (
               <p className="mt-3 text-xs text-black/50 dark:text-white/50">
                 {event.applyNote}
               </p>
@@ -258,11 +358,40 @@ export function HackathonEventPage({
             <h2 className="mb-6 text-2xl font-medium text-black dark:text-white">
               Resources
             </h2>
+            {event.setupGuideUrl && (
+              <ResourceCallout
+                Icon={Rocket}
+                title="Set up Free Edition"
+                description="Create a Databricks Free Edition workspace and get your team set up to build and demo."
+                className="mb-4"
+              >
+                <Link
+                  to={event.setupGuideUrl}
+                  className="group inline-flex shrink-0 items-center gap-1 text-sm font-medium text-db-lava no-underline hover:underline"
+                >
+                  Read the setup guide
+                  <ArrowRight
+                    aria-hidden
+                    className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5"
+                  />
+                </Link>
+              </ResourceCallout>
+            )}
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               {event.resources.map((resource) => (
                 <ResourceCard key={resource.title} resource={resource} />
               ))}
             </div>
+            {event.datasetUrl && showHackathonDataset && (
+              <ResourceCallout
+                Icon={Database}
+                title="Hackathon dataset"
+                description="Add the hackathon dataset to your Databricks workspace to start building with it."
+                className="mt-4"
+              >
+                <OpenInDatabricksButton href={event.datasetUrl} />
+              </ResourceCallout>
+            )}
           </div>
         </section>
 
@@ -302,6 +431,17 @@ export function HackathonEventPage({
             <div className="m-0 text-base text-black/68 dark:text-white/68">
               {event.submission}
             </div>
+            {event.submissionUrl && (
+              <a
+                href={event.submissionUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-flex items-center gap-2 rounded-full bg-db-lava px-5 py-2 text-sm font-semibold text-white no-underline transition-colors hover:bg-db-lava/90"
+              >
+                Submit your project
+                <ArrowUpRight aria-hidden className="h-4 w-4" />
+              </a>
+            )}
           </div>
         </section>
 

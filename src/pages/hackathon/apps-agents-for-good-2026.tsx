@@ -1,3 +1,4 @@
+import Link from "@docusaurus/Link";
 import {
   BookOpen,
   FileText,
@@ -28,13 +29,9 @@ const event: HackathonEvent = {
   applyUrl:
     "https://events.mlh.com/events/13878-databricks-apps-agents-hackathon-for-good",
   applyLabel: "Apply on MLH",
-  applyNote: (
-    <>
-      Applications close Sunday, May 31, 2026 &middot; 11:59pm PT. Apply in
-      teams of 2&ndash;4 &mdash; every teammate must be registered for Data + AI
-      Summit 2026.
-    </>
-  ),
+  applyNote:
+    "Registration is now closed. The hackathon is open only to Data + AI Summit 2026 attendees.",
+  registrationClosed: true,
   tagline:
     "The Databricks Apps & Agents for Good Hackathon 2026 is a multi-day competition hosted in partnership with OpenAI, bringing developers together to drive meaningful change. This year's hackathon challenges teams to build powerful agentic data apps for social impact using Lakebase, Agent Bricks, and Databricks Apps.",
   taglineSecondary:
@@ -43,9 +40,12 @@ const event: HackathonEvent = {
     "Apps & Agents for Good Hackathon \u2014 Databricks Data + AI Summit 2026",
   metaDescription:
     "Databricks Apps & Agents for Good Hackathon at Data + AI Summit 2026 \u2014 schedule, resources, and how to apply.",
+  setupGuideUrl: "/hackathon/free-edition-setup",
+  datasetUrl:
+    "https://login.databricks.com/signup?intent=SIGN_UP&destination_url=%2Fmarketplace%2Fconsumer%2Flistings%2Fed6cf259-81e7-4758-94c5-b444f8a5275a%3FshowModal%3Dtrue&utm_source=open-in-databricks&utm_medium=marketplace&utm_campaign=wanderbricks-test",
   resources: [
     {
-      title: "Get started",
+      title: "Read the Docs",
       description: (
         <>
           <p className="m-0">
@@ -53,17 +53,16 @@ const event: HackathonEvent = {
             start building your app.
           </p>
           <p className="mt-2 mb-0">
-            We suggest reading the following pages before you start hacking:
+            We highly suggest reading the following pages before you start
+            hacking:
           </p>
         </>
       ),
       links: [
         { label: "Start here", href: "/docs/start-here" },
         { label: "Platform overview", href: "/docs/platform-overview" },
-        {
-          label: "Set up your environment",
-          href: "/docs/tools/databricks-cli",
-        },
+        { label: "Databricks CLI", href: "/docs/tools/databricks-cli" },
+        { label: "Agent skills", href: "/docs/tools/ai-tools/agent-skills" },
       ],
       Icon: BookOpen,
     },
@@ -85,7 +84,13 @@ const event: HackathonEvent = {
       title: "Official rules",
       description:
         "Eligibility, team requirements, IP, and judging rules for the hackathon.",
-      links: [{ label: "Read the rules", href: "#", external: true }],
+      links: [
+        {
+          label: "Read the rules",
+          href: "https://bit.ly/4d0Gj7w",
+          external: true,
+        },
+      ],
       Icon: FileText,
     },
   ],
@@ -99,27 +104,22 @@ const event: HackathonEvent = {
       label: "Opening + hacking begins",
       date: "June 15, 2026 \u00b7 8:00am\u20134:00pm PT",
       detail:
-        "Opening ceremony and kickoff at Marriott Marquis, San Francisco.",
+        "A full day of hacking, kicking off with the opening ceremony at Marriott Marquis, San Francisco.",
     },
     {
       label: "Hacker's Corner (optional)",
       date: "June 16, 2026 \u00b7 11:00am\u20135:00pm PT",
-      detail: "Open collaboration space.",
+      detail: "Open collaboration space with mentors on hand to help.",
     },
     {
       label: "Judging + awards",
       date: "June 16, 2026 \u00b7 6:00pm\u20139:00pm PT",
       detail: "Live judging, followed by the awards ceremony.",
     },
-    {
-      label: "Winners showcase",
-      date: "June 17, 2026",
-      detail:
-        "Winning teams and selected projects presented at Hacker's Corner for Data + AI Summit attendees.",
-    },
   ],
   submission:
-    "Submit a Git repo and a live Databricks App. Be prepared to give a three-minute demo explaining the user, workflow, technical approach, and key tradeoffs.",
+    "Submit a Git repo and a description of your project. Be prepared to give a three-minute demo explaining the user, workflow, technical approach, and key tradeoffs.",
+  submissionUrl: "https://dais-for-good-2026.devpost.com/",
   judgingIntro: "Submissions will be judged on four dimensions:",
   judgingCriteria: [
     {
@@ -162,6 +162,23 @@ const event: HackathonEvent = {
     {
       q: "What if I'm new to Databricks?",
       a: 'Start with the "Start here" docs and copy one of the templates as a prompt for your coding agent \u2014 it will scaffold a working app and walk you through the rest.',
+    },
+    {
+      q: "Which Databricks account should I use?",
+      a: (
+        <>
+          Use a personal Databricks Free Edition account, not your work or
+          enterprise account. Building and demoing on Free Edition keeps every
+          team on the same playing field &mdash; see the{" "}
+          <Link
+            to="/hackathon/free-edition-setup"
+            className="font-medium text-db-lava underline underline-offset-2 hover:text-db-lava-dark"
+          >
+            Free Edition setup guide
+          </Link>{" "}
+          to get set up.
+        </>
+      ),
     },
   ],
 };
