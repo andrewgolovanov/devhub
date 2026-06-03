@@ -122,7 +122,7 @@ const steps: SetupStep[] = [
   },
 ];
 
-const faqs: { q: string; a: string }[] = [
+const faqs: { q: string; a: ReactNode }[] = [
   {
     q: "Can I use my company or enterprise Databricks account?",
     a: "Please don't. Use Free Edition so every team is working under the same platform constraints.",
@@ -141,7 +141,22 @@ const faqs: { q: string; a: string }[] = [
   },
   {
     q: "What if I use up my Free Edition credits or quota?",
-    a: "While the default credit limits are generous, we can add credits if needed. If you hit a limit during the hackathon, simply post your account ID in the #get-databricks-credits Discord channel.",
+    a: (
+      <>
+        While the default credit limits are generous, we can add credits if
+        needed. If you hit a limit during the hackathon, simply post your
+        account ID in the #get-databricks-credits{" "}
+        <a
+          href="https://discord.com/invite/bedRGCjFq"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={inlineLink}
+        >
+          Discord
+        </a>{" "}
+        channel.
+      </>
+    ),
   },
   {
     q: "What limits should I expect?",
