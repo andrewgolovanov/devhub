@@ -141,7 +141,7 @@ const faqs: { q: string; a: string }[] = [
   },
   {
     q: "What if I use up my Free Edition credits or quota?",
-    a: "We expect to have a process for refilling hackathon credits. Details will be shared before or during the event.",
+    a: "While the default credit limits are generous, we can add credits if needed. If you hit a limit during the hackathon, simply post your account ID in the #get-databricks-credits Discord channel.",
   },
   {
     q: "What limits should I expect?",
