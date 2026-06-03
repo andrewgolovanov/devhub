@@ -268,8 +268,9 @@ test.describe("copy markdown exports raw markdown on blog pages", () => {
       path: "/blog/devhub-launch",
       expectedFragments: [
         "**dev.databricks.com**",
-        'title: "Introducing dev.databricks.com"',
-        "publishedAt: 2026-04-14",
+        "title: Introducing dev.databricks.com",
+        "publishedAt:",
+        "2026-04-14",
         "name: Andre Landgraf",
       ],
     });

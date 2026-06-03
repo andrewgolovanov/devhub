@@ -1,8 +1,11 @@
+import matter from "gray-matter";
 import { describe, expect, test } from "vitest";
 import {
   composeTemplateAgentPrompt,
   getDetailMarkdown,
 } from "../api/content-markdown";
+import { buildNativeBlogMarkdown } from "../src/lib/blog/blog-markdown";
+import type { NativeBlogItem } from "../src/lib/blog/blog-items";
 
 describe("detail markdown resolver", () => {
   test("resolves docs markdown", () => {
@@ -67,19 +70,43 @@ describe("detail markdown resolver", () => {
       process.cwd(),
       "https://dev.databricks.com",
     );
-    const frontmatter = markdown.match(/^---\n([\s\S]*?)\n---/);
-    expect(frontmatter).not.toBeNull();
-    if (!frontmatter) return;
-    const block = frontmatter[1];
-    expect(block).toMatch(/^title:\s+"Introducing dev\.databricks\.com"$/m);
-    expect(block).toMatch(
-      /^url:\s+https:\/\/dev\.databricks\.com\/blog\/devhub-launch$/m,
+    const { data } = matter(markdown);
+    expect(data).toMatchObject({
+      title: "Introducing dev.databricks.com",
+      url: "https://dev.databricks.com/blog/devhub-launch",
+      publishedAt: "2026-04-14",
+      authors: [
+        {
+          name: "Andre Landgraf",
+          role: "Staff Developer Advocate, Databricks",
+        },
+      ],
+    });
+    expect(data.summary).toEqual(expect.any(String));
+  });
+
+  test("blog markdown strips existing source frontmatter before adding registry metadata", () => {
+    const item: NativeBlogItem = {
+      type: "native",
+      id: "mock-blog-entry",
+      title: "Registry title",
+      description: "Registry description",
+      tags: ["Updates"],
+      authors: ["andre-landgraf"],
+      publishedAt: "2026-04-14",
+      source: "DevHub",
+    };
+
+    const markdown = buildNativeBlogMarkdown(
+      "---\ntitle: Stale source title\n---\n\nBody",
+      item,
+      "https://dev.databricks.com/",
     );
-    expect(block).toMatch(/^summary:\s+".+"$/m);
-    expect(block).toMatch(/^publishedAt:\s*2026-04-14$/m);
-    expect(block).toMatch(/^authors:$/m);
-    expect(block).toContain("name: Andre Landgraf");
-    expect(block).toContain("role: Staff Developer Advocate, Databricks");
+    const { data, content } = matter(markdown);
+
+    expect(data.title).toBe("Registry title");
+    expect(data.url).toBe("https://dev.databricks.com/blog/mock-blog-entry");
+    expect(content.trim()).toBe("Body");
   });
 
   test("source .md file no longer carries its own frontmatter (registry is the source of truth)", () => {

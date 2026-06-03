@@ -337,7 +337,7 @@ describe("production build smoke tests", () => {
       'title: "Introducing DevHub"',
     );
     expect(readBuildFile("blog/devhub-launch.md")).toContain(
-      'title: "Introducing dev.databricks.com"',
+      "title: Introducing dev.databricks.com",
     );
     expect(readBuildFile("templates/ai-chat-app.md")).toContain(
       "# About DevHub",

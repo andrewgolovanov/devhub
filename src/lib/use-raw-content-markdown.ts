@@ -33,14 +33,6 @@ export function useRawSolutionMarkdown(slug: string): string | undefined {
   return data.rawMarkdownBySlug[slug];
 }
 
-export function useRawBlogMarkdown(slug: string): string | undefined {
-  const data = usePluginData(
-    "docusaurus-plugin-content-entries",
-    "blog",
-  ) as ContentEntriesGlobalData;
-  return data.rawMarkdownBySlug[slug];
-}
-
 type CookbooksGlobalData = {
   introsBySlug: Record<string, string>;
 };

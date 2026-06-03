@@ -3,6 +3,9 @@ import type { ReactNode } from "react";
 import type { BlogAuthor } from "@/lib/blog/authors";
 import { cn } from "@/lib/utils";
 
+const BLOG_AUTHOR_AVATAR_COMPACT_SIZE = 28;
+const BLOG_AUTHOR_AVATAR_SIZE = 40;
+
 function BlogAuthorAvatar({
   author,
   compact,
@@ -11,11 +14,17 @@ function BlogAuthorAvatar({
   compact: boolean;
 }): ReactNode {
   const photoSrc = useBaseUrl(author.photo);
+  const avatarSize = compact
+    ? BLOG_AUTHOR_AVATAR_COMPACT_SIZE
+    : BLOG_AUTHOR_AVATAR_SIZE;
+
   return (
     <img
       src={photoSrc}
       alt={author.name}
-      loading="lazy"
+      width={avatarSize}
+      height={avatarSize}
+      loading="eager"
       className={cn(
         "rounded-full object-cover",
         compact ? "size-7 ring-2 ring-black" : "size-10 ring-1 ring-white/15",

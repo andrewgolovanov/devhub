@@ -23,14 +23,12 @@ import { Toc } from "@/components/templates/toc";
 import { BrandStrip } from "@/components/ui/brand-strip";
 import { Button } from "@/components/ui/button";
 import { getBlogAuthor, type BlogAuthor } from "@/lib/blog/authors";
-import { buildNativeBlogMarkdown } from "@/lib/blog/blog-markdown";
 import {
   buildBlogItems,
   type BlogItem,
   type NativeBlogItem,
 } from "@/lib/blog/blog-items";
 import { siteUrlFromConfig } from "@/lib/site-url";
-import { useRawBlogMarkdown } from "@/lib/use-raw-content-markdown";
 
 const blogComponents = { a: BaseUrlAnchor, pre: RecipePre };
 
@@ -86,11 +84,11 @@ function BlogBackLink(): ReactNode {
 function BlogDetailHeader({
   item,
   authors,
-  rawMarkdown,
+  rawMarkdownUrl,
 }: {
   item: NativeBlogItem;
   authors: BlogAuthor[];
-  rawMarkdown?: string;
+  rawMarkdownUrl: string;
 }): ReactNode {
   return (
     <header className="max-w-208">
@@ -116,7 +114,7 @@ function BlogDetailHeader({
         <AIExportMenu
           appearance="article"
           kind="blog"
-          rawMarkdown={rawMarkdown}
+          rawMarkdownUrl={rawMarkdownUrl}
           title={item.title}
           description={item.description}
           permalink={`/blog/${item.id}`}
@@ -142,7 +140,7 @@ function BlogDetailRail({ toc }: { toc: ReactNode }): ReactNode {
 function BlogReadMoreArrowIcon(): ReactNode {
   return (
     <span
-      className="relative size-[1.125rem] shrink-0 overflow-visible transition-transform group-hover/link:translate-x-1"
+      className="relative size-[1.125rem] shrink-0 overflow-visible transition-transform duration-200 ease-out group-hover/link:translate-x-1"
       aria-hidden="true"
     >
       <span className="absolute top-[-0.014375rem] left-[-0.130625rem] flex size-[1.3816875rem] items-center justify-center">
@@ -166,7 +164,7 @@ function BlogReadMore({ currentItem }: { currentItem: BlogItem }): ReactNode {
   return (
     <>
       <BrandStrip />
-      <section className="bg-white px-5 py-24 font-sans text-black md:px-8 lg:px-0 lg:pb-60">
+      <section className="bg-db-oat-light px-5 py-24 font-sans text-black md:px-8 lg:px-0 lg:pb-60">
         <div className="mx-auto w-full max-w-208">
           <h2 className="m-0 text-[2.25rem]/[1.125] font-normal tracking-[-0.09rem] text-black wrap-break-word">
             Read more
@@ -178,7 +176,7 @@ function BlogReadMore({ currentItem }: { currentItem: BlogItem }): ReactNode {
                 className="grid gap-6 md:min-h-[12.625rem] md:grid-cols-[minmax(0,24.0625rem)_minmax(0,1fr)] md:gap-[1.625rem]"
               >
                 <BlogItemLink
-                  className="group block self-end no-underline outline-none focus-visible:ring-2 focus-visible:ring-db-cyan focus-visible:ring-offset-4 focus-visible:ring-offset-white"
+                  className="group block self-end no-underline outline-none focus-visible:ring-2 focus-visible:ring-db-cyan focus-visible:ring-offset-4 focus-visible:ring-offset-db-oat-light"
                   item={item}
                   ariaLabel={`Read ${item.title}`}
                 >
@@ -232,16 +230,10 @@ export function BlogDetail({
   children: ReactNode;
 }): ReactNode {
   const contentRef = useRef<HTMLDivElement>(null);
-  const rawMarkdown = useRawBlogMarkdown(item.id);
   const { siteConfig } = useDocusaurusContext();
   const siteUrl = siteUrlFromConfig(siteConfig.url, siteConfig.baseUrl);
   const pageUrl = `${siteUrl}/blog/${item.id}`;
   const authors = item.authors.map(getBlogAuthor);
-  const articleMarkdown = buildNativeBlogMarkdown(
-    rawMarkdown ?? "",
-    item,
-    siteUrl,
-  );
 
   return (
     <Layout title={item.title} description={item.description} noFooter>
@@ -273,7 +265,7 @@ export function BlogDetail({
                 <BlogDetailHeader
                   item={item}
                   authors={authors}
-                  rawMarkdown={articleMarkdown}
+                  rawMarkdownUrl={`/blog/${item.id}.md`}
                 />
 
                 <div className="mt-5">
@@ -286,9 +278,7 @@ export function BlogDetail({
                     ref={contentRef}
                   >
                     <MDXProvider components={blogComponents}>
-                      <MarkdownProse variant="dark" as="article">
-                        {children}
-                      </MarkdownProse>
+                      <MarkdownProse variant="dark">{children}</MarkdownProse>
                     </MDXProvider>
                   </div>
                 </div>

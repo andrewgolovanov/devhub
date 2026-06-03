@@ -82,6 +82,9 @@ export function BlogItemLink({
   );
 }
 
+const BLOG_COVER_IMAGE_WIDTH = 1200;
+const BLOG_COVER_IMAGE_HEIGHT = 630;
+
 export function BlogItemVisual({
   item,
   variant,
@@ -101,7 +104,9 @@ export function BlogItemVisual({
         )}
         src={imageUrl}
         alt={item.previewImageAlt ?? ""}
-        loading={variant === "card" ? "lazy" : undefined}
+        width={BLOG_COVER_IMAGE_WIDTH}
+        height={BLOG_COVER_IMAGE_HEIGHT}
+        loading={variant === "card" ? "lazy" : "eager"}
       />
     );
   }

@@ -1,3 +1,4 @@
+import matter from "gray-matter";
 import { describe, expect, test } from "vitest";
 import handler from "../api/markdown";
 import { resolveSiteUrlForRequest } from "../src/lib/site-url";
@@ -162,10 +163,10 @@ describe("/api/markdown about-devhub preamble policy", () => {
       host,
     });
     expect(result.statusCode).toBe(200);
-    expect(result.body).toContain(
-      `url: ${resolveSiteUrlForRequest(host)}/blog/devhub-launch`,
+    const { data } = matter(result.body);
+    expect(data.url).toBe(
+      `${resolveSiteUrlForRequest(host)}/blog/devhub-launch`,
     );
-    expect(result.body).not.toMatch(/^url:\s+\/blog\//m);
   });
 
   test("solutions index does NOT include the preamble", () => {
