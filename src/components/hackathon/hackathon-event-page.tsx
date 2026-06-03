@@ -81,6 +81,11 @@ export type HackathonEvent = {
   datasetUrl?: string;
   timeline: HackathonTimelineItem[];
   submission: ReactNode;
+  /**
+   * Optional URL where teams submit their project. When set, a "Submit your
+   * project" button is rendered in the Submission section.
+   */
+  submissionUrl?: string;
   judgingIntro?: ReactNode;
   judgingCriteria: HackathonJudgingCriterion[];
   faq: HackathonFaqItem[];
@@ -370,6 +375,17 @@ export function HackathonEventPage({
             <div className="m-0 text-base text-black/68 dark:text-white/68">
               {event.submission}
             </div>
+            {event.submissionUrl && (
+              <a
+                href={event.submissionUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-flex items-center gap-2 rounded-full bg-db-lava px-5 py-2 text-sm font-semibold text-white no-underline transition-colors hover:bg-db-lava/90"
+              >
+                Submit your project
+                <ArrowUpRight aria-hidden className="h-4 w-4" />
+              </a>
+            )}
           </div>
         </section>
 
