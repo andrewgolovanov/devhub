@@ -31,8 +31,6 @@ import {
 import { siteUrlFromConfig } from "@/lib/site-url";
 
 const blogComponents = { a: BaseUrlAnchor, pre: RecipePre };
-const BLOG_DETAIL_HERO_IMAGE_SIZE = { width: 832, height: 476 };
-const BLOG_READ_MORE_IMAGE_SIZE = { width: 383, height: 200 };
 
 function BlogCtaActions(): ReactNode {
   return (
@@ -65,11 +63,7 @@ function BlogCtaActions(): ReactNode {
 function BlogHeroMedia({ item }: { item: NativeBlogItem }): ReactNode {
   return (
     <div className="relative aspect-416/238 w-full overflow-hidden bg-grey-20 md:aspect-[832/476]">
-      <BlogItemVisual
-        item={item}
-        variant="featured"
-        renderedSize={BLOG_DETAIL_HERO_IMAGE_SIZE}
-      />
+      <BlogItemVisual item={item} variant="featured" width={832} height={476} />
     </div>
   );
 }
@@ -190,7 +184,8 @@ function BlogReadMore({ currentItem }: { currentItem: BlogItem }): ReactNode {
                     <BlogItemVisual
                       item={item}
                       variant="card"
-                      renderedSize={BLOG_READ_MORE_IMAGE_SIZE}
+                      width={383}
+                      height={200}
                     />
                   </div>
                 </BlogItemLink>

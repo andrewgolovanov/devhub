@@ -82,19 +82,16 @@ export function BlogItemLink({
   );
 }
 
-type BlogItemVisualRenderedSize = {
-  width: number;
-  height: number;
-};
-
 export function BlogItemVisual({
   item,
   variant,
-  renderedSize,
+  width,
+  height,
 }: {
   item: BlogItem;
   variant: "card" | "featured";
-  renderedSize?: BlogItemVisualRenderedSize;
+  width?: number;
+  height?: number;
 }): ReactNode {
   const imageUrl = useBaseUrl(item.previewImage ?? "");
 
@@ -108,8 +105,8 @@ export function BlogItemVisual({
         )}
         src={imageUrl}
         alt={item.previewImageAlt ?? ""}
-        width={renderedSize?.width}
-        height={renderedSize?.height}
+        width={width}
+        height={height}
         loading={variant === "card" ? "lazy" : "eager"}
       />
     );
