@@ -83,7 +83,13 @@ const event: HackathonEvent = {
       title: "Official rules",
       description:
         "Eligibility, team requirements, IP, and judging rules for the hackathon.",
-      links: [{ label: "Read the rules", href: "#", external: true }],
+      links: [
+        {
+          label: "Read the rules",
+          href: "https://bit.ly/4d0Gj7w",
+          external: true,
+        },
+      ],
       Icon: FileText,
     },
   ],
