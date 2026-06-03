@@ -1,5 +1,6 @@
 import Head from "@docusaurus/Head";
 import Link from "@docusaurus/Link";
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
 import {
   ArrowRight,
@@ -279,6 +280,10 @@ export function HackathonEventPage({
   const applyLabel = event.applyLabel ?? "Apply";
   const judgingIntro =
     event.judgingIntro ?? "Submissions will be judged on the following:";
+  const { siteConfig } = useDocusaurusContext();
+  const showHackathonDataset = Boolean(
+    (siteConfig.customFields as Record<string, unknown>).showHackathonDataset,
+  );
 
   return (
     <Layout title={metaTitle} description={metaDescription}>
@@ -377,7 +382,7 @@ export function HackathonEventPage({
                 <ResourceCard key={resource.title} resource={resource} />
               ))}
             </div>
-            {event.datasetUrl && (
+            {event.datasetUrl && showHackathonDataset && (
               <ResourceCallout
                 Icon={Database}
                 title="Hackathon dataset"

@@ -34,6 +34,9 @@ const config: Config = {
     // Slug of the active hackathon event. `/hackathon` redirects here and the
     // announcement banner links to it. See src/lib/hackathon-banner-server.ts.
     hackathonEventSlug: process.env.HACKATHON_EVENT_SLUG,
+    // When "true", the hackathon dataset card is shown in the event Resources
+    // section. Defaults to hidden.
+    showHackathonDataset: process.env.HACKATHON_SHOW_DATASET === "true",
   },
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
