@@ -7,6 +7,7 @@ import {
   CalendarDays,
   Database,
   HelpCircle,
+  Lock,
   MapPin,
   Trophy,
   Upload,
@@ -67,6 +68,11 @@ export type HackathonEvent = {
   applyUrl: string;
   applyLabel?: string;
   applyNote?: ReactNode;
+  /**
+   * When true, the apply button is replaced with a non-interactive
+   * "registration closed" notice that shows `applyNote` as the reason.
+   */
+  registrationClosed?: boolean;
   resources: HackathonResource[];
   /**
    * Optional marketplace listing for the event dataset. When set, an "Open in
@@ -273,17 +279,24 @@ export function HackathonEventPage({
               </p>
             )}
             <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center">
-              <a
-                href={event.applyUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-db-lava px-5 py-2 text-sm font-semibold text-white no-underline transition-colors hover:bg-db-lava/90"
-              >
-                {applyLabel}
-                <ArrowUpRight aria-hidden className="h-4 w-4" />
-              </a>
+              {event.registrationClosed ? (
+                <p className="m-0 flex items-center gap-2 rounded-lg border border-black/10 bg-black/4 px-4 py-2.5 text-sm font-medium text-black/70 dark:border-white/10 dark:bg-white/6 dark:text-white/70">
+                  <Lock aria-hidden className="h-4 w-4 shrink-0 text-db-lava" />
+                  {event.applyNote}
+                </p>
+              ) : (
+                <a
+                  href={event.applyUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full bg-db-lava px-5 py-2 text-sm font-semibold text-white no-underline transition-colors hover:bg-db-lava/90"
+                >
+                  {applyLabel}
+                  <ArrowUpRight aria-hidden className="h-4 w-4" />
+                </a>
+              )}
             </div>
-            {event.applyNote && (
+            {event.applyNote && !event.registrationClosed && (
               <p className="mt-3 text-xs text-black/50 dark:text-white/50">
                 {event.applyNote}
               </p>

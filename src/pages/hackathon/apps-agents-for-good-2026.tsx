@@ -28,13 +28,9 @@ const event: HackathonEvent = {
   applyUrl:
     "https://events.mlh.com/events/13878-databricks-apps-agents-hackathon-for-good",
   applyLabel: "Apply on MLH",
-  applyNote: (
-    <>
-      Applications close Sunday, May 31, 2026 &middot; 11:59pm PT. Apply in
-      teams of 2&ndash;4 &mdash; every teammate must be registered for Data + AI
-      Summit 2026.
-    </>
-  ),
+  applyNote:
+    "Registration is now closed. The hackathon is open only to Data + AI Summit 2026 attendees.",
+  registrationClosed: true,
   tagline:
     "The Databricks Apps & Agents for Good Hackathon 2026 is a multi-day competition hosted in partnership with OpenAI, bringing developers together to drive meaningful change. This year's hackathon challenges teams to build powerful agentic data apps for social impact using Lakebase, Agent Bricks, and Databricks Apps.",
   taglineSecondary:
