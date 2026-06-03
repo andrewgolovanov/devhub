@@ -1,5 +1,5 @@
-import { getBlogAuthor } from "@/lib/blog/authors";
-import type { NativeBlogItem } from "@/lib/blog/blog-items";
+import { getBlogAuthor } from "./authors";
+import type { NativeBlogItem } from "./blog-items";
 
 const FRONTMATTER_PATTERN = /^---\n[\s\S]*?\n---\n?/;
 

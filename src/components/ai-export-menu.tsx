@@ -42,7 +42,8 @@ export function AIExportMenu({
   disabledTooltip = "select a template to copy",
   ...input
 }: AIExportMenuProps) {
-  const { buildAIMarkdown, ensureFetched } = useAgentMarkdown(input);
+  const { mcpUrl, markdownUrl, buildAIMarkdown, ensureFetched } =
+    useAgentMarkdown(input);
   const isArticle = appearance === "article";
   const triggerLabel = isArticle ? "Copy Article" : "Copy as";
   const triggerClassName = isArticle
@@ -60,6 +61,29 @@ export function AIExportMenu({
       toast.error("Failed to copy markdown");
     }
   }, [ensureFetched, buildAIMarkdown]);
+
+  const handleViewRawMarkdown = useCallback(() => {
+    window.open(markdownUrl, "_blank", "noopener,noreferrer");
+  }, [markdownUrl]);
+
+  const handleCopyMCP = useCallback(async () => {
+    const mcpConfig = JSON.stringify(
+      {
+        mcpServers: {
+          "databricks-devhub": { url: mcpUrl },
+        },
+      },
+      null,
+      2,
+    );
+
+    try {
+      await navigator.clipboard.writeText(mcpConfig);
+      toast.success("MCP config copied");
+    } catch {
+      toast.error("Failed to copy MCP config");
+    }
+  }, [mcpUrl]);
 
   if (disabled) {
     return (
@@ -126,7 +150,7 @@ export function AIExportMenu({
           </DropdownMenuItem>
           <DropdownMenuItem
             className={isArticle ? articleMenuItemClassName : undefined}
-            disabled
+            onSelect={handleViewRawMarkdown}
           >
             <CodeIcon className={articleIconClassName} aria-hidden="true" />
             View Raw Markdown
@@ -138,7 +162,7 @@ export function AIExportMenu({
             isArticle ? articleMenuItemClassName : undefined,
             isArticle ? "mx-4 my-[0.9375rem]" : undefined,
           )}
-          disabled
+          onSelect={handleCopyMCP}
         >
           <ServerIcon className={articleIconClassName} aria-hidden="true" />
           Connect to MCP Server

@@ -52,7 +52,7 @@ async function expectCopyMarkdownWithoutPreamble({
   expectedFragments: string[];
 }) {
   await setupClipboardMock(page);
-  await page.goto(path);
+  await page.goto(path, { waitUntil: "domcontentloaded" });
 
   await clickCopyMarkdownAndWaitForToast(page);
 
@@ -221,6 +221,42 @@ test.describe("copy markdown exports raw markdown on solution pages", () => {
       ],
     });
   });
+
+  test("solution detail page opens the pretty raw markdown URL", async ({
+    page,
+  }) => {
+    await page.goto("/solutions/devhub-launch", {
+      waitUntil: "domcontentloaded",
+    });
+
+    await page.getByRole("button", { name: /copy (as|article)/i }).click();
+    const popupPromise = page.waitForEvent("popup");
+    await page.getByRole("menuitem", { name: "View Raw Markdown" }).click();
+    const popup = await popupPromise;
+
+    await expect
+      .poll(() => popup.url())
+      .toContain("/solutions/devhub-launch.md");
+  });
+
+  test("solution detail page copies the MCP config", async ({ page }) => {
+    await setupClipboardMock(page);
+    await page.goto("/solutions/devhub-launch");
+
+    await page.getByRole("button", { name: /copy (as|article)/i }).click();
+    await page.getByRole("menuitem", { name: "Connect to MCP Server" }).click();
+    await expect(page.getByText("MCP config copied")).toBeVisible({
+      timeout: 5000,
+    });
+
+    const copied = JSON.parse(await getCopiedText(page)) as {
+      mcpServers: Record<string, { url: string }>;
+    };
+    const pageOrigin = new URL(page.url()).origin;
+    const mcpUrl = copied.mcpServers["databricks-devhub"].url;
+    expect(new URL(mcpUrl).origin).toBe(pageOrigin);
+    expect(new URL(mcpUrl).pathname).toBe("/api/mcp");
+  });
 });
 
 test.describe("copy markdown exports raw markdown on blog pages", () => {
@@ -277,8 +313,5 @@ test.describe("copy markdown exports raw markdown on docs pages", () => {
   });
 });
 
-// Note: the /docs/*.md, /templates/*.md, /solutions/*.md routes themselves
-// are Vercel rewrites to /api/markdown, exercised end-to-end by the unit
-// tests in tests/api-markdown.test.ts (`/api/markdown about-devhub preamble
-// policy`). Playwright runs against `docusaurus serve`, which doesn't run
-// Vercel functions, so we cover the markdown endpoints there instead.
+// Vercel still rewrites pretty .md URLs to /api/markdown, but Docusaurus also
+// emits static .md files for local development and Playwright coverage.

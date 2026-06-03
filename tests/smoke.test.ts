@@ -331,6 +331,22 @@ describe("production build smoke tests", () => {
     expect(text).toMatch(/^# Start here/);
   });
 
+  test("pretty markdown routes are emitted as static files for local serving", () => {
+    expect(readBuildFile("docs/start-here.md")).toContain("# Start here");
+    expect(readBuildFile("solutions/devhub-launch.md")).toContain(
+      'title: "Introducing DevHub"',
+    );
+    expect(readBuildFile("blog/devhub-launch.md")).toContain(
+      'title: "Introducing dev.databricks.com"',
+    );
+    expect(readBuildFile("templates/ai-chat-app.md")).toContain(
+      "# About DevHub",
+    );
+    expect(readBuildFile("templates.md")).toContain("# Templates");
+    expect(readBuildFile("blog.md")).toContain("# Blog");
+    expect(readBuildFile("solutions.md")).toContain("# Solutions");
+  });
+
   test("raw-docs preserve closing HTML tags inside code examples", () => {
     const text = readBuildFile("raw-docs/lakehouse/analytical-reads.md");
     expect(text).toContain("if (loading) return <p>Loading...</p>;");
