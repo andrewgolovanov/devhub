@@ -5,6 +5,7 @@ import {
   ArrowRight,
   ArrowUpRight,
   CalendarDays,
+  Database,
   HelpCircle,
   MapPin,
   Trophy,
@@ -67,6 +68,11 @@ export type HackathonEvent = {
   applyLabel?: string;
   applyNote?: ReactNode;
   resources: HackathonResource[];
+  /**
+   * Optional marketplace listing for the event dataset. When set, an "Open in
+   * Databricks" button is rendered in the Resources section.
+   */
+  datasetUrl?: string;
   timeline: HackathonTimelineItem[];
   submission: ReactNode;
   judgingIntro?: ReactNode;
@@ -179,6 +185,38 @@ function ResourceCard({
   );
 }
 
+function OpenInDatabricksButton({ href }: { href: string }): ReactNode {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex shrink-0 items-center gap-1 rounded bg-db-lava px-2 py-1 text-sm leading-normal font-semibold whitespace-nowrap text-white no-underline transition-colors hover:bg-db-lava/90"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="14"
+        height="14"
+        viewBox="0 0 16 16"
+        fill="none"
+        aria-hidden
+        focusable={false}
+        className="shrink-0"
+      >
+        <path
+          fill="currentColor"
+          d="M10 1h5v5h-1.5V3.56L8.53 8.53 7.47 7.47l4.97-4.97H10z"
+        />
+        <path
+          fill="currentColor"
+          d="M1 2.75A.75.75 0 0 1 1.75 2H8v1.5H2.5v10h10V8H14v6.25a.75.75 0 0 1-.75.75H1.75a.75.75 0 0 1-.75-.75z"
+        />
+      </svg>
+      Open in Databricks
+    </a>
+  );
+}
+
 export function HackathonEventPage({
   event,
 }: {
@@ -263,6 +301,23 @@ export function HackathonEventPage({
                 <ResourceCard key={resource.title} resource={resource} />
               ))}
             </div>
+            {event.datasetUrl && (
+              <div className="mt-4 flex flex-col items-start gap-4 rounded-xl border border-black/10 bg-[#f7f6f4] p-6 sm:flex-row sm:items-center sm:justify-between dark:border-white/10 dark:bg-[#182a32]">
+                <div>
+                  <div className="mb-1 flex items-center gap-2">
+                    <Database className="h-5 w-5 text-db-lava" aria-hidden />
+                    <h3 className="m-0 text-lg font-medium text-black dark:text-white">
+                      Hackathon dataset
+                    </h3>
+                  </div>
+                  <p className="m-0 text-[14px] leading-relaxed text-black/68 dark:text-white/68">
+                    Add the hackathon dataset to your Databricks workspace to
+                    start building with it.
+                  </p>
+                </div>
+                <OpenInDatabricksButton href={event.datasetUrl} />
+              </div>
+            )}
           </div>
         </section>
 

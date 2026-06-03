@@ -43,6 +43,8 @@ const event: HackathonEvent = {
     "Apps & Agents for Good Hackathon \u2014 Databricks Data + AI Summit 2026",
   metaDescription:
     "Databricks Apps & Agents for Good Hackathon at Data + AI Summit 2026 \u2014 schedule, resources, and how to apply.",
+  datasetUrl:
+    "https://login.databricks.com/signup?intent=SIGN_UP&destination_url=%2Fmarketplace%2Fconsumer%2Flistings%2Fed6cf259-81e7-4758-94c5-b444f8a5275a%3FshowModal%3Dtrue&utm_source=open-in-databricks&utm_medium=marketplace&utm_campaign=wanderbricks-test",
   resources: [
     {
       title: "Get started",
