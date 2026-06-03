@@ -2,6 +2,7 @@ import Head from "@docusaurus/Head";
 import Link from "@docusaurus/Link";
 import Layout from "@theme/Layout";
 import {
+  ArrowRight,
   ArrowUpRight,
   CalendarDays,
   HelpCircle,
@@ -25,11 +26,16 @@ import type { ComponentType, ReactNode } from "react";
  * the `HACKATHON_EVENT_SLUG` env var.
  */
 
+type HackathonResourceLink = {
+  label: string;
+  href: string;
+  external?: boolean;
+};
+
 type HackathonResource = {
   title: string;
   description: ReactNode;
-  href: string;
-  external?: boolean;
+  links: HackathonResourceLink[];
   Icon: ComponentType<{ className?: string; "aria-hidden"?: boolean }>;
 };
 
@@ -112,50 +118,64 @@ function EventEyebrow({ label }: { label: string }): ReactNode {
   );
 }
 
-function ResourceCard({
-  resource,
+function ResourceCardLink({
+  link,
 }: {
-  resource: HackathonResource;
+  link: HackathonResourceLink;
 }): ReactNode {
-  const { title, description, href, external, Icon } = resource;
-  const cardClasses =
-    "group flex h-full flex-col rounded-xl border border-black/10 bg-[#f7f6f4] p-6 no-underline transition-colors duration-200 hover:border-db-lava/50 dark:border-white/10 dark:bg-[#182a32] dark:hover:border-db-lava-light/55";
-  const body = (
-    <>
-      <div className="mb-3 flex items-center gap-2">
-        <Icon className="h-5 w-5 text-db-lava" aria-hidden />
-        <h3 className="m-0 text-lg font-medium text-black dark:text-white">
-          {title}
-        </h3>
-        {external && (
-          <ArrowUpRight
-            aria-hidden
-            className="ml-auto h-4 w-4 text-black/40 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 dark:text-white/40"
-          />
-        )}
-      </div>
-      <div className="text-[14px] leading-relaxed text-black/68 dark:text-white/68">
-        {description}
-      </div>
-    </>
-  );
+  const { label, href, external } = link;
+  const linkClasses =
+    "group inline-flex items-center gap-1 text-sm font-medium text-db-lava no-underline hover:underline";
   if (external) {
     return (
       <a
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className={cardClasses}
-        aria-label={`${title} (opens in new tab)`}
+        className={linkClasses}
       >
-        {body}
+        {label}
+        <ArrowUpRight
+          aria-hidden
+          className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+        />
       </a>
     );
   }
   return (
-    <Link to={href} className={cardClasses}>
-      {body}
+    <Link to={href} className={linkClasses}>
+      {label}
+      <ArrowRight
+        aria-hidden
+        className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5"
+      />
     </Link>
+  );
+}
+
+function ResourceCard({
+  resource,
+}: {
+  resource: HackathonResource;
+}): ReactNode {
+  const { title, description, links, Icon } = resource;
+  return (
+    <div className="flex h-full flex-col rounded-xl border border-black/10 bg-[#f7f6f4] p-6 dark:border-white/10 dark:bg-[#182a32]">
+      <div className="mb-3 flex items-center gap-2">
+        <Icon className="h-5 w-5 text-db-lava" aria-hidden />
+        <h3 className="m-0 text-lg font-medium text-black dark:text-white">
+          {title}
+        </h3>
+      </div>
+      <div className="text-[14px] leading-relaxed text-black/68 dark:text-white/68">
+        {description}
+      </div>
+      <div className="mt-auto flex flex-col items-start gap-2 pt-4">
+        {links.map((link) => (
+          <ResourceCardLink key={link.label} link={link} />
+        ))}
+      </div>
+    </div>
   );
 }
 

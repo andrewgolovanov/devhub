@@ -52,52 +52,40 @@ const event: HackathonEvent = {
             Read the docs to learn how to set up your coding environment and
             start building your app.
           </p>
-          <p className="mt-2 mb-1">
+          <p className="mt-2 mb-0">
             We suggest reading the following pages before you start hacking:
           </p>
-          <ul className="m-0 list-disc pl-5">
-            <li>
-              <strong className="font-semibold text-black dark:text-white">
-                Start here
-              </strong>
-            </li>
-            <li>
-              <strong className="font-semibold text-black dark:text-white">
-                Platform overview
-              </strong>
-            </li>
-            <li>
-              <strong className="font-semibold text-black dark:text-white">
-                Set up your environment
-              </strong>
-            </li>
-          </ul>
         </>
       ),
-      href: "/docs/start-here",
+      links: [
+        { label: "Start here", href: "/docs/start-here" },
+        { label: "Platform overview", href: "/docs/platform-overview" },
+        {
+          label: "Set up your environment",
+          href: "/docs/tools/databricks-cli",
+        },
+      ],
       Icon: BookOpen,
     },
     {
       title: "App with Lakebase template",
       description:
         "Scaffold a Databricks app wired up to Lakebase from this template and start hacking right away \u2014 then adapt it to fit your project.",
-      href: "/templates/app-with-lakebase",
+      links: [{ label: "View template", href: "/templates/app-with-lakebase" }],
       Icon: LayoutTemplate,
     },
     {
       title: "Ask questions",
       description:
         "Stuck? Join our hackathon Discord server to ask questions and get help!",
-      href: "#",
-      external: true,
+      links: [{ label: "Join Discord", href: "#", external: true }],
       Icon: MessageSquare,
     },
     {
       title: "Official rules",
       description:
         "Eligibility, team requirements, IP, and judging rules for the hackathon.",
-      href: "#",
-      external: true,
+      links: [{ label: "Read the rules", href: "#", external: true }],
       Icon: FileText,
     },
   ],
