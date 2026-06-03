@@ -9,6 +9,7 @@ import {
   HelpCircle,
   Lock,
   MapPin,
+  Rocket,
   Trophy,
   Upload,
 } from "lucide-react";
@@ -54,7 +55,7 @@ type HackathonJudgingCriterion = {
 
 type HackathonFaqItem = {
   q: string;
-  a: string;
+  a: ReactNode;
 };
 
 export type HackathonEvent = {
@@ -75,8 +76,13 @@ export type HackathonEvent = {
   registrationClosed?: boolean;
   resources: HackathonResource[];
   /**
+   * Optional setup guide URL. When set, a "Set up Free Edition" callout is
+   * rendered above the resources grid.
+   */
+  setupGuideUrl?: string;
+  /**
    * Optional marketplace listing for the event dataset. When set, an "Open in
-   * Databricks" button is rendered in the Resources section.
+   * Databricks" button is rendered below the resources grid.
    */
   datasetUrl?: string;
   timeline: HackathonTimelineItem[];
@@ -228,6 +234,39 @@ function OpenInDatabricksButton({ href }: { href: string }): ReactNode {
   );
 }
 
+function ResourceCallout({
+  Icon,
+  title,
+  description,
+  className,
+  children,
+}: {
+  Icon: ComponentType<{ className?: string; "aria-hidden"?: boolean }>;
+  title: string;
+  description: ReactNode;
+  className?: string;
+  children: ReactNode;
+}): ReactNode {
+  return (
+    <div
+      className={`flex flex-col items-start gap-4 rounded-xl border border-black/10 bg-[#f7f6f4] p-6 sm:flex-row sm:items-center sm:justify-between dark:border-white/10 dark:bg-[#182a32] ${className ?? ""}`}
+    >
+      <div>
+        <div className="mb-1 flex items-center gap-2">
+          <Icon className="h-5 w-5 text-db-lava" aria-hidden />
+          <h3 className="m-0 text-lg font-medium text-black dark:text-white">
+            {title}
+          </h3>
+        </div>
+        <p className="m-0 text-[14px] leading-relaxed text-black/68 dark:text-white/68">
+          {description}
+        </p>
+      </div>
+      {children}
+    </div>
+  );
+}
+
 export function HackathonEventPage({
   event,
 }: {
@@ -314,27 +353,39 @@ export function HackathonEventPage({
             <h2 className="mb-6 text-2xl font-medium text-black dark:text-white">
               Resources
             </h2>
+            {event.setupGuideUrl && (
+              <ResourceCallout
+                Icon={Rocket}
+                title="Set up Free Edition"
+                description="Create a Databricks Free Edition workspace and get your team set up to build and demo."
+                className="mb-4"
+              >
+                <Link
+                  to={event.setupGuideUrl}
+                  className="group inline-flex shrink-0 items-center gap-1 text-sm font-medium text-db-lava no-underline hover:underline"
+                >
+                  Read the setup guide
+                  <ArrowRight
+                    aria-hidden
+                    className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5"
+                  />
+                </Link>
+              </ResourceCallout>
+            )}
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               {event.resources.map((resource) => (
                 <ResourceCard key={resource.title} resource={resource} />
               ))}
             </div>
             {event.datasetUrl && (
-              <div className="mt-4 flex flex-col items-start gap-4 rounded-xl border border-black/10 bg-[#f7f6f4] p-6 sm:flex-row sm:items-center sm:justify-between dark:border-white/10 dark:bg-[#182a32]">
-                <div>
-                  <div className="mb-1 flex items-center gap-2">
-                    <Database className="h-5 w-5 text-db-lava" aria-hidden />
-                    <h3 className="m-0 text-lg font-medium text-black dark:text-white">
-                      Hackathon dataset
-                    </h3>
-                  </div>
-                  <p className="m-0 text-[14px] leading-relaxed text-black/68 dark:text-white/68">
-                    Add the hackathon dataset to your Databricks workspace to
-                    start building with it.
-                  </p>
-                </div>
+              <ResourceCallout
+                Icon={Database}
+                title="Hackathon dataset"
+                description="Add the hackathon dataset to your Databricks workspace to start building with it."
+                className="mt-4"
+              >
                 <OpenInDatabricksButton href={event.datasetUrl} />
-              </div>
+              </ResourceCallout>
             )}
           </div>
         </section>

@@ -1,3 +1,4 @@
+import Link from "@docusaurus/Link";
 import {
   BookOpen,
   FileText,
@@ -39,11 +40,12 @@ const event: HackathonEvent = {
     "Apps & Agents for Good Hackathon \u2014 Databricks Data + AI Summit 2026",
   metaDescription:
     "Databricks Apps & Agents for Good Hackathon at Data + AI Summit 2026 \u2014 schedule, resources, and how to apply.",
+  setupGuideUrl: "/hackathon/free-edition-setup",
   datasetUrl:
     "https://login.databricks.com/signup?intent=SIGN_UP&destination_url=%2Fmarketplace%2Fconsumer%2Flistings%2Fed6cf259-81e7-4758-94c5-b444f8a5275a%3FshowModal%3Dtrue&utm_source=open-in-databricks&utm_medium=marketplace&utm_campaign=wanderbricks-test",
   resources: [
     {
-      title: "Get started",
+      title: "Read the Docs",
       description: (
         <>
           <p className="m-0">
@@ -51,17 +53,16 @@ const event: HackathonEvent = {
             start building your app.
           </p>
           <p className="mt-2 mb-0">
-            We suggest reading the following pages before you start hacking:
+            We highly suggest reading the following pages before you start
+            hacking:
           </p>
         </>
       ),
       links: [
         { label: "Start here", href: "/docs/start-here" },
         { label: "Platform overview", href: "/docs/platform-overview" },
-        {
-          label: "Set up your environment",
-          href: "/docs/tools/databricks-cli",
-        },
+        { label: "Databricks CLI", href: "/docs/tools/databricks-cli" },
+        { label: "Agent skills", href: "/docs/tools/ai-tools/agent-skills" },
       ],
       Icon: BookOpen,
     },
@@ -161,6 +162,23 @@ const event: HackathonEvent = {
     {
       q: "What if I'm new to Databricks?",
       a: 'Start with the "Start here" docs and copy one of the templates as a prompt for your coding agent \u2014 it will scaffold a working app and walk you through the rest.',
+    },
+    {
+      q: "Which Databricks account should I use?",
+      a: (
+        <>
+          Use a personal Databricks Free Edition account, not your work or
+          enterprise account. Building and demoing on Free Edition keeps every
+          team on the same playing field &mdash; see the{" "}
+          <Link
+            to="/hackathon/free-edition-setup"
+            className="font-medium text-db-lava underline underline-offset-2 hover:text-db-lava-dark"
+          >
+            Free Edition setup guide
+          </Link>{" "}
+          to get set up.
+        </>
+      ),
     },
   ],
 };
