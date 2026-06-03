@@ -2,7 +2,7 @@ import { useEffect, useId, useState } from "react";
 import type { ComponentProps } from "react";
 import Link from "@docusaurus/Link";
 import { useLocation } from "@docusaurus/router";
-import { ChevronUp, Menu } from "lucide-react";
+import { ChevronUp } from "lucide-react";
 
 import {
   getActiveProductHref,
@@ -37,7 +37,11 @@ function MobileMenuButton({
       )}
       {...props}
     >
-      <Menu className="size-6" strokeWidth={1.5} aria-hidden="true" />
+      <span className="flex flex-col gap-1.75">
+        <span className="h-px w-6 bg-white" />
+        <span className="h-px w-6 bg-white" />
+        <span className="h-px w-6 bg-white" />
+      </span>
       <span className="sr-only">{label}</span>
     </button>
   );
