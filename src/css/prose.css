@@ -1,6 +1,10 @@
 .prose {
   @apply tracking-tight text-grey-90 text-base md:text-lg/normal;
 
+  @apply prose-headings:text-white;
+
+  @apply prose-h1:font-sans prose-h1:font-normal prose-h1:mb-4 prose-h1:text-pretty;
+
   @apply prose-h2:mt-10 prose-h2:mb-5 prose-h2:scroll-mt-8 prose-h2:w-full prose-h2:self-stretch prose-h2:border-0 prose-h2:border-b-0 prose-h2:pb-0 prose-h2:text-xl/snug prose-h2:font-medium prose-h2:tracking-tight prose-h2:text-white md:prose-h2:mt-12 md:prose-h2:mb-6 md:prose-h2:text-2xl/normal;
 
   @apply prose-h3:my-4 prose-h3:scroll-mt-6 prose-h3:w-full prose-h3:self-stretch prose-h3:border-0 prose-h3:border-b-0 prose-h3:pb-0 prose-h3:text-lg/snug prose-h3:font-medium prose-h3:tracking-tight prose-h3:text-white md:prose-h3:mt-8 md:prose-h3:mb-6 md:prose-h3:text-xl/normal;
@@ -23,17 +27,11 @@
 
   @apply prose-figure:my-8;
 
-  @apply prose-hr:my-8 prose-hr:border-[#464853];
+  @apply prose-hr:my-8 prose-hr:border-grey-30;
 
   @apply prose-blockquote:pl-4 prose-blockquote:border-l-2 prose-blockquote:border-white prose-blockquote:text-foreground prose-blockquote:not-italic;
 
   @apply prose-img:my-0 prose-img:rounded-lg;
-
-  @apply prose-table:w-full prose-table:border-separate prose-table:border-spacing-0 prose-table:text-sm;
-
-  @apply prose-th:min-w-36 prose-th:border-b prose-th:border-prose-border prose-th:pb-1.5 prose-th:text-left prose-th:align-top prose-th:text-sm prose-th:leading-snug prose-th:font-medium prose-th:tracking-tight prose-th:text-white;
-
-  @apply prose-td:min-w-36 prose-td:border-b prose-td:border-prose-border prose-td:pt-3 prose-td:pr-10 prose-td:pb-3 prose-td:text-left prose-td:align-top prose-td:text-sm prose-td:leading-snug prose-td:tracking-tight prose-td:text-grey-90;
 
   @apply prose-img:my-0 prose-img:rounded-lg;
 
@@ -47,6 +45,10 @@
     &:last-child {
       @apply !mb-0;
     }
+  }
+
+  & h1:first-child {
+    @apply lg:max-w-[calc(100%-8rem)];
   }
 
   h2 a,
@@ -64,6 +66,7 @@
     }
   }
 
+  h1 + p,
   h2 + p,
   h3 + p,
   h4 + p {
@@ -139,14 +142,20 @@
   }
 
   details {
-    @apply my-8;
+    @apply my-8 border border-grey-30;
+
+    &[open] summary {
+      @apply after:opacity-100;
+    }
 
     summary {
-      @apply cursor-pointer rounded text-lg leading-snug font-medium tracking-tight text-foreground normal-case outline-offset-4 transition-colors duration-300 hover:text-db-lava;
+      @apply relative cursor-pointer rounded-none flex justify-between w-full p-5 text-base leading-tight font-medium tracking-tight text-grey-90 normal-case outline-offset-4 transition-colors duration-300 hover:text-white;
+
+      @apply after:absolute after:inset-x-5 after:bottom-0 after:h-px after:bg-grey-30 after:opacity-0 after:pointer-events-none;
     }
 
     summary + * {
-      @apply !mt-4;
+      @apply mt-5!;
     }
   }
 
@@ -158,12 +167,6 @@
     > code {
       @apply inline-flex max-w-full flex-col items-center justify-center gap-2.5 overflow-x-auto border border-[#2E3038] bg-[#1C1D22] rounded px-1 py-px text-sm leading-snug font-normal tracking-tight text-white before:hidden after:hidden;
     }
-
-    table {
-      td code:first-child {
-        @apply ml-0;
-      }
-    }
   }
 
   p:has(> img) {
@@ -171,9 +174,65 @@
   }
 }
 
+.prose.prose-docs {
+  @apply prose-h2:mb-4 prose-h2:text-3xl/tight;
+}
+
+.prose-inside-content {
+  & > *,
+  & .prose > * {
+    @apply my-2.5;
+  }
+
+  & > *,
+  & .prose > * {
+    &:first-child:not(h2) {
+      @apply mt-0;
+    }
+
+    &:last-child {
+      @apply mb-0;
+    }
+  }
+
+  & .code-block {
+    @apply my-4;
+  }
+
+  :not(pre) > code {
+    @apply border text-sm leading-snug;
+  }
+
+  p {
+    @apply my-2.5 text-base leading-snug tracking-tight;
+  }
+
+  ol,
+  ul {
+    @apply my-2.5 flex flex-col gap-y-2.5 pl-5;
+  }
+
+  ol,
+  ul {
+    li {
+      @apply text-base leading-snug tracking-tight before:top-2.5 before:-left-5;
+    }
+  }
+
+  table {
+    @apply min-w-full w-full;
+  }
+}
+
+.accordion {
+  & :not(.prose-inside-content) h3 {
+    @apply my-0;
+  }
+}
+
 @layer components {
   .theme-code-block {
-    @apply relative rounded-none border border-prose-border bg-transparent;
+    @apply relative rounded-none border border-prose-border bg-transparent mb-6;
 
     > div[class*="codeBlockTitle"] {
       @apply border-b border-prose-border px-4 py-3.5 text-[13px] font-medium tracking-tight;
@@ -187,7 +246,7 @@
         @apply absolute right-4 top-4 flex;
 
         button {
-          @apply flex size-7 shrink-0 items-center justify-center border border-grey-20 bg-transparent text-white transition-colors duration-200 hover:bg-grey-12;
+          @apply flex size-7 shrink-0 items-center justify-center border border-grey-20 bg-black text-white transition-colors duration-200 hover:bg-grey-12;
 
           > span[class*="copyButtonIcons"] {
             @apply size-3.5!;

@@ -114,6 +114,7 @@ function BlogDetailHeader({
         <AIExportMenu
           appearance="article"
           kind="blog"
+          contentClassName="w-[15.5625rem] min-w-[15.5625rem]"
           rawMarkdownUrl={rawMarkdownUrl}
           title={item.title}
           description={item.description}

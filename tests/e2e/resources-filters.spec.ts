@@ -148,17 +148,19 @@ test.describe("templates page empty state", () => {
     await page
       .getByRole("checkbox", { name: "Lakebase Postgres", exact: true })
       .check();
-    await expect(page.getByText("No results found")).toBeVisible();
     await expect(
-      page.getByRole("button", { name: "Clear all filters" }),
+      page.getByText("No templates match your filters."),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("button", { name: "Clear filters" }),
     ).toBeVisible();
 
-    await page.getByRole("button", { name: "Clear all filters" }).click();
+    await page.getByRole("button", { name: "Clear filters" }).click();
 
     await expect(page.getByRole("searchbox")).toHaveValue("");
     expect(await visibleCount(templateLinks(page))).toBeGreaterThan(0);
     await expect(
-      page.getByRole("button", { name: "Clear all filters" }),
+      page.getByRole("button", { name: "Clear filters" }),
     ).toBeHidden();
   });
 });

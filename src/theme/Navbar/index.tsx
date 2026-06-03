@@ -6,6 +6,10 @@ import type { ReactNode } from "react";
 export default function Navbar(): ReactNode {
   const { pathname } = useLocation();
 
+  if (pathname.startsWith("/docs")) {
+    return <NewHeader className="navbar h-auto border-x-0 shadow-none" />;
+  }
+
   if (
     pathname === "/home-new" ||
     pathname === "/home-new/" ||

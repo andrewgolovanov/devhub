@@ -1,4 +1,5 @@
 import Link from "@docusaurus/Link";
+import { useLocation } from "@docusaurus/router";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 import { ExternalLink } from "lucide-react";
 import type { ReactNode } from "react";
@@ -87,7 +88,12 @@ function FooterLinkItem({ item }: { item: FooterItem }): ReactNode {
 }
 
 export default function Footer(): ReactNode {
+  const { pathname } = useLocation();
   const logoSrc = useBaseUrl("/img/databricks-logo.svg");
+
+  if (pathname.startsWith("/docs")) {
+    return null;
+  }
 
   return (
     <footer className="border-t border-white/12 bg-black text-white">

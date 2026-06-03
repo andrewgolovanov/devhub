@@ -43,7 +43,7 @@ function createImportNode() {
   return {
     type: "mdxjsEsm" as const,
     value:
-      "import Tabs from '@theme/Tabs'\nimport TabItem from '@theme/TabItem'",
+      "import { ContentTabs as Tabs, ContentTab as TabItem } from '@/components/docs/content-tabs'",
     data: {
       estree: {
         type: "Program" as const,
@@ -52,28 +52,26 @@ function createImportNode() {
             type: "ImportDeclaration" as const,
             specifiers: [
               {
-                type: "ImportDefaultSpecifier" as const,
+                type: "ImportSpecifier" as const,
+                imported: {
+                  type: "Identifier" as const,
+                  name: "ContentTabs",
+                },
                 local: { type: "Identifier" as const, name: "Tabs" },
               },
-            ],
-            source: {
-              type: "Literal" as const,
-              value: "@theme/Tabs",
-              raw: "'@theme/Tabs'",
-            },
-          },
-          {
-            type: "ImportDeclaration" as const,
-            specifiers: [
               {
-                type: "ImportDefaultSpecifier" as const,
+                type: "ImportSpecifier" as const,
+                imported: {
+                  type: "Identifier" as const,
+                  name: "ContentTab",
+                },
                 local: { type: "Identifier" as const, name: "TabItem" },
               },
             ],
             source: {
               type: "Literal" as const,
-              value: "@theme/TabItem",
-              raw: "'@theme/TabItem'",
+              value: "@/components/docs/content-tabs",
+              raw: "'@/components/docs/content-tabs'",
             },
           },
         ],
@@ -97,7 +95,10 @@ export default function remarkCliTabs(): Transformer {
     visit(root, (node: Node) => {
       if (
         node.type === "mdxjsEsm" &&
-        (node as { value?: string }).value?.includes("@theme/Tabs")
+        ((node as { value?: string }).value?.includes("@theme/Tabs") ||
+          (node as { value?: string }).value?.includes(
+            "@/components/docs/content-tabs",
+          ))
       ) {
         alreadyImported = true;
       }

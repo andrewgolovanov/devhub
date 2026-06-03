@@ -97,7 +97,7 @@ function Topbar({ theme }: { theme: CTATheme }) {
       className={cn(
         "flex items-center gap-x-6.5 py-4.5 px-6.5",
         theme === "outline"
-          ? "mx-0 border-y border-grey-20 bg-black"
+          ? "border-y border-grey-20 bg-black"
           : "mx-1.5 bg-[#202021]",
       )}
     >

@@ -426,16 +426,24 @@ test.describe("docs sidebar navigation", () => {
     });
   }
 
-  test("AppKit docs show AppKit-specific sidebar shell", async ({ page }) => {
+  test("AppKit docs keep the main docs sidebar", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto("/docs/appkit/v0");
 
     const sidebar = page.getByRole("navigation", { name: "Docs sidebar" });
-    await expect(sidebar.getByText("AppKit Reference")).toBeVisible();
+    await expect(sidebar.getByText("AppKit Reference")).toBeHidden();
     await expect(
-      sidebar.getByRole("link", { name: "Back to main docs" }),
-    ).toHaveAttribute("href", "/docs/start-here");
-    await expect(sidebar.getByRole("combobox")).toBeVisible();
+      sidebar.getByRole("button", { name: "Search documentation" }),
+    ).toBeVisible();
+    await expect(
+      sidebar.getByRole("link", { name: "Start here" }),
+    ).toBeVisible();
+    await expect(
+      sidebar.getByRole("link", { name: "Platform overview" }),
+    ).toBeVisible();
+    await expect(
+      sidebar.getByRole("button", { name: "Databricks Apps", exact: true }),
+    ).toBeVisible();
   });
 
   test("Databricks Apps AppKit link opens latest AppKit docs entry", async ({
@@ -443,28 +451,37 @@ test.describe("docs sidebar navigation", () => {
   }) => {
     await page.goto("/docs/start-here");
     const sidebar = page.getByRole("navigation", { name: "Docs sidebar" });
-    await sidebar.getByRole("button", { name: "Databricks Apps" }).click();
-    await sidebar.getByRole("button", { name: "AppKit" }).click();
+    await sidebar
+      .getByRole("button", { name: "Databricks Apps", exact: true })
+      .click();
+    await sidebar.getByRole("button", { name: "AppKit", exact: true }).click();
     const appKitReferenceLink = page
-      .locator(
-        'nav[aria-label="Docs sidebar"] a.menu__link[href*="/docs/appkit/"]',
-      )
+      .locator('nav[aria-label="Docs sidebar"] a[href*="/docs/appkit/"]')
       .first();
     await appKitReferenceLink.click();
     await expect(page).toHaveURL(/\/docs\/appkit\/v\d+/);
   });
 
-  test("AppKit API categories collapse sibling section", async ({ page }) => {
+  test("AppKit API pages stay inside the main docs sidebar", async ({
+    page,
+  }) => {
     await page.goto("/docs/appkit/v0/api/appkit-ui");
 
-    const appKitCategory = page.locator(
-      'a.menu__link[href^="/docs/appkit/v0/api/appkit/"]',
-    );
-    const appKitCategoryListItem = appKitCategory.locator(
-      "xpath=ancestor::li[contains(@class, 'menu__list-item')][1]",
-    );
-    await expect(appKitCategoryListItem).toHaveClass(
-      /menu__list-item--collapsed/,
-    );
+    const sidebar = page.getByRole("navigation", { name: "Docs sidebar" });
+    await expect(
+      sidebar.getByRole("link", { name: "Start here" }),
+    ).toBeVisible();
+    await expect(
+      sidebar.getByRole("button", { name: "Databricks Apps", exact: true }),
+    ).toBeVisible();
+    await expect(
+      sidebar.getByRole("button", { name: "AppKit", exact: true }),
+    ).toBeVisible();
+    await expect(
+      sidebar.locator('a[href^="/docs/appkit/v0/api/appkit-ui"]').first(),
+    ).toBeVisible();
+    await expect(
+      sidebar.locator('a[href^="/docs/appkit/v0/api/appkit/"]').first(),
+    ).toBeVisible();
   });
 });
