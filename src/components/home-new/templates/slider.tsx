@@ -6,9 +6,17 @@ import { SliderArrowIcon } from "@/components/ui/slider-arrow-icon";
 import { cn } from "@/lib/utils";
 import { domAnimation, LazyMotion } from "motion/react";
 import * as m from "motion/react-m";
-import { type RefObject, type SVGProps } from "react";
+import {
+  type KeyboardEvent,
+  type RefObject,
+  type SVGProps,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
-import { TEMPLATE_TRACK_TRANSITION, useTemplateSlider } from "./use-slider";
+import { type TemplateSliderSettings, useTemplateSlider } from "./use-slider";
 
 type TemplateCardItem = {
   id: string;
@@ -87,7 +95,57 @@ const CAROUSEL_TEMPLATE_ITEMS = Array.from(
   () => TEMPLATE_ITEMS,
 ).flat();
 
-function TemplateCarouselCard({ item }: { item: TemplateCardItem }) {
+const TEMPLATE_DESCRIPTION_WIDTH = {
+  inactive: "26rem",
+  active: "34rem",
+};
+
+function TemplateDescriptionText({
+  children,
+  isVisible,
+  width,
+  duration,
+}: {
+  children: string;
+  isVisible: boolean;
+  width: string;
+  duration: number;
+}) {
+  return (
+    <p
+      aria-hidden={!isVisible}
+      className={cn(
+        "col-start-1 row-start-1 text-[15px] leading-normal tracking-tight text-grey-70 transition-[opacity,transform] ease-out",
+        isVisible
+          ? "pointer-events-auto translate-y-0 opacity-100"
+          : "pointer-events-none translate-y-1 opacity-0",
+      )}
+      style={{
+        maxWidth: "calc(100vw - 2.5rem)",
+        transitionDuration: `${duration}s`,
+        width,
+      }}
+    >
+      {children}
+    </p>
+  );
+}
+
+function TemplateCarouselCard({
+  item,
+  isActive,
+  canOpenLink,
+  isKeyboardMode,
+  imageDuration,
+  textWidthDuration,
+}: {
+  item: TemplateCardItem;
+  isActive: boolean;
+  canOpenLink: boolean;
+  isKeyboardMode: boolean;
+  imageDuration: number;
+  textWidthDuration: number;
+}) {
   const imageSrc = useBaseUrl(item.imageUrl);
 
   return (
@@ -102,16 +160,37 @@ function TemplateCarouselCard({ item }: { item: TemplateCardItem }) {
         <span className="inline-flex items-center gap-1.5 text-white">
           <span>{item.title}</span>
           <TitleLinkIcon
-            className="size-6 text-db-lava-light opacity-0 transition-[opacity,transform] duration-200 group-hover/card:-translate-y-0.5 group-hover/card:translate-x-0.5 group-hover/card:opacity-100 group-focus-visible/card:-translate-y-0.5 group-focus-visible/card:translate-x-0.5 group-focus-visible/card:opacity-100"
+            className={cn(
+              "size-6 text-db-lava-light opacity-0 transition-[opacity,transform] duration-200",
+              canOpenLink &&
+                "group-hover/card:-translate-y-0.5 group-hover/card:translate-x-0.5 group-hover/card:opacity-100 group-focus-visible/card:-translate-y-0.5 group-focus-visible/card:translate-x-0.5 group-focus-visible/card:opacity-100",
+              isKeyboardMode &&
+                isActive &&
+                canOpenLink &&
+                "-translate-y-0.5 translate-x-0.5 opacity-100",
+            )}
             aria-hidden="true"
           />
         </span>
       </h3>
-      <p className="max-w-104 mt-2.5 text-[15px] leading-normal tracking-tight text-grey-70">
-        {item.description}
-      </p>
+      <div className="mt-2.5 grid">
+        <TemplateDescriptionText
+          duration={textWidthDuration}
+          isVisible={!isActive}
+          width={TEMPLATE_DESCRIPTION_WIDTH.inactive}
+        >
+          {item.description}
+        </TemplateDescriptionText>
+        <TemplateDescriptionText
+          duration={textWidthDuration}
+          isVisible={isActive}
+          width={TEMPLATE_DESCRIPTION_WIDTH.active}
+        >
+          {item.description}
+        </TemplateDescriptionText>
+      </div>
       <img
-        className="relative mt-6 overflow-hidden border border-[#515151] w-full shadow-[0_18px_50px_rgb(0_0_0/0.32)] duration-500 ease-out"
+        className="relative mt-6 overflow-hidden border border-[#515151] w-full shadow-[0_18px_50px_rgb(0_0_0/0.32)] ease-out"
         src={imageSrc}
         draggable={false}
         width={item.imageWidth}
@@ -119,6 +198,7 @@ function TemplateCarouselCard({ item }: { item: TemplateCardItem }) {
         alt=""
         loading="lazy"
         decoding="async"
+        style={{ transitionDuration: `${imageDuration}s` }}
       />
     </Link>
   );
@@ -126,32 +206,155 @@ function TemplateCarouselCard({ item }: { item: TemplateCardItem }) {
 
 export function TemplateSlider({
   sectionRef,
+  settings,
 }: {
   sectionRef: RefObject<HTMLElement | null>;
+  settings?: TemplateSliderSettings;
 }) {
   const slider = useTemplateSlider({
     itemCount: CAROUSEL_TEMPLATE_ITEMS.length,
     sectionRef,
+    settings,
   });
+  const [isKeyboardMode, setIsKeyboardMode] = useState(false);
+  const [keyboardPressedArrow, setKeyboardPressedArrow] = useState<
+    "previous" | "next" | null
+  >(null);
+  const keyboardPressTimeoutRef = useRef<number | null>(null);
+  const openActiveTemplate = useCallback(() => {
+    const activeItem = CAROUSEL_TEMPLATE_ITEMS[slider.activeCarouselIndex];
+
+    if (activeItem) {
+      window.location.href = activeItem.href;
+    }
+  }, [slider.activeCarouselIndex]);
+  const showKeyboardArrowPress = useCallback((arrow: "previous" | "next") => {
+    if (keyboardPressTimeoutRef.current !== null) {
+      window.clearTimeout(keyboardPressTimeoutRef.current);
+    }
+
+    setKeyboardPressedArrow(arrow);
+    keyboardPressTimeoutRef.current = window.setTimeout(() => {
+      setKeyboardPressedArrow(null);
+      keyboardPressTimeoutRef.current = null;
+    }, 160);
+  }, []);
+
+  const handleArrowButtonKeyDown = (
+    event: KeyboardEvent<HTMLButtonElement>,
+  ) => {
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      setIsKeyboardMode(true);
+      showKeyboardArrowPress("previous");
+      slider.handlePreviousSlide();
+      return;
+    }
+
+    if (event.key === "ArrowRight") {
+      event.preventDefault();
+      setIsKeyboardMode(true);
+      showKeyboardArrowPress("next");
+      slider.handleNextSlide();
+      return;
+    }
+  };
+
+  useEffect(() => {
+    const sectionElement = sectionRef.current;
+
+    if (!sectionElement || !slider.isAutoplayInViewport) return;
+
+    const handleSectionKeyDown = (event: globalThis.KeyboardEvent) => {
+      const target = event.target;
+      const focusedElement = document.activeElement;
+
+      if (
+        !(focusedElement instanceof HTMLElement) ||
+        !sectionElement.contains(focusedElement)
+      ) {
+        return;
+      }
+
+      if (
+        target instanceof HTMLElement &&
+        (target.isContentEditable ||
+          ["BUTTON", "INPUT", "SELECT", "TEXTAREA", "A"].includes(
+            target.tagName,
+          ))
+      ) {
+        return;
+      }
+
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        setIsKeyboardMode(true);
+        showKeyboardArrowPress("previous");
+        slider.handlePreviousSlide();
+        return;
+      }
+
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        setIsKeyboardMode(true);
+        showKeyboardArrowPress("next");
+        slider.handleNextSlide();
+        return;
+      }
+
+      if (event.key === "Enter") {
+        event.preventDefault();
+        setIsKeyboardMode(true);
+        openActiveTemplate();
+        return;
+      }
+    };
+
+    window.addEventListener("keydown", handleSectionKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleSectionKeyDown);
+    };
+  }, [
+    openActiveTemplate,
+    sectionRef,
+    showKeyboardArrowPress,
+    slider.handleNextSlide,
+    slider.handlePreviousSlide,
+    slider.isAutoplayInViewport,
+  ]);
+
+  useEffect(() => {
+    return () => {
+      if (keyboardPressTimeoutRef.current !== null) {
+        window.clearTimeout(keyboardPressTimeoutRef.current);
+      }
+    };
+  }, []);
 
   return (
     <div
       className="group @container"
       onMouseEnter={() => slider.setIsAutoplayPaused(true)}
       onMouseLeave={() => slider.setIsAutoplayPaused(false)}
+      onPointerDown={() => setIsKeyboardMode(false)}
+      onPointerMove={() => setIsKeyboardMode(false)}
     >
       <div className="mx-auto flex w-full max-w-400 flex-col px-5 md:px-8">
         <div className="mt-9 flex items-center gap-5">
           <Button
             aria-label="Previous slide"
-            disabled={slider.isPreviousSlideDisabled}
+            aria-disabled={slider.isPreviousSlideDisabled}
             onClick={slider.handlePreviousSlide}
+            onKeyDown={handleArrowButtonKeyDown}
             className={cn(
-              "static size-10 translate-0 rounded-none shadow-none transition-colors duration-150 disabled:opacity-30 lg:size-11",
+              "static size-11 translate-0 rounded-none shadow-none transition-colors duration-150",
               slider.isPreviousSlideDisabled
-                ? "border border-white bg-transparent text-white"
-                : "border border-db-lava-light bg-db-lava-light text-white hover:border-db-lava hover:bg-db-lava",
-              "focus-visible:ring-2 focus-visible:ring-db-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-[#121317]",
+                ? "border border-white/25 bg-transparent text-white/35 hover:border-white/25 hover:bg-transparent hover:text-white/35"
+                : "border border-db-lava-light bg-db-lava-light text-white hover:border-db-lava hover:bg-db-lava focus-visible:ring-2 focus-visible:ring-db-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-[#121317]",
+              keyboardPressedArrow === "previous" &&
+                !slider.isPreviousSlideDisabled &&
+                "border-db-lava bg-db-lava text-white transition-none",
               "[&_svg]:size-6",
             )}
           >
@@ -159,14 +362,17 @@ export function TemplateSlider({
           </Button>
           <Button
             aria-label="Next slide"
-            disabled={slider.isNextSlideDisabled}
+            aria-disabled={slider.isNextSlideDisabled}
             onClick={slider.handleNextSlide}
+            onKeyDown={handleArrowButtonKeyDown}
             className={cn(
-              "static size-10 translate-0 rounded-none shadow-none transition-colors duration-150 disabled:opacity-30 lg:size-11",
+              "static size-11 translate-0 rounded-none shadow-none transition-colors duration-150",
               slider.isNextSlideDisabled
-                ? "border border-white bg-transparent text-white"
-                : "border border-db-lava-light bg-db-lava-light text-white hover:border-db-lava hover:bg-db-lava",
-              "focus-visible:ring-2 focus-visible:ring-db-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-[#121317]",
+                ? "border border-white/25 bg-transparent text-white/35 hover:border-white/25 hover:bg-transparent hover:text-white/35"
+                : "border border-db-lava-light bg-db-lava-light text-white hover:border-db-lava hover:bg-db-lava focus-visible:ring-2 focus-visible:ring-db-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-[#121317]",
+              keyboardPressedArrow === "next" &&
+                !slider.isNextSlideDisabled &&
+                "border-db-lava bg-db-lava text-white transition-none",
               "[&_svg]:size-6",
             )}
           >
@@ -187,13 +393,18 @@ export function TemplateSlider({
           >
             <m.div
               animate={{ x: slider.trackX }}
-              className="flex w-max min-h-[70vw] md:min-h-96 lg:min-h-112 2xl:min-h-136"
+              className="flex w-max min-h-[70vw] cursor-grab touch-pan-y active:cursor-grabbing md:min-h-96 lg:min-h-112 2xl:min-h-136"
               initial={false}
               ref={slider.carouselTrackRef}
+              onPointerCancel={slider.handleCarouselPointerCancel}
+              onPointerDown={slider.handleCarouselPointerDown}
+              onPointerLeave={slider.handleCarouselPointerLeave}
+              onPointerMove={slider.handleCarouselPointerMove}
+              onPointerUp={slider.handleCarouselPointerUp}
               style={{ columnGap: slider.cardGap }}
               transition={
                 slider.shouldAnimateTrack
-                  ? TEMPLATE_TRACK_TRANSITION
+                  ? slider.trackTransition
                   : { duration: 0 }
               }
             >
@@ -206,9 +417,9 @@ export function TemplateSlider({
                     ? Math.abs(indexDistance) <= 1
                     : isActive;
                 const isInitialLeadingPartialCard =
-                  slider.shouldUseThreeCardLayout
-                    ? indexDistance < -1
-                    : indexDistance < 0;
+                  slider.shouldUseThreeCardLayout && !slider.hasCarouselMoved
+                    ? index < slider.activeCarouselIndex - 1
+                    : !slider.hasCarouselMoved && indexDistance < 0;
 
                 return (
                   <m.div
@@ -222,27 +433,37 @@ export function TemplateSlider({
                     }}
                     data-active={isActive}
                     className={cn(
-                      "w-[var(--template-card-width)] shrink-0 flex flex-col justify-end overflow-hidden transition-[width] duration-500 ease-out",
+                      "pointer-events-auto w-[var(--template-card-width)] shrink-0 flex flex-col justify-end overflow-hidden transition-[width] ease-out [contain:layout_paint] will-change-transform",
                       "[--template-card-width:min(72cqw,360px)]",
                       "md:[--template-card-width:min(calc((100cqw-48px)/2.5),576px)]",
                       "xl:[--template-card-width:344px] 2xl:[--template-card-width:448px]",
                       "data-[active=true]:xl:[--template-card-width:448px] data-[active=true]:2xl:[--template-card-width:576px]",
-                      isVisibleCard
-                        ? "pointer-events-auto cursor-grab touch-pan-y active:cursor-grabbing"
-                        : "pointer-events-none",
                       isActive && "relative z-10",
                     )}
                     initial={false}
                     key={`${item.id}-${index}`}
-                    onClickCapture={slider.handleCarouselClickCapture}
-                    onPointerCancel={slider.handleCarouselPointerCancel}
-                    onPointerDown={slider.handleCarouselPointerDown}
-                    onPointerLeave={slider.handleCarouselPointerLeave}
-                    onPointerMove={slider.handleCarouselPointerMove}
-                    onPointerUp={slider.handleCarouselPointerUp}
-                    transition={{ duration: 0.5, ease: "easeOut" }}
+                    onClickCapture={(event) =>
+                      slider.handleCarouselClickCapture(
+                        event,
+                        index,
+                        isVisibleCard,
+                      )
+                    }
+                    style={{
+                      transitionDuration: `${
+                        settings?.cardResizeDuration ?? 0.5
+                      }s`,
+                    }}
+                    transition={slider.cardTransition}
                   >
-                    <TemplateCarouselCard item={item} />
+                    <TemplateCarouselCard
+                      item={item}
+                      isActive={isActive}
+                      canOpenLink={isVisibleCard}
+                      isKeyboardMode={isKeyboardMode}
+                      imageDuration={settings?.cardDuration ?? 0.5}
+                      textWidthDuration={settings?.textWidthDuration ?? 0.5}
+                    />
                   </m.div>
                 );
               })}

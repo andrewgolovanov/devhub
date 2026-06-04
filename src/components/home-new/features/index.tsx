@@ -62,24 +62,33 @@ function FeatureLinkArrowIcon({
   return (
     <svg
       aria-hidden="true"
-      className={className}
+      className={cn("overflow-visible", className)}
       fill="none"
       viewBox="0 0 28 29"
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
       <path
-        d="M24.7109 18.1328V5.29154H11.8697"
-        stroke="currentColor"
-        strokeLinecap="square"
-        strokeWidth="3"
-      />
-      <path
         d="M3.16406 26.8438L24.1641 5.84375"
         stroke="currentColor"
         strokeLinecap="square"
         strokeWidth="3"
       />
+      <path
+        className="[stroke-dasharray:5.66] [stroke-dashoffset:5.66] opacity-0 transition-[opacity,stroke-dashoffset] duration-300 ease-out group-hover/feature-link:[stroke-dashoffset:0] group-hover/feature-link:opacity-100 group-focus-visible/feature-link:[stroke-dashoffset:0] group-focus-visible/feature-link:opacity-100"
+        d="M24.1641 5.84375L28.1641 1.84375"
+        stroke="currentColor"
+        strokeLinecap="square"
+        strokeWidth="3"
+      />
+      <g className="transition-transform duration-300 ease-out group-hover/feature-link:translate-x-1 group-hover/feature-link:-translate-y-1 group-focus-visible/feature-link:translate-x-1 group-focus-visible/feature-link:-translate-y-1">
+        <path
+          d="M24.7109 18.1328V5.29154H11.8697"
+          stroke="currentColor"
+          strokeLinecap="square"
+          strokeWidth="3"
+        />
+      </g>
     </svg>
   );
 }
@@ -154,10 +163,14 @@ function FeatureCard({
           <FeatureCardAction>
             <Link
               to={href}
-              className="inline-flex w-full items-center justify-between border-b-[3px] border-orange pb-4 font-sans text-2xl leading-none font-normal tracking-[-0.04em] text-orange no-underline transition-colors hover:border-primary hover:text-primary md:text-[28px] lg:text-3xl xl:text-[2.5625rem]"
+              className="group/feature-link relative inline-flex w-full items-center justify-between pb-4 font-sans text-2xl leading-none font-normal tracking-[-0.04em] text-orange no-underline transition-colors hover:text-primary focus-visible:text-primary md:text-[28px] lg:text-3xl xl:text-[2.5625rem]"
             >
+              <span
+                className="pointer-events-none absolute inset-x-0 bottom-0 h-[3px] bg-current"
+                aria-hidden="true"
+              />
               <span>Learn more</span>
-              <FeatureLinkArrowIcon className="size-5 md:size-7" />
+              <FeatureLinkArrowIcon className="size-5 overflow-visible md:size-7" />
             </Link>
           </FeatureCardAction>
         </div>

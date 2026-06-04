@@ -1,4 +1,14 @@
 import { cn } from "@/lib/utils";
+import { useEffect, useRef } from "react";
+
+import {
+  DEFAULT_LOVED_METRICS_SETTINGS,
+  LOVED_TIMELINE_LAYERS,
+  formatMetricValue,
+  setupLovedMetricsReveal,
+} from "./loved-by-developers-metrics-animation";
+
+import "./loved-by-developers-metrics.css";
 
 const METRIC_COLUMNS = [
   {
@@ -6,8 +16,17 @@ const METRIC_COLUMNS = [
     description:
       "Pick a template, run one command, and your agentic app is live - with a database, AI model access, and auth already wired up. No Kubernetes. No Terraform. No waiting on ops.",
     metrics: [
-      { value: "44%", label: "improved operational accuracy" },
-      { value: "$10M+", label: "in productivity gains" },
+      {
+        label: "improved operational accuracy",
+        suffix: "%",
+        target: 44,
+      },
+      {
+        label: "in productivity gains",
+        prefix: "$",
+        suffix: "M+",
+        target: 10,
+      },
     ],
   },
   {
@@ -15,15 +34,89 @@ const METRIC_COLUMNS = [
     description:
       "Pick a template, run one command, and your agentic app is live - with a database, AI model access, and auth already wired up. No Kubernetes. No Terraform. No waiting on ops.",
     metrics: [
-      { value: "96%", label: "accuracy of responses" },
-      { value: "10x", label: "reduced costs via automation" },
+      {
+        label: "accuracy of responses",
+        suffix: "%",
+        target: 96,
+      },
+      {
+        label: "reduced costs via automation",
+        suffix: "x",
+        target: 10,
+      },
     ],
   },
 ];
 
+function LovedMetricValue({
+  prefix,
+  suffix,
+  target,
+}: {
+  prefix?: string;
+  suffix?: string;
+  target: number;
+}) {
+  const initialText = formatMetricValue(0, prefix, suffix);
+  const finalText = formatMetricValue(target, prefix, suffix);
+
+  return (
+    <span
+      className="loved-metric-value shrink-0 font-mono text-5xl leading-[1.125] font-normal tracking-normal text-white md:text-6xl lg:text-7xl xl:text-7xl 2xl:text-[7rem]"
+      data-display={initialText}
+      data-ghost-display=""
+      data-layout-display={finalText}
+      data-loved-metric-value
+      data-prefix={prefix ?? ""}
+      data-suffix={suffix ?? ""}
+      data-target={target}
+    >
+      <span
+        aria-hidden="true"
+        className="loved-metric-underlay"
+        data-loved-metric-text
+      >
+        {initialText}
+      </span>
+      <span className="loved-metric-final" data-loved-metric-text>
+        {initialText}
+      </span>
+      {LOVED_TIMELINE_LAYERS.map((layer) => (
+        <span
+          aria-hidden="true"
+          className={`loved-metric-layer loved-metric-layer-${layer.name}`}
+          data-loved-metric-layer={layer.name}
+          data-loved-metric-text
+          key={layer.name}
+        >
+          {initialText}
+        </span>
+      ))}
+      <span aria-hidden="true" className="loved-metric-cursor" />
+    </span>
+  );
+}
+
 function LovedByDevelopers({ className }: { className?: string }) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const metricsTriggerRef = useRef<HTMLUListElement>(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    const trigger = metricsTriggerRef.current;
+
+    if (!section || !trigger) return;
+
+    return setupLovedMetricsReveal({
+      section,
+      settings: DEFAULT_LOVED_METRICS_SETTINGS,
+      trigger,
+    });
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       className={cn(
         "relative loved-by-developers overflow-hidden text-white",
         className,
@@ -52,26 +145,37 @@ function LovedByDevelopers({ className }: { className?: string }) {
             <li
               key={`${title}-${index}`}
               className={cn(
-                "flex flex-col border-white/20 md:border-l md:pl-8",
+                "relative flex flex-col border-white/20 md:pl-8",
                 index === 1 && "border-t pt-10 md:border-t-0 md:pt-0",
               )}
             >
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute top-0 left-0 hidden h-full w-px bg-white/20 md:block"
+                data-loved-metrics-line-drop
+              />
               <h3 className="text-base leading-normal font-medium text-white md:text-xl/normal lg:text-2xl/normal">
                 {title}
               </h3>
               <p className="mt-3 max-w-lg text-sm/normal text-white/60 md:text-base xl:text-lg/normal">
                 {description}
               </p>
-              <ul className="mt-10 grid gap-10 md:mt-32 xl:mt-42.5 md:gap-20">
-                {metrics.map(({ value, label }) => (
+              <ul
+                className="mt-10 grid gap-10 will-change-transform md:mt-32 xl:mt-42.5 md:gap-20"
+                data-loved-metrics-list
+                ref={index === 0 ? metricsTriggerRef : undefined}
+              >
+                {metrics.map(({ label, prefix, suffix, target }) => (
                   <li
-                    key={value}
-                    className="flex items-baseline gap-3 md:flex-col md:items-start xl:flex-row xl:items-baseline xl:gap-4"
+                    key={`${target}-${label}`}
+                    className="flex items-baseline gap-3 md:gap-4"
                   >
-                    <span className="font-mono text-5xl leading-[1.125] font-normal tracking-normal text-white md:text-6xl lg:text-7xl xl:text-7xl 2xl:text-[7rem]">
-                      {value}
-                    </span>
-                    <span className="text-xs leading-normal ml-1 text-white/60 md:ml-0 md:max-w-66 md:text-sm lg:text-lg">
+                    <LovedMetricValue
+                      prefix={prefix}
+                      suffix={suffix}
+                      target={target}
+                    />
+                    <span className="text-xs leading-normal ml-1 text-white/60 md:max-w-66 md:text-sm lg:text-lg">
                       {label}
                     </span>
                   </li>

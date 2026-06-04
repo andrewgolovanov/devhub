@@ -9,28 +9,68 @@ import {
 } from "react";
 
 export const TEMPLATE_CARD_WIDTH = {
+  active: 576,
   inactive: 448,
+  compactActive: 448,
   compactInactive: 344,
   desktopGap: 32,
   responsiveGap: 24,
 };
 
 export const TEMPLATE_CARD_WIDTH_TRANSITION = {
-  duration: 0.5,
+  duration: 1.6,
   ease: [0.17, -0.17, 0, 1],
 } as const;
 
 export const TEMPLATE_TRACK_TRANSITION = {
-  duration: 0.55,
+  duration: 0.2,
   ease: [0.17, -0.17, 0, 1],
 } as const;
+
+function clamp(value: number, min: number, max: number) {
+  return Math.min(Math.max(value, min), max);
+}
+
+export type TemplateSliderSettings = {
+  activeWidth: number;
+  inactiveWidth: number;
+  compactActiveWidth: number;
+  compactInactiveWidth: number;
+  desktopGap: number;
+  responsiveGap: number;
+  trackDuration: number;
+  inactiveClickDuration: number;
+  cardDuration: number;
+  cardResizeDuration: number;
+  textWidthDuration: number;
+  autoplayInterval: number;
+  viewportThreshold: number;
+};
+
+export const DEFAULT_TEMPLATE_SLIDER_SETTINGS: TemplateSliderSettings = {
+  activeWidth: TEMPLATE_CARD_WIDTH.active,
+  inactiveWidth: TEMPLATE_CARD_WIDTH.inactive,
+  compactActiveWidth: TEMPLATE_CARD_WIDTH.compactActive,
+  compactInactiveWidth: TEMPLATE_CARD_WIDTH.compactInactive,
+  desktopGap: TEMPLATE_CARD_WIDTH.desktopGap,
+  responsiveGap: TEMPLATE_CARD_WIDTH.responsiveGap,
+  trackDuration: TEMPLATE_TRACK_TRANSITION.duration,
+  inactiveClickDuration: 0.5,
+  cardDuration: TEMPLATE_CARD_WIDTH_TRANSITION.duration,
+  cardResizeDuration: 0.2,
+  textWidthDuration: 0,
+  autoplayInterval: 4000,
+  viewportThreshold: 0.35,
+};
 
 export function useTemplateSlider({
   itemCount,
   sectionRef,
+  settings = DEFAULT_TEMPLATE_SLIDER_SETTINGS,
 }: {
   itemCount: number;
   sectionRef: RefObject<HTMLElement | null>;
+  settings?: TemplateSliderSettings;
 }) {
   const carouselViewportRef = useRef<HTMLDivElement>(null);
   const carouselTrackRef = useRef<HTMLDivElement>(null);
@@ -42,7 +82,9 @@ export function useTemplateSlider({
   const isDraggingCarouselRef = useRef(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [shouldAnimateTrack, setShouldAnimateTrack] = useState(true);
+  const [trackDuration, setTrackDuration] = useState(settings.trackDuration);
   const [isAutoplayPaused, setIsAutoplayPaused] = useState(false);
+  const [hasManualInteraction, setHasManualInteraction] = useState(false);
   const [shouldUseCompactDesktopLayout, setShouldUseCompactDesktopLayout] =
     useState(false);
   const [shouldUseDesktopGap, setShouldUseDesktopGap] = useState(false);
@@ -50,17 +92,13 @@ export function useTemplateSlider({
   const [shouldUseThreeCardLayout, setShouldUseThreeCardLayout] =
     useState(false);
   const [carouselViewportWidth, setCarouselViewportWidth] = useState(0);
-  const [renderedCardWidth, setRenderedCardWidth] = useState(0);
   const [dragOffset, setDragOffset] = useState(0);
+  const [isDraggingCarousel, setIsDraggingCarousel] = useState(false);
   const [hasCarouselMoved, setHasCarouselMoved] = useState(false);
   const [isAutoplayInViewport, setIsAutoplayInViewport] = useState(false);
   const [isBrowserTabActive, setIsBrowserTabActive] = useState(true);
   const isCarouselMeasured = carouselViewportWidth > 0;
-  const activeCarouselOffset = shouldUseThreeCardLayout ? 1 : 0;
-  const activeCarouselIndex = selectedIndex + activeCarouselOffset;
-  const maxSelectedIndex = Math.max(0, itemCount - activeCarouselOffset - 1);
-  const isPreviousSlideDisabled = selectedIndex <= 0;
-  const isNextSlideDisabled = selectedIndex >= maxSelectedIndex;
+  const maxSelectedIndex = Math.max(0, itemCount - 1);
   const viewportWidth =
     carouselViewportWidth ||
     (shouldUseDesktopLayout
@@ -73,36 +111,85 @@ export function useTemplateSlider({
   const shouldUseFixedCardWidths =
     shouldUseDesktopLayout || shouldUseCompactDesktopLayout;
   const cardGap = shouldUseDesktopGap
-    ? TEMPLATE_CARD_WIDTH.desktopGap
-    : TEMPLATE_CARD_WIDTH.responsiveGap;
+    ? settings.desktopGap
+    : settings.responsiveGap;
   const inactiveCardWidth = shouldUseDesktopLayout
-    ? TEMPLATE_CARD_WIDTH.inactive
+    ? settings.inactiveWidth
     : shouldUseCompactDesktopLayout
-      ? TEMPLATE_CARD_WIDTH.compactInactive
+      ? settings.compactInactiveWidth
       : shouldUseThreeCardLayout
         ? Math.max((viewportWidth - cardGap * 2) / 2.5, 0)
         : viewportWidth * 0.72;
-  const cardStep = (renderedCardWidth || inactiveCardWidth) + cardGap;
-  const firstVisibleCardOffset = selectedIndex * cardStep;
-  const trackX = -firstVisibleCardOffset + dragOffset;
-  const dragThreshold = Math.min(cardStep * 0.22, 96);
+  const activeCardWidth = shouldUseDesktopLayout
+    ? settings.activeWidth
+    : shouldUseCompactDesktopLayout
+      ? settings.compactActiveWidth
+      : inactiveCardWidth;
+  const cardStep = inactiveCardWidth + cardGap;
+  const trackWidth =
+    (itemCount - 1) * inactiveCardWidth +
+    activeCardWidth +
+    (itemCount - 1) * cardGap;
+  const minTrackX = Math.min(viewportWidth - trackWidth, 0);
+  const getTrackXForActiveIndex = useCallback(
+    (activeIndex: number) => {
+      const cardCenterX = activeIndex * cardStep + activeCardWidth / 2;
+      const desiredTrackX = viewportWidth / 2 - cardCenterX;
+
+      return clamp(desiredTrackX, minTrackX, 0);
+    },
+    [activeCardWidth, cardStep, minTrackX, viewportWidth],
+  );
+  const baseTrackX = getTrackXForActiveIndex(selectedIndex);
+  const trackX = baseTrackX + dragOffset;
+  const getCenterActiveIndex = useCallback(
+    (trackOffsetX: number) => {
+      const viewportCenterX = viewportWidth / 2;
+      const rawCenterIndex = Math.round(
+        (viewportCenterX - trackOffsetX - activeCardWidth / 2) / cardStep,
+      );
+
+      return clamp(rawCenterIndex, 0, maxSelectedIndex);
+    },
+    [activeCardWidth, cardStep, maxSelectedIndex, viewportWidth],
+  );
+  const activeCarouselIndex = isDraggingCarousel
+    ? getCenterActiveIndex(trackX)
+    : selectedIndex;
+  const isPreviousSlideDisabled = activeCarouselIndex <= 0;
+  const isNextSlideDisabled = activeCarouselIndex >= maxSelectedIndex;
   const dragActivationThreshold = 8;
   const shouldUseTwoFullCardsLayout =
     shouldUseThreeCardLayout && !shouldUseFixedCardWidths;
 
   const handlePreviousSlide = useCallback(() => {
+    if (isPreviousSlideDisabled) return;
+
+    setHasManualInteraction(true);
     setHasCarouselMoved(true);
     setShouldAnimateTrack(true);
-    setSelectedIndex((currentIndex) => Math.max(currentIndex - 1, 0));
-  }, []);
+    setTrackDuration(settings.trackDuration);
+    setSelectedIndex(Math.max(activeCarouselIndex - 1, 0));
+  }, [activeCarouselIndex, isPreviousSlideDisabled, settings.trackDuration]);
+
+  const goToNextSlide = useCallback(() => {
+    if (isNextSlideDisabled) return;
+
+    setHasCarouselMoved(true);
+    setShouldAnimateTrack(true);
+    setTrackDuration(settings.trackDuration);
+    setSelectedIndex(Math.min(activeCarouselIndex + 1, maxSelectedIndex));
+  }, [
+    activeCarouselIndex,
+    isNextSlideDisabled,
+    maxSelectedIndex,
+    settings.trackDuration,
+  ]);
 
   const handleNextSlide = useCallback(() => {
-    setHasCarouselMoved(true);
-    setShouldAnimateTrack(true);
-    setSelectedIndex((currentIndex) =>
-      Math.min(currentIndex + 1, maxSelectedIndex),
-    );
-  }, [maxSelectedIndex]);
+    setHasManualInteraction(true);
+    goToNextSlide();
+  }, [goToNextSlide]);
 
   const handleCarouselPointerDown = useCallback(
     (event: ReactPointerEvent<HTMLDivElement>) => {
@@ -137,7 +224,9 @@ export function useTemplateSlider({
           event.currentTarget.setPointerCapture(event.pointerId);
         }
         setShouldAnimateTrack(false);
+        setIsDraggingCarousel(true);
         setHasCarouselMoved(true);
+        setHasManualInteraction(true);
         setIsAutoplayPaused(true);
       }
 
@@ -159,35 +248,30 @@ export function useTemplateSlider({
       }
 
       const finalOffset = event.clientX - dragStartXRef.current;
-      const elapsedMs = Math.max(
-        performance.now() - dragLastTimeRef.current,
-        16,
-      );
-      const velocityX =
-        ((event.clientX - dragLastXRef.current) / elapsedMs) * 1000;
-      const isDraggedToNext = finalOffset < -dragThreshold || velocityX < -650;
-      const isDraggedToPrevious =
-        finalOffset > dragThreshold || velocityX > 650;
+      const finalTrackX = baseTrackX + finalOffset;
+      const centeredIndex = getCenterActiveIndex(finalTrackX);
+      const snappedTrackX = getTrackXForActiveIndex(centeredIndex);
+      const snappedCenterIndex = getCenterActiveIndex(snappedTrackX);
 
       isDraggingCarouselRef.current = false;
       shouldCancelCarouselClickRef.current = Math.abs(finalOffset) > 8;
       setDragOffset(0);
+      setIsDraggingCarousel(false);
       setShouldAnimateTrack(true);
-
-      if (isDraggedToNext) {
-        setSelectedIndex((currentIndex) =>
-          Math.min(currentIndex + 1, maxSelectedIndex),
-        );
-      } else if (isDraggedToPrevious) {
-        setSelectedIndex((currentIndex) => Math.max(currentIndex - 1, 0));
-      }
+      setTrackDuration(settings.trackDuration);
+      setSelectedIndex(snappedCenterIndex);
 
       window.setTimeout(() => {
         shouldCancelCarouselClickRef.current = false;
         setIsAutoplayPaused(false);
       }, 180);
     },
-    [dragThreshold, maxSelectedIndex],
+    [
+      baseTrackX,
+      getCenterActiveIndex,
+      getTrackXForActiveIndex,
+      settings.trackDuration,
+    ],
   );
 
   const handleCarouselPointerUp = useCallback(
@@ -217,13 +301,28 @@ export function useTemplateSlider({
   );
 
   const handleCarouselClickCapture = useCallback(
-    (event: ReactMouseEvent<HTMLDivElement>) => {
-      if (!shouldCancelCarouselClickRef.current) return;
+    (
+      event: ReactMouseEvent<HTMLDivElement>,
+      cardIndex: number,
+      shouldOpenLink: boolean,
+    ) => {
+      if (shouldCancelCarouselClickRef.current) {
+        event.preventDefault();
+        event.stopPropagation();
+        return;
+      }
+
+      if (shouldOpenLink) return;
 
       event.preventDefault();
       event.stopPropagation();
+      setHasManualInteraction(true);
+      setHasCarouselMoved(true);
+      setShouldAnimateTrack(true);
+      setTrackDuration(settings.inactiveClickDuration);
+      setSelectedIndex(cardIndex);
     },
-    [],
+    [settings.inactiveClickDuration],
   );
 
   useEffect(() => {
@@ -281,44 +380,30 @@ export function useTemplateSlider({
   }, []);
 
   useEffect(() => {
-    const carouselTrack = carouselTrackRef.current;
-    const firstCard = carouselTrack?.firstElementChild;
-
-    if (!firstCard) return;
-
-    const updateRenderedCardWidth = () => {
-      setRenderedCardWidth(firstCard.getBoundingClientRect().width);
-    };
-    const cardObserver = new ResizeObserver(updateRenderedCardWidth);
-
-    updateRenderedCardWidth();
-    cardObserver.observe(firstCard);
-
-    return () => {
-      cardObserver.disconnect();
-    };
-  }, []);
-
-  useEffect(() => {
     if (
       isAutoplayPaused ||
+      hasManualInteraction ||
       !isAutoplayInViewport ||
       !isBrowserTabActive ||
-      selectedIndex >= maxSelectedIndex
+      isNextSlideDisabled
     ) {
       return;
     }
 
-    const autoplayInterval = window.setInterval(handleNextSlide, 4000);
+    const autoplayInterval = window.setInterval(
+      goToNextSlide,
+      settings.autoplayInterval,
+    );
 
     return () => window.clearInterval(autoplayInterval);
   }, [
-    handleNextSlide,
+    goToNextSlide,
+    hasManualInteraction,
     isAutoplayInViewport,
     isAutoplayPaused,
     isBrowserTabActive,
-    maxSelectedIndex,
-    selectedIndex,
+    isNextSlideDisabled,
+    settings.autoplayInterval,
   ]);
 
   useEffect(() => {
@@ -326,6 +411,10 @@ export function useTemplateSlider({
       Math.min(currentIndex, maxSelectedIndex),
     );
   }, [maxSelectedIndex]);
+
+  useEffect(() => {
+    setTrackDuration(settings.trackDuration);
+  }, [settings.trackDuration]);
 
   useEffect(() => {
     const sectionElement = sectionRef.current;
@@ -336,7 +425,7 @@ export function useTemplateSlider({
       ([entry]) => {
         setIsAutoplayInViewport(entry.isIntersecting);
       },
-      { threshold: 0.35 },
+      { threshold: settings.viewportThreshold },
     );
 
     sectionObserver.observe(sectionElement);
@@ -344,7 +433,7 @@ export function useTemplateSlider({
     return () => {
       sectionObserver.disconnect();
     };
-  }, [sectionRef]);
+  }, [sectionRef, settings.viewportThreshold]);
 
   useEffect(() => {
     const updateBrowserTabActive = () => {
@@ -379,6 +468,7 @@ export function useTemplateSlider({
     handleNextSlide,
     handlePreviousSlide,
     hasCarouselMoved,
+    isAutoplayInViewport,
     isCarouselMeasured,
     isNextSlideDisabled,
     isPreviousSlideDisabled,
@@ -387,6 +477,14 @@ export function useTemplateSlider({
     shouldAnimateTrack,
     shouldUseThreeCardLayout,
     shouldUseTwoFullCardsLayout,
+    cardTransition: {
+      duration: settings.cardResizeDuration,
+      ease: TEMPLATE_CARD_WIDTH_TRANSITION.ease,
+    },
+    trackTransition: {
+      duration: trackDuration,
+      ease: TEMPLATE_TRACK_TRANSITION.ease,
+    },
     trackX,
   };
 }

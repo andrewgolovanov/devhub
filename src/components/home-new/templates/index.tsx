@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { type SVGProps, useRef } from "react";
 
 import { TemplateSlider } from "./slider";
+import { DEFAULT_TEMPLATE_SLIDER_SETTINGS } from "./use-slider";
 
 interface TemplatesProps {
   className?: string;
@@ -71,7 +72,10 @@ function Templates({ className }: TemplatesProps) {
         </header>
       </div>
 
-      <TemplateSlider sectionRef={sectionRef} />
+      <TemplateSlider
+        sectionRef={sectionRef}
+        settings={DEFAULT_TEMPLATE_SLIDER_SETTINGS}
+      />
 
       <Button
         className="mt-10 w-full flex rounded-none bg-orange px-5 font-mono text-base font-medium tracking-normal text-white uppercase shadow-none hover:bg-primary/90 focus-visible:ring-2 focus-visible:ring-db-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-[#121317] md:mt-14 md:text-lg lg:mt-18 lg:text-xl xl:text-[2rem]"
