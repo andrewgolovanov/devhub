@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
-import { Bot } from "lucide-react";
+import Link from "@docusaurus/Link";
+import { Bot, BookOpen } from "lucide-react";
 import {
   CopyPromptButton,
   type CopyPromptButtonProps,
@@ -58,6 +59,18 @@ export function AgentUsageCard({
             permalink={copyPromptProps.permalink}
           />
         </div>
+      </div>
+      <div className="flex items-center gap-2 border-t border-border/60 px-5 py-3 text-xs text-muted-foreground">
+        <BookOpen className="h-3.5 w-3.5 shrink-0 text-db-lava" />
+        <span>
+          New to templates?
+          <Link
+            to="/docs/templates"
+            className="ml-1.5 font-medium text-db-lava no-underline hover:underline"
+          >
+            Learn more here
+          </Link>
+        </span>
       </div>
     </div>
   );
