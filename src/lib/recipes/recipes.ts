@@ -14,9 +14,9 @@ export type Service = (typeof SERVICES)[number];
 /**
  * Theme-aware preview image pair shared by Recipe, Cookbook, and Example.
  *
- * Rendered on: landing carousel card, /templates list card, and the example
- * detail hero when no galleryImages are set. When both URLs are omitted the UI
- * falls back to the generic template card art (FallbackCardArt).
+ * Rendered on: /templates list cards and the example detail hero when no
+ * galleryImages are set. When both URLs are omitted the UI falls back to the
+ * generic template card art (FallbackCardArt).
  *
  * Image contract (enforced by `npm run verify:images`):
  *   - 16:9 aspect ratio, minimum 1600x900 px
@@ -54,17 +54,6 @@ export type Cookbook = PreviewImages & {
   tags: string[];
   services: Service[];
   isDraft?: boolean;
-};
-
-type CookbookPreviewItem = {
-  id: string;
-  path: string;
-  title: string;
-  description: string;
-  tags?: string[];
-  services?: Service[];
-  previewImageLightUrl?: string;
-  previewImageDarkUrl?: string;
 };
 
 export const recipes: Recipe[] = [
@@ -508,23 +497,6 @@ export const cookbooks: Cookbook[] = [
       "/img/guides/operational-data-analytics-preview-dark.png",
   }),
 ];
-
-export const cookbookPreviewItems: CookbookPreviewItem[] = cookbooks.map(
-  (cookbook) => ({
-    id: cookbook.id,
-    path: `/templates/${cookbook.id}`,
-    title: cookbook.name,
-    description: cookbook.description,
-    tags: cookbook.tags,
-    services: cookbook.services,
-    ...(cookbook.previewImageLightUrl
-      ? { previewImageLightUrl: cookbook.previewImageLightUrl }
-      : {}),
-    ...(cookbook.previewImageDarkUrl
-      ? { previewImageDarkUrl: cookbook.previewImageDarkUrl }
-      : {}),
-  }),
-);
 
 export type Example = PreviewImages & {
   id: string;

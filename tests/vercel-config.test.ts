@@ -25,8 +25,6 @@ describe("vercel rewrites", () => {
     expectRewrite("/devhub/docs/(.*)", "/docs/$1");
     expectRewrite("/devhub/templates/(.*)", "/templates/$1");
     expectRewrite("/devhub/solutions/(.*)", "/solutions/$1");
-    expectRewrite("/devhub/blog", "/blog");
-    expectRewrite("/devhub/blog/(.*)", "/blog/$1");
   });
 
   test("serves DevHub API functions under /devhub/api", () => {
@@ -60,10 +58,6 @@ describe("vercel rewrites", () => {
       "/api/markdown?section=templates&slug=$1",
     );
     expectRewrite(
-      "/devhub/blog/(.+)\\.md",
-      "/api/markdown?section=blog&slug=$1",
-    );
-    expectRewrite(
       "/devhub/solutions/(.+)\\.md",
       "/api/markdown?section=solutions&slug=$1",
     );
@@ -71,7 +65,6 @@ describe("vercel rewrites", () => {
       "/devhub/templates.md",
       "/api/markdown?section=templates&slug=",
     );
-    expectRewrite("/devhub/blog.md", "/api/markdown?section=blog&slug=");
     expectRewrite(
       "/devhub/solutions.md",
       "/api/markdown?section=solutions&slug=",

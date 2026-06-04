@@ -79,7 +79,7 @@ export function Hero({ content }: HeroProps) {
   const src = useBaseUrl(image.src);
   return (
     <section className="relative overflow-hidden bg-black text-white">
-      <div className="relative mx-auto flex w-full max-w-304 flex-col px-5 pb-24 pt-9 md:px-8 md:pb-32 xl:px-0 lg:pb-40">
+      <div className="relative mx-auto flex w-full max-w-304 flex-col px-5 pb-24 pt-9 md:px-8 md:pb-32 xl:px-0 lg:pb-40 xl:pb-60">
         <div className="relative w-full">
           <img
             alt={image.alt}
@@ -114,25 +114,25 @@ export function Hero({ content }: HeroProps) {
         </header>
 
         <section
-          className="mt-24 md:mt-32 lg:mt-40"
+          className="mt-24 md:mt-32 lg:mt-40 xl:mt-60"
           aria-labelledby="product-benefits"
         >
-          <SectionKicker className="text-grey-60">
-            {content.benefitsIntro.eyebrow}
-          </SectionKicker>
           <h2
-            className="mt-6 max-w-304 font-sans text-[28px]/tight font-normal tracking-normal md:mt-8 md:text-[32px] lg:mt-7 lg:text-[40px] 2xl:text-[44px]"
+            className="inline md:flex md:flex-wrap md:justify-between md:flex-row md:items-center max-w-304 font-sans text-[28px]/tight font-normal tracking-[-0.04em] md:text-[32px] lg:text-[40px] 2xl:text-[44px]"
             id="product-benefits"
           >
-            {content.benefitsIntro.title}{" "}
-            <span className="text-grey-70">
+            <SectionKicker className="text-grey-40 mb-6 md:mb-0">
+              {content.benefitsIntro.eyebrow}
+            </SectionKicker>
+            <span className="inline">{content.benefitsIntro.title} </span>
+            <span className="inline text-grey-70">
               {content.benefitsIntro.description}
             </span>
           </h2>
-          <div className="mt-11 grid gap-6 md:mt-14 md:grid-cols-3 md:gap-3 lg:mt-12 lg:gap-8">
+          <div className="mt-11 grid gap-6 md:mt-14 md:grid-cols-3 md:gap-3 lg:mt-12 lg:gap-8 xl:mt-14">
             {content.benefits.map(({ description, icon, title }) => (
               <article
-                className="relative min-h-0 overflow-hidden border border-[#9194a1] bg-black p-[18px] md:min-h-64 md:p-5 lg:p-6"
+                className="relative min-h-0 overflow-hidden border border-[#9194a1] bg-black p-[18px] md:min-h-64 md:p-5 lg:p-6 xl:p-8 xl:pr-6"
                 key={title}
               >
                 <div
@@ -141,10 +141,10 @@ export function Hero({ content }: HeroProps) {
                 />
                 <div className="relative">
                   <BenefitIcon icon={icon} />
-                  <h3 className="mt-12 text-[18px]/tight font-medium tracking-normal text-white md:mt-[60px] md:text-xl lg:mt-18 lg:text-2xl xl:text-[28px] 2xl:mt-30">
+                  <h3 className="mt-12 text-[18px]/tight font-medium tracking-tight text-white md:mt-[60px] md:text-xl/tight lg:mt-18 lg:text-2xl/tight xl:text-[28px]/tight 2xl:mt-29">
                     {title}
                   </h3>
-                  <p className="mt-[6px] max-w-80 text-base text-grey-70 -tracking-[0.5px] md:mt-2 md:max-w-[400px] md:text-[18px] lg:mt-2.5 lg:text-[18px] xl:mt-3 xl:text-xl text-pretty">
+                  <p className="mt-[6px] max-w-80 text-base text-grey-70 -tracking-[0.5px] md:mt-2 md:max-w-[400px] md:text-lg/normal lg:mt-2.5 xl:mt-3 xl:text-xl/normal text-pretty">
                     {description}
                   </p>
                 </div>

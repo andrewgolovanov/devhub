@@ -26,14 +26,6 @@ export function useAllRecipeSections(): Record<string, ContentSections> {
   return data.sectionsBySlug;
 }
 
-export function useRawSolutionMarkdown(slug: string): string | undefined {
-  const data = usePluginData(
-    "docusaurus-plugin-content-entries",
-    "solutions",
-  ) as ContentEntriesGlobalData;
-  return data.rawMarkdownBySlug[slug];
-}
-
 type CookbooksGlobalData = {
   goalsBySlug: Record<string, string>;
   introsBySlug: Record<string, string>;

@@ -9,14 +9,16 @@ import {
 } from "../api/content-markdown";
 import { absolutizeMarkdown } from "../src/lib/copy-preamble";
 import { showDrafts } from "../src/lib/feature-flags-server";
-import { buildBlogItems, isNativeBlogItem } from "../src/lib/blog/blog-items";
 import {
   cookbooks,
   examples,
   filterPublished,
   recipesInOrder,
 } from "../src/lib/recipes/recipes";
-import { nativeSolutions } from "../src/lib/solutions/solutions";
+import {
+  buildSolutionItems,
+  isNativeSolutionItem,
+} from "../src/lib/solutions/solution-items";
 import { siteUrlFromConfig } from "../src/lib/site-url";
 
 type MarkdownRoute = {
@@ -96,8 +98,8 @@ function buildMarkdownRoutes(siteDir: string): MarkdownRoute[] {
     ...filterPublished(recipesInOrder, includeDrafts).map((entry) => entry.id),
     ...filterPublished(examples, includeDrafts).map((entry) => entry.id),
   ];
-  const nativeBlogSlugs = buildBlogItems(includeDrafts)
-    .filter(isNativeBlogItem)
+  const nativeSolutionSlugs = buildSolutionItems(includeDrafts)
+    .filter(isNativeSolutionItem)
     .map((entry) => entry.id);
 
   return [
@@ -112,17 +114,11 @@ function buildMarkdownRoutes(siteDir: string): MarkdownRoute[] {
       slug,
       outputPath: `templates/${slug}.md`,
     })),
-    { section: "blog", slug: "", outputPath: "blog.md" },
-    ...nativeBlogSlugs.map((slug) => ({
-      section: "blog" as const,
-      slug,
-      outputPath: `blog/${slug}.md`,
-    })),
     { section: "solutions", slug: "", outputPath: "solutions.md" },
-    ...nativeSolutions.map((entry) => ({
+    ...nativeSolutionSlugs.map((slug) => ({
       section: "solutions" as const,
-      slug: entry.id,
-      outputPath: `solutions/${entry.id}.md`,
+      slug,
+      outputPath: `solutions/${slug}.md`,
     })),
   ];
 }
@@ -160,10 +156,9 @@ function writePrettyMarkdownRoutes(
 ): void {
   cleanGeneratedMarkdown(path.join(outputRoot, "docs"));
   cleanGeneratedMarkdown(path.join(outputRoot, "templates"));
-  cleanGeneratedMarkdown(path.join(outputRoot, "blog"));
   cleanGeneratedMarkdown(path.join(outputRoot, "solutions"));
 
-  for (const fileName of ["templates.md", "blog.md", "solutions.md"]) {
+  for (const fileName of ["templates.md", "solutions.md"]) {
     const filePath = path.join(outputRoot, fileName);
     if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
   }

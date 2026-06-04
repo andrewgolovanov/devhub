@@ -21,7 +21,7 @@
 
   @apply prose-ol:my-6 prose-ol:gap-y-2.5 prose-ol:pl-4.5 md:prose-ol:pl-10;
 
-  @apply prose-li:m-0 prose-li:leading-normal prose-li:tracking-tight prose-li:text-grey-90 prose-li:text-base md:prose-p:text-lg/normal;
+  @apply prose-li:m-0 prose-li:leading-normal prose-li:tracking-tight prose-li:text-grey-90 prose-li:text-base md:prose-li:text-lg/normal;
 
   @apply prose-strong:font-medium prose-strong:text-white;
 

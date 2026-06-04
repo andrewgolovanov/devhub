@@ -5,7 +5,6 @@ const PAGES = [
   { path: "/product/data-lakehouse", title: "Lakebase" },
   { path: "/product/agent-bricks", title: "Agent Bricks" },
   { path: "/product/databricks-apps", title: "Databricks Apps" },
-  { path: "/blog", title: "Blog" },
   { path: "/solutions", title: "Solutions" },
   {
     path: "/solutions/devhub-launch",
@@ -114,21 +113,21 @@ test.describe("static assets load correctly", () => {
     expect(response.status()).toBe(200);
   });
 
-  test("blog RSS feed returns RSS XML", async ({ request }) => {
-    const response = await request.get("/blog/rss.xml");
+  test("solutions RSS feed returns RSS XML", async ({ request }) => {
+    const response = await request.get("/solutions/rss.xml");
     expect(response.status()).toBe(200);
     expect(await response.text()).toContain("<rss");
   });
 });
 
-test.describe("blog RSS", () => {
+test.describe("solutions RSS", () => {
   test("RSS action links to the generated feed", async ({ page }) => {
-    await page.goto("/blog");
+    await page.goto("/solutions");
 
     const rssLink = page.getByRole("link", {
-      name: "Subscribe to the Databricks Developer Blog RSS feed",
+      name: "Subscribe to the Databricks Developer Solutions RSS feed",
     });
 
-    await expect(rssLink).toHaveAttribute("href", /\/blog\/rss\.xml$/);
+    await expect(rssLink).toHaveAttribute("href", /\/solutions\/rss\.xml$/);
   });
 });

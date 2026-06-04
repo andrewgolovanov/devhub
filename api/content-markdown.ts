@@ -25,20 +25,13 @@ import {
 } from "../src/lib/recipes/recipes";
 import { showDrafts } from "../src/lib/feature-flags-server";
 import {
-  solutions,
-  isLinkedSolution,
-  isNativeSolution,
-  type NativeSolution,
-} from "../src/lib/solutions/solutions";
-import { getAuthor } from "../src/lib/solutions/authors";
-import {
-  blogItems,
-  buildBlogItems,
-  isLinkedBlogItem,
-  isNativeBlogItem,
-  type NativeBlogItem,
-} from "../src/lib/blog/blog-items";
-import { buildNativeBlogMarkdown } from "../src/lib/blog/blog-markdown";
+  buildSolutionItems,
+  isLinkedSolutionItem,
+  isNativeSolutionItem,
+  solutionItems,
+  type NativeSolutionItem,
+} from "../src/lib/solutions/solution-items";
+import { buildNativeSolutionMarkdown } from "../src/lib/solutions/solution-markdown";
 import { resolveSiteUrl } from "../src/lib/site-url";
 
 export type MarkdownSection =
@@ -46,7 +39,6 @@ export type MarkdownSection =
   | "recipes"
   | "solutions"
   | "examples"
-  | "blog"
   | "templates";
 
 /**
@@ -112,66 +104,16 @@ function readSolutionMarkdown(
     throw new Error(`Solution page not found: "${slug}"`);
   }
 
-  const contentPath = resolve(rootDir, "content", "solutions", `${slug}.md`);
-  const content = readIfExists(contentPath);
-  if (!content) {
-    throw new Error(
-      `Solution markdown source missing for "${slug}" at content/solutions/${slug}.md`,
-    );
-  }
-
-  const native = solutions.find(
-    (entry): entry is NativeSolution =>
-      entry.id === slug && isNativeSolution(entry),
+  const native = solutionItems.find(
+    (entry): entry is NativeSolutionItem =>
+      entry.id === slug && isNativeSolutionItem(entry),
   );
   if (!native) {
-    return content;
+    throw new Error(`Solution page not found: "${slug}"`);
   }
-  return prependSolutionFrontmatter(content, native, siteOrigin);
-}
 
-const FRONTMATTER_PATTERN = /^---\n[\s\S]*?\n---\n?/;
-
-/**
- * Builds the solution markdown payload by prepending a frontmatter block
- * derived entirely from `solutions.ts`. Any frontmatter that may still be
- * present in the source `.md` file is stripped first so the registry stays
- * the single source of truth for solution metadata.
- *
- * The `url` field is emitted as an absolute URL using the resolved site
- * origin, so the frontmatter is portable when the markdown is fetched and
- * pasted into an agent context outside the originating host.
- */
-function prependSolutionFrontmatter(
-  content: string,
-  solution: NativeSolution,
-  siteOrigin: string,
-): string {
-  const stripped = content.replace(FRONTMATTER_PATTERN, "").trimStart();
-  const origin = siteOrigin.replace(/\/$/, "");
-  const escapedTitle = solution.title.replace(/"/g, '\\"');
-  const escapedSummary = solution.description.replace(/"/g, '\\"');
-  const authorBlock = solution.authors
-    .map((id) => {
-      const author = getAuthor(id);
-      return [`  - name: ${author.name}`, `    role: ${author.role}`].join(
-        "\n",
-      );
-    })
-    .join("\n");
-
-  const frontmatter = [
-    "---",
-    `title: "${escapedTitle}"`,
-    `url: ${origin}/solutions/${solution.id}`,
-    `summary: "${escapedSummary}"`,
-    `publishedAt: ${solution.publishedAt}`,
-    `authors:`,
-    authorBlock,
-    "---",
-  ].join("\n");
-
-  return `${frontmatter}\n\n${stripped}`;
+  const content = goalOnly(readContentSections(rootDir, "solutions", slug));
+  return buildNativeSolutionMarkdown(content, native, siteOrigin);
 }
 
 function readRecipeMarkdown(rootDir: string, slug: string): string {
@@ -212,27 +154,6 @@ function readExampleMarkdown(rootDir: string, slug: string): string {
     lines.push("");
   }
   return lines.join("\n");
-}
-
-function readBlogMarkdown(
-  rootDir: string,
-  slug: string,
-  siteOrigin: string,
-): string {
-  if (!hasContentSlug(rootDir, "blog", slug)) {
-    throw new Error(`Blog article not found: "${slug}"`);
-  }
-
-  const item = blogItems.find(
-    (entry): entry is NativeBlogItem =>
-      entry.id === slug && isNativeBlogItem(entry),
-  );
-  if (!item) {
-    throw new Error(`Blog article not found: "${slug}"`);
-  }
-
-  const content = goalOnly(readContentSections(rootDir, "blog", slug));
-  return buildNativeBlogMarkdown(content, item, siteOrigin);
 }
 
 function readCookbookMarkdown(rootDir: string, slug: string): string {
@@ -317,29 +238,10 @@ function readSolutionsIndex(): string {
     "",
   ];
 
-  for (const s of solutions) {
-    const target = isLinkedSolution(s) ? s.url : `/solutions/${s.id}.md`;
-    const suffix = isLinkedSolution(s) ? ` (${s.source})` : "";
+  for (const s of buildSolutionItems(showDrafts())) {
+    const target = isLinkedSolutionItem(s) ? s.href : `/solutions/${s.id}.md`;
+    const suffix = isLinkedSolutionItem(s) ? ` (${s.source})` : "";
     lines.push(`- [${s.title}](${target}): ${s.description}${suffix}`);
-  }
-  lines.push("");
-
-  return lines.join("\n");
-}
-
-/** Markdown index served at /blog.md — lists every blog item in one flat catalog. */
-function readBlogIndex(): string {
-  const lines: string[] = [
-    "# Blog",
-    "",
-    "Developer-first articles for building on Databricks.",
-    "",
-  ];
-
-  for (const item of buildBlogItems(showDrafts())) {
-    const target = isLinkedBlogItem(item) ? item.href : `/blog/${item.id}.md`;
-    const suffix = isLinkedBlogItem(item) ? ` (${item.source})` : "";
-    lines.push(`- [${item.title}](${target}): ${item.description}${suffix}`);
   }
   lines.push("");
 
@@ -358,7 +260,6 @@ export function getDetailMarkdown(
   if (!slug || slug.trim() === "") {
     if (section === "templates") return readTemplatesIndex();
     if (section === "solutions") return readSolutionsIndex();
-    if (section === "blog") return readBlogIndex();
     throw new Error("Missing slug");
   }
 
@@ -373,8 +274,6 @@ export function getDetailMarkdown(
       return readSolutionMarkdown(rootDir, slug, siteOrigin);
     case "examples":
       return readExampleMarkdown(rootDir, slug);
-    case "blog":
-      return readBlogMarkdown(rootDir, slug, siteOrigin);
     case "templates":
       return readTemplateMarkdown(rootDir, slug);
     default:
@@ -403,7 +302,7 @@ export function loadAgentPromptParts(
 
 /**
  * Resolves the agent-prompt kind for a section + slug combination. Returns
- * undefined for sections/slugs that should _not_ be wrapped (docs, blog,
+ * undefined for sections/slugs that should _not_ be wrapped (docs,
  * solutions, empty-slug index pages).
  */
 export function resolveTemplateKind(

@@ -1,9 +1,6 @@
-import { readFileSync } from "fs";
-import { resolve } from "path";
 import type { LoadContext, Plugin } from "@docusaurus/types";
 import {
   getContentSlugs,
-  getSolutionSlugs,
   readContentSections,
   readReplitPrompt,
 } from "../src/lib/content-markdown";
@@ -16,11 +13,10 @@ import {
   filterPublished,
 } from "../src/lib/recipes/recipes";
 import { showDrafts } from "../src/lib/feature-flags-server";
-import { nativeSolutions } from "../src/lib/solutions/solutions";
 import {
-  filterPublishedBlogItems,
-  nativeBlogItems,
-} from "../src/lib/blog/blog-items";
+  filterPublishedSolutionItems,
+  nativeSolutionItems,
+} from "../src/lib/solutions/solution-items";
 
 function assertNoDuplicateSlugs(): void {
   const all: Array<{ id: string; type: string }> = [
@@ -40,17 +36,17 @@ function assertNoDuplicateSlugs(): void {
   }
 }
 
-type EntryType = "recipe" | "solution" | "example" | "blog";
+type EntryType = "recipe" | "solution" | "example";
 
 type ContentEntriesPluginOptions = {
-  id: "recipes" | "solutions" | "examples" | "blog";
+  id: "recipes" | "solutions" | "examples";
   entryType: EntryType;
   routeBasePath: string;
-  contentSection: "recipes" | "solutions" | "examples" | "blog";
+  contentSection: "recipes" | "solutions" | "examples";
 };
 
 function createFolderRouteModuleSource(
-  entryType: "recipe" | "example" | "blog",
+  entryType: EntryType,
   slug: string,
   sections: ContentSections,
 ): string {
@@ -59,7 +55,7 @@ function createFolderRouteModuleSource(
       ? "recipes"
       : entryType === "example"
         ? "examples"
-        : "blog";
+        : "solutions";
   const hasPrereqs = sections.prerequisites !== undefined;
 
   const imports: string[] = [
@@ -92,22 +88,22 @@ ${children}
 `;
   }
 
-  if (entryType === "blog") {
+  if (entryType === "solution") {
     return `import type { ReactNode } from "react";
-import { BlogDetail } from "@/components/blog/blog-detail-shell";
-import { blogItems, isNativeBlogItem } from "@/lib/blog/blog-items";
+import { SolutionDetail } from "@/components/solutions/solution-detail-shell";
+import { solutionItems, isNativeSolutionItem } from "@/lib/solutions/solution-items";
 ${imports.join("\n")}
 
-const blogItem = blogItems.find((item) => item.id === "${slug}");
+const solutionItem = solutionItems.find((item) => item.id === "${slug}");
 
-export default function BlogEntryPage(): ReactNode {
-  if (!blogItem || !isNativeBlogItem(blogItem)) {
-    throw new Error("Blog item ${slug} not found");
+export default function SolutionEntryPage(): ReactNode {
+  if (!solutionItem || !isNativeSolutionItem(solutionItem)) {
+    throw new Error("Solution item ${slug} not found");
   }
   return (
-    <BlogDetail item={blogItem}>
+    <SolutionDetail item={solutionItem}>
 ${children}
-    </BlogDetail>
+    </SolutionDetail>
   );
 }
 `;
@@ -131,21 +127,6 @@ ${children}
 `;
 }
 
-function createSolutionRouteModuleSource(slug: string): string {
-  return `import type { ReactNode } from "react";
-import { SolutionDetail } from "@/components/solutions/solution-detail";
-import EntryContent from "@site/content/solutions/${slug}.md";
-
-export default function SolutionEntryPage(): ReactNode {
-  return (
-    <SolutionDetail solutionId="${slug}">
-      <EntryContent />
-    </SolutionDetail>
-  );
-}
-`;
-}
-
 function getRegistrySlugs(entryType: EntryType): string[] {
   const includeDrafts = showDrafts();
   if (entryType === "recipe") {
@@ -158,12 +139,12 @@ function getRegistrySlugs(entryType: EntryType): string[] {
       .map((example) => example.id)
       .sort();
   }
-  if (entryType === "blog") {
-    return filterPublishedBlogItems(nativeBlogItems, includeDrafts)
+  if (entryType === "solution") {
+    return filterPublishedSolutionItems(nativeSolutionItems, includeDrafts)
       .map((item) => item.id)
       .sort();
   }
-  return nativeSolutions.map((solution) => solution.id).sort();
+  return [];
 }
 
 function getAllRegistrySlugs(entryType: EntryType): string[] {
@@ -173,10 +154,10 @@ function getAllRegistrySlugs(entryType: EntryType): string[] {
   if (entryType === "example") {
     return examples.map((example) => example.id).sort();
   }
-  if (entryType === "blog") {
-    return nativeBlogItems.map((item) => item.id).sort();
+  if (entryType === "solution") {
+    return nativeSolutionItems.map((item) => item.id).sort();
   }
-  return nativeSolutions.map((solution) => solution.id).sort();
+  return [];
 }
 
 function assertSlugParity(entryType: EntryType, contentSlugs: string[]): void {
@@ -214,18 +195,14 @@ export default function contentEntriesPlugin(
       const { addRoute, createData, setGlobalData } = actions;
       assertNoDuplicateSlugs();
 
-      const folderSection: "recipes" | "examples" | "blog" | null =
+      const folderSection: "recipes" | "examples" | "solutions" =
         options.entryType === "recipe"
           ? "recipes"
           : options.entryType === "example"
             ? "examples"
-            : options.entryType === "blog"
-              ? "blog"
-              : null;
+            : "solutions";
 
-      const contentSlugs = folderSection
-        ? getContentSlugs(context.siteDir, folderSection)
-        : getSolutionSlugs(context.siteDir);
+      const contentSlugs = getContentSlugs(context.siteDir, folderSection);
       assertSlugParity(options.entryType, contentSlugs);
 
       const publishedSlugs = getRegistrySlugs(options.entryType);
@@ -253,14 +230,6 @@ export default function contentEntriesPlugin(
               replitPromptsBySlug[slug] = replitPrompt;
             }
           }
-        } else {
-          const filePath = resolve(
-            context.siteDir,
-            "content",
-            options.contentSection,
-            `${slug}.md`,
-          );
-          rawMarkdownBySlug[slug] = readFileSync(filePath, "utf-8");
         }
       }
 
@@ -275,18 +244,17 @@ export default function contentEntriesPlugin(
 
       for (const slug of publishedSlugs) {
         const sections = sectionsBySlug[slug];
-        if (folderSection && !sections) {
+        if (!sections) {
           throw new Error(
             `Missing content sections for ${options.entryType} "${slug}"`,
           );
         }
 
-        const source =
-          options.entryType === "recipe" ||
-          options.entryType === "example" ||
-          options.entryType === "blog"
-            ? createFolderRouteModuleSource(options.entryType, slug, sections)
-            : createSolutionRouteModuleSource(slug);
+        const source = createFolderRouteModuleSource(
+          options.entryType,
+          slug,
+          sections,
+        );
 
         const modulePath = await createData(
           `${options.id}-${slug}-route.tsx`,

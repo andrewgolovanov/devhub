@@ -1,5 +1,6 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { SERVICES, type Service } from "@/lib/recipes/recipes";
+import { cn } from "@/lib/utils";
 
 function FilterCheckIcon({ className }: { className?: string }) {
   return (
@@ -23,6 +24,25 @@ function FilterCheckIcon({ className }: { className?: string }) {
   );
 }
 
+function TemplateFiltersTitle({
+  className,
+  title,
+}: {
+  className?: string;
+  title: string;
+}) {
+  return (
+    <p
+      className={cn(
+        "mb-4 text-sm/none font-medium tracking-tight text-black/30 uppercase",
+        className,
+      )}
+    >
+      [{title}]
+    </p>
+  );
+}
+
 export function TemplateFilters({
   selectedServices,
   onToggleService,
@@ -35,10 +55,11 @@ export function TemplateFilters({
   onToggleReplitOnly: () => void;
 }) {
   return (
-    <nav className="flex flex-col gap-y-1" aria-label="Filters">
+    <nav className="flex flex-col" aria-label="Filters">
+      <TemplateFiltersTitle title="Services" />
       {SERVICES.map((service) => (
         <label
-          className="flex min-h-9 cursor-pointer items-center gap-2.5 text-base/snug text-black transition-colors hover:text-black"
+          className="mb-1 flex min-h-9 cursor-pointer items-center gap-2.5 text-base/snug text-black transition-colors hover:text-black"
           key={service}
         >
           <Checkbox
@@ -51,22 +72,17 @@ export function TemplateFilters({
           <span>{service}</span>
         </label>
       ))}
-      <div className="mt-7">
-        <p className="mb-3 flex flex-row items-center gap-x-2.5 font-mono text-xs font-medium tracking-tight text-grey-50 uppercase">
-          Build with
-          <span className="grow bg-grey-80 h-px" aria-hidden="true" />
-        </p>
-        <label className="flex min-h-9 cursor-pointer items-center gap-2.5 text-base/snug text-black transition-colors hover:text-black">
-          <Checkbox
-            className="size-5 rounded-none border-grey-60 bg-transparent data-[state=checked]:border-orange data-[state=checked]:bg-orange data-[state=checked]:text-white dark:border-grey-60 dark:bg-transparent"
-            indicatorIcon={<FilterCheckIcon className="size-4" />}
-            checked={replitOnly}
-            onCheckedChange={onToggleReplitOnly}
-            aria-label="Replit"
-          />
-          <span>Replit</span>
-        </label>
-      </div>
+      <TemplateFiltersTitle className="mt-7" title="Build with" />
+      <label className="flex min-h-9 cursor-pointer items-center gap-2.5 text-base/snug text-black transition-colors hover:text-black">
+        <Checkbox
+          className="size-5 rounded-none border-grey-60 bg-transparent data-[state=checked]:border-orange data-[state=checked]:bg-orange data-[state=checked]:text-white dark:border-grey-60 dark:bg-transparent"
+          indicatorIcon={<FilterCheckIcon className="size-4" />}
+          checked={replitOnly}
+          onCheckedChange={onToggleReplitOnly}
+          aria-label="Replit"
+        />
+        <span>Replit</span>
+      </label>
     </nav>
   );
 }

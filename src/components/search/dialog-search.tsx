@@ -5,7 +5,9 @@ import {
   type CSSProperties,
   type ReactNode,
   type SVGProps,
+  useCallback,
   useEffect,
+  useState,
 } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -67,7 +69,7 @@ export function groupSearchDialogItems(
   }));
 }
 
-export function useSearchDialogShortcut({
+function useSearchDialogShortcut({
   onOpenChange,
   open,
 }: {
@@ -85,6 +87,28 @@ export function useSearchDialogShortcut({
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [onOpenChange, open]);
+}
+
+export function useSearchDialogState(): {
+  open: boolean;
+  query: string;
+  setQuery: (query: string) => void;
+  handleOpenChange: (open: boolean) => void;
+} {
+  const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState("");
+
+  const handleOpenChange = useCallback((nextOpen: boolean): void => {
+    setOpen(nextOpen);
+
+    if (!nextOpen) {
+      setQuery("");
+    }
+  }, []);
+
+  useSearchDialogShortcut({ onOpenChange: handleOpenChange, open });
+
+  return { open, query, setQuery, handleOpenChange };
 }
 
 export function SearchDialogTriggerButton({

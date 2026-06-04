@@ -1,12 +1,11 @@
 import fs from "fs";
 import path from "path";
 import type { LoadContext, Plugin } from "@docusaurus/types";
-import { solutions, isLinkedSolution } from "../src/lib/solutions/solutions";
 import {
-  buildBlogItems,
-  getBlogItemHref,
-  isLinkedBlogItem,
-} from "../src/lib/blog/blog-items";
+  buildSolutionItems,
+  getSolutionItemHref,
+  isLinkedSolutionItem,
+} from "../src/lib/solutions/solution-items";
 import {
   cookbooks,
   recipesInOrder,
@@ -231,32 +230,16 @@ export function generateLlmsTxt(baseUrl: string, docsDir: string): string {
     "",
   );
 
-  const allBlogItems = buildBlogItems(showDrafts());
-  lines.push(
-    "## Blog",
-    "",
-    `Developer-first articles for building on Databricks. Browse the blog at ${baseUrl}/blog.`,
-    "",
-    `- [All Blog Articles](${baseUrl}/blog.md): Browse all blog articles`,
-    ...allBlogItems.map((item) => {
-      if (isLinkedBlogItem(item)) {
-        return `- [${item.title}](${getBlogItemHref(item)}): ${item.description} (${item.source})`;
-      }
-      return `- [${item.title}](${baseUrl}/blog/${item.id}.md): ${item.description}`;
-    }),
-    "",
-  );
-
-  // Solutions last — least actionable
+  const allSolutionItems = buildSolutionItems(showDrafts());
   lines.push(
     "## Solutions",
     "",
     "Databricks use-case solutions built on Lakebase, Agent Bricks, and Databricks Apps.",
     "",
     `- [All Solutions](${baseUrl}/solutions.md): Overview of Databricks developer solutions`,
-    ...solutions.map((s) => {
-      if (isLinkedSolution(s)) {
-        return `- [${s.title}](${s.url}): ${s.description} (${s.source})`;
+    ...allSolutionItems.map((s) => {
+      if (isLinkedSolutionItem(s)) {
+        return `- [${s.title}](${getSolutionItemHref(s)}): ${s.description} (${s.source})`;
       }
       return `- [${s.title}](${baseUrl}/solutions/${s.id}.md): ${s.description}`;
     }),

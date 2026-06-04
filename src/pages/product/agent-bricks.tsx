@@ -3,7 +3,7 @@ import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
 import type { ReactNode } from "react";
 
-import CTA from "@/components/home-new/cta";
+import CTA from "@/components/home/cta";
 import { Features } from "@/components/products/features";
 import { Hero } from "@/components/products/hero";
 import { TestimonialsSlider } from "@/components/products/testimonials-slider";

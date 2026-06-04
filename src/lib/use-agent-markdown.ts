@@ -15,13 +15,7 @@ import { siteUrlFromConfig } from "@/lib/site-url";
  * emit the raw content with frontmatter so they can be ingested as
  * follow-up references.
  */
-type AgentMarkdownKind =
-  | "recipe"
-  | "cookbook"
-  | "example"
-  | "doc"
-  | "solution"
-  | "blog";
+type AgentMarkdownKind = "recipe" | "cookbook" | "example" | "doc" | "solution";
 
 export type AgentMarkdownInput = {
   /** What the user is copying. Determines whether the preamble is included. */
@@ -120,7 +114,7 @@ export function useAgentMarkdown(
       additionalMarkdown,
     });
 
-    if (kind === "doc" || kind === "solution" || kind === "blog") {
+    if (kind === "doc" || kind === "solution") {
       return absolutizeMarkdown(frontmatterBody, siteOrigin);
     }
 

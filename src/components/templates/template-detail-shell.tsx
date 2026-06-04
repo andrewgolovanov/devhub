@@ -6,7 +6,7 @@ import { ArrowLeft } from "lucide-react";
 import type { ComponentProps, ReactNode } from "react";
 
 import { CopyPromptButton } from "@/components/copy-prompt-button";
-import CTA from "@/components/home-new/cta";
+import CTA from "@/components/home/cta";
 import { OpenPromptInButton } from "@/components/open-prompt-in-button";
 import { MoreTemplatesSlider } from "@/components/templates/more-templates-slider";
 import type { TemplateItem } from "@/components/templates/template-card";

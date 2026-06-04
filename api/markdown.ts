@@ -14,18 +14,17 @@ function parseSection(section: unknown): MarkdownSection {
     section === "recipes" ||
     section === "solutions" ||
     section === "examples" ||
-    section === "blog" ||
     section === "templates"
   ) {
     return section;
   }
   throw new Error(
-    'Invalid section. Expected one of: "docs", "recipes", "solutions", "examples", "blog", "templates".',
+    'Invalid section. Expected one of: "docs", "recipes", "solutions", "examples", "templates".',
   );
 }
 
 /**
- * Serves markdown content for any doc/blog/solution/template page.
+ * Serves markdown content for any doc/solution/template page.
  * Reached via .md URL rewrites (vercel.json) or content negotiation (middleware.ts).
  */
 export default function handler(req: VercelRequest, res: VercelResponse): void {
@@ -46,10 +45,10 @@ export default function handler(req: VercelRequest, res: VercelResponse): void {
 
     // Only template-style pages with a concrete slug get wrapped in the
     // copy-prompt preamble (about + guidelines + intent + local-bootstrap).
-    // Docs, blog articles, and solutions are reference material linked from the prompts;
+    // Docs and solutions are reference material linked from the prompts;
     // wrapping them too would just double the prelude when an agent fetches
     // them as a follow-up. Catalog index pages (`/templates.md`,
-    // `/blog.md`, `/solutions.md`) have no copy button — they are agent-discoverable
+    // `/solutions.md`) have no copy button — they are agent-discoverable
     // tables of contents, not prompts, so they stay raw.
     const kindInfo = resolveTemplateKind(parsed, slug);
     const body = kindInfo
@@ -76,7 +75,6 @@ export default function handler(req: VercelRequest, res: VercelResponse): void {
       "",
       "- [Site index](/llms.txt): Table of contents for all documentation and templates",
       "- [All templates](/templates.md): Templates for building on Databricks",
-      "- [All blog articles](/blog.md): Developer-first articles for building on Databricks",
       "- [All solutions](/solutions.md): Use-case solutions",
       "- [Start here](/docs/start-here.md): Site orientation and getting started",
       "",

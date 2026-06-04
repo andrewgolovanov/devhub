@@ -250,24 +250,6 @@ test.describe("copy markdown exports raw markdown on solution pages", () => {
   });
 });
 
-test.describe("copy markdown exports raw markdown on blog pages", () => {
-  test("blog detail page uses Copy Article and copies markdown without the About DevHub preamble", async ({
-    page,
-  }) => {
-    await expectCopyMarkdownWithoutPreamble({
-      page,
-      path: "/blog/devhub-launch",
-      expectedFragments: [
-        "**dev.databricks.com**",
-        'title: "Introducing dev.databricks.com"',
-      ],
-    });
-    await expect(
-      page.getByRole("button", { name: /copy (agent )?prompt/i }),
-    ).toHaveCount(0);
-  });
-});
-
 test.describe("copy markdown exports raw markdown on docs pages", () => {
   test("docs page copies raw markdown without the About DevHub preamble", async ({
     page,

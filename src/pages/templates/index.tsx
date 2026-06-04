@@ -6,7 +6,7 @@ import type { ReactNode } from "react";
 import { Hero } from "@/components/templates/hero";
 import { TemplatesIndexContent } from "@/components/templates/templates-index-content";
 import { siteUrlFromConfig } from "@/lib/site-url";
-import CTA from "@site/src/components/home-new/cta";
+import CTA from "@site/src/components/home/cta";
 import NewFooter from "@site/src/components/theme/footer";
 
 export default function TemplatesPage(): ReactNode {

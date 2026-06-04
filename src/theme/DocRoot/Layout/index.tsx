@@ -5,7 +5,7 @@ import DocSidebarDesktopContent from "@theme/DocSidebar/Desktop/Content";
 import type { Props } from "@theme/DocRoot/Layout";
 import { MobileDocsSidebar } from "@/components/docs/mobile-docs-sidebar";
 
-import CTA from "@/components/home-new/cta";
+import CTA from "@/components/home/cta";
 import NewFooter from "@/components/theme/footer";
 
 export default function DocRootLayout({ children }: Props): ReactNode {

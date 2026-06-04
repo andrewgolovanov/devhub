@@ -131,8 +131,9 @@ describe("/api/markdown about-devhub preamble policy", () => {
       host,
     });
     expect(result.statusCode).toBe(200);
-    expect(result.body).toContain(
-      `url: ${resolveSiteUrlForRequest(host)}/solutions/devhub-launch`,
+    const { data } = matter(result.body);
+    expect(data.url).toBe(
+      `${resolveSiteUrlForRequest(host)}/solutions/devhub-launch`,
     );
     expect(result.body).not.toMatch(/^url:\s+\/solutions\//m);
   });
@@ -143,32 +144,18 @@ describe("/api/markdown about-devhub preamble policy", () => {
       slug: "devhub-launch",
       host: "developers.databricks.com",
     });
-    expect(result.body).toMatch(/^title:\s+"Introducing DevHub"$/m);
-    expect(result.body).toMatch(/^summary:\s+".+"$/m);
-    expect(result.body).toMatch(/^publishedAt:\s*2026-05-04$/m);
-    expect(result.body).toMatch(/^authors:$/m);
-  });
-
-  test("blog responses do NOT include the About DevHub preamble", () => {
-    const result = call({ section: "blog", slug: "devhub-launch" });
-    expect(result.statusCode).toBe(200);
-    expect(result.body).not.toContain("# About DevHub");
-    expect(result.body).not.toContain("/llms.txt");
-    expect(result.body).toContain("Introducing dev.databricks.com");
-  });
-
-  test("blog frontmatter url is absolute and reflects the request host", () => {
-    const host = "localhost:3001";
-    const result = call({
-      section: "blog",
-      slug: "devhub-launch",
-      host,
-    });
-    expect(result.statusCode).toBe(200);
     const { data } = matter(result.body);
-    expect(data.url).toBe(
-      `${resolveSiteUrlForRequest(host)}/blog/devhub-launch`,
-    );
+    expect(data).toMatchObject({
+      title: "Introducing DevHub",
+      publishedAt: "2026-05-04",
+    });
+    expect(data.summary).toEqual(expect.any(String));
+    expect(data.authors).toEqual([
+      {
+        name: "Andre Landgraf",
+        role: "Staff Developer Advocate, Databricks",
+      },
+    ]);
   });
 
   test("solutions index does NOT include the preamble", () => {
@@ -176,14 +163,6 @@ describe("/api/markdown about-devhub preamble policy", () => {
     expect(result.statusCode).toBe(200);
     expect(result.body).not.toContain("# About DevHub");
     expect(result.body).toContain("# Solutions");
-  });
-
-  test("blog index does NOT include the preamble", () => {
-    const result = call({ section: "blog", slug: "" });
-    expect(result.statusCode).toBe(200);
-    expect(result.body).not.toContain("# About DevHub");
-    expect(result.body).toContain("# Blog");
-    expect(result.body).toContain("/blog/devhub-launch.md");
   });
 
   test("recipe responses DO include the About DevHub preamble", () => {
@@ -246,8 +225,8 @@ describe("/api/markdown about-devhub preamble policy", () => {
         slug: "devhub-launch",
         host,
       });
-      expect(solution.body).toContain(
-        "url: https://stage.databricks.com/devhub/solutions/devhub-launch",
+      expect(matter(solution.body).data.url).toBe(
+        "https://stage.databricks.com/devhub/solutions/devhub-launch",
       );
 
       const template = call({
@@ -280,9 +259,6 @@ describe("/api/markdown about-devhub preamble policy", () => {
       );
       expect(result.body).toContain(
         "https://stage.databricks.com/devhub/templates.md",
-      );
-      expect(result.body).toContain(
-        "https://stage.databricks.com/devhub/blog.md",
       );
       expect(result.body).not.toContain("](/llms.txt)");
     });

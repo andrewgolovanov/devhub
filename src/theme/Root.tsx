@@ -10,7 +10,7 @@ import { toSiteRelativePath } from "@/lib/site-paths";
 
 // Keep in sync with middleware.ts matcher and vercel.json rewrites
 // TODO: centralize content section definitions into a shared module
-const MD_PREFIXES = ["/docs/", "/templates", "/blog", "/solutions"];
+const MD_PREFIXES = ["/docs/", "/templates", "/solutions"];
 
 /** Injects <link rel="alternate" type="text/markdown"> so agents discover the .md variant. */
 function MarkdownAlternate(): ReactNode {

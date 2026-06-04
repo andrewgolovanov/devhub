@@ -21,8 +21,7 @@ export function NewHeader({ className }: NewHeaderProps) {
   const triggerRef = useRef<HTMLDivElement | null>(null);
   const logoSrc = useBaseUrl("/img/databricks-logo.svg");
   const { pathname } = useLocation();
-  const isHomepage =
-    pathname === "/" || pathname === "/home-new" || pathname === "/home-new/";
+  const isHomepage = pathname === "/";
 
   useEffect(() => {
     if (!triggerRef.current) return;

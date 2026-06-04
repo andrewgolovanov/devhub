@@ -1,18 +1,18 @@
-import docsIcon from "@site/static/img/blog/search/docs.svg";
+import docsIcon from "@site/static/img/solutions/search/docs.svg";
 import type {
   PropSidebarItem,
   PropSidebarItemCategory,
   PropSidebarItemLink,
 } from "@docusaurus/plugin-content-docs";
 import { useHistory } from "@docusaurus/router";
-import { type ReactNode, useMemo, useState } from "react";
+import { type ReactNode, useMemo } from "react";
 
 import {
   groupSearchDialogItems,
   SearchDialogContent,
   SearchDialogTriggerButton,
   type SearchDialogItem,
-  useSearchDialogShortcut,
+  useSearchDialogState,
 } from "@/components/search/dialog-search";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 
@@ -136,19 +136,8 @@ function DocsSearchDialog({
 export function DocsSidebarSearch({
   items,
 }: DocsSidebarSearchProps): ReactNode {
-  const [open, setOpen] = useState(false);
-  const [query, setQuery] = useState("");
+  const { open, query, setQuery, handleOpenChange } = useSearchDialogState();
   const searchItems = useMemo(() => collectSearchItems(items), [items]);
-
-  function handleOpenChange(nextOpen: boolean): void {
-    setOpen(nextOpen);
-
-    if (!nextOpen) {
-      setQuery("");
-    }
-  }
-
-  useSearchDialogShortcut({ onOpenChange: handleOpenChange, open });
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>

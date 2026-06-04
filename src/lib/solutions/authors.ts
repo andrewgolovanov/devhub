@@ -1,4 +1,4 @@
-export type Author = {
+export type SolutionAuthor = {
   id: string;
   name: string;
   role: string;
@@ -7,7 +7,7 @@ export type Author = {
   links?: { label: string; href: string }[];
 };
 
-export const authors: Author[] = [
+const solutionAuthors: SolutionAuthor[] = [
   {
     id: "andre-landgraf",
     name: "Andre Landgraf",
@@ -23,10 +23,10 @@ export const authors: Author[] = [
   },
 ];
 
-export function getAuthor(id: string): Author {
-  const author = authors.find((entry) => entry.id === id);
+export function getSolutionAuthor(id: string): SolutionAuthor {
+  const author = solutionAuthors.find((entry) => entry.id === id);
   if (!author) {
-    throw new Error(`Author not found: ${id}`);
+    throw new Error(`Solution author not found: ${id}`);
   }
   return author;
 }

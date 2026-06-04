@@ -4,7 +4,6 @@ import type * as Preset from "@docusaurus/preset-classic";
 import { normalizeUrl } from "@docusaurus/utils";
 import path from "path";
 import aboutDevhubPlugin from "./plugins/about-devhub";
-import blogRssFeedPlugin from "./plugins/blog-rss-feed";
 import contentEntriesPlugin from "./plugins/content-entries";
 import cookbooksPlugin from "./plugins/cookbooks";
 import llmsTxtPlugin from "./plugins/llms-txt";
@@ -13,6 +12,7 @@ import perspectivesPlugin from "./plugins/perspectives";
 import remarkCliTabs from "./plugins/remark-cli-tabs";
 import remarkSiteUrl from "./plugins/remark-site-url";
 import robotsTxtPlugin from "./plugins/robots-txt";
+import solutionRssFeedPlugin from "./plugins/solutions-rss-feed";
 import { showDrafts } from "./src/lib/feature-flags-server";
 import { getHackathonBannerConfig } from "./src/lib/hackathon-banner-server";
 import {
@@ -147,13 +147,13 @@ const config: Config = {
         },
       };
     },
-    function blogPaginationRoutesPlugin() {
+    function solutionsPaginationRoutesPlugin() {
       return {
-        name: "blog-pagination-routes",
+        name: "solutions-pagination-routes",
         contentLoaded({ actions }) {
           actions.addRoute({
-            path: normalizeUrl([siteBaseUrl, "/blog/page/:page"]),
-            component: path.resolve(__dirname, "src/pages/blog/index.tsx"),
+            path: normalizeUrl([siteBaseUrl, "/solutions/page/:page"]),
+            component: path.resolve(__dirname, "src/pages/solutions/index.tsx"),
             exact: true,
           });
         },
@@ -186,20 +186,11 @@ const config: Config = {
         contentSection: "examples",
       },
     ],
-    [
-      contentEntriesPlugin,
-      {
-        id: "blog",
-        entryType: "blog",
-        routeBasePath: "/blog",
-        contentSection: "blog",
-      },
-    ],
     llmsTxtPlugin,
     markdownStaticRoutesPlugin,
     robotsTxtPlugin,
     aboutDevhubPlugin,
-    blogRssFeedPlugin,
+    solutionRssFeedPlugin,
     cookbooksPlugin,
     perspectivesPlugin,
   ],
@@ -218,7 +209,6 @@ const config: Config = {
       },
       items: [
         { to: "/solutions", label: "Solutions", position: "left" },
-        { to: "/blog", label: "Blog", position: "left" },
         { to: "/templates", label: "Templates", position: "left" },
         {
           to: "/docs/start-here",

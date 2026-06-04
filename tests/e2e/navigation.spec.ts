@@ -15,18 +15,14 @@ const BOOTSTRAP_PROMPT_MARKDOWN = composeAgentPrompt({
 test.describe("navbar navigation", () => {
   const NAVBAR_LINKS = [
     { label: "Solutions", expectedPath: "/solutions" },
-    { label: "Blog", expectedPath: "/blog" },
-    { label: "Templates", expectedPath: "/templates" },
+    { label: "Resources", expectedPath: "/templates" },
     { label: "Docs", expectedPath: "/docs/start-here" },
   ];
 
   for (const { label, expectedPath } of NAVBAR_LINKS) {
     test(`navbar "${label}" navigates to ${expectedPath}`, async ({ page }) => {
       await page.goto("/");
-      await page
-        .locator(".navbar__items")
-        .getByRole("link", { name: label, exact: true })
-        .click();
+      await page.locator(`header nav a[href="${expectedPath}"]`).click();
       await page.waitForURL(`**${expectedPath}`);
       expect(new URL(page.url()).pathname).toBe(expectedPath);
     });
@@ -67,21 +63,13 @@ test.describe("footer navigation", () => {
     },
     {
       href: "/docs/start-here",
-      label: "Start Here",
+      label: "Docs",
     },
-    { href: "/docs/agents/overview", label: "Agent Bricks" },
-    { href: "/docs/apps/overview", label: "Databricks Apps" },
-    { href: "/docs/lakebase/overview", label: "Lakebase" },
-    { href: "/blog", label: "Blog" },
     { href: "/templates", label: "Templates" },
     { href: "/solutions", label: "Solutions" },
   ];
 
   const FOOTER_EXTERNAL_LINKS = [
-    {
-      href: "https://www.databricks.com/product/databricks-apps",
-      label: "Databricks Apps product",
-    },
     {
       href: "https://www.databricks.com/product/lakebase",
       label: "Lakebase product",
@@ -90,46 +78,47 @@ test.describe("footer navigation", () => {
       href: "https://www.databricks.com/product/artificial-intelligence/agent-bricks",
       label: "Agent Bricks product",
     },
-    { href: "https://databricks.com", label: "Databricks" },
-    { href: "https://databricks.com/signup", label: "Sign Up" },
-    { href: "https://help.databricks.com", label: "Support" },
     {
-      href: "https://www.databricks.com/legal/privacynotice",
-      label: "Privacy Notice",
+      href: "https://www.databricks.com/product/databricks-apps",
+      label: "Databricks Apps product",
     },
     {
-      href: "https://www.databricks.com/legal/terms-of-use",
-      label: "Terms of Use",
+      href: "https://www.databricks.com/company/contact",
+      label: "Contact Sales",
     },
     {
-      href: "https://www.databricks.com/legal/modern-slavery-policy-statement",
-      label: "Modern Slavery Statement",
+      href: "https://docs.databricks.com/release-notes/",
+      label: "Changelog",
     },
     {
-      href: "https://www.databricks.com/legal/supplemental-privacy-notice-california-residents",
-      label: "California Privacy",
+      href: "https://github.com/databricks/devhub",
+      label: "GitHub",
     },
+    {
+      href: "https://discord.com/invite/databricks",
+      label: "Discord",
+    },
+    {
+      href: "https://www.reddit.com/r/databricks",
+      label: "Reddit",
+    },
+    { href: "https://www.databricks.com", label: "Databricks" },
   ];
 
   const EXPECTED_FOOTER_HREFS = [
     "/",
-    "https://www.databricks.com/product/databricks-apps",
     "https://www.databricks.com/product/lakebase",
     "https://www.databricks.com/product/artificial-intelligence/agent-bricks",
-    "/blog",
+    "https://www.databricks.com/product/databricks-apps",
+    "https://www.databricks.com/company/contact",
+    "/docs/start-here",
     "/templates",
     "/solutions",
-    "/docs/start-here",
-    "/docs/apps/overview",
-    "/docs/lakebase/overview",
-    "/docs/agents/overview",
-    "https://databricks.com",
-    "https://databricks.com/signup",
-    "https://help.databricks.com",
-    "https://www.databricks.com/legal/privacynotice",
-    "https://www.databricks.com/legal/terms-of-use",
-    "https://www.databricks.com/legal/modern-slavery-policy-statement",
-    "https://www.databricks.com/legal/supplemental-privacy-notice-california-residents",
+    "https://docs.databricks.com/release-notes/",
+    "https://github.com/databricks/devhub",
+    "https://discord.com/invite/databricks",
+    "https://www.reddit.com/r/databricks",
+    "https://www.databricks.com",
   ];
 
   test("footer renders every expected link in order", async ({ page }) => {
@@ -161,7 +150,7 @@ test.describe("footer navigation", () => {
 });
 
 test.describe("home page link navigation", () => {
-  test('hero "Copy Prompt" copies the full composed agent prompt (about + guidelines + hero intent + bootstrap) from API', async ({
+  test('hero "Copy agent prompt" copies the full composed agent prompt (about + guidelines + hero intent + bootstrap) from API', async ({
     page,
   }) => {
     await page.route("**/api/bootstrap-prompt", async (route) => {
@@ -185,14 +174,14 @@ test.describe("home page link navigation", () => {
     await page.goto("/");
     const button = page
       .locator("main")
-      .getByRole("button", { name: "Copy prompt for your agent" })
+      .getByRole("button", { name: "Copy agent prompt" })
       .first();
     await button.waitFor({ state: "visible" });
     await expect(button).toBeEnabled();
     await button.click();
 
     await expect(
-      page.locator("main").getByRole("button", { name: /^Copied — now paste/ }),
+      page.locator("main").getByRole("button", { name: "Copied" }).first(),
     ).toBeVisible({ timeout: 5000 });
     const finalCopiedText = await page.evaluate(
       () => (window as { __copiedText?: string }).__copiedText,
@@ -245,15 +234,19 @@ test.describe("home page link navigation", () => {
     expect(new URL(page.url()).pathname).toBe("/templates");
   });
 
-  test("template preview card navigates to /templates/ai-chat-app", async ({
+  test("template preview card navigates to /templates/agentic-support-console", async ({
     page,
   }) => {
     await page.goto("/");
-    const link = page.locator('a[href="/templates/ai-chat-app"]').first();
+    const link = page
+      .locator('a[href="/templates/agentic-support-console"]')
+      .first();
     await link.waitFor({ state: "visible" });
     await link.click();
-    await page.waitForURL("**/templates/ai-chat-app");
-    expect(new URL(page.url()).pathname).toBe("/templates/ai-chat-app");
+    await page.waitForURL("**/templates/agentic-support-console");
+    expect(new URL(page.url()).pathname).toBe(
+      "/templates/agentic-support-console",
+    );
   });
 });
 
@@ -268,7 +261,7 @@ test.describe("solutions page navigation", () => {
   for (const { path } of SOLUTIONS) {
     test(`solution card navigates to ${path}`, async ({ page }) => {
       await page.goto("/solutions");
-      const link = page.locator(`a[href="${path}"]`);
+      const link = page.locator(`a[href="${path}"]`).first();
       await link.waitFor({ state: "visible" });
       await link.click();
       await page.waitForURL(`**${path}`);
