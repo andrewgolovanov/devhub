@@ -166,7 +166,7 @@ test.describe("templates page empty state", () => {
 });
 
 test.describe("templates page Build-with Replit filter", () => {
-  test("checking 'Replit' narrows the grid to templates with a replit prompt and shows a removable chip", async ({
+  test("checking 'Replit' narrows the grid to templates with a replit prompt without active chips", async ({
     page,
   }) => {
     await page.goto("/templates");
@@ -186,26 +186,22 @@ test.describe("templates page Build-with Replit filter", () => {
       templateTextLink(page, "/templates/set-up-your-local-dev-environment"),
     ).toBeHidden();
 
-    // The active-filters chip should appear and clicking it should turn the
-    // filter back off.
-    const chip = page.getByRole("button", { name: /^Replit$/ });
-    await expect(chip).toBeVisible();
-    await chip.click();
+    await expect(page.getByRole("button", { name: /^Replit$/ })).toBeHidden();
+    await expect(page.getByRole("button", { name: "Clear all" })).toBeHidden();
+
+    await page.getByRole("checkbox", { name: "Replit", exact: true }).uncheck();
     expect(await visibleCount(templateLinks(page))).toBe(initialCount);
   });
 
-  test("Build-with Replit filter participates in 'Clear all'", async ({
-    page,
-  }) => {
+  test("Build-with Replit filter clears when unchecked", async ({ page }) => {
     await page.goto("/templates");
     const initialCount = await visibleCount(templateLinks(page));
     expect(initialCount).toBeGreaterThan(0);
 
     await page.getByRole("checkbox", { name: "Replit", exact: true }).check();
-    await expect(page.getByRole("button", { name: "Clear all" })).toBeVisible();
-
-    await page.getByRole("button", { name: "Clear all" }).click();
-    expect(await visibleCount(templateLinks(page))).toBe(initialCount);
     await expect(page.getByRole("button", { name: "Clear all" })).toBeHidden();
+
+    await page.getByRole("checkbox", { name: "Replit", exact: true }).uncheck();
+    expect(await visibleCount(templateLinks(page))).toBe(initialCount);
   });
 });

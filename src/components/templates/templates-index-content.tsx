@@ -7,7 +7,6 @@ import {
   type ReactNode,
 } from "react";
 
-import { ActiveFilters } from "@/components/templates/active-filters";
 import { TemplateCard } from "@/components/templates/template-card";
 import { TemplateFilters } from "@/components/templates/template-filters";
 import { TemplateSearch } from "@/components/templates/template-search";
@@ -32,7 +31,6 @@ export function TemplatesIndexContent(): ReactNode {
   const [selectedServices, setSelectedServices] = useState<Set<Service>>(
     new Set(),
   );
-  const [activeTags, setActiveTags] = useState<Set<string>>(new Set());
   const [currentPage, setCurrentPage] = useState(1);
   const [replitOnly, setReplitOnly] = useState(false);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
@@ -52,26 +50,14 @@ export function TemplatesIndexContent(): ReactNode {
         return matchesTemplateFilter(item.data, {
           searchQuery,
           selectedServices,
-          activeTags,
         });
       }),
-    [
-      searchQuery,
-      selectedServices,
-      activeTags,
-      replitOnly,
-      replitTemplateIds,
-      allItems,
-    ],
+    [searchQuery, selectedServices, replitOnly, replitTemplateIds, allItems],
   );
 
   const hasActiveFilters =
-    searchQuery.trim().length > 0 ||
-    activeTags.size > 0 ||
-    selectedServices.size > 0 ||
-    replitOnly;
-  const hasSelectedFilters =
-    activeTags.size > 0 || selectedServices.size > 0 || replitOnly;
+    searchQuery.trim().length > 0 || selectedServices.size > 0 || replitOnly;
+  const hasSelectedFilters = selectedServices.size > 0 || replitOnly;
   const visibleItemsPerPage = hasActiveFilters
     ? Math.max(filteredItems.length, 1)
     : ITEMS_PER_PAGE;
@@ -90,7 +76,7 @@ export function TemplatesIndexContent(): ReactNode {
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [searchQuery, selectedServices, activeTags, replitOnly]);
+  }, [searchQuery, selectedServices, replitOnly]);
 
   const handleToggleService = useCallback((service: Service) => {
     setSelectedServices((prev) => {
@@ -101,17 +87,8 @@ export function TemplatesIndexContent(): ReactNode {
     });
   }, []);
 
-  const handleRemoveTag = useCallback((tag: string) => {
-    setActiveTags((prev) => {
-      const next = new Set(prev);
-      next.delete(tag);
-      return next;
-    });
-  }, []);
-
   const handleClearAllFilters = useCallback(() => {
     setSelectedServices(new Set());
-    setActiveTags(new Set());
     setSearchQuery("");
     setReplitOnly(false);
   }, []);
@@ -150,27 +127,11 @@ export function TemplatesIndexContent(): ReactNode {
                 Filters
                 {hasSelectedFilters && (
                   <Badge className="ml-0.5 size-5 justify-center rounded-full p-0 text-[10px]">
-                    {selectedServices.size +
-                      activeTags.size +
-                      (replitOnly ? 1 : 0)}
+                    {selectedServices.size + (replitOnly ? 1 : 0)}
                   </Badge>
                 )}
               </Button>
             </div>
-
-            {hasSelectedFilters ? (
-              <div className="mb-8">
-                <ActiveFilters
-                  activeTags={activeTags}
-                  onRemoveTag={handleRemoveTag}
-                  selectedServices={selectedServices}
-                  onRemoveService={handleToggleService}
-                  replitOnly={replitOnly}
-                  onRemoveReplitOnly={handleToggleReplitOnly}
-                  onClearAll={handleClearAllFilters}
-                />
-              </div>
-            ) : null}
 
             {filteredItems.length === 0 ? (
               <TemplateEmptyState onClearAll={handleClearAllFilters} />

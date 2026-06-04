@@ -51,9 +51,10 @@ export function TemplateFilters({
           <span>{service}</span>
         </label>
       ))}
-      <div className="mt-7 border-t border-grey-80 pt-7">
-        <p className="mb-3 font-mono text-xs font-medium tracking-tight text-black/40 uppercase">
+      <div className="mt-7">
+        <p className="mb-3 flex flex-row items-center gap-x-2.5 font-mono text-xs font-medium tracking-tight text-grey-50 uppercase">
           Build with
+          <span className="grow bg-grey-80 h-px" aria-hidden="true" />
         </p>
         <label className="flex min-h-9 cursor-pointer items-center gap-2.5 text-base/snug text-black transition-colors hover:text-black">
           <Checkbox
