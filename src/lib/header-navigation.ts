@@ -9,7 +9,7 @@ export type HeaderNavItem = (typeof HEADER_LINKS)[number];
 
 export const PRODUCT_LINKS = [
   { label: "Lakebase", href: "/product/data-lakehouse" },
-  { label: "AgentBricks", href: "/product/agent-bricks" },
+  { label: "Agent Bricks", href: "/product/agent-bricks" },
   { label: "Databricks Apps", href: "/product/databricks-apps" },
 ] as const;
 

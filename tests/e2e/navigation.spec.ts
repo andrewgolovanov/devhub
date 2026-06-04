@@ -43,15 +43,80 @@ test.describe("navbar navigation", () => {
       exact: true,
     });
     const hoverLink = productMenu.getByRole("link", {
-      name: "AgentBricks",
+      name: "Agent Bricks",
       exact: true,
     });
 
     await expect(activeLink).toHaveAttribute("aria-current", "page");
-    await expect(activeLink).toHaveCSS("color", "rgb(255, 95, 70)");
+    await expect(activeLink).toHaveCSS("color", "rgb(28, 29, 34)");
+    await expect(
+      productMenu.locator("[data-product-dropdown-frame]"),
+    ).toHaveAttribute("viewBox", "0 0 178 90");
+
+    const highlight = productMenu.locator("[data-product-dropdown-highlight]");
+    const thumb = productMenu.locator("[data-product-dropdown-thumb]");
+    const dotColumn = productMenu
+      .locator("[data-product-dropdown-dot-column]")
+      .first();
+    const initialHighlightBox = await highlight.boundingBox();
+    const initialThumbBox = await thumb.boundingBox();
+    const dotColumnBox = await dotColumn.boundingBox();
+
+    if (!initialHighlightBox || !initialThumbBox || !dotColumnBox) {
+      throw new Error("Expected product dropdown controls to be measurable");
+    }
+
+    expect(Math.round(dotColumnBox.y - initialThumbBox.y)).toBe(0);
+    expect(Math.round(dotColumnBox.height)).toBeGreaterThan(
+      Math.round(initialThumbBox.height),
+    );
+
+    const motionStyles = await productMenu.evaluate((menu) => {
+      const getRequiredElement = (selector: string) => {
+        const element = menu.querySelector(selector);
+
+        if (!element) {
+          throw new Error(`Expected ${selector} to exist`);
+        }
+
+        return getComputedStyle(element);
+      };
+
+      return {
+        contentAnimationName: getComputedStyle(menu).animationName,
+        contentTransitionProperty: getComputedStyle(menu).transitionProperty,
+        highlightTransitionDuration: getRequiredElement(
+          "[data-product-dropdown-highlight]",
+        ).transitionDuration,
+        linkTransitionProperty: getRequiredElement("a").transitionProperty,
+        thumbTransitionDuration: getRequiredElement(
+          "[data-product-dropdown-thumb]",
+        ).transitionDuration,
+      };
+    });
+
+    expect(motionStyles.contentAnimationName).toBe("none");
+    expect(motionStyles.contentTransitionProperty).toBe("none");
+    expect(motionStyles.highlightTransitionDuration).toBe("0s");
+    expect(motionStyles.linkTransitionProperty).toBe("none");
+    expect(motionStyles.thumbTransitionDuration).toBe("0s");
 
     await hoverLink.hover();
-    await expect(hoverLink).toHaveCSS("color", "rgb(255, 255, 255)");
+    await expect(hoverLink).toHaveCSS("color", "rgb(28, 29, 34)");
+    await expect
+      .poll(async () => {
+        const box = await highlight.boundingBox();
+
+        return Math.round((box?.y ?? 0) - initialHighlightBox.y);
+      })
+      .toBe(24);
+    await expect
+      .poll(async () => {
+        const box = await thumb.boundingBox();
+
+        return Math.round((box?.y ?? 0) - initialThumbBox.y);
+      })
+      .toBe(12);
   });
 });
 
