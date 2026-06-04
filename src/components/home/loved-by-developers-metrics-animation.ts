@@ -69,7 +69,8 @@ type LovedLayerStartKey = `${LovedTimelineLayerName}Start`;
 type LovedLayerEndKey = `${LovedTimelineLayerName}End`;
 type LovedLayerEnabledKey = `${LovedTimelineLayerName}Enabled`;
 
-const LOVED_METRICS_APPROACH_ROOT_MARGIN = "0px 0px -25% 0px";
+const LOVED_METRICS_APPROACH_ROOT_MARGIN = "0px";
+const LOVED_METRICS_REVEAL_THRESHOLD = 0.45;
 
 const LOVED_DROP_CURVE_PRESETS: Record<
   Exclude<LovedDropCurve, "custom">,
@@ -91,7 +92,7 @@ export const DEFAULT_LOVED_METRICS_SETTINGS: LovedMetricsSettings = {
   dropCurve: "custom",
   duration: 1800,
   stagger: 320,
-  startValue: 0,
+  startValue: 75,
   initialValueOpacity: 40,
   printLines: 4,
   valueSteps: 24,
@@ -204,7 +205,6 @@ export const LOVED_TIMELINE_LAYERS: Array<{
 type LovedMetricsRevealOptions = {
   section: HTMLElement;
   settings?: LovedMetricsSettings;
-  trigger: Element;
 };
 
 export function formatMetricValue(target: number, prefix = "", suffix = "") {
@@ -217,6 +217,10 @@ function clamp01(value: number) {
 
 function clampPercent(value: number) {
   return Math.min(100, Math.max(0, value));
+}
+
+export function getMetricStartValue(target: number, startValuePercent: number) {
+  return target * (clampPercent(startValuePercent) / 100);
 }
 
 function easeOutCubic(value: number) {
@@ -502,10 +506,12 @@ function resetMetricNode(
   node.style.setProperty("--scan-drift", "0px");
   node.style.setProperty("--ghost-drift", "0px");
   node.style.setProperty("--ghost-scan", "112%");
-  applyMetricText(
-    node,
-    formatMetricValue(0, node.dataset.prefix ?? "", node.dataset.suffix ?? ""),
-  );
+  const target = Number(node.dataset.target ?? 0);
+  const prefix = node.dataset.prefix ?? "";
+  const suffix = node.dataset.suffix ?? "";
+  const startValue = getMetricStartValue(target, settings.startValue);
+
+  applyMetricText(node, formatMetricValue(startValue, prefix, suffix));
   applyValueLayers(node, 0, settings, timeline, printLines);
 }
 
@@ -521,7 +527,6 @@ function finishMetricNode(node: HTMLElement) {
 export function setupLovedMetricsReveal({
   section,
   settings = DEFAULT_LOVED_METRICS_SETTINGS,
-  trigger,
 }: LovedMetricsRevealOptions) {
   const valueNodes = Array.from(
     section.querySelectorAll<HTMLElement>("[data-loved-metric-value]"),
@@ -532,35 +537,36 @@ export function setupLovedMetricsReveal({
   const metricsLineNodes = Array.from(
     section.querySelectorAll<HTMLElement>("[data-loved-metrics-line-drop]"),
   );
-  let frameId = 0;
-  let runId = 0;
-  let hasStarted = false;
+  const metricFrameIds = new Map<HTMLElement, number>();
+  const metricRunIds = new Map<HTMLElement, number>();
+  const revealedNodes = new Set<HTMLElement>();
+  const timeline = getLovedLayerTimeline(settings);
+  const printLines = Math.max(1, settings.printLines);
+  const numericEffect = settings.look !== "terminal";
+  const duration = Math.max(settings.duration, 1);
+  const metricsDrop = Math.max(0, settings.metricsDrop);
+  const dropDuration = Math.max(settings.dropDuration, 0);
+  const dropStagger = Math.max(settings.dropStagger, 0);
+  const dropSequenceCount = Math.max(
+    metricsListNodes.length,
+    metricsLineNodes.length,
+    1,
+  );
+  const sectionMotionDuration =
+    dropDuration + dropStagger * (dropSequenceCount - 1);
   let observer: IntersectionObserver | undefined;
+  let sectionFrameId = 0;
+  let sectionRunId = 0;
+  let hasSectionMotionStarted = false;
 
-  const revealMetrics = () => {
-    runId += 1;
-    const currentRun = runId;
+  const startSectionMotion = () => {
+    if (hasSectionMotionStarted) return;
+
+    hasSectionMotionStarted = true;
+    sectionRunId += 1;
+    const currentRun = sectionRunId;
     const start = performance.now();
-    const duration = Math.max(settings.duration, 1);
-    const dropDuration = Math.max(settings.dropDuration, 0);
-    const dropStagger = Math.max(settings.dropStagger, 0);
-    const dropSequenceCount = Math.max(
-      metricsListNodes.length,
-      metricsLineNodes.length,
-      1,
-    );
-    const totalDuration = Math.max(
-      duration,
-      dropDuration + dropStagger * (dropSequenceCount - 1),
-    );
-    const timeline = getLovedLayerTimeline(settings);
-    const printLines = Math.max(1, settings.printLines);
-    const numericEffect = settings.look !== "terminal";
-    const metricsDrop = Math.max(0, settings.metricsDrop);
 
-    valueNodes.forEach((node) => {
-      resetMetricNode(node, settings, timeline, printLines);
-    });
     metricsListNodes.forEach((node) => {
       node.style.transform = `translateY(-${metricsDrop}px)`;
     });
@@ -568,15 +574,20 @@ export function setupLovedMetricsReveal({
       node.style.height = `calc(100% - ${metricsDrop}px)`;
     });
 
-    const tick = (time: number) => {
-      if (currentRun !== runId) return;
-
-      valueNodes.forEach((node) => {
-        node.classList.remove("is-prepping");
+    if (sectionMotionDuration <= 0) {
+      metricsListNodes.forEach((node) => {
+        node.style.transform = "translateY(0px)";
       });
+      metricsLineNodes.forEach((node) => {
+        node.style.height = "100%";
+      });
+      return;
+    }
+
+    const tick = (time: number) => {
+      if (currentRun !== sectionRunId) return;
 
       const elapsed = Math.max(time - start, 0);
-      const progress = Math.min(Math.max(elapsed / duration, 0), 1);
       const getMetricsDropOffset = (index: number) => {
         const delayedElapsed = elapsed - index * dropStagger;
 
@@ -598,149 +609,11 @@ export function setupLovedMetricsReveal({
         node.style.height = `calc(100% - ${metricsDropOffset.toFixed(2)}px)`;
       });
 
-      valueNodes.forEach((node, index) => {
-        const delay = (index * settings.stagger) / duration;
-        const localProgress = Math.min(
-          Math.max((progress - delay) / (1 - delay), 0),
-          1,
-        );
-        const target = Number(node.dataset.target ?? 0);
-        const prefix = node.dataset.prefix ?? "";
-        const suffix = node.dataset.suffix ?? "";
-        const finalText = formatMetricValue(target, prefix, suffix);
-        const startValue = target * (settings.startValue / 100);
-
-        if (!numericEffect) {
-          const startChars = Math.floor(
-            finalText.length * (settings.startValue / 100),
-          );
-          const visibleChars = Math.min(
-            finalText.length,
-            startChars +
-              Math.floor(
-                easeOutCubic(localProgress) *
-                  (finalText.length - startChars + 1),
-              ),
-          );
-          const ghostChars = Math.min(
-            finalText.length,
-            startChars +
-              Math.floor(
-                easeOutCubic(Math.max(localProgress - 0.08, 0)) *
-                  (finalText.length - startChars + 1),
-              ),
-          );
-          const nextText = finalText.slice(0, visibleChars) || "\u00a0";
-          const ghostText =
-            finalText.slice(0, ghostChars) || node.dataset.display || "";
-
-          applyMetricText(
-            node,
-            nextText,
-            ghostText === nextText ? "" : ghostText,
-          );
-          node.style.setProperty("--final-cols", String(finalText.length));
-          node.style.setProperty("--cursor-cols", String(visibleChars));
-          return;
-        }
-
-        const activeProgress = getActiveTimelineProgress(
-          localProgress,
-          settings,
-        );
-        const steppedProgress =
-          settings.valueSteps > 0
-            ? Math.min(
-                1,
-                Math.ceil(activeProgress * settings.valueSteps) /
-                  settings.valueSteps,
-              )
-            : activeProgress;
-        const ghostSteppedProgress =
-          settings.valueSteps > 0
-            ? Math.min(
-                1,
-                Math.ceil(
-                  Math.max(activeProgress - settings.ghostLag / 100, 0) *
-                    settings.valueSteps,
-                ) / settings.valueSteps,
-              )
-            : Math.max(activeProgress - settings.ghostLag / 100, 0);
-        const eased =
-          settings.valueSteps > 0
-            ? easeOutQuart(steppedProgress)
-            : easeOutCubic(activeProgress);
-        const value =
-          activeProgress > 0.9
-            ? target
-            : Math.min(target, startValue + (target - startValue) * eased);
-        const ghostProgress = Math.max(
-          activeProgress - settings.ghostLag / 100,
-          0,
-        );
-        const ghostEase =
-          settings.look === "cipher"
-            ? Math.min(
-                1,
-                (settings.valueSteps > 0
-                  ? easeOutQuart(ghostSteppedProgress)
-                  : easeOutCubic(ghostProgress)) +
-                  Math.sin(localProgress * Math.PI * 4) * 0.018,
-              )
-            : settings.valueSteps > 0
-              ? easeOutQuart(ghostSteppedProgress)
-              : easeOutCubic(ghostProgress);
-        const nextText = formatMetricValue(value, prefix, suffix);
-        const ghostText = formatMetricValue(
-          startValue + (target - startValue) * ghostEase,
-          prefix,
-          suffix,
-        );
-        const scanBase =
-          settings.look === "crt"
-            ? 122
-            : settings.look === "cipher"
-              ? 168
-              : 145;
-        const scanOffset = settings.look === "cipher" ? -14 : -6;
-        const scanLocal = layerRamp(
-          localProgress,
-          timeline[1].start,
-          timeline[1].end,
-        );
-        const glowLocal = layerRamp(
-          localProgress,
-          timeline[4].start,
-          timeline[4].end,
-        );
-        const rawGhostScan = ((glowLocal * scanBase) % 112) + scanOffset;
-        const ghostScan = Math.round(
-          settings.ghostDirection < 0 ? 112 - rawGhostScan : rawGhostScan,
-        );
-
-        applyMetricText(
-          node,
-          nextText,
-          ghostText === nextText ? "" : ghostText,
-        );
-        applyValueLayers(node, localProgress, settings, timeline, printLines);
-        node.style.setProperty("--ghost-scan", `${ghostScan}%`);
-        node.style.setProperty(
-          "--scan-drift",
-          `${(Math.sin(scanLocal * Math.PI * 4) * settings.layerSpread * 0.22 * settings.driftDirection).toFixed(2)}px`,
-        );
-        node.style.setProperty(
-          "--ghost-drift",
-          `${(Math.sin(glowLocal * Math.PI * 5) * settings.layerSpread * 0.34 * settings.driftDirection).toFixed(2)}px`,
-        );
-      });
-
-      if (elapsed < totalDuration) {
-        frameId = window.requestAnimationFrame(tick);
+      if (elapsed < sectionMotionDuration) {
+        sectionFrameId = window.requestAnimationFrame(tick);
         return;
       }
 
-      valueNodes.forEach(finishMetricNode);
       metricsListNodes.forEach((node) => {
         node.style.transform = "translateY(0px)";
       });
@@ -749,29 +622,195 @@ export function setupLovedMetricsReveal({
       });
     };
 
-    frameId = window.requestAnimationFrame(tick);
+    sectionFrameId = window.requestAnimationFrame(tick);
   };
 
-  const startReveal = () => {
-    if (hasStarted) return;
-    hasStarted = true;
-    revealMetrics();
-    observer?.disconnect();
+  const updateMetricNode = (node: HTMLElement, localProgress: number) => {
+    node.classList.remove("is-prepping");
+
+    const target = Number(node.dataset.target ?? 0);
+    const prefix = node.dataset.prefix ?? "";
+    const suffix = node.dataset.suffix ?? "";
+    const finalText = formatMetricValue(target, prefix, suffix);
+    const startValue = getMetricStartValue(target, settings.startValue);
+
+    if (!numericEffect) {
+      const startChars = Math.floor(
+        finalText.length * (settings.startValue / 100),
+      );
+      const visibleChars = Math.min(
+        finalText.length,
+        startChars +
+          Math.floor(
+            easeOutCubic(localProgress) * (finalText.length - startChars + 1),
+          ),
+      );
+      const ghostChars = Math.min(
+        finalText.length,
+        startChars +
+          Math.floor(
+            easeOutCubic(Math.max(localProgress - 0.08, 0)) *
+              (finalText.length - startChars + 1),
+          ),
+      );
+      const nextText = finalText.slice(0, visibleChars) || "\u00a0";
+      const ghostText =
+        finalText.slice(0, ghostChars) || node.dataset.display || "";
+
+      applyMetricText(node, nextText, ghostText === nextText ? "" : ghostText);
+      node.style.setProperty("--final-cols", String(finalText.length));
+      node.style.setProperty("--cursor-cols", String(visibleChars));
+      return;
+    }
+
+    const activeProgress = getActiveTimelineProgress(localProgress, settings);
+    const steppedProgress =
+      settings.valueSteps > 0
+        ? Math.min(
+            1,
+            Math.ceil(activeProgress * settings.valueSteps) /
+              settings.valueSteps,
+          )
+        : activeProgress;
+    const ghostSteppedProgress =
+      settings.valueSteps > 0
+        ? Math.min(
+            1,
+            Math.ceil(
+              Math.max(activeProgress - settings.ghostLag / 100, 0) *
+                settings.valueSteps,
+            ) / settings.valueSteps,
+          )
+        : Math.max(activeProgress - settings.ghostLag / 100, 0);
+    const eased =
+      settings.valueSteps > 0
+        ? easeOutQuart(steppedProgress)
+        : easeOutCubic(activeProgress);
+    const value =
+      activeProgress > 0.9
+        ? target
+        : Math.min(target, startValue + (target - startValue) * eased);
+    const ghostProgress = Math.max(activeProgress - settings.ghostLag / 100, 0);
+    const ghostEase =
+      settings.look === "cipher"
+        ? Math.min(
+            1,
+            (settings.valueSteps > 0
+              ? easeOutQuart(ghostSteppedProgress)
+              : easeOutCubic(ghostProgress)) +
+              Math.sin(localProgress * Math.PI * 4) * 0.018,
+          )
+        : settings.valueSteps > 0
+          ? easeOutQuart(ghostSteppedProgress)
+          : easeOutCubic(ghostProgress);
+    const nextText = formatMetricValue(value, prefix, suffix);
+    const ghostText = formatMetricValue(
+      startValue + (target - startValue) * ghostEase,
+      prefix,
+      suffix,
+    );
+    const scanBase =
+      settings.look === "crt" ? 122 : settings.look === "cipher" ? 168 : 145;
+    const scanOffset = settings.look === "cipher" ? -14 : -6;
+    const scanLocal = layerRamp(
+      localProgress,
+      timeline[1].start,
+      timeline[1].end,
+    );
+    const glowLocal = layerRamp(
+      localProgress,
+      timeline[4].start,
+      timeline[4].end,
+    );
+    const rawGhostScan = ((glowLocal * scanBase) % 112) + scanOffset;
+    const ghostScan = Math.round(
+      settings.ghostDirection < 0 ? 112 - rawGhostScan : rawGhostScan,
+    );
+
+    applyMetricText(node, nextText, ghostText === nextText ? "" : ghostText);
+    applyValueLayers(node, localProgress, settings, timeline, printLines);
+    node.style.setProperty("--ghost-scan", `${ghostScan}%`);
+    node.style.setProperty(
+      "--scan-drift",
+      `${(Math.sin(scanLocal * Math.PI * 4) * settings.layerSpread * 0.22 * settings.driftDirection).toFixed(2)}px`,
+    );
+    node.style.setProperty(
+      "--ghost-drift",
+      `${(Math.sin(glowLocal * Math.PI * 5) * settings.layerSpread * 0.34 * settings.driftDirection).toFixed(2)}px`,
+    );
+  };
+
+  const animateMetricNode = (node: HTMLElement) => {
+    const previousFrameId = metricFrameIds.get(node);
+
+    if (previousFrameId) {
+      window.cancelAnimationFrame(previousFrameId);
+    }
+
+    const currentRun = (metricRunIds.get(node) ?? 0) + 1;
+    const start = performance.now();
+
+    metricRunIds.set(node, currentRun);
+    resetMetricNode(node, settings, timeline, printLines);
+
+    const tick = (time: number) => {
+      if (metricRunIds.get(node) !== currentRun) return;
+
+      const elapsed = Math.max(time - start, 0);
+      const progress = Math.min(Math.max(elapsed / duration, 0), 1);
+
+      updateMetricNode(node, progress);
+
+      if (elapsed < duration) {
+        metricFrameIds.set(node, window.requestAnimationFrame(tick));
+        return;
+      }
+
+      finishMetricNode(node);
+      metricFrameIds.delete(node);
+    };
+
+    metricFrameIds.set(node, window.requestAnimationFrame(tick));
+  };
+
+  const startReveal = (node: HTMLElement) => {
+    if (revealedNodes.has(node)) return;
+
+    revealedNodes.add(node);
+    startSectionMotion();
+    animateMetricNode(node);
   };
 
   observer = new IntersectionObserver(
-    ([entry]) => {
-      if (!entry?.isIntersecting) return;
-      startReveal();
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        if (entry.intersectionRatio < LOVED_METRICS_REVEAL_THRESHOLD) return;
+        if (!(entry.target instanceof HTMLElement)) return;
+
+        startReveal(entry.target);
+        observer?.unobserve(entry.target);
+      });
     },
-    { rootMargin: LOVED_METRICS_APPROACH_ROOT_MARGIN, threshold: 0 },
+    {
+      rootMargin: LOVED_METRICS_APPROACH_ROOT_MARGIN,
+      threshold: LOVED_METRICS_REVEAL_THRESHOLD,
+    },
   );
 
-  observer.observe(trigger);
+  valueNodes.forEach((node) => {
+    observer?.observe(node);
+  });
 
   return () => {
     observer?.disconnect();
-    window.cancelAnimationFrame(frameId);
-    runId += 1;
+    window.cancelAnimationFrame(sectionFrameId);
+    sectionRunId += 1;
+    metricFrameIds.forEach((frameId) => {
+      window.cancelAnimationFrame(frameId);
+    });
+    metricRunIds.forEach((runId, node) => {
+      metricRunIds.set(node, runId + 1);
+    });
   };
 }

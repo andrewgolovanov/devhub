@@ -5,6 +5,7 @@ import {
   DEFAULT_LOVED_METRICS_SETTINGS,
   LOVED_TIMELINE_LAYERS,
   formatMetricValue,
+  getMetricStartValue,
   setupLovedMetricsReveal,
 } from "./loved-by-developers-metrics-animation";
 
@@ -57,7 +58,11 @@ function LovedMetricValue({
   suffix?: string;
   target: number;
 }) {
-  const initialText = formatMetricValue(0, prefix, suffix);
+  const initialText = formatMetricValue(
+    getMetricStartValue(target, DEFAULT_LOVED_METRICS_SETTINGS.startValue),
+    prefix,
+    suffix,
+  );
   const finalText = formatMetricValue(target, prefix, suffix);
 
   return (
@@ -99,18 +104,15 @@ function LovedMetricValue({
 
 function LovedByDevelopers({ className }: { className?: string }) {
   const sectionRef = useRef<HTMLElement>(null);
-  const metricsTriggerRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
     const section = sectionRef.current;
-    const trigger = metricsTriggerRef.current;
 
-    if (!section || !trigger) return;
+    if (!section) return;
 
     return setupLovedMetricsReveal({
       section,
       settings: DEFAULT_LOVED_METRICS_SETTINGS,
-      trigger,
     });
   }, []);
 
@@ -163,7 +165,6 @@ function LovedByDevelopers({ className }: { className?: string }) {
               <ul
                 className="mt-10 grid gap-10 will-change-transform md:mt-32 xl:mt-42.5 md:gap-20"
                 data-loved-metrics-list
-                ref={index === 0 ? metricsTriggerRef : undefined}
               >
                 {metrics.map(({ label, prefix, suffix, target }) => (
                   <li
