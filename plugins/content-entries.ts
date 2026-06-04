@@ -5,11 +5,9 @@ import {
   getContentSlugs,
   getSolutionSlugs,
   readContentSections,
+  readReplitPrompt,
 } from "../src/lib/content-markdown";
-import {
-  joinContentSections,
-  type ContentSections,
-} from "../src/lib/content-sections";
+import { goalOnly, type ContentSections } from "../src/lib/content-sections";
 import { routePathWithBaseUrl } from "../src/lib/site-paths";
 import {
   recipes,
@@ -63,32 +61,21 @@ function createFolderRouteModuleSource(
         ? "examples"
         : "blog";
   const hasPrereqs = sections.prerequisites !== undefined;
-  const hasDeploy = sections.deployment !== undefined;
 
   const imports: string[] = [
-    `import Content from "@site/content/${section}/${slug}/content.md";`,
+    `import Goal from "@site/content/${section}/${slug}/goal.md";`,
   ];
   if (hasPrereqs) {
     imports.push(
       `import Prerequisites from "@site/content/${section}/${slug}/prerequisites.md";`,
     );
   }
-  if (hasDeploy) {
-    imports.push(
-      `import Deployment from "@site/content/${section}/${slug}/deployment.md";`,
-    );
-  }
 
   const prereqsBlock = hasPrereqs
     ? '      <h2 id="prerequisites">Prerequisites</h2>\n      <Prerequisites />'
     : null;
-  const deployBlock = hasDeploy
-    ? '      <h2 id="deployment">Deployment</h2>\n      <Deployment />'
-    : null;
 
-  const children = [prereqsBlock, "      <Content />", deployBlock]
-    .filter(Boolean)
-    .join("\n");
+  const children = ["      <Goal />", prereqsBlock].filter(Boolean).join("\n");
 
   if (entryType === "recipe") {
     return `import type { ReactNode } from "react";
@@ -245,6 +232,7 @@ export default function contentEntriesPlugin(
 
       const sectionsBySlug: Record<string, ContentSections> = {};
       const rawMarkdownBySlug: Record<string, string> = {};
+      const replitPromptsBySlug: Record<string, string> = {};
 
       for (const slug of publishedSlugs) {
         if (folderSection) {
@@ -254,7 +242,17 @@ export default function contentEntriesPlugin(
             slug,
           );
           sectionsBySlug[slug] = sections;
-          rawMarkdownBySlug[slug] = joinContentSections(sections);
+          rawMarkdownBySlug[slug] = goalOnly(sections);
+          if (folderSection === "recipes" || folderSection === "examples") {
+            const replitPrompt = readReplitPrompt(
+              context.siteDir,
+              folderSection,
+              slug,
+            );
+            if (replitPrompt) {
+              replitPromptsBySlug[slug] = replitPrompt;
+            }
+          }
         } else {
           const filePath = resolve(
             context.siteDir,
@@ -272,18 +270,22 @@ export default function contentEntriesPlugin(
         slugs: publishedSlugs,
         rawMarkdownBySlug,
         sectionsBySlug,
+        replitPromptsBySlug,
       });
 
       for (const slug of publishedSlugs) {
+        const sections = sectionsBySlug[slug];
+        if (folderSection && !sections) {
+          throw new Error(
+            `Missing content sections for ${options.entryType} "${slug}"`,
+          );
+        }
+
         const source =
           options.entryType === "recipe" ||
           options.entryType === "example" ||
           options.entryType === "blog"
-            ? createFolderRouteModuleSource(
-                options.entryType,
-                slug,
-                sectionsBySlug[slug],
-              )
+            ? createFolderRouteModuleSource(options.entryType, slug, sections)
             : createSolutionRouteModuleSource(slug);
 
         const modulePath = await createData(

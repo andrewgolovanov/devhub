@@ -12,14 +12,19 @@ if (!existsSync(resolve(ROOT, "content"))) {
 }
 
 const RESOURCE_ALLOWED_FILES = new Set([
-  "content.md",
+  "goal.md",
   "prerequisites.md",
-  "deployment.md",
+  "replit-prompt.md",
 ]);
-const RESOURCE_REQUIRED_FILE = "content.md";
+/** A folder must have at least one of these to be published. */
+const RESOURCE_REQUIRED_FILES = ["goal.md"];
 const RESOURCE_SECTIONS = /** @type {const} */ (["recipes", "examples"]);
 
-const COOKBOOK_ALLOWED_FILES = new Set(["intro.md"]);
+const COOKBOOK_ALLOWED_FILES = new Set([
+  "goal.md",
+  "intro.md",
+  "replit-prompt.md",
+]);
 
 /** @type {string[]} */
 const errors = [];
@@ -33,7 +38,7 @@ const errors = [];
  * @param {string} opts.sectionPath  e.g. "content/recipes" — used in error messages
  * @param {string} opts.sectionDir   absolute filesystem path to the section
  * @param {Set<string>} opts.allowedFiles  whitelist of allowed direct-child filenames
- * @param {string=} opts.requiredFile  filename that must be present (omit for none)
+ * @param {string[]=} opts.requiredFiles  at least one of these must be present (omit for none)
  * @param {string} opts.emptyHint  trailing instruction appended to the "is empty" error
  * @param {string} opts.flatHint   trailing instruction appended to the "is not a directory" error
  */
@@ -41,7 +46,7 @@ function validateContentFolder({
   sectionPath,
   sectionDir,
   allowedFiles,
-  requiredFile,
+  requiredFiles,
   emptyHint,
   flatHint,
 }) {
@@ -75,10 +80,23 @@ function validateContentFolder({
       }
     }
 
-    if (requiredFile && !files.includes(requiredFile)) {
+    if (
+      requiredFiles &&
+      requiredFiles.length > 0 &&
+      !requiredFiles.some((f) => files.includes(f))
+    ) {
       errors.push(
-        `${sectionPath}/${entry}/ is missing the required ${requiredFile}.`,
+        `${sectionPath}/${entry}/ is missing a required file. Need at least one of: ${requiredFiles.join(", ")}.`,
       );
+    }
+
+    if (files.includes("goal.md")) {
+      const goalContent = readFileSync(resolve(entryPath, "goal.md"), "utf-8");
+      if (!goalContent.trim()) {
+        errors.push(
+          `${sectionPath}/${entry}/goal.md is empty or whitespace-only. Add a goal description.`,
+        );
+      }
     }
   }
 }
@@ -88,9 +106,9 @@ for (const section of RESOURCE_SECTIONS) {
     sectionPath: `content/${section}`,
     sectionDir: resolve(ROOT, "content", section),
     allowedFiles: RESOURCE_ALLOWED_FILES,
-    requiredFile: RESOURCE_REQUIRED_FILE,
-    emptyHint: "Add content.md.",
-    flatHint: `Flat files are not allowed. Move to content/${section}/<slug>/content.md.`,
+    requiredFiles: RESOURCE_REQUIRED_FILES,
+    emptyHint: "Add goal.md.",
+    flatHint: `Flat files are not allowed. Move to content/${section}/<slug>/goal.md.`,
   });
 }
 
@@ -136,7 +154,7 @@ if (existsSync(cookbooksDir)) {
     sectionPath: "content/cookbooks",
     sectionDir: cookbooksDir,
     allowedFiles: COOKBOOK_ALLOWED_FILES,
-    emptyHint: "Add at least intro.md or remove the folder.",
+    emptyHint: "Add goal.md or intro.md, or remove the folder.",
     flatHint: "Cookbook content lives under content/cookbooks/<template-id>/.",
   });
 }
@@ -152,11 +170,11 @@ if (existsSync(cookbooksDir)) {
  *
  * Bare textual URLs in prose and any URL inside a fenced code block are
  * deliberately allowed:
- *   - Bare prose URLs (e.g. "Website: https://dev.databricks.com",
- *     "fetch https://dev.databricks.com/llms.txt") are agent fetch
+ *   - Bare prose URLs (e.g. "Website: https://developers.databricks.com",
+ *     "fetch https://developers.databricks.com/llms.txt") are agent fetch
  *     directives that `rewriteOrigin` handles via canonical-origin
  *     substitution.
- *   - Code-block URLs (e.g. `npx add-mcp https://dev.databricks.com/api/mcp`)
+ *   - Code-block URLs (e.g. `npx add-mcp https://developers.databricks.com/api/mcp`)
  *     are install commands and must remain canonical.
  */
 const FORBIDDEN_LINK_PATH = /(templates|docs|solutions)/;
@@ -174,7 +192,7 @@ function findAbsoluteDevhubOffenders(filePath, source) {
   const body = stripFencedCodeBlocks(stripFrontmatter(source));
 
   const inlineLink =
-    /\]\((https:\/\/dev\.databricks\.com\/([^)\s]*))(?:\s+"[^"]*")?\)/g;
+    /\]\((https:\/\/developers\.databricks\.com\/([^)\s]*))(?:\s+"[^"]*")?\)/g;
   for (const match of body.matchAll(inlineLink)) {
     const [, fullUrl, path] = match;
     if (FORBIDDEN_LINK_PATH.test(path)) {
@@ -186,7 +204,7 @@ function findAbsoluteDevhubOffenders(filePath, source) {
     }
   }
 
-  const autolink = /<(https:\/\/dev\.databricks\.com\/([^>\s]*))>/g;
+  const autolink = /<(https:\/\/developers\.databricks\.com\/([^>\s]*))>/g;
   for (const match of body.matchAll(autolink)) {
     const [, fullUrl, path] = match;
     if (FORBIDDEN_LINK_PATH.test(path)) {
@@ -199,7 +217,7 @@ function findAbsoluteDevhubOffenders(filePath, source) {
   }
 
   const referenceDef =
-    /^\[[^\]]+\]:\s+(https:\/\/dev\.databricks\.com\/(\S*))/gm;
+    /^\[[^\]]+\]:\s+(https:\/\/developers\.databricks\.com\/(\S*))/gm;
   for (const match of body.matchAll(referenceDef)) {
     const [, fullUrl, path] = match;
     if (FORBIDDEN_LINK_PATH.test(path)) {

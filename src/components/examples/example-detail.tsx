@@ -17,10 +17,10 @@ import {
   buildFullPrompt,
   buildAdditionalMarkdown,
 } from "@/lib/examples/build-example-markdown";
-import type { Example } from "@/lib/recipes/recipes";
+import type { Cookbook, Example, Recipe } from "@/lib/recipes/recipes";
 import { cookbooks, recipes } from "@/lib/recipes/recipes";
 import { useExampleSections } from "@/lib/use-raw-content-markdown";
-import { joinContentSections } from "@/lib/content-sections";
+import { goalOnly } from "@/lib/content-sections";
 import { TemplateImageCarousel } from "@/components/examples/template-image-carousel";
 import { TemplatePreviewImage } from "@/components/examples/template-preview-image";
 import { FallbackCardArt } from "@/components/examples/fallback-card-art";
@@ -33,20 +33,17 @@ import { Toc } from "@site/src/components/templates/toc";
 
 const mdxComponents = { a: BaseUrlAnchor, pre: RecipePre };
 
-const GITHUB_BASE = "https://github.com/databricks/devhub/tree/main";
-
 type ExampleDetailProps = {
   example: Example;
   children: ReactNode;
 };
 
-function StarterCodeCard({
-  githubUrl,
-  githubPath,
-}: {
-  githubUrl: string;
-  githubPath: string;
-}) {
+function StarterCodeCard({ templateUrl }: { templateUrl: string }) {
+  const displayPath =
+    templateUrl
+      .replace(/^https:\/\/github\.com\//, "")
+      .replace(/\/tree\/[^/]+\//, "/") + "/";
+
   return (
     <div className="mb-8 rounded-lg border border-border/80 bg-card">
       <div className="flex items-start gap-3 px-5 pt-5 pb-4">
@@ -68,12 +65,12 @@ function StarterCodeCard({
         <div className="inline-flex min-w-0 items-center gap-2 text-[12px] text-muted-foreground">
           <FolderGit2 className="h-3.5 w-3.5 shrink-0" />
           <code className="truncate rounded bg-muted px-1.5 py-0.5 font-mono">
-            {githubPath}/template/
+            {displayPath}
           </code>
         </div>
         <Button asChild variant="outline" size="sm" className="sm:shrink-0">
           <a
-            href={githubUrl}
+            href={templateUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 no-underline"
@@ -134,18 +131,18 @@ export function ExampleDetail({
   const siteUrl = siteUrlFromConfig(siteConfig.url, siteConfig.baseUrl);
   const contentRef = useRef<HTMLDivElement>(null);
   const permalink = `/templates/${example.id}`;
-  const githubUrl = `${GITHUB_BASE}/${example.githubPath}/template`;
+  const githubUrl = example.templateUrl;
 
-  const sections = useExampleSections(example.id) ?? { content: "" };
-  const rawMarkdown = joinContentSections(sections);
+  const sections = useExampleSections(example.id) ?? {};
+  const rawMarkdown = goalOnly(sections);
 
   const includedCookbooks = example.cookbookIds
     .map((id) => cookbooks.find((c) => c.id === id))
-    .filter(Boolean);
+    .filter((c): c is Cookbook => c !== undefined);
 
   const includedRecipes = example.recipeIds
     .map((id) => recipes.find((r) => r.id === id))
-    .filter(Boolean);
+    .filter((r): r is Recipe => r !== undefined);
 
   const mdOpts = {
     example,
@@ -169,6 +166,7 @@ export function ExampleDetail({
       eyebrow="Solution Apps"
       usage={{
         kind: "example",
+        slug: example.id,
         rawMarkdown,
         additionalMarkdown,
         customTemplateBody: fullPrompt,
@@ -197,10 +195,7 @@ export function ExampleDetail({
       relatedItems={relatedItems}
       belowContent={
         <>
-          <StarterCodeCard
-            githubUrl={githubUrl}
-            githubPath={example.githubPath}
-          />
+          <StarterCodeCard templateUrl={example.templateUrl} />
           {(includedCookbooks.length > 0 || includedRecipes.length > 0) && (
             <div className="mt-12">
               <h2 className="mb-2 text-xl font-semibold tracking-tight">
@@ -208,7 +203,8 @@ export function ExampleDetail({
               </h2>
               <p className="mb-6 max-w-2xl text-sm leading-relaxed text-muted-foreground">
                 This example's codebase and the agent prompt above both build on
-                top of the templates below.
+                top of the templates below. Open one to dive into a specific
+                technique on its own or apply it to a different project.
               </p>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 {includedCookbooks.map((c) => (

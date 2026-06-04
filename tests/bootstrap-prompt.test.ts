@@ -26,15 +26,15 @@ describe("about-devhub.md content (origin block only)", () => {
     expect(about.length).toBeGreaterThan(0);
   });
 
-  test("identifies DevHub and dev.databricks.com", () => {
+  test("identifies DevHub and developers.databricks.com", () => {
     const about = read(ABOUT_PATH);
-    expect(about).toContain("dev.databricks.com");
+    expect(about).toContain("developers.databricks.com");
     expect(about).toContain("DevHub");
   });
 
   test("links to llms.txt and the GitHub repo", () => {
     const about = read(ABOUT_PATH);
-    expect(about).toContain("https://dev.databricks.com/llms.txt");
+    expect(about).toContain("https://developers.databricks.com/llms.txt");
     expect(about).toContain("https://github.com/databricks/devhub");
   });
 
@@ -77,7 +77,7 @@ describe("intent-hero.md content", () => {
     const hero = read(HERO_INTENT_PATH);
     expect(hero).toContain("/templates/app-with-lakebase.md");
     expect(hero).toContain("/templates/ai-chat-app.md");
-    expect(hero).toContain("https://dev.databricks.com/llms.txt");
+    expect(hero).toContain("https://developers.databricks.com/llms.txt");
   });
 
   test("does NOT link to /templates/hello-world-app.md (cookbook removed; bootstrap is in the meta-prompt)", () => {
@@ -91,7 +91,7 @@ describe("hero bootstrap prompt composition (matches /api/bootstrap-prompt)", ()
     const combined = composeAgentPrompt({
       parts: loadAgentPromptParts(),
       kind: "hero",
-      siteOrigin: "https://dev.databricks.com",
+      siteOrigin: "https://developers.databricks.com",
     });
 
     const aboutIdx = combined.indexOf("# About DevHub");
@@ -100,9 +100,7 @@ describe("hero bootstrap prompt composition (matches /api/bootstrap-prompt)", ()
     const bootstrapIdx = combined.indexOf(
       "# Verify your local Databricks dev environment",
     );
-    const localBootstrapBodyIdx = combined.indexOf(
-      "## Set Up Your Local Dev Environment",
-    );
+    const localBootstrapBodyIdx = combined.indexOf("When done, you will have");
 
     expect(aboutIdx).toBe(0);
     expect(guidelinesIdx).toBeGreaterThan(aboutIdx);
@@ -115,14 +113,15 @@ describe("hero bootstrap prompt composition (matches /api/bootstrap-prompt)", ()
     expect(combined).not.toContain("# The example the user copied");
   });
 
-  test("composed hero prompt includes recipe content (databricks -v) and llms.txt URL", () => {
+  test("composed hero prompt includes goal content and llms.txt URL", () => {
     const combined = composeAgentPrompt({
       parts: loadAgentPromptParts(),
       kind: "hero",
-      siteOrigin: "https://dev.databricks.com",
+      siteOrigin: "https://developers.databricks.com",
     });
-    expect(combined).toContain("databricks -v");
-    expect(combined).toContain("https://dev.databricks.com/llms.txt");
+    // goal.md has the outcome description, not CLI commands
+    expect(combined).toContain("Databricks CLI");
+    expect(combined).toContain("https://developers.databricks.com/llms.txt");
   });
 
   test("set-up-your-local-dev-environment recipe is still resolvable on its own", () => {
@@ -130,7 +129,8 @@ describe("hero bootstrap prompt composition (matches /api/bootstrap-prompt)", ()
       "recipes",
       "set-up-your-local-dev-environment",
     );
-    expect(recipe).toContain("## Set Up Your Local Dev Environment");
-    expect(recipe).toContain("databricks -v");
+    // Agent prompt now returns goal.md content (outcome), not full implementation
+    expect(recipe).toContain("Databricks CLI");
+    expect(recipe).toContain("authenticated CLI profile");
   });
 });

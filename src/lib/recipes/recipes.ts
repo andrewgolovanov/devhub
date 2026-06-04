@@ -75,6 +75,10 @@ export const recipes: Recipe[] = [
       "Install the Databricks CLI, authenticate a profile, and verify the handshake. The strict prerequisite for every other DevHub recipe and template.",
     tags: ["Databricks CLI", "Auth", "Setup"],
     services: ["Databricks Apps"],
+    previewImageLightUrl:
+      "/img/guides/set-up-your-local-dev-environment-preview-light.png",
+    previewImageDarkUrl:
+      "/img/guides/set-up-your-local-dev-environment-preview-dark.png",
   },
   {
     id: "spin-up-databricks-app",
@@ -83,6 +87,9 @@ export const recipes: Recipe[] = [
       "Scaffold a fresh AppKit Databricks App with `databricks apps init`, run it locally, and deploy to your workspace.",
     tags: ["Databricks CLI", "AppKit", "Setup"],
     services: ["Databricks Apps"],
+    previewImageLightUrl:
+      "/img/guides/spin-up-databricks-app-preview-light.png",
+    previewImageDarkUrl: "/img/guides/spin-up-databricks-app-preview-dark.png",
   },
   {
     id: "onboard-your-coding-agent",
@@ -91,6 +98,10 @@ export const recipes: Recipe[] = [
       "Install Databricks agent skills (project-scoped), wire up the DevHub Docs MCP server, and bootstrap an AGENTS.md so your coding assistant knows this repo's workspace defaults.",
     tags: ["Agent Skills", "MCP", "AGENTS.md", "Setup"],
     services: ["Databricks Apps"],
+    previewImageLightUrl:
+      "/img/guides/onboard-your-coding-agent-preview-light.png",
+    previewImageDarkUrl:
+      "/img/guides/onboard-your-coding-agent-preview-dark.png",
   },
   {
     id: "ai-chat-model-serving",
@@ -200,7 +211,7 @@ export const recipes: Recipe[] = [
     id: "lakebase-change-data-feed-autoscaling",
     name: "Lakebase Change Data Feed: Sync Lakebase to Unity Catalog (Autoscaling)",
     description:
-      "Replicate Lakebase Autoscaling Postgres tables into Unity Catalog as managed Delta tables using Lakehouse Sync, with CDC and SCD Type 2 history.",
+      "Replicate Lakebase Autoscaling Postgres tables into Unity Catalog as managed Delta tables using Lakebase Change Data Feed (CDF), with full SCD Type 2 history.",
     tags: [
       "Lakebase",
       "Lakehouse Sync",
@@ -281,7 +292,7 @@ export const recipes: Recipe[] = [
     id: "medallion-architecture-from-cdc",
     name: "Medallion Architecture from CDC History Tables",
     description:
-      "Transform Lakehouse Sync CDC history tables into a medallion architecture with silver (current state) and gold (aggregations) layers using Lakeflow Declarative Pipelines.",
+      "Transform Lakebase Change Data Feed history tables into a medallion architecture with silver (current state) and gold (aggregations) layers using Lakeflow Declarative Pipelines.",
     tags: [
       "Medallion Architecture",
       "Data Lakehouse",
@@ -483,7 +494,7 @@ export const cookbooks: Cookbook[] = [
     id: "operational-data-analytics",
     name: "Operational Data Analytics",
     description:
-      "End-to-end setup for analyzing operational database data in the lakehouse: Unity Catalog with external storage, Lakebase provisioning, Lakehouse Sync CDC replication, and a medallion architecture pipeline with silver and gold layers.",
+      "End-to-end setup for analyzing operational database data in the lakehouse: Unity Catalog with external storage, Lakebase provisioning, Lakebase Change Data Feed (CDF) replication, and a medallion architecture pipeline with silver and gold layers.",
     recipeIds: [
       "unity-catalog-setup",
       "lakebase-create-instance",
@@ -519,7 +530,7 @@ export type Example = PreviewImages & {
   id: string;
   name: string;
   description: string;
-  githubPath: string;
+  templateUrl: string;
   initCommand: string;
   cookbookIds: string[];
   recipeIds: string[];
@@ -542,7 +553,7 @@ type ExampleConfig = {
   id: string;
   name: string;
   description: string;
-  githubPath: string;
+  templateUrl: string;
   initCommand: string;
   cookbookIds: string[];
   recipeIds: string[];
@@ -590,10 +601,11 @@ export const examples: Example[] = [
     id: "agentic-support-console",
     name: "Agentic Support Console",
     description:
-      "End-to-end AI-powered support console combining Lakebase, Lakehouse Sync, a medallion pipeline, an LLM agent job, reverse sync, and a Databricks App with Genie analytics.",
-    githubPath: "examples/agentic-support-console",
+      "End-to-end AI-powered support console combining Lakebase, Change Data Feed, a medallion pipeline, an LLM agent job, reverse sync, and a Databricks App with Genie analytics.",
+    templateUrl:
+      "https://github.com/databricks/app-templates/tree/main/agentic-support-console",
     initCommand:
-      "git clone --depth 1 https://github.com/databricks/devhub.git\ncd devhub/examples/agentic-support-console/template",
+      "git clone --depth 1 https://github.com/databricks/app-templates.git\ncd app-templates/agentic-support-console",
     cookbookIds: ["operational-data-analytics", "app-with-lakebase"],
     recipeIds: ["genie-conversational-analytics", "foundation-models-api"],
     previewImageLightUrl:
@@ -606,9 +618,10 @@ export const examples: Example[] = [
     name: "Vacation Rentals Operations Console",
     description:
       "Vacation rental ops dashboard with revenue analytics from a SQL Warehouse, a booking queue with Lakebase-backed flags and agent notes, and an embedded Genie chat panel.",
-    githubPath: "examples/vacation-rentals",
+    templateUrl:
+      "https://github.com/databricks/app-templates/tree/main/vacation-rentals",
     initCommand:
-      "git clone --depth 1 https://github.com/databricks/devhub.git\ncd devhub/examples/vacation-rentals/template",
+      "git clone --depth 1 https://github.com/databricks/app-templates.git\ncd app-templates/vacation-rentals",
     cookbookIds: ["app-with-lakebase"],
     recipeIds: ["genie-conversational-analytics"],
     previewImageLightUrl: "/img/examples/vacation-rentals-preview-light.png",
@@ -619,9 +632,10 @@ export const examples: Example[] = [
     name: "SaaS Subscription Tracker",
     description:
       "Internal tool for tracking team SaaS subscriptions, owners, costs, and renewals with Lakebase persistence and Genie spend analytics.",
-    githubPath: "examples/saas-tracker",
+    templateUrl:
+      "https://github.com/databricks/app-templates/tree/main/saas-tracker",
     initCommand:
-      "git clone --depth 1 https://github.com/databricks/devhub.git\ncd devhub/examples/saas-tracker/template",
+      "git clone --depth 1 https://github.com/databricks/app-templates.git\ncd app-templates/saas-tracker",
     cookbookIds: ["app-with-lakebase"],
     recipeIds: ["genie-conversational-analytics"],
     previewImageLightUrl: "/img/examples/saas-tracker-preview-light.png",
@@ -632,9 +646,10 @@ export const examples: Example[] = [
     name: "Content Moderator",
     description:
       "Internal content moderation tool with per-channel guidelines, AI-powered compliance scoring via Model Serving, and a moderator review workflow backed by Lakebase and Genie analytics.",
-    githubPath: "examples/content-moderator",
+    templateUrl:
+      "https://github.com/databricks/app-templates/tree/main/content-moderator",
     initCommand:
-      "git clone --depth 1 https://github.com/databricks/devhub.git\ncd devhub/examples/content-moderator/template",
+      "git clone --depth 1 https://github.com/databricks/app-templates.git\ncd app-templates/content-moderator",
     cookbookIds: ["app-with-lakebase"],
     recipeIds: ["genie-conversational-analytics", "foundation-models-api"],
     previewImageLightUrl: "/img/examples/content-moderator-preview-light.png",
@@ -645,9 +660,10 @@ export const examples: Example[] = [
     name: "Inventory Intelligence",
     description:
       "Retail inventory management with AI-powered demand forecasting, replenishment recommendations, and optional Genie analytics. Built on a live medallion pipeline synced to Lakebase.",
-    githubPath: "examples/inventory-intelligence",
+    templateUrl:
+      "https://github.com/databricks/app-templates/tree/main/inventory-intelligence",
     initCommand:
-      "git clone --depth 1 https://github.com/databricks/devhub.git\ncd devhub/examples/inventory-intelligence/template",
+      "git clone --depth 1 https://github.com/databricks/app-templates.git\ncd app-templates/inventory-intelligence",
     cookbookIds: ["operational-data-analytics", "app-with-lakebase"],
     recipeIds: ["genie-conversational-analytics"],
     previewImageLightUrl:
@@ -657,7 +673,7 @@ export const examples: Example[] = [
   }),
   // Unlike the other examples, rag-chat is consumed via `databricks apps init`
   // rather than `git clone`. The initCommand points at the AppKit CLI.
-  // See examples/rag-chat/template/appkit.plugins.json for the plugin manifest.
+  // See app-templates/rag-chat/appkit.plugins.json for the plugin manifest.
   // TODO: once PR #49 merges, add "lakebase-pgvector" and "embeddings-generation"
   // to recipeIds below.
   createExample({
@@ -665,9 +681,10 @@ export const examples: Example[] = [
     name: "RAG Chat App",
     description:
       "Streaming Retrieval-Augmented Generation chat app with pgvector retrieval from Lakebase, Wikipedia seed corpus, Model Serving generation, and Lakebase-backed chat history. Consumed via `databricks apps init`.",
-    githubPath: "examples/rag-chat",
+    templateUrl:
+      "https://github.com/databricks/app-templates/tree/main/rag-chat",
     initCommand:
-      'databricks apps init \\\n  --template https://github.com/databricks/devhub/tree/main/examples/rag-chat/template \\\n  --name rag-chat-app \\\n  --set lakebase.postgres.branch="$BRANCH_NAME" \\\n  --set lakebase.postgres.database="$DATABASE_NAME"',
+      'databricks apps init \\\n  --template https://github.com/databricks/app-templates/tree/main/rag-chat \\\n  --name rag-chat-app \\\n  --set lakebase.postgres.branch="$BRANCH_NAME" \\\n  --set lakebase.postgres.database="$DATABASE_NAME"',
     cookbookIds: ["ai-chat-app"],
     recipeIds: ["ai-chat-model-serving", "lakebase-agent-memory"],
     previewImageLightUrl: "/img/examples/rag-chat-preview-light.png",

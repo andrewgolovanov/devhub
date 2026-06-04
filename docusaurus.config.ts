@@ -14,6 +14,7 @@ import remarkCliTabs from "./plugins/remark-cli-tabs";
 import remarkSiteUrl from "./plugins/remark-site-url";
 import robotsTxtPlugin from "./plugins/robots-txt";
 import { showDrafts } from "./src/lib/feature-flags-server";
+import { getHackathonBannerConfig } from "./src/lib/hackathon-banner-server";
 import {
   resolveSiteBaseUrl,
   resolveSiteOrigin,
@@ -25,13 +26,20 @@ import {
 const siteOrigin = resolveSiteOrigin();
 const siteBaseUrl = resolveSiteBaseUrl();
 const publicSiteUrl = siteUrlFromConfig(siteOrigin, siteBaseUrl);
+const hackathonBanner = getHackathonBannerConfig();
 
 const config: Config = {
   title: "Databricks Developer",
   tagline: "Build intelligent data and AI applications in minutes, not months",
-  favicon: "img/favicon.svg",
+  favicon: "img/favicon.png",
   customFields: {
     showDrafts: showDrafts(),
+    // Slug of the active hackathon event. `/hackathon` redirects here and the
+    // announcement banner links to it. See src/lib/hackathon-banner-server.ts.
+    hackathonEventSlug: process.env.HACKATHON_EVENT_SLUG,
+    // When "true", the hackathon dataset card is shown in the event Resources
+    // section. Defaults to hidden.
+    showHackathonDataset: process.env.HACKATHON_SHOW_DATASET === "true",
   },
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -106,6 +114,9 @@ const config: Config = {
         blog: false,
         theme: {
           customCss: "./src/css/custom.css",
+        },
+        sitemap: {
+          ignorePatterns: ["/hackathon", "/hackathon/", "/hackathon/**"],
         },
       } satisfies Preset.Options,
     ],
@@ -194,6 +205,7 @@ const config: Config = {
   ],
 
   themeConfig: {
+    ...(hackathonBanner && { announcementBar: hackathonBanner }),
     image: "img/databricks-social-card.svg",
     colorMode: {
       respectPrefersColorScheme: true,

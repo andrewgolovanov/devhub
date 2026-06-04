@@ -4,57 +4,56 @@ title: Agent skills
 
 # Agent skills
 
-Agent skills are task-specific instruction files that AI coding assistants load to perform Databricks development tasks. The Databricks skills live in [databricks/databricks-agent-skills](https://github.com/databricks/databricks-agent-skills) and follow the open [agent skills standard](https://agentskills.io/).
+Agent skills are instruction files that AI coding assistants load to perform Databricks development tasks. Databricks publishes its skills in the [databricks/databricks-agent-skills](https://github.com/databricks/databricks-agent-skills) repository and follows the open [agent skills standard](https://agentskills.io/).
 
-Skills tell your coding agent how Databricks works, including CLI conventions, auth patterns, and resource names, so it generates correct code instead of guessing.
+Skills tell your coding agent how Databricks works, including CLI conventions, authentication patterns, and resource names, so it generates correct code instead of guessing.
 
 ## Install
 
+Install the official Databricks agent skills with the following command:
+
 ```bash title="Common"
-databricks experimental aitools install
+databricks aitools install
 ```
 
-```bash title="Specific agents"
-databricks experimental aitools install --agents claude-code,cursor
-```
+:::note
+This requires the Databricks CLI to be installed. See [Databricks CLI](/docs/tools/databricks-cli) for installation instructions.
+:::
 
-```bash title="Project scope"
-databricks experimental aitools install --project
-```
+The CLI detects which coding agents you have installed and links the skills into each agent's config directory from a shared location (`~/.databricks/aitools/skills/`).
 
-The CLI auto-detects installed coding agents and symlinks skills into each agent's config directory from a shared canonical location (`~/.databricks/aitools/skills/`). Skills install globally by default.
+The following flags are available for the `databricks aitools install` command:
 
-| Option           | Description                                    |
-| ---------------- | ---------------------------------------------- |
-| `--global`       | Install globally (default)                     |
-| `--project`      | Install to project directory                   |
-| `--agents`       | Target specific agents (comma-separated)       |
-| `--skills`       | Install specific skills only (comma-separated) |
-| `--experimental` | Include experimental skills                    |
+| Option            | Description                                                                  |
+| ----------------- | ---------------------------------------------------------------------------- |
+| `--scope=global`  | Install globally (default)                                                   |
+| `--scope=project` | Install to project directory                                                 |
+| `--scope=both`    | Apply to both scopes (valid on `update`/`uninstall`)                         |
+| `--agents`        | Target specific agents (comma-separated, e.g. `--agents cursor,claude-code`) |
+| `--skills`        | Install specific skills only (comma-separated)                               |
+| `--experimental`  | Include experimental skills                                                  |
+
+Run `databricks aitools install --help` for the full list of options.
 
 ## Manage
 
 ```bash title="List, update, or remove skills"
-databricks experimental aitools list
-databricks experimental aitools update
-databricks experimental aitools uninstall
+databricks aitools list
+databricks aitools update
+databricks aitools uninstall
 ```
 
-`update` fetches the latest release and auto-installs new skills from the manifest. Pass `--check` to preview without downloading, `--no-new` to skip auto-installing new skills, or `--force` to re-download even if versions match. All commands accept `--global` (default) and `--project` to control scope.
+`update` fetches the latest release and auto-installs new skills. Pass `--check` to preview without downloading, `--no-new` to skip auto-installing new skills, or `--force` to re-download even if versions match.
 
-## Other install methods
+All commands accept `--scope=global` (default), `--scope=project`, or `--scope=both` to control scope.
 
-The [Skills CLI](https://github.com/vercel-labs/skills) provides an alternative with interactive prompts:
+## Alternative install methods
 
-```bash
-npx skills add databricks/databricks-agent-skills
-```
-
-Cursor also supports `/add-plugin databricks-skills` in chat.
+You can also install Databricks skills with the [Skills CLI](https://github.com/vercel-labs/skills) (e.g. `npx skills add databricks/databricks-agent-skills`) or directly from Cursor chat with `/add-plugin databricks-skills`. That said, `databricks aitools install` is the recommended method — it's maintained by Databricks and always installs the latest stable versions.
 
 ## Available skills
 
-Run `databricks experimental aitools skills list` to see available skills and their install status.
+Run `databricks aitools skills list` to see available skills and their install status.
 
 | Skill                             | Description                                                                                                                                                                     |
 | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -69,4 +68,7 @@ Run `databricks experimental aitools skills list` to see available skills and th
 
 ## Where to next
 
-With Databricks agent skills installed, your coding agent has the context it needs to build and deploy. Browse the [templates catalog](/templates) to start building.
+With Databricks agent skills installed, your coding agent has the context it needs to build and deploy.
+
+- To give your agent further context, install the [Docs MCP Server](/docs/tools/ai-tools/docs-mcp-server).
+- Ready to start building? Read about how [templates](/docs/templates) can help you quickly scaffold your project.

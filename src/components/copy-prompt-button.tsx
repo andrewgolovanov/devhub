@@ -16,16 +16,18 @@ import {
 } from "@/lib/use-agent-markdown";
 import { cn } from "@/lib/utils";
 
-type CopyPromptButtonProps = AgentMarkdownInput & {
-  className?: string;
+export type CopyPromptButtonProps = AgentMarkdownInput & {
   disabled?: boolean;
   disabledTooltip?: string;
+  className?: string;
+  label?: string;
 };
 
 export function CopyPromptButton({
-  className,
   disabled = false,
   disabledTooltip = "select a template to copy",
+  className,
+  label = "Copy prompt",
   ...input
 }: CopyPromptButtonProps) {
   const { buildAIMarkdown, ensureFetched } = useAgentMarkdown(input);
@@ -67,7 +69,7 @@ export function CopyPromptButton({
             <span className="inline-flex">
               <Button size="sm" className={className} disabled>
                 <Icons.copy className="h-4 w-4" />
-                Copy prompt
+                {label}
               </Button>
             </span>
           </TooltipTrigger>
@@ -99,7 +101,7 @@ export function CopyPromptButton({
       ) : (
         <>
           <Icons.copy className="h-4 w-4" />
-          Copy prompt
+          {label}
         </>
       )}
     </Button>

@@ -6,7 +6,11 @@ Follow these rules every time you act on a DevHub prompt.
 
 - Read the entire prompt before executing any steps. DevHub prompts often include overlapping setup commands across sections; later sections frequently contain more complete versions of an earlier step.
 - Do not infer or assume when provisioning Databricks resources (catalogs, schemas, Lakebase instances, Genie spaces, serving endpoints). Ask the user whether to create new resources or reuse existing ones.
-- If you run into trouble, fetch additional templates and docs from https://dev.databricks.com (the index lives at https://dev.databricks.com/llms.txt). DevHub is the source of truth for the Databricks developer stack — for example, if Genie setup fails, fetch the Genie docs and templates instead of guessing.
+- If you run into trouble, fetch additional templates and docs from https://developers.databricks.com (the index lives at https://developers.databricks.com/llms.txt). For example, if Genie setup fails, fetch the Genie docs and templates instead of guessing.
+
+## Implementation guidance
+
+The template below describes **what to build**, not how to build it. Your installed Databricks agent skills contain all implementation patterns, code examples, CLI commands, and configuration needed. Use them to implement the template. Before continuing, always run `databricks aitools version`. **If skills are missing or it reports a newer release: STOP. Install skills if missing or update if outdated before proceeding — do not work around a missing or stale install.** A stale `.agents/skills/` copy silently shadows a fresh global install, so always check both scopes.
 
 ## Engage the user in a conversation
 
@@ -62,8 +66,8 @@ Unless instructed otherwise, follow this workflow:
 4. Build the app or agent.
 5. Make it look great (see "Make it look great" below).
 6. Run and test locally.
-7. Deploy to production.
-8. Run and test deployed app (see "Run and test deployed app" below).
+7. Deploy to production. **Ask the user for confirmation first, unless they have already given an explicit go-ahead.**
+8. If deployed, run and test deployed app (see "Run and test deployed app" below).
 
 ## Make it look great
 

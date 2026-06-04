@@ -7,12 +7,16 @@ import type { ComponentProps, ReactNode } from "react";
 
 import { CopyPromptButton } from "@/components/copy-prompt-button";
 import CTA from "@/components/home-new/cta";
+import { OpenPromptInButton } from "@/components/open-prompt-in-button";
 import { MoreTemplatesSlider } from "@/components/templates/more-templates-slider";
 import type { TemplateItem } from "@/components/templates/template-card";
 import NewFooter from "@/components/theme/footer";
 import { siteUrlFromConfig } from "@/lib/site-url";
+import { useReplitPrompt } from "@/lib/use-raw-content-markdown";
 
-type TemplateUsageProps = ComponentProps<typeof CopyPromptButton>;
+type TemplateUsageProps = ComponentProps<typeof CopyPromptButton> & {
+  slug: string;
+};
 
 type TemplateDetailShellProps = {
   title: string;
@@ -38,6 +42,9 @@ function TemplateAiBlock({
   titleClassName?: string;
   showDivider?: boolean;
 }) {
+  const { slug, ...copyPromptProps } = usage;
+  const replitPrompt = useReplitPrompt(slug);
+
   return (
     <div className={className}>
       {showDivider ? (
@@ -53,10 +60,18 @@ function TemplateAiBlock({
       <p className="mt-1 text-base tracking-tight text-grey-70">
         [Agent asks questions and ships the app.]
       </p>
-      <CopyPromptButton
-        {...usage}
-        className="mt-5 h-10 gap-x-2.5 rounded-none bg-orange pl-4 pr-4.5 font-mono text-sm/none font-medium tracking-tight text-black uppercase hover:bg-primary focus-visible:ring-orange/60 has-[>svg]:pl-4 has-[>svg]:pr-4.5 [&_svg:not([class*='size-'])]:size-4"
-      />
+      <div className="mt-5 flex flex-wrap gap-2">
+        <CopyPromptButton
+          {...copyPromptProps}
+          className="h-10 gap-x-2.5 rounded-none bg-orange pl-4 pr-4.5 font-mono text-sm/none font-medium tracking-tight text-black uppercase hover:bg-primary focus-visible:ring-orange/60 has-[>svg]:pl-4 has-[>svg]:pr-4.5 [&_svg:not([class*='size-'])]:size-4"
+        />
+        <OpenPromptInButton
+          replitPrompt={replitPrompt}
+          slug={slug}
+          title={usage.title}
+          permalink={usage.permalink}
+        />
+      </div>
     </div>
   );
 }

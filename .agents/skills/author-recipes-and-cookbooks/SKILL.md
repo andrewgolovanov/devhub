@@ -1,13 +1,13 @@
 ---
 name: author-recipes-and-cookbooks
-description: Author and maintain DevHub templates published at `dev.databricks.com/templates`. A template is the public name for any of three internal entry kinds — atomic snippets, multi-step end-to-end walkthroughs, and full deployable example apps. Use when creating, updating, or reorganizing any template-tier content.
+description: Author and maintain DevHub templates published at `developers.databricks.com/templates`. A template is the public name for any of three internal entry kinds — atomic snippets, multi-step end-to-end walkthroughs, and full deployable example apps. Use when creating, updating, or reorganizing any template-tier content.
 ---
 
 # Author DevHub Templates
 
 ## Overview
 
-Use this skill to add or update DevHub templates with consistent structure, metadata, and writing quality. Treat each template as both an execution prompt for AI coding agents and a learning walkthrough for human developers.
+Use this skill to add or update DevHub templates with consistent structure, metadata, and writing quality. Treat each template as an execution prompt for AI coding agents — an inspirational gallery of what's possible, not a step-by-step manual guide.
 
 ## The Three Internal Kinds
 
@@ -21,17 +21,17 @@ So: recipes are the atoms, cookbooks compose recipes with additional context, an
 
 ## Public Vocabulary
 
-User-facing, all three kinds are presented as one thing: **template**. The site at `dev.databricks.com/templates`, navigation, filters, copy-pasted prompts, `llms.txt`, and the `/templates.md` markdown index all say "template(s)" — never "guide", "recipe", or "cookbook". When you write user-facing or agent-facing copy (titles, descriptions, intros, prerequisites, references), say "template".
+User-facing, all three kinds are presented as one thing: **template**. The site at `developers.databricks.com/templates`, navigation, filters, copy-pasted prompts, `llms.txt`, and the `/templates.md` markdown index all say "template(s)" — never "guide", "recipe", or "cookbook". When you write user-facing or agent-facing copy (titles, descriptions, intros, prerequisites, references), say "template".
 
 ## Internal Implementation Tiers
 
 The internal kind names (`recipe`, `cookbook`, `example`) **live only in code, file paths, and this skill** — they never appear in shipped UI, markdown content, or generated indexes.
 
-| Internal kind | Source location                                                                          | Route at runtime    | When to use                                                                |
-| ------------- | ---------------------------------------------------------------------------------------- | ------------------- | -------------------------------------------------------------------------- |
-| `recipe`      | `content/recipes/<slug>/{content,prerequisites,deployment}.md` + entry in `recipes`      | `/templates/<slug>` | One atomic outcome, copy-pasteable in a single agent prompt.               |
-| `cookbook`    | Entry in `cookbooks` (composes recipes) + manual page `src/pages/templates/<slug>.tsx`   | `/templates/<slug>` | End-to-end walkthrough composed from multiple recipes.                     |
-| `example`     | `content/examples/<slug>/content.md` + full app source under `examples/<slug>/template/` | `/templates/<slug>` | Full deployable codebase that bundles cookbooks/recipes plus runnable app. |
+| Internal kind | Source location                                                                        | Route at runtime    | When to use                                                                |
+| ------------- | -------------------------------------------------------------------------------------- | ------------------- | -------------------------------------------------------------------------- |
+| `recipe`      | `content/recipes/<slug>/{goal,prerequisites}.md` + entry in `recipes`                  | `/templates/<slug>` | One atomic outcome, copy-pasteable in a single agent prompt.               |
+| `cookbook`    | Entry in `cookbooks` (composes recipes) + manual page `src/pages/templates/<slug>.tsx` | `/templates/<slug>` | End-to-end walkthrough composed from multiple recipes.                     |
+| `example`     | `content/examples/<slug>/goal.md` + full app source under `examples/<slug>/template/`  | `/templates/<slug>` | Full deployable codebase that bundles cookbooks/recipes plus runnable app. |
 
 All three are registered in `src/lib/recipes/recipes.ts`, share a flat `/templates/<slug>` URL hierarchy, and must have globally unique slugs (the content-entries plugin asserts this at build time). Choose the kind that matches the **shape of the work**, not the customer-facing label.
 
@@ -44,33 +44,26 @@ All three are registered in `src/lib/recipes/recipes.ts`, share a flat `/templat
 
 ## Author A `recipe`
 
-1. Create `content/recipes/<slug>/content.md`. Optionally add `prerequisites.md` and `deployment.md` siblings.
+1. Create `content/recipes/<slug>/goal.md`. Optionally add `prerequisites.md`.
 2. The slug must equal the folder name and be globally unique across the catalog.
-3. Open `content.md` with:
-   - `## <Template Title>`
-   - one concise outcome sentence
-4. Organize steps as numbered H3 sections (`### 1. ...`, `### 2. ...`).
-5. Keep each step executable:
-   - exact commands in fenced `bash` blocks
-   - placeholders like `<PROFILE>` and `<workspace-url>` for user-specific values
-   - explain only what is needed to run the step safely
-6. Close with `#### References` containing only high-signal links.
-7. Register the recipe in `src/lib/recipes/recipes.ts`:
+3. Write `goal.md` as a concise outcome description — what the agent should build, what the user will have when done. Keep it short (5-10 lines). Agent skills handle the implementation details.
+4. Optionally add `prerequisites.md` for workspace-specific requirements the agent should verify before starting (e.g., "Lakebase Postgres available", "Genie enabled", "AWS workspace"). Do NOT include "Databricks CLI authenticated" — the localBootstrap recipe already handles that.
+5. Register the recipe in `src/lib/recipes/recipes.ts`:
    - add it to `recipes` with `id`, `name`, `description`, `tags`, `services`
    - set `prerequisites` only when strictly required
    - place it in `recipesInOrder`
-8. Keep registry metadata aligned with the markdown (name, scope, intent must match).
+6. Keep registry metadata aligned with the markdown (name, scope, intent must match).
 
-### Prerequisites Belong In `prerequisites.md` — Never In `content.md`
+### Prerequisites Belong In `prerequisites.md` — Never In `goal.md`
 
-Prerequisites have a single home: `content/<recipes|examples>/<slug>/prerequisites.md`. The route plugin renders that file under a `## Prerequisites` H2 above the content body and the agent-prompt composer attaches it ahead of the steps. Putting prerequisite text inside `content.md` duplicates the section, breaks step numbering when the duplicate is removed later, and produces noisy "Copy as Markdown" payloads.
+Prerequisites have a single home: `content/<recipes|examples>/<slug>/prerequisites.md`. The route plugin renders that file under a `## Prerequisites` H2 on the detail page.
 
 Rules:
 
-- **Do not** add `### Prerequisites`, `:::info[Prerequisites]`, `### N. Follow the prerequisite templates first`, or any equivalent block to `content.md`. Move that content into `prerequisites.md` instead.
-- `content.md` step numbering starts at `### 1.` with the first real action — never with a "do these other templates first" preamble.
+- **Do not** add prerequisites to `goal.md`. Keep goal focused on the outcome.
 - When a recipe depends on completing another template first, list it as a bullet inside `prerequisites.md` with a link to `/templates/<slug>` (relative — see [Link Style](#link-style-use-relative-urls-for-devhub-pages)).
-- Workspace-feature checks (CLI auth, Lakebase enabled, Apps enabled, Genie enabled, etc.) belong in `prerequisites.md` as `databricks` CLI commands the user can run to verify each capability — not as prose in `content.md`.
+- Workspace-feature checks (Lakebase enabled, Apps enabled, Genie enabled, etc.) belong in `prerequisites.md` as `databricks` CLI commands the agent can run to verify each capability.
+- Do NOT include "Databricks CLI authenticated" checks — the localBootstrap recipe injected into every agent prompt already handles CLI auth verification.
 
 ## Author A `cookbook`
 
@@ -80,11 +73,10 @@ Rules:
    - add an entry to `cookbooks` with `id`, `name`, `description`, `recipeIds`
    - rely on `createCookbook()` to derive `tags` and `services`
 4. Create `src/pages/templates/<slug>.tsx` following the existing pattern:
-   - import `CookbookDetail`, `cookbooks`, `useAllRecipeSections`, `useCookbookIntro`, and `composeCookbookMarkdown`
-   - import each recipe markdown module from `@site/content/recipes/<slug>/content.md`
-   - select the cookbook with `cookbooks.find((c) => c.id === "<slug>")`
-   - build `rawMarkdown` from `cookbook.recipeIds` joined with `\n\n---\n\n`
-   - render the recipes in `recipeIds` order, separated with `<hr />`
+   - import `CookbookDetail` and `useCookbookMarkdown`
+   - import the cookbook's `goal.md` from `@site/content/cookbooks/<slug>/goal.md`
+   - use `useCookbookMarkdown("<slug>")` to get the `cookbook` and `rawMarkdown`
+   - render just `<Goal />` as children of `<CookbookDetail>`
 5. Keep the page declarative — no logic beyond composition.
 
 ## Author An `example`
@@ -149,14 +141,11 @@ For examples with no Unity Catalog DDL, still add `template/provisioning/sql/` w
 
 ### 2. Create The Example Markdown
 
-Create `content/examples/<slug>/content.md`:
+Create `content/examples/<slug>/goal.md`:
 
-- Start with `## <Template Title>`.
-- Brief motivation (1-2 paragraphs): what it demonstrates and why.
-- Data flow or architecture description.
-- What the user needs to adapt: which resources to create, which placeholders to fill in, manual steps (Lakehouse Sync, Sync Tables, etc.).
-- Add a sentence under **What to Adapt** that **provisioning, seeding, and deployment** are documented in the repository's **`template/README.md`** — do not duplicate the runbook in this markdown.
-- Keep it short and actionable.
+- Write a concise outcome description (5-10 lines): what the example builds, what you'll have when done.
+- Optionally add `prerequisites.md` for workspace-specific requirements.
+- Keep it focused on the "what", not the "how" — agent skills and `template/README.md` handle implementation details.
 
 ### 3. Register The Example
 
@@ -259,7 +248,7 @@ databricks apps get <app-name> --profile <PROFILE>
 #### Fixing issues found during dry run
 
 - **Code bug** (build fails, runtime error, wrong SQL dialect) — fix in `examples/<slug>/` in the repo, then re-copy to `../../demos/<slug>/` and retry.
-- **Instruction gap** (missing step, unclear placeholder) — fix in `content/examples/<slug>/content.md` or the relevant recipe under `content/recipes/`.
+- **Instruction gap** (missing step, unclear placeholder) — fix in `content/examples/<slug>/goal.md` or the relevant recipe under `content/recipes/`.
 - **Seed data issue** — fix in `examples/<slug>/template/seed/seed.ts`.
 
 #### Cleanup
@@ -268,7 +257,7 @@ After verifying the deployed app works, delete `../../demos/<slug>/`. Optionally
 
 ## Author A `solution`
 
-Solutions live at `dev.databricks.com/solutions/<slug>` and are launch posts, deep-dive write-ups, or curated perspectives on the Databricks developer stack. They sit alongside the linked Databricks Blog posts that the registry hand-picks.
+Solutions live at `developers.databricks.com/solutions/<slug>` and are launch posts, deep-dive write-ups, or curated perspectives on the Databricks developer stack. They sit alongside the linked Databricks Blog posts that the registry hand-picks.
 
 A native (DevHub-authored) solution has two pieces:
 
@@ -297,11 +286,11 @@ These rules are enforced mechanically by `scripts/validate-content.mjs`, which f
 
 All templates share a flat URL hierarchy:
 
-| Internal kind | Public URL          | Route source                                                                  |
-| ------------- | ------------------- | ----------------------------------------------------------------------------- |
-| `recipe`      | `/templates/<slug>` | Generated by content-entries plugin from `content/recipes/<slug>/content.md`  |
-| `cookbook`    | `/templates/<slug>` | Manual page in `src/pages/templates/<slug>.tsx`                               |
-| `example`     | `/templates/<slug>` | Generated by content-entries plugin from `content/examples/<slug>/content.md` |
+| Internal kind | Public URL          | Route source                                                               |
+| ------------- | ------------------- | -------------------------------------------------------------------------- |
+| `recipe`      | `/templates/<slug>` | Generated by content-entries plugin from `content/recipes/<slug>/goal.md`  |
+| `cookbook`    | `/templates/<slug>` | Manual page in `src/pages/templates/<slug>.tsx`                            |
+| `example`     | `/templates/<slug>` | Generated by content-entries plugin from `content/examples/<slug>/goal.md` |
 
 Slugs must be globally unique. The plugin throws at build time if any collision exists.
 
@@ -318,21 +307,21 @@ Slugs must be globally unique. The plugin throws at build time if any collision 
 
 ### Link Style: Use Relative URLs For DevHub Pages
 
-When linking to another DevHub page (`/templates/...`, `/docs/...`, `/solutions/...`) from any markdown content (`content/**/*.md`, `docs/**/*.md`, intent files, dev-guidelines, about), use a **root-relative** path. Never hardcode `https://dev.databricks.com/<path>` inside markdown link or autolink syntax.
+When linking to another DevHub page (`/templates/...`, `/docs/...`, `/solutions/...`) from any markdown content (`content/**/*.md`, `docs/**/*.md`, intent files, dev-guidelines, about), use a **root-relative** path. Never hardcode `https://developers.databricks.com/<path>` inside markdown link or autolink syntax.
 
 - Good: `[Spin Up a Databricks App](/templates/spin-up-databricks-app)`
-- Bad: `[Spin Up a Databricks App](https://dev.databricks.com/templates/spin-up-databricks-app)`
+- Bad: `[Spin Up a Databricks App](https://developers.databricks.com/templates/spin-up-databricks-app)`
 - Good: `</llms.txt>` and `[ref]: /docs/start-here`
-- Bad: `<https://dev.databricks.com/llms.txt>` and `[ref]: https://dev.databricks.com/docs/start-here`
+- Bad: `<https://developers.databricks.com/llms.txt>` and `[ref]: https://developers.databricks.com/docs/start-here`
 
 `absolutizeMarkdown` in `src/lib/copy-preamble.ts` rewrites every root-relative link to the caller's origin when a page or markdown payload is served (Vercel functions, MCP server, in-browser "Copy as Markdown"), so relative links work transparently in `localhost:3001`, preview deployments, and production. Hardcoding the canonical origin makes in-site navigation a full reload and sends local-dev visitors to prod.
 
-`scripts/validate-content.mjs` enforces this rule and fails the build on `https://dev.databricks.com/(templates|docs|solutions)/...` references inside markdown link, autolink, or reference-definition syntax.
+`scripts/validate-content.mjs` enforces this rule and fails the build on `https://developers.databricks.com/(templates|docs|solutions)/...` references inside markdown link, autolink, or reference-definition syntax.
 
 Allowed exceptions (the validator skips these):
 
-- Bare textual URLs in prose that identify the site or are agent fetch directives (e.g. `Website: https://dev.databricks.com`, "fetch the index from `https://dev.databricks.com/llms.txt`"). `rewriteOrigin` substitutes the canonical origin at copy time, so these still resolve correctly.
-- URLs inside fenced code blocks (e.g. `npx add-mcp https://dev.databricks.com/api/mcp` — the install command must be canonical).
+- Bare textual URLs in prose that identify the site or are agent fetch directives (e.g. `Website: https://developers.databricks.com`, "fetch the index from `https://developers.databricks.com/llms.txt`"). `rewriteOrigin` substitutes the canonical origin at copy time, so these still resolve correctly.
+- URLs inside fenced code blocks (e.g. `npx add-mcp https://developers.databricks.com/api/mcp` — the install command must be canonical).
 - External links (`github.com/...`, `docs.databricks.com/...`, etc.) — always absolute.
 
 ## Validate Before Finishing
@@ -341,13 +330,11 @@ Allowed exceptions (the validator skips these):
 2. Verify every markdown import path resolves.
 3. For cookbooks: verify `recipeIds` order matches the rendered JSX order.
 4. Verify prerequisites are only used on recipes.
-5. Verify no `content.md` file contains a `Prerequisites` heading, admonition, or "follow these templates first" step — that content lives only in `prerequisites.md`.
+5. Verify no `goal.md` file contains prerequisite content — that lives only in `prerequisites.md`.
 6. Verify title, description, and tags are specific (not generic) and do **not** contain the words "recipe", "cookbook", or "guide".
 7. Verify commands are runnable and do not skip required auth/profile context.
 8. Verify no slug collisions across recipes, cookbooks, and examples.
-9. Verify the output reads cleanly as both:
-   - a prompt for an AI coding agent
-   - a human step-by-step walkthrough
+9. Verify the output reads cleanly as a prompt for an AI coding agent.
 10. Run `npm run validate:content && npm run fmt && npm run typecheck && npm run build && npm run test`.
 11. For examples: verify `examples/<slug>/` contains only `REPLACE_ME` placeholders — no real workspace hosts, warehouse IDs, Lakebase project names, or Genie space IDs.
 12. For examples: verify `examples/<slug>/template/README.md` covers provisioning (manual vs SQL), seeding, pipeline deploys, and app deploy end-to-end.
@@ -355,8 +342,8 @@ Allowed exceptions (the validator skips these):
 
 ## References
 
-- Read `content/recipes/set-up-your-local-dev-environment/content.md` for atomic-template structure and tone.
-- Read `content/examples/agentic-support-console/content.md` for example-template markdown style.
+- Read `content/recipes/set-up-your-local-dev-environment/goal.md` for atomic-template goal structure and tone.
+- Read `content/examples/agentic-support-console/goal.md` for example-template goal style.
 - Read `src/lib/recipes/recipes.ts` for all type contracts (`Recipe`, `Cookbook`, `Example`).
 - Read `src/pages/templates/app-with-lakebase.tsx` for the cookbook composition pattern.
 - Read `src/components/examples/example-detail.tsx` for example detail rendering.

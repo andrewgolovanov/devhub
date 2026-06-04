@@ -11,8 +11,6 @@ export type ExampleMarkdownOptions = {
   baseUrl: string;
 };
 
-export type ExampleSections = ContentSections;
-
 function isInitCommand(initCommand: string): boolean {
   return initCommand.trimStart().startsWith("databricks apps init");
 }
@@ -22,7 +20,7 @@ export function buildIncludedTemplatesPreamble(): string {
   return [
     "These **templates** informed how this example was built; their patterns are reflected in the template code, bundles, and workflows.",
     "",
-    "Review them on DevHub when you need more context on a technique than `template/README.md` alone provides.",
+    "Review them on DevHub when you need more context on a technique than `README.md` alone provides.",
   ].join("\n");
 }
 
@@ -59,18 +57,18 @@ export function buildExportGetStartedSection(example: Example): string {
   return [
     "## Get started",
     "",
-    "Run the command below to clone the DevHub repository locally and `cd` into this example's **`template/`** folder. That directory is the runnable template (AppKit app, Databricks Asset Bundles, and any `pipelines/`, `seed/`, or `provisioning/sql/` shipped with the example).",
+    "Run the command below to clone the app-templates repository locally and `cd` into this example's folder. That directory is the runnable template (AppKit app, Databricks Asset Bundles, and any `pipelines/`, `seed/`, or `provisioning/sql/` shipped with the example).",
     "",
     "```bash",
     example.initCommand,
     "```",
     "",
-    "**`template/README.md`** is included in that folder when you clone. Open it for step-by-step instructions: provision the right infrastructure (catalogs, Lakehouse Sync, Lakebase, warehouses, AI endpoints, and so on), run seeds and pipeline bundles as needed, and deploy the app. Follow that README end to end; it is the source of truth for this example.",
+    "**`README.md`** is included at the root of that folder when you clone. Open it for step-by-step instructions: provision the right infrastructure (catalogs, Change Data Feed, Lakebase, warehouses, AI endpoints, and so on), run seeds and pipeline bundles as needed, and deploy the app. Follow that README end to end; it is the source of truth for this example.",
   ].join("\n");
 }
 
 export function buildFullPrompt(
-  opts: ExampleMarkdownOptions & { sections: ExampleSections },
+  opts: ExampleMarkdownOptions & { sections: ContentSections },
 ): string {
   const {
     example,
@@ -80,50 +78,18 @@ export function buildFullPrompt(
     includedRecipes,
     baseUrl,
   } = opts;
-  const cliTemplateUrl = `https://github.com/databricks/devhub/tree/main/${example.githubPath}`;
-  const lines: string[] = [
-    `# ${example.name}`,
-    "",
-    example.description,
-    "",
-    "## Get started",
-    "",
-  ];
+  const cliTemplateUrl = example.templateUrl;
+  const lines: string[] = [`# ${example.name}`, "", example.description, ""];
+
+  if (sections.goal) {
+    lines.push(sections.goal.trim(), "");
+  }
+
+  lines.push("## Get started", "");
 
   if (isInitCommand(example.initCommand)) {
-    const hasPrereqs = Boolean(sections.prerequisites);
-    const hasDeployBlock = Boolean(sections.deployment);
-    const initStepNumber = hasPrereqs ? 3 : 2;
-
     lines.push(
-      "### 1. Verify Databricks CLI auth",
-      "",
-      "The init flow calls the workspace API to resolve connection details, so it fails immediately without a valid Databricks CLI profile. Before running init, check auth:",
-      "",
-      "```bash",
-      "databricks auth profiles",
-      "```",
-      "",
-      "If no profile shows `Valid: YES`, authenticate one first:",
-      "",
-      "```bash",
-      "databricks auth login --profile <name> --host <workspace-url>",
-      "```",
-      "",
-      "If `DEFAULT` is not the profile you want to use, export the one you want so subsequent commands pick it up:",
-      "",
-      "```bash",
-      "export DATABRICKS_CONFIG_PROFILE=<profile>",
-      "```",
-      "",
-    );
-
-    if (hasPrereqs) {
-      lines.push(sections.prerequisites!, "");
-    }
-
-    lines.push(
-      `### ${initStepNumber}. Scaffold the project with \`databricks apps init\``,
+      "### Scaffold the project",
       "",
       "Run the command below to scaffold this example into a new directory using the [AppKit template system](/docs/appkit/v0/development/templates). It creates the app in your workspace, binds required resources, and writes a local `.env` with connection details resolved by the AppKit plugins.",
       "",
@@ -131,39 +97,28 @@ export function buildFullPrompt(
       example.initCommand,
       "```",
       "",
+      "A **`README.md`** ships inside the scaffolded project. Follow it end to end to configure, run, and deploy the app.",
+      "",
     );
-
-    if (hasDeployBlock) {
-      lines.push(sections.deployment!, "");
-    } else {
-      lines.push(
-        "A **`README.md`** ships inside the scaffolded project. Follow it end to end to configure, run, and deploy the app.",
-        "",
-      );
-    }
   } else {
     lines.push(
-      "### 1. Clone locally and follow `template/README.md`",
+      "### Clone and follow `README.md`",
       "",
-      "Run the command below to clone the DevHub repository locally and enter this example's **`template/`** directory.",
+      "Run the command below to clone the app-templates repository locally and enter this example's directory.",
       "",
       "```bash",
       example.initCommand,
       "```",
       "",
-      "**`template/README.md`** ships with that template when you clone. Use it as the runbook: follow the instructions there to provision the right infrastructure pieces, seed data, run pipelines if applicable, and deploy the app.",
+      "**`README.md`** ships at the root of the example. Use it as the runbook: follow the instructions there to provision the right infrastructure pieces, seed data, run pipelines if applicable, and deploy the app.",
       "",
-      "**Optional:** scaffold a standalone project with the CLI instead of cloning the full DevHub repo:",
+      "**Optional:** scaffold a standalone project with the CLI instead of cloning the full app-templates repo:",
       "",
       "```bash",
       `databricks apps init --template ${cliTemplateUrl} --name <app-name>`,
       "```",
       "",
     );
-  }
-
-  if (sections.content) {
-    lines.push("", sections.content);
   }
 
   lines.push("", `## Source Code`, "", `GitHub: ${githubUrl}`);

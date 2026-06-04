@@ -1,7 +1,6 @@
 import { existsSync, readFileSync, readdirSync, statSync } from "fs";
 import { resolve } from "path";
 import {
-  REQUIRED_CONTENT_SECTION_FILE,
   type ContentSectionFile,
   type ContentSections,
 } from "./content-sections";
@@ -29,7 +28,11 @@ export function hasSolutionSlug(rootDir: string, slug: string): boolean {
   return getSolutionSlugs(rootDir).includes(slug);
 }
 
-/** Recipes, examples, and blog articles live in `content/<section>/<slug>/` folders with a required content.md. */
+/**
+ * Recipes, examples, and blog articles live in `content/<section>/<slug>/`
+ * folders.
+ * A folder is published if it has goal.md.
+ */
 export function getContentSlugs(
   rootDir: string,
   section: FolderContentSection,
@@ -39,9 +42,7 @@ export function getContentSlugs(
     .filter((entry) => {
       const fullPath = resolve(directory, entry);
       if (!statSync(fullPath).isDirectory()) return false;
-      return existsSync(
-        resolve(fullPath, `${REQUIRED_CONTENT_SECTION_FILE}.md`),
-      );
+      return existsSync(resolve(fullPath, "goal.md"));
     })
     .sort();
 }
@@ -97,16 +98,74 @@ export function readCookbookIntro(
   return readFileSync(filePath, "utf-8");
 }
 
-/** Reads all present section files; throws when the required content.md is missing. */
+/** Reads `content/cookbooks/<slug>/goal.md` if present. */
+export function readCookbookGoal(
+  rootDir: string,
+  slug: string,
+): string | undefined {
+  const filePath = resolve(cookbookDirectory(rootDir), slug, "goal.md");
+  if (!existsSync(filePath)) return undefined;
+  return readFileSync(filePath, "utf-8");
+}
+
+type ReplitPromptTier = "recipes" | "examples" | "cookbooks";
+
+/**
+ * Reads `content/<tier>/<slug>/replit-prompt.md` if present, prepended with
+ * the shared `content/replit-shared/preamble.md` separated by `---`. This
+ * mirrors the "shared boilerplate + per-template body" composition that
+ * `composeAgentPrompt` uses for the Copy prompt feature: each per-template
+ * file holds only the unique task; universal routing, PAT fallback,
+ * permission handling, style, and out-of-scope rules live in the preamble.
+ *
+ * Replit prompts are an opt-in export target, not a content section, so
+ * they live next to `goal.md` but stay out of `ContentSections` /
+ * `readContentSections`.
+ *
+ * Composition order:
+ *   <preamble>
+ *   ---
+ *   <per-template task>
+ */
+export function readReplitPrompt(
+  rootDir: string,
+  tier: ReplitPromptTier,
+  slug: string,
+): string | undefined {
+  const dir =
+    tier === "cookbooks"
+      ? cookbookDirectory(rootDir)
+      : markdownDirectory(rootDir, tier);
+  const perTemplatePath = resolve(dir, slug, "replit-prompt.md");
+  if (!existsSync(perTemplatePath)) return undefined;
+
+  const preamblePath = resolve(
+    rootDir,
+    "content",
+    "replit-shared",
+    "preamble.md",
+  );
+  if (!existsSync(preamblePath)) {
+    throw new Error(
+      `Required shared file missing: ${preamblePath}. ` +
+        `Every replit-prompt.md composes against this preamble; restore the file or remove the per-template prompts.`,
+    );
+  }
+  const preamble = readFileSync(preamblePath, "utf-8").trimEnd();
+  const perTemplate = readFileSync(perTemplatePath, "utf-8").trimEnd();
+  return `${preamble}\n\n---\n\n${perTemplate}\n`;
+}
+
+/** Reads all present section files; throws when goal.md is missing. */
 export function readContentSections(
   rootDir: string,
   section: FolderContentSection,
   slug: string,
 ): ContentSections {
-  const content = readContentSection(rootDir, section, slug, "content");
-  if (content === undefined) {
+  const goal = readContentSection(rootDir, section, slug, "goal");
+  if (goal === undefined) {
     throw new Error(
-      `Missing required content.md for ${section} "${slug}" at content/${section}/${slug}/content.md`,
+      `Missing required goal.md for ${section} "${slug}" at content/${section}/${slug}/`,
     );
   }
   const prerequisites = readContentSection(
@@ -115,9 +174,7 @@ export function readContentSections(
     slug,
     "prerequisites",
   );
-  const deployment = readContentSection(rootDir, section, slug, "deployment");
-  const sections: ContentSections = { content };
+  const sections: ContentSections = { goal };
   if (prerequisites !== undefined) sections.prerequisites = prerequisites;
-  if (deployment !== undefined) sections.deployment = deployment;
   return sections;
 }

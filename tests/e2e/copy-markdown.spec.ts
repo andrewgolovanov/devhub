@@ -65,7 +65,7 @@ async function expectCopyMarkdownWithoutPreamble({
 }
 
 test.describe("copy markdown exports raw markdown on recipe pages", () => {
-  test("recipe detail page copies actual markdown with code fences", async ({
+  test("recipe detail page copies goal content with agent prompt wrapper", async ({
     page,
   }) => {
     await setupClipboardMock(page);
@@ -75,9 +75,8 @@ test.describe("copy markdown exports raw markdown on recipe pages", () => {
 
     const copied = await getCopiedText(page);
     expect(copied).toContain("# About DevHub");
-    expect(copied).toContain("## Set Up Your Local Dev Environment");
-    expect(copied).toContain("```bash");
-    expect(copied).toContain("databricks -v");
+    expect(copied).toContain("Databricks CLI");
+    expect(copied).toContain("authenticated CLI profile");
     expect(copied).toContain("llms.txt");
   });
 });
@@ -97,14 +96,15 @@ test.describe("copy markdown exports raw markdown on template pages", () => {
     expect(copied).toContain("# Working with DevHub prompts");
     expect(copied).toContain("# What the user just did");
     expect(copied).toContain("# Verify your local Databricks dev environment");
-    expect(copied).toContain("## Set Up Your Local Dev Environment");
+    expect(copied).toContain("Databricks CLI");
     // Cookbook body comes after the meta-prompt, with its own frontmatter:
     expect(copied).toContain('title: "AI Chat App"');
     expect(copied).toContain("# The cookbook the user copied");
-    expect(copied).toContain("```bash");
+    // Agent mode: recipe goals as components
+    expect(copied).toContain("## Component:");
   });
 
-  test("multi-recipe cookbook body no longer embeds the local-dev-environment recipe", async ({
+  test("multi-recipe cookbook body uses agent mode with component headings", async ({
     page,
   }) => {
     await setupClipboardMock(page);
@@ -114,13 +114,8 @@ test.describe("copy markdown exports raw markdown on template pages", () => {
 
     const copied = await getCopiedText(page);
     expect(copied).toContain("# About DevHub");
-    // The local-dev-environment recipe heading is present exactly once —
-    // injected by the meta-prompt, NOT duplicated inside the cookbook body.
-    const bootstrapHeadings = copied.match(
-      /^## Set Up Your Local Dev Environment$/gm,
-    );
-    expect(bootstrapHeadings?.length).toBe(1);
-    expect(copied).toContain("## Lakebase Data Persistence");
+    // Agent mode: recipe goals appear as labeled components, not full content
+    expect(copied).toContain("## Component: Lakebase Data Persistence");
     expect(copied).toContain("---");
   });
 });
@@ -134,9 +129,9 @@ test.describe("copy markdown exports raw markdown on example pages", () => {
 
     const copied = await getCopiedText(page);
     expect(copied).toContain("# About DevHub");
-    expect(copied).toContain("## Agentic Support Console");
+    expect(copied).toContain("# Agentic Support Console");
     expect(copied).toContain("Data Flow");
-    expect(copied).toContain("Lakehouse Sync");
+    expect(copied).toContain("Lakebase Change Data Feed");
   });
 
   test("saas-tracker example copies markdown content", async ({ page }) => {
@@ -147,7 +142,7 @@ test.describe("copy markdown exports raw markdown on example pages", () => {
 
     const copied = await getCopiedText(page);
     expect(copied).toContain("# About DevHub");
-    expect(copied).toContain("## SaaS Subscription Tracker");
+    expect(copied).toContain("# SaaS Subscription Tracker");
     expect(copied).toContain("Data Flow");
   });
 
@@ -167,19 +162,17 @@ test.describe("copy markdown exports raw markdown on example pages", () => {
     expect(copied).toContain("Run the command below");
     expect(copied).toContain("```bash");
     expect(copied).toContain(
-      "git clone --depth 1 https://github.com/databricks/devhub.git",
+      "git clone --depth 1 https://github.com/databricks/app-templates.git",
     );
-    expect(copied).toContain("**`template/README.md`**");
+    expect(copied).toContain("**`README.md`**");
     expect(copied).toContain("## Included templates");
     expect(copied).toContain(
       "These **templates** informed how this example was built",
     );
-    expect(copied).toContain(
-      "### 1. Clone locally and follow `template/README.md`",
-    );
+    expect(copied).toContain("### Clone and follow `README.md`");
   });
 
-  test("Banner Copy prompt copies full prompt with bash and ### substeps", async ({
+  test("Banner Copy prompt copies full prompt with bash and clone substeps", async ({
     page,
   }) => {
     await setupClipboardMock(page);
@@ -190,17 +183,15 @@ test.describe("copy markdown exports raw markdown on example pages", () => {
     const copied = await getCopiedText(page);
     expect(copied).toContain("# About DevHub");
     expect(copied).toContain("\n---\n\n# ");
-    expect(copied).toContain(
-      "### 1. Clone locally and follow `template/README.md`",
-    );
+    expect(copied).toContain("### Clone and follow `README.md`");
     expect(copied).toContain("```bash");
     expect(copied).toContain(
-      "git clone --depth 1 https://github.com/databricks/devhub.git",
+      "git clone --depth 1 https://github.com/databricks/app-templates.git",
     );
     expect(copied).toContain(
-      "databricks apps init --template https://github.com/databricks/devhub/tree/main/examples/agentic-support-console",
+      "databricks apps init --template https://github.com/databricks/app-templates/tree/main/agentic-support-console",
     );
-    expect(copied).toContain("template/README.md");
+    expect(copied).toContain("README.md");
     expect(copied).not.toContain(
       "### 2. Provision or link existing Databricks resources",
     );
@@ -216,7 +207,7 @@ test.describe("copy markdown exports raw markdown on solution pages", () => {
       page,
       path: "/solutions/devhub-launch",
       expectedFragments: [
-        "**dev.databricks.com**",
+        "**developers.databricks.com**",
         'title: "Introducing DevHub"',
       ],
     });
@@ -268,10 +259,7 @@ test.describe("copy markdown exports raw markdown on blog pages", () => {
       path: "/blog/devhub-launch",
       expectedFragments: [
         "**dev.databricks.com**",
-        "title: Introducing dev.databricks.com",
-        "publishedAt:",
-        "2026-04-14",
-        "name: Andre Landgraf",
+        'title: "Introducing dev.databricks.com"',
       ],
     });
     await expect(
@@ -287,7 +275,7 @@ test.describe("copy markdown exports raw markdown on docs pages", () => {
     await expectCopyMarkdownWithoutPreamble({
       page,
       path: "/docs/start-here",
-      expectedFragments: ["# Start here", "## Where to start"],
+      expectedFragments: ["# Start here", "## Where to go next"],
     });
   });
 

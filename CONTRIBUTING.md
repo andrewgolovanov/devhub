@@ -1,6 +1,6 @@
 # Contributing to DevHub
 
-DevHub is [dev.databricks.com](https://dev.databricks.com) — the home for developers building data and AI applications on Databricks. Contributions that make the site clearer, more accurate, or more useful for coding agents are very welcome.
+DevHub is [developers.databricks.com](https://developers.databricks.com) — the home for developers building data and AI applications on Databricks. Contributions that make the site clearer, more accurate, or more useful for coding agents are very welcome.
 
 Keep changes small, clear, and easy to review.
 
@@ -23,7 +23,7 @@ npm run dev
 
 AppKit reference docs are fetched automatically on first build or dev start via a shallow git clone of the [appkit](https://github.com/databricks/appkit) repository. Run `npm run sync:appkit-docs` to force a re-sync.
 
-You'll also need the [Vercel CLI](https://vercel.com/docs/cli) (for `vercel dev`) and the [Databricks CLI](https://dev.databricks.com/docs/tools/databricks-cli) if you plan to verify end-to-end flows against a real workspace.
+You'll also need the [Vercel CLI](https://vercel.com/docs/cli) (for `vercel dev`) and the [Databricks CLI](https://developers.databricks.com/docs/tools/databricks-cli) if you plan to verify end-to-end flows against a real workspace.
 
 ### Feature Flags
 
@@ -38,14 +38,32 @@ SHOW_DRAFTS=true
 
 A flag is **enabled only when its value is exactly `"true"`** — any other value (empty, `"1"`, `"yes"`) is treated as disabled.
 
+### Hackathon Banner & Events
+
+Each hackathon event is its own page at `/hackathon/<slug>`, served by a file under [`src/pages/hackathon/`](./src/pages/hackathon/) (for example [`apps-agents-for-good-2026.tsx`](./src/pages/hackathon/apps-agents-for-good-2026.tsx)). Events are fully independent — editing one never touches another. An event can reuse the shared [`HackathonEventPage`](./src/components/hackathon/hackathon-event-page.tsx) template by passing a typed `HackathonEvent` object, or render a completely bespoke layout instead. Event pages are `noindex` and kept out of `sitemap.xml`; entry is via the banner.
+
+`/hackathon` ([`src/pages/hackathon/index.tsx`](./src/pages/hackathon/index.tsx)) redirects to the active event named by `HACKATHON_EVENT_SLUG`. When no slug is set it shows a minimal placeholder instead of redirecting nowhere.
+
+The site-wide announcement bar is driven by env vars at build time and resolved by [`src/lib/hackathon-banner-server.ts`](./src/lib/hackathon-banner-server.ts). It uses Docusaurus' built-in `themeConfig.announcementBar` so it shows above the navbar on every page (docs, templates, solutions, MDX). It's intentionally **non-dismissible** so it stays the only on-site entry point to the event for the full window.
+
+| Env var                    | Purpose                                                                                                                                                                                                                                                 |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `HACKATHON_BANNER_ENABLED` | Banner on **only when the value is exactly `"true"`** — any other value (including unset) is off. Same convention as `SHOW_DRAFTS`.                                                                                                                     |
+| `HACKATHON_EVENT_SLUG`     | Slug of the active event. The banner links to `/hackathon/<slug>` and `/hackathon` redirects there. With no slug the banner links to `/hackathon` (which then shows the placeholder).                                                                   |
+| `HACKATHON_BANNER_TEXT`    | Optional override for the **lead-in text only** (HTML allowed). The "See resources" link is always appended, so a misconfigured override can never strand visitors on a banner with no way in. Defaults to `"Databricks Developer Hackathon is live."`. |
+
+Flipping the banner on Vercel is "edit env var → redeploy", the same model as `SHOW_DRAFTS`. The banner `id` is namespaced per slug automatically (`hackathon-<slug>`), so prior dismissals reset cleanly between events.
+
+To stand up a new event: copy an existing file in `src/pages/hackathon/` to a new slug, edit its data (or write a custom layout), then set `HACKATHON_EVENT_SLUG=<new-slug>` and `HACKATHON_BANNER_ENABLED=true` on Vercel.
+
 ### Site URL Resolution
 
 Anywhere we need an absolute URL — `llms.txt`, `sitemap.xml`, `robots.txt`, JSON-LD, `/api/markdown`, `/api/bootstrap-prompt`, `/api/mcp`, the `Copy prompt` / `Copy Markdown` buttons — we resolve the site origin in this order (see `src/lib/site-url.ts`):
 
 1. `SITE_URL` (explicit override, e.g. `https://example.com` — useful for one-off builds and tests)
-2. `VERCEL_PROJECT_PRODUCTION_URL` when `VERCEL_ENV=production` (auto-set by Vercel; becomes `dev.databricks.com` once the custom domain is attached, otherwise the project's `*.vercel.app` URL)
+2. `VERCEL_PROJECT_PRODUCTION_URL` when `VERCEL_ENV=production` (auto-set by Vercel; becomes `developers.databricks.com` once the custom domain is attached, otherwise the project's `*.vercel.app` URL)
 3. `VERCEL_URL` (per-deployment URL, used on preview / branch / `vercel dev` deployments)
-4. `https://dev.databricks.com` as a final, safe production fallback
+4. `https://developers.databricks.com` as a final, safe production fallback
 
 So locally it points to `http://localhost:3000`, on preview deployments to the deployment's `*.vercel.app` URL, and in production to whatever production URL Vercel has assigned. No env var setup is required on Vercel.
 
@@ -80,7 +98,7 @@ DevHub has three internal content tiers that compose into each other:
 
 - **Recipe** — atomic, copy-pasteable agent prompt for one outcome (e.g. "Create a Lakebase instance"). The smallest unit; everything else is built from these.
 - **Cookbook** — composes multiple recipes into a longer end-to-end guide, plus its own meta content (intro, narrative, ordering). No app source.
-- **Example** — a cookbook _plus_ a full deployable `examples/<slug>/template/` codebase. Bundles recipes and cookbook narrative around runnable app code.
+- **Example** — a cookbook _plus_ a full deployable codebase that lives in the [app-templates](https://github.com/databricks/app-templates) repo at `app-templates/<slug>/`. Bundles recipes and cookbook narrative around runnable app code.
 
 So: recipes are the atoms, cookbooks compose recipes with additional context, and examples are cookbooks with shipped code. **User-facing, all three are presented as one thing: a "template"** — the site, navigation, filters, copy-pasted prompts, and `llms.txt` only ever say "template(s)".
 
@@ -88,7 +106,7 @@ So: recipes are the atoms, cookbooks compose recipes with additional context, an
 | ------------ | ------------------------------------------------------------------ | --------------------------------------------------------------------------------- |
 | **Recipe**   | One atomic outcome (e.g. "Create a Lakebase instance")             | `content/recipes/<id>.md` + metadata in `src/lib/recipes/recipes.ts`              |
 | **Cookbook** | End-to-end walkthrough composed from multiple recipes              | Metadata in `src/lib/recipes/recipes.ts` + page in `src/pages/templates/<id>.tsx` |
-| **Example**  | Cookbook + full runnable app template with code, pipelines, deploy | `content/examples/<id>.md` + `examples/<id>/template/` + metadata                 |
+| **Example**  | Cookbook + full runnable app template with code, pipelines, deploy | `content/examples/<id>.md` + `app-templates/<id>/` (separate repo) + metadata     |
 
 All three render at `/templates/<id>` and live in one unified Templates catalog filterable by service. Slugs must be globally unique across all three — the content-entries plugin validates this at build time.
 

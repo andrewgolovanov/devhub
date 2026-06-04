@@ -7,6 +7,7 @@ import {
   type ReactNode,
 } from "react";
 
+import { ActiveFilters } from "@/components/templates/active-filters";
 import { TemplateCard } from "@/components/templates/template-card";
 import { TemplateFilters } from "@/components/templates/template-filters";
 import { TemplateSearch } from "@/components/templates/template-search";
@@ -22,6 +23,7 @@ import {
 import { useFeatureFlags } from "@/lib/feature-flags";
 import { matchesTemplateFilter, type Service } from "@/lib/recipes/recipes";
 import { buildTemplateItems } from "@/lib/templates/template-items";
+import { useReplitTemplateIds } from "@/lib/use-raw-content-markdown";
 
 const ITEMS_PER_PAGE = 6;
 
@@ -32,9 +34,11 @@ export function TemplatesIndexContent(): ReactNode {
   );
   const [activeTags, setActiveTags] = useState<Set<string>>(new Set());
   const [currentPage, setCurrentPage] = useState(1);
+  const [replitOnly, setReplitOnly] = useState(false);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   const { showDrafts: includeDrafts } = useFeatureFlags();
+  const replitTemplateIds = useReplitTemplateIds();
 
   const allItems = useMemo(
     () => buildTemplateItems(includeDrafts),
@@ -43,21 +47,31 @@ export function TemplatesIndexContent(): ReactNode {
 
   const filteredItems = useMemo(
     () =>
-      allItems.filter((item) =>
-        matchesTemplateFilter(item.data, {
+      allItems.filter((item) => {
+        if (replitOnly && !replitTemplateIds.has(item.data.id)) return false;
+        return matchesTemplateFilter(item.data, {
           searchQuery,
           selectedServices,
           activeTags,
-        }),
-      ),
-    [searchQuery, selectedServices, activeTags, allItems],
+        });
+      }),
+    [
+      searchQuery,
+      selectedServices,
+      activeTags,
+      replitOnly,
+      replitTemplateIds,
+      allItems,
+    ],
   );
 
   const hasActiveFilters =
     searchQuery.trim().length > 0 ||
     activeTags.size > 0 ||
-    selectedServices.size > 0;
-  const hasSelectedFilters = activeTags.size > 0 || selectedServices.size > 0;
+    selectedServices.size > 0 ||
+    replitOnly;
+  const hasSelectedFilters =
+    activeTags.size > 0 || selectedServices.size > 0 || replitOnly;
   const visibleItemsPerPage = hasActiveFilters
     ? Math.max(filteredItems.length, 1)
     : ITEMS_PER_PAGE;
@@ -76,7 +90,7 @@ export function TemplatesIndexContent(): ReactNode {
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [searchQuery, selectedServices, activeTags]);
+  }, [searchQuery, selectedServices, activeTags, replitOnly]);
 
   const handleToggleService = useCallback((service: Service) => {
     setSelectedServices((prev) => {
@@ -87,10 +101,23 @@ export function TemplatesIndexContent(): ReactNode {
     });
   }, []);
 
+  const handleRemoveTag = useCallback((tag: string) => {
+    setActiveTags((prev) => {
+      const next = new Set(prev);
+      next.delete(tag);
+      return next;
+    });
+  }, []);
+
   const handleClearAllFilters = useCallback(() => {
     setSelectedServices(new Set());
     setActiveTags(new Set());
     setSearchQuery("");
+    setReplitOnly(false);
+  }, []);
+
+  const handleToggleReplitOnly = useCallback(() => {
+    setReplitOnly((prev) => !prev);
   }, []);
 
   return (
@@ -104,6 +131,8 @@ export function TemplatesIndexContent(): ReactNode {
               <TemplateFilters
                 selectedServices={selectedServices}
                 onToggleService={handleToggleService}
+                replitOnly={replitOnly}
+                onToggleReplitOnly={handleToggleReplitOnly}
               />
             </div>
           </aside>
@@ -121,11 +150,27 @@ export function TemplatesIndexContent(): ReactNode {
                 Filters
                 {hasSelectedFilters && (
                   <Badge className="ml-0.5 size-5 justify-center rounded-full p-0 text-[10px]">
-                    {selectedServices.size + activeTags.size}
+                    {selectedServices.size +
+                      activeTags.size +
+                      (replitOnly ? 1 : 0)}
                   </Badge>
                 )}
               </Button>
             </div>
+
+            {hasSelectedFilters ? (
+              <div className="mb-8">
+                <ActiveFilters
+                  activeTags={activeTags}
+                  onRemoveTag={handleRemoveTag}
+                  selectedServices={selectedServices}
+                  onRemoveService={handleToggleService}
+                  replitOnly={replitOnly}
+                  onRemoveReplitOnly={handleToggleReplitOnly}
+                  onClearAll={handleClearAllFilters}
+                />
+              </div>
+            ) : null}
 
             {filteredItems.length === 0 ? (
               <TemplateEmptyState onClearAll={handleClearAllFilters} />
@@ -164,6 +209,8 @@ export function TemplatesIndexContent(): ReactNode {
           <TemplateFilters
             selectedServices={selectedServices}
             onToggleService={handleToggleService}
+            replitOnly={replitOnly}
+            onToggleReplitOnly={handleToggleReplitOnly}
           />
         </SheetContent>
       </Sheet>

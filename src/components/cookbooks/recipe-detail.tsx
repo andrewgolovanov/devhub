@@ -1,6 +1,8 @@
 import { MDXProvider } from "@mdx-js/react";
 import { useRef, type ReactNode } from "react";
 import { RecipePre } from "@/components/cookbooks/recipe-code-block";
+import { FallbackCardArt } from "@/components/examples/fallback-card-art";
+import { TemplatePreviewImage } from "@/components/examples/template-preview-image";
 import { recipes } from "@/lib/recipes/recipes";
 import { useRawRecipeMarkdown } from "@/lib/use-raw-content-markdown";
 import { BaseUrlAnchor } from "@/components/base-url-anchor";
@@ -46,11 +48,22 @@ export function RecipeDetail({
       eyebrow={recipe.services[0] ?? "Template"}
       usage={{
         kind: "recipe",
+        slug: recipe.id,
         rawMarkdown,
         title: recipe.name,
         description: recipe.description,
         permalink: `/templates/${recipe.id}`,
       }}
+      heroMedia={
+        <div className="relative aspect-[16/9] w-full overflow-hidden border border-black/12 bg-black/4 dark:border-white/15 dark:bg-white/5">
+          <TemplatePreviewImage
+            lightUrl={recipe.previewImageLightUrl}
+            darkUrl={recipe.previewImageDarkUrl}
+            alt={`${recipe.name} preview`}
+            fallback={<FallbackCardArt index={0} />}
+          />
+        </div>
+      }
       toc={<Toc className="mt-6" contentRef={contentRef} />}
       relatedItems={relatedItems}
     >

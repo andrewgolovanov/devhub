@@ -14,7 +14,7 @@ type RawResponse = {
 function fakeReq({
   section,
   slug,
-  host = "dev.databricks.com",
+  host = "developers.databricks.com",
 }: {
   section: string;
   slug?: string;
@@ -109,7 +109,9 @@ describe("/api/markdown about-devhub preamble policy", () => {
       expect(result.body).toContain(
         "npx add-mcp https://stage.databricks.com/devhub/api/mcp --name devhub-docs -g",
       );
-      expect(result.body).not.toContain("https://dev.databricks.com/api/mcp");
+      expect(result.body).not.toContain(
+        "https://developers.databricks.com/api/mcp",
+      );
     });
   });
 
@@ -139,7 +141,7 @@ describe("/api/markdown about-devhub preamble policy", () => {
     const result = call({
       section: "solutions",
       slug: "devhub-launch",
-      host: "dev.databricks.com",
+      host: "developers.databricks.com",
     });
     expect(result.body).toMatch(/^title:\s+"Introducing DevHub"$/m);
     expect(result.body).toMatch(/^summary:\s+".+"$/m);
@@ -192,7 +194,7 @@ describe("/api/markdown about-devhub preamble policy", () => {
     expect(result.statusCode).toBe(200);
     expect(result.body.startsWith("# About DevHub")).toBe(true);
     expect(result.body).toContain(
-      `${resolveSiteUrlForRequest("dev.databricks.com")}/llms.txt`,
+      `${resolveSiteUrlForRequest("developers.databricks.com")}/llms.txt`,
     );
   });
 
@@ -210,7 +212,7 @@ describe("/api/markdown about-devhub preamble policy", () => {
     });
     expect(result.statusCode).toBe(200);
     expect(result.body.startsWith("# About DevHub")).toBe(true);
-    expect(result.body).toContain("## Agentic Support Console");
+    expect(result.body).toContain("Agentic Support Console");
   });
 
   test("templates index does NOT include the preamble", () => {
@@ -230,7 +232,9 @@ describe("/api/markdown about-devhub preamble policy", () => {
       host,
     });
     expect(result.body).toContain(`${resolveSiteUrlForRequest(host)}/llms.txt`);
-    expect(result.body).not.toContain("https://dev.databricks.com/llms.txt");
+    expect(result.body).not.toContain(
+      "https://developers.databricks.com/llms.txt",
+    );
   });
 
   test("request-host URLs include configured SITE_URL base path", () => {

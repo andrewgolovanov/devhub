@@ -26,9 +26,13 @@ function FilterCheckIcon({ className }: { className?: string }) {
 export function TemplateFilters({
   selectedServices,
   onToggleService,
+  replitOnly,
+  onToggleReplitOnly,
 }: {
   selectedServices: Set<Service>;
   onToggleService: (service: Service) => void;
+  replitOnly: boolean;
+  onToggleReplitOnly: () => void;
 }) {
   return (
     <nav className="flex flex-col gap-y-1" aria-label="Filters">
@@ -47,6 +51,21 @@ export function TemplateFilters({
           <span>{service}</span>
         </label>
       ))}
+      <div className="mt-7 border-t border-grey-80 pt-7">
+        <p className="mb-3 font-mono text-xs font-medium tracking-tight text-black/40 uppercase">
+          Build with
+        </p>
+        <label className="flex min-h-9 cursor-pointer items-center gap-2.5 text-base/snug text-black transition-colors hover:text-black">
+          <Checkbox
+            className="size-5 rounded-none border-grey-60 bg-transparent data-[state=checked]:border-orange data-[state=checked]:bg-orange data-[state=checked]:text-white dark:border-grey-60 dark:bg-transparent"
+            indicatorIcon={<FilterCheckIcon className="size-4" />}
+            checked={replitOnly}
+            onCheckedChange={onToggleReplitOnly}
+            aria-label="Replit"
+          />
+          <span>Replit</span>
+        </label>
+      </div>
     </nav>
   );
 }
