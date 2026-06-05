@@ -8,6 +8,7 @@ import {
   CalendarDays,
   Database,
   HelpCircle,
+  ListChecks,
   Lock,
   MapPin,
   Rocket,
@@ -76,6 +77,11 @@ export type HackathonEvent = {
    */
   registrationClosed?: boolean;
   resources: HackathonResource[];
+  /**
+   * Optional quick start checklist URL. When set, a "Quick start checklist"
+   * callout is rendered first in the resources section, before the setup guide.
+   */
+  checklistUrl?: string;
   /**
    * Optional setup guide URL. When set, a "Set up Free Edition" callout is
    * rendered above the resources grid.
@@ -203,7 +209,7 @@ function ResourceCard({
   );
 }
 
-function OpenInDatabricksButton({ href }: { href: string }): ReactNode {
+export function OpenInDatabricksButton({ href }: { href: string }): ReactNode {
   return (
     <a
       href={href}
@@ -281,8 +287,8 @@ export function HackathonEventPage({
   const judgingIntro =
     event.judgingIntro ?? "Submissions will be judged on the following:";
   const { siteConfig } = useDocusaurusContext();
-  const showHackathonDataset = Boolean(
-    (siteConfig.customFields as Record<string, unknown>).showHackathonDataset,
+  const showAllResources = Boolean(
+    (siteConfig.customFields as Record<string, unknown>).showAllResources,
   );
 
   return (
@@ -358,6 +364,25 @@ export function HackathonEventPage({
             <h2 className="mb-6 text-2xl font-medium text-black dark:text-white">
               Resources
             </h2>
+            {event.checklistUrl && showAllResources && (
+              <ResourceCallout
+                Icon={ListChecks}
+                title="Quick start checklist"
+                description="Follow the step-by-step checklist to get set up and start coding."
+                className="mb-4"
+              >
+                <Link
+                  to={event.checklistUrl}
+                  className="group inline-flex shrink-0 items-center gap-1 text-sm font-medium text-db-lava no-underline hover:underline"
+                >
+                  See the checklist
+                  <ArrowRight
+                    aria-hidden
+                    className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5"
+                  />
+                </Link>
+              </ResourceCallout>
+            )}
             {event.setupGuideUrl && (
               <ResourceCallout
                 Icon={Rocket}
@@ -377,21 +402,21 @@ export function HackathonEventPage({
                 </Link>
               </ResourceCallout>
             )}
+            {event.datasetUrl && showAllResources && (
+              <ResourceCallout
+                Icon={Database}
+                title="Hackathon dataset"
+                description="Add the hackathon dataset to your Databricks workspace to start building with it."
+                className="mb-4"
+              >
+                <OpenInDatabricksButton href={event.datasetUrl} />
+              </ResourceCallout>
+            )}
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               {event.resources.map((resource) => (
                 <ResourceCard key={resource.title} resource={resource} />
               ))}
             </div>
-            {event.datasetUrl && showHackathonDataset && (
-              <ResourceCallout
-                Icon={Database}
-                title="Hackathon dataset"
-                description="Add the hackathon dataset to your Databricks workspace to start building with it."
-                className="mt-4"
-              >
-                <OpenInDatabricksButton href={event.datasetUrl} />
-              </ResourceCallout>
-            )}
           </div>
         </section>
 
