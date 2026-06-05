@@ -36,7 +36,7 @@ const config: Config = {
     hackathonEventSlug: process.env.HACKATHON_EVENT_SLUG,
     // When "true", the hackathon dataset card is shown in the event Resources
     // section. Defaults to hidden.
-    showHackathonDataset: process.env.HACKATHON_SHOW_DATASET === "true",
+    showAllResources: process.env.HACKATHON_SHOW_ALL_RESOURCES === "true",
   },
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
