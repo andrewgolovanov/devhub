@@ -264,6 +264,16 @@
   box-sizing: border-box;
 }
 
+.db-hero-animation-root.is-export-player,
+.db-hero-animation-root.is-export-player * {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.db-hero-animation-root.is-export-player img {
+  -webkit-user-drag: none;
+}
+
 .db-hero-animation-root,
 .db-hero-animation-root {
   width: 100%;

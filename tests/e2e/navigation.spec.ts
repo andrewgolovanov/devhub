@@ -120,6 +120,47 @@ test.describe("navbar navigation", () => {
   });
 });
 
+test.describe("home hero animation", () => {
+  test("does not create browser selection when dragging the app preview body", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto("/");
+
+    const heroRoot = page.locator(".db-hero-animation-root");
+    const appPreview = page.locator("#appPreview");
+
+    await expect(heroRoot).toHaveCSS("user-select", "none");
+    await expect(appPreview).toHaveCSS("user-select", "none");
+    await expect(page.locator("#appPreview img").first()).toHaveAttribute(
+      "draggable",
+      "false",
+    );
+
+    const appPreviewBox = await appPreview.boundingBox();
+
+    if (!appPreviewBox) {
+      throw new Error("Expected hero app preview to be measurable");
+    }
+
+    await page.mouse.move(
+      appPreviewBox.x + appPreviewBox.width / 2,
+      appPreviewBox.y + appPreviewBox.height * 0.62,
+    );
+    await page.mouse.down();
+    await page.mouse.move(
+      appPreviewBox.x + appPreviewBox.width / 2 + 120,
+      appPreviewBox.y + appPreviewBox.height * 0.62 + 70,
+      { steps: 6 },
+    );
+    await page.mouse.up();
+
+    await expect
+      .poll(async () => page.evaluate(() => window.getSelection()?.toString()))
+      .toBe("");
+  });
+});
+
 test.describe("footer navigation", () => {
   const FOOTER_INTERNAL_LINKS = [
     {

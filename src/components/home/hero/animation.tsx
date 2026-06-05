@@ -165,12 +165,14 @@ function DbHeroPlayerScene() {
                   className="app-prototype-image"
                   src="/img/home/hero/app-prototype.png"
                   alt=""
+                  draggable={false}
                   aria-hidden="true"
                 />
                 <img
                   className="app-done-image"
                   src="/img/home/hero/app-done.png"
                   alt=""
+                  draggable={false}
                   aria-hidden="true"
                 />
                 <div
