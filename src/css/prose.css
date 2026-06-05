@@ -352,20 +352,6 @@
   .template-dark-prose [class*="codeBlockTitle"] {
     @apply border-0 bg-transparent text-white;
   }
-
-  .recipe-toc {
-    @apply mt-0;
-  }
-
-  .recipe-toc a {
-    text-decoration: none !important;
-  }
-
-  @media (max-width: 1023px) {
-    .recipe-toc {
-      display: none;
-    }
-  }
 }
 
 .recipe-content-card .theme-code-block pre,

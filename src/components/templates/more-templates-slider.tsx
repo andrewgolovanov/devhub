@@ -1,30 +1,41 @@
 import Link from "@docusaurus/Link";
 
+import { FallbackCardArt } from "@/components/examples/fallback-card-art";
+import { TemplatePreviewImage } from "@/components/examples/template-preview-image";
 import { Button } from "@/components/ui/button";
 import { SliderArrowIcon } from "@/components/ui/slider-arrow-icon";
 import { useScrollSlider } from "@/components/ui/use-scroll-slider";
-import type { TemplateItem } from "@/components/templates/template-card";
+import {
+  getTemplateCardFields,
+  type TemplateItem,
+} from "@/components/templates/template-card";
 import { cn } from "@/lib/utils";
 
-function getTemplateHref(item: TemplateItem): string {
-  return `/templates/${item.data.id}`;
-}
-
-function getTemplateLabel(item: TemplateItem): string {
-  if (item.kind === "example") return "Solution Apps";
-  if (item.kind === "cookbook") return "Template";
-  return item.data.services[0] ?? "Template";
-}
-
-function MoreTemplateCard({ item }: { item: TemplateItem }) {
-  const href = getTemplateHref(item);
-  const label = getTemplateLabel(item);
+function MoreTemplateCard({
+  item,
+  index,
+}: {
+  item: TemplateItem;
+  index: number;
+}) {
+  const { name, description, href, lightUrl, darkUrl, label } =
+    getTemplateCardFields(item);
 
   return (
     <article className="group w-[calc(100vw-4rem)] shrink-0 snap-start md:w-xl">
-      <Link className="block no-underline hover:no-underline" to={href}>
+      <Link
+        className="block no-underline hover:no-underline"
+        to={href}
+        aria-label={`Read ${name}`}
+      >
         <div className="relative aspect-video w-full overflow-hidden border border-db-navy bg-db-oat-medium">
-          <span className="absolute top-0 right-0 flex size-11 items-center justify-center bg-orange opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100">
+          <TemplatePreviewImage
+            lightUrl={lightUrl}
+            darkUrl={darkUrl}
+            alt={`${name} preview`}
+            fallback={<FallbackCardArt index={index} />}
+          />
+          <span className="absolute top-0 right-0 z-10 flex size-11 items-center justify-center bg-orange opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100">
             <img
               className="size-6"
               src="/img/templates/arrow-right-up.svg"
@@ -40,8 +51,7 @@ function MoreTemplateCard({ item }: { item: TemplateItem }) {
           className="text-inherit no-underline hover:no-underline"
           to={href}
         >
-          <span className="text-black">{item.data.name}.</span> [
-          {item.data.description}]
+          <span className="text-black">{name}.</span> [{description}]
         </Link>
       </h3>
       <p className="mt-6 flex items-center gap-1.5 font-mono text-sm leading-none font-medium tracking-tight text-black/30 uppercase">
@@ -122,8 +132,8 @@ export function MoreTemplatesSlider({ items }: { items: TemplateItem[] }) {
           ref={slider.trackRef}
           onScroll={slider.handleScroll}
         >
-          {items.map((item) => (
-            <MoreTemplateCard item={item} key={item.data.id} />
+          {items.map((item, index) => (
+            <MoreTemplateCard item={item} index={index} key={item.data.id} />
           ))}
         </div>
       </div>

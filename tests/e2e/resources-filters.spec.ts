@@ -27,6 +27,17 @@ async function visibleCount(locator: Locator): Promise<number> {
 }
 
 test.describe("templates page search", () => {
+  test("renders cover images for visible template cards", async ({ page }) => {
+    await page.goto("/templates");
+
+    const coverImages = page
+      .locator('#templates-list img[alt$=" preview"]')
+      .filter({ visible: true });
+
+    await expect(coverImages).toHaveCount(6);
+    await expect(coverImages.first()).toHaveAttribute("src", /\/img\//);
+  });
+
   test("search bar filters results and clearing restores all", async ({
     page,
   }) => {

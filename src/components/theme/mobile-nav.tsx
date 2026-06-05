@@ -6,7 +6,7 @@ import { ChevronUp } from "lucide-react";
 
 import {
   getActiveProductHref,
-  isHrefActive,
+  isHeaderNavItemActive,
   PRODUCT_LINKS,
   type HeaderNavItem,
 } from "@/lib/header-navigation";
@@ -217,7 +217,7 @@ export function MobileNav({ items, open, onOpenChange }: MobileNavProps) {
             </section>
             <div className="flex w-full flex-col gap-6 md:gap-7">
               {sectionItems.map((item) => {
-                const isActive = isHrefActive(item.href, pathname);
+                const isActive = isHeaderNavItemActive(item, pathname);
 
                 return (
                   <section

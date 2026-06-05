@@ -1,5 +1,7 @@
 import Link from "@docusaurus/Link";
 import type { Example, Recipe, Cookbook } from "@/lib/recipes/recipes";
+import { FallbackCardArt } from "@/components/examples/fallback-card-art";
+import { TemplatePreviewImage } from "@/components/examples/template-preview-image";
 import { cn } from "@site/src/lib/utils";
 
 export type TemplateItem =
@@ -17,7 +19,7 @@ function getTemplateLabel(item: TemplateItem): string {
   return item.data.services[0] ?? "Template";
 }
 
-function getTemplateCardFields(item: TemplateItem) {
+export function getTemplateCardFields(item: TemplateItem) {
   return {
     name: item.data.name,
     description: item.data.description,
@@ -37,7 +39,8 @@ export function TemplateCard({
   index: number;
   isLast: boolean;
 }) {
-  const { name, description, href, label } = getTemplateCardFields(item);
+  const { name, description, href, lightUrl, darkUrl, label } =
+    getTemplateCardFields(item);
 
   return (
     <article
@@ -63,8 +66,13 @@ export function TemplateCard({
       <div className="flex w-full items-center justify-center peer-hover:[&_span]:opacity-100 md:row-start-1 md:col-start-2 md:row-span-2">
         <Link className="block group w-full" to={href}>
           <div className="relative aspect-video min-w-0 max-w-full overflow-hidden border border-db-navy bg-db-oat-medium">
-            {/* TODO: add graphcs */}
-            <span className="absolute top-0 right-0 flex size-11 items-center justify-center bg-orange opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
+            <TemplatePreviewImage
+              lightUrl={lightUrl}
+              darkUrl={darkUrl}
+              alt={`${name} preview`}
+              fallback={<FallbackCardArt index={index} />}
+            />
+            <span className="absolute top-0 right-0 z-10 flex size-11 items-center justify-center bg-orange opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
               <img
                 className="size-6"
                 src="/img/templates/arrow-right-up.svg"

@@ -2,7 +2,7 @@ export const HEADER_LINKS = [
   { label: "Product", href: "/product/data-lakehouse" },
   { label: "Solutions", href: "/solutions" },
   { label: "Resources", href: "/templates" },
-  { label: "Docs", href: "/docs/start-here" },
+  { label: "Docs", href: "/docs/start-here", activePath: "/docs" },
 ] as const;
 
 export type HeaderNavItem = (typeof HEADER_LINKS)[number];
@@ -23,7 +23,7 @@ function isExternalHref(href: string) {
   return /^https?:\/\//.test(href);
 }
 
-export function isHrefActive(href: string, pathname: string) {
+function isHrefActive(href: string, pathname: string) {
   if (isExternalHref(href)) return false;
 
   const hrefPath = normalizePath(href);
@@ -32,6 +32,13 @@ export function isHrefActive(href: string, pathname: string) {
   return hrefPath === "/"
     ? currentPath === "/"
     : currentPath === hrefPath || currentPath.startsWith(`${hrefPath}/`);
+}
+
+export function isHeaderNavItemActive(item: HeaderNavItem, pathname: string) {
+  return isHrefActive(
+    "activePath" in item ? item.activePath : item.href,
+    pathname,
+  );
 }
 
 export function getActiveProductHref(pathname: string) {

@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import {
   getActiveProductHref,
-  isHrefActive,
+  isHeaderNavItemActive,
   PRODUCT_LINKS,
   type HeaderNavItem,
 } from "@/lib/header-navigation";
@@ -265,7 +265,9 @@ function Nav({ className, items }: HeaderNavProps) {
       className={cn("flex max-w-none flex-none justify-start", className)}
     >
       <NavigationMenuList className="flex justify-start gap-0">
-        {items.map(({ href, label }) => {
+        {items.map((item) => {
+          const { href, label } = item;
+
           if (label === "Product") {
             const isActive = Boolean(activeProductHref);
 
@@ -289,7 +291,7 @@ function Nav({ className, items }: HeaderNavProps) {
             );
           }
 
-          const isActive = isHrefActive(href, pathname);
+          const isActive = isHeaderNavItemActive(item, pathname);
 
           return (
             <NavigationMenuItem key={href}>

@@ -420,6 +420,18 @@ test.describe("template detail page navigation", () => {
     await page.waitForURL("**/templates");
     expect(new URL(page.url()).pathname).toBe("/templates");
   });
+
+  test("more templates slider renders cover images", async ({ page }) => {
+    await page.goto("/templates/ai-chat-app");
+
+    const moreTemplates = page.locator("section").filter({
+      has: page.getByRole("heading", { name: "Explore more templates" }),
+    });
+    const coverImages = moreTemplates.locator('img[alt$=" preview"]');
+
+    await expect(coverImages.first()).toBeVisible();
+    await expect(coverImages.first()).toHaveAttribute("src", /\/img\//);
+  });
 });
 
 test.describe("example detail page", () => {
