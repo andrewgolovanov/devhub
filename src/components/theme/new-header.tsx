@@ -54,7 +54,7 @@ export function NewHeader({ className }: NewHeaderProps) {
         className={cn(
           "sticky top-0 z-50 flex h-14 items-center xl:h-auto xl:min-h-16 xl:border-b xl:border-transparent xl:py-3.5",
           mobileMenuOpen
-            ? "bg-black"
+            ? "bg-grey-80"
             : (!isHomepage || hasScrolled) && "bg-black backdrop-blur",
           hasScrolled && !mobileMenuOpen && "xl:border-white/4",
           className,
@@ -69,7 +69,10 @@ export function NewHeader({ className }: NewHeaderProps) {
             <img
               src={logoSrc}
               alt=""
-              className="block h-6 w-auto shrink-0 xl:h-7"
+              className={cn(
+                "block h-6 w-auto shrink-0 xl:h-7",
+                mobileMenuOpen && "brightness-0",
+              )}
               loading="eager"
               height={28}
               width={177}

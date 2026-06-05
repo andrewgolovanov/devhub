@@ -120,6 +120,186 @@ test.describe("navbar navigation", () => {
   });
 });
 
+test.describe("mobile navigation", () => {
+  for (const viewport of [
+    {
+      width: 360,
+      height: 640,
+      highlightWidth: 240,
+      sectionClickWidth: 279,
+      sectionX: 61,
+    },
+    {
+      width: 768,
+      height: 732,
+      highlightWidth: 648,
+      sectionClickWidth: 683,
+      sectionX: 63,
+    },
+  ]) {
+    test(`mobile menu uses terminal tree layout at ${viewport.width}px`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({
+        width: viewport.width,
+        height: viewport.height,
+      });
+      await page.goto("/product/data-lakehouse");
+
+      await page.getByRole("button", { name: "Open menu" }).click();
+
+      const header = page.getByRole("banner");
+      const menu = page.getByRole("dialog", { name: "Main navigation" });
+      const home = menu.locator("[data-mobile-menu-home]");
+      const productLabel = menu.locator("[data-mobile-menu-product-label]");
+      const lakebase = menu.getByRole("link", { name: "lakebase" });
+      const lakebaseLabel = lakebase.locator("[data-mobile-menu-item-label]");
+      const solutions = menu.getByRole("link", { name: "solutions" });
+      const resources = menu.getByRole("link", { name: "resources" });
+      const docs = menu.getByRole("link", { name: "docs" });
+
+      await expect(
+        page.getByRole("button", { name: "Close menu" }),
+      ).toBeVisible();
+      await expect(header).toHaveCSS("background-color", "rgb(199, 201, 209)");
+      await expect(menu).toHaveCSS("background-color", "rgb(28, 29, 34)");
+      await expect(productLabel).toHaveCSS("opacity", "0.6");
+      await expect(lakebase).toHaveAttribute("aria-current", "page");
+      await expect(lakebaseLabel).toHaveCSS(
+        "background-color",
+        "rgb(199, 201, 209)",
+      );
+      await expect(lakebase).toHaveCSS("color", "rgb(28, 29, 34)");
+
+      const menuBox = await menu.boundingBox();
+      const homeBox = await home.boundingBox();
+      const productLabelBox = await productLabel.boundingBox();
+      const lakebaseBox = await lakebase.boundingBox();
+      const solutionsBox = await solutions.boundingBox();
+      const resourcesBox = await resources.boundingBox();
+      const docsBox = await docs.boundingBox();
+
+      if (
+        !menuBox ||
+        !homeBox ||
+        !productLabelBox ||
+        !lakebaseBox ||
+        !solutionsBox ||
+        !resourcesBox ||
+        !docsBox
+      ) {
+        throw new Error("Expected mobile menu layout to be measurable");
+      }
+
+      expect(Math.round(menuBox.x)).toBe(0);
+      expect(Math.round(menuBox.y)).toBe(56);
+      expect(Math.round(menuBox.width)).toBe(viewport.width);
+      expect(Math.round(homeBox.x)).toBe(20);
+      expect(Math.round(homeBox.y)).toBe(70);
+      expect(Math.round(productLabelBox.x)).toBe(61);
+      expect(Math.round(productLabelBox.y)).toBe(102);
+      expect(Math.round(lakebaseBox.x)).toBe(100);
+      expect(Math.round(lakebaseBox.y)).toBe(132);
+      expect(Math.round(lakebaseBox.width)).toBe(viewport.highlightWidth);
+      expect(Math.round(solutionsBox.x)).toBe(viewport.sectionX);
+      expect(Math.round(solutionsBox.y)).toBe(236);
+      expect(Math.round(solutionsBox.width)).toBe(viewport.sectionClickWidth);
+      expect(Math.round(resourcesBox.x)).toBe(viewport.sectionX);
+      expect(Math.round(resourcesBox.y)).toBe(270);
+      expect(Math.round(resourcesBox.width)).toBe(viewport.sectionClickWidth);
+      expect(Math.round(docsBox.x)).toBe(viewport.sectionX);
+      expect(Math.round(docsBox.y)).toBe(304);
+      expect(Math.round(docsBox.width)).toBe(viewport.sectionClickWidth);
+    });
+  }
+
+  test("mobile menu highlights home and not product links on the homepage", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 768, height: 732 });
+    await page.goto("/");
+
+    await page.getByRole("button", { name: "Open menu" }).click();
+
+    const menu = page.getByRole("dialog", { name: "Main navigation" });
+    const home = menu.getByRole("link", { name: "~/HOME" });
+    const homeLabel = home.locator("[data-mobile-menu-item-label]");
+    const lakebase = menu.getByRole("link", { name: "lakebase" });
+    const lakebaseLabel = lakebase.locator("[data-mobile-menu-item-label]");
+    const productLinks = menu.locator("[data-mobile-menu-product-link]");
+
+    await expect(home).toHaveAttribute("aria-current", "page");
+    await expect(homeLabel).toHaveCSS("background-color", "rgb(199, 201, 209)");
+    await expect(home).toHaveCSS("color", "rgb(28, 29, 34)");
+
+    const homeBox = await home.boundingBox();
+    const homeLabelBox = await homeLabel.boundingBox();
+
+    if (!homeBox || !homeLabelBox) {
+      throw new Error("Expected mobile home link layout to be measurable");
+    }
+
+    expect(Math.round(homeLabelBox.width)).toBe(Math.round(homeBox.width));
+
+    await expect(lakebase).not.toHaveAttribute("aria-current", "page");
+    await expect(lakebaseLabel).toHaveCSS(
+      "background-color",
+      "rgba(0, 0, 0, 0)",
+    );
+    await expect(lakebase).toHaveCSS("color", "rgb(199, 201, 209)");
+
+    await expect(productLinks).toHaveCount(3);
+    for (const productLink of await productLinks.all()) {
+      await expect(productLink).not.toHaveAttribute("aria-current", "page");
+    }
+  });
+
+  for (const section of [
+    { href: "/solutions", label: "solutions" },
+    { href: "/templates", label: "resources" },
+    { href: "/docs/start-here", label: "docs" },
+  ]) {
+    test(`mobile menu highlights ${section.label} on its section page`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width: 768, height: 732 });
+      await page.goto(section.href);
+
+      await page.getByRole("button", { name: "Open menu" }).click();
+
+      const menu = page.getByRole("dialog", { name: "Main navigation" });
+      const sectionLink = menu.getByRole("link", { name: section.label });
+      const sectionLabel = sectionLink.locator("[data-mobile-menu-item-label]");
+      const home = menu.getByRole("link", { name: "~/HOME" });
+      const homeLabel = home.locator("[data-mobile-menu-item-label]");
+      const productLinks = menu.locator("[data-mobile-menu-product-link]");
+
+      await expect(sectionLink).toHaveAttribute("aria-current", "page");
+      await expect(sectionLabel).toHaveCSS(
+        "background-color",
+        "rgb(199, 201, 209)",
+      );
+      await expect(sectionLink).toHaveCSS("color", "rgb(28, 29, 34)");
+      await expect(homeLabel).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
+
+      const sectionBox = await sectionLink.boundingBox();
+      const sectionLabelBox = await sectionLabel.boundingBox();
+
+      if (!sectionBox || !sectionLabelBox) {
+        throw new Error("Expected mobile section link layout to be measurable");
+      }
+
+      expect(Math.round(sectionLabelBox.width)).toBe(
+        Math.round(sectionBox.width),
+      );
+
+      for (const productLink of await productLinks.all()) {
+        await expect(productLink).not.toHaveAttribute("aria-current", "page");
+      }
+    });
+  }
+});
+
 test.describe("home hero animation", () => {
   test("does not create browser selection when dragging the app preview body", async ({
     page,
