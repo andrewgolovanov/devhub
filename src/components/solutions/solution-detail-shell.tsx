@@ -112,14 +112,14 @@ function SolutionDetailHeader({
         </time>
       </div>
 
-      <h1 className="m-0 mt-6 text-[2.75rem]/[1.125] font-normal tracking-[-0.04em] wrap-break-word text-white md:text-[3.5rem]/[1.125]">
+      <h1 className="m-0 mt-6 text-[2rem]/[1.125] font-normal tracking-[-0.04em] wrap-break-word text-white md:text-[2.5rem]/[1.125] lg:text-[3rem]/[1.125] xl:text-[3.5rem]/[1.125]">
         {item.title}
       </h1>
-      <p className="m-0 mt-4 max-w-208 text-lg leading-snug tracking-[-0.04em] text-grey-90 md:text-xl">
+      <p className="m-0 mt-2.5 max-w-208 text-lg leading-snug tracking-[-0.04em] text-grey-90 md:mt-3 md:text-xl lg:mt-3.5 xl:mt-4">
         {item.description}
       </p>
 
-      <div className="mt-6 flex flex-col gap-5 border-t border-grey-30 pt-5 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mt-4 flex flex-row items-center justify-between gap-5 border-t border-grey-30 pt-3.5 md:mt-4.5 md:pt-4 lg:mt-5 lg:pt-4.5 xl:mt-6 xl:pt-5">
         <SolutionByline
           authors={authors}
           publishedAt={item.publishedAt}
@@ -128,6 +128,7 @@ function SolutionDetailHeader({
         <AIExportMenu
           appearance="article"
           kind="solution"
+          mobileLabel="COPY"
           contentClassName="w-[15.5625rem] min-w-[15.5625rem]"
           rawMarkdownUrl={rawMarkdownUrl}
           title={item.title}
@@ -141,7 +142,7 @@ function SolutionDetailHeader({
 
 function SolutionDetailRail({ toc }: { toc: ReactNode }): ReactNode {
   return (
-    <aside className="hidden h-full w-55 min-w-0 min-[90rem]:block">
+    <aside className="hidden lg:block xl:hidden h-full w-55 min-w-0 shrink-0 min-[90rem]:block">
       <div className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-x-hidden overflow-y-auto">
         <p className="m-0 font-mono text-xs leading-none font-medium text-grey-50 uppercase">
           On this page
@@ -168,9 +169,9 @@ function SolutionReadMore({
   if (items.length === 0) return null;
 
   return (
-    <section className="px-5 py-24 font-sans text-black md:px-8 lg:px-0 lg:pb-60">
+    <section className="px-5 pb-24 pt-16 font-sans text-black md:px-8 md:pt-18 lg:px-0 lg:pb-60 lg:pt-22">
       <div className="mx-auto w-full max-w-208">
-        <h2 className="m-0 text-[2.25rem]/[1.125] font-normal tracking-[-0.09rem] text-black wrap-break-word">
+        <h2 className="m-0 text-[1.75rem]/[1.125] font-normal tracking-[-0.09rem] text-black wrap-break-word md:text-[2rem]/[1.125] lg:text-[2.25rem]/[1.125]">
           Read more
         </h2>
         <div className="mt-[2.625rem] flex flex-col gap-[2.625rem]">
@@ -201,7 +202,7 @@ function SolutionReadMore({
                   >
                     [{formatSolutionDate(item.publishedAt).toUpperCase()}]
                   </time>
-                  <h3 className="m-0 mt-4 text-[1.5rem]/[1.25] font-medium tracking-[-0.0375rem] text-black wrap-break-word">
+                  <h3 className="m-0 mt-4 text-[1.125rem]/[1.25] font-medium tracking-[-0.0375rem] text-black wrap-break-word md:text-[1.25rem]/[1.25] lg:text-[1.5rem]/[1.25]">
                     <SolutionItemLink
                       className="line-clamp-1 text-black no-underline outline-none transition-colors hover:text-black/70 hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-db-cyan"
                       item={item}
@@ -221,9 +222,9 @@ function SolutionReadMore({
                       ? "noopener noreferrer"
                       : undefined
                   }
-                  className="flex items-center justify-between border-b-2 border-orange pb-2.5 text-[1.5rem]/[1.375] font-normal tracking-[-0.06rem] text-orange no-underline outline-none transition-colors hover:border-primary hover:text-primary hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-db-cyan"
+                  className="flex items-center justify-between border-b-2 border-orange pb-2.5 text-[1.125rem]/[1.375] font-normal tracking-[-0.06rem] text-orange no-underline outline-none transition-colors hover:border-primary hover:text-primary hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-db-cyan md:text-[1.25rem]/[1.375] lg:text-[1.5rem]/[1.375]"
                   ariaLabel={`Learn more about ${item.title}`}
-                  size="size-[1.125rem]"
+                  size="size-4.5 md:size-5 lg:size-6"
                 >
                   Learn more
                 </AnimatedArrowLink>
@@ -270,12 +271,12 @@ export function SolutionDetail({
         </script>
       </Head>
       <main className="bg-black text-white">
-        <article className="w-full px-5 pt-12 pb-24 md:px-8 md:pt-13 xl:px-0 xl:pt-19.5 lg:pb-44">
-          <div className="ml-auto mr-auto flex w-full max-w-208 flex-col gap-y-8 min-[90rem]:ml-[calc((100%-52rem)/2+0.25rem)] min-[90rem]:max-w-279">
+        <article className="w-full px-5 pt-9 pb-24 md:px-8 md:pt-12 xl:px-0 xl:pt-19.5 lg:pb-44">
+          <div className="ml-auto mr-auto flex w-full max-w-208 flex-col gap-y-8 lg:max-w-none xl:max-w-208 min-[90rem]:ml-[calc((100%-52rem)/2+0.25rem)] min-[90rem]:max-w-279">
             <SolutionBackLink />
 
-            <div className="grid gap-14 min-[90rem]:grid-cols-[minmax(0,52rem)_13.75rem] min-[90rem]:gap-16">
-              <div className="min-w-0">
+            <div className="flex flex-col gap-14 lg:flex-row lg:gap-8 xl:flex-col xl:gap-14 min-[90rem]:flex-row min-[90rem]:gap-16">
+              <div className="min-w-0 lg:flex-1 xl:flex-none min-[90rem]:flex-1">
                 <SolutionDetailHeader
                   item={item}
                   authors={authors}

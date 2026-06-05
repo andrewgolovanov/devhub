@@ -35,6 +35,7 @@ type AIExportMenuProps = AgentMarkdownInput & {
   contentClassName?: string;
   itemClassName?: string;
   label?: string;
+  mobileLabel?: string;
   separatorClassName?: string;
   triggerClassName?: string;
 };
@@ -47,6 +48,7 @@ export function AIExportMenu({
   contentClassName,
   itemClassName,
   label,
+  mobileLabel,
   separatorClassName,
   triggerClassName,
   ...input
@@ -57,6 +59,14 @@ export function AIExportMenu({
   const triggerLabel = label ?? (isArticle ? "Copy Article" : "Copy as");
   const articleIconClassName = isArticle ? "size-3.5 text-grey-70" : undefined;
   const triggerIcon = <ChevronDownIcon aria-hidden="true" />;
+  const triggerContent = mobileLabel ? (
+    <>
+      <span className="sm:hidden">{mobileLabel}</span>
+      <span className="hidden sm:block">{triggerLabel}</span>
+    </>
+  ) : (
+    triggerLabel
+  );
   const dropdownAlign = align ?? (isArticle ? "start" : "end");
 
   const handleCopyMarkdown = useCallback(async () => {
@@ -108,7 +118,7 @@ export function AIExportMenu({
                 aria-label={triggerLabel}
                 disabled
               >
-                {triggerLabel}
+                {triggerContent}
                 {triggerIcon}
               </Button>
             </span>
@@ -130,7 +140,7 @@ export function AIExportMenu({
           )}
           aria-label={triggerLabel}
         >
-          {triggerLabel}
+          {triggerContent}
           {triggerIcon}
         </Button>
       </DropdownMenuTrigger>

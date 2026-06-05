@@ -35,7 +35,7 @@ export function ContentHeading({
     <Tag
       id={id}
       className={cn(
-        "group/content-heading !w-fit text-pretty !font-semibold",
+        "group/content-heading !w-fit text-pretty",
         "!scroll-mt-[calc(var(--sticky-header-height,0px)+2rem)]",
         className,
       )}
