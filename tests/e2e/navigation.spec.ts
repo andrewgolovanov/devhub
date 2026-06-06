@@ -252,7 +252,8 @@ test.describe("templates page navigation", () => {
   const TEMPLATES = [
     { path: "/templates/ai-chat-app", kind: "cookbook" },
     { path: "/templates/app-with-lakebase", kind: "cookbook" },
-    { path: "/templates/agentic-support-console", kind: "example" },
+    // agentic-support-console is unlisted, so it can't be reached from the grid.
+    { path: "/templates/vacation-rentals", kind: "example" },
     { path: "/templates/saas-tracker", kind: "example" },
     { path: "/templates/set-up-your-local-dev-environment", kind: "recipe" },
   ];

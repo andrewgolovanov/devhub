@@ -5,8 +5,12 @@ import {
   cookbooks,
 } from "../../src/lib/recipes/recipes";
 
+// Mirror the /templates listing logic: drafts and `unlisted` entries are
+// excluded from the grid (the latter stay navigable + indexed, just hidden here).
 const TEMPLATE_COUNT =
-  examples.length + cookbooks.length + recipesInOrder.length;
+  examples.filter((e) => !e.isDraft && !e.unlisted).length +
+  cookbooks.filter((c) => !c.isDraft).length +
+  recipesInOrder.filter((r) => !r.isDraft && !r.unlisted).length;
 const TOTAL_TEMPLATES = `${TEMPLATE_COUNT} of ${TEMPLATE_COUNT} templates`;
 
 test.describe("templates page search", () => {
@@ -18,14 +22,16 @@ test.describe("templates page search", () => {
 
     await page.getByRole("searchbox").fill("genie");
     await expect(
-      page.getByText(`8 of ${TEMPLATE_COUNT} templates`),
+      page.getByText(`7 of ${TEMPLATE_COUNT} templates`),
     ).toBeVisible();
     await expect(
       page.locator('a[href="/templates/inventory-intelligence"]'),
     ).toBeVisible();
+    // agentic-support-console matches "genie" but is unlisted, so it must stay
+    // hidden from the listing even when the search would otherwise surface it.
     await expect(
       page.locator('a[href="/templates/agentic-support-console"]'),
-    ).toBeVisible();
+    ).toBeHidden();
     await expect(
       page.locator('a[href="/templates/saas-tracker"]'),
     ).toBeVisible();

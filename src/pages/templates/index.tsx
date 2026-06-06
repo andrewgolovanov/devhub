@@ -74,7 +74,9 @@ function OfficialTemplatesCallout(): ReactNode {
 }
 
 function buildTemplateItems(includeDrafts: boolean): TemplateItem[] {
-  const publishedExamples = filterPublished(examples, includeDrafts);
+  const publishedExamples = filterPublished(examples, includeDrafts).filter(
+    (e) => !e.unlisted,
+  );
   const publishedCookbooks = filterPublished(cookbooks, includeDrafts);
   const publishedRecipes = filterPublished(
     recipesInOrder,

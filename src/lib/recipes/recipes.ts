@@ -569,6 +569,8 @@ export type Example = PreviewImages & {
    */
   galleryImages?: GalleryImage[];
   isDraft?: boolean;
+  /** When true, the example is still navigable and indexed but hidden from the /templates listing page. */
+  unlisted?: boolean;
 };
 
 const cookbookIndex: Record<string, Cookbook> = Object.fromEntries(
@@ -587,6 +589,7 @@ type ExampleConfig = {
   previewImageDarkUrl?: string;
   galleryImages?: GalleryImage[];
   isDraft?: boolean;
+  unlisted?: boolean;
 };
 
 function createExample(config: ExampleConfig): Example {
@@ -638,6 +641,7 @@ export const examples: Example[] = [
       "/img/examples/agentic-support-console-preview-light.png",
     previewImageDarkUrl:
       "/img/examples/agentic-support-console-preview-dark.png",
+    unlisted: true,
   }),
   createExample({
     id: "vacation-rentals",
