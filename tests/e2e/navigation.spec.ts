@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, type Locator } from "@playwright/test";
 import { loadAgentPromptParts } from "../../api/content-markdown";
 import { composeAgentPrompt } from "../../src/lib/copy-preamble";
 
@@ -11,6 +11,43 @@ const BOOTSTRAP_PROMPT_MARKDOWN = composeAgentPrompt({
   kind: "hero",
   siteOrigin: "https://developers.databricks.com",
 });
+
+async function getTemplateCardTextMetrics(templateLink: Locator) {
+  return templateLink.evaluate((link) => {
+    const card = link.parentElement;
+    const description =
+      card?.querySelector('p[aria-hidden="false"]') ?? card?.querySelector("p");
+
+    if (!card || !description) {
+      throw new Error("Expected home template slider card to be measurable");
+    }
+
+    const cardBox = card.getBoundingClientRect();
+    const descriptionBox = description.getBoundingClientRect();
+
+    return {
+      cardLeft: cardBox.left,
+      cardRight: cardBox.right,
+      cardWidth: cardBox.width,
+      descriptionLeft: descriptionBox.left,
+      descriptionRight: descriptionBox.right,
+      documentWidth: document.documentElement.scrollWidth,
+      viewportWidth: window.innerWidth,
+    };
+  });
+}
+
+function expectTemplateCardDescriptionToFit(
+  sliderMetrics: Awaited<ReturnType<typeof getTemplateCardTextMetrics>>,
+) {
+  expect(sliderMetrics.documentWidth).toBe(sliderMetrics.viewportWidth);
+  expect(Math.round(sliderMetrics.descriptionLeft)).toBeGreaterThanOrEqual(
+    Math.round(sliderMetrics.cardLeft),
+  );
+  expect(Math.round(sliderMetrics.descriptionRight)).toBeLessThanOrEqual(
+    Math.round(sliderMetrics.cardRight) + 1,
+  );
+}
 
 test.describe("navbar navigation", () => {
   const NAVBAR_LINKS = [
@@ -518,6 +555,138 @@ test.describe("home page link navigation", () => {
     await page.locator('a[href="/templates"]').first().click();
     await page.waitForURL("**/templates");
     expect(new URL(page.url()).pathname).toBe("/templates");
+  });
+
+  test("home template slider fits responsive cards and preserves vertical touch scroll", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    const client = await page.context().newCDPSession(page);
+
+    await client.send("Emulation.setTouchEmulationEnabled", {
+      enabled: true,
+      maxTouchPoints: 1,
+    });
+    await page.goto("/");
+
+    const firstTemplateCard = page
+      .getByRole("link", { name: "AI assistant template" })
+      .first();
+    const nextTemplateCard = page
+      .getByRole("link", { name: "Data pipeline monitor template" })
+      .first();
+
+    await firstTemplateCard.scrollIntoViewIfNeeded();
+    await expect(firstTemplateCard).toBeVisible();
+    await expect(nextTemplateCard).toBeVisible();
+
+    const sliderMetrics = await getTemplateCardTextMetrics(firstTemplateCard);
+    const nextSliderMetrics =
+      await getTemplateCardTextMetrics(nextTemplateCard);
+
+    expect(Math.round(sliderMetrics.cardWidth)).toBeLessThan(
+      sliderMetrics.viewportWidth - 80,
+    );
+    expectTemplateCardDescriptionToFit(sliderMetrics);
+    expectTemplateCardDescriptionToFit(nextSliderMetrics);
+    expect(Math.round(nextSliderMetrics.cardLeft)).toBeLessThan(
+      sliderMetrics.viewportWidth,
+    );
+    expect(Math.round(nextSliderMetrics.cardRight)).toBeGreaterThan(
+      sliderMetrics.viewportWidth,
+    );
+
+    const horizontalSwipeBox = await firstTemplateCard.boundingBox();
+
+    if (!horizontalSwipeBox) {
+      throw new Error("Expected home template slider card bounds");
+    }
+
+    const horizontalTouchX =
+      horizontalSwipeBox.x + horizontalSwipeBox.width / 2;
+    const horizontalTouchY =
+      horizontalSwipeBox.y + Math.min(horizontalSwipeBox.height - 20, 160);
+
+    await client.send("Input.dispatchTouchEvent", {
+      touchPoints: [{ x: horizontalTouchX, y: horizontalTouchY }],
+      type: "touchStart",
+    });
+    await client.send("Input.dispatchTouchEvent", {
+      touchPoints: [{ x: horizontalTouchX - 170, y: horizontalTouchY + 6 }],
+      type: "touchMove",
+    });
+    await client.send("Input.dispatchTouchEvent", {
+      touchPoints: [],
+      type: "touchEnd",
+    });
+
+    await expect
+      .poll(() =>
+        page
+          .locator("[data-template-slider-viewport]")
+          .evaluate((viewport) => viewport.scrollLeft),
+      )
+      .toBeGreaterThan(80);
+    await expect(
+      page.locator(
+        '[data-active="true"] a[aria-label="Data pipeline monitor template"]',
+      ),
+    ).toBeVisible();
+
+    const activeTemplateCard = page
+      .locator('[data-active="true"] a[aria-label]')
+      .first();
+    const cardBox = await activeTemplateCard.boundingBox();
+
+    if (!cardBox) {
+      throw new Error("Expected home template slider card bounds");
+    }
+
+    const touchX = cardBox.x + cardBox.width / 2;
+    const touchY = cardBox.y + Math.min(cardBox.height - 20, 160);
+    const scrollBefore = await page.evaluate(() => window.scrollY);
+
+    await client.send("Input.dispatchTouchEvent", {
+      touchPoints: [{ x: touchX, y: touchY }],
+      type: "touchStart",
+    });
+    await client.send("Input.dispatchTouchEvent", {
+      touchPoints: [{ x: touchX + 8, y: touchY - 160 }],
+      type: "touchMove",
+    });
+    await client.send("Input.dispatchTouchEvent", {
+      touchPoints: [],
+      type: "touchEnd",
+    });
+
+    await expect
+      .poll(() => page.evaluate(() => window.scrollY))
+      .toBeGreaterThan(scrollBefore + 40);
+
+    await page.setViewportSize({ width: 892, height: 785 });
+    await page.goto("/");
+
+    const dataPipelineCard = page
+      .getByRole("link", { name: "Data pipeline monitor template" })
+      .first();
+
+    await firstTemplateCard.scrollIntoViewIfNeeded();
+    await expect(firstTemplateCard).toBeVisible();
+    await expect(dataPipelineCard).toBeVisible();
+
+    expectTemplateCardDescriptionToFit(
+      await getTemplateCardTextMetrics(firstTemplateCard),
+    );
+    expectTemplateCardDescriptionToFit(
+      await getTemplateCardTextMetrics(dataPipelineCard),
+    );
+
+    await expect(
+      dataPipelineCard.locator("xpath=ancestor::*[@data-active][1]"),
+    ).toHaveCSS("opacity", "1");
+    await dataPipelineCard.click();
+    await page.waitForURL("**/templates/vacation-rentals");
+    expect(new URL(page.url()).pathname).toBe("/templates/vacation-rentals");
   });
 
   test("template preview card navigates to /templates/agentic-support-console", async ({

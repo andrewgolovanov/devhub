@@ -9,8 +9,8 @@ type ProductFeaturesProps = {
 };
 
 const featureVisualSrc = {
-  branching: "/img/products/features/branching.svg",
-  autoscaling: "/img/products/features/autoscaling.svg",
+  branching: "/img/products/features/branching.png",
+  autoscaling: "/img/products/features/autoscaling.png",
   "lakehouse-sync": "/img/products/features/lakehouse-sync.svg",
   "multi-model": "/img/products/features/multi-model.png",
   "built-in": "/img/products/features/built-in.png",

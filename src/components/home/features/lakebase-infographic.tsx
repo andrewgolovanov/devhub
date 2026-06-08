@@ -263,7 +263,7 @@ export function LakebaseInfographic() {
   return (
     <LazyMotion features={domAnimation}>
       <div
-        className="@container/infographic flex w-full flex-col items-center pt-5 font-sans text-black md:py-16.5 xl:px-8"
+        className="@container/infographic flex w-full flex-col items-center font-sans text-black md:py-16.5 xl:px-8"
         ref={infographicRef}
       >
         <AnimatedInfographicCard
@@ -341,13 +341,13 @@ export function LakebaseInfographic() {
 
         <div className="grid w-full max-md:w-4/5 max-md:mx-auto grid-cols-2 gap-4 @xl/infographic:gap-x-8">
           <AnimatedInfographicCard
-            className="md:h-full"
+            className="h-full"
             delay={LOWER_CARD_MOVE_DELAY}
             isVisible={isVisible}
             offsetY={-16}
             reduceMotion={reduceMotion}
           >
-            <FeatureInfographicCard className="flex flex-col p-2 md:h-full @xl/infographic:p-4">
+            <FeatureInfographicCard className="flex h-full flex-col p-2 @xl/infographic:p-4">
               <div className="flex flex-col gap-0.5 @md/infographic:items-center @md/infographic:justify-between @md/infographic:gap-2 @md/infographic:flex-row">
                 <h4 className="text-xs tracking-tight leading-tight font-medium @xl/infographic:text-[13px]">
                   Auto-scale compute
@@ -385,13 +385,13 @@ export function LakebaseInfographic() {
           </AnimatedInfographicCard>
 
           <AnimatedInfographicCard
-            className="md:h-full"
+            className="h-full"
             delay={LOWER_CARD_MOVE_DELAY}
             isVisible={isVisible}
             offsetY={-16}
             reduceMotion={reduceMotion}
           >
-            <FeatureInfographicCard className="flex flex-col overflow-hidden p-2 md:h-full @xl/infographic:p-4 @xl/infographic:pb-2">
+            <FeatureInfographicCard className="flex h-full flex-col overflow-hidden p-2 @xl/infographic:p-4 @xl/infographic:pb-2">
               <h4 className="text-xs tracking-tight leading-tight font-medium @xl/infographic:text-[13px]">
                 Database changelog
               </h4>

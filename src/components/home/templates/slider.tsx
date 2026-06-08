@@ -115,13 +115,13 @@ function TemplateDescriptionText({
     <p
       aria-hidden={!isVisible}
       className={cn(
-        "col-start-1 row-start-1 text-[15px] leading-normal tracking-tight text-grey-70 transition-[opacity,transform] ease-out",
+        "col-start-1 row-start-1 min-w-0 max-w-full text-[15px] leading-normal tracking-tight break-words text-grey-70 transition-[opacity,transform] ease-out",
         isVisible
           ? "pointer-events-auto translate-y-0 opacity-100"
           : "pointer-events-none translate-y-1 opacity-0",
       )}
       style={{
-        maxWidth: "calc(100vw - 2.5rem)",
+        maxWidth: "100%",
         transitionDuration: `${duration}s`,
         width,
       }}
@@ -150,7 +150,7 @@ function TemplateCarouselCard({
 
   return (
     <Link
-      className="group/card mt-auto flex h-fit w-full flex-col justify-end text-white no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-db-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-[#121317]"
+      className="group/card mt-auto flex h-fit w-full min-w-0 flex-col justify-end text-white no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-db-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-[#121317]"
       to={item.href}
       draggable={false}
       aria-label={`${item.title} template`}
@@ -173,7 +173,7 @@ function TemplateCarouselCard({
           />
         </span>
       </h3>
-      <div className="mt-2.5 grid">
+      <div className="mt-2.5 grid w-full min-w-0 grid-cols-1">
         <TemplateDescriptionText
           duration={textWidthDuration}
           isVisible={!isActive}
@@ -384,23 +384,62 @@ export function TemplateSlider({
         <LazyMotion features={domAnimation}>
           <div
             className={cn(
-              "@container mx-auto w-full max-w-400 overflow-visible px-5 transition-opacity duration-150 md:px-8",
+              "@container mx-auto w-full max-w-400 px-5 transition-opacity duration-150 md:px-8",
+              slider.shouldUseNativeScroll
+                ? "snap-x snap-mandatory overflow-x-auto overflow-y-hidden overscroll-x-contain scroll-smooth [scroll-padding-left:1.25rem] [scroll-padding-right:1.25rem] [scrollbar-width:none] [-webkit-overflow-scrolling:touch] md:[scroll-padding-left:2rem] md:[scroll-padding-right:2rem] [&::-webkit-scrollbar]:hidden"
+                : "overflow-visible",
               slider.isCarouselMeasured
                 ? "opacity-100"
                 : "pointer-events-none opacity-0",
             )}
+            data-template-slider-viewport
             ref={slider.carouselViewportRef}
+            onPointerDown={
+              slider.shouldUseNativeScroll
+                ? slider.handleNativeCarouselPointerDown
+                : undefined
+            }
+            onScroll={
+              slider.shouldUseNativeScroll
+                ? slider.handleNativeCarouselScroll
+                : undefined
+            }
           >
             <m.div
-              animate={{ x: slider.trackX }}
-              className="flex w-max min-h-[70vw] cursor-grab touch-pan-y active:cursor-grabbing md:min-h-96 lg:min-h-112 2xl:min-h-136"
+              animate={{ x: slider.shouldUseNativeScroll ? 0 : slider.trackX }}
+              className={cn(
+                "flex w-max min-h-[70vw] md:min-h-96 lg:min-h-112 2xl:min-h-136",
+                slider.shouldUseNativeScroll
+                  ? "cursor-auto touch-auto"
+                  : "cursor-grab touch-pan-y active:cursor-grabbing",
+              )}
               initial={false}
               ref={slider.carouselTrackRef}
-              onPointerCancel={slider.handleCarouselPointerCancel}
-              onPointerDown={slider.handleCarouselPointerDown}
-              onPointerLeave={slider.handleCarouselPointerLeave}
-              onPointerMove={slider.handleCarouselPointerMove}
-              onPointerUp={slider.handleCarouselPointerUp}
+              onPointerCancel={
+                slider.shouldUseNativeScroll
+                  ? undefined
+                  : slider.handleCarouselPointerCancel
+              }
+              onPointerDown={
+                slider.shouldUseNativeScroll
+                  ? undefined
+                  : slider.handleCarouselPointerDown
+              }
+              onPointerLeave={
+                slider.shouldUseNativeScroll
+                  ? undefined
+                  : slider.handleCarouselPointerLeave
+              }
+              onPointerMove={
+                slider.shouldUseNativeScroll
+                  ? undefined
+                  : slider.handleCarouselPointerMove
+              }
+              onPointerUp={
+                slider.shouldUseNativeScroll
+                  ? undefined
+                  : slider.handleCarouselPointerUp
+              }
               style={{ columnGap: slider.cardGap }}
               transition={
                 slider.shouldAnimateTrack
@@ -412,7 +451,7 @@ export function TemplateSlider({
                 const isActive = slider.activeCarouselIndex === index;
                 const indexDistance = index - slider.activeCarouselIndex;
                 const isVisibleCard = slider.shouldUseTwoFullCardsLayout
-                  ? indexDistance >= -1 && indexDistance <= 0
+                  ? indexDistance >= 0 && indexDistance <= 1
                   : slider.shouldUseThreeCardLayout
                     ? Math.abs(indexDistance) <= 1
                     : isActive;
@@ -434,8 +473,9 @@ export function TemplateSlider({
                     data-active={isActive}
                     className={cn(
                       "pointer-events-auto w-[var(--template-card-width)] shrink-0 flex flex-col justify-end overflow-hidden transition-[width] ease-out [contain:layout_paint] will-change-transform",
+                      slider.shouldUseNativeScroll && "snap-start",
                       "[--template-card-width:min(72cqw,360px)]",
-                      "md:[--template-card-width:min(calc((100cqw-48px)/2.5),576px)]",
+                      "md:[--template-card-width:min(calc((100cqw-24px)/2),576px)]",
                       "xl:[--template-card-width:344px] 2xl:[--template-card-width:448px]",
                       "data-[active=true]:xl:[--template-card-width:448px] data-[active=true]:2xl:[--template-card-width:576px]",
                       isActive && "relative z-10",

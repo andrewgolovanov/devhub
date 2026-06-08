@@ -135,10 +135,12 @@ function FeatureCard({
       </FeatureCardHeader>
       <FeatureCardVisual className="mt-8 lg:mt-0" reversed={reversed}>
         <div
-          className="mx-auto my-auto w-full max-w-184 max-md:min-w-[800px] max-md:[zoom:0.37] md:max-w-[66.67%] lg:max-w-75 xl:max-w-184"
+          className="mx-auto my-auto w-full max-w-184 max-md:relative max-md:size-full md:max-w-[66.67%] lg:max-w-75 xl:max-w-184"
           aria-hidden="true"
         >
-          <FeatureVisualContent visual={visual} />
+          <div className="max-md:absolute max-md:top-1/2 max-md:left-1/2 max-md:w-[800px] max-md:max-w-none max-md:-translate-x-1/2 max-md:-translate-y-1/2 max-md:origin-center max-md:scale-[0.37] max-md:transform-gpu md:w-full">
+            <FeatureVisualContent visual={visual} />
+          </div>
         </div>
       </FeatureCardVisual>
       <FeatureCardFooter

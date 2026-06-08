@@ -76,10 +76,12 @@ export function useTemplateSlider({
   const carouselTrackRef = useRef<HTMLDivElement>(null);
   const shouldCancelCarouselClickRef = useRef(false);
   const dragStartXRef = useRef(0);
+  const dragStartYRef = useRef(0);
   const dragLastXRef = useRef(0);
   const dragLastTimeRef = useRef(0);
   const isCarouselPointerDownRef = useRef(false);
   const isDraggingCarouselRef = useRef(false);
+  const nativeScrollFrameRef = useRef<number | null>(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [shouldAnimateTrack, setShouldAnimateTrack] = useState(true);
   const [trackDuration, setTrackDuration] = useState(settings.trackDuration);
@@ -110,6 +112,7 @@ export function useTemplateSlider({
           : 320);
   const shouldUseFixedCardWidths =
     shouldUseDesktopLayout || shouldUseCompactDesktopLayout;
+  const shouldUseNativeScroll = !shouldUseFixedCardWidths;
   const cardGap = shouldUseDesktopGap
     ? settings.desktopGap
     : settings.responsiveGap;
@@ -118,8 +121,8 @@ export function useTemplateSlider({
     : shouldUseCompactDesktopLayout
       ? settings.compactInactiveWidth
       : shouldUseThreeCardLayout
-        ? Math.max((viewportWidth - cardGap * 2) / 2.5, 0)
-        : viewportWidth * 0.72;
+        ? Math.max((viewportWidth - cardGap) / 2, 0)
+        : Math.min(viewportWidth * 0.72, 360);
   const activeCardWidth = shouldUseDesktopLayout
     ? settings.activeWidth
     : shouldUseCompactDesktopLayout
@@ -159,21 +162,96 @@ export function useTemplateSlider({
   const isPreviousSlideDisabled = activeCarouselIndex <= 0;
   const isNextSlideDisabled = activeCarouselIndex >= maxSelectedIndex;
   const dragActivationThreshold = 8;
+  const dragAxisLockRatio = 1.25;
+  const dragSlideThreshold = Math.min(Math.max(cardStep * 0.2, 48), 72);
   const shouldUseTwoFullCardsLayout =
     shouldUseThreeCardLayout && !shouldUseFixedCardWidths;
+
+  const scrollNativeCarouselToIndex = useCallback(
+    (targetIndex: number, behavior: ScrollBehavior = "smooth") => {
+      const nextIndex = clamp(targetIndex, 0, maxSelectedIndex);
+
+      setHasCarouselMoved(nextIndex > 0);
+      setShouldAnimateTrack(true);
+      setTrackDuration(settings.trackDuration);
+      setSelectedIndex(nextIndex);
+
+      if (!shouldUseNativeScroll) return;
+
+      carouselViewportRef.current?.scrollTo({
+        left: nextIndex * cardStep,
+        behavior,
+      });
+    },
+    [cardStep, maxSelectedIndex, settings.trackDuration, shouldUseNativeScroll],
+  );
+
+  const handleNativeCarouselPointerDown = useCallback(() => {
+    if (!shouldUseNativeScroll) return;
+
+    setHasManualInteraction(true);
+    setIsAutoplayPaused(true);
+  }, [shouldUseNativeScroll]);
+
+  const handleNativeCarouselScroll = useCallback(() => {
+    if (
+      !shouldUseNativeScroll ||
+      cardStep <= 0 ||
+      nativeScrollFrameRef.current !== null
+    ) {
+      return;
+    }
+
+    const carouselViewport = carouselViewportRef.current;
+
+    if (!carouselViewport) return;
+
+    nativeScrollFrameRef.current = window.requestAnimationFrame(() => {
+      nativeScrollFrameRef.current = null;
+
+      const nextIndex = clamp(
+        Math.round(carouselViewport.scrollLeft / cardStep),
+        0,
+        maxSelectedIndex,
+      );
+
+      setSelectedIndex(nextIndex);
+
+      if (carouselViewport.scrollLeft > 1 || nextIndex > 0) {
+        setHasCarouselMoved(true);
+      }
+    });
+  }, [cardStep, maxSelectedIndex, shouldUseNativeScroll]);
 
   const handlePreviousSlide = useCallback(() => {
     if (isPreviousSlideDisabled) return;
 
     setHasManualInteraction(true);
+
+    if (shouldUseNativeScroll) {
+      scrollNativeCarouselToIndex(activeCarouselIndex - 1);
+      return;
+    }
+
     setHasCarouselMoved(true);
     setShouldAnimateTrack(true);
     setTrackDuration(settings.trackDuration);
     setSelectedIndex(Math.max(activeCarouselIndex - 1, 0));
-  }, [activeCarouselIndex, isPreviousSlideDisabled, settings.trackDuration]);
+  }, [
+    activeCarouselIndex,
+    isPreviousSlideDisabled,
+    scrollNativeCarouselToIndex,
+    settings.trackDuration,
+    shouldUseNativeScroll,
+  ]);
 
   const goToNextSlide = useCallback(() => {
     if (isNextSlideDisabled) return;
+
+    if (shouldUseNativeScroll) {
+      scrollNativeCarouselToIndex(activeCarouselIndex + 1);
+      return;
+    }
 
     setHasCarouselMoved(true);
     setShouldAnimateTrack(true);
@@ -183,7 +261,9 @@ export function useTemplateSlider({
     activeCarouselIndex,
     isNextSlideDisabled,
     maxSelectedIndex,
+    scrollNativeCarouselToIndex,
     settings.trackDuration,
+    shouldUseNativeScroll,
   ]);
 
   const handleNextSlide = useCallback(() => {
@@ -193,32 +273,47 @@ export function useTemplateSlider({
 
   const handleCarouselPointerDown = useCallback(
     (event: ReactPointerEvent<HTMLDivElement>) => {
+      if (shouldUseNativeScroll) return;
+
       isCarouselPointerDownRef.current = true;
       isDraggingCarouselRef.current = false;
       shouldCancelCarouselClickRef.current = false;
       dragStartXRef.current = event.clientX;
+      dragStartYRef.current = event.clientY;
       dragLastXRef.current = event.clientX;
       dragLastTimeRef.current = performance.now();
 
       setDragOffset(0);
     },
-    [],
+    [shouldUseNativeScroll],
   );
 
   const handleCarouselPointerMove = useCallback(
     (event: ReactPointerEvent<HTMLDivElement>) => {
+      if (shouldUseNativeScroll) return;
       if (!isCarouselPointerDownRef.current) return;
 
       const nextDragOffset = event.clientX - dragStartXRef.current;
-
-      if (
-        !isDraggingCarouselRef.current &&
-        Math.abs(nextDragOffset) < dragActivationThreshold
-      ) {
-        return;
-      }
+      const dragOffsetY = event.clientY - dragStartYRef.current;
+      const absoluteDragOffsetX = Math.abs(nextDragOffset);
+      const absoluteDragOffsetY = Math.abs(dragOffsetY);
 
       if (!isDraggingCarouselRef.current) {
+        if (
+          absoluteDragOffsetY >= dragActivationThreshold &&
+          absoluteDragOffsetY > absoluteDragOffsetX * dragAxisLockRatio
+        ) {
+          isCarouselPointerDownRef.current = false;
+          return;
+        }
+
+        if (
+          absoluteDragOffsetX < dragActivationThreshold ||
+          absoluteDragOffsetX <= absoluteDragOffsetY
+        ) {
+          return;
+        }
+
         isDraggingCarouselRef.current = true;
         if (!event.currentTarget.hasPointerCapture(event.pointerId)) {
           event.currentTarget.setPointerCapture(event.pointerId);
@@ -234,11 +329,12 @@ export function useTemplateSlider({
       dragLastTimeRef.current = performance.now();
       setDragOffset(nextDragOffset);
     },
-    [],
+    [shouldUseNativeScroll],
   );
 
   const finishCarouselDrag = useCallback(
     (event: ReactPointerEvent<HTMLDivElement>) => {
+      if (shouldUseNativeScroll) return;
       if (!isCarouselPointerDownRef.current) return;
 
       isCarouselPointerDownRef.current = false;
@@ -250,8 +346,15 @@ export function useTemplateSlider({
       const finalOffset = event.clientX - dragStartXRef.current;
       const finalTrackX = baseTrackX + finalOffset;
       const centeredIndex = getCenterActiveIndex(finalTrackX);
-      const snappedTrackX = getTrackXForActiveIndex(centeredIndex);
-      const snappedCenterIndex = getCenterActiveIndex(snappedTrackX);
+      const targetIndex = clamp(
+        finalOffset <= -dragSlideThreshold
+          ? Math.max(selectedIndex + 1, centeredIndex)
+          : finalOffset >= dragSlideThreshold
+            ? Math.min(selectedIndex - 1, centeredIndex)
+            : centeredIndex,
+        0,
+        maxSelectedIndex,
+      );
 
       isDraggingCarouselRef.current = false;
       shouldCancelCarouselClickRef.current = Math.abs(finalOffset) > 8;
@@ -259,7 +362,7 @@ export function useTemplateSlider({
       setIsDraggingCarousel(false);
       setShouldAnimateTrack(true);
       setTrackDuration(settings.trackDuration);
-      setSelectedIndex(snappedCenterIndex);
+      setSelectedIndex(targetIndex);
 
       window.setTimeout(() => {
         shouldCancelCarouselClickRef.current = false;
@@ -268,9 +371,12 @@ export function useTemplateSlider({
     },
     [
       baseTrackX,
+      dragSlideThreshold,
       getCenterActiveIndex,
-      getTrackXForActiveIndex,
+      maxSelectedIndex,
+      selectedIndex,
       settings.trackDuration,
+      shouldUseNativeScroll,
     ],
   );
 
@@ -317,12 +423,22 @@ export function useTemplateSlider({
       event.preventDefault();
       event.stopPropagation();
       setHasManualInteraction(true);
+
+      if (shouldUseNativeScroll) {
+        scrollNativeCarouselToIndex(cardIndex);
+        return;
+      }
+
       setHasCarouselMoved(true);
       setShouldAnimateTrack(true);
       setTrackDuration(settings.inactiveClickDuration);
       setSelectedIndex(cardIndex);
     },
-    [settings.inactiveClickDuration],
+    [
+      scrollNativeCarouselToIndex,
+      settings.inactiveClickDuration,
+      shouldUseNativeScroll,
+    ],
   );
 
   useEffect(() => {
@@ -454,6 +570,14 @@ export function useTemplateSlider({
     };
   }, []);
 
+  useEffect(() => {
+    return () => {
+      if (nativeScrollFrameRef.current !== null) {
+        window.cancelAnimationFrame(nativeScrollFrameRef.current);
+      }
+    };
+  }, []);
+
   return {
     activeCarouselIndex,
     cardGap,
@@ -465,6 +589,8 @@ export function useTemplateSlider({
     handleCarouselPointerLeave,
     handleCarouselPointerMove,
     handleCarouselPointerUp,
+    handleNativeCarouselPointerDown,
+    handleNativeCarouselScroll,
     handleNextSlide,
     handlePreviousSlide,
     hasCarouselMoved,
@@ -477,6 +603,7 @@ export function useTemplateSlider({
     shouldAnimateTrack,
     shouldUseThreeCardLayout,
     shouldUseTwoFullCardsLayout,
+    shouldUseNativeScroll,
     cardTransition: {
       duration: settings.cardResizeDuration,
       ease: TEMPLATE_CARD_WIDTH_TRANSITION.ease,
