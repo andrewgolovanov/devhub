@@ -113,7 +113,16 @@ const steps: SetupStep[] = [
           </li>
           <li>
             Invite teammates to the final demo workspace if they need to inspect
-            data, run notebooks, or help deploy the app.
+            data, run notebooks, or help deploy the app. Watch a{" "}
+            <a
+              href="https://www.youtube.com/watch?v=eA1SZvKiCfk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={inlineLink}
+            >
+              step-by-step video
+            </a>{" "}
+            on adding teammates to your Free Edition workspace.
           </li>
           <li>Decide who owns the final deployment before demo time.</li>
         </ul>
