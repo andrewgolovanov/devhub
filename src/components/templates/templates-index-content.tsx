@@ -126,8 +126,7 @@ export function TemplatesIndexContent(): ReactNode {
             <div className="mb-8 flex flex-col gap-4 lg:hidden">
               <TemplateSearch value={searchQuery} onChange={setSearchQuery} />
               <Button
-                className="w-fit gap-1.5 rounded-none"
-                variant="outline"
+                className="w-fit gap-1.5 rounded-none bg-transparent border border-grey-20 text-grey-20 hover:bg-grey-90"
                 size="sm"
                 onClick={() => setMobileFiltersOpen(true)}
               >
@@ -170,7 +169,7 @@ export function TemplatesIndexContent(): ReactNode {
       <Sheet open={mobileFiltersOpen} onOpenChange={setMobileFiltersOpen}>
         <SheetContent
           side="bottom"
-          className="max-h-[80vh] overflow-y-auto p-6"
+          className="max-h-[80vh] overflow-y-auto p-6 bg-[#f9f7f4]"
         >
           <SheetHeader className="p-0 pb-4">
             <SheetTitle>Filters</SheetTitle>

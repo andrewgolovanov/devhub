@@ -70,6 +70,10 @@ function TemplateAiBlock({
           slug={slug}
           title={usage.title}
           permalink={usage.permalink}
+          sideOffset={8}
+          className="h-10 gap-2.5 rounded-none border border-grey-30 bg-transparent py-0 pl-4 pr-3.5 font-mono text-sm leading-none font-medium tracking-normal text-grey-70 uppercase shadow-none transition-colors hover:border-grey-70 hover:bg-transparent hover:text-grey-70 focus:bg-transparent focus:text-grey-70 focus-visible:border-grey-70 focus-visible:ring-db-cyan focus-visible:ring-offset-black data-[state=open]:border-grey-70 data-[state=open]:bg-transparent data-[state=open]:text-grey-70 data-[state=open]:hover:bg-transparent [&_svg]:size-3.5 [&_svg]:text-current"
+          contentClassName="rounded-none border border-grey-30 bg-black p-0 text-white shadow-none"
+          itemClassName="h-10 min-h-0 cursor-pointer gap-2.5 rounded-none bg-transparent px-4 py-0 font-mono text-sm leading-none font-medium tracking-normal text-grey-70 uppercase outline-none transition-colors hover:!bg-transparent hover:!text-white focus:!bg-transparent focus:!text-white data-[highlighted]:!bg-transparent data-[highlighted]:!text-white [&_svg]:size-3.5 [&_svg]:text-current"
         />
       </div>
     </div>
@@ -160,7 +164,7 @@ export function TemplateDetailShell({
               </ol>
             </nav>
 
-            <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_20rem] xl:grid-cols-[minmax(0,1fr)_22rem] xl:gap-16">
+            <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_21rem] xl:grid-cols-[minmax(0,1fr)_22rem] xl:gap-16">
               <div className="min-w-0">
                 <h1 className="font-sans text-balance text-[28px]/[1.125] font-normal tracking-[-0.04em] text-white md:text-4xl/[1.125] lg:text-[3.5rem]/[1.125]">
                   {title}

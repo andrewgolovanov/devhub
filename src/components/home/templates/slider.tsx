@@ -1,8 +1,12 @@
 import Link from "@docusaurus/Link";
-import useBaseUrl from "@docusaurus/useBaseUrl";
 
+import { FallbackCardArt } from "@/components/examples/fallback-card-art";
+import { TemplatePreviewImage } from "@/components/examples/template-preview-image";
+import { getTemplateCardFields } from "@/components/templates/template-card";
 import { Button } from "@/components/ui/button";
 import { SliderArrowIcon } from "@/components/ui/slider-arrow-icon";
+import { useFeatureFlags } from "@/lib/feature-flags";
+import { buildTemplateItems } from "@/lib/templates/template-items";
 import { cn } from "@/lib/utils";
 import { domAnimation, LazyMotion } from "motion/react";
 import * as m from "motion/react-m";
@@ -12,6 +16,7 @@ import {
   type SVGProps,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -23,9 +28,7 @@ type TemplateCardItem = {
   title: string;
   description: string;
   href: string;
-  imageUrl: string;
-  imageWidth: number;
-  imageHeight: number;
+  lightUrl?: string;
 };
 
 function TitleLinkIcon({ className, ...props }: SVGProps<SVGSVGElement>) {
@@ -56,49 +59,26 @@ function TitleLinkIcon({ className, ...props }: SVGProps<SVGSVGElement>) {
   );
 }
 
-const TEMPLATE_ITEMS: TemplateCardItem[] = [
-  {
-    id: "agentic-support-console",
-    title: "AI assistant",
-    description:
-      "An AI-powered assistant that answers questions using your enterprise data, leveraging RAG patterns and AgentBricks to deliver accurate, context-aware insights.",
-    href: "/templates/agentic-support-console",
-    imageUrl: "/img/home/templates/ai-assistant.png",
-    imageWidth: 1388,
-    imageHeight: 983,
-  },
-  {
-    id: "vacation-rentals",
-    title: "Data pipeline monitor",
-    description:
-      "Monitor your data pipelines in real time with a unified view of job status, latency metrics, and failure alerts for full visibility into system health and performance.",
-    href: "/templates/vacation-rentals",
-    imageUrl: "/img/home/templates/data-pipeline-monitor.png",
-    imageWidth: 3286,
-    imageHeight: 2064,
-  },
-  {
-    id: "app-with-lakebase",
-    title: "AppKit Starter",
-    description:
-      "A minimal starter template using the Databricks AppKit component library. The fastest way to start building.",
-    href: "/templates/app-with-lakebase",
-    imageUrl: "/img/home/templates/appkit-starter.png",
-    imageWidth: 3456,
-    imageHeight: 2168,
-  },
-];
-
-const TEMPLATE_ITEM_REPEATS = 2;
-const CAROUSEL_TEMPLATE_ITEMS = Array.from(
-  { length: TEMPLATE_ITEM_REPEATS },
-  () => TEMPLATE_ITEMS,
-).flat();
-
 const TEMPLATE_DESCRIPTION_WIDTH = {
   inactive: "26rem",
   active: "34rem",
 };
+
+function buildHomeTemplateCardItems(
+  includeDrafts: boolean,
+): TemplateCardItem[] {
+  return buildTemplateItems(includeDrafts).map((item) => {
+    const { name, description, href, lightUrl } = getTemplateCardFields(item);
+
+    return {
+      id: item.data.id,
+      title: name,
+      description,
+      href,
+      lightUrl,
+    };
+  });
+}
 
 function TemplateDescriptionText({
   children,
@@ -115,7 +95,7 @@ function TemplateDescriptionText({
     <p
       aria-hidden={!isVisible}
       className={cn(
-        "col-start-1 row-start-1 min-w-0 max-w-full text-[15px] leading-normal tracking-tight break-words text-grey-70 transition-[opacity,transform] ease-out",
+        "col-start-1 row-start-1 min-w-0 max-w-full text-[15px] leading-normal tracking-tight break-words text-grey-70 line-clamp-3 transition-[opacity,transform] ease-out",
         isVisible
           ? "pointer-events-auto translate-y-0 opacity-100"
           : "pointer-events-none translate-y-1 opacity-0",
@@ -133,6 +113,7 @@ function TemplateDescriptionText({
 
 function TemplateCarouselCard({
   item,
+  index,
   isActive,
   canOpenLink,
   isKeyboardMode,
@@ -140,14 +121,13 @@ function TemplateCarouselCard({
   textWidthDuration,
 }: {
   item: TemplateCardItem;
+  index: number;
   isActive: boolean;
   canOpenLink: boolean;
   isKeyboardMode: boolean;
   imageDuration: number;
   textWidthDuration: number;
 }) {
-  const imageSrc = useBaseUrl(item.imageUrl);
-
   return (
     <Link
       className="group/card mt-auto flex h-fit w-full min-w-0 flex-col justify-end text-white no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-db-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-[#121317]"
@@ -189,17 +169,16 @@ function TemplateCarouselCard({
           {item.description}
         </TemplateDescriptionText>
       </div>
-      <img
-        className="relative mt-6 overflow-hidden border border-[#515151] w-full shadow-[0_18px_50px_rgb(0_0_0/0.32)] ease-out"
-        src={imageSrc}
-        draggable={false}
-        width={item.imageWidth}
-        height={item.imageHeight}
-        alt=""
-        loading="lazy"
-        decoding="async"
+      <div
+        className="relative mt-6 aspect-video w-full overflow-hidden border border-[#515151] bg-db-oat-medium shadow-[0_18px_50px_rgb(0_0_0/0.32)] ease-out"
         style={{ transitionDuration: `${imageDuration}s` }}
-      />
+      >
+        <TemplatePreviewImage
+          lightUrl={item.lightUrl}
+          alt={`${item.title} preview`}
+          fallback={<FallbackCardArt index={index} />}
+        />
+      </div>
     </Link>
   );
 }
@@ -211,8 +190,13 @@ export function TemplateSlider({
   sectionRef: RefObject<HTMLElement | null>;
   settings?: TemplateSliderSettings;
 }) {
+  const { showDrafts: includeDrafts } = useFeatureFlags();
+  const templateItems = useMemo(
+    () => buildHomeTemplateCardItems(includeDrafts),
+    [includeDrafts],
+  );
   const slider = useTemplateSlider({
-    itemCount: CAROUSEL_TEMPLATE_ITEMS.length,
+    itemCount: templateItems.length,
     sectionRef,
     settings,
   });
@@ -222,12 +206,12 @@ export function TemplateSlider({
   >(null);
   const keyboardPressTimeoutRef = useRef<number | null>(null);
   const openActiveTemplate = useCallback(() => {
-    const activeItem = CAROUSEL_TEMPLATE_ITEMS[slider.activeCarouselIndex];
+    const activeItem = templateItems[slider.activeCarouselIndex];
 
     if (activeItem) {
       window.location.href = activeItem.href;
     }
-  }, [slider.activeCarouselIndex]);
+  }, [templateItems, slider.activeCarouselIndex]);
   const showKeyboardArrowPress = useCallback((arrow: "previous" | "next") => {
     if (keyboardPressTimeoutRef.current !== null) {
       window.clearTimeout(keyboardPressTimeoutRef.current);
@@ -408,7 +392,7 @@ export function TemplateSlider({
             <m.div
               animate={{ x: slider.shouldUseNativeScroll ? 0 : slider.trackX }}
               className={cn(
-                "flex w-max min-h-[70vw] md:min-h-96 lg:min-h-112 2xl:min-h-136",
+                "flex w-max min-h-[65vw] md:min-h-88 lg:min-h-112 2xl:min-h-120",
                 slider.shouldUseNativeScroll
                   ? "cursor-auto touch-auto"
                   : "cursor-grab touch-pan-y active:cursor-grabbing",
@@ -447,7 +431,7 @@ export function TemplateSlider({
                   : { duration: 0 }
               }
             >
-              {CAROUSEL_TEMPLATE_ITEMS.map((item, index) => {
+              {templateItems.map((item, index) => {
                 const isActive = slider.activeCarouselIndex === index;
                 const indexDistance = index - slider.activeCarouselIndex;
                 const isVisibleCard = slider.shouldUseTwoFullCardsLayout
@@ -481,7 +465,7 @@ export function TemplateSlider({
                       isActive && "relative z-10",
                     )}
                     initial={false}
-                    key={`${item.id}-${index}`}
+                    key={item.id}
                     onClickCapture={(event) =>
                       slider.handleCarouselClickCapture(
                         event,
@@ -498,6 +482,7 @@ export function TemplateSlider({
                   >
                     <TemplateCarouselCard
                       item={item}
+                      index={index}
                       isActive={isActive}
                       canOpenLink={isVisibleCard}
                       isKeyboardMode={isKeyboardMode}

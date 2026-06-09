@@ -20,7 +20,7 @@ const FEATURES = [
     title: "Managed Postgres, colocated with your Lakehouse.",
     description:
       "Provision with the CLI, connect like any Postgres. Instant branching, scales to zero, and change data feed to Unity Catalog.",
-    href: "/docs/lakebase/overview",
+    href: "/product/data-lakehouse",
     visual: "lakebase",
   },
   {
@@ -28,7 +28,7 @@ const FEATURES = [
     title: "LLM-driven apps that call tools and return structured output.",
     description:
       "Any Python framework, Databricks-hosted models, automatic MLflow tracing, and MCP for workspace tools.",
-    href: "/docs/agents/overview",
+    href: "/product/agent-bricks",
     visual: "agents",
   },
   {
@@ -36,7 +36,7 @@ const FEATURES = [
     title: "Web apps that run inside your workspace.",
     description:
       "One CLI command to deploy. Fixed URL, built-in OAuth, and direct access to your workspace data, with no separate hosting service.",
-    href: "/docs/apps/overview",
+    href: "/product/databricks-apps",
     visual: "apps",
   },
 ] as const;

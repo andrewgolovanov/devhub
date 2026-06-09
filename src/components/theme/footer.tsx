@@ -23,15 +23,15 @@ const FOOTER_SECTIONS: FooterSection[] = [
     items: [
       {
         label: "Lakebase",
-        href: "https://www.databricks.com/product/lakebase",
+        to: "/product/data-lakehouse",
       },
       {
-        label: "AgentBricks",
-        href: "https://www.databricks.com/product/artificial-intelligence/agent-bricks",
+        label: "Agent Bricks",
+        to: "/product/agent-bricks",
       },
       {
         label: "Databricks Apps",
-        href: "https://www.databricks.com/product/databricks-apps",
+        to: "/product/databricks-apps",
       },
       {
         label: "Contact Sales",

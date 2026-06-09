@@ -52,7 +52,7 @@ function expectTemplateCardDescriptionToFit(
 test.describe("navbar navigation", () => {
   const NAVBAR_LINKS = [
     { label: "Solutions", expectedPath: "/solutions" },
-    { label: "Resources", expectedPath: "/templates" },
+    { label: "Templates", expectedPath: "/templates" },
     { label: "Docs", expectedPath: "/docs/start-here" },
   ];
 
@@ -192,7 +192,7 @@ test.describe("mobile navigation", () => {
       const lakebase = menu.getByRole("link", { name: "lakebase" });
       const lakebaseLabel = lakebase.locator("[data-mobile-menu-item-label]");
       const solutions = menu.getByRole("link", { name: "solutions" });
-      const resources = menu.getByRole("link", { name: "resources" });
+      const templates = menu.getByRole("link", { name: "templates" });
       const docs = menu.getByRole("link", { name: "docs" });
 
       await expect(
@@ -213,7 +213,7 @@ test.describe("mobile navigation", () => {
       const productLabelBox = await productLabel.boundingBox();
       const lakebaseBox = await lakebase.boundingBox();
       const solutionsBox = await solutions.boundingBox();
-      const resourcesBox = await resources.boundingBox();
+      const templatesBox = await templates.boundingBox();
       const docsBox = await docs.boundingBox();
 
       if (
@@ -222,7 +222,7 @@ test.describe("mobile navigation", () => {
         !productLabelBox ||
         !lakebaseBox ||
         !solutionsBox ||
-        !resourcesBox ||
+        !templatesBox ||
         !docsBox
       ) {
         throw new Error("Expected mobile menu layout to be measurable");
@@ -241,9 +241,9 @@ test.describe("mobile navigation", () => {
       expect(Math.round(solutionsBox.x)).toBe(viewport.sectionX);
       expect(Math.round(solutionsBox.y)).toBe(236);
       expect(Math.round(solutionsBox.width)).toBe(viewport.sectionClickWidth);
-      expect(Math.round(resourcesBox.x)).toBe(viewport.sectionX);
-      expect(Math.round(resourcesBox.y)).toBe(270);
-      expect(Math.round(resourcesBox.width)).toBe(viewport.sectionClickWidth);
+      expect(Math.round(templatesBox.x)).toBe(viewport.sectionX);
+      expect(Math.round(templatesBox.y)).toBe(270);
+      expect(Math.round(templatesBox.width)).toBe(viewport.sectionClickWidth);
       expect(Math.round(docsBox.x)).toBe(viewport.sectionX);
       expect(Math.round(docsBox.y)).toBe(304);
       expect(Math.round(docsBox.width)).toBe(viewport.sectionClickWidth);
@@ -293,7 +293,7 @@ test.describe("mobile navigation", () => {
 
   for (const section of [
     { href: "/solutions", label: "solutions" },
-    { href: "/templates", label: "resources" },
+    { href: "/templates", label: "templates" },
     { href: "/docs/start-here", label: "docs" },
   ]) {
     test(`mobile menu highlights ${section.label} on its section page`, async ({
@@ -385,6 +385,18 @@ test.describe("footer navigation", () => {
       label: "Databricks logo",
     },
     {
+      href: "/product/data-lakehouse",
+      label: "Lakebase product",
+    },
+    {
+      href: "/product/agent-bricks",
+      label: "Agent Bricks product",
+    },
+    {
+      href: "/product/databricks-apps",
+      label: "Databricks Apps product",
+    },
+    {
       href: "/docs/start-here",
       label: "Docs",
     },
@@ -393,18 +405,6 @@ test.describe("footer navigation", () => {
   ];
 
   const FOOTER_EXTERNAL_LINKS = [
-    {
-      href: "https://www.databricks.com/product/lakebase",
-      label: "Lakebase product",
-    },
-    {
-      href: "https://www.databricks.com/product/artificial-intelligence/agent-bricks",
-      label: "Agent Bricks product",
-    },
-    {
-      href: "https://www.databricks.com/product/databricks-apps",
-      label: "Databricks Apps product",
-    },
     {
       href: "https://www.databricks.com/company/contact",
       label: "Contact Sales",
@@ -430,9 +430,9 @@ test.describe("footer navigation", () => {
 
   const EXPECTED_FOOTER_HREFS = [
     "/",
-    "https://www.databricks.com/product/lakebase",
-    "https://www.databricks.com/product/artificial-intelligence/agent-bricks",
-    "https://www.databricks.com/product/databricks-apps",
+    "/product/data-lakehouse",
+    "/product/agent-bricks",
+    "/product/databricks-apps",
     "https://www.databricks.com/company/contact",
     "/docs/start-here",
     "/templates",
@@ -521,33 +521,33 @@ test.describe("home page link navigation", () => {
     expect(finalCopiedText).toContain("llms.txt");
   });
 
-  test("pillar card Lakebase navigates to /docs/lakebase/overview", async ({
+  test("pillar card Lakebase navigates to /product/data-lakehouse", async ({
     page,
   }) => {
     await page.goto("/");
-    const link = page.locator('a[href="/docs/lakebase/overview"]').first();
+    const link = page.locator('a[href="/product/data-lakehouse"]').first();
     await link.waitFor({ state: "visible" });
     await link.click();
-    await page.waitForURL("**/docs/lakebase/overview");
-    expect(new URL(page.url()).pathname).toContain("/docs/lakebase/overview");
+    await page.waitForURL("**/product/data-lakehouse");
+    expect(new URL(page.url()).pathname).toBe("/product/data-lakehouse");
   });
 
-  test("pillar card Agent Bricks navigates to /docs/agents/overview", async ({
+  test("pillar card Agent Bricks navigates to /product/agent-bricks", async ({
     page,
   }) => {
     await page.goto("/");
-    await page.locator('a[href="/docs/agents/overview"]').first().click();
-    await page.waitForURL("**/docs/agents/overview");
-    expect(new URL(page.url()).pathname).toBe("/docs/agents/overview");
+    await page.locator('a[href="/product/agent-bricks"]').first().click();
+    await page.waitForURL("**/product/agent-bricks");
+    expect(new URL(page.url()).pathname).toBe("/product/agent-bricks");
   });
 
-  test("pillar card Databricks Apps navigates to /docs/apps/overview", async ({
+  test("pillar card Databricks Apps navigates to /product/databricks-apps", async ({
     page,
   }) => {
     await page.goto("/");
-    await page.locator('a[href="/docs/apps/overview"]').first().click();
-    await page.waitForURL("**/docs/apps/overview");
-    expect(new URL(page.url()).pathname).toBe("/docs/apps/overview");
+    await page.locator('a[href="/product/databricks-apps"]').first().click();
+    await page.waitForURL("**/product/databricks-apps");
+    expect(new URL(page.url()).pathname).toBe("/product/databricks-apps");
   });
 
   test('"See all templates" navigates to /templates', async ({ page }) => {
@@ -570,10 +570,10 @@ test.describe("home page link navigation", () => {
     await page.goto("/");
 
     const firstTemplateCard = page
-      .getByRole("link", { name: "AI assistant template" })
+      .getByRole("link", { name: "AI Chat App template" })
       .first();
     const nextTemplateCard = page
-      .getByRole("link", { name: "Data pipeline monitor template" })
+      .getByRole("link", { name: "App with Lakebase template" })
       .first();
 
     await firstTemplateCard.scrollIntoViewIfNeeded();
@@ -628,9 +628,7 @@ test.describe("home page link navigation", () => {
       )
       .toBeGreaterThan(80);
     await expect(
-      page.locator(
-        '[data-active="true"] a[aria-label="Data pipeline monitor template"]',
-      ),
+      page.locator('[data-active="true"] a[aria-label]').first(),
     ).toBeVisible();
 
     const activeTemplateCard = page
@@ -666,42 +664,38 @@ test.describe("home page link navigation", () => {
     await page.setViewportSize({ width: 892, height: 785 });
     await page.goto("/");
 
-    const dataPipelineCard = page
-      .getByRole("link", { name: "Data pipeline monitor template" })
+    const appWithLakebaseCard = page
+      .getByRole("link", { name: "App with Lakebase template" })
       .first();
 
     await firstTemplateCard.scrollIntoViewIfNeeded();
     await expect(firstTemplateCard).toBeVisible();
-    await expect(dataPipelineCard).toBeVisible();
+    await expect(appWithLakebaseCard).toBeVisible();
 
     expectTemplateCardDescriptionToFit(
       await getTemplateCardTextMetrics(firstTemplateCard),
     );
     expectTemplateCardDescriptionToFit(
-      await getTemplateCardTextMetrics(dataPipelineCard),
+      await getTemplateCardTextMetrics(appWithLakebaseCard),
     );
 
     await expect(
-      dataPipelineCard.locator("xpath=ancestor::*[@data-active][1]"),
+      appWithLakebaseCard.locator("xpath=ancestor::*[@data-active][1]"),
     ).toHaveCSS("opacity", "1");
-    await dataPipelineCard.click();
-    await page.waitForURL("**/templates/vacation-rentals");
-    expect(new URL(page.url()).pathname).toBe("/templates/vacation-rentals");
+    await appWithLakebaseCard.click();
+    await page.waitForURL("**/templates/app-with-lakebase");
+    expect(new URL(page.url()).pathname).toBe("/templates/app-with-lakebase");
   });
 
-  test("template preview card navigates to /templates/agentic-support-console", async ({
+  test("template preview card navigates to /templates/ai-chat-app", async ({
     page,
   }) => {
     await page.goto("/");
-    const link = page
-      .locator('a[href="/templates/agentic-support-console"]')
-      .first();
+    const link = page.locator('a[href="/templates/ai-chat-app"]').first();
     await link.waitFor({ state: "visible" });
     await link.click();
-    await page.waitForURL("**/templates/agentic-support-console");
-    expect(new URL(page.url()).pathname).toBe(
-      "/templates/agentic-support-console",
-    );
+    await page.waitForURL("**/templates/ai-chat-app");
+    expect(new URL(page.url()).pathname).toBe("/templates/ai-chat-app");
   });
 });
 

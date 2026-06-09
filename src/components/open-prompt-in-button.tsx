@@ -8,12 +8,18 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { getPromptTargets } from "@/lib/prompt-targets";
+import { cn } from "@/lib/utils";
 
 type OpenPromptInButtonProps = {
   replitPrompt?: string;
   slug: string;
   title: string;
   permalink: string;
+  align?: "center" | "end" | "start";
+  className?: string;
+  contentClassName?: string;
+  itemClassName?: string;
+  sideOffset?: number;
 };
 
 export function OpenPromptInButton({
@@ -21,6 +27,11 @@ export function OpenPromptInButton({
   slug,
   title,
   permalink,
+  align = "start",
+  className,
+  contentClassName,
+  itemClassName,
+  sideOffset,
 }: OpenPromptInButtonProps) {
   const targets = getPromptTargets({ replitPrompt });
   if (targets.length === 0) return null;
@@ -28,19 +39,27 @@ export function OpenPromptInButton({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="sm" className="h-10 px-5">
+        <Button
+          variant="outline"
+          size="sm"
+          className={cn("h-10 px-5", className)}
+        >
           Open prompt in
           <ChevronDown />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        align="start"
-        className="w-[var(--radix-dropdown-menu-trigger-width)]"
+        align={align}
+        sideOffset={sideOffset}
+        className={cn(
+          "w-[var(--radix-dropdown-menu-trigger-width)]",
+          contentClassName,
+        )}
       >
         {targets.map((target) => {
           const Icon = target.icon;
           return (
-            <DropdownMenuItem key={target.id} asChild>
+            <DropdownMenuItem key={target.id} asChild className={itemClassName}>
               <a
                 href={target.href}
                 target="_blank"
@@ -55,7 +74,14 @@ export function OpenPromptInButton({
                   })
                 }
               >
-                <Icon />
+                <Icon
+                  className="shrink-0 text-current"
+                  style={{
+                    color: "currentColor",
+                    display: "inline-block",
+                    fill: "currentColor",
+                  }}
+                />
                 {target.label}
               </a>
             </DropdownMenuItem>

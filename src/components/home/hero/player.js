@@ -5819,16 +5819,16 @@
   }
 
   const appChartHoverData = [
-    { month: "Jan", x: 0, target: 250, revenue: 405 },
-    { month: "Feb", x: 39.1694, target: 275, revenue: 370 },
-    { month: "Mar", x: 65.0814, target: 300, revenue: 505 },
-    { month: "Apr", x: 104.853, target: 325, revenue: 535 },
-    { month: "May", x: 135.586, target: 350, revenue: 470 },
-    { month: "Jun", x: 165.114, target: 375, revenue: 570 },
-    { month: "Jul", x: 230.195, target: 395, revenue: 650 },
-    { month: "Aug", x: 266.954, target: 410, revenue: 585 },
-    { month: "Sep", x: 318.176, target: 430, revenue: 695 },
-    { month: "Oct", x: 370, target: 450, revenue: 800 },
+    { month: "Jan", x: 0, target: 250, revenue: 350 },
+    { month: "Feb", x: 39.1694, target: 275, revenue: 330 },
+    { month: "Mar", x: 65.0814, target: 300, revenue: 455 },
+    { month: "Apr", x: 104.853, target: 325, revenue: 480 },
+    { month: "May", x: 135.586, target: 350, revenue: 420 },
+    { month: "Jun", x: 165.114, target: 375, revenue: 510 },
+    { month: "Jul", x: 230.195, target: 395, revenue: 580 },
+    { month: "Aug", x: 266.954, target: 410, revenue: 525 },
+    { month: "Sep", x: 318.176, target: 430, revenue: 625 },
+    { month: "Oct", x: 370, target: 450, revenue: 715 },
   ];
 
   const appChartRevenueSegments = [
@@ -5964,7 +5964,9 @@
 
     const chartStage = appChartOverlay.querySelector(".app-chart-stage");
     const stageRect = chartStage?.getBoundingClientRect();
-    const stageWidth = stageRect?.width || 408;
+    const stageWidth = chartStage?.offsetWidth || 408;
+    const stageScaleX =
+      stageRect && stageWidth ? stageRect.width / Math.max(1, stageWidth) : 1;
     const svgWidth = 370;
     const plotLeft = 36;
     const plotTop =
@@ -5978,7 +5980,8 @@
     const svgX =
       event && stageRect
         ? clamp(
-            ((event.clientX - stageRect.left - plotLeft) /
+            (((event.clientX - stageRect.left) / Math.max(0.001, stageScaleX) -
+              plotLeft) /
               Math.max(1, plotWidth)) *
               svgWidth,
             leftBound,

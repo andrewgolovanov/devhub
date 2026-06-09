@@ -99,10 +99,11 @@ export function NewHeader({ className }: NewHeaderProps) {
               className="h-9 rounded-none bg-white px-4.5 font-mono text-sm font-medium tracking-tight text-black shadow-none hover:bg-white/90"
             >
               <Link
-                to="/docs/start-here"
-                className="no-underline hover:no-underline"
+                className="no-underline uppercase hover:no-underline"
+                to="https://databricks.com/signup"
+                target="_blank"
               >
-                Get started for free
+                Try Databricks
               </Link>
             </Button>
           </div>

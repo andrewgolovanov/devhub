@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Icons } from "@/components/icons";
+import { TitleCross } from "@/components/title-cross";
 import { Button } from "@/components/ui/button";
 import { getBootstrapPromptApiPath } from "@/lib/bootstrap-prompt";
 import Link from "@docusaurus/Link";
@@ -58,43 +59,16 @@ function HeroCopyPromptButton() {
 }
 
 function HeroTitleHighlight({ children }: { children: string }) {
-  const cornerClassName =
-    "absolute hidden size-4 md:block before:absolute before:top-0 before:left-1/2 before:h-full before:w-px before:-translate-x-1/2 before:bg-grey-60 after:absolute after:top-1/2 after:left-0 after:h-px after:w-full after:-translate-y-1/2 after:bg-grey-60";
-
   return (
     <span className="relative inline-block text-db-lava md:whitespace-nowrap">
       <span
         className="pointer-events-none absolute -inset-x-1.5 inset-y-0 hidden border border-grey-20 md:block"
         aria-hidden="true"
       />
-      <span
-        className={cn(
-          cornerClassName,
-          "-top-[--spacing(1.9)] -left-[--spacing(3.4)] xl:-left-[--spacing(3.3)]",
-        )}
-        aria-hidden="true"
-      />
-      <span
-        className={cn(
-          cornerClassName,
-          "-top-[--spacing(1.9)] -right-[--spacing(3.4)]",
-        )}
-        aria-hidden="true"
-      />
-      <span
-        className={cn(
-          cornerClassName,
-          "-bottom-[--spacing(1.9)] -left-[--spacing(3.4)] xl:-left-[--spacing(3.3)]",
-        )}
-        aria-hidden="true"
-      />
-      <span
-        className={cn(
-          cornerClassName,
-          "-right-[--spacing(3.4)] -bottom-[--spacing(1.9)]",
-        )}
-        aria-hidden="true"
-      />
+      <TitleCross className="-top-2 -left-3.5" />
+      <TitleCross className="-top-2 -right-3.5" />
+      <TitleCross className="-bottom-2 -left-3.5" />
+      <TitleCross className="-bottom-2 -right-3.5" />
       <span className="relative">{children}</span>
     </span>
   );

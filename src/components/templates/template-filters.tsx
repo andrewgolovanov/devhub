@@ -73,7 +73,7 @@ export function TemplateFilters({
               {selectedFilterLabel}
             </p>
             <Button
-              className="h-auto gap-1 rounded-none !bg-transparent p-0 font-sans text-xs/none font-medium tracking-tight text-black/30 uppercase shadow-none hover:!bg-transparent hover:text-black active:!bg-transparent focus-visible:!bg-transparent focus-visible:ring-db-cyan focus-visible:ring-offset-db-oat-light [&_svg:not([class*='size-'])]:size-3"
+              className="h-auto gap-1 rounded-none bg-transparent p-0 font-sans text-xs/none font-medium tracking-tight text-black/30 uppercase shadow-none hover:bg-transparent! hover:text-black active:bg-transparent! focus-visible:bg-transparent! focus-visible:ring-db-cyan focus-visible:ring-offset-db-oat-light [&_svg:not([class*='size-'])]:size-3"
               type="button"
               variant="ghost"
               onClick={onClearFilters}

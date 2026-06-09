@@ -1,7 +1,7 @@
 export const HEADER_LINKS = [
   { label: "Product", href: "/product/data-lakehouse" },
   { label: "Solutions", href: "/solutions" },
-  { label: "Resources", href: "/templates" },
+  { label: "Templates", href: "/templates" },
   { label: "Docs", href: "/docs/start-here", activePath: "/docs" },
 ] as const;
 
