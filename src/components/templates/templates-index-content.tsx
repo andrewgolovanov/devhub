@@ -57,7 +57,8 @@ export function TemplatesIndexContent(): ReactNode {
 
   const hasActiveFilters =
     searchQuery.trim().length > 0 || selectedServices.size > 0 || replitOnly;
-  const hasSelectedFilters = selectedServices.size > 0 || replitOnly;
+  const selectedFilterCount = selectedServices.size + (replitOnly ? 1 : 0);
+  const hasSelectedFilters = selectedFilterCount > 0;
   const visibleItemsPerPage = hasActiveFilters
     ? Math.max(filteredItems.length, 1)
     : ITEMS_PER_PAGE;
@@ -93,6 +94,11 @@ export function TemplatesIndexContent(): ReactNode {
     setReplitOnly(false);
   }, []);
 
+  const handleClearSelectedFilters = useCallback(() => {
+    setSelectedServices(new Set());
+    setReplitOnly(false);
+  }, []);
+
   const handleToggleReplitOnly = useCallback(() => {
     setReplitOnly((prev) => !prev);
   }, []);
@@ -110,6 +116,8 @@ export function TemplatesIndexContent(): ReactNode {
                 onToggleService={handleToggleService}
                 replitOnly={replitOnly}
                 onToggleReplitOnly={handleToggleReplitOnly}
+                selectedFilterCount={selectedFilterCount}
+                onClearFilters={handleClearSelectedFilters}
               />
             </div>
           </aside>
@@ -127,7 +135,7 @@ export function TemplatesIndexContent(): ReactNode {
                 Filters
                 {hasSelectedFilters && (
                   <Badge className="ml-0.5 size-5 justify-center rounded-full p-0 text-[10px]">
-                    {selectedServices.size + (replitOnly ? 1 : 0)}
+                    {selectedFilterCount}
                   </Badge>
                 )}
               </Button>
@@ -172,6 +180,8 @@ export function TemplatesIndexContent(): ReactNode {
             onToggleService={handleToggleService}
             replitOnly={replitOnly}
             onToggleReplitOnly={handleToggleReplitOnly}
+            selectedFilterCount={selectedFilterCount}
+            onClearFilters={handleClearSelectedFilters}
           />
         </SheetContent>
       </Sheet>
@@ -185,7 +195,7 @@ function TemplateEmptyState({
   onClearAll: () => void;
 }): ReactNode {
   return (
-    <div className="flex flex-col items-center justify-center text-center w-full max-w-77.5 mx-auto mt-14 lg:-translate-x-4 lg:mt-29">
+    <div className="flex flex-col items-center justify-center text-center w-full max-w-77.5 mx-auto h-full">
       <h3 className="text-xl/normal tracking-[-0.04em] font-normal text-black">
         No templates match your filters.
       </h3>

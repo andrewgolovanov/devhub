@@ -121,6 +121,35 @@ test.describe("templates page service filter", () => {
     ).toBeHidden();
   });
 
+  test("clear all resets selected service filters", async ({ page }) => {
+    await page.goto("/templates");
+    const initialCount = await visibleCount(templateLinks(page));
+    expect(initialCount).toBeGreaterThan(0);
+
+    const appsFilter = page.getByRole("checkbox", {
+      name: "Databricks Apps",
+      exact: true,
+    });
+    const lakebaseFilter = page.getByRole("checkbox", {
+      name: "Lakebase Postgres",
+      exact: true,
+    });
+
+    await appsFilter.check();
+    await lakebaseFilter.check();
+
+    await expect(page.getByText("2 FILTERS selected")).toBeVisible();
+    await expect(page.getByRole("button", { name: "Clear all" })).toBeVisible();
+
+    await page.getByRole("button", { name: "Clear all" }).click();
+
+    await expect(appsFilter).not.toBeChecked();
+    await expect(lakebaseFilter).not.toBeChecked();
+    await expect(page.getByText("2 FILTERS selected")).toBeHidden();
+    await expect(page.getByRole("button", { name: "Clear all" })).toBeHidden();
+    expect(await visibleCount(templateLinks(page))).toBe(initialCount);
+  });
+
   test("selecting multiple services narrows results (AND)", async ({
     page,
   }) => {
@@ -177,7 +206,7 @@ test.describe("templates page empty state", () => {
 });
 
 test.describe("templates page Build-with Replit filter", () => {
-  test("checking 'Replit' narrows the grid to templates with a replit prompt without active chips", async ({
+  test("checking 'Replit' narrows the grid to templates with a replit prompt", async ({
     page,
   }) => {
     await page.goto("/templates");
@@ -198,7 +227,8 @@ test.describe("templates page Build-with Replit filter", () => {
     ).toBeHidden();
 
     await expect(page.getByRole("button", { name: /^Replit$/ })).toBeHidden();
-    await expect(page.getByRole("button", { name: "Clear all" })).toBeHidden();
+    await expect(page.getByText("1 FILTER selected")).toBeVisible();
+    await expect(page.getByRole("button", { name: "Clear all" })).toBeVisible();
 
     await page.getByRole("checkbox", { name: "Replit", exact: true }).uncheck();
     expect(await visibleCount(templateLinks(page))).toBe(initialCount);
@@ -210,9 +240,10 @@ test.describe("templates page Build-with Replit filter", () => {
     expect(initialCount).toBeGreaterThan(0);
 
     await page.getByRole("checkbox", { name: "Replit", exact: true }).check();
-    await expect(page.getByRole("button", { name: "Clear all" })).toBeHidden();
+    await expect(page.getByRole("button", { name: "Clear all" })).toBeVisible();
 
     await page.getByRole("checkbox", { name: "Replit", exact: true }).uncheck();
+    await expect(page.getByRole("button", { name: "Clear all" })).toBeHidden();
     expect(await visibleCount(templateLinks(page))).toBe(initialCount);
   });
 });
