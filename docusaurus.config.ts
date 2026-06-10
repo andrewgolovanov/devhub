@@ -90,6 +90,10 @@ const config: Config = {
 
   themes: ["@docusaurus/theme-mermaid"],
 
+  // Transparently recovers stale tabs that 404 on old chunks after a redeploy.
+  // See src/client/chunk-reload.ts.
+  clientModules: [require.resolve("./src/client/chunk-reload.ts")],
+
   presets: [
     [
       "classic",
