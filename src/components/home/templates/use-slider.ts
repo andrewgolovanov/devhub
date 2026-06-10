@@ -83,11 +83,14 @@ export function useTemplateSlider({
   const dragLastTimeRef = useRef(0);
   const isCarouselPointerDownRef = useRef(false);
   const isDraggingCarouselRef = useRef(false);
+  const isNativeCarouselPointerDownRef = useRef(false);
   const nativeScrollFrameRef = useRef<number | null>(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [shouldAnimateTrack, setShouldAnimateTrack] = useState(true);
   const [trackDuration, setTrackDuration] = useState(settings.trackDuration);
-  const [isAutoplayPaused, setIsAutoplayPaused] = useState(false);
+  const [isAutoplayHoverPaused, setIsAutoplayHoverPaused] = useState(false);
+  const [isAutoplayInteractionPaused, setIsAutoplayInteractionPaused] =
+    useState(false);
   const [autoplayDelay, setAutoplayDelay] = useState(settings.autoplayInterval);
   const [autoplayScheduleKey, setAutoplayScheduleKey] = useState(0);
   const [shouldUseCompactDesktopLayout, setShouldUseCompactDesktopLayout] =
@@ -164,6 +167,7 @@ export function useTemplateSlider({
     : selectedIndex;
   const isPreviousSlideDisabled = activeCarouselIndex <= 0;
   const isNextSlideDisabled = activeCarouselIndex >= maxSelectedIndex;
+  const isAutoplayPaused = isAutoplayHoverPaused || isAutoplayInteractionPaused;
   const dragActivationThreshold = 8;
   const dragAxisLockRatio = 1.25;
   const dragSlideThreshold = Math.min(Math.max(cardStep * 0.2, 48), 72);
@@ -196,13 +200,16 @@ export function useTemplateSlider({
   const handleNativeCarouselPointerDown = useCallback(() => {
     if (!shouldUseNativeScroll) return;
 
-    setIsAutoplayPaused(true);
+    isNativeCarouselPointerDownRef.current = true;
+    setIsAutoplayInteractionPaused(true);
   }, [shouldUseNativeScroll]);
 
   const handleNativeCarouselPointerRelease = useCallback(() => {
     if (!shouldUseNativeScroll) return;
+    if (!isNativeCarouselPointerDownRef.current) return;
 
-    setIsAutoplayPaused(false);
+    isNativeCarouselPointerDownRef.current = false;
+    setIsAutoplayInteractionPaused(false);
     delayAutoplayAfterManualInteraction();
   }, [delayAutoplayAfterManualInteraction, shouldUseNativeScroll]);
 
@@ -336,7 +343,7 @@ export function useTemplateSlider({
         setIsDraggingCarousel(true);
         setHasCarouselMoved(true);
         delayAutoplayAfterManualInteraction();
-        setIsAutoplayPaused(true);
+        setIsAutoplayInteractionPaused(true);
       }
 
       dragLastXRef.current = event.clientX;
@@ -380,7 +387,7 @@ export function useTemplateSlider({
 
       window.setTimeout(() => {
         shouldCancelCarouselClickRef.current = false;
-        setIsAutoplayPaused(false);
+        setIsAutoplayInteractionPaused(false);
       }, 180);
     },
     [
@@ -614,7 +621,7 @@ export function useTemplateSlider({
     isCarouselMeasured,
     isNextSlideDisabled,
     isPreviousSlideDisabled,
-    setIsAutoplayPaused,
+    setIsAutoplayPaused: setIsAutoplayHoverPaused,
     shouldUseFixedCardWidths,
     shouldAnimateTrack,
     shouldUseThreeCardLayout,
