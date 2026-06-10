@@ -1,82 +1,92 @@
-// When DevHub is redeployed, its content-hashed JS/CSS chunks get new
+// When DevHub is redeployed, its content-hashed JS/CSS bundles get new
 // filenames and the old files stop existing at the production domain. A tab
-// left open across a deploy then 404s when it lazy-loads a route chunk, which
-// surfaces as a ChunkLoadError and triggers Docusaurus's "site did not load
-// properly" fallback (misleadingly blaming baseUrl). Recover transparently by
-// reloading the page so the browser fetches the current deployment's assets.
+// left open across a deploy then 404s on those assets. On the homepage this
+// triggers Docusaurus's "site did not load properly" banner (misleadingly
+// blaming baseUrl), rendered unstyled because the CSS 404'd too. Recover by
+// reloading onto the current deployment.
+//
+// IMPORTANT: installChunkReload is serialized with .toString() and injected as
+// an inline <head> script by plugins/chunk-reload.ts. It therefore must be
+// fully self-contained (no imports, no module-scope references) and use only
+// browser globals, so that it still runs even when the hashed app bundle
+// itself fails to load -- a clientModule would be bundled into that 404'd file
+// and never execute. Keep the body to conservative ES (no optional chaining /
+// nullish coalescing / spread) so transpilation never injects runtime helpers
+// into the inlined source.
 //
 // Why not Vercel Skew Protection? Docusaurus is not a zero-config Skew
-// Protection framework (only Next.js, SvelteKit, Qwik, Astro, and Nuxt are), so
-// it never attaches a ?dpl= deployment ID to its <script>/<link> or dynamic
-// import chunk requests. The only signal that works for its tag-based asset
-// loads is the __vdpl cookie set in middleware, but that pins document
-// navigations too, trapping users on a stale deployment until it ages past
-// max-age (then it 404s again). Dashboard-only enablement is effectively a
-// no-op here: without a dpl signal on asset requests the production domain
-// still 404s old chunks. This reload fallback already removes the user-visible
-// symptom, so Skew Protection would only save a single reload flash at the cost
-// of real complexity and staleness risk. Not worth it for a docs site.
+// Protection framework, so it never attaches a ?dpl= deployment ID to its
+// asset requests. The only signal that works for its tag-based loads is the
+// __vdpl cookie, which pins document navigations too and traps users on a
+// stale deployment until it ages past max-age. This inline reload is simpler
+// and has no staleness risk.
 
-const LAST_RELOAD_KEY = "devhub:chunk-reload-at";
+export function installChunkReload(): void {
+  var RELOAD_KEY = "devhub:chunk-reload-at";
+  var COOLDOWN_MS = 10000;
 
-// Cooldown between auto-reloads. A genuine stale-tab failure is fixed by a
-// single reload, so a second failure inside this window means the asset is
-// actually broken (not just stale) and we must stop to avoid a reload loop.
-const RELOAD_COOLDOWN_MS = 10_000;
+  function reloadOnce(): void {
+    var now = Date.now();
+    var last = 0;
+    try {
+      last = Number(window.sessionStorage.getItem(RELOAD_KEY)) || 0;
+    } catch (e) {
+      last = 0;
+    }
+    if (now - last < COOLDOWN_MS) return;
+    try {
+      window.sessionStorage.setItem(RELOAD_KEY, String(now));
+    } catch (e) {
+      // sessionStorage unavailable (private mode); reload anyway, once.
+    }
+    window.location.reload();
+  }
 
-// Equivalent to @docusaurus/ExecutionEnvironment, inlined so this module is
-// importable in plain Node (tests) without Docusaurus's webpack alias.
-const canUseDOM =
-  typeof window !== "undefined" &&
-  typeof window.document !== "undefined" &&
-  typeof window.document.createElement !== "undefined";
+  function isStaleAsset(url: unknown): boolean {
+    return typeof url === "string" && url.indexOf("/assets/") !== -1;
+  }
 
-export function isChunkLoadError(reason: unknown): boolean {
-  if (!(reason instanceof Error)) return false;
-  const name = reason.name || "";
-  const message = reason.message || "";
-  return (
-    name === "ChunkLoadError" ||
-    /Loading (CSS )?chunk [\w-]+ failed/i.test(message) ||
-    /error loading dynamically imported module/i.test(message) ||
-    /failed to fetch dynamically imported module/i.test(message) ||
-    /importing a module script failed/i.test(message)
-  );
-}
-
-export function reloadOnce(): void {
-  const lastReloadAt = Number(sessionStorage.getItem(LAST_RELOAD_KEY) || 0);
-  if (Date.now() - lastReloadAt < RELOAD_COOLDOWN_MS) return;
-  sessionStorage.setItem(LAST_RELOAD_KEY, String(Date.now()));
-  window.location.reload();
-}
-
-export function installChunkReloadHandler(target: Window): void {
-  target.addEventListener("unhandledrejection", (event) => {
-    if (isChunkLoadError(event.reason)) reloadOnce();
-  });
-
-  target.addEventListener(
+  // Capture phase: failed <script>/<link> loads do not bubble. Catches the
+  // hashed bundle/stylesheet 404s directly.
+  window.addEventListener(
     "error",
-    (event) => {
-      if (isChunkLoadError(event.error)) {
-        reloadOnce();
-        return;
-      }
-      // Failed <script>/<link> resource loads don't bubble, so they only reach
-      // this listener in the capture phase and carry no Error object.
-      const element = event.target;
+    function (event: Event): void {
+      var el = event.target as HTMLScriptElement & HTMLLinkElement;
+      if (!el || !el.tagName) return;
+      var tag = el.tagName.toUpperCase();
+      if (tag !== "SCRIPT" && tag !== "LINK") return;
+      if (isStaleAsset(el.src) || isStaleAsset(el.href)) reloadOnce();
+    },
+    true,
+  );
+
+  // Post-boot route chunk failures surface as rejected dynamic imports.
+  window.addEventListener(
+    "unhandledrejection",
+    function (event: PromiseRejectionEvent): void {
+      var reason = event.reason;
+      var name = reason && reason.name ? reason.name : "";
+      var message = reason && reason.message ? reason.message : "";
       if (
-        element instanceof HTMLScriptElement ||
-        element instanceof HTMLLinkElement
+        name === "ChunkLoadError" ||
+        /Loading (CSS )?chunk [\w-]+ failed/i.test(message) ||
+        /dynamically imported module/i.test(message)
       ) {
         reloadOnce();
       }
     },
-    true,
   );
-}
 
-if (canUseDOM) {
-  installChunkReloadHandler(window);
+  // Primary boot-failure signal, mirroring Docusaurus's own BaseUrlIssueBanner
+  // check: if the client bundle never set window.docusaurus by the time the DOM
+  // is ready, an asset failed to load -- recover by reloading.
+  function checkBoot(): void {
+    var w = window as unknown as { docusaurus?: unknown };
+    if (typeof w.docusaurus === "undefined") reloadOnce();
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", checkBoot);
+  } else {
+    checkBoot();
+  }
 }

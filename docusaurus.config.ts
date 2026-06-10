@@ -3,6 +3,7 @@ import type { Config } from "@docusaurus/types";
 import type * as Preset from "@docusaurus/preset-classic";
 import path from "path";
 import aboutDevhubPlugin from "./plugins/about-devhub";
+import chunkReloadPlugin from "./plugins/chunk-reload";
 import contentEntriesPlugin from "./plugins/content-entries";
 import cookbooksPlugin from "./plugins/cookbooks";
 import llmsTxtPlugin from "./plugins/llms-txt";
@@ -90,10 +91,6 @@ const config: Config = {
 
   themes: ["@docusaurus/theme-mermaid"],
 
-  // Transparently recovers stale tabs that 404 on old chunks after a redeploy.
-  // See src/client/chunk-reload.ts.
-  clientModules: [require.resolve("./src/client/chunk-reload.ts")],
-
   presets: [
     [
       "classic",
@@ -173,6 +170,7 @@ const config: Config = {
     aboutDevhubPlugin,
     cookbooksPlugin,
     perspectivesPlugin,
+    chunkReloadPlugin,
   ],
 
   themeConfig: {
