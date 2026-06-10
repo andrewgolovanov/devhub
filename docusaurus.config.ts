@@ -3,6 +3,7 @@ import type { Config } from "@docusaurus/types";
 import type * as Preset from "@docusaurus/preset-classic";
 import path from "path";
 import aboutDevhubPlugin from "./plugins/about-devhub";
+import chunkReloadPlugin from "./plugins/chunk-reload";
 import contentEntriesPlugin from "./plugins/content-entries";
 import cookbooksPlugin from "./plugins/cookbooks";
 import llmsTxtPlugin from "./plugins/llms-txt";
@@ -169,6 +170,7 @@ const config: Config = {
     aboutDevhubPlugin,
     cookbooksPlugin,
     perspectivesPlugin,
+    chunkReloadPlugin,
   ],
 
   themeConfig: {
