@@ -1,8 +1,8 @@
-import { FilterIcon } from "lucide-react";
 import {
   useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
 } from "react";
@@ -11,18 +11,13 @@ import { TemplateCard } from "@/components/templates/template-card";
 import { TemplateFilters } from "@/components/templates/template-filters";
 import { TemplateSearch } from "@/components/templates/template-search";
 import { Pagination } from "@site/src/components/templates/pagination";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { useFeatureFlags } from "@/lib/feature-flags";
 import { matchesTemplateFilter, type Service } from "@/lib/recipes/recipes";
 import { buildTemplateItems } from "@/lib/templates/template-items";
 import { useReplitTemplateIds } from "@/lib/use-raw-content-markdown";
+import { cn } from "@/lib/utils";
 
 const ITEMS_PER_PAGE = 6;
 
@@ -103,6 +98,34 @@ export function TemplatesIndexContent(): ReactNode {
     setReplitOnly((prev) => !prev);
   }, []);
 
+  const filtersScrollRef = useRef<HTMLDivElement>(null);
+  const [filterScrollState, setFilterScrollState] = useState({
+    left: false,
+    right: false,
+  });
+
+  const updateFilterScrollState = useCallback(() => {
+    const el = filtersScrollRef.current;
+    if (!el) return;
+    setFilterScrollState({
+      left: el.scrollLeft > 1,
+      right: el.scrollLeft + el.clientWidth < el.scrollWidth - 1,
+    });
+  }, []);
+
+  useEffect(() => {
+    updateFilterScrollState();
+    const el = filtersScrollRef.current;
+    if (!el) return;
+    if (typeof ResizeObserver !== "undefined") {
+      const ro = new ResizeObserver(updateFilterScrollState);
+      ro.observe(el);
+      return () => ro.disconnect();
+    }
+    window.addEventListener("resize", updateFilterScrollState);
+    return () => window.removeEventListener("resize", updateFilterScrollState);
+  }, [selectedFilterCount, updateFilterScrollState]);
+
   return (
     <>
       <section className="pt-12 md:pt-16" id="templates-list">
@@ -123,21 +146,174 @@ export function TemplatesIndexContent(): ReactNode {
           </aside>
 
           <div className="min-w-0">
-            <div className="mb-8 flex flex-col gap-4 lg:hidden">
-              <TemplateSearch value={searchQuery} onChange={setSearchQuery} />
-              <Button
-                className="w-fit gap-1.5 rounded-none bg-transparent border border-grey-20 text-grey-20 hover:bg-grey-90"
-                size="sm"
-                onClick={() => setMobileFiltersOpen(true)}
-              >
-                <FilterIcon className="size-3.5" />
-                Filters
-                {hasSelectedFilters && (
-                  <Badge className="ml-0.5 size-5 justify-center rounded-full p-0 text-[10px]">
-                    {selectedFilterCount}
-                  </Badge>
-                )}
-              </Button>
+            <div className="mb-12 lg:hidden">
+              <div className="flex items-center gap-3">
+                <div className="flex-1">
+                  <TemplateSearch
+                    value={searchQuery}
+                    onChange={setSearchQuery}
+                  />
+                </div>
+                <div className="shrink-0">
+                  <Button
+                    className="size-10 p-0 rounded-none bg-transparent border text-[#000] border-[#C7C9D1] hover:bg-grey-90"
+                    onClick={() => setMobileFiltersOpen(true)}
+                    aria-label="Open filters"
+                  >
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 12 12"
+                      fill="none"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0.5 1.5H11.5"
+                        stroke="currentColor"
+                        strokeLinecap="square"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M5 10.5H7"
+                        stroke="currentColor"
+                        strokeLinecap="square"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M2 4.5H10"
+                        stroke="currentColor"
+                        strokeLinecap="square"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M3.5 7.5H8.5"
+                        stroke="currentColor"
+                        strokeLinecap="square"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </Button>
+                </div>
+              </div>
+              {hasSelectedFilters && (
+                <div className="mt-3 flex items-center gap-3">
+                  {selectedFilterCount >= 2 && (
+                    <>
+                      <Button
+                        style={{ padding: 0 }}
+                        className="h-auto shrink-0 gap-1 rounded-none bg-transparent font-sans text-sm/none font-medium tracking-tight text-black/30 uppercase shadow-none hover:bg-transparent! hover:text-black active:bg-transparent! focus-visible:bg-transparent! focus-visible:ring-db-cyan focus-visible:ring-offset-db-oat-light [&_svg:not([class*='size-'])]:size-3"
+                        type="button"
+                        variant="ghost"
+                        onClick={handleClearSelectedFilters}
+                      >
+                        Clear all
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 12 12"
+                          fill="none"
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M10.125 1.875L1.875 10.125M1.875 1.875L10.125 10.125"
+                            stroke="currentColor"
+                            strokeWidth="1.13"
+                            strokeMiterlimit="10"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </Button>
+                      <div
+                        className="h-8 w-px shrink-0 bg-[#C7C9D1]"
+                        aria-hidden="true"
+                      />
+                    </>
+                  )}
+                  <div className="relative min-w-0 flex-1">
+                    <div
+                      ref={filtersScrollRef}
+                      className="scroll-px-5 overflow-x-auto overscroll-x-contain [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                      onScroll={updateFilterScrollState}
+                    >
+                      <div className="flex gap-2">
+                        {Array.from(selectedServices).map((service) => (
+                          <span
+                            key={service}
+                            className="flex shrink-0 items-center gap-1.5 bg-[#FF5F46] px-3.5 py-1.5 font-mono text-sm font-medium uppercase text-black"
+                          >
+                            {service}
+                            <button
+                              onClick={() => handleToggleService(service)}
+                              aria-label={`Remove ${service} filter`}
+                              className="flex items-center"
+                            >
+                              <svg
+                                width="12"
+                                height="12"
+                                viewBox="0 0 12 12"
+                                fill="none"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M10.125 1.875L1.875 10.125M1.875 1.875L10.125 10.125"
+                                  stroke="currentColor"
+                                  strokeWidth="1.13"
+                                  strokeMiterlimit="10"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </button>
+                          </span>
+                        ))}
+                        {replitOnly && (
+                          <span className="flex shrink-0 items-center gap-1.5 bg-[#FF5F46] px-3.5 py-1.5 font-mono text-sm font-medium uppercase text-black">
+                            Replit
+                            <button
+                              onClick={handleToggleReplitOnly}
+                              aria-label="Remove Replit filter"
+                              className="flex items-center"
+                            >
+                              <svg
+                                width="12"
+                                height="12"
+                                viewBox="0 0 12 12"
+                                fill="none"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M10.125 1.875L1.875 10.125M1.875 1.875L10.125 10.125"
+                                  stroke="currentColor"
+                                  strokeWidth="1.13"
+                                  strokeMiterlimit="10"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </button>
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    <div
+                      aria-hidden="true"
+                      className={cn(
+                        "pointer-events-none absolute inset-y-0 left-0 w-8 bg-linear-to-r from-[#f9f7f4] to-transparent transition-opacity duration-200",
+                        filterScrollState.left ? "opacity-100" : "opacity-0",
+                      )}
+                    />
+                    <div
+                      aria-hidden="true"
+                      className={cn(
+                        "pointer-events-none absolute inset-y-0 right-0 w-8 bg-linear-to-l from-[#f9f7f4] to-transparent transition-opacity duration-200",
+                        filterScrollState.right ? "opacity-100" : "opacity-0",
+                      )}
+                    />
+                  </div>
+                </div>
+              )}
             </div>
 
             {filteredItems.length === 0 ? (
@@ -169,19 +345,73 @@ export function TemplatesIndexContent(): ReactNode {
       <Sheet open={mobileFiltersOpen} onOpenChange={setMobileFiltersOpen}>
         <SheetContent
           side="bottom"
-          className="max-h-[80vh] overflow-y-auto p-6 bg-[#f9f7f4]"
+          showCloseButton={false}
+          className="top-0 flex flex-col gap-0 p-0 bg-[#f9f7f4]"
         >
-          <SheetHeader className="p-0 pb-4">
-            <SheetTitle>Filters</SheetTitle>
-          </SheetHeader>
-          <TemplateFilters
-            selectedServices={selectedServices}
-            onToggleService={handleToggleService}
-            replitOnly={replitOnly}
-            onToggleReplitOnly={handleToggleReplitOnly}
-            selectedFilterCount={selectedFilterCount}
-            onClearFilters={handleClearSelectedFilters}
-          />
+          <div className="flex shrink-0 items-center justify-between px-6 pt-6 pb-8">
+            <SheetTitle className="text-lg font-medium md:text-xl">
+              Choose Filters
+            </SheetTitle>
+            <button
+              onClick={() => setMobileFiltersOpen(false)}
+              className="flex items-center justify-center text-black opacity-70 hover:opacity-100 focus:outline-none"
+              aria-label="Close filters"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M13.5 2.5L2.5 13.5"
+                  stroke="currentColor"
+                  strokeMiterlimit="10"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M2.5 2.5L13.5 13.5"
+                  stroke="currentColor"
+                  strokeMiterlimit="10"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <div className="flex-1 overflow-y-auto px-6 pb-6">
+            <TemplateFilters
+              selectedServices={selectedServices}
+              onToggleService={handleToggleService}
+              replitOnly={replitOnly}
+              onToggleReplitOnly={handleToggleReplitOnly}
+              selectedFilterCount={selectedFilterCount}
+              onClearFilters={handleClearSelectedFilters}
+              hideFilterMeta
+            />
+          </div>
+
+          {hasSelectedFilters && (
+            <div className="flex shrink-0 items-center gap-4 border-t border-black/10 px-6 py-4">
+              <Button
+                variant="outline"
+                className="h-10 flex-1 rounded-none border-black bg-transparent font-mono text-sm font-medium uppercase text-black hover:bg-black/5 hover:text-black"
+                onClick={handleClearSelectedFilters}
+              >
+                Clear all
+              </Button>
+              <Button
+                className="h-10 flex-1 rounded-none bg-[#FF5F46] font-mono text-sm font-medium uppercase text-black hover:bg-[#FF5F46]/90"
+                onClick={() => setMobileFiltersOpen(false)}
+              >
+                Apply filters ({selectedFilterCount})
+              </Button>
+            </div>
+          )}
         </SheetContent>
       </Sheet>
     </>

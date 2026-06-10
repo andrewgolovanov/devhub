@@ -51,6 +51,7 @@ export function TemplateFilters({
   onToggleReplitOnly,
   selectedFilterCount,
   onClearFilters,
+  hideFilterMeta = false,
 }: {
   selectedServices: Set<Service>;
   onToggleService: (service: Service) => void;
@@ -58,6 +59,7 @@ export function TemplateFilters({
   onToggleReplitOnly: () => void;
   selectedFilterCount: number;
   onClearFilters: () => void;
+  hideFilterMeta?: boolean;
 }) {
   const selectedFilterLabel =
     selectedFilterCount === 1
@@ -66,7 +68,7 @@ export function TemplateFilters({
 
   return (
     <nav className="flex flex-col" aria-label="Filters">
-      {selectedFilterCount > 0 ? (
+      {!hideFilterMeta && selectedFilterCount > 0 ? (
         <div className="mb-5 flex flex-col gap-5">
           <div className="flex items-start justify-between gap-4">
             <p className="m-0 text-xs/none font-medium tracking-tight text-black uppercase">

@@ -69,17 +69,20 @@ function Topbar({ theme }: { theme: CTATheme }) {
   return (
     <header
       className={cn(
-        "flex items-center gap-x-6.5 py-4.5 px-6.5",
+        "flex items-center gap-x-4.5 md:gap-x-6.5 py-4.5 px-6.5",
         theme === "outline"
           ? "border-y border-grey-20 bg-black"
           : "mx-1.5 bg-[#202021]",
       )}
     >
-      <div className="flex items-center gap-4" aria-hidden="true">
+      <div
+        className="flex items-center gap-2 md:gap-3 lg:gap-4"
+        aria-hidden="true"
+      >
         {TOPBAR_DOTS.map((dotClassName) => (
           <span
             className={cn(
-              "size-4 shrink-0",
+              "size-2.5 md:size-3 lg:size-4 shrink-0",
               theme === "outline" && "border border-grey-20",
               dotClassName,
             )}
@@ -87,8 +90,9 @@ function Topbar({ theme }: { theme: CTATheme }) {
           />
         ))}
       </div>
-      <p className="truncate font-mono text-xs leading-[1.15] font-normal tracking-[-0.04em] text-white/40 uppercase md:text-lg">
-        Databricks Developer Hub — Getting started
+      <p className="truncate font-mono text-sm leading-[1.15] font-normal tracking-[-0.04em] text-white/40 uppercase md:text-lg">
+        Databricks Developer Hub
+        <span className="hidden md:inline"> — Getting started</span>
       </p>
     </header>
   );
