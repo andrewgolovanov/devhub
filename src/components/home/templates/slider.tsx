@@ -383,6 +383,21 @@ export function TemplateSlider({
                 ? slider.handleNativeCarouselPointerDown
                 : undefined
             }
+            onPointerCancel={
+              slider.shouldUseNativeScroll
+                ? slider.handleNativeCarouselPointerRelease
+                : undefined
+            }
+            onPointerLeave={
+              slider.shouldUseNativeScroll
+                ? slider.handleNativeCarouselPointerRelease
+                : undefined
+            }
+            onPointerUp={
+              slider.shouldUseNativeScroll
+                ? slider.handleNativeCarouselPointerRelease
+                : undefined
+            }
             onScroll={
               slider.shouldUseNativeScroll
                 ? slider.handleNativeCarouselScroll

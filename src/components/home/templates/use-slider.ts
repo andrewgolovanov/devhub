@@ -44,6 +44,7 @@ export type TemplateSliderSettings = {
   cardResizeDuration: number;
   textWidthDuration: number;
   autoplayInterval: number;
+  manualInteractionDelay: number;
   viewportThreshold: number;
 };
 
@@ -59,8 +60,9 @@ export const DEFAULT_TEMPLATE_SLIDER_SETTINGS: TemplateSliderSettings = {
   cardDuration: TEMPLATE_CARD_WIDTH_TRANSITION.duration,
   cardResizeDuration: 0.2,
   textWidthDuration: 0,
-  autoplayInterval: 4000,
-  viewportThreshold: 0.35,
+  autoplayInterval: 3700,
+  manualInteractionDelay: 2500,
+  viewportThreshold: 0.25,
 };
 
 export function useTemplateSlider({
@@ -86,7 +88,8 @@ export function useTemplateSlider({
   const [shouldAnimateTrack, setShouldAnimateTrack] = useState(true);
   const [trackDuration, setTrackDuration] = useState(settings.trackDuration);
   const [isAutoplayPaused, setIsAutoplayPaused] = useState(false);
-  const [hasManualInteraction, setHasManualInteraction] = useState(false);
+  const [autoplayDelay, setAutoplayDelay] = useState(settings.autoplayInterval);
+  const [autoplayScheduleKey, setAutoplayScheduleKey] = useState(0);
   const [shouldUseCompactDesktopLayout, setShouldUseCompactDesktopLayout] =
     useState(false);
   const [shouldUseDesktopGap, setShouldUseDesktopGap] = useState(false);
@@ -166,6 +169,10 @@ export function useTemplateSlider({
   const dragSlideThreshold = Math.min(Math.max(cardStep * 0.2, 48), 72);
   const shouldUseTwoFullCardsLayout =
     shouldUseThreeCardLayout && !shouldUseFixedCardWidths;
+  const delayAutoplayAfterManualInteraction = useCallback(() => {
+    setAutoplayDelay(settings.manualInteractionDelay);
+    setAutoplayScheduleKey((currentKey) => currentKey + 1);
+  }, [settings.manualInteractionDelay]);
 
   const scrollNativeCarouselToIndex = useCallback(
     (targetIndex: number, behavior: ScrollBehavior = "smooth") => {
@@ -189,9 +196,15 @@ export function useTemplateSlider({
   const handleNativeCarouselPointerDown = useCallback(() => {
     if (!shouldUseNativeScroll) return;
 
-    setHasManualInteraction(true);
     setIsAutoplayPaused(true);
   }, [shouldUseNativeScroll]);
+
+  const handleNativeCarouselPointerRelease = useCallback(() => {
+    if (!shouldUseNativeScroll) return;
+
+    setIsAutoplayPaused(false);
+    delayAutoplayAfterManualInteraction();
+  }, [delayAutoplayAfterManualInteraction, shouldUseNativeScroll]);
 
   const handleNativeCarouselScroll = useCallback(() => {
     if (
@@ -226,7 +239,7 @@ export function useTemplateSlider({
   const handlePreviousSlide = useCallback(() => {
     if (isPreviousSlideDisabled) return;
 
-    setHasManualInteraction(true);
+    delayAutoplayAfterManualInteraction();
 
     if (shouldUseNativeScroll) {
       scrollNativeCarouselToIndex(activeCarouselIndex - 1);
@@ -239,6 +252,7 @@ export function useTemplateSlider({
     setSelectedIndex(Math.max(activeCarouselIndex - 1, 0));
   }, [
     activeCarouselIndex,
+    delayAutoplayAfterManualInteraction,
     isPreviousSlideDisabled,
     scrollNativeCarouselToIndex,
     settings.trackDuration,
@@ -267,9 +281,9 @@ export function useTemplateSlider({
   ]);
 
   const handleNextSlide = useCallback(() => {
-    setHasManualInteraction(true);
+    delayAutoplayAfterManualInteraction();
     goToNextSlide();
-  }, [goToNextSlide]);
+  }, [delayAutoplayAfterManualInteraction, goToNextSlide]);
 
   const handleCarouselPointerDown = useCallback(
     (event: ReactPointerEvent<HTMLDivElement>) => {
@@ -321,7 +335,7 @@ export function useTemplateSlider({
         setShouldAnimateTrack(false);
         setIsDraggingCarousel(true);
         setHasCarouselMoved(true);
-        setHasManualInteraction(true);
+        delayAutoplayAfterManualInteraction();
         setIsAutoplayPaused(true);
       }
 
@@ -329,7 +343,7 @@ export function useTemplateSlider({
       dragLastTimeRef.current = performance.now();
       setDragOffset(nextDragOffset);
     },
-    [shouldUseNativeScroll],
+    [delayAutoplayAfterManualInteraction, shouldUseNativeScroll],
   );
 
   const finishCarouselDrag = useCallback(
@@ -422,7 +436,7 @@ export function useTemplateSlider({
 
       event.preventDefault();
       event.stopPropagation();
-      setHasManualInteraction(true);
+      delayAutoplayAfterManualInteraction();
 
       if (shouldUseNativeScroll) {
         scrollNativeCarouselToIndex(cardIndex);
@@ -435,6 +449,7 @@ export function useTemplateSlider({
       setSelectedIndex(cardIndex);
     },
     [
+      delayAutoplayAfterManualInteraction,
       scrollNativeCarouselToIndex,
       settings.inactiveClickDuration,
       shouldUseNativeScroll,
@@ -498,7 +513,6 @@ export function useTemplateSlider({
   useEffect(() => {
     if (
       isAutoplayPaused ||
-      hasManualInteraction ||
       !isAutoplayInViewport ||
       !isBrowserTabActive ||
       isNextSlideDisabled
@@ -506,15 +520,16 @@ export function useTemplateSlider({
       return;
     }
 
-    const autoplayInterval = window.setInterval(
-      goToNextSlide,
-      settings.autoplayInterval,
-    );
+    const autoplayTimeout = window.setTimeout(() => {
+      goToNextSlide();
+      setAutoplayDelay(settings.autoplayInterval);
+    }, autoplayDelay);
 
-    return () => window.clearInterval(autoplayInterval);
+    return () => window.clearTimeout(autoplayTimeout);
   }, [
+    autoplayDelay,
+    autoplayScheduleKey,
     goToNextSlide,
-    hasManualInteraction,
     isAutoplayInViewport,
     isAutoplayPaused,
     isBrowserTabActive,
@@ -590,6 +605,7 @@ export function useTemplateSlider({
     handleCarouselPointerMove,
     handleCarouselPointerUp,
     handleNativeCarouselPointerDown,
+    handleNativeCarouselPointerRelease,
     handleNativeCarouselScroll,
     handleNextSlide,
     handlePreviousSlide,
