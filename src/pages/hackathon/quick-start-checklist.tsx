@@ -118,8 +118,13 @@ const steps: ChecklistStep[] = [
             dataset page.
           </li>
           <li>
-            Click the <strong className={strong}>Open</strong> button in the
-            top-right corner to add the dataset to your Databricks workspace.
+            Click the <strong className={strong}>Get instant access</strong>{" "}
+            button in the top-right corner and accept the terms and conditions.
+          </li>
+          <li>
+            Once the terms and conditions are accepted, an{" "}
+            <strong className={strong}>Open</strong> button will appear. Click
+            it to add the dataset to your Databricks workspace.
           </li>
         </ul>
         <div className="mt-3">
