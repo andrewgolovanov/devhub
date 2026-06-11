@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "release": "v0.2.1",
-  "last_updated": "2026-06-02T08:57:33.61471-07:00",
+  "release": "v0.2.3",
+  "last_updated": "2026-06-10T22:32:35.848209-07:00",
   "skills": {
     "databricks-apps": "0.1.2",
     "databricks-core": "0.1.0",
@@ -9,8 +9,9 @@
     "databricks-jobs": "0.2.0",
     "databricks-lakebase": "0.1.0",
     "databricks-model-serving": "0.1.0",
-    "databricks-pipelines": "0.1.1",
-    "databricks-serverless-migration": "0.1.0"
+    "databricks-pipelines": "0.3.0",
+    "databricks-serverless-migration": "0.1.0",
+    "databricks-vector-search": "0.1.0"
   },
   "repo_dirs": {
     "databricks-apps": "skills",
@@ -20,7 +21,8 @@
     "databricks-lakebase": "skills",
     "databricks-model-serving": "skills",
     "databricks-pipelines": "skills",
-    "databricks-serverless-migration": "skills"
+    "databricks-serverless-migration": "skills",
+    "databricks-vector-search": "skills"
   },
   "scope": "project"
 }
