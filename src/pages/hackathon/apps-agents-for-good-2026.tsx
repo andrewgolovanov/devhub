@@ -43,7 +43,7 @@ const event: HackathonEvent = {
   checklistUrl: "/hackathon/quick-start-checklist",
   setupGuideUrl: "/hackathon/free-edition-setup",
   datasetUrl:
-    "https://login.databricks.com/signup?intent=SIGN_UP&destination_url=%2Fmarketplace%2Fconsumer%2Flistings%2Fed6cf259-81e7-4758-94c5-b444f8a5275a%3FshowModal%3Dtrue&utm_source=open-in-databricks&utm_medium=marketplace&utm_campaign=wanderbricks-test",
+    "https://login.databricks.com/signup?intent=SIGN_UP&destination_url=%2Fmarketplace%2Fconsumer%2Flistings%2F19326b3d-db63-4627-abc0-cf4e8131a305%3FshowModal%3Dtrue&utm_source=open-in-databricks&utm_medium=marketplace&utm_campaign=dais-2026-hackathon",
   resources: [
     {
       title: "Read the Docs",
