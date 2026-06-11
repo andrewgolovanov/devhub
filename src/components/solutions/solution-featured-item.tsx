@@ -64,8 +64,13 @@ export function SolutionFeaturedItem({
         item={item}
         ariaLabel={`Read ${item.title}`}
       >
-        <div className="relative aspect-490/257 overflow-hidden bg-grey-20">
-          <SolutionItemVisual item={item} variant="featured" />
+        <div className="relative aspect-1013/532 overflow-hidden bg-grey-20">
+          <SolutionItemVisual
+            item={item}
+            variant="featured"
+            width={1013}
+            height={532}
+          />
         </div>
       </SolutionItemLink>
     </article>

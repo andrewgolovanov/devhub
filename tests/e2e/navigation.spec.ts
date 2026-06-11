@@ -415,6 +415,22 @@ test.describe("footer navigation", () => {
       label: "Changelog",
     },
     {
+      href: "https://www.databricks.com/legal/privacynotice",
+      label: "Privacy Notice",
+    },
+    {
+      href: "https://www.databricks.com/legal/terms-of-use",
+      label: "Terms of Use",
+    },
+    {
+      href: "https://www.databricks.com/legal/modern-slavery-policy-statement",
+      label: "Modern Slavery Statement",
+    },
+    {
+      href: "https://www.databricks.com/legal/supplemental-privacy-notice-california-residents",
+      label: "California Privacy",
+    },
+    {
       href: "https://github.com/databricks/devhub",
       label: "GitHub",
     },
@@ -431,6 +447,10 @@ test.describe("footer navigation", () => {
 
   const EXPECTED_FOOTER_HREFS = [
     "/",
+    "https://www.databricks.com/legal/privacynotice",
+    "https://www.databricks.com/legal/terms-of-use",
+    "https://www.databricks.com/legal/modern-slavery-policy-statement",
+    "https://www.databricks.com/legal/supplemental-privacy-notice-california-residents",
     "/product/data-lakehouse",
     "/product/agent-bricks",
     "/product/databricks-apps",

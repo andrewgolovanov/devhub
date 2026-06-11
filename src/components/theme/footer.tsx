@@ -76,6 +76,25 @@ const SOCIAL_LINKS = [
   },
 ] as const;
 
+const LEGAL_LINKS: FooterItem[] = [
+  {
+    label: "Privacy Notice",
+    href: "https://www.databricks.com/legal/privacynotice",
+  },
+  {
+    label: "Terms of Use",
+    href: "https://www.databricks.com/legal/terms-of-use",
+  },
+  {
+    label: "Modern Slavery Statement",
+    href: "https://www.databricks.com/legal/modern-slavery-policy-statement",
+  },
+  {
+    label: "California Privacy",
+    href: "https://www.databricks.com/legal/supplemental-privacy-notice-california-residents",
+  },
+];
+
 type SocialIcon = keyof typeof Icons;
 
 function resolveSocialLabel(label: string): string {
@@ -122,6 +141,29 @@ function FooterLink({ item }: { item: FooterItem }): ReactNode {
   );
 }
 
+function FooterLegalLinks({ className }: { className?: string }): ReactNode {
+  return (
+    <nav
+      className={cn("mt-2.5 flex flex-wrap gap-x-4 gap-y-3", className)}
+      aria-label="Legal links"
+    >
+      {LEGAL_LINKS.map((item) => (
+        <Link
+          key={item.label}
+          to={item.to ?? (item.href as string)}
+          target="_blank"
+          className={cn(
+            "inline-flex items-center w-fit text-[0.8125rem] leading-none tracking-tight no-underline transition-colors hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-db-cyan",
+            "text-grey-40 hover:text-grey-70",
+          )}
+        >
+          {item.label}
+        </Link>
+      ))}
+    </nav>
+  );
+}
+
 function NewFooter({ className }: { className?: string }) {
   const logoSrc = useBaseUrl("/img/databricks-logo.svg");
 
@@ -144,11 +186,12 @@ function NewFooter({ className }: { className?: string }) {
                 loading="lazy"
               />
             </Link>
-            <div className="flex-col gap-5 hidden lg:flex">
+            <div className="flex-col hidden lg:flex">
               <SystemStatus />
-              <p className="text-[.8125rem] leading-none tracking-tight text-grey-40">
+              <p className="mt-5 text-sm leading-none font-medium tracking-tight text-grey-40 lg:text-[.8125rem] lg:font-normal">
                 © Databricks, Inc. All rights reserved
               </p>
+              <FooterLegalLinks />
             </div>
           </div>
 
@@ -181,11 +224,12 @@ function NewFooter({ className }: { className?: string }) {
             </div>
           </div>
 
-          <div className="flex flex-col mt-5 gap-5 lg:hidden">
+          <div className="flex flex-col mt-5 lg:hidden">
             <SystemStatus />
-            <p className="text-sm leading-none font-medium tracking-tight text-grey-40">
+            <p className="mt-5 text-sm leading-none font-medium tracking-tight text-grey-40">
               © Databricks, Inc. All rights reserved
             </p>
+            <FooterLegalLinks className="mt-4" />
           </div>
         </div>
       </div>

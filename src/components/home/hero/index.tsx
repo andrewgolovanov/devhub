@@ -113,7 +113,7 @@ function Hero({ className }: HeroProps) {
             </p>
             <div className="mt-4.5 flex flex-col gap-x-5 gap-y-3 sm:flex-row md:mt-5 lg:mt-6 xl:mt-0">
               <Button
-                className="h-10 rounded-none bg-white pl-7 pr-6 font-mono text-base leading-none font-medium tracking-tight text-black uppercase shadow-none hover:bg-white/90 lg:h-11"
+                className="h-10 rounded-none bg-white px-7 font-mono text-base leading-none font-medium tracking-tight text-black uppercase shadow-none hover:bg-white/90 lg:h-11"
                 asChild
               >
                 <Link

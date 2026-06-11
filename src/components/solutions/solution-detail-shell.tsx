@@ -36,6 +36,12 @@ import {
 import { siteUrlFromConfig } from "@/lib/site-url";
 
 const solutionComponents = { a: BaseUrlAnchor, pre: RecipePre };
+const defaultSocialImagePath = "/img/databricks-social-card.svg";
+
+function absoluteSiteAssetUrl(siteUrl: string, assetPath: string): string {
+  if (/^https?:\/\//i.test(assetPath)) return assetPath;
+  return `${siteUrl}/${assetPath.replace(/^\/+/, "")}`;
+}
 
 function SolutionCtaActions(): ReactNode {
   return (
@@ -142,13 +148,11 @@ function SolutionDetailHeader({
 
 function SolutionDetailRail({ toc }: { toc: ReactNode }): ReactNode {
   return (
-    <aside className="hidden lg:block xl:hidden h-full w-55 min-w-0 shrink-0 min-[90rem]:block">
-      <div className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-x-hidden overflow-y-auto">
-        <p className="m-0 font-mono text-xs leading-none font-medium text-grey-50 uppercase">
-          On this page
-        </p>
-        {toc}
-      </div>
+    <aside className="sticky top-16 hidden max-h-[calc(100svh-4rem)] w-55 min-w-0 shrink-0 self-start overflow-x-hidden overflow-y-auto pt-8 pb-10 -mt-8 -mb-10 lg:block xl:hidden min-[90rem]:block">
+      <p className="m-0 font-mono text-xs leading-none font-medium text-grey-50 uppercase">
+        On this page
+      </p>
+      {toc}
     </aside>
   );
 }
@@ -248,12 +252,23 @@ export function SolutionDetail({
   const { siteConfig } = useDocusaurusContext();
   const siteUrl = siteUrlFromConfig(siteConfig.url, siteConfig.baseUrl);
   const pageUrl = `${siteUrl}/solutions/${item.id}`;
+  const ogImageUrl = absoluteSiteAssetUrl(
+    siteUrl,
+    item.previewImage ?? defaultSocialImagePath,
+  );
   const authors = item.authors.map(getSolutionAuthor);
 
   return (
     <Layout title={item.title} description={item.description} noFooter>
       <Head>
         <link rel="canonical" href={pageUrl} />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={item.title} />
+        <meta property="og:description" content={item.description} />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:image" content={ogImageUrl} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content={ogImageUrl} />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -261,6 +276,7 @@ export function SolutionDetail({
             headline: item.title,
             description: item.description,
             url: pageUrl,
+            image: ogImageUrl,
             datePublished: item.publishedAt,
             author: authors.map((author) => ({
               "@type": "Person",

@@ -130,8 +130,8 @@ export function SolutionSearch({ items }: SolutionSearchProps): ReactNode {
         <SearchDialogTriggerButton
           ariaLabel="Search solutions"
           placeholder="Search posts..."
-          className="h-8 w-full justify-start rounded-none border border-grey-60 bg-transparent pr-2.5 pl-2.5 text-[0.8125rem] leading-none font-normal tracking-normal text-grey-50 shadow-none hover:bg-transparent hover:text-grey-50 focus-visible:ring-db-cyan lg:w-69 lg:has-[>kbd]:!pr-1.5"
-          kbdClassName="hidden h-5.5 w-8.75 min-w-0 rounded-none border border-grey-80 bg-transparent px-1.5 py-1 text-sm leading-none font-normal tracking-normal text-grey-50 lg:inline-flex"
+          className="h-8 w-full justify-start rounded-none border border-grey-60 bg-transparent pr-2.5 pl-2.5 text-[0.8125rem] leading-none font-normal tracking-normal text-[#71717A] shadow-none hover:bg-transparent hover:text-grey-70 focus-visible:ring-db-cyan lg:w-69 lg:has-[>kbd]:!pr-1.5"
+          kbdClassName="hidden h-5.5 w-8.75 min-w-0 rounded-none border border-grey-40 bg-transparent px-1.5 py-1 shadow-none text-sm leading-none font-normal tracking-normal text-grey-60 lg:inline-flex"
           variant="outline"
         />
       </DialogTrigger>

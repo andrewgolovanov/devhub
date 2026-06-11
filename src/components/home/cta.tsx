@@ -126,7 +126,7 @@ function CTAButtons({
         )}
       </Button>
       <Button
-        className="h-10 lg:h-11 rounded-none bg-white pl-7 pr-6 font-mono text-base leading-none font-medium tracking-tight text-black uppercase shadow-none hover:bg-white/90"
+        className="h-10 lg:h-11 rounded-none bg-white px-7 font-mono text-base leading-none font-medium tracking-tight text-black uppercase shadow-none hover:bg-white/90"
         asChild
       >
         <Link className="no-underline hover:no-underline" to="/docs/start-here">

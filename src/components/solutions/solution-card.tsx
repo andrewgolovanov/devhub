@@ -48,7 +48,12 @@ function SolutionCardVisualLink({ item }: { item: SolutionItem }): ReactNode {
       ariaLabel={`Read ${item.title}`}
     >
       <div className="relative aspect-490/257 overflow-hidden bg-grey-20">
-        <SolutionItemVisual item={item} variant="card" />
+        <SolutionItemVisual
+          item={item}
+          variant="card"
+          width={490}
+          height={257}
+        />
       </div>
     </SolutionItemLink>
   );

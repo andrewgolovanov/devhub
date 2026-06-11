@@ -70,7 +70,7 @@ export const solutionItems: SolutionItem[] = [
     authors: ["andre-landgraf"],
     publishedAt: "2026-05-04",
     source: "DevHub",
-    previewImage: "/img/solutions/devhub-launch.png",
+    previewImage: "/img/solutions/devhub-launch.jpg",
     previewImageAlt:
       "Cover graphic for Introducing DevHub with a grid, launch tags, and developer hub label",
   },
@@ -86,7 +86,7 @@ export const solutionItems: SolutionItem[] = [
     source: "Databricks Blog",
     authors: ["Pascal Vogel", "Evan Pandya", "Christopher Pries"],
     publishedAt: "2025-11-19",
-    previewImage: "/img/solutions/apps-lakebase-production.png",
+    previewImage: "/img/solutions/apps-lakebase-production.jpg",
     previewImageAlt:
       "Cover graphic for building production-ready data and AI apps with Databricks Apps and Lakebase",
   },
@@ -102,7 +102,7 @@ export const solutionItems: SolutionItem[] = [
     source: "Databricks Blog",
     authors: ["Pascal Vogel", "Evan Pandya"],
     publishedAt: "2026-03-16",
-    previewImage: "/img/solutions/agent-bricks-apps-business-users.png",
+    previewImage: "/img/solutions/agent-bricks-apps-business-users.jpg",
     previewImageAlt:
       "Cover graphic for shipping quality enterprise AI agents with Agent Bricks and Databricks Apps",
   },
@@ -118,7 +118,7 @@ export const solutionItems: SolutionItem[] = [
     source: "Databricks Blog",
     authors: ["Jasper Puts", "Antonio Javier Samaniego Jurado"],
     publishedAt: "2025-08-28",
-    previewImage: "/img/solutions/lakebase-transactional-layer.png",
+    previewImage: "/img/solutions/lakebase-transactional-layer.jpg",
     previewImageAlt:
       "Cover graphic for using Lakebase as a transactional data layer for Databricks Apps",
   },
@@ -139,7 +139,7 @@ export const solutionItems: SolutionItem[] = [
     source: "Databricks Blog",
     authors: ["Susan Pierce"],
     publishedAt: "2026-04-10",
-    previewImage: "/img/solutions/lakebase-database-branching.png",
+    previewImage: "/img/solutions/lakebase-database-branching.jpg",
     previewImageAlt:
       "Cover graphic for database branching in Postgres with Databricks Lakebase",
   },
