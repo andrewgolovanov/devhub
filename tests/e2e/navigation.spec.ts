@@ -888,8 +888,13 @@ test.describe("docs sidebar navigation", () => {
     const sidebar = page.getByRole("navigation", { name: "Docs sidebar" });
     await expect(sidebar.getByText("AppKit Reference")).toBeHidden();
     await expect(
-      sidebar.getByRole("button", { name: "Search documentation" }),
+      page.getByRole("banner").getByRole("button", {
+        name: "Search documentation",
+      }),
     ).toBeVisible();
+    await expect(
+      sidebar.getByRole("button", { name: "Search documentation" }),
+    ).toHaveCount(0);
     await expect(
       sidebar.getByRole("link", { name: "Start here" }),
     ).toBeVisible();

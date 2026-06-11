@@ -4,6 +4,10 @@ import type {
   PropSidebarItemCategory,
   PropSidebarItemLink,
 } from "@docusaurus/plugin-content-docs";
+import {
+  type GlobalDoc,
+  useLatestVersion,
+} from "@docusaurus/plugin-content-docs/client";
 import { useHistory } from "@docusaurus/router";
 import { type ReactNode, useMemo } from "react";
 
@@ -19,10 +23,17 @@ import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 type DocsSearchItem = SearchDialogItem;
 
 type DocsSidebarSearchProps = {
-  items: readonly PropSidebarItem[];
+  items?: readonly PropSidebarItem[];
+  iconClassName?: string;
+  triggerClassName?: string;
+  triggerKbdClassName?: string;
 };
 
 const SEARCH_PREVIEW_LIMIT = 8;
+const DEFAULT_TRIGGER_CLASS_NAME =
+  "h-8 w-full justify-start rounded-none border border-[#27272A] bg-[#27272A]/50 pr-2.5 pl-2.5 text-[0.8125rem] leading-none font-normal tracking-tight text-[#A1A1AA] shadow-none hover:bg-[#27272A]/50 hover:text-grey-90 focus-visible:ring-db-cyan lg:has-[>kbd]:!pr-1.5";
+const DEFAULT_TRIGGER_KBD_CLASS_NAME =
+  "hidden h-5.5 w-8.75 min-w-0 rounded-none border border-[#27272A] shadow-none bg-transparent px-1 py-0.5 text-xs leading-none font-normal tracking-normal text-[#A1A1AA] lg:inline-flex";
 
 function isCategory(item: PropSidebarItem): item is PropSidebarItemCategory {
   return item.type === "category";
@@ -76,6 +87,47 @@ function collectSearchItems(
 
     return [];
   });
+}
+
+function toDocGroup(doc: GlobalDoc): string {
+  const [section] = doc.id.split("/");
+
+  if (!section) return "Docs";
+
+  return section
+    .replaceAll(/[-_]/g, " ")
+    .replaceAll(/\b\w/g, (letter) => letter.toLocaleUpperCase());
+}
+
+function toDocTitle(doc: GlobalDoc): string {
+  const pathParts = doc.path.split("/").filter(Boolean);
+  const lastPart = pathParts.at(-1);
+
+  if (!lastPart) return doc.id;
+
+  return lastPart
+    .replaceAll(/[-_]/g, " ")
+    .replaceAll(/\b\w/g, (letter) => letter.toLocaleUpperCase());
+}
+
+function collectGlobalSearchItems(
+  docs: readonly GlobalDoc[],
+): DocsSearchItem[] {
+  return docs
+    .filter((doc) => !doc.unlisted)
+    .map((doc) => {
+      const group = toDocGroup(doc);
+
+      return {
+        id: doc.id,
+        title: toDocTitle(doc),
+        description: group,
+        href: doc.path,
+        group,
+        icon: docsIcon,
+        keywords: [doc.id, doc.path],
+      };
+    });
 }
 
 function getSearchResults(
@@ -135,17 +187,28 @@ function DocsSearchDialog({
 
 export function DocsSidebarSearch({
   items,
+  iconClassName = "size-3.5",
+  triggerClassName = DEFAULT_TRIGGER_CLASS_NAME,
+  triggerKbdClassName = DEFAULT_TRIGGER_KBD_CLASS_NAME,
 }: DocsSidebarSearchProps): ReactNode {
   const { open, query, setQuery, handleOpenChange } = useSearchDialogState();
-  const searchItems = useMemo(() => collectSearchItems(items), [items]);
+  const latestVersion = useLatestVersion(undefined);
+  const searchItems = useMemo(
+    () =>
+      items
+        ? collectSearchItems(items)
+        : collectGlobalSearchItems(latestVersion.docs),
+    [items, latestVersion.docs],
+  );
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
         <SearchDialogTriggerButton
           ariaLabel="Search documentation"
-          className="h-8 w-full justify-start rounded-none border border-[#27272A] bg-[#27272A]/50 pr-2.5 pl-2.5 text-[0.8125rem] leading-none font-normal tracking-tight text-[#A1A1AA] shadow-none hover:bg-[#27272A]/50 hover:text-grey-90 focus-visible:ring-db-cyan lg:has-[>kbd]:!pr-1.5"
-          kbdClassName="hidden h-5.5 w-8.75 min-w-0 rounded-none border border-[#27272A] shadow-none bg-transparent px-1 py-0.5 text-xs leading-none font-normal tracking-normal text-[#A1A1AA] lg:inline-flex"
+          className={triggerClassName}
+          iconClassName={iconClassName}
+          kbdClassName={triggerKbdClassName}
         />
       </DialogTrigger>
       <DocsSearchDialog

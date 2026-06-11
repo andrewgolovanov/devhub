@@ -6,7 +6,6 @@ import {
 } from "@docusaurus/theme-common/internal";
 import { translate } from "@docusaurus/Translate";
 import type { Props } from "@theme/DocSidebar/Desktop/Content";
-import { DocsSidebarSearch } from "@/components/docs/sidebar-search";
 import {
   DocsSidebarTree,
   findFirstHref,
@@ -51,7 +50,6 @@ export default function DocSidebarDesktopContent({
         className,
       )}
     >
-      <DocsSidebarSearch items={sidebar} />
       <div className="flex flex-col gap-y-0 pb-10">
         <DocsSidebarTree
           activePath={path}

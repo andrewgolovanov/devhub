@@ -6,6 +6,7 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
+import { DocsSidebarSearch } from "@/components/docs/sidebar-search";
 import { Icons } from "@/components/icons";
 import { HEADER_LINKS } from "@/lib/header-navigation";
 import { MobileNav } from "./mobile-nav";
@@ -78,22 +79,38 @@ export function NewHeader({ className }: NewHeaderProps) {
               width={177}
             />
           </Link>
-          <Nav className="ml-19.5 hidden xl:flex" items={HEADER_LINKS} />
-          <div className="hidden grow items-center justify-end gap-x-6 xl:flex">
-            <Link
-              to="https://discord.com/invite/databricks"
-              className="hidden items-center gap-1.5 font-mono text-sm leading-tight font-medium tracking-tight text-white no-underline hover:text-white/85 hover:no-underline xl:inline-flex"
-            >
-              <Icons.discord className="size-4" aria-hidden="true" />
-              Discord
-            </Link>
-            <Link
-              to="https://github.com/databricks/devhub"
-              className="hidden items-center gap-1.5 font-mono text-sm leading-tight font-medium tracking-tight text-white no-underline hover:text-white/85 hover:no-underline xl:inline-flex"
-            >
-              <Icons.github className="size-4" aria-hidden="true" />
-              11,7k
-            </Link>
+          <Nav
+            className="ml-10 hidden xl:flex 2xl:ml-19.5"
+            items={HEADER_LINKS}
+          />
+          <div className="hidden grow items-center justify-end gap-x-3 xl:flex">
+            <div className="flex items-center gap-x-6">
+              <Link
+                to="https://www.youtube.com/@Databricks"
+                className="inline-flex size-4.5 items-center justify-center text-[#E4E5E7] no-underline hover:opacity-85 hover:no-underline"
+                aria-label="Databricks YouTube channel"
+              >
+                <Icons.youtube className="size-4.5" aria-hidden="true" />
+              </Link>
+              <Link
+                to="https://www.reddit.com/r/databricks/"
+                className="inline-flex size-4.5 items-center justify-center text-[#E4E5E7] no-underline hover:opacity-85 hover:no-underline"
+                aria-label="Databricks subreddit"
+              >
+                <Icons.reddit className="size-4.5" aria-hidden="true" />
+              </Link>
+              <Link
+                to="https://github.com/databricks/devhub"
+                className="inline-flex size-4.5 items-center justify-center text-[#E4E5E7] no-underline hover:opacity-85 hover:no-underline"
+                aria-label="DevHub GitHub repository"
+              >
+                <Icons.github className="size-4.5" aria-hidden="true" />
+              </Link>
+            </div>
+            <DocsSidebarSearch
+              triggerClassName="ml-3 h-9 w-45 justify-start rounded-none border border-grey-60 bg-transparent px-3 text-[0.8125rem] leading-none font-normal tracking-tight text-grey-60 shadow-none hover:bg-white/5 hover:text-grey-80 focus-visible:border-db-cyan focus-visible:ring-0 lg:has-[>kbd]:!pr-1.5"
+              triggerKbdClassName="h-5.5 min-w-0 rounded-none border border-grey-40 bg-transparent px-1.5 py-1 text-sm leading-none font-normal tracking-normal text-grey-60 shadow-none"
+            />
             <Button
               asChild
               className="h-9 rounded-none bg-white px-4.5 font-mono text-sm font-medium tracking-tight text-black shadow-none hover:bg-white/90"

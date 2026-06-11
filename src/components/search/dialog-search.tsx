@@ -114,12 +114,16 @@ export function useSearchDialogState(): {
 export function SearchDialogTriggerButton({
   ariaLabel,
   className,
+  iconClassName,
   kbdClassName,
+  placeholder = "Search...",
   ...props
 }: {
   ariaLabel: string;
   className: string;
+  iconClassName?: string;
   kbdClassName: string;
+  placeholder?: string;
 } & ComponentProps<typeof Button>): ReactNode {
   return (
     <Button
@@ -130,11 +134,11 @@ export function SearchDialogTriggerButton({
       {...props}
     >
       <SearchIcon
-        className="size-3.5"
+        className={cn("size-3.5", iconClassName)}
         aria-hidden="true"
         data-icon="inline-start"
       />
-      <span className="mr-auto min-w-0 truncate">Search...</span>
+      <span className="mr-auto min-w-0 truncate">{placeholder}</span>
       <Kbd className={kbdClassName}>⌘K</Kbd>
     </Button>
   );

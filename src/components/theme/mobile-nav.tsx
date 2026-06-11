@@ -2,6 +2,7 @@ import { useEffect, useId } from "react";
 import type { ComponentProps } from "react";
 import Link from "@docusaurus/Link";
 import { useLocation } from "@docusaurus/router";
+import { DocsSidebarSearch } from "@/components/docs/sidebar-search";
 
 import {
   getActiveProductHref,
@@ -215,14 +216,14 @@ export function MobileNav({ items, open, onOpenChange }: MobileNavProps) {
       {open && (
         <div
           id={menuId}
-          className="fixed inset-x-0 top-14 bottom-0 z-40 overflow-y-auto bg-grey-12 text-grey-80 xl:hidden"
+          className="fixed inset-x-0 top-22 bottom-0 z-40 overflow-y-auto bg-grey-12 text-grey-80 lg:top-25 xl:hidden"
           role="dialog"
           aria-modal="true"
           aria-label="Main navigation"
           data-state="open"
         >
           <nav
-            className="relative min-h-[610px] w-full font-mono text-[20px] leading-none font-normal tracking-[-0.4px]"
+            className="relative w-full h-full flex justify-between font-mono text-[20px] leading-none font-normal tracking-[-0.4px]"
             aria-label="Main navigation"
           >
             <MobileTreeLine className="top-[38px] left-[23px] h-[226px] w-px" />
@@ -298,6 +299,13 @@ export function MobileNav({ items, open, onOpenChange }: MobileNavProps) {
                 </MobileTreeText>
               );
             })}
+            <div className="mt-auto w-full px-5 pb-5.5 md:px-6 md:pb-6">
+              <DocsSidebarSearch
+                iconClassName="size-4.5"
+                triggerClassName="h-10 w-full justify-start rounded-none border border-grey-80 bg-transparent px-3 text-lg/tight font-mono font-normal tracking-tight text-grey-80 shadow-none hover:bg-white/5 hover:text-grey-80 focus-visible:border-db-cyan focus-visible:ring-0 lg:has-[>kbd]:!pr-1.5"
+                triggerKbdClassName="hidden"
+              />
+            </div>
           </nav>
         </div>
       )}
