@@ -1,6 +1,8 @@
 import { cn } from "@/lib/utils";
+import Head from "@docusaurus/Head";
+import useBaseUrl from "@docusaurus/useBaseUrl";
 import type { CSSProperties } from "react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 import "./animation.css";
 
@@ -11,6 +13,9 @@ type DbHeroAnimationProps = {
 type CssVariableProperties = CSSProperties & {
   [key: `--${string}`]: string | number;
 };
+
+const playerScriptPath = "/js/home-hero-player.js";
+const playerScriptVersion = "20260610";
 
 function cssVars(vars: CssVariableProperties) {
   return vars;
@@ -30,6 +35,26 @@ function dispatchViewportState(element: HTMLElement) {
       },
     }),
   );
+}
+
+function preloadPlayerScript(src: string) {
+  const normalizedSrc = new URL(src, window.location.href).href;
+  const hasPreload = Array.from(document.head.querySelectorAll("link")).some(
+    (link) =>
+      link.rel === "preload" &&
+      link.as === "script" &&
+      link.href === normalizedSrc,
+  );
+
+  if (hasPreload) {
+    return;
+  }
+
+  const link = document.createElement("link");
+  link.rel = "preload";
+  link.as = "script";
+  link.href = normalizedSrc;
+  document.head.appendChild(link);
 }
 
 function DbHeroPlayerScene() {
@@ -551,7 +576,8 @@ function DbHeroPlayerScene() {
 
 export function DbHeroAnimation({ className }: DbHeroAnimationProps) {
   const rootRef = useRef<HTMLDivElement>(null);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const playerScriptBaseSrc = useBaseUrl(playerScriptPath);
+  const playerScriptSrc = `${playerScriptBaseSrc}?v=${playerScriptVersion}`;
 
   useEffect(() => {
     if (!rootRef.current?.querySelector("#stage")) {
@@ -559,30 +585,23 @@ export function DbHeroAnimation({ className }: DbHeroAnimationProps) {
     }
 
     const scriptId = `db-hero-player-script-${Date.now().toString(36)}`;
-    let script: HTMLScriptElement | null = null;
-    const loadTimer = window.setTimeout(() => {
-      script = document.createElement("script");
-      script.id = scriptId;
-      script.src = new URL("./player.js", import.meta.url).toString();
-      script.async = true;
-      script.onload = () => {
-        if (rootRef.current) {
-          dispatchViewportState(rootRef.current);
-        }
-        setIsLoaded(true);
-      };
-      script.onerror = () => {
-        setIsLoaded(true);
-      };
+    const script = document.createElement("script");
+    script.id = scriptId;
+    script.src = playerScriptSrc;
+    script.async = true;
+    script.onload = () => {
+      if (rootRef.current) {
+        dispatchViewportState(rootRef.current);
+      }
+    };
 
-      document.body.appendChild(script);
-    }, 120);
+    preloadPlayerScript(playerScriptSrc);
+    document.body.appendChild(script);
 
     return () => {
-      window.clearTimeout(loadTimer);
       script?.remove();
     };
-  }, []);
+  }, [playerScriptSrc]);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -630,16 +649,20 @@ export function DbHeroAnimation({ className }: DbHeroAnimationProps) {
   }, []);
 
   return (
-    <div
-      ref={rootRef}
-      className={cn(
-        "db-hero-animation-root is-export-player absolute inset-0 h-full w-full transition-opacity duration-300",
-        isLoaded ? "opacity-100" : "opacity-0",
-        className,
-      )}
-      aria-hidden="true"
-    >
-      <DbHeroPlayerScene />
-    </div>
+    <>
+      <Head>
+        <link rel="preload" href={playerScriptSrc} as="script" />
+      </Head>
+      <div
+        ref={rootRef}
+        className={cn(
+          "db-hero-animation-root is-export-player absolute inset-0 h-full w-full",
+          className,
+        )}
+        aria-hidden="true"
+      >
+        <DbHeroPlayerScene />
+      </div>
+    </>
   );
 }

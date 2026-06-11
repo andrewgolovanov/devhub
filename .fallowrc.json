@@ -1,6 +1,12 @@
 {
   "$schema": "https://raw.githubusercontent.com/fallow-rs/fallow/main/schema.json",
-  "ignorePatterns": ["examples/**", "content/**", ".docusaurus/**", "build/**"],
+  "ignorePatterns": [
+    "examples/**",
+    "content/**",
+    ".docusaurus/**",
+    "build/**",
+    "static/js/home-hero-player.js"
+  ],
   "ignoreDependencies": [
     "@modelcontextprotocol/sdk",
     "@docusaurus/module-type-aliases",

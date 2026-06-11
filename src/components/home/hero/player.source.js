@@ -1,3 +1,5 @@
+// fallow-ignore-file unused-file
+// Source for the generated public asset at static/js/home-hero-player.js.
 (() => {
   window.DATABRICKS_EXPORT_MODE = true;
   window.DATABRICKS_USED_FEATURES = {
@@ -411,7 +413,6 @@
   const buildTitleCopy = document.querySelector(".build-title-copy");
   const statusRows = [...document.querySelectorAll(".status-row")];
   const statusValues = [...document.querySelectorAll(".status-value")];
-  const statusLeaders = [...document.querySelectorAll(".status-leader")];
   const finalStatus = document.querySelector(".final-status");
   const finalDone = document.querySelector(".final-done");
   const finalCheck = document.querySelector(".final-check");
@@ -426,7 +427,6 @@
   const powerOnOverlay = document.querySelector("#powerOnOverlay");
   const heroLogoReveal = document.querySelector("#heroLogoReveal");
   const logoSvgHosts = [...document.querySelectorAll("[data-logo-svg]")];
-  const referenceGuide = document.querySelector("#referenceGuide");
   const gridCanvas = document.querySelector("#gridCanvas");
   const gridCtx = gridCanvas?.getContext("2d") || null;
   const shadeMapOverlay = document.querySelector("#shadeMapOverlay");
@@ -446,11 +446,8 @@
   let shadeMapEraseTarget = null;
   let shadeMapEraseCurrent = null;
   const isExportPlayer = Boolean(window.DATABRICKS_EXPORT_MODE);
-  const transparentGuidePixel =
-    "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
   let logoWaveTimers = [];
   const logoHoverSuppressionTimers = new Map();
-  let terminalHoverCursor = null;
 
   const nativeSetRootStyleProperty = root.style.setProperty.bind(root.style);
 
@@ -596,10 +593,6 @@
     minDistance: 7,
     minInterval: 46,
   };
-
-  const defaultQuietPreviewSettings = {};
-
-  const defaultTerminalHoverCursorSettings = {};
 
   const stateLogoSettings = {
     1: {
@@ -1003,34 +996,6 @@
 
   const groupFxPresetDefaults = legacyGroupFxPresetDefaults;
 
-  const fxSettingLabels = {
-    off: ["Amount", "Speed"],
-    rgbsplit: ["Split amount", "Flicker speed"],
-    shademap: ["Shade density", "Static"],
-    rgbgrid: ["Stripe strength", "Drift speed"],
-    parallax: ["Parallax X", "Parallax Y"],
-    perspective: ["Tilt X", "Tilt Y"],
-    vignette: ["Edge strength", "Pulse speed"],
-    scanlines: ["Line opacity", "Bar speed"],
-  };
-
-  const fxDisplayNames = window.DatabricksHeroEffectRegistry
-    ? Object.fromEntries(
-        Object.entries(window.DatabricksHeroEffectRegistry.registry).map(
-          ([id, effect]) => [id, effect.name],
-        ),
-      )
-    : {
-        off: "Off",
-        rgbsplit: "RGB Split",
-        shademap: "Shade",
-        rgbgrid: "RGB Grid",
-        parallax: "Parallax",
-        perspective: "Perspective",
-        vignette: "Vignette",
-        scanlines: "Lines",
-      };
-
   const fxPresetOrder = window.DatabricksHeroEffectRegistry
     ? window.DatabricksHeroEffectRegistry.order
     : [
@@ -1082,8 +1047,6 @@
     splitBlue: "#00dcff",
   };
 
-  const uiSettings = {};
-
   const installFrames = [
     "Databricks CLI successfully installed.",
     "Databricks CLI successfully installed.\nYou can now begin building and deploying apps on Databricks.",
@@ -1100,12 +1063,9 @@
   const FINAL_CHECK_SEQUENCE_DURATION = 760;
   const TIMELINE_STATE_COUNT = 6;
   const STAGE_BASE_WIDTH = 2300;
-  const CONTENT_FRAME_WIDTH = 1920;
   const STAGE_BASE_HEIGHT = 1144;
 
   const settings = {
-    autoStep: false,
-    loopState: false,
     loopRestartDelay: 0,
     timelineTrimStart: 1,
     timelineTrimEnd: 6,
@@ -1113,16 +1073,9 @@
     paused: false,
   };
 
-  const guideSettings = {};
-
   let runId = 0;
   let currentState = 1;
   let timelineRunning = false;
-  let pendingSaveTimer = 0;
-  let restoredState = null;
-  let stateModeTimer = 0;
-  let trimTimelineTimer = 0;
-  let trimTimelinePlaying = false;
   let logoRunId = 0;
   let windowBootRunId = 0;
   let windowBootTimers = [];
@@ -1151,27 +1104,8 @@
   let intersectionPaused = false;
   let documentVisibilityPaused = false;
   let renderIdleSettled = false;
-  let quietPreviewActive = false;
-  let quietWindowFocused =
-    typeof document.hasFocus === "function" ? document.hasFocus() : true;
-  let quietPointerInsideWindow = true;
   let quietLastInteractionAt = performance.now();
   const IDLE_SETTLE_HOLD_MS = 1800;
-  const IDLE_SETTLE_EPSILON = 0.002;
-  const QUIET_INTERACTION_HOLD_MS = 900;
-  const QUIET_RENDER_POLL_MS = 1200;
-  const QUIET_MONITOR_INTERVAL_MS = 1800;
-  const perfMonitorState = {
-    lastFrameAt: 0,
-    lastUiAt: 0,
-    samples: [],
-    workSamples: [],
-    longFrames: 0,
-    longTasks: 0,
-    longTaskTimes: [],
-    maxFrame: 0,
-    rating: "Warming up",
-  };
   let lastGridRenderKey = "";
   let lastShadeMapRenderKey = "";
   let gridWasVisible = false;
@@ -1182,9 +1116,7 @@
   function hasActiveAnimationWork() {
     return (
       timelineRunning ||
-      trimTimelinePlaying ||
       !settings.paused ||
-      usesStateMode() ||
       stage.classList.contains("power-on-active") ||
       stage.classList.contains("terminal-scroll") ||
       appPreview.classList.contains("app-boot-running") ||
@@ -1213,41 +1145,14 @@
     );
 
     if (settled) {
-      perfMonitorState.lastFrameAt = 0;
       lastRenderTickAt = 0;
       parallaxLastPointerAt = performance.now();
       perspectiveLastPointerAt = performance.now();
     }
   }
 
-  function isInteractiveMotionSettled() {
-    return (
-      Math.abs(parallaxTargetX) < IDLE_SETTLE_EPSILON &&
-      Math.abs(parallaxTargetY) < IDLE_SETTLE_EPSILON &&
-      Math.abs(parallaxCurrentX) < IDLE_SETTLE_EPSILON &&
-      Math.abs(parallaxCurrentY) < IDLE_SETTLE_EPSILON &&
-      Math.abs(perspectiveTargetX) < IDLE_SETTLE_EPSILON &&
-      Math.abs(perspectiveTargetY) < IDLE_SETTLE_EPSILON &&
-      Math.abs(perspectiveCurrentX) < IDLE_SETTLE_EPSILON &&
-      Math.abs(perspectiveCurrentY) < IDLE_SETTLE_EPSILON
-    );
-  }
-
-  function settleInteractiveMotionFrame(now = performance.now()) {
-    parallaxTargetX = 0;
-    parallaxTargetY = 0;
-    perspectiveTargetX = 0;
-    perspectiveTargetY = 0;
-    parallaxLastPointerAt = now;
-    perspectiveLastPointerAt = now;
-    updateParallaxFrame();
-    updatePerspectiveFrame();
-    return isInteractiveMotionSettled();
-  }
-
   const STAGE_ZOOM_MIN = 0.2;
   const STAGE_ZOOM_MAX = 1.25;
-  const STAGE_ZOOM_STEP = 0.05;
 
   function clampStageZoom(value) {
     return Math.min(
@@ -1356,35 +1261,6 @@
         ].includes(preset),
     );
     return visualPresets[0] || "off";
-  }
-
-  function createSavedGroupFxSettings() {
-    normalizeGroupFxSettings();
-    const activePresets = groupGlitchSettings.activePresets.filter(
-      (preset) => preset !== "off" && groupFxPresetDefaults[preset],
-    );
-    const focusedPreset = activePresets.includes(groupGlitchSettings.preset)
-      ? groupGlitchSettings.preset
-      : activePresets[0] || "off";
-
-    return {
-      preset: focusedPreset,
-      activePresets,
-      presets: Object.fromEntries(
-        activePresets.map((preset) => [
-          preset,
-          cloneData(getGroupFxConfig(preset)),
-        ]),
-      ),
-    };
-  }
-
-  function getCurrentConfigHash() {
-    return window.location.hash.replace(/^#/, "");
-  }
-
-  function encodeConfigHash(config) {
-    return `cfg=${encodeConfig(config)}`;
   }
 
   function applyConfig(config) {
@@ -1649,48 +1525,6 @@
       }
     }
     normalizeGroupFxSettings();
-
-    if (config.currentState && visibleTextLayersByState[config.currentState]) {
-      restoredState = Number(config.currentState);
-    }
-  }
-
-  function isControlActiveInCurrentState(control) {
-    const stateScopedElement = control?.closest?.("[data-control-states]");
-    if (!stateScopedElement) {
-      return true;
-    }
-
-    const states = stateScopedElement.dataset.controlStates;
-    return (
-      states === "all" || states.split(",").map(Number).includes(currentState)
-    );
-  }
-
-  function scheduleSave(statusText = "Settings autosaved") {
-    window.clearTimeout(pendingSaveTimer);
-    pendingSaveTimer = window.setTimeout(() => {
-      pendingSaveTimer = 0;
-      saveConfig(statusText);
-    }, 120);
-  }
-
-  function flushPendingSave(statusText = "Settings saved") {
-    if (isExportPlayer || !pendingSaveTimer) {
-      return;
-    }
-
-    window.clearTimeout(pendingSaveTimer);
-    pendingSaveTimer = 0;
-    saveConfig(statusText);
-  }
-
-  function clearStateModeTimer() {
-    window.clearTimeout(stateModeTimer);
-  }
-
-  function usesStateMode() {
-    return settings.autoStep || settings.loopState;
   }
 
   function getLoopRestartDelay() {
@@ -2306,18 +2140,6 @@
       .forEach((node) => node.remove());
   }
 
-  function makeWindowBootNoise(length, seed = 0) {
-    const glyphs = "[]{}<>/\\\\|_-+=:.#@$%&░▒▓█";
-    return Array.from(
-      { length },
-      (_, index) =>
-        glyphs[
-          (Math.floor(Math.random() * glyphs.length) + seed + index) %
-            glyphs.length
-        ],
-    ).join("");
-  }
-
   function getWindowBootTargetRect() {
     const previewWidth =
       appPreview.offsetWidth ||
@@ -2372,21 +2194,6 @@
       centerX,
       centerY,
     };
-  }
-
-  function makeWindowBootFrame(label, index, frame, noise) {
-    const branch = ["SCAN", "MAP", "SORT", "LOCK"][(index + frame) % 4];
-    const loader = ["[░░░]", "[░▒░]", "[▒▓▒]", "[▓█▓]", "[███]"][frame % 5];
-    const labelWidth = Math.max(8, Math.min(26, label.length + 2));
-    const noisyLabel = makeWindowBootNoise(labelWidth, index + frame);
-    const finalLabel = label.replaceAll("_", " ");
-    if (frame >= noise) {
-      return `${loader} ${branch} :: ${finalLabel}`;
-    }
-    if (frame >= Math.max(1, noise - 2)) {
-      return `${loader} ${branch} :: ${label.slice(0, Math.ceil(label.length * 0.62))}${makeWindowBootNoise(Math.max(2, Math.floor(label.length * 0.24)), frame)}`;
-    }
-    return `${loader} ${branch} :: ${noisyLabel}`;
   }
 
   function getWindowBootFrameRect(stateSettings, frame, frameCount) {
@@ -2531,241 +2338,6 @@
     }
 
     traces.slice(0, overflow).forEach((trace) => trace.remove());
-  }
-
-  function appendWindowBootWire(
-    parent,
-    className,
-    rect,
-    delay,
-    duration,
-    text = "",
-  ) {
-    const node = document.createElement("span");
-    node.className = `app-boot-wire ${className}`;
-    node.style.left = `${rect.x}%`;
-    node.style.top = `${rect.y}%`;
-    node.style.width = `${rect.w}%`;
-    node.style.height = `${rect.h}%`;
-    node.style.setProperty("--wire-delay", `${Math.max(0, delay)}ms`);
-    node.style.setProperty("--wire-duration", `${Math.max(70, duration)}ms`);
-    if (text) {
-      node.dataset.token = text;
-    }
-    parent.append(node);
-    return node;
-  }
-
-  function appendWindowBootLine(parent, className, rect, delay, duration) {
-    const node = document.createElement("span");
-    node.className = `app-boot-line ${className}`;
-    node.style.left = `${rect.x}%`;
-    node.style.top = `${rect.y}%`;
-    node.style.width = `${rect.w}%`;
-    node.style.height = `${rect.h}%`;
-    node.style.setProperty("--wire-delay", `${Math.max(0, delay)}ms`);
-    node.style.setProperty("--wire-duration", `${Math.max(70, duration)}ms`);
-    parent.append(node);
-    return node;
-  }
-
-  function scheduleWindowBootLine(parent, className, rect, delay, duration) {
-    const timer = window.setTimeout(
-      () => {
-        if (
-          parent.isConnected &&
-          appPreview.classList.contains("app-boot-running")
-        ) {
-          appendWindowBootLine(parent, className, rect, 0, duration);
-        }
-      },
-      Math.max(0, delay),
-    );
-    windowBootTimers.push(timer);
-  }
-
-  function scheduleWindowBootLines(parent, items, delay, duration) {
-    const timer = window.setTimeout(
-      () => {
-        if (
-          parent.isConnected &&
-          appPreview.classList.contains("app-boot-running")
-        ) {
-          items.forEach(([className, rect]) =>
-            appendWindowBootLine(parent, className, rect, 0, duration),
-          );
-        }
-      },
-      Math.max(0, delay),
-    );
-    windowBootTimers.push(timer);
-  }
-
-  function scheduleWindowBootWire(
-    parent,
-    className,
-    rect,
-    delay,
-    duration,
-    text = "",
-    snap = false,
-  ) {
-    const timer = window.setTimeout(
-      () => {
-        if (
-          parent.isConnected &&
-          appPreview.classList.contains("app-boot-running")
-        ) {
-          const node = appendWindowBootWire(
-            parent,
-            className,
-            rect,
-            0,
-            duration,
-            text,
-          );
-          if (snap) {
-            node.classList.add("is-boot-snap");
-          }
-        }
-      },
-      Math.max(0, delay),
-    );
-    windowBootTimers.push(timer);
-  }
-
-  function appendWindowBootWave(parent, rect, delay, duration, index, total) {
-    const node = document.createElement("span");
-    node.className = "app-boot-wave-column";
-    node.style.left = `${rect.x}%`;
-    node.style.top = `${rect.y}%`;
-    node.style.width = `${rect.w}%`;
-    node.style.height = `${rect.h}%`;
-    node.style.setProperty("--wave-delay", `${Math.max(0, delay)}ms`);
-    node.style.setProperty("--wave-duration", `${Math.max(120, duration)}ms`);
-    node.style.setProperty("--wave-index", index);
-    node.style.setProperty("--wave-total", total);
-    parent.append(node);
-    return node;
-  }
-
-  function buildWindowBootWave(parent, duration, startDelay = 0) {
-    if (duration <= 0) {
-      return;
-    }
-
-    const columns = [
-      { x: 6.2, y: 15, w: 8.4, h: 70 },
-      { x: 16.8, y: 18, w: 8.6, h: 68 },
-      { x: 27.2, y: 21, w: 8.2, h: 65 },
-      { x: 37.4, y: 27, w: 8.6, h: 60 },
-      { x: 48, y: 22, w: 8.5, h: 64 },
-      { x: 58.4, y: 18, w: 8.4, h: 68 },
-      { x: 68.8, y: 13, w: 8.2, h: 73 },
-      { x: 79, y: 14, w: 8.6, h: 72 },
-      { x: 89.5, y: 12, w: 7.8, h: 74 },
-    ];
-
-    columns.forEach((rect, index) => {
-      appendWindowBootWave(
-        parent,
-        rect,
-        startDelay + index * 24,
-        duration,
-        index,
-        columns.length,
-      );
-    });
-  }
-
-  function buildWindowBootScaffold(
-    duration,
-    startDelay = 0,
-    waveDuration = 0,
-    waveStart = 0,
-  ) {
-    const scaffold = document.createElement("div");
-    scaffold.className = "app-boot-scaffold";
-    appRevealOverlay.append(scaffold);
-
-    const safeDuration = Math.max(240, duration);
-    const phaseChrome = startDelay;
-    const phaseCoarse = startDelay + safeDuration * 0.12;
-    const phaseSplit = startDelay + safeDuration * 0.45;
-    const phaseFine = startDelay + safeDuration * 0.74;
-    const pulse = Math.max(72, safeDuration * 0.15);
-
-    void waveDuration;
-    void waveStart;
-
-    [
-      ["app-boot-scan-column is-heavy", { x: 16.5, y: 7.6, w: 17.5, h: 30.5 }],
-      ["app-boot-scan-column is-heavy", { x: 63.5, y: 7.2, w: 18.5, h: 31.2 }],
-      ["app-boot-scan-column", { x: 13.2, y: 61.8, w: 8.4, h: 25.2 }],
-      ["app-boot-scan-column", { x: 29.6, y: 61.4, w: 8.8, h: 26.1 }],
-      ["app-boot-scan-column", { x: 66.4, y: 61.6, w: 9.2, h: 25.4 }],
-      ["app-boot-scan-column", { x: 81.8, y: 61.4, w: 7.6, h: 25.7 }],
-    ].forEach(([className, rect], index) => {
-      scheduleWindowBootWire(
-        scaffold,
-        className,
-        rect,
-        phaseCoarse + index * 42,
-        pulse * 1.1,
-        "",
-        true,
-      );
-    });
-
-    [
-      { x: 6.5, y: 11.6, w: 4.2, h: 2.4 },
-      { x: 39.6, y: 9.4, w: 7.6, h: 2.2 },
-      { x: 50.6, y: 13.7, w: 4.4, h: 2.4 },
-      { x: 86.2, y: 11.1, w: 5.8, h: 2.2 },
-      { x: 12.1, y: 39.5, w: 17.6, h: 2.4 },
-      { x: 35.4, y: 41.7, w: 12.8, h: 2.2 },
-      { x: 55.6, y: 39.8, w: 17.4, h: 2.4 },
-      { x: 78.5, y: 42.1, w: 13.4, h: 2.2 },
-      { x: 18.4, y: 49.8, w: 13.1, h: 2.5 },
-      { x: 43.8, y: 50.7, w: 9.4, h: 2.2 },
-      { x: 60.2, y: 49.9, w: 21.6, h: 2.5 },
-    ].forEach((rect, index) => {
-      scheduleWindowBootWire(
-        scaffold,
-        "app-boot-scan-fragment",
-        rect,
-        phaseSplit + index * 18,
-        pulse * 0.82,
-        "",
-        true,
-      );
-    });
-
-    [
-      { x: 1.2, y: 3.8, w: 2.4, h: 1 },
-      { x: 5.8, y: 5.1, w: 4.8, h: 1 },
-      { x: 37.6, y: 4.4, w: 2.8, h: 1 },
-      { x: 53.2, y: 5.5, w: 5.2, h: 1 },
-      { x: 92.1, y: 4.2, w: 3.4, h: 1 },
-      { x: 2.4, y: 31.8, w: 5.6, h: 1 },
-      { x: 39.6, y: 32.8, w: 7.6, h: 1 },
-      { x: 84.4, y: 31.4, w: 6.8, h: 1 },
-      { x: 0.8, y: 90.6, w: 7.8, h: 1 },
-      { x: 17.8, y: 92.2, w: 10.4, h: 1 },
-      { x: 44.4, y: 91.4, w: 5.8, h: 1 },
-      { x: 69.1, y: 92.8, w: 12.2, h: 1 },
-      { x: 91.8, y: 90.8, w: 4.6, h: 1 },
-    ].forEach((rect, index) => {
-      scheduleWindowBootWire(
-        scaffold,
-        "app-boot-scan-dot",
-        rect,
-        phaseFine + index * 9,
-        Math.max(54, pulse * 0.66),
-        "",
-        true,
-      );
-    });
   }
 
   function scheduleWindowBootSquareSteps(square, stateSettings, duration) {
@@ -3260,15 +2832,6 @@
       await wait((frame.at - previous.at) * safeDuration, token);
       applyTerminalScrollFrame(frame, stateSettings);
     }
-  }
-
-  async function playWindowBoot(token) {
-    const duration = triggerWindowBoot();
-    const bootToken = windowBootRunId;
-    if (duration > 0) {
-      await wait(duration, token);
-    }
-    finishWindowBoot(bootToken);
   }
 
   async function playAppRevealOverWindowBoot(
@@ -3828,11 +3391,6 @@
     };
   }
 
-  function rgbaFromColor(hex, alpha) {
-    const { r, g, b } = hexToRgb(hex);
-    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-  }
-
   function rgbTupleFromColor(hex, fallbackHex = "#d7dde8") {
     const fallback = hexToRgb(fallbackHex);
     const { r, g, b } = hexToRgb(hex, fallback);
@@ -3856,23 +3414,6 @@
     if (isYellowishColor(logoClickSettings.waveColor)) {
       logoClickSettings.waveColor = "#62636a";
     }
-  }
-
-  function clearLogoWaveTimers() {
-    logoWaveTimers.forEach((timer) => window.clearTimeout(timer));
-    logoWaveTimers = [];
-    logoHoverSuppressionTimers.forEach((timer, rect) => {
-      window.clearTimeout(timer);
-      rect.classList.remove("is-logo-hover-suppressed");
-    });
-    logoHoverSuppressionTimers.clear();
-    logoWaveRects.forEach((rect) => {
-      const state = getLogoRectWaveState(rect);
-      state.wave.clear();
-      state.tail.clear();
-      state.pressed.clear();
-      syncLogoRectWaveClasses(rect);
-    });
   }
 
   function queueLogoWaveTimer(callback, delay) {
@@ -4296,16 +3837,6 @@
     ]);
   }
 
-  function triggerLogoReveal(options = {}) {
-    const animationToken = runId;
-
-    void playLogoReveal(options, animationToken).catch((error) => {
-      if (error.message !== "Animation cancelled") {
-        throw error;
-      }
-    });
-  }
-
   function showLogoReveal(percent = 100) {
     syncLogoSettings();
     heroLogoReveal.classList.add("is-visible");
@@ -4483,15 +4014,6 @@
     }
   }
 
-  function triggerFinalAscii() {
-    const token = runId;
-    void playFinalAscii(token).catch((error) => {
-      if (error.message !== "Animation cancelled") {
-        throw error;
-      }
-    });
-  }
-
   function showFinalLinkResolved() {
     finalStatus?.classList.remove("is-final-sequencing");
     finalDone?.classList.add("is-final-done-visible");
@@ -4526,15 +4048,6 @@
     await playFinalAscii(token);
     finalStatus?.classList.remove("is-final-sequencing");
     finalCheck?.classList.remove("is-hellspark");
-  }
-
-  function triggerFinalReveal() {
-    const token = runId;
-    void playFinalReveal(token).catch((error) => {
-      if (error.message !== "Animation cancelled") {
-        throw error;
-      }
-    });
   }
 
   function setBuildTitleDots(count = 3) {
@@ -4705,16 +4218,6 @@
       return glyphs[0];
     });
     return `[${cells.join("")}]`;
-  }
-
-  function makeStatusAsciiTrail(step, width) {
-    const size = Math.max(3, Math.min(18, Math.round(width || 7)));
-    const trailSize = Math.max(3, Math.min(8, Math.ceil(size * 0.5)));
-    const pattern = "░▒▓█▓▒";
-    return Array.from(
-      { length: trailSize },
-      (_, index) => pattern[(step + index) % pattern.length],
-    ).join("");
   }
 
   async function switchStatusToOk(value, token) {
@@ -5292,64 +4795,6 @@
     await wait(getAnimationSettings(state).delayAfter, token);
   }
 
-  function getExportUiSettings() {
-    if (!uiSettings.export) {
-      uiSettings.export = { includeStaticPng: true };
-    }
-    return uiSettings.export;
-  }
-
-  function syncExportSettingsControls() {
-    if (controls.exportIncludeStaticPng) {
-      controls.exportIncludeStaticPng.checked =
-        getExportUiSettings().includeStaticPng !== false;
-    }
-  }
-
-  function updateExportSettings() {
-    const exportSettings = getExportUiSettings();
-    exportSettings.includeStaticPng =
-      controls.exportIncludeStaticPng?.checked !== false;
-    syncExportSettingsControls();
-    scheduleSave();
-  }
-
-  function commitLogoControlsForSave() {
-    if (!isControlActiveInCurrentState(controls.logoX)) {
-      return;
-    }
-
-    const logoSettings = stateLogoSettings[1];
-    logoSettings.x = Number(controls.logoX.value);
-    logoSettings.y = Number(controls.logoY.value);
-    logoSettings.width = Number(controls.logoWidth.value);
-    logoSettings.baseOpacity = Number(controls.logoBaseOpacity.value);
-    logoSettings.mainColor = controls.logoMainColor.value;
-    logoSettings.reflexOpacity = Number(controls.logoReflexOpacity.value);
-    logoSettings.reflexBlur = Number(controls.logoReflexBlur.value);
-    logoSettings.reflexX = Number(controls.logoReflexX.value);
-    logoSettings.reflexY = Number(controls.logoReflexY.value);
-    logoSettings.reflexLeft = Number(controls.logoReflexLeft.value);
-    logoSettings.reflexTop = Number(controls.logoReflexTop.value);
-    logoSettings.reflexScaleX = Number(controls.logoReflexScaleX.value);
-    logoSettings.reflexScaleY = Number(controls.logoReflexScaleY.value);
-    logoSettings.reflexShadeOpacity = Number(
-      controls.logoReflexShadeOpacity.value,
-    );
-    logoSettings.reflexShadeX = Number(controls.logoReflexShadeX.value);
-    logoSettings.reflexShadeY = Number(controls.logoReflexShadeY.value);
-    logoSettings.reflexShadeWidth = Number(controls.logoReflexShadeWidth.value);
-    logoSettings.reflexShadeHeight = Number(
-      controls.logoReflexShadeHeight.value,
-    );
-    logoSettings.reflexShadeBlur = Number(controls.logoReflexShadeBlur.value);
-    logoSettings.reflexShadeColor = controls.logoReflexShadeColor.value;
-    logoSettings.opacityDuration = Number(controls.logoOpacityDuration.value);
-    logoSettings.revealDuration = Number(controls.logoRevealDuration.value);
-    logoSettings.revealDelay = Number(controls.logoRevealDelay.value);
-    logoSettings.stutter = Number(controls.logoStutter.value);
-  }
-
   function syncSharedAppPositionCss() {
     setRootVar("--app-left", `${sharedAppSettings.left}px`);
     setRootVar("--app-top", `${sharedAppSettings.top}px`);
@@ -5420,21 +4865,6 @@
     ".chart-tooltip",
     ".chart-footer span",
   ].join(",");
-
-  function isTerminalHoverTargetVisible(target) {
-    const computed = getComputedStyle(target);
-    if (
-      computed.display === "none" ||
-      computed.visibility === "hidden" ||
-      Number(computed.opacity) <= 0.05 ||
-      Number.parseFloat(computed.fontSize) <= 0
-    ) {
-      return false;
-    }
-
-    const rect = target.getBoundingClientRect();
-    return rect.width > 0 && rect.height > 0;
-  }
 
   function syncPreAppFocusCss() {
     const scaleDelta = 1 - preAppFocusSettings.scale;
@@ -5743,73 +5173,6 @@
     }
   }
 
-  function buildAppRevealFrameEchoes(settings) {
-    const targetRect = getWindowBootTargetRect();
-    const count = Math.max(
-      3,
-      Math.min(8, Math.round(Number(settings.layers ?? 3)) + 3),
-    );
-    const duration = Math.max(260, Number(settings.duration || 980));
-    const hold = Math.max(120, duration * 0.55);
-    let finalFrameDelay = 0;
-
-    for (let index = 0; index < count; index += 1) {
-      const progress = count <= 1 ? 1 : index / (count - 1);
-      const eased = progress === 1 ? 1 : Math.pow(progress, 0.78);
-      const width = targetRect.width * (0.2 + eased * 0.8);
-      const height = targetRect.height * (0.2 + eased * 0.8);
-      const frame = document.createElement("span");
-      const delay = index * Math.max(28, duration * 0.055);
-
-      frame.className = "app-reveal-frame-echo";
-      frame.style.left = `${(targetRect.left + (targetRect.width - width) / 2).toFixed(1)}px`;
-      frame.style.top = `${(targetRect.top + (targetRect.height - height) / 2).toFixed(1)}px`;
-      frame.style.width = `${width.toFixed(1)}px`;
-      frame.style.height = `${height.toFixed(1)}px`;
-      frame.style.animationDelay = `${delay.toFixed(1)}ms`;
-      frame.style.animationDuration = `${hold.toFixed(1)}ms`;
-      appRevealOverlay.append(frame);
-      finalFrameDelay = delay;
-    }
-
-    return finalFrameDelay;
-  }
-
-  function hidePreservedBootFrame() {
-    const frames = [
-      ...appRevealOverlay.querySelectorAll(".app-boot-full-frame"),
-    ];
-    frames.forEach((frame) => frame.classList.add("is-reveal-gated"));
-    return frames;
-  }
-
-  function revealPreservedBootFrameAfterEcho(frames, delay = 0) {
-    if (!frames?.length) {
-      return;
-    }
-
-    window.setTimeout(
-      () => {
-        frames.forEach((frame) => {
-          if (frame.isConnected) {
-            frame.classList.remove("is-reveal-gated");
-          }
-        });
-      },
-      Math.max(0, delay),
-    );
-  }
-
-  function gateAppPreviewSectionUntilEcho(delay = 0) {
-    appPreview.classList.add("is-section-reveal-gated");
-    window.setTimeout(
-      () => {
-        appPreview.classList.remove("is-section-reveal-gated");
-      },
-      Math.max(0, delay),
-    );
-  }
-
   function gateAppPreviewSection() {
     appPreview.classList.add("is-section-reveal-gated");
   }
@@ -6091,15 +5454,6 @@
       });
   }
 
-  function triggerTerminalWindowEnter(duration = 760) {
-    appPreview.classList.remove("terminal-window-enter");
-    void appPreview.offsetWidth;
-    appPreview.classList.add("terminal-window-enter");
-    window.setTimeout(() => {
-      appPreview.classList.remove("terminal-window-enter");
-    }, duration + 80);
-  }
-
   function clearAppReveal({ preserveBootFrame = false } = {}) {
     appPreview.classList.remove(
       "app-reveal-running",
@@ -6341,53 +5695,6 @@
             : String(90 + (orderedPresets.length - index) * 10),
       );
     });
-  }
-
-  function clearFxDragState() {
-    controls.fxSettingsStack
-      .querySelectorAll("[data-fx-card]")
-      .forEach((card) => {
-        card.classList.remove(
-          "is-dragging",
-          "is-drag-over-before",
-          "is-drag-over-after",
-        );
-      });
-  }
-
-  function getFxCardDropPlacement(event, card) {
-    const rect = card.getBoundingClientRect();
-    return event.clientY < rect.top + rect.height / 2 ? "before" : "after";
-  }
-
-  function reorderActiveFxPreset(
-    sourcePreset,
-    targetPreset,
-    placement = "before",
-  ) {
-    if (!sourcePreset || !targetPreset || sourcePreset === targetPreset) {
-      return false;
-    }
-
-    const orderedPresets = getActiveFxSettingsPresets();
-    const sourceIndex = orderedPresets.indexOf(sourcePreset);
-    const targetIndex = orderedPresets.indexOf(targetPreset);
-    if (sourceIndex < 0 || targetIndex < 0) {
-      return false;
-    }
-
-    orderedPresets.splice(sourceIndex, 1);
-    const adjustedTargetIndex = orderedPresets.indexOf(targetPreset);
-    orderedPresets.splice(
-      placement === "after" ? adjustedTargetIndex + 1 : adjustedTargetIndex,
-      0,
-      sourcePreset,
-    );
-    groupGlitchSettings.activePresets = orderedPresets;
-    if (!orderedPresets.includes(groupGlitchSettings.preset)) {
-      groupGlitchSettings.preset = orderedPresets[0] || "off";
-    }
-    return true;
   }
 
   function shadeMapHash(seed) {
@@ -7557,7 +6864,6 @@
     runId += 1;
     const token = runId;
     timelineRunning = true;
-    clearStateModeTimer();
     settings.paused = false;
     prepareStateForAnimation(startState);
 

@@ -22,10 +22,12 @@
     "test:docs-verify": "vitest run --config vitest.docs-verify.config.ts",
     "verify:images": "node scripts/verify-resource-images.mjs",
     "optimize:images": "bash scripts/optimize-images.sh",
+    "build:hero-player": "node scripts/build-home-hero-player.mjs",
     "validate:content": "node scripts/validate-content.mjs",
     "prepare": "husky",
-    "prebuild": "node scripts/sync-appkit-docs.mjs",
-    "prestart": "node scripts/sync-appkit-docs.mjs"
+    "prebuild": "node scripts/build-home-hero-player.mjs && node scripts/sync-appkit-docs.mjs",
+    "predev": "node scripts/build-home-hero-player.mjs",
+    "prestart": "node scripts/build-home-hero-player.mjs && node scripts/sync-appkit-docs.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.3.0",
@@ -70,6 +72,7 @@
     "@tailwindcss/postcss": "^4.2.2",
     "@tailwindcss/typography": "^0.5.19",
     "@vercel/node": "^5.6.15",
+    "esbuild": "^0.27.0",
     "fallow": "^2.45.0",
     "husky": "^9.1.7",
     "image-size": "^2.0.2",

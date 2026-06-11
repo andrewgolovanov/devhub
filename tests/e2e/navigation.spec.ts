@@ -353,6 +353,7 @@ test.describe("home hero animation", () => {
       "draggable",
       "false",
     );
+    await expect(appPreview).toBeVisible({ timeout: 30_000 });
 
     const appPreviewBox = await appPreview.boundingBox();
 

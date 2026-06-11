@@ -100,6 +100,10 @@
       "destination": "/img/$1"
     },
     {
+      "source": "/devhub/js/(.*)",
+      "destination": "/js/$1"
+    },
+    {
       "source": "/devhub/appkit-preview/(.*)",
       "destination": "/appkit-preview/$1"
     },
@@ -157,6 +161,24 @@
     }
   ],
   "headers": [
+    {
+      "source": "/js/home-hero-player.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/devhub/js/home-hero-player.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
     {
       "source": "/api/(.*)",
       "headers": [
