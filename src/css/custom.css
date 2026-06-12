@@ -211,6 +211,7 @@
 }
 
 @theme inline {
+  --breakpoint-3xl: 119.9375rem;
   --font-sans:
     "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-heading:

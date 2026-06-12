@@ -33,13 +33,16 @@ async function clickCopyMarkdownAndWaitForToast(
   });
 }
 
-async function clickCopyPromptAndWaitForToast(
+async function clickCopyPromptAndWaitForCopiedState(
   page: import("@playwright/test").Page,
 ) {
   const button = page.getByRole("button", { name: "Copy prompt" }).first();
   await button.waitFor({ state: "visible" });
   await button.click();
-  await expect(page.getByText("Prompt copied")).toBeVisible({ timeout: 5000 });
+  await expect(
+    page.getByRole("button", { name: "Copied!" }).first(),
+  ).toBeVisible({ timeout: 5000 });
+  await expect(page.getByText("Prompt copied")).toBeHidden();
 }
 
 async function expectCopyMarkdownWithoutPreamble({
@@ -71,7 +74,7 @@ test.describe("copy markdown exports raw markdown on recipe pages", () => {
     await setupClipboardMock(page);
     await page.goto("/templates/set-up-your-local-dev-environment");
 
-    await clickCopyPromptAndWaitForToast(page);
+    await clickCopyPromptAndWaitForCopiedState(page);
 
     const copied = await getCopiedText(page);
     expect(copied).toContain("# About DevHub");
@@ -88,7 +91,7 @@ test.describe("copy markdown exports raw markdown on template pages", () => {
     await setupClipboardMock(page);
     await page.goto("/templates/ai-chat-app");
 
-    await clickCopyPromptAndWaitForToast(page);
+    await clickCopyPromptAndWaitForCopiedState(page);
 
     const copied = await getCopiedText(page);
     // Meta-prompt blocks are present:
@@ -110,7 +113,7 @@ test.describe("copy markdown exports raw markdown on template pages", () => {
     await setupClipboardMock(page);
     await page.goto("/templates/app-with-lakebase");
 
-    await clickCopyPromptAndWaitForToast(page);
+    await clickCopyPromptAndWaitForCopiedState(page);
 
     const copied = await getCopiedText(page);
     expect(copied).toContain("# About DevHub");
@@ -125,7 +128,7 @@ test.describe("copy markdown exports raw markdown on example pages", () => {
     await setupClipboardMock(page);
     await page.goto("/templates/agentic-support-console");
 
-    await clickCopyPromptAndWaitForToast(page);
+    await clickCopyPromptAndWaitForCopiedState(page);
 
     const copied = await getCopiedText(page);
     expect(copied).toContain("# About DevHub");
@@ -138,7 +141,7 @@ test.describe("copy markdown exports raw markdown on example pages", () => {
     await setupClipboardMock(page);
     await page.goto("/templates/saas-tracker");
 
-    await clickCopyPromptAndWaitForToast(page);
+    await clickCopyPromptAndWaitForCopiedState(page);
 
     const copied = await getCopiedText(page);
     expect(copied).toContain("# About DevHub");
@@ -154,7 +157,7 @@ test.describe("copy markdown exports raw markdown on example pages", () => {
     await setupClipboardMock(page);
     await page.goto("/templates/agentic-support-console");
 
-    await clickCopyPromptAndWaitForToast(page);
+    await clickCopyPromptAndWaitForCopiedState(page);
 
     const copied = await getCopiedText(page);
     expect(copied).toContain("# About DevHub");
@@ -178,7 +181,7 @@ test.describe("copy markdown exports raw markdown on example pages", () => {
     await setupClipboardMock(page);
     await page.goto("/templates/agentic-support-console");
 
-    await clickCopyPromptAndWaitForToast(page);
+    await clickCopyPromptAndWaitForCopiedState(page);
 
     const copied = await getCopiedText(page);
     expect(copied).toContain("# About DevHub");

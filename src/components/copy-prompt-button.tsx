@@ -51,7 +51,6 @@ export function CopyPromptButton({
       await navigator.clipboard.writeText(md);
       setCopyState("copied");
       track("copy_prompt", { title: input.title, permalink: input.permalink });
-      toast.success("Prompt copied");
     } catch {
       setCopyState("error");
       toast.error("Failed to copy prompt");
