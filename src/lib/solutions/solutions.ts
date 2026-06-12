@@ -131,6 +131,72 @@ export const solutions: Solution[] = [
     previewImageAlt:
       "Lakebase database branching graphic showing git-style Postgres workflows on Databricks",
   },
+  {
+    type: "linked",
+    id: "blog-evolutionary-database-development-part-1",
+    title:
+      "Enabling Evolutionary Database Development: database branching with Lakebase",
+    description:
+      "Walk through one feature and one schema change: copy-on-write branching gives every developer, pull request, and CI run an isolated, production-shaped Postgres database so database changes stop being a bottleneck.",
+    tags: [
+      "Lakebase",
+      "Branching",
+      "Database Development",
+      "Developer Experience",
+    ],
+    url: "https://www.databricks.com/blog/enabling-evolutionary-database-development-database-branching-lakebase",
+    source: "Databricks Blog",
+    authors: ["Pramod Sadalage", "Kevin Hartman"],
+    publishedAt: "2026-05-29",
+    previewImage:
+      "/img/solutions/blog-evolutionary-database-development-part-1.png",
+    previewImageAlt:
+      "Developer workflow using Lakebase database branches for an isolated feature and schema change",
+  },
+  {
+    type: "linked",
+    id: "blog-evolutionary-database-development-part-2",
+    title:
+      "Enabling Evolutionary Database Development: database branching with Lakebase, continued",
+    description:
+      "The architecture behind copy-on-write branching and the updated eleven-practice playbook it unlocks, from idempotent migrations and destructive testing to A/B schema prototyping on parallel branches.",
+    tags: [
+      "Lakebase",
+      "Branching",
+      "Database Development",
+      "Developer Experience",
+    ],
+    url: "https://www.databricks.com/blog/enabling-evolutionary-database-development-database-branching-lakebase-part-2",
+    source: "Databricks Blog",
+    authors: ["Pramod Sadalage", "Kevin Hartman"],
+    publishedAt: "2026-06-05",
+    previewImage:
+      "/img/solutions/blog-evolutionary-database-development-part-2.png",
+    previewImageAlt:
+      "Copy-on-write database branching architecture and the practices it enables on Databricks Lakebase",
+  },
+  {
+    type: "linked",
+    id: "blog-evolutionary-database-development-part-3",
+    title:
+      "Enabling Evolutionary Database Development: Database branching with Lakebase, the conclusion",
+    description:
+      "The branching playbook at team scale: tier topology as long-running branches, the branch permission model, the DBA-as-platform-engineer reframe, and agents that branch alongside humans.",
+    tags: [
+      "Lakebase",
+      "Branching",
+      "Database Development",
+      "Developer Experience",
+    ],
+    url: "https://www.databricks.com/blog/enabling-evolutionary-database-development-database-branching-lakebase-part-3",
+    source: "Databricks Blog",
+    authors: ["Pramod Sadalage", "Kevin Hartman"],
+    publishedAt: "2026-06-12",
+    previewImage:
+      "/img/solutions/blog-evolutionary-database-development-part-3.png",
+    previewImageAlt:
+      "Team-scale Lakebase database branching with environment tiers, branch permissions, and agents",
+  },
 ];
 
 export const nativeSolutions: NativeSolution[] =
