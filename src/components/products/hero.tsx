@@ -144,7 +144,7 @@ export function Hero({ content }: HeroProps) {
                   <h3 className="mt-12 text-[18px]/tight font-medium tracking-tight text-white md:mt-[60px] md:text-xl/tight lg:mt-18 lg:text-2xl/tight xl:text-[28px]/tight 2xl:mt-29">
                     {title}
                   </h3>
-                  <p className="mt-[6px] max-w-80 text-base text-grey-70 -tracking-[0.5px] md:mt-2 md:max-w-[400px] md:text-lg/normal lg:mt-2.5 xl:mt-3 xl:text-xl/normal text-pretty">
+                  <p className="mt-1.5 max-w-80 text-base text-grey-70 -tracking-[0.5px] md:mt-2 md:max-w-[400px] md:text-lg/normal lg:mt-2.5 xl:mt-3 xl:text-xl/normal text-pretty">
                     {description}
                   </p>
                 </div>

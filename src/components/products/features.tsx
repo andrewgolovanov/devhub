@@ -79,7 +79,7 @@ export function Features({ content }: ProductFeaturesProps) {
         <h2 className="mt-4 whitespace-pre-line font-sans text-[32px] tracking-[-0.04em] text-balance md:mt-4.5 md:text-[40px] lg:mt-5 lg:text-[52px] lg:max-w-4xl xl:text-[64px] 2xl:max-w-384 2xl:text-[96px] 2xl:leading-[1.125]">
           {content.featuresIntro.title}
         </h2>
-        <div className="mt-16 grid grid-cols-1 gap-16 md:gap-28 md:mt-24 lg:mt-[120px] xl:mt-[200px] lg:gap-50">
+        <div className="mt-16 grid grid-cols-1 gap-16 md:gap-28 md:mt-24 lg:mt-30 xl:mt-50 lg:gap-50">
           {content.features.map((feature) => (
             <FeatureRow feature={feature} key={feature.index} />
           ))}
