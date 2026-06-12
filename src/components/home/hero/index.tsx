@@ -82,16 +82,18 @@ function Hero({ className }: HeroProps) {
         className,
       )}
     >
-      <div className="relative flex flex-col justify-end min-h-[max(125vw,660px)] w-full overflow-hidden pb-16 sm:min-h-[max(100vw,700px)] md:min-h-200 md:pb-20 lg:min-h-240 xl:min-h-276 2xl:min-h-296 lg:pb-26">
-        <div
-          className="absolute top-8 left-[-20%] w-[150vw] aspect-2300/1144 sm:left-[-22%] md:top-8 md:w-5xl md:-left-34 lg:top-0 lg:w-400 lg:-left-58 xl:w-500 xl:-left-74 2xl:-translate-x-1/2 2xl:w-575 2xl:left-[max(50rem,50%)]"
-          aria-hidden="true"
-        >
-          <DbHeroAnimation />
-          <div className="absolute inset-x-0 top-0 pointer-events-none bg-linear-to-t from-transparent to-black h-16 lg:h-24" />
-          <div className="absolute inset-x-0 bottom-0 pointer-events-none bg-linear-to-b from-transparent to-black h-1/3" />
-          <div className="absolute inset-y-0 left-0 pointer-events-none bg-linear-to-l from-transparent via-black/90 via-80% to-black w-1/7" />
-          <div className="absolute inset-y-0 right-0 pointer-events-none bg-linear-to-r from-transparent via-black/90 via-80% to-black w-1/7" />
+      <div className="relative flex flex-col justify-end min-h-[max(125vw,660px)] w-full overflow-hidden pb-16 sm:min-h-[max(100vw,700px)] md:min-h-200 md:pb-20 lg:min-h-[max(min(calc(100vh-2rem),1000px),700px)] lg:pb-[min(5vh,6.5rem)] xl:min-h-[max(min(calc(100vh-2rem),1000px),700px)] 2xl:min-h-[max(min(calc(100vh-2rem),1200px),800px)]">
+        <div className="absolute top-8 left-1/2 -translate-x-1/2 bottom-0 md:top-8 w-full max-w-400 px-5 md:px-8 lg:top-0">
+          <div
+            className="absolute top-0 left-[-20%] w-[150vw] aspect-2300/1144 sm:left-[-23%] md:w-5xl md:-left-38 lg:h-[max(min(85vh,800px),640px)] lg:left-0 lg:-translate-x-[14.5%] lg:w-auto xl:h-[max(min(90vh,1024px),640px)] 2xl:h-[max(min(95vh,1144px),640px)]"
+            aria-hidden="true"
+          >
+            <DbHeroAnimation />
+            <div className="absolute inset-x-0 top-0 pointer-events-none bg-linear-to-t from-transparent to-black h-16 lg:h-24" />
+            <div className="absolute inset-x-0 bottom-0 pointer-events-none bg-linear-to-b from-transparent to-black h-1/3" />
+            <div className="absolute inset-y-0 left-0 pointer-events-none bg-linear-to-l from-transparent via-black/90 via-80% to-black w-1/7" />
+            <div className="absolute inset-y-0 right-0 pointer-events-none bg-linear-to-r from-transparent via-black/90 via-80% to-black w-1/7" />
+          </div>
         </div>
         <div
           className="block h-14 md:h-16 lg:h-10 xl:hidden"
@@ -99,7 +101,7 @@ function Hero({ className }: HeroProps) {
         />
         <header className="pointer-events-none relative z-10 flex flex-col justify-end">
           <div className="pointer-events-auto mx-auto grid w-full max-w-400 grid-cols-1 px-5 md:px-8 xl:grid-cols-[1fr_auto] xl:items-end xl:gap-7">
-            <h1 className="max-w-md md:max-w-4xl pb-1 font-heading text-4xl/none tracking-normal text-white md:text-5xl/none lg:text-[64px]/none xl:text-7xl/none">
+            <h1 className="max-w-md md:max-w-4xl pb-1 font-heading text-4xl/none tracking-normal text-white md:text-5xl/none lg:text-[64px]/none 2xl:text-7xl/none">
               <span className="relative z-10">Build </span>
               <HeroTitleHighlight>agentic applications</HeroTitleHighlight>
               <br />
@@ -107,7 +109,7 @@ function Hero({ className }: HeroProps) {
                 in&nbsp;minutes, not months.
               </span>
             </h1>
-            <p className="order-last max-w-sm text-base/tight tracking-normal mt-4 text-grey-80 xl:order-none xl:mt-0 xl:row-span-2">
+            <p className="order-last max-w-sm text-base/tight tracking-normal mt-4 text-grey-80 xl:order-0 xl:mt-0 xl:row-span-2">
               Open your agent in any folder and paste. Works with Cursor, Claude
               Code, Codex, or your favorite coding agent.
             </p>
