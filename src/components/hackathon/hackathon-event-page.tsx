@@ -215,28 +215,13 @@ export function OpenInDatabricksButton({ href }: { href: string }): ReactNode {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex shrink-0 items-center gap-1 rounded bg-db-lava px-2 py-1 text-sm leading-normal font-semibold whitespace-nowrap text-white no-underline transition-colors hover:bg-db-lava/90"
+      className="inline-flex shrink-0 items-center no-underline transition-opacity hover:opacity-90"
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="14"
-        height="14"
-        viewBox="0 0 16 16"
-        fill="none"
-        aria-hidden
-        focusable={false}
-        className="shrink-0"
-      >
-        <path
-          fill="currentColor"
-          d="M10 1h5v5h-1.5V3.56L8.53 8.53 7.47 7.47l4.97-4.97H10z"
-        />
-        <path
-          fill="currentColor"
-          d="M1 2.75A.75.75 0 0 1 1.75 2H8v1.5H2.5v10h10V8H14v6.25a.75.75 0 0 1-.75.75H1.75a.75.75 0 0 1-.75-.75z"
-        />
-      </svg>
-      Open in Databricks
+      <img
+        src="https://www.databricks.com/open-in-databricks-internal-lava.png"
+        alt="Open in Databricks"
+        className="h-9 w-auto shrink-0"
+      />
     </a>
   );
 }
