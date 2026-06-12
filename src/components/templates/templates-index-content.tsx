@@ -10,7 +10,6 @@ import {
 import { TemplateCard } from "@/components/templates/template-card";
 import { TemplateFilters } from "@/components/templates/template-filters";
 import { TemplateSearch } from "@/components/templates/template-search";
-import { Pagination } from "@site/src/components/templates/pagination";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { useFeatureFlags } from "@/lib/feature-flags";
@@ -19,14 +18,11 @@ import { buildTemplateItems } from "@/lib/templates/template-items";
 import { useReplitTemplateIds } from "@/lib/use-raw-content-markdown";
 import { cn } from "@/lib/utils";
 
-const ITEMS_PER_PAGE = 6;
-
 export function TemplatesIndexContent(): ReactNode {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedServices, setSelectedServices] = useState<Set<Service>>(
     new Set(),
   );
-  const [currentPage, setCurrentPage] = useState(1);
   const [replitOnly, setReplitOnly] = useState(false);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
@@ -50,29 +46,8 @@ export function TemplatesIndexContent(): ReactNode {
     [searchQuery, selectedServices, replitOnly, replitTemplateIds, allItems],
   );
 
-  const hasActiveFilters =
-    searchQuery.trim().length > 0 || selectedServices.size > 0 || replitOnly;
   const selectedFilterCount = selectedServices.size + (replitOnly ? 1 : 0);
   const hasSelectedFilters = selectedFilterCount > 0;
-  const visibleItemsPerPage = hasActiveFilters
-    ? Math.max(filteredItems.length, 1)
-    : ITEMS_PER_PAGE;
-  const pageCount = Math.max(
-    1,
-    Math.ceil(filteredItems.length / visibleItemsPerPage),
-  );
-  const visibleItems = useMemo(
-    () =>
-      filteredItems.slice(
-        (currentPage - 1) * visibleItemsPerPage,
-        currentPage * visibleItemsPerPage,
-      ),
-    [filteredItems, currentPage, visibleItemsPerPage],
-  );
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [searchQuery, selectedServices, replitOnly]);
 
   const handleToggleService = useCallback((service: Service) => {
     setSelectedServices((prev) => {
@@ -319,24 +294,11 @@ export function TemplatesIndexContent(): ReactNode {
             {filteredItems.length === 0 ? (
               <TemplateEmptyState onClearAll={handleClearAllFilters} />
             ) : (
-              <>
-                {visibleItems.map((item, index) => (
-                  <TemplateCard
-                    key={item.data.id}
-                    item={item}
-                    index={(currentPage - 1) * visibleItemsPerPage + index}
-                    isLast={index === visibleItems.length - 1}
-                  />
+              <div className="grid min-w-0 gap-y-12 md:grid-cols-2 md:gap-x-10 md:gap-y-16 xl:gap-x-16">
+                {filteredItems.map((item, index) => (
+                  <TemplateCard key={item.data.id} item={item} index={index} />
                 ))}
-                {pageCount > 1 ? (
-                  <Pagination
-                    className="mt-20 w-full max-w-104 md:mt-30"
-                    currentPage={currentPage}
-                    pageCount={pageCount}
-                    onPageChange={setCurrentPage}
-                  />
-                ) : null}
-              </>
+              </div>
             )}
           </div>
         </div>

@@ -27,14 +27,19 @@ async function visibleCount(locator: Locator): Promise<number> {
 }
 
 test.describe("templates page search", () => {
-  test("renders cover images for visible template cards", async ({ page }) => {
+  test("renders cover images for all visible template cards", async ({
+    page,
+  }) => {
     await page.goto("/templates");
 
+    const cards = page.locator("#templates-list article");
     const coverImages = page
       .locator('#templates-list img[alt$=" preview"]')
       .filter({ visible: true });
+    const cardCount = await cards.count();
 
-    await expect(coverImages).toHaveCount(6);
+    expect(cardCount).toBeGreaterThan(6);
+    await expect(coverImages).toHaveCount(cardCount);
     await expect(coverImages.first()).toHaveAttribute("src", /\/img\//);
   });
 

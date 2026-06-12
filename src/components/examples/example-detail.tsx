@@ -2,16 +2,7 @@ import Link from "@docusaurus/Link";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import { MDXProvider } from "@mdx-js/react";
 import { useRef, type ReactNode } from "react";
-import { Code2, ExternalLink, FolderGit2 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { ArrowUpRight, GitBranch } from "lucide-react";
 import { RecipePre } from "@/components/cookbooks/recipe-code-block";
 import {
   buildFullPrompt,
@@ -45,40 +36,43 @@ function StarterCodeCard({ templateUrl }: { templateUrl: string }) {
       .replace(/\/tree\/[^/]+\//, "/") + "/";
 
   return (
-    <div className="mb-8 rounded-lg border border-border/80 bg-card">
-      <div className="flex items-start gap-3 px-5 pt-5 pb-4">
-        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-border/60 bg-background">
-          <Code2 className="h-4 w-4 text-db-lava" />
-        </div>
-        <div className="flex flex-col gap-1.5">
-          <p className="m-0 text-sm font-semibold text-card-foreground">
+    <div className="mt-10 py-2 md:mt-12">
+      <div className="flex flex-col gap-5 border border-grey-30 bg-black px-6 py-[25px]">
+        <div className="flex flex-col gap-4">
+          <p className="m-0 text-xl leading-[1.375] font-medium tracking-[-0.5px] text-white">
             Includes a working starter app
           </p>
-          <p className="m-0 text-[13px] leading-relaxed text-muted-foreground">
+          <p className="m-0 text-lg leading-normal tracking-[-0.45px] text-grey-90">
             Real, runnable code lives on GitHub. When you copy the prompt above,
             your coding agent clones it as the starting point and adapts it to
             your data and use case.
           </p>
         </div>
-      </div>
-      <div className="flex flex-col gap-3 border-t border-border/60 px-5 py-3 sm:flex-row sm:items-center sm:justify-between">
-        <div className="inline-flex min-w-0 items-center gap-2 text-[12px] text-muted-foreground">
-          <FolderGit2 className="h-3.5 w-3.5 shrink-0" />
-          <code className="truncate rounded bg-muted px-1.5 py-0.5 font-mono">
-            {displayPath}
-          </code>
-        </div>
-        <Button asChild variant="outline" size="sm" className="sm:shrink-0">
+        <div className="h-px w-full bg-grey-30" aria-hidden="true" />
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="inline-flex min-w-0 items-center gap-2.5 text-grey-70">
+            <GitBranch className="size-4 shrink-0" />
+            <span className="min-w-0 truncate font-mono text-base leading-normal tracking-[-0.4px] text-grey-70">
+              {displayPath}
+            </span>
+          </div>
           <a
             href={templateUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 no-underline"
+            className="group inline-flex w-fit max-w-full shrink-0 items-stretch gap-x-0.5 text-white no-underline hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-db-cyan"
           >
-            <ExternalLink className="size-3.5" />
-            View on GitHub
+            <span className="inline-flex h-9 min-w-0 items-center justify-center bg-grey-20 px-[18px] font-mono text-sm leading-none font-medium tracking-[-0.28px] uppercase transition-colors group-hover:bg-grey-30">
+              View on GitHub
+            </span>
+            <span
+              className="grid size-9 shrink-0 place-items-center bg-grey-20 transition-colors group-hover:bg-grey-30"
+              aria-hidden="true"
+            >
+              <ArrowUpRight className="size-4" />
+            </span>
           </a>
-        </Button>
+        </div>
       </div>
     </div>
   );
@@ -94,32 +88,34 @@ function IncludedTemplateCard({
   href: string;
 }) {
   return (
-    <Card className="flex h-full flex-col border-black/10 bg-[#f7f6f4] dark:border-white/10 dark:bg-[#182a32]">
-      <CardHeader className="pb-2">
-        <Badge
-          variant="secondary"
-          className="mb-1 w-fit rounded-md border border-black/10 bg-black/5 px-2 py-0.5 text-[10px] font-semibold tracking-wide text-black/60 uppercase dark:border-white/10 dark:bg-white/8 dark:text-white/60"
-        >
-          Template
-        </Badge>
-        <CardTitle className="text-base leading-tight font-medium">
+    <Link
+      to={href}
+      aria-label={`View ${name}`}
+      className="group relative flex flex-col gap-14 border border-grey-30 bg-[#0b0c0e] p-6 text-white no-underline hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-db-cyan"
+    >
+      <p className="m-0 flex items-center gap-1.5 font-mono text-sm leading-none font-medium tracking-normal text-[#5e616e] uppercase">
+        <span className="size-1.5 bg-[#ff6038]" aria-hidden="true" />
+        [TEMPLATES]
+      </p>
+      <div className="flex flex-col gap-2">
+        <h3 className="m-0 text-xl leading-[1.375] font-medium tracking-[-0.5px] text-white">
           {name}
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="flex-1 pt-0">
-        <p className="m-0 text-[13px] leading-relaxed text-muted-foreground">
+        </h3>
+        <p className="m-0 text-base leading-normal tracking-[-0.4px] text-[#9194a1]">
           {description}
         </p>
-      </CardContent>
-      <CardFooter className="pt-0">
-        <Link
-          to={href}
-          className="text-xs font-medium text-db-lava no-underline hover:underline"
-        >
-          View
-        </Link>
-      </CardFooter>
-    </Card>
+      </div>
+      <span
+        className="absolute top-0 right-0 flex size-9 items-center justify-center bg-orange text-white opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
+        aria-hidden="true"
+      >
+        <img
+          className="size-5"
+          src="/img/templates/arrow-right-up.svg"
+          alt=""
+        />
+      </span>
+    </Link>
   );
 }
 
@@ -196,31 +192,26 @@ export function ExampleDetail({
       belowContent={
         <>
           <StarterCodeCard templateUrl={example.templateUrl} />
-          {(includedCookbooks.length > 0 || includedRecipes.length > 0) && (
-            <div className="mt-12">
-              <h2 className="mb-2 text-xl font-semibold tracking-tight">
-                Built on these templates
-              </h2>
-              <p className="mb-6 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-                This example's codebase and the agent prompt above both build on
-                top of the templates below. Open one to dive into a specific
-                technique on its own or apply it to a different project.
-              </p>
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                {includedCookbooks.map((c) => (
+          {relatedItems.length > 0 && (
+            <div className="mt-12 flex flex-col gap-6">
+              <div className="flex flex-col gap-6">
+                <h2 className="m-0 text-2xl leading-normal font-medium tracking-[-0.6px] text-white">
+                  Built on these templates
+                </h2>
+                <p className="m-0 text-lg leading-normal tracking-[-0.45px] text-grey-90">
+                  This example's codebase and the agent prompt above both build
+                  on top of the templates below. Open one to dive into a
+                  specific technique on its own or apply it to a different
+                  project.
+                </p>
+              </div>
+              <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+                {relatedItems.map(({ data }) => (
                   <IncludedTemplateCard
-                    key={c.id}
-                    name={c.name}
-                    description={c.description}
-                    href={`/templates/${c.id}`}
-                  />
-                ))}
-                {includedRecipes.map((r) => (
-                  <IncludedTemplateCard
-                    key={r.id}
-                    name={r.name}
-                    description={r.description}
-                    href={`/templates/${r.id}`}
+                    key={data.id}
+                    name={data.name}
+                    description={data.description}
+                    href={`/templates/${data.id}`}
                   />
                 ))}
               </div>
