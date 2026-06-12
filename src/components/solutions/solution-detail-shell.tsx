@@ -36,7 +36,7 @@ import {
 import { siteUrlFromConfig } from "@/lib/site-url";
 
 const solutionComponents = { a: BaseUrlAnchor, pre: RecipePre };
-const defaultSocialImagePath = "/img/databricks-social-card.svg";
+const defaultSocialImagePath = "/img/databricks-social-card.jpg";
 
 function absoluteSiteAssetUrl(siteUrl: string, assetPath: string): string {
   if (/^https?:\/\//i.test(assetPath)) return assetPath;

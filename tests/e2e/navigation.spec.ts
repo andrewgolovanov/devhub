@@ -431,18 +431,18 @@ test.describe("footer navigation", () => {
       label: "California Privacy",
     },
     {
+      href: "https://www.youtube.com/@Databricks",
+      label: "YouTube",
+    },
+    {
+      href: "https://www.reddit.com/r/databricks/",
+      label: "Reddit",
+    },
+    {
       href: "https://github.com/databricks/devhub",
       label: "GitHub",
     },
-    {
-      href: "https://discord.com/invite/databricks",
-      label: "Discord",
-    },
-    {
-      href: "https://www.reddit.com/r/databricks",
-      label: "Reddit",
-    },
-    { href: "https://www.databricks.com", label: "Databricks" },
+    { href: "https://www.databricks.com", label: "Databricks.com" },
   ];
 
   const EXPECTED_FOOTER_HREFS = [
@@ -460,8 +460,8 @@ test.describe("footer navigation", () => {
     "/solutions",
     "https://docs.databricks.com/release-notes/",
     "https://github.com/databricks/devhub",
-    "https://discord.com/invite/databricks",
-    "https://www.reddit.com/r/databricks",
+    "https://www.youtube.com/@Databricks",
+    "https://www.reddit.com/r/databricks/",
     "https://www.databricks.com",
   ];
 
@@ -469,6 +469,7 @@ test.describe("footer navigation", () => {
     await page.goto("/");
     const hrefs = await page
       .locator("footer a")
+      .filter({ visible: true })
       .evaluateAll((links) => links.map((link) => link.getAttribute("href")));
     expect(hrefs).toEqual(EXPECTED_FOOTER_HREFS);
   });
@@ -485,7 +486,9 @@ test.describe("footer navigation", () => {
   for (const { href, label } of FOOTER_EXTERNAL_LINKS) {
     test(`footer "${label}" links to ${href}`, async ({ page }) => {
       await page.goto("/");
-      const link = page.locator(`footer a[href="${href}"]`);
+      const link = page.locator(`footer a[href="${href}"]`).filter({
+        visible: true,
+      });
       await expect(link).toHaveCount(1);
       await expect(link).toHaveAttribute("target", "_blank");
       await expect(link).toHaveAttribute("rel", "noopener noreferrer");

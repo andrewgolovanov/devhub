@@ -199,7 +199,7 @@ const config: Config = {
 
   themeConfig: {
     ...(hackathonBanner && { announcementBar: hackathonBanner }),
-    image: "img/databricks-social-card.svg",
+    image: "img/databricks-social-card.jpg",
     colorMode: {
       respectPrefersColorScheme: true,
     },

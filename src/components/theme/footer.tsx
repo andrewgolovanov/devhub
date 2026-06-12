@@ -60,13 +60,13 @@ const SOCIAL_LINKS = [
     icon: "github",
   },
   {
-    label: "Discord",
-    href: "https://discord.com/invite/databricks",
-    icon: "discord",
+    label: "YouTube",
+    href: "https://www.youtube.com/@Databricks",
+    icon: "youtube",
   },
   {
     label: "Reddit",
-    href: "https://www.reddit.com/r/databricks",
+    href: "https://www.reddit.com/r/databricks/",
     icon: "reddit",
   },
   {
