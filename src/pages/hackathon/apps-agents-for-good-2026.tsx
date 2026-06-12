@@ -105,7 +105,7 @@ const event: HackathonEvent = {
         { label: "Platform overview", href: "/docs/platform-overview" },
         { label: "Databricks CLI", href: "/docs/tools/databricks-cli" },
         { label: "Agent skills", href: "/docs/tools/ai-tools/agent-skills" },
-        { label: "What are templates?", href: "/templates" },
+        { label: "What are templates?", href: "/docs/templates" },
       ],
     },
   ],
