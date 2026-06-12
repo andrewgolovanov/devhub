@@ -354,6 +354,31 @@ export const recipes: Recipe[] = [
     previewImageLightUrl: "/img/guides/volume-file-upload-preview-light.png",
     previewImageDarkUrl: "/img/guides/volume-file-upload-preview-dark.png",
   },
+  {
+    id: "hackathon-app-with-synced-dataset",
+    name: "Hackathon App with Synced Dataset",
+    description:
+      "Scaffold a Databricks App backed by Lakebase and continuously sync the hackathon dataset from Unity Catalog into Lakebase for sub-10ms reads.",
+    tags: [
+      "Lakebase",
+      "Postgres",
+      "Sync Tables",
+      "Unity Catalog",
+      "Databricks Apps",
+      "Hackathon",
+    ],
+    services: [
+      "Lakebase Postgres",
+      "Databricks Apps",
+      "Unity Catalog",
+      "Data Lakehouse",
+    ],
+    previewImageLightUrl:
+      "/img/guides/hackathon-app-with-synced-dataset-preview-light.png",
+    previewImageDarkUrl:
+      "/img/guides/hackathon-app-with-synced-dataset-preview-dark.png",
+    unlisted: true,
+  },
 ];
 
 const recipeIndex: Record<string, Recipe> = Object.fromEntries(
@@ -382,6 +407,7 @@ export const recipesInOrder: Recipe[] = [
   "lakebase-token-management",
   "lakebase-drizzle-off-platform",
   "volume-file-upload",
+  "hackathon-app-with-synced-dataset",
 ].map((recipeId) => {
   const recipe = recipeIndex[recipeId];
   if (!recipe) {
@@ -515,6 +541,8 @@ export type Example = PreviewImages & {
    */
   galleryImages?: GalleryImage[];
   isDraft?: boolean;
+  /** When true, the example is still navigable and indexed but hidden from the /templates listing page. */
+  unlisted?: boolean;
 };
 
 const cookbookIndex: Record<string, Cookbook> = Object.fromEntries(
@@ -533,6 +561,7 @@ type ExampleConfig = {
   previewImageDarkUrl?: string;
   galleryImages?: GalleryImage[];
   isDraft?: boolean;
+  unlisted?: boolean;
 };
 
 function createExample(config: ExampleConfig): Example {
@@ -584,6 +613,7 @@ export const examples: Example[] = [
       "/img/examples/agentic-support-console-preview-light.png",
     previewImageDarkUrl:
       "/img/examples/agentic-support-console-preview-dark.png",
+    unlisted: true,
   }),
   createExample({
     id: "vacation-rentals",

@@ -8,6 +8,7 @@ import {
   CalendarDays,
   Database,
   HelpCircle,
+  ListChecks,
   Lock,
   MapPin,
   Rocket,
@@ -76,6 +77,11 @@ export type HackathonEvent = {
    */
   registrationClosed?: boolean;
   resources: HackathonResource[];
+  /**
+   * Optional quick start checklist URL. When set, a "Quick start checklist"
+   * callout is rendered first in the resources section, before the setup guide.
+   */
+  checklistUrl?: string;
   /**
    * Optional setup guide URL. When set, a "Set up Free Edition" callout is
    * rendered above the resources grid.
@@ -203,34 +209,19 @@ function ResourceCard({
   );
 }
 
-function OpenInDatabricksButton({ href }: { href: string }): ReactNode {
+export function OpenInDatabricksButton({ href }: { href: string }): ReactNode {
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex shrink-0 items-center gap-1 rounded bg-db-lava px-2 py-1 text-sm leading-normal font-semibold whitespace-nowrap text-white no-underline transition-colors hover:bg-db-lava/90"
+      className="inline-flex shrink-0 items-center no-underline transition-opacity hover:opacity-90"
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="14"
-        height="14"
-        viewBox="0 0 16 16"
-        fill="none"
-        aria-hidden
-        focusable={false}
-        className="shrink-0"
-      >
-        <path
-          fill="currentColor"
-          d="M10 1h5v5h-1.5V3.56L8.53 8.53 7.47 7.47l4.97-4.97H10z"
-        />
-        <path
-          fill="currentColor"
-          d="M1 2.75A.75.75 0 0 1 1.75 2H8v1.5H2.5v10h10V8H14v6.25a.75.75 0 0 1-.75.75H1.75a.75.75 0 0 1-.75-.75z"
-        />
-      </svg>
-      Open in Databricks
+      <img
+        src="https://www.databricks.com/open-in-databricks-internal-lava.png"
+        alt="Open in Databricks"
+        className="h-9 w-auto shrink-0"
+      />
     </a>
   );
 }
@@ -281,8 +272,8 @@ export function HackathonEventPage({
   const judgingIntro =
     event.judgingIntro ?? "Submissions will be judged on the following:";
   const { siteConfig } = useDocusaurusContext();
-  const showHackathonDataset = Boolean(
-    (siteConfig.customFields as Record<string, unknown>).showHackathonDataset,
+  const showAllResources = Boolean(
+    (siteConfig.customFields as Record<string, unknown>).showAllResources,
   );
 
   return (
@@ -358,6 +349,25 @@ export function HackathonEventPage({
             <h2 className="mb-6 text-2xl font-medium text-black dark:text-white">
               Resources
             </h2>
+            {event.checklistUrl && showAllResources && (
+              <ResourceCallout
+                Icon={ListChecks}
+                title="Quick start checklist"
+                description="Follow the step-by-step checklist to get set up and start coding."
+                className="mb-4"
+              >
+                <Link
+                  to={event.checklistUrl}
+                  className="group inline-flex shrink-0 items-center gap-1 text-sm font-medium text-db-lava no-underline hover:underline"
+                >
+                  See the checklist
+                  <ArrowRight
+                    aria-hidden
+                    className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5"
+                  />
+                </Link>
+              </ResourceCallout>
+            )}
             {event.setupGuideUrl && (
               <ResourceCallout
                 Icon={Rocket}
@@ -377,21 +387,21 @@ export function HackathonEventPage({
                 </Link>
               </ResourceCallout>
             )}
+            {event.datasetUrl && showAllResources && (
+              <ResourceCallout
+                Icon={Database}
+                title="Hackathon dataset"
+                description="Add the hackathon dataset to your Databricks workspace to start building with it."
+                className="mb-4"
+              >
+                <OpenInDatabricksButton href={event.datasetUrl} />
+              </ResourceCallout>
+            )}
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               {event.resources.map((resource) => (
                 <ResourceCard key={resource.title} resource={resource} />
               ))}
             </div>
-            {event.datasetUrl && showHackathonDataset && (
-              <ResourceCallout
-                Icon={Database}
-                title="Hackathon dataset"
-                description="Add the hackathon dataset to your Databricks workspace to start building with it."
-                className="mt-4"
-              >
-                <OpenInDatabricksButton href={event.datasetUrl} />
-              </ResourceCallout>
-            )}
           </div>
         </section>
 

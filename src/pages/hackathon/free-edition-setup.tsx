@@ -113,7 +113,16 @@ const steps: SetupStep[] = [
           </li>
           <li>
             Invite teammates to the final demo workspace if they need to inspect
-            data, run notebooks, or help deploy the app.
+            data, run notebooks, or help deploy the app. Watch a{" "}
+            <a
+              href="https://www.youtube.com/watch?v=eA1SZvKiCfk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={inlineLink}
+            >
+              step-by-step video
+            </a>{" "}
+            on adding teammates to your Free Edition workspace.
           </li>
           <li>Decide who owns the final deployment before demo time.</li>
         </ul>
@@ -161,6 +170,23 @@ const faqs: { q: string; a: ReactNode }[] = [
   {
     q: "What limits should I expect?",
     a: "Free Edition is serverless-only and quota-limited. Plan to build efficiently, stop unused workloads, and avoid long-running jobs where possible.",
+  },
+  {
+    q: "Can I add teammates to my Free Edition workspace?",
+    a: (
+      <>
+        Yes, teammates can be added to your workspace for collaboration. This{" "}
+        <a
+          href="https://www.youtube.com/watch?v=eA1SZvKiCfk"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={inlineLink}
+        >
+          step-by-step video
+        </a>{" "}
+        shows you how.
+      </>
+    ),
   },
 ];
 

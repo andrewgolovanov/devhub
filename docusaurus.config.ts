@@ -4,6 +4,7 @@ import type * as Preset from "@docusaurus/preset-classic";
 import { normalizeUrl } from "@docusaurus/utils";
 import path from "path";
 import aboutDevhubPlugin from "./plugins/about-devhub";
+import chunkReloadPlugin from "./plugins/chunk-reload";
 import contentEntriesPlugin from "./plugins/content-entries";
 import cookbooksPlugin from "./plugins/cookbooks";
 import llmsTxtPlugin from "./plugins/llms-txt";
@@ -39,7 +40,7 @@ const config: Config = {
     hackathonEventSlug: process.env.HACKATHON_EVENT_SLUG,
     // When "true", the hackathon dataset card is shown in the event Resources
     // section. Defaults to hidden.
-    showHackathonDataset: process.env.HACKATHON_SHOW_DATASET === "true",
+    showAllResources: process.env.HACKATHON_SHOW_ALL_RESOURCES === "true",
   },
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -193,6 +194,7 @@ const config: Config = {
     solutionRssFeedPlugin,
     cookbooksPlugin,
     perspectivesPlugin,
+    chunkReloadPlugin,
   ],
 
   themeConfig: {
