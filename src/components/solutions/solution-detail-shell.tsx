@@ -3,7 +3,6 @@ import Link from "@docusaurus/Link";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import { MDXProvider } from "@mdx-js/react";
 import Layout from "@theme/Layout";
-import { ArrowLeft } from "lucide-react";
 import { useMemo, useRef, type ReactNode } from "react";
 
 import { AIExportMenu } from "@/components/ai-export-menu";
@@ -20,6 +19,7 @@ import { MarkdownProse } from "@/components/markdown-prose";
 import NewFooter from "@/components/theme/footer";
 import { Toc } from "@/components/templates/toc";
 import { AnimatedArrowLink } from "@/components/ui/animated-arrow-link";
+import { BackLink } from "@/components/ui/back-link";
 import { BrandStrip } from "@/components/ui/brand-strip";
 import { Button } from "@/components/ui/button";
 import {
@@ -86,14 +86,13 @@ function SolutionHeroMedia({ item }: { item: NativeSolutionItem }): ReactNode {
 
 function SolutionBackLink(): ReactNode {
   return (
-    <Link
-      className="inline-flex self-start items-center gap-1.5 font-mono text-xs leading-none font-medium text-grey-50 no-underline uppercase hover:text-white hover:no-underline"
+    <BackLink
+      className="self-start leading-none text-grey-50"
       to="/solutions"
       aria-label="All solutions"
     >
-      <ArrowLeft className="size-3.5" aria-hidden="true" />
       Back
-    </Link>
+    </BackLink>
   );
 }
 

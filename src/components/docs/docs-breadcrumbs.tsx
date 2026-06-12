@@ -1,7 +1,6 @@
 import { type ReactNode } from "react";
-import Link from "@docusaurus/Link";
 import { useSidebarBreadcrumbs } from "@docusaurus/plugin-content-docs/client";
-import { ArrowLeft } from "lucide-react";
+import { BackLink } from "@/components/ui/back-link";
 
 type DocsBreadcrumbsProps = {
   title: string;
@@ -36,14 +35,13 @@ export function DocsBreadcrumbs({ title }: DocsBreadcrumbsProps): ReactNode {
     <nav className="flex" aria-label="Breadcrumb">
       <ol className="flex min-w-0 items-center" role="list">
         <li className="flex items-center">
-          <Link
-            className="inline-flex items-center gap-1.5 font-mono text-xs text-grey-60 uppercase no-underline hover:text-white hover:no-underline"
+          <BackLink
+            className="font-normal"
             to={backHref}
             aria-label="Back to previous docs level"
           >
-            <ArrowLeft className="size-3.5" aria-hidden="true" />
             Back
-          </Link>
+          </BackLink>
         </li>
         <li className="flex min-w-0 items-center font-mono">
           <span

@@ -24,6 +24,7 @@
     --db-border: #dce0e2;
 
     --black: hsl(240 20 2);
+    --grey-5: hsl(230 12 5); /* #0B0C0E */
     --grey-8: hsl(230 12 8); /* #121317 */
     --grey-12: hsl(230 10 12);
     --grey-20: hsl(228 10 20); /* #2E3038 */
@@ -122,6 +123,7 @@
     --db-border: var(--db-dark-border);
 
     --black: hsl(240 20 2);
+    --grey-5: hsl(230 12 5); /* #0B0C0E */
     --grey-8: hsl(230 12 8); /* #121317 */
     --grey-12: hsl(230 10 12);
     --grey-20: hsl(228 10 20); /* #2E3038 */
@@ -182,6 +184,32 @@
   }
 }
 
+@keyframes faq-accordion-down {
+  from {
+    height: 0;
+  }
+
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes faq-accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+
+  to {
+    height: 0;
+  }
+}
+
+.faq
+  [data-slot="accordion-trigger"][data-state="open"]
+  [data-slot="faq-icon-vertical"] {
+  transform: rotate(90deg);
+}
+
 @theme inline {
   --font-sans:
     "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -230,6 +258,7 @@
   --color-db-border: var(--db-border);
   /*  */
   --color-black: var(--black);
+  --color-grey-5: var(--grey-5);
   --color-grey-8: var(--grey-8);
   --color-grey-12: var(--grey-12);
   --color-grey-20: var(--grey-20);

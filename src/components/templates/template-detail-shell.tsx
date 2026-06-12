@@ -1,16 +1,16 @@
 import Head from "@docusaurus/Head";
-import Link from "@docusaurus/Link";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
-import { ArrowLeft } from "lucide-react";
 import type { ComponentProps, ReactNode } from "react";
 
 import { CopyPromptButton } from "@/components/copy-prompt-button";
 import CTA from "@/components/home/cta";
 import { OpenPromptInButton } from "@/components/open-prompt-in-button";
+import { HackathonTemplateDetail } from "@/components/templates/hackathon-template-detail";
 import { MoreTemplatesSlider } from "@/components/templates/more-templates-slider";
 import type { TemplateItem } from "@/components/templates/template-card";
 import NewFooter from "@/components/theme/footer";
+import { BackLink } from "@/components/ui/back-link";
 import { siteUrlFromConfig } from "@/lib/site-url";
 import { useReplitPrompt } from "@/lib/use-raw-content-markdown";
 
@@ -26,9 +26,11 @@ type TemplateDetailShellProps = {
   contentRef: React.RefObject<HTMLDivElement | null>;
   toc: ReactNode;
   eyebrow?: string;
+  services?: readonly string[];
   heroMedia?: ReactNode;
   belowContent?: ReactNode;
   relatedItems?: TemplateItem[];
+  presentation?: "default" | "hackathon";
 };
 
 function TemplateAiBlock({
@@ -113,9 +115,11 @@ export function TemplateDetailShell({
   contentRef,
   toc,
   eyebrow,
+  services,
   heroMedia,
   belowContent,
   relatedItems = [],
+  presentation = "default",
 }: TemplateDetailShellProps): ReactNode {
   const { siteConfig } = useDocusaurusContext();
   const siteUrl = siteUrlFromConfig(siteConfig.url, siteConfig.baseUrl);
@@ -135,81 +139,92 @@ export function TemplateDetailShell({
           })}
         </script>
       </Head>
-      <main className="bg-black text-white">
-        <section className="">
-          <article className="mx-auto w-full max-w-304 flex flex-col gap-y-9 px-5 pt-12 pb-24 md:px-8 md:pt-13 lg:pb-32">
-            <nav className="flex" aria-label="Breadcrumb">
-              <ol className="flex min-w-0 items-center" role="list">
-                <li className="flex items-center">
-                  <Link
-                    className="inline-flex text-xs font-mono items-center gap-1.5 text-grey-60 no-underline uppercase hover:text-white hover:no-underline"
-                    to="/templates"
-                    aria-label="All templates"
+      {presentation === "hackathon" ? (
+        <HackathonTemplateDetail
+          title={title}
+          description={description}
+          usage={usage}
+          contentRef={contentRef}
+          services={services}
+        >
+          {children}
+        </HackathonTemplateDetail>
+      ) : (
+        <main className="bg-black text-white">
+          <section className="">
+            <article className="mx-auto w-full max-w-304 flex flex-col gap-y-9 px-5 pt-12 pb-24 md:px-8 md:pt-13 lg:pb-32">
+              <nav className="flex" aria-label="Breadcrumb">
+                <ol className="flex min-w-0 items-center" role="list">
+                  <li className="flex items-center">
+                    <BackLink
+                      className="font-normal"
+                      to="/templates"
+                      aria-label="All templates"
+                    >
+                      Back
+                    </BackLink>
+                  </li>
+                  <li className="flex items-center font-mono">
+                    <span
+                      className="mx-2.5 text-sm font-mono leading-none font-medium tracking-tight text-grey-70"
+                      aria-hidden="true"
+                    >
+                      /
+                    </span>
+                    <span className="text-white uppercase text-xs">
+                      {eyebrow ?? title}
+                    </span>
+                  </li>
+                </ol>
+              </nav>
+
+              <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_21rem] xl:grid-cols-[minmax(0,1fr)_22rem] xl:gap-16">
+                <div className="min-w-0">
+                  <h1 className="font-sans text-balance text-[28px]/[1.125] font-normal tracking-[-0.04em] text-white md:text-4xl/[1.125] lg:text-[3.5rem]/[1.125]">
+                    {title}
+                  </h1>
+                  <p className="mt-4 text-base/snug tracking-tight text-grey-90 md:text-xl/snug">
+                    {description}
+                  </p>
+
+                  {heroMedia ? <div className="mt-8">{heroMedia}</div> : null}
+
+                  <TemplateAiBlock
+                    usage={usage}
+                    className="mt-5 md:mt-6 lg:hidden"
+                    titleClassName="text-xl/snug md:text-2xl/snug"
+                    showDivider
+                  />
+
+                  <div
+                    className="mt-10 recipe-content-card template-dark-prose md:mt-12"
+                    ref={contentRef}
                   >
-                    <ArrowLeft className="size-3.5" aria-hidden="true" />
-                    Back
-                  </Link>
-                </li>
-                <li className="flex items-center font-mono">
-                  <span
-                    className="mx-2.5 text-sm font-mono leading-none font-medium tracking-tight text-grey-70"
-                    aria-hidden="true"
-                  >
-                    /
-                  </span>
-                  <span className="text-white uppercase text-xs">
-                    {eyebrow ?? title}
-                  </span>
-                </li>
-              </ol>
-            </nav>
+                    {children}
+                  </div>
 
-            <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_21rem] xl:grid-cols-[minmax(0,1fr)_22rem] xl:gap-16">
-              <div className="min-w-0">
-                <h1 className="font-sans text-balance text-[28px]/[1.125] font-normal tracking-[-0.04em] text-white md:text-4xl/[1.125] lg:text-[3.5rem]/[1.125]">
-                  {title}
-                </h1>
-                <p className="mt-4 text-base/snug tracking-tight text-grey-90 md:text-xl/snug">
-                  {description}
-                </p>
-
-                {heroMedia ? <div className="mt-8">{heroMedia}</div> : null}
-
-                <TemplateAiBlock
-                  usage={usage}
-                  className="mt-5 md:mt-6 lg:hidden"
-                  titleClassName="text-xl/snug md:text-2xl/snug"
-                  showDivider
-                />
-
-                <div
-                  className="mt-10 recipe-content-card template-dark-prose md:mt-12"
-                  ref={contentRef}
-                >
-                  {children}
+                  {belowContent}
                 </div>
 
-                {belowContent}
+                <div className="hidden lg:block">
+                  <TemplateDetailRail usage={usage} toc={toc} />
+                </div>
               </div>
+            </article>
+          </section>
 
-              <div className="hidden lg:block">
-                <TemplateDetailRail usage={usage} toc={toc} />
-              </div>
-            </div>
-          </article>
-        </section>
-
-        <div className="bg-[#f9f7f4] text-black">
-          <div className="h-12 bg-orange" aria-hidden="true" />
-          <MoreTemplatesSlider items={relatedItems} />
-          <CTA
-            label="Start building"
-            title="Ready to ship your next agentic app in minutes?"
-            className="max-w-432 mx-auto mt-24 pt-1.5 md:mt-36 lg:mt-44 xl:mt-60 pb-16 lg:pb-22"
-          />
-          <NewFooter className="mx-auto max-w-432 border-t border-white/10 lg:px-8" />
-        </div>
-      </main>
+          <div className="bg-[#f9f7f4] text-black">
+            <div className="h-12 bg-orange" aria-hidden="true" />
+            <MoreTemplatesSlider items={relatedItems} />
+            <CTA
+              label="Start building"
+              title="Ready to ship your next agentic app in minutes?"
+              className="max-w-432 mx-auto mt-24 pt-1.5 md:mt-36 lg:mt-44 xl:mt-60 pb-16 lg:pb-22"
+            />
+            <NewFooter className="mx-auto max-w-432 border-t border-white/10 lg:px-8" />
+          </div>
+        </main>
+      )}
     </Layout>
   );
 }

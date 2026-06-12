@@ -1,11 +1,11 @@
 import Head from "@docusaurus/Head";
 import Link from "@docusaurus/Link";
 import Layout from "@theme/Layout";
-import { ArrowLeft, RotateCcw } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
-import { OpenInDatabricksButton } from "@/components/hackathon/hackathon-event-page";
+import CTA from "@/components/home/cta";
+import NewFooter from "@/components/theme/footer";
+import { BackLink } from "@/components/ui/back-link";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Progress } from "@/components/ui/progress";
 
 /**
  * Quick start checklist for the hackathon. Served at
@@ -15,12 +15,12 @@ import { Progress } from "@/components/ui/progress";
  * the browser's localStorage so it survives reloads.
  */
 
-const inlineLink =
-  "font-medium text-db-lava underline underline-offset-2 hover:text-db-lava-dark";
+const inlineLink = "no-underline text-orange hover:text-db-lava";
 // Lists hug the lead-in line above them (small top margin) while their items
 // keep a little breathing room between each other.
-const bulletList = "m-0 mt-1 list-disc space-y-1 pl-5";
-const strong = "font-semibold text-black dark:text-white";
+const bulletList =
+  "m-0 flex flex-col gap-y-2.5 mt-1 list-none pl-0 [&>li]:relative [&>li]:pl-6 [&>li]:before:absolute [&>li]:before:left-0 [&>li]:before:content-['–']";
+const strong = "font-semibold text-white";
 
 // Marketplace listing for the hackathon dataset. Kept in sync with the
 // `datasetUrl` on the event page (src/pages/hackathon/apps-agents-for-good-2026.tsx).
@@ -127,8 +127,8 @@ const steps: ChecklistStep[] = [
             it to add the dataset to your Databricks workspace.
           </li>
         </ul>
-        <div className="mt-3">
-          <OpenInDatabricksButton href={datasetUrl} />
+        <div className="mt-4">
+          <DatasetButton href={datasetUrl} />
         </div>
       </>
     ),
@@ -216,11 +216,84 @@ function parseStored(raw: string | null): Record<string, boolean> {
 function computeProgress(
   done: Record<string, boolean>,
   allSteps: ChecklistStep[],
-): { completed: number; total: number; pct: number } {
+): { completed: number; total: number } {
   const completed = allSteps.filter((step) => done[step.id]).length;
   const total = allSteps.length;
-  const pct = total === 0 ? 0 : Math.round((completed / total) * 100);
-  return { completed, total, pct };
+  return { completed, total };
+}
+
+function DatasetButton({ href }: { href: string }): ReactNode {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex h-9 items-center bg-orange px-4.5 font-mono text-sm/none font-medium tracking-tight text-black uppercase no-underline transition-colors hover:bg-db-lava-light hover:text-black hover:no-underline focus-visible:ring-2 focus-visible:ring-orange/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+    >
+      Open in Databricks
+    </a>
+  );
+}
+
+function ChecklistCheckIcon({ className }: { className?: string }): ReactNode {
+  return (
+    <svg
+      className={className}
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M2 10.1429L5.57143 13.7143L13.9048 3"
+        stroke="currentColor"
+        strokeWidth="2.14286"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function ResetIcon(): ReactNode {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 14 14"
+      fill="none"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <mask
+        id="quick-start-reset-icon-mask"
+        style={{ maskType: "alpha" }}
+        maskUnits="userSpaceOnUse"
+        x="1"
+        y="1"
+        width="12"
+        height="12"
+      >
+        <path
+          d="M11.8125 2.1875L2.1875 11.8125M2.1875 2.1875L11.8125 11.8125"
+          stroke="#040406"
+          strokeWidth="1.13"
+          strokeMiterlimit="10"
+          strokeLinejoin="round"
+        />
+      </mask>
+      <g mask="url(#quick-start-reset-icon-mask)">
+        <rect
+          y="1.16602"
+          width="12.8333"
+          height="11.6667"
+          fill="currentColor"
+        />
+      </g>
+    </svg>
+  );
 }
 
 function StepCard({
@@ -235,26 +308,21 @@ function StepCard({
   onToggle: () => void;
 }): ReactNode {
   return (
-    <li className="rounded-xl border border-black/10 bg-[#f7f6f4] p-6 dark:border-white/10 dark:bg-[#182a32]">
-      <label className="flex cursor-pointer items-start gap-3">
+    <li className="border-t border-grey-20 py-5 first:border-t last:pb-0">
+      <label className="flex cursor-pointer items-start gap-4">
         <Checkbox
           checked={checked}
           onCheckedChange={onToggle}
-          className="mt-0.5"
+          className="relative top-1 size-5 rounded-none border-grey-30 bg-transparent text-white shadow-none data-[state=checked]:border-orange data-[state=checked]:bg-orange data-[state=checked]:text-white dark:bg-transparent dark:data-[state=checked]:bg-orange"
+          indicatorIcon={<ChecklistCheckIcon className="size-4" />}
           aria-label={step.title}
         />
-        <span
-          className={`text-base font-medium ${
-            checked
-              ? "text-black/40 line-through dark:text-white/40"
-              : "text-black dark:text-white"
-          }`}
-        >
+        <span className="text-lg/snug font-medium tracking-tight text-white md:text-xl/snug">
           {index}. {step.title}
         </span>
       </label>
       {step.body && (
-        <div className="mt-2 pl-7 text-[14px] leading-relaxed text-black/68 dark:text-white/68">
+        <div className="mt-2.5 pl-9 text-base leading-normal tracking-tight text-grey-90 md:text-lg/normal">
           {step.body}
         </div>
       )}
@@ -276,32 +344,38 @@ function Checklist(): ReactNode {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
   };
 
-  const { completed, total, pct } = computeProgress(done, steps);
+  const { completed, total } = computeProgress(done, steps);
 
   return (
-    <div className="mx-auto max-w-4xl">
-      <div className="mb-8">
-        <div className="mb-2 flex items-center justify-between gap-4">
-          <p className="m-0 text-sm font-medium text-black/68 dark:text-white/68">
-            {completed} of {total} complete
-          </p>
+    <div className="mx-auto max-w-4xl border border-grey-30 p-5 md:p-6">
+      <div className="flex items-center justify-between gap-4 pb-5">
+        <div className="flex min-w-0 items-center gap-5">
+          <h2 className="m-0 text-xl leading-tight font-medium tracking-tight text-white md:text-2xl/snug">
+            Hackathon checklist
+          </h2>
+          {completed > 0 && (
+            <span className="h-7 w-12 flex items-center justify-center bg-grey-5 border border-grey-30 font-mono text-sm/none font-medium text-grey-80 md:h-8 md:w-14 ">
+              {completed}/{total}
+            </span>
+          )}
+        </div>
+        <div className="flex shrink-0 items-center">
           {completed > 0 && (
             <button
+              className="inline-flex items-center gap-1 font-mono text-sm leading-none font-medium tracking-[-0.02em] text-grey-30 uppercase transition-colors hover:text-grey-90"
               type="button"
               onClick={() => {
                 setDone({});
                 window.localStorage.removeItem(STORAGE_KEY);
               }}
-              className="inline-flex items-center gap-1 text-sm font-medium text-db-lava hover:underline"
             >
-              <RotateCcw aria-hidden className="h-3.5 w-3.5" />
               Reset
+              <ResetIcon />
             </button>
           )}
         </div>
-        <Progress value={pct} aria-label="Checklist progress" />
       </div>
-      <ol className="m-0 list-none space-y-4 p-0">
+      <ol className="m-0 list-none p-0">
         {steps.map((step, index) => (
           <StepCard
             key={step.id}
@@ -323,33 +397,37 @@ export default function QuickStartChecklistPage(): ReactNode {
     <Layout
       title="Hackathon quick start checklist"
       description="Step-by-step checklist to get set up for the hackathon: install a coding agent, create a Free Edition account, get the dataset, set up the CLI, and scaffold your app."
+      noFooter
     >
       <Head>
         <meta name="robots" content="noindex, nofollow" />
       </Head>
-      <main className="border-t border-db-cyan/30 bg-db-bg dark:border-db-cyan/25 dark:bg-[#0d1a1f]">
-        <section className="container px-4 pt-16 pb-10 md:pt-20 md:pb-12">
-          <div className="mx-auto max-w-4xl">
-            <Link
-              to="/hackathon"
-              className="mb-6 inline-flex items-center gap-1 text-sm font-medium text-db-lava no-underline hover:underline"
-            >
-              <ArrowLeft aria-hidden className="h-4 w-4" />
-              Back to the hackathon
-            </Link>
-            <h1 className="mb-4 text-4xl leading-[1.06] font-medium tracking-tight text-black dark:text-white md:text-5xl">
-              Hackathon quick start{" "}
-              <span className="text-db-lava">checklist</span>
+      <main className="bg-black text-white">
+        <section className="pt-9 md:pt-12 xl:pt-17.5">
+          <div className="mx-auto max-w-4xl px-5 md:px-8">
+            <BackLink to="/hackathon">Back to the hackathon</BackLink>
+            <h1 className="mt-6.5 text-[2rem]/[1.125] font-normal tracking-[-0.04em] wrap-break-word text-white md:text-[2.5rem]/[1.125] lg:text-[3rem]/[1.125] xl:text-[3.5rem]/[1.125]">
+              Hackathon quick start checklist
             </h1>
-            <p className="m-0 max-w-2xl text-lg text-black/68 dark:text-white/68">
+            <p className="mt-4 text-lg/snug tracking-[-0.04em] text-pretty text-grey-90 md:text-xl/snug">
               Work through these steps to get set up and start building.
             </p>
+
+            <div className="mt-10 md:mt-14">
+              <Checklist />
+            </div>
           </div>
         </section>
 
-        <section className="container px-4 pb-20 md:pb-28">
-          <Checklist />
-        </section>
+        <div className="mx-auto mt-24 max-w-432 border-x border-grey-20 bg-black md:mt-36 lg:mt-44 xl:mt-60">
+          <CTA
+            className="pt-0 pb-16 lg:pb-22"
+            theme="outline"
+            label="Start building"
+            title="Ready to ship your next agentic app in minutes?"
+          />
+          <NewFooter className="border-t border-white/10 bg-black lg:px-8" />
+        </div>
       </main>
     </Layout>
   );

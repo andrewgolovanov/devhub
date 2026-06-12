@@ -39,6 +39,7 @@ export function RecipeDetail({
     )
     .slice(0, 3)
     .map((data) => ({ kind: "recipe" as const, data }));
+  const isHackathonTemplate = recipe.id === "hackathon-app-with-synced-dataset";
 
   return (
     <TemplateDetailShell
@@ -46,6 +47,7 @@ export function RecipeDetail({
       description={recipe.description}
       contentRef={contentRef}
       eyebrow={recipe.services[0] ?? "Template"}
+      services={recipe.services}
       usage={{
         kind: "recipe",
         slug: recipe.id,
@@ -55,20 +57,32 @@ export function RecipeDetail({
         permalink: `/templates/${recipe.id}`,
       }}
       heroMedia={
-        <div className="relative aspect-[16/9] w-full overflow-hidden border border-black/12 bg-black/4 dark:border-white/15 dark:bg-white/5">
-          <TemplatePreviewImage
-            lightUrl={recipe.previewImageLightUrl}
-            darkUrl={recipe.previewImageDarkUrl}
-            alt={`${recipe.name} preview`}
-            fallback={<FallbackCardArt index={0} />}
-          />
-        </div>
+        isHackathonTemplate ? undefined : (
+          <div className="relative aspect-[16/9] w-full overflow-hidden border border-black/12 bg-black/4 dark:border-white/15 dark:bg-white/5">
+            <TemplatePreviewImage
+              lightUrl={recipe.previewImageLightUrl}
+              darkUrl={recipe.previewImageDarkUrl}
+              alt={`${recipe.name} preview`}
+              fallback={<FallbackCardArt index={0} />}
+            />
+          </div>
+        )
       }
       toc={<Toc className="mt-6" contentRef={contentRef} />}
       relatedItems={relatedItems}
+      presentation={isHackathonTemplate ? "hackathon" : "default"}
     >
       <MDXProvider components={recipeComponents}>
-        <MarkdownProse variant="dark">{children}</MarkdownProse>
+        <MarkdownProse
+          className={
+            isHackathonTemplate
+              ? "mt-10 max-w-[46rem] recipe-content-card template-dark-prose md:mt-12"
+              : undefined
+          }
+          variant="dark"
+        >
+          {children}
+        </MarkdownProse>
       </MDXProvider>
     </TemplateDetailShell>
   );
