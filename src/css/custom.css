@@ -442,29 +442,174 @@
   overflow-wrap: break-word;
 }
 
-/* Hackathon announcement bar — taller + a touch larger text than the
- * Docusaurus defaults (30px / 14px). The height variable is the documented
- * Docusaurus override; the font/padding rules target `.theme-announcement-bar`
- * (a stable, unhashed Docusaurus theme class) so we don't depend on the
- * hashed CSS Module class name. Mobile keeps `auto` height so wrapped text
- * isn't clipped. */
-@media (min-width: 997px) {
-  :root {
-    --docusaurus-announcement-bar-height: 44px;
-  }
+/* Hackathon announcement bar
+ * height: auto !important overrides Docusaurus's @media (min-width: 997px)
+ * rule that hard-codes --docusaurus-announcement-bar-height: 30px, which
+ * would otherwise crush our padding-block values on desktop. */
+:root {
+  --docusaurus-announcement-bar-height: auto;
+  --devhub-mobile-menu-top: 3.5rem;
 }
 
 .theme-announcement-bar {
-  font-size: 0.9375rem;
-  line-height: 1.4;
+  font-family: "Geist Mono", monospace;
+  font-size: 1rem;
+  line-height: 1;
   font-weight: 500;
-  padding-block: 0.5rem;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+  /* Override Docusaurus fixed height so padding controls height */
+  height: auto;
+  min-height: 44px;
+  /* Stretch inner div to full height so bg fills edge-to-edge */
+  align-items: stretch;
+  border-bottom: none;
+  /* Explicit padding on the orange wrapper */
+  padding-top: 14px;
+  padding-bottom: 14px;
+  padding-inline: 0;
+  z-index: 10;
 }
 
+/* Inner content wrapper: stretch to fill, use flex to center text vertically */
+/* Override Docusaurus AnnouncementBar/Content CSS Module:
+ * .content { font-size: 85%; padding: 5px 0 } loads after ours and would
+ * shrink text to ~11.9px and add unwanted padding.
+ * display: flex + align-items: center ensures text is vertically centred
+ * while the inner div stretches to fill the full orange wrapper. */
+.theme-announcement-bar > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  font-size: inherit;
+  padding: 0;
+}
+
+.theme-announcement-bar .banner-marquee-track {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-announcement-bar .banner-marquee-item {
+  display: inline-flex;
+  align-items: center;
+}
+
+.theme-announcement-bar .banner-marquee-copy {
+  display: none;
+}
+
+/* "See resources" link */
 .theme-announcement-bar a {
   color: inherit;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-  /* Breathing room between the lead text and the "See resources" CTA. */
-  margin-left: 0.25rem;
+  text-decoration: none !important;
+  font-weight: 500;
+  margin-left: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Arrow icon */
+.theme-announcement-bar .banner-arrow {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+/* 768px–1024px: smaller text, smaller arrow, less padding */
+@media (max-width: 768px) {
+  .theme-announcement-bar {
+    font-size: 14px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    min-height: 38px;
+  }
+
+  .theme-announcement-bar .banner-arrow {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+/* Marquee keyframes for small viewports.
+ * The track contains two identical items; moving by 50% loops seamlessly. */
+@keyframes banner-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* 768px and below: marquee — full line in one row, scrolling */
+@media (max-width: 768px) {
+  /* Keep display:flex from base so align-items:stretch fills the orange bg
+   * edge-to-edge; overflow:hidden clips the scrolling content. */
+  .theme-announcement-bar {
+    overflow: hidden;
+    padding-inline: 0;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  /* Content wrapper clips a wider marquee track without changing page width. */
+  .theme-announcement-bar > div {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  /* Track is wider than the viewport because it contains the visible item and
+   * an aria-hidden duplicate. The 50% transform moves exactly one item width. */
+  .theme-announcement-bar .banner-marquee-track {
+    display: flex;
+    align-items: center;
+    min-width: max-content;
+    white-space: nowrap;
+    animation: banner-marquee 12s linear infinite;
+    will-change: transform;
+  }
+
+  .theme-announcement-bar .banner-marquee-item {
+    display: inline-flex;
+    align-items: center;
+    flex: 0 0 auto;
+    padding-right: 2rem;
+    white-space: nowrap;
+  }
+
+  .theme-announcement-bar .banner-marquee-copy {
+    display: inline-flex;
+  }
+
+  /* Restore "See resources" text inline */
+  .theme-announcement-bar .banner-link-text {
+    display: inline;
+    white-space: nowrap;
+  }
+
+  /* Link stays on the same axis as the lead text */
+  .theme-announcement-bar a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 6px;
+    white-space: nowrap;
+  }
+
+  /* Arrow inherits flex alignment — no extra vertical offset needed */
+  .theme-announcement-bar .banner-arrow {
+    display: inline-block;
+    flex-shrink: 0;
+  }
 }

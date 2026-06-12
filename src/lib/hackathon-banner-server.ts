@@ -38,9 +38,24 @@ export function resolveHackathonBannerActive(env: HackathonBannerEnv): boolean {
 
 const DEFAULT_BANNER_LEAD_TEXT = "Databricks Developer Hackathon is live.";
 
-function bannerLinkHtml(slug: string): string {
+const ARROW_SVG = `<img src="/img/arrow-right-banner.svg" alt="" class="banner-arrow">`;
+
+function bannerLinkHtml(slug: string, hidden = false): string {
   const target = slug ? `/hackathon/${slug}` : "/hackathon";
-  return `<a href="${target}"><b>See resources &rarr;</b></a>`;
+  const hiddenAttributes = hidden ? ' tabindex="-1" aria-hidden="true"' : "";
+  return `<a href="${target}"${hiddenAttributes}><span class="banner-link-text">See resources</span>${ARROW_SVG}</a>`;
+}
+
+function bannerMarqueeItemHtml(
+  leadText: string,
+  slug: string,
+  duplicate = false,
+): string {
+  const itemClasses = duplicate
+    ? "banner-marquee-item banner-marquee-copy"
+    : "banner-marquee-item";
+  const hiddenAttributes = duplicate ? ' aria-hidden="true"' : "";
+  return `<span class="${itemClasses}"${hiddenAttributes}><span class="banner-lead-text">${leadText}</span>${bannerLinkHtml(slug, duplicate)}</span>`;
 }
 
 export function getHackathonBannerConfig(
@@ -60,9 +75,9 @@ export function getHackathonBannerConfig(
     // HACKATHON_BANNER_TEXT overrides only the lead-in copy; the "See
     // resources" link is always appended so visitors can never end up on a
     // banner with no way to reach the event.
-    content: `${leadText} ${bannerLinkHtml(slug)}`,
-    backgroundColor: "var(--db-lava)",
-    textColor: "#ffffff",
+    content: `<span class="banner-marquee-track">${bannerMarqueeItemHtml(leadText, slug)}${bannerMarqueeItemHtml(leadText, slug, true)}</span>`,
+    backgroundColor: "#FF5F46",
+    textColor: "#040406",
     isCloseable: false,
   };
 }

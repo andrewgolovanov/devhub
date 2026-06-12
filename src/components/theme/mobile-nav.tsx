@@ -140,6 +140,30 @@ export function MobileNav({ items, open, onOpenChange }: MobileNavProps) {
   useEffect(() => {
     if (!open) return;
 
+    const root = document.documentElement;
+    const updateMenuTop = () => {
+      const header = document.querySelector("header");
+      if (!header) return;
+      root.style.setProperty(
+        "--devhub-mobile-menu-top",
+        `${Math.round(header.getBoundingClientRect().bottom)}px`,
+      );
+    };
+
+    updateMenuTop();
+    window.addEventListener("resize", updateMenuTop);
+    window.addEventListener("scroll", updateMenuTop, { passive: true });
+
+    return () => {
+      window.removeEventListener("resize", updateMenuTop);
+      window.removeEventListener("scroll", updateMenuTop);
+      root.style.removeProperty("--devhub-mobile-menu-top");
+    };
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+
     const previousOverflow = document.body.style.overflow;
     const inertElements = Array.from(
       document.body.querySelectorAll<HTMLElement>(".main-wrapper, footer"),
@@ -216,7 +240,7 @@ export function MobileNav({ items, open, onOpenChange }: MobileNavProps) {
       {open && (
         <div
           id={menuId}
-          className="fixed inset-x-0 top-22 bottom-0 z-40 overflow-y-auto bg-grey-12 text-grey-80 lg:top-25 xl:hidden"
+          className="fixed inset-x-0 top-[var(--devhub-mobile-menu-top)] bottom-0 z-40 overflow-y-auto bg-grey-12 text-grey-80 xl:hidden"
           role="dialog"
           aria-modal="true"
           aria-label="Main navigation"
