@@ -145,6 +145,31 @@ test.describe("templates page service filter", () => {
     ).toBeHidden();
   });
 
+  test("checking a service after scrolling returns to the top of the list", async ({
+    page,
+  }) => {
+    await page.goto("/templates");
+    await expect(page.locator("#templates-list article").first()).toBeVisible();
+
+    const listTop = await page.locator("#templates-list").evaluate((el) => {
+      const rect = el.getBoundingClientRect();
+      return rect.top + window.scrollY;
+    });
+
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await expect
+      .poll(() => page.evaluate(() => window.scrollY))
+      .toBeGreaterThan(listTop + 200);
+
+    await page
+      .getByRole("checkbox", { name: "AI Gateway", exact: true })
+      .check();
+
+    await expect
+      .poll(() => page.evaluate(() => window.scrollY))
+      .toBeLessThanOrEqual(listTop + 8);
+  });
+
   test("clear all resets selected service filters", async ({ page }) => {
     await page.goto("/templates");
     const initialCount = await visibleCount(templateLinks(page));

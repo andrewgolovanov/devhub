@@ -49,29 +49,59 @@ export function TemplatesIndexContent(): ReactNode {
   const selectedFilterCount = selectedServices.size + (replitOnly ? 1 : 0);
   const hasSelectedFilters = selectedFilterCount > 0;
 
-  const handleToggleService = useCallback((service: Service) => {
-    setSelectedServices((prev) => {
-      const next = new Set(prev);
-      if (next.has(service)) next.delete(service);
-      else next.add(service);
-      return next;
+  const templatesListRef = useRef<HTMLElement>(null);
+
+  const scrollToTemplatesList = useCallback(() => {
+    const el = templatesListRef.current;
+    if (!el) return;
+
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    el.scrollIntoView({
+      behavior: reducedMotion ? "auto" : "smooth",
+      block: "start",
     });
   }, []);
+
+  const handleSearchChange = useCallback(
+    (value: string) => {
+      setSearchQuery(value);
+      scrollToTemplatesList();
+    },
+    [scrollToTemplatesList],
+  );
+
+  const handleToggleService = useCallback(
+    (service: Service) => {
+      setSelectedServices((prev) => {
+        const next = new Set(prev);
+        if (next.has(service)) next.delete(service);
+        else next.add(service);
+        return next;
+      });
+      scrollToTemplatesList();
+    },
+    [scrollToTemplatesList],
+  );
 
   const handleClearAllFilters = useCallback(() => {
     setSelectedServices(new Set());
     setSearchQuery("");
     setReplitOnly(false);
-  }, []);
+    scrollToTemplatesList();
+  }, [scrollToTemplatesList]);
 
   const handleClearSelectedFilters = useCallback(() => {
     setSelectedServices(new Set());
     setReplitOnly(false);
-  }, []);
+    scrollToTemplatesList();
+  }, [scrollToTemplatesList]);
 
   const handleToggleReplitOnly = useCallback(() => {
     setReplitOnly((prev) => !prev);
-  }, []);
+    scrollToTemplatesList();
+  }, [scrollToTemplatesList]);
 
   const filtersScrollRef = useRef<HTMLDivElement>(null);
   const [filterScrollState, setFilterScrollState] = useState({
@@ -103,12 +133,19 @@ export function TemplatesIndexContent(): ReactNode {
 
   return (
     <>
-      <section className="pt-12 md:pt-16" id="templates-list">
+      <section
+        className="scroll-mt-24 pt-12 md:pt-16"
+        id="templates-list"
+        ref={templatesListRef}
+      >
         <h2 className="sr-only">Templates</h2>
         <div className="mx-auto grid w-full max-w-400 gap-12 px-5 md:px-8 lg:grid-cols-[16rem_minmax(0,1fr)] xl:gap-x-20 2xl:gap-32">
           <aside className="hidden lg:block">
             <div className="sticky top-24 flex flex-col gap-y-8">
-              <TemplateSearch value={searchQuery} onChange={setSearchQuery} />
+              <TemplateSearch
+                value={searchQuery}
+                onChange={handleSearchChange}
+              />
               <TemplateFilters
                 selectedServices={selectedServices}
                 onToggleService={handleToggleService}
@@ -126,7 +163,7 @@ export function TemplatesIndexContent(): ReactNode {
                 <div className="flex-1">
                   <TemplateSearch
                     value={searchQuery}
-                    onChange={setSearchQuery}
+                    onChange={handleSearchChange}
                   />
                 </div>
                 <div className="shrink-0">
