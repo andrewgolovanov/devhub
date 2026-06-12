@@ -14,6 +14,9 @@ import {
  * custom layout instead of `HackathonEventPage`).
  */
 
+const hackathonDatasetUrl =
+  "https://login.databricks.com/signin?intent=SIGN_IN&auto_login=true&destination_url=%2Fmarketplace%2Fconsumer%2Flistings%2F19326b3d-db63-4627-abc0-cf4e8131a305&utm_source=open-in-databricks&utm_medium=marketplace&utm_campaign=dais-devrel-hackathon";
+
 const event: HackathonEvent = {
   name: "Apps & Agents for Good Hackathon",
   description:
@@ -58,11 +61,28 @@ const event: HackathonEvent = {
   ),
   resources: [
     {
+      label: "Checklist",
+      title: "Quick start checklist",
+      href: "/hackathon/quick-start-checklist",
+      description:
+        "Follow the step-by-step checklist to get set up and start coding.",
+      showWhenAllResources: true,
+    },
+    {
       label: "Setup guide",
       title: "Set up Free Edition",
       href: "/hackathon/free-edition-setup",
       description:
         "Create a Databricks Free Edition workspace and get your whole team ready to build and demo.",
+    },
+    {
+      label: "Dataset",
+      title: "Hackathon dataset",
+      href: hackathonDatasetUrl,
+      external: true,
+      description:
+        "Add the hackathon dataset to your Databricks workspace to start building with it.",
+      showWhenAllResources: true,
     },
     {
       label: "Template",

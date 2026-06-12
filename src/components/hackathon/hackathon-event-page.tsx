@@ -1,5 +1,6 @@
 import Head from "@docusaurus/Head";
 import Link from "@docusaurus/Link";
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
 import type { ReactNode } from "react";
 import { Faq, type HackathonFaqItem } from "@/components/hackathon/faq";
@@ -22,6 +23,7 @@ type HackathonResource = {
   external?: boolean;
   links?: HackathonResourceLink[];
   wide?: boolean;
+  showWhenAllResources?: boolean;
 };
 
 type HackathonTimelineItem = {
@@ -374,6 +376,13 @@ export function HackathonEventPage({
   const metaDescription =
     event.metaDescription ??
     `${event.name} — schedule, resources, and how to apply.`;
+  const { siteConfig } = useDocusaurusContext();
+  const showAllResources = Boolean(
+    (siteConfig.customFields as Record<string, unknown>).showAllResources,
+  );
+  const resources = event.resources.filter(
+    (resource) => !resource.showWhenAllResources || showAllResources,
+  );
 
   return (
     <Layout title={metaTitle} description={metaDescription} noFooter>
@@ -401,7 +410,7 @@ export function HackathonEventPage({
 
             <Section className="mt-10 md:mt-14" title="Resources">
               <div className="mt-6 grid grid-cols-1 gap-3 md:grid-cols-2">
-                {event.resources.map((resource) => (
+                {resources.map((resource) => (
                   <ResourceCard key={resource.title} resource={resource} />
                 ))}
               </div>
