@@ -323,7 +323,7 @@
   /* Perspectives pages render a self-contained minimal shell with its own
      home link + theme toggle, so the standard Docusaurus chrome must step
      aside. Scope off the `html.plugin-<name>` class that Docusaurus emits
-     statically for every plugin route — it's part of the SSR render and
+     statically for every plugin route - it's part of the SSR render and
      never touched by react-helmet-async hydration, so the navbar stays
      hidden across the first paint + hydration window with no flicker. */
   html.plugin-perspectives .navbar,

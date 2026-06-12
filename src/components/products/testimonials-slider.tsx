@@ -52,7 +52,7 @@ function TestimonialLogo({
   return (
     <img
       alt={`${company} logo`}
-      className="h-9 max-w-full self-start object-contain object-left md:h-10 lg:h-11 xl:h-12"
+      className="h-7 max-w-full self-start object-contain object-left md:h-8 lg:h-9 xl:h-12"
       decoding="async"
       height={36}
       loading="lazy"
@@ -73,16 +73,16 @@ function TestimonialCard({
   return (
     <article
       className={cn(
-        "flex w-[calc(100vw-2.5rem)] min-h-143.5 shrink-0 snap-start flex-col justify-between border border-white/18 bg-db-navy-light p-6 md:w-lg md:px-8 md:py-10",
+        "flex w-[calc(100vw-2.5rem)] min-h-[306px] lg:min-h-[459px] xl:min-h-143.5 shrink-0 snap-start flex-col justify-between border border-white/18 bg-db-navy-light p-6 md:w-lg md:px-8 md:py-10",
         active && "bg-db-cyan/20",
       )}
     >
       <TestimonialLogo company={testimonial.company} />
       <div>
-        <blockquote className="mt-10 max-w-[448px] text-lg leading-normal tracking-[-0.6px] text-white md:text-xl lg:text-2xl">
+        <blockquote className="mt-12 max-w-[448px] text-base leading-normal tracking-[-0.6px] text-white md:mt-13 md:text-lg lg:mt-5 lg:text-xl xl:mt-10 xl:text-2xl">
           "{testimonial.quote}"
         </blockquote>
-        <p className="mt-auto pt-12 text-base text-white/80 tracking-[-0.4px]">
+        <p className="mt-auto pt-7 md:pt-8 lg:pt-12 text-base text-white/80 tracking-[-0.4px]">
           <span className="text-white">{testimonial.attributionName}</span>
           {testimonial.attributionTitle
             ? `, ${testimonial.attributionTitle}`

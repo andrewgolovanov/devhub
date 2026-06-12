@@ -262,7 +262,7 @@ export function SearchDialogContent({
           "relative rounded-none bg-black font-normal text-white",
           "**:data-[slot=command-input-wrapper]:h-16 **:data-[slot=command-input-wrapper]:border-grey-20 **:data-[slot=command-input-wrapper]:px-5",
           "[&_[data-slot=command-input-wrapper]_svg]:hidden",
-          "**:data-[slot=command-input]:h-16 **:data-[slot=command-input]:pr-16 **:data-[slot=command-input]:text-xl **:data-[slot=command-input]:leading-snug **:data-[slot=command-input]:font-normal **:data-[slot=command-input]:tracking-normal **:data-[slot=command-input]:text-white **:data-[slot=command-input]:placeholder:text-grey-60",
+          "**:data-[slot=command-input]:h-16 **:data-[slot=command-input]:pr-16 **:data-[slot=command-input]:text-lg **:data-[slot=command-input]:leading-snug **:data-[slot=command-input]:font-normal **:data-[slot=command-input]:tracking-normal **:data-[slot=command-input]:text-white **:data-[slot=command-input]:placeholder:text-grey-60 md:**:data-[slot=command-input]:text-xl/snug",
         )}
         shouldFilter={false}
       >

@@ -71,12 +71,12 @@ function FeatureRow({ feature }: { feature: ProductFeature }) {
 
 export function Features({ content }: ProductFeaturesProps) {
   return (
-    <section className="bg-[#F9F7F4] py-18 text-black md:py-28 lg:pt-40 lg:pb-50">
+    <section className="bg-[#F9F7F4] pt-14 pb-18 text-black md:pt-18 md:pb-28 lg:pt-26 lg:pb-50 xl:pt-40">
       <div className="mx-auto w-full max-w-384 px-5 md:px-8 2xl:px-0">
         <SectionKicker className="text-grey-40">
           {content.featuresIntro.eyebrow}
         </SectionKicker>
-        <h2 className="mt-4 max-w-384 whitespace-pre-line font-sans text-[36px] tracking-[-3.84px] text-balance md:mt-[18px] md:text-[48px] lg:mt-5 lg:text-[64px] 2xl:text-[96px] 2xl:leading-[1.125]">
+        <h2 className="mt-4 whitespace-pre-line font-sans text-[32px] tracking-[-0.04em] text-balance md:mt-4.5 md:text-[40px] lg:mt-5 lg:text-[52px] lg:max-w-4xl xl:text-[64px] 2xl:max-w-384 2xl:text-[96px] 2xl:leading-[1.125]">
           {content.featuresIntro.title}
         </h2>
         <div className="mt-16 grid grid-cols-1 gap-16 md:gap-28 md:mt-24 lg:mt-[120px] xl:mt-[200px] lg:gap-50">
