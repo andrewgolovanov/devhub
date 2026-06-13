@@ -340,7 +340,7 @@ function Submission({ event }: { event: HackathonEvent }): ReactNode {
             href={event.submissionUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex h-9.5 min-w-37 w-fit items-center whitespace-nowrap justify-center bg-orange font-mono text-sm/none font-medium tracking-tight text-black uppercase no-underline transition-colors hover:bg-db-lava-light hover:text-black hover:no-underline focus-visible:ring-2 focus-visible:ring-orange/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+            className="flex h-9.5 min-w-37 w-fit shrink-0 items-center whitespace-nowrap justify-center bg-orange font-mono text-sm/none font-medium tracking-tight text-black uppercase no-underline transition-colors hover:bg-db-lava-light hover:text-black hover:no-underline focus-visible:ring-2 focus-visible:ring-orange/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
           >
             <span className="px-4.5">Submit your project</span>
             <span className="flex h-full items-center justify-center shrink-0 border-l-2 aspect-square">
