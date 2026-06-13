@@ -25,7 +25,6 @@ type TemplateDetailShellProps = {
   usage: TemplateUsageProps;
   children: ReactNode;
   contentRef: React.RefObject<HTMLDivElement | null>;
-  eyebrow?: string;
   services?: readonly string[];
   heroMedia?: ReactNode;
   belowContent?: ReactNode;
@@ -112,7 +111,6 @@ export function TemplateDetailShell({
   usage,
   children,
   contentRef,
-  eyebrow,
   services,
   heroMedia,
   belowContent,
@@ -161,17 +159,6 @@ export function TemplateDetailShell({
                     >
                       Back
                     </BackLink>
-                  </li>
-                  <li className="flex items-center font-mono">
-                    <span
-                      className="mx-2.5 text-sm font-mono leading-none font-medium tracking-tight text-grey-70"
-                      aria-hidden="true"
-                    >
-                      /
-                    </span>
-                    <span className="text-white uppercase text-xs">
-                      {eyebrow ?? title}
-                    </span>
                   </li>
                 </ol>
               </nav>

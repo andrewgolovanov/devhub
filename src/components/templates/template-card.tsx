@@ -12,12 +12,6 @@ function getTemplateHref(item: TemplateItem): string {
   return `/templates/${item.data.id}`;
 }
 
-function getTemplateLabel(item: TemplateItem): string {
-  if (item.kind === "example") return "Solution Apps";
-  if (item.kind === "cookbook") return "Template";
-  return item.data.services[0] ?? "Template";
-}
-
 export function getTemplateCardFields(item: TemplateItem) {
   return {
     name: item.data.name,
@@ -25,7 +19,6 @@ export function getTemplateCardFields(item: TemplateItem) {
     href: getTemplateHref(item),
     lightUrl: item.data.previewImageLightUrl,
     darkUrl: item.data.previewImageDarkUrl,
-    label: getTemplateLabel(item),
   };
 }
 
@@ -36,7 +29,7 @@ export function TemplateCard({
   item: TemplateItem;
   index: number;
 }) {
-  const { name, description, href, lightUrl, darkUrl, label } =
+  const { name, description, href, lightUrl, darkUrl } =
     getTemplateCardFields(item);
 
   return (
@@ -64,9 +57,6 @@ export function TemplateCard({
         </div>
 
         <div className="flex min-w-0 flex-col gap-5">
-          <p className="m-0 flex items-center gap-1.5 font-mono text-[13px] leading-none font-medium tracking-tight text-black/30 uppercase lg:text-sm">
-            <span className="size-1.5 bg-orange" aria-hidden="true" />[{label}]
-          </p>
           <h2 className="m-0 line-clamp-4 text-xl/tight text-black/30 font-normal tracking-[-0.04em] text-balance md:text-2xl/tight">
             <span className="text-black">{name}.</span> [{description}]
           </h2>

@@ -18,7 +18,7 @@ function MoreTemplateCard({
   item: TemplateItem;
   index: number;
 }) {
-  const { name, description, href, lightUrl, darkUrl, label } =
+  const { name, description, href, lightUrl, darkUrl } =
     getTemplateCardFields(item);
 
   return (
@@ -54,9 +54,6 @@ function MoreTemplateCard({
           <span className="text-black">{name}.</span> [{description}]
         </Link>
       </h3>
-      <p className="mt-6 flex items-center gap-1.5 font-mono text-sm leading-none font-medium tracking-tight text-black/30 uppercase">
-        <span className="size-1.5 bg-orange" aria-hidden="true" />[{label}]
-      </p>
     </article>
   );
 }

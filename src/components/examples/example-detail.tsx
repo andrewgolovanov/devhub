@@ -158,7 +158,6 @@ export function ExampleDetail({
       title={example.name}
       description={example.description}
       contentRef={contentRef}
-      eyebrow="Solution Apps"
       usage={{
         kind: "example",
         slug: example.id,

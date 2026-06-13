@@ -36,7 +36,6 @@ export function CookbookDetail({
       title={cookbook.name}
       description={cookbook.description}
       contentRef={contentRef}
-      eyebrow="Template"
       usage={{
         kind: "cookbook",
         slug: cookbook.id,

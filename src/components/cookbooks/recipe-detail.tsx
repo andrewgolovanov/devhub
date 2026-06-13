@@ -45,7 +45,6 @@ export function RecipeDetail({
       title={recipe.name}
       description={recipe.description}
       contentRef={contentRef}
-      eyebrow={recipe.services[0] ?? "Template"}
       services={recipe.services}
       usage={{
         kind: "recipe",
