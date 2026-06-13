@@ -20,6 +20,23 @@ type FooterSection = {
 
 const FOOTER_SECTIONS: FooterSection[] = [
   {
+    label: "Products",
+    items: [
+      {
+        label: "Databricks Apps",
+        href: "https://www.databricks.com/product/databricks-apps",
+      },
+      {
+        label: "Lakebase",
+        href: "https://www.databricks.com/product/lakebase",
+      },
+      {
+        label: "Agent Bricks",
+        href: "https://www.databricks.com/product/artificial-intelligence/agent-bricks",
+      },
+    ],
+  },
+  {
     label: "Resources",
     items: [
       { label: "Docs", to: "/docs/start-here" },
@@ -104,6 +121,27 @@ const SocialItem = ({
   );
 };
 
+function ExternalLinkArrow({ className }: { className?: string }): ReactNode {
+  return (
+    <svg
+      className={className}
+      width="14"
+      height="14"
+      viewBox="0 0 20 20"
+      fill="none"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M5 15L15 5M8.5 5H15V11.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 function FooterLink({ item }: { item: FooterItem }): ReactNode {
   return (
     <Link
@@ -113,6 +151,7 @@ function FooterLink({ item }: { item: FooterItem }): ReactNode {
       className={linkClassName}
     >
       {item.label}
+      {item.href ? <ExternalLinkArrow className="size-3.5 shrink-0" /> : null}
     </Link>
   );
 }
