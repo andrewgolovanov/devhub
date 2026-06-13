@@ -180,19 +180,25 @@ const steps: ChecklistStep[] = [
   },
   {
     id: "scaffold-app",
-    title: "Scaffold your app and link to the dataset",
+    title: "Scaffold a Databricks app with Lakebase",
     body: (
-      <p className="m-0">
-        Scaffold your app from the{" "}
-        <Link
-          to="/templates/hackathon-app-with-synced-dataset"
-          className={inlineLink}
-        >
-          Hackathon starter
-        </Link>{" "}
-        template &mdash; a Databricks App backed by Lakebase with the hackathon
-        dataset automatically synced in.
-      </p>
+      <>
+        <p className="m-0">
+          To get started quickly, use the{" "}
+          <Link to="/templates/app-with-lakebase" className={inlineLink}>
+            App with Lakebase
+          </Link>{" "}
+          template to scaffold a Databricks App backed by Lakebase.
+        </p>
+        <p className="m-0 mt-2">
+          <strong className={strong}>Note:</strong> once your data is clean and
+          ready, use the{" "}
+          <Link to="/templates/sync-tables-autoscaling" className={inlineLink}>
+            Sync Tables: Unity Catalog to Lakebase (Autoscaling)
+          </Link>{" "}
+          template to bring it into Lakebase.
+        </p>
+      </>
     ),
   },
 ];
