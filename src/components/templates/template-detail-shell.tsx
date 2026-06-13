@@ -1,4 +1,5 @@
 import Head from "@docusaurus/Head";
+import Link from "@docusaurus/Link";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
 import type { ComponentProps, ReactNode } from "react";
@@ -24,7 +25,6 @@ type TemplateDetailShellProps = {
   usage: TemplateUsageProps;
   children: ReactNode;
   contentRef: React.RefObject<HTMLDivElement | null>;
-  toc: ReactNode;
   eyebrow?: string;
   services?: readonly string[];
   heroMedia?: ReactNode;
@@ -59,9 +59,16 @@ function TemplateAiBlock({
       >
         Build with AI
       </h2>
-      <p className="mt-1 text-base tracking-tight text-grey-70">
-        [Agent asks questions and ships the app.]
-      </p>
+      <ol className="mt-3 flex list-decimal flex-col gap-y-2 pl-4.5 text-sm/snug tracking-tight text-grey-70 marker:text-grey-60">
+        <li className="pl-1">Copy the prompt below</li>
+        <li className="pl-1">
+          Paste into Cursor, Claude Code, Codex, or any coding agent
+        </li>
+        <li className="pl-1">
+          Your agent builds it — asking questions along the way so the result is
+          exactly what you want
+        </li>
+      </ol>
       <div className="mt-5 flex flex-wrap gap-2">
         <CopyPromptButton
           {...copyPromptProps}
@@ -78,31 +85,23 @@ function TemplateAiBlock({
           itemClassName="h-10 min-h-0 cursor-pointer gap-2.5 rounded-none bg-transparent px-4 py-0 font-mono text-sm leading-none font-medium tracking-normal text-grey-70 uppercase outline-none transition-colors hover:!bg-transparent hover:!text-white focus:!bg-transparent focus:!text-white data-[highlighted]:!bg-transparent data-[highlighted]:!text-white [&_svg]:size-3.5 [&_svg]:text-current"
         />
       </div>
+      <p className="mt-4 text-sm tracking-tight text-grey-70">
+        New to templates?{" "}
+        <Link
+          to="/docs/templates"
+          className="font-medium text-orange no-underline hover:text-db-lava hover:no-underline"
+        >
+          Learn more here
+        </Link>
+      </p>
     </div>
   );
 }
 
-function TemplateDetailRail({
-  usage,
-  toc,
-}: {
-  usage: TemplateUsageProps;
-  toc: ReactNode;
-}) {
+function TemplateDetailRail({ usage }: { usage: TemplateUsageProps }) {
   return (
-    <aside className="sticky top-24 flex flex-col gap-y-7">
-      <TemplateAiBlock usage={usage} className="border-b border-grey-20 pb-7" />
-
-      <div className="hidden lg:block">
-        <span className="block size-1.5 bg-orange" aria-hidden="true" />
-        <h2 className="mt-4.5 text-2xl/snug leading-tight font-normal tracking-tight text-white">
-          Build manually
-        </h2>
-        <p className="mt-1 text-base tracking-tight text-grey-70">
-          [Follow the steps below.]
-        </p>
-        {toc}
-      </div>
+    <aside className="sticky top-24">
+      <TemplateAiBlock usage={usage} />
     </aside>
   );
 }
@@ -113,7 +112,6 @@ export function TemplateDetailShell({
   usage,
   children,
   contentRef,
-  toc,
   eyebrow,
   services,
   heroMedia,
@@ -207,7 +205,7 @@ export function TemplateDetailShell({
                 </div>
 
                 <div className="hidden lg:block">
-                  <TemplateDetailRail usage={usage} toc={toc} />
+                  <TemplateDetailRail usage={usage} />
                 </div>
               </div>
             </article>

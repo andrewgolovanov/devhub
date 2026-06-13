@@ -8,7 +8,6 @@ import { BaseUrlAnchor } from "@/components/base-url-anchor";
 import { MarkdownProse } from "@/components/markdown-prose";
 import { TemplateDetailShell } from "@/components/templates/template-detail-shell";
 import type { TemplateItem } from "@/components/templates/template-card";
-import { Toc } from "@site/src/components/templates/toc";
 
 const recipeComponents = { a: BaseUrlAnchor, pre: RecipePre };
 
@@ -56,7 +55,6 @@ export function CookbookDetail({
           />
         </div>
       }
-      toc={<Toc className="mt-6" contentRef={contentRef} />}
       relatedItems={relatedItems}
     >
       <MDXProvider components={recipeComponents}>
