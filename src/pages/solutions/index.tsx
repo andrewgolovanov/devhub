@@ -16,7 +16,7 @@ export default function SolutionsPage(): ReactNode {
   return (
     <Layout
       title="Solutions"
-      description="Developer-first guides for building on Databricks."
+      description="Developer-first perspectives on building on Databricks."
       noFooter
     >
       <Head>
@@ -32,7 +32,8 @@ export default function SolutionsPage(): ReactNode {
             "@type": "CollectionPage",
             name: "Databricks Developer Solutions",
             url: `${siteUrl}/solutions`,
-            description: "Developer-first guides for building on Databricks.",
+            description:
+              "Developer-first perspectives on building on Databricks.",
           })}
         </script>
       </Head>

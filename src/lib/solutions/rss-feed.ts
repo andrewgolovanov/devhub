@@ -7,7 +7,8 @@ import {
 export const SOLUTION_RSS_PATH = "/solutions/rss.xml";
 
 const FEED_TITLE = "Databricks Developer Solutions";
-const FEED_DESCRIPTION = "Developer-first guides for building on Databricks.";
+const FEED_DESCRIPTION =
+  "Developer-first perspectives on building on Databricks.";
 
 function escapeXml(value: string): string {
   return value
