@@ -1,5 +1,6 @@
 import Link from "@docusaurus/Link";
 
+import { AnimatedArrowLink } from "@/components/ui/animated-arrow-link";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { type SVGProps, useRef } from "react";
@@ -64,11 +65,16 @@ function Templates({ className }: TemplatesProps) {
             className="text-3xl leading-[1.125] max-w-184 font-normal tracking-[-0.04em] text-balance text-white md:text-4xl md:leading-[1.125] lg:text-5xl lg:leading-[1.125] xl:text-[3.5rem]"
             id="home-templates-title"
           >
-            Start from working templates to fork, deploy,{" "}
-            <span className="text-grey-70">
-              and build agentic applications.
-            </span>
+            Jumpstart your next project{" "}
+            <span className="text-grey-70">with a template.</span>
           </h2>
+          <AnimatedArrowLink
+            to="/docs/templates"
+            className="inline-flex w-fit items-center gap-2 font-sans text-base font-normal tracking-tight text-orange no-underline transition-colors hover:text-db-lava md:text-lg"
+            size="size-4 md:size-5"
+          >
+            Learn more about templates
+          </AnimatedArrowLink>
         </header>
       </div>
 
