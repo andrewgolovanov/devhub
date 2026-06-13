@@ -93,7 +93,6 @@ function Topbar({ theme }: { theme: CTATheme }) {
       </div>
       <p className="truncate font-mono text-sm leading-[1.15] font-normal tracking-[-0.04em] text-white/40 uppercase md:text-lg">
         Databricks Developer Hub
-        <span className="hidden md:inline"> — Getting started</span>
       </p>
     </header>
   );
