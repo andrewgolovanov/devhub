@@ -20,10 +20,10 @@ export function SolutionEmptyState({
     >
       <div className="flex w-full flex-col items-center gap-2 font-sans leading-normal font-normal">
         <p className="m-0 w-full text-xl tracking-normal text-white">
-          No solutions match your filters.
+          No posts match your filter.
         </p>
         <p className="m-0 w-full text-base tracking-normal text-grey-70">
-          Browse by category above, or try a different search term.
+          Please try a different filter.
         </p>
       </div>
       <Button
@@ -33,7 +33,7 @@ export function SolutionEmptyState({
         size="xl"
         onClick={onClearFilters}
       >
-        Clear filters
+        Clear filter
       </Button>
     </div>
   );

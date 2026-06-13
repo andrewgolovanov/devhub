@@ -68,7 +68,7 @@ export function SolutionFilters({
   );
 
   const items: Array<{ label: string; value: string | null }> = [
-    { label: "All Solutions", value: null },
+    { label: "All", value: null },
     ...categories.map((category) => ({ label: category, value: category })),
   ];
 
