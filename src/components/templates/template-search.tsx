@@ -43,7 +43,7 @@ export function TemplateSearch({
       <Input
         className="h-10 rounded-none border-grey-80 bg-transparent pr-11 pl-11 text-base tracking-tight shadow-none placeholder:text-grey-60 md:text-base active:border-db-lava focus-visible:ring-0 focus-visible:border-db-lava [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden dark:border-grey-80 dark:bg-transparent lg:h-11"
         type="search"
-        placeholder="Search templetes..."
+        placeholder="Search templates..."
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />
