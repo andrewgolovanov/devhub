@@ -5,7 +5,7 @@ import {
   getSolutionItemHref,
   isLinkedSolutionItem,
   type SolutionItem,
-} from "@/lib/solutions/solution-items";
+} from "@/lib/solutions/solutions";
 import { cn } from "@/lib/utils";
 
 export function SolutionArrowIcon({

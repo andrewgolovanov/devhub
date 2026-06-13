@@ -5,7 +5,7 @@ import {
   getDetailMarkdown,
 } from "../api/content-markdown";
 import { buildNativeSolutionMarkdown } from "../src/lib/solutions/solution-markdown";
-import type { NativeSolutionItem } from "../src/lib/solutions/solution-items";
+import type { NativeSolutionItem } from "../src/lib/solutions/solutions";
 
 describe("detail markdown resolver", () => {
   test("resolves docs markdown", () => {

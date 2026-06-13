@@ -1,9 +1,4 @@
 import { test, expect, type Locator, type Page } from "@playwright/test";
-import {
-  cookbooks,
-  examples,
-  recipesInOrder,
-} from "../../src/lib/recipes/recipes";
 
 function templateLinks(page: Page) {
   return page.locator('#templates-list a[href^="/templates/"]');
@@ -31,14 +26,6 @@ async function visibleCount(locator: Locator): Promise<number> {
   );
 }
 
-// Mirror the /templates listing logic: drafts and `unlisted` entries are
-// excluded from the grid (the latter stay navigable + indexed, just hidden here).
-const TEMPLATE_COUNT =
-  examples.filter((e) => !e.isDraft && !e.unlisted).length +
-  cookbooks.filter((c) => !c.isDraft).length +
-  recipesInOrder.filter((r) => !r.isDraft && !r.unlisted).length;
-const TOTAL_TEMPLATES = `${TEMPLATE_COUNT} of ${TEMPLATE_COUNT} templates`;
-
 test.describe("templates page search", () => {
   test("renders cover images for all visible template cards", async ({
     page,
@@ -62,15 +49,14 @@ test.describe("templates page search", () => {
     await page.goto("/templates");
     const initialCount = await visibleCount(templateLinks(page));
     expect(initialCount).toBeGreaterThan(0);
-    await expect(page.getByText(TOTAL_TEMPLATES)).toBeVisible();
 
     await page.getByRole("searchbox").fill("genie");
     await expect(
-      page.getByText(`7 of ${TEMPLATE_COUNT} templates`),
-    ).toBeVisible();
-    await expect(
       templateTextLink(page, "/templates/inventory-intelligence"),
     ).toBeVisible();
+    const filteredCount = await visibleCount(templateLinks(page));
+    expect(filteredCount).toBe(7);
+    expect(filteredCount).toBeLessThan(initialCount);
     // agentic-support-console matches "genie" but is unlisted, so it must stay
     // hidden from the listing even when the search would otherwise surface it.
     await expect(

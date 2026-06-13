@@ -18,7 +18,7 @@ import {
 import {
   buildSolutionItems,
   isNativeSolutionItem,
-} from "../src/lib/solutions/solution-items";
+} from "../src/lib/solutions/solutions";
 import { siteUrlFromConfig } from "../src/lib/site-url";
 
 type MarkdownRoute = {

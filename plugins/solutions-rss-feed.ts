@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import type { LoadContext, Plugin } from "@docusaurus/types";
-import { buildSolutionItems } from "../src/lib/solutions/solution-items";
+import { buildSolutionItems } from "../src/lib/solutions/solutions";
 import {
   SOLUTION_RSS_PATH,
   buildSolutionRssFeed,

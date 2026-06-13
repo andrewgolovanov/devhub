@@ -30,7 +30,7 @@ import {
   isNativeSolutionItem,
   solutionItems,
   type NativeSolutionItem,
-} from "../src/lib/solutions/solution-items";
+} from "../src/lib/solutions/solutions";
 import { buildNativeSolutionMarkdown } from "../src/lib/solutions/solution-markdown";
 import { resolveSiteUrl } from "../src/lib/site-url";
 

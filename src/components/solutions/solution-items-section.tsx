@@ -9,7 +9,7 @@ import { SolutionSearch } from "@/components/solutions/solution-search";
 import {
   SOLUTION_ITEMS_SECTION_ID,
   type SolutionItem,
-} from "@/lib/solutions/solution-items";
+} from "@/lib/solutions/solutions";
 
 type SolutionItemsPaginationState = {
   currentPage: number;

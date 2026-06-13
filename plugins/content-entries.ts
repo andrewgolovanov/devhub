@@ -16,7 +16,7 @@ import { showDrafts } from "../src/lib/feature-flags-server";
 import {
   filterPublishedSolutionItems,
   nativeSolutionItems,
-} from "../src/lib/solutions/solution-items";
+} from "../src/lib/solutions/solutions";
 
 function assertNoDuplicateSlugs(): void {
   const all: Array<{ id: string; type: string }> = [
@@ -91,7 +91,7 @@ ${children}
   if (entryType === "solution") {
     return `import type { ReactNode } from "react";
 import { SolutionDetail } from "@/components/solutions/solution-detail-shell";
-import { solutionItems, isNativeSolutionItem } from "@/lib/solutions/solution-items";
+import { solutionItems, isNativeSolutionItem } from "@/lib/solutions/solutions";
 ${imports.join("\n")}
 
 const solutionItem = solutionItems.find((item) => item.id === "${slug}");

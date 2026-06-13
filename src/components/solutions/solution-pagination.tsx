@@ -4,7 +4,7 @@ import type { MouseEvent, ReactNode } from "react";
 import {
   SOLUTION_ITEMS_SCROLL_STORAGE_KEY,
   getSolutionPagePath,
-} from "@/lib/solutions/solution-items";
+} from "@/lib/solutions/solutions";
 import { cn } from "@/lib/utils";
 
 type SolutionPaginationProps = {

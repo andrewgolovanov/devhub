@@ -11,7 +11,7 @@ import {
   isDatabricksSolutionItem,
   paginateSolutionItems,
   type SolutionItem,
-} from "../src/lib/solutions/solution-items";
+} from "../src/lib/solutions/solutions";
 import {
   SOLUTION_RSS_PATH,
   buildSolutionRssFeed,

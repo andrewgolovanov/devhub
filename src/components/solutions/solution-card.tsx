@@ -8,7 +8,7 @@ import {
 import {
   isDatabricksSolutionItem,
   type SolutionItem,
-} from "@/lib/solutions/solution-items";
+} from "@/lib/solutions/solutions";
 
 function SolutionDatabricksBadge(): ReactNode {
   return (

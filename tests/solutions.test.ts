@@ -6,7 +6,7 @@ import {
   buildSolutionItems,
   solutionItems,
   type LinkedSolutionItem,
-} from "../src/lib/solutions/solution-items";
+} from "../src/lib/solutions/solutions";
 
 describe("solutions registry", () => {
   test("every solution is exactly native or linked", () => {

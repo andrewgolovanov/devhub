@@ -2,7 +2,7 @@ import {
   getSolutionItemAuthorNames,
   getSolutionItemHref,
   type SolutionItem,
-} from "./solution-items";
+} from "./solutions";
 
 export const SOLUTION_RSS_PATH = "/solutions/rss.xml";
 

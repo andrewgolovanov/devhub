@@ -5,7 +5,7 @@ import {
   buildSolutionItems,
   getSolutionItemHref,
   isLinkedSolutionItem,
-} from "../src/lib/solutions/solution-items";
+} from "../src/lib/solutions/solutions";
 import {
   cookbooks,
   recipesInOrder,

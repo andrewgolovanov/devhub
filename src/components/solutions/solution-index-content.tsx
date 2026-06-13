@@ -17,7 +17,7 @@ import {
   getSolutionCategories,
   getFeaturedSolutionItem,
   paginateSolutionItems,
-} from "@/lib/solutions/solution-items";
+} from "@/lib/solutions/solutions";
 import { SOLUTION_RSS_PATH, getSolutionRssUrl } from "@/lib/solutions/rss-feed";
 import { useFeatureFlags } from "@/lib/feature-flags";
 import { siteUrlFromConfig } from "@/lib/site-url";

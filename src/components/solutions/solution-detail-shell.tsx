@@ -32,7 +32,7 @@ import {
   isLinkedSolutionItem,
   type SolutionItem,
   type NativeSolutionItem,
-} from "@/lib/solutions/solution-items";
+} from "@/lib/solutions/solutions";
 import { siteUrlFromConfig } from "@/lib/site-url";
 
 const solutionComponents = { a: BaseUrlAnchor, pre: RecipePre };

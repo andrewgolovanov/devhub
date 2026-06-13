@@ -1,7 +1,7 @@
 import matter from "gray-matter";
 
 import { getSolutionAuthor } from "./authors";
-import type { NativeSolutionItem } from "./solution-items";
+import type { NativeSolutionItem } from "./solutions";
 
 export function buildNativeSolutionMarkdown(
   content: string,

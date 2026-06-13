@@ -9,7 +9,7 @@ import {
   getSolutionItemHref,
   isLinkedSolutionItem,
   type SolutionItem,
-} from "@/lib/solutions/solution-items";
+} from "@/lib/solutions/solutions";
 
 export function SolutionFeaturedItem({
   item,
