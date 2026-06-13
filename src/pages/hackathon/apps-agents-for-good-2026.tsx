@@ -203,6 +203,59 @@ const event: HackathonEvent = {
         'Start with the "Start here" docs and copy one of the templates as a prompt for your coding agent — it will scaffold a working app and walk you through the rest.',
     },
     {
+      question: "What if I can't run a coding agent on my laptop?",
+      answer: (
+        <>
+          <p>
+            Some participants may be using corporate laptops where local
+            installs, IDE extensions, or coding agents are restricted.
+            That&rsquo;s okay — you can still participate. You can follow the
+            manual AppKit quick start to scaffold and deploy a Databricks App
+            with the CLI:{" "}
+            <Link
+              to="/docs/appkit/v0#manual-quick-start"
+              className="font-medium text-db-lava underline underline-offset-2 hover:text-db-lava-dark"
+            >
+              Getting started with AppKit
+            </Link>
+            .
+          </p>
+          <p>
+            If possible, try to form a team with at least one person who has a
+            local coding-agent setup and can iterate on the app. Not everyone on
+            the team needs to work on the app code at the same time — other
+            teammates can focus on data exploration, product direction,
+            evaluation, storytelling, the final demo, and other areas where a
+            local coding agent is less valuable.
+          </p>
+          <p>
+            You can also use agentic tools that don&rsquo;t require local setup:
+          </p>
+          <ul className="m-0 flex list-disc flex-col gap-y-2 pl-5">
+            <li>
+              <strong>Databricks Genie Code</strong> — use Genie Code inside
+              Databricks for help understanding the dataset, writing SQL,
+              exploring tables, shaping the data work that powers your app, and
+              creating and managing the app.
+            </li>
+            <li>
+              <strong>Browser-based development tools</strong> — tools like
+              Replit can be useful when your laptop can&rsquo;t install a local
+              coding environment. Check your company policies before connecting
+              accounts, repos, or data.
+            </li>
+          </ul>
+          <p>
+            If your team is blocked by laptop restrictions, don&rsquo;t spend
+            the whole hackathon fighting the machine. Shift work to the teammate
+            or environment that can run the app, and use Databricks itself for
+            as much data exploration and prototyping as possible. Ask hackathon
+            mentors for help and ideas.
+          </p>
+        </>
+      ),
+    },
+    {
       question: "Which Databricks account should I use?",
       answer: (
         <p>
