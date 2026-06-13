@@ -56,7 +56,7 @@ export default function Home(): ReactNode {
       <main>
         <Hero />
         <Templates />
-        <Features />
+        {/* <Features /> */}
         <div className="bg-linear-to-b from-[#1A2E2F] from-65% to-[#2A4647]">
           <LovedByDevelopers />
           <CTA
