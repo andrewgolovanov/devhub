@@ -86,18 +86,18 @@ export function NewHeader({ className }: NewHeaderProps) {
           <div className="hidden grow items-center justify-end gap-x-3 xl:flex">
             <div className="flex items-center gap-x-6">
               <Link
-                to="https://www.youtube.com/@Databricks"
-                className="inline-flex size-4.5 items-center justify-center text-[#E4E5E7] no-underline hover:opacity-85 hover:no-underline"
-                aria-label="Databricks YouTube channel"
-              >
-                <Icons.youtube className="size-4.5" aria-hidden="true" />
-              </Link>
-              <Link
                 to="https://www.reddit.com/r/databricks/"
                 className="inline-flex size-4.5 items-center justify-center text-[#E4E5E7] no-underline hover:opacity-85 hover:no-underline"
                 aria-label="Databricks subreddit"
               >
                 <Icons.reddit className="size-4.5" aria-hidden="true" />
+              </Link>
+              <Link
+                to="https://www.youtube.com/@Databricks"
+                className="inline-flex size-4.5 items-center justify-center text-[#E4E5E7] no-underline hover:opacity-85 hover:no-underline"
+                aria-label="Databricks YouTube channel"
+              >
+                <Icons.youtube className="size-4.5" aria-hidden="true" />
               </Link>
               <Link
                 to="https://github.com/databricks/devhub"

@@ -48,9 +48,9 @@ const FOOTER_SECTIONS: FooterSection[] = [
 
 const SOCIAL_LINKS = [
   {
-    label: "GitHub",
-    href: "https://github.com/databricks/devhub",
-    icon: "github",
+    label: "Reddit",
+    href: "https://www.reddit.com/r/databricks/",
+    icon: "reddit",
   },
   {
     label: "YouTube",
@@ -58,9 +58,9 @@ const SOCIAL_LINKS = [
     icon: "youtube",
   },
   {
-    label: "Reddit",
-    href: "https://www.reddit.com/r/databricks/",
-    icon: "reddit",
+    label: "GitHub",
+    href: "https://github.com/databricks/devhub",
+    icon: "github",
   },
   {
     label: "Databricks.com",
