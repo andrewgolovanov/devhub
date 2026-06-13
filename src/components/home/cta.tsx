@@ -1,5 +1,6 @@
 import Link from "@docusaurus/Link";
 import useBaseUrl from "@docusaurus/useBaseUrl";
+import { track } from "@vercel/analytics";
 import { Check, Copy, LoaderCircle } from "lucide-react";
 import { type ReactNode, useCallback, useState } from "react";
 
@@ -162,6 +163,7 @@ function CTA({
       const bootstrapPrompt = await response.text();
       await navigator.clipboard.writeText(bootstrapPrompt);
       setCopyState("copied");
+      track("copy_bootstrap_prompt", { source: "cta" });
     } catch {
       setCopyState("idle");
     }
