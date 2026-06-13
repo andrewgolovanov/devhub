@@ -5,9 +5,7 @@ import { useLocation } from "@docusaurus/router";
 import { DocsSidebarSearch } from "@/components/docs/sidebar-search";
 
 import {
-  getActiveProductHref,
   isHeaderNavItemActive,
-  PRODUCT_LINKS,
   type HeaderNavItem,
 } from "@/lib/header-navigation";
 import { cn } from "@/lib/utils";
@@ -128,10 +126,7 @@ function MobileTreeText({
 export function MobileNav({ items, open, onOpenChange }: MobileNavProps) {
   const menuId = useId();
   const { pathname } = useLocation();
-  const activeProductHref = getActiveProductHref(pathname);
   const isHomeActive = pathname === "/";
-  const productItem = items.find(({ label }) => label === "Product");
-  const sectionItems = items.filter(({ label }) => label !== "Product");
 
   useEffect(() => {
     onOpenChange(false);
@@ -223,7 +218,7 @@ export function MobileNav({ items, open, onOpenChange }: MobileNavProps) {
     };
   }, [onOpenChange, open]);
 
-  if (!productItem || items.length === 0) {
+  if (items.length === 0) {
     return null;
   }
 
@@ -250,15 +245,17 @@ export function MobileNav({ items, open, onOpenChange }: MobileNavProps) {
             className="relative w-full h-full flex justify-between font-mono text-[20px] leading-none font-normal tracking-[-0.4px]"
             aria-label="Main navigation"
           >
-            <MobileTreeLine className="top-[38px] left-[23px] h-[226px] w-px" />
-            <MobileTreeLine className="top-[58px] left-6 h-px w-[37px]" />
-            <MobileTreeLine className="top-[90px] left-[63px] h-px w-[37px]" />
-            <MobileTreeLine className="top-[124px] left-[63px] h-px w-[37px]" />
-            <MobileTreeLine className="top-[158px] left-[63px] h-px w-[37px]" />
-            <MobileTreeLine className="top-[194px] left-6 h-px w-[37px] md:w-[39px]" />
-            <MobileTreeLine className="top-[228px] left-6 h-px w-[37px] md:w-[39px]" />
-            <MobileTreeLine className="top-[264px] left-6 h-px w-[37px] md:w-[39px]" />
-            <MobileTreeLine className="top-[72px] left-[63px] h-[86px] w-px md:top-[73px] md:h-[85px]" />
+            {/*
+              Product nav section temporarily removed while product pages are
+              unpublished. This menu was reflowed (tree-line positions retuned)
+              for the shorter HOME + Solutions/Templates/Docs list. To restore
+              Product, revert this file to its pre-PR-114 version and uncomment
+              the Product entry in header-navigation.ts.
+            */}
+            <MobileTreeLine className="top-[38px] left-[23px] h-[102px] w-px" />
+            <MobileTreeLine className="top-[72px] left-6 h-px w-[37px] md:w-[39px]" />
+            <MobileTreeLine className="top-[106px] left-6 h-px w-[37px] md:w-[39px]" />
+            <MobileTreeLine className="top-[140px] left-6 h-px w-[37px] md:w-[39px]" />
 
             <MobileTreeText
               active={isHomeActive}
@@ -271,37 +268,7 @@ export function MobileNav({ items, open, onOpenChange }: MobileNavProps) {
               ~/HOME
             </MobileTreeText>
 
-            <span
-              className="absolute top-[46px] left-[61px] flex h-6 items-center text-grey-80 opacity-60"
-              data-mobile-menu-product-label="true"
-            >
-              {productItem.label.toLowerCase()}
-            </span>
-
-            {PRODUCT_LINKS.map((product, index) => {
-              const isActive = product.href === activeProductHref;
-
-              return (
-                <MobileTreeText
-                  active={isActive}
-                  activeFill="full"
-                  aria-current={isActive ? "page" : undefined}
-                  className={cn(
-                    "left-[100px] right-5",
-                    index === 0 && "top-[76px]",
-                    index === 1 && "top-[110px]",
-                    index === 2 && "top-36",
-                  )}
-                  data-mobile-menu-product-link="true"
-                  key={product.href}
-                  to={product.href}
-                >
-                  {product.label.toLowerCase()}
-                </MobileTreeText>
-              );
-            })}
-
-            {sectionItems.map((item, index) => {
+            {items.map((item, index) => {
               const isActive = isHeaderNavItemActive(item, pathname);
 
               return (
@@ -311,9 +278,9 @@ export function MobileNav({ items, open, onOpenChange }: MobileNavProps) {
                   aria-current={isActive ? "page" : undefined}
                   className={cn(
                     "left-[61px] right-5 md:left-[63px] md:right-[22px]",
-                    index === 0 && "top-[180px]",
-                    index === 1 && "top-[214px]",
-                    index === 2 && "top-[248px]",
+                    index === 0 && "top-[58px]",
+                    index === 1 && "top-[92px]",
+                    index === 2 && "top-[126px]",
                   )}
                   data-mobile-menu-section-link="true"
                   key={item.href}

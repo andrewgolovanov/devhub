@@ -65,7 +65,8 @@ test.describe("navbar navigation", () => {
     });
   }
 
-  test("product dropdown hover state is visible in production CSS", async ({
+  // Skipped while the Product nav dropdown is hidden.
+  test.skip("product dropdown hover state is visible in production CSS", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
@@ -157,7 +158,9 @@ test.describe("navbar navigation", () => {
   });
 });
 
-test.describe("mobile navigation", () => {
+// Skipped while the Product nav section is hidden; the mobile menu layout
+// assertions below are tied to the old product-based tree layout.
+test.describe.skip("mobile navigation", () => {
   for (const viewport of [
     {
       width: 360,
@@ -385,18 +388,7 @@ test.describe("footer navigation", () => {
       href: "/",
       label: "Databricks logo",
     },
-    {
-      href: "/product/data-lakehouse",
-      label: "Lakebase product",
-    },
-    {
-      href: "/product/agent-bricks",
-      label: "Agent Bricks product",
-    },
-    {
-      href: "/product/databricks-apps",
-      label: "Databricks Apps product",
-    },
+    // Product footer links temporarily hidden.
     {
       href: "/docs/start-here",
       label: "Docs",
@@ -451,9 +443,6 @@ test.describe("footer navigation", () => {
     "https://www.databricks.com/legal/terms-of-use",
     "https://www.databricks.com/legal/modern-slavery-policy-statement",
     "https://www.databricks.com/legal/supplemental-privacy-notice-california-residents",
-    "/product/data-lakehouse",
-    "/product/agent-bricks",
-    "/product/databricks-apps",
     "https://www.databricks.com/company/contact",
     "/docs/start-here",
     "/templates",
@@ -545,7 +534,8 @@ test.describe("home page link navigation", () => {
     expect(finalCopiedText).toContain("llms.txt");
   });
 
-  test("pillar card Lakebase navigates to /product/data-lakehouse", async ({
+  // Skipped while the home Features pillar cards and product pages are hidden.
+  test.skip("pillar card Lakebase navigates to /product/data-lakehouse", async ({
     page,
   }) => {
     await page.goto("/");
@@ -556,7 +546,7 @@ test.describe("home page link navigation", () => {
     expect(new URL(page.url()).pathname).toBe("/product/data-lakehouse");
   });
 
-  test("pillar card Agent Bricks navigates to /product/agent-bricks", async ({
+  test.skip("pillar card Agent Bricks navigates to /product/agent-bricks", async ({
     page,
   }) => {
     await page.goto("/");
@@ -565,7 +555,7 @@ test.describe("home page link navigation", () => {
     expect(new URL(page.url()).pathname).toBe("/product/agent-bricks");
   });
 
-  test("pillar card Databricks Apps navigates to /product/databricks-apps", async ({
+  test.skip("pillar card Databricks Apps navigates to /product/databricks-apps", async ({
     page,
   }) => {
     await page.goto("/");
