@@ -27,6 +27,7 @@ type TemplateDetailShellProps = {
   contentRef: React.RefObject<HTMLDivElement | null>;
   services?: readonly string[];
   heroMedia?: ReactNode;
+  afterHero?: ReactNode;
   belowContent?: ReactNode;
   relatedItems?: TemplateItem[];
   presentation?: "default" | "hackathon";
@@ -113,6 +114,7 @@ export function TemplateDetailShell({
   contentRef,
   services,
   heroMedia,
+  afterHero,
   belowContent,
   relatedItems = [],
   presentation = "default",
@@ -180,6 +182,8 @@ export function TemplateDetailShell({
                     titleClassName="text-xl/snug md:text-2xl/snug"
                     showDivider
                   />
+
+                  {afterHero}
 
                   <div
                     className="mt-10 recipe-content-card template-dark-prose md:mt-12"

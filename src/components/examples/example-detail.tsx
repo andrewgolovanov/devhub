@@ -186,9 +186,9 @@ export function ExampleDetail({
         )
       }
       relatedItems={relatedItems}
+      afterHero={<StarterCodeCard templateUrl={example.templateUrl} />}
       belowContent={
         <>
-          <StarterCodeCard templateUrl={example.templateUrl} />
           {relatedItems.length > 0 && (
             <div className="mt-12 flex flex-col gap-6">
               <div className="flex flex-col gap-6">
