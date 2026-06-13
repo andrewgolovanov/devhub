@@ -112,8 +112,9 @@ function Hero({ className }: HeroProps) {
               </span>
             </h1>
             <p className="order-last max-w-sm text-base/tight tracking-normal mt-4 text-grey-80 xl:order-0 xl:mt-0 xl:row-span-2">
-              Open your agent in any folder and paste. Works with Cursor, Claude
-              Code, Codex, or your favorite coding agent.
+              Copy the prompt into Cursor, Claude Code, Codex, or any coding
+              agent — it will walk you through building a complete app, step by
+              step.
             </p>
             <div className="mt-4.5 flex flex-col gap-x-5 gap-y-3 sm:flex-row md:mt-5 lg:mt-6 xl:mt-0">
               <Button
