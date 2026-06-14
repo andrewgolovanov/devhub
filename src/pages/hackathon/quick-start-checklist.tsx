@@ -36,36 +36,95 @@ const steps: ChecklistStep[] = [
     id: "install-agent",
     title: "Install a coding agent",
     body: (
-      <p className="m-0">
-        We suggest{" "}
-        <a
-          href="https://cursor.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={inlineLink}
-        >
-          Cursor
-        </a>
-        ,{" "}
-        <a
-          href="https://claude.com/product/claude-code"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={inlineLink}
-        >
-          Claude Code
-        </a>
-        , or{" "}
-        <a
-          href="https://openai.com/codex/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={inlineLink}
-        >
-          Codex
-        </a>
-        .
-      </p>
+      <>
+        <p className="m-0">
+          We suggest{" "}
+          <a
+            href="https://cursor.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={inlineLink}
+          >
+            Cursor
+          </a>
+          ,{" "}
+          <a
+            href="https://claude.com/product/claude-code"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={inlineLink}
+          >
+            Claude Code
+          </a>
+          , or{" "}
+          <a
+            href="https://openai.com/codex/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={inlineLink}
+          >
+            Codex
+          </a>
+          .
+        </p>
+        <details className="group mt-4 border border-grey-30 bg-grey-5 p-4 md:p-5">
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-base/snug font-medium text-white md:text-lg/snug [&::-webkit-details-marker]:hidden">
+            Can&rsquo;t run a coding agent on your laptop?
+            <CalloutChevronIcon className="size-5 shrink-0 text-grey-70 transition-transform duration-200 group-open:rotate-180" />
+          </summary>
+          <div className="mt-3 flex flex-col gap-y-3 text-base/normal tracking-tight text-grey-90 md:text-base/normal">
+            <p className="m-0">
+              Some participants may be using corporate laptops where local
+              installs, IDE extensions, or coding agents are restricted.
+              That&rsquo;s okay &mdash; you can still participate. You can
+              follow the manual AppKit quick start to scaffold and deploy a
+              Databricks App with the CLI:{" "}
+              <Link
+                to="/docs/appkit/v0#manual-quick-start"
+                className={inlineLink}
+              >
+                Getting started with AppKit
+              </Link>
+              .
+            </p>
+            <p className="m-0">
+              If possible, try to form a team with at least one person who has a
+              local coding-agent setup and can iterate on the app. Not everyone
+              on the team needs to work on the app code at the same time &mdash;
+              other teammates can focus on data exploration, product direction,
+              evaluation, storytelling, the final demo, and other areas where a
+              local coding agent is less valuable.
+            </p>
+            <p className="m-0">
+              You can also use agentic tools that don&rsquo;t require local
+              setup:
+            </p>
+            <ul className={bulletList}>
+              <li>
+                <strong className={strong}>Databricks Genie Code</strong>{" "}
+                &mdash; use Genie Code inside Databricks for help understanding
+                the dataset, writing SQL, exploring tables, shaping the data
+                work that powers your app, and creating and managing the app.
+              </li>
+              <li>
+                <strong className={strong}>
+                  Browser-based development tools
+                </strong>{" "}
+                &mdash; tools like Replit can be useful when your laptop
+                can&rsquo;t install a local coding environment. Check your
+                company policies before connecting accounts, repos, or data.
+              </li>
+            </ul>
+            <p className="m-0">
+              If your team is blocked by laptop restrictions, don&rsquo;t spend
+              the whole hackathon fighting the machine. Shift work to the
+              teammate or environment that can run the app, and use Databricks
+              itself for as much data exploration and prototyping as possible.
+              Ask hackathon mentors for help and ideas.
+            </p>
+          </div>
+        </details>
+      </>
     ),
   },
   {
@@ -238,6 +297,28 @@ function DatasetButton({ href }: { href: string }): ReactNode {
     >
       Open in Databricks
     </a>
+  );
+}
+
+function CalloutChevronIcon({ className }: { className?: string }): ReactNode {
+  return (
+    <svg
+      className={className}
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M5 7.5L10 12.5L15 7.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
   );
 }
 
