@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 const PAGES = [
   { path: "/", title: "Databricks Developer" },
-  { path: "/product/data-lakehouse", title: "Lakebase" },
+  { path: "/product/lakebase", title: "Lakebase" },
   { path: "/product/agent-bricks", title: "Agent Bricks" },
   { path: "/product/databricks-apps", title: "Databricks Apps" },
   { path: "/solutions", title: "Solutions" },
@@ -117,6 +117,17 @@ test.describe("static assets load correctly", () => {
     const response = await request.get("/solutions/rss.xml");
     expect(response.status()).toBe(200);
     expect(await response.text()).toContain("<rss");
+  });
+});
+
+test.describe("legacy redirects", () => {
+  test("/product/data-lakehouse redirects to /product/lakebase", async ({
+    page,
+  }) => {
+    await page.goto("/product/data-lakehouse");
+    await page.waitForURL("**/product/lakebase");
+    expect(new URL(page.url()).pathname).toBe("/product/lakebase");
+    await expect(page).toHaveTitle(/Lakebase/);
   });
 });
 

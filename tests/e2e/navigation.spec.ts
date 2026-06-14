@@ -69,7 +69,7 @@ test.describe("navbar navigation", () => {
     page,
   }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto("/product/data-lakehouse");
+    await page.goto("/product/lakebase");
 
     await page.getByRole("button", { name: "[Product]" }).hover();
     const productMenu = page.locator('[data-slot="navigation-menu-content"]');
@@ -183,7 +183,7 @@ test.describe.skip("mobile navigation", () => {
         width: viewport.width,
         height: viewport.height,
       });
-      await page.goto("/product/data-lakehouse");
+      await page.goto("/product/lakebase");
 
       await page.getByRole("button", { name: "Open menu" }).click();
 
@@ -537,15 +537,15 @@ test.describe("home page link navigation", () => {
     expect(finalCopiedText).toContain("llms.txt");
   });
 
-  test("pillar card Lakebase navigates to /product/data-lakehouse", async ({
+  test("pillar card Lakebase navigates to /product/lakebase", async ({
     page,
   }) => {
     await page.goto("/");
-    const link = page.locator('a[href="/product/data-lakehouse"]').first();
+    const link = page.locator('a[href="/product/lakebase"]').first();
     await link.waitFor({ state: "visible" });
     await link.click();
-    await page.waitForURL("**/product/data-lakehouse");
-    expect(new URL(page.url()).pathname).toBe("/product/data-lakehouse");
+    await page.waitForURL("**/product/lakebase");
+    expect(new URL(page.url()).pathname).toBe("/product/lakebase");
   });
 
   test("pillar card Agent Bricks navigates to /product/agent-bricks", async ({

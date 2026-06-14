@@ -5,7 +5,7 @@ export const lakebaseProduct: ProductPageContent = {
   title: "Lakebase",
   description:
     "Managed Postgres with branching, autoscaling, and Lakehouse sync for modern operational workloads.",
-  canonicalPath: "/product/data-lakehouse",
+  canonicalPath: "/product/lakebase",
   hero: {
     eyebrow: "Lakebase",
     title: "Managed Postgres, built for modern operational workloads.",

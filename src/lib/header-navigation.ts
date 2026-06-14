@@ -1,5 +1,5 @@
 export const HEADER_LINKS = [
-  { label: "Product", href: "/product/data-lakehouse" },
+  { label: "Product", href: "/product/lakebase" },
   { label: "Solutions", href: "/solutions" },
   { label: "Templates", href: "/templates" },
   { label: "Docs", href: "/docs/start-here", activePath: "/docs" },
@@ -8,7 +8,7 @@ export const HEADER_LINKS = [
 export type HeaderNavItem = (typeof HEADER_LINKS)[number];
 
 export const PRODUCT_LINKS = [
-  { label: "Lakebase", href: "/product/data-lakehouse" },
+  { label: "Lakebase", href: "/product/lakebase" },
   { label: "Agent Bricks", href: "/product/agent-bricks" },
   { label: "Databricks Apps", href: "/product/databricks-apps" },
 ] as const;
