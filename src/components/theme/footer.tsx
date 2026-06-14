@@ -5,7 +5,6 @@ import type { ReactNode } from "react";
 import { Icons } from "@/components/icons";
 import { COPYRIGHT_LINE } from "@/lib/legal-links";
 import { cn } from "@/lib/utils";
-import SystemStatus from "./system-status";
 
 type FooterItem = {
   label: string;
@@ -202,7 +201,6 @@ function NewFooter({ className }: { className?: string }) {
               />
             </Link>
             <div className="flex-col hidden lg:flex">
-              <SystemStatus />
               <p className="mt-5 max-w-md text-sm leading-normal font-medium tracking-tight text-grey-40 lg:text-[.8125rem] lg:font-normal">
                 {COPYRIGHT_LINE}
               </p>
@@ -240,7 +238,6 @@ function NewFooter({ className }: { className?: string }) {
           </div>
 
           <div className="flex flex-col mt-5 lg:hidden">
-            <SystemStatus />
             <p className="mt-5 text-sm leading-normal font-medium tracking-tight text-grey-40">
               {COPYRIGHT_LINE}
             </p>
