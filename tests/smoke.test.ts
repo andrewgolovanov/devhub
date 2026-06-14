@@ -44,6 +44,15 @@ describe("production build smoke tests", () => {
     expect(text).toContain("> Documentation, templates, and examples");
   });
 
+  test("solutions RSS feed exists and uses the resolved site URL", () => {
+    const text = readBuildFile("solutions/rss.xml");
+    const expectedSiteUrl = resolveExpectedSiteUrl();
+    expect(text).toContain("<rss");
+    expect(text).toContain(
+      `<atom:link href="${expectedSiteUrl}/solutions/rss.xml" rel="self" type="application/rss+xml" />`,
+    );
+  });
+
   test("llms.txt internal links use the resolved site URL", () => {
     const text = readBuildFile("llms.txt");
     const expectedSiteUrl = resolveExpectedSiteUrl();
@@ -138,6 +147,7 @@ describe("production build smoke tests", () => {
     expect(text).toContain("/docs/start-here.md");
     expect(text).toContain("/templates/ai-chat-app.md");
     expect(text).toContain("/solutions.md");
+    expect(text).toContain("/solutions/devhub-launch.md");
   });
 
   test("llms.txt links to native solutions internally and to linked solutions externally", () => {
@@ -304,6 +314,18 @@ describe("production build smoke tests", () => {
     const text = readBuildFile("raw-docs/start-here.md");
     expect(text).not.toMatch(/^---\n/);
     expect(text).toMatch(/^# Start here/);
+  });
+
+  test("pretty markdown routes are emitted as static files for local serving", () => {
+    expect(readBuildFile("docs/start-here.md")).toContain("# Start here");
+    expect(readBuildFile("solutions/devhub-launch.md")).toContain(
+      "title: Introducing DevHub",
+    );
+    expect(readBuildFile("templates/ai-chat-app.md")).toContain(
+      "# About DevHub",
+    );
+    expect(readBuildFile("templates.md")).toContain("# Templates");
+    expect(readBuildFile("solutions.md")).toContain("# Solutions");
   });
 
   test("raw-docs preserve closing HTML tags inside code examples", () => {

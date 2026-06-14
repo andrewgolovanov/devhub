@@ -6,6 +6,8 @@ import Heading from "@theme/Heading";
 import React, { type ComponentPropsWithoutRef } from "react";
 
 import { BaseUrlAnchor } from "@/components/base-url-anchor";
+import { ContentHeading } from "@/components/docs/content-heading";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 
 // Custom heading components must register their anchors with the broken link
@@ -18,154 +20,54 @@ function useAnchor(id: string | undefined) {
 
 function H1({ className, id, ...props }: ComponentPropsWithoutRef<"h1">) {
   useAnchor(id);
-  return (
-    <h1
-      id={id}
-      className={cn(
-        "mt-2 mb-4 scroll-m-24 text-3xl font-black tracking-tight text-db-navy md:text-4xl dark:text-white",
-        className,
-      )}
-      {...props}
-    />
-  );
+  return <h1 id={id} className={cn(className)} {...props} />;
 }
 
 function H2({ className, ...props }: ComponentPropsWithoutRef<"h2">) {
-  return (
-    <Heading
-      as="h2"
-      className={cn(
-        "mt-10 mb-3 scroll-m-24 border-b border-db-border pb-2.5 text-2xl font-bold tracking-tight text-db-navy first:mt-8 dark:text-white",
-        className,
-      )}
-      {...props}
-    />
-  );
+  return <ContentHeading tag="h2" className={className} {...props} />;
 }
 
 function H3({ className, ...props }: ComponentPropsWithoutRef<"h3">) {
-  return (
-    <Heading
-      as="h3"
-      className={cn(
-        "mt-8 mb-2.5 scroll-m-24 text-xl font-semibold tracking-tight text-db-navy dark:text-white",
-        className,
-      )}
-      {...props}
-    />
-  );
+  return <ContentHeading tag="h3" className={className} {...props} />;
 }
 
 function H4({ className, ...props }: ComponentPropsWithoutRef<"h4">) {
-  return (
-    <Heading
-      as="h4"
-      className={cn(
-        "mt-6 mb-2 scroll-m-24 text-lg font-semibold tracking-tight text-db-navy dark:text-white",
-        className,
-      )}
-      {...props}
-    />
-  );
+  return <Heading as="h4" className={cn(className)} {...props} />;
 }
 
 function H5({ className, ...props }: ComponentPropsWithoutRef<"h5">) {
-  return (
-    <Heading
-      as="h5"
-      className={cn(
-        "mt-5 mb-1.5 scroll-m-24 text-base font-semibold tracking-tight text-db-navy dark:text-white",
-        className,
-      )}
-      {...props}
-    />
-  );
+  return <Heading as="h5" className={cn(className)} {...props} />;
 }
 
 function H6({ className, ...props }: ComponentPropsWithoutRef<"h6">) {
-  return (
-    <Heading
-      as="h6"
-      className={cn(
-        "mt-4 mb-1.5 scroll-m-24 text-sm font-semibold tracking-tight text-db-navy/90 dark:text-white/90",
-        className,
-      )}
-      {...props}
-    />
-  );
+  return <Heading as="h6" className={cn(className)} {...props} />;
 }
 
 function P({ className, ...props }: ComponentPropsWithoutRef<"p">) {
-  return (
-    <p
-      className={cn(
-        "my-5 text-[1.04rem] leading-8 text-db-navy/85 dark:text-white/85",
-        className,
-      )}
-      {...props}
-    />
-  );
+  return <p className={cn(className)} {...props} />;
 }
 
 function A({ className, href, ...props }: ComponentPropsWithoutRef<"a">) {
-  return (
-    <BaseUrlAnchor
-      className={cn(
-        "font-medium text-db-lava underline decoration-db-lava/35 underline-offset-4 transition-colors hover:text-db-lava-dark dark:text-db-lava-light dark:hover:text-db-lava-lightest",
-        className,
-      )}
-      href={href}
-      {...props}
-    />
-  );
+  return <BaseUrlAnchor className={cn(className)} href={href} {...props} />;
 }
 
 function Ul({ className, ...props }: ComponentPropsWithoutRef<"ul">) {
-  return (
-    <ul
-      className={cn(
-        "my-5 ml-7 list-disc space-y-2.5 text-[1.02rem] text-db-navy/85 dark:text-white/85",
-        className,
-      )}
-      {...props}
-    />
-  );
+  return <ul className={cn(className)} {...props} />;
 }
 
 function Ol({ className, ...props }: ComponentPropsWithoutRef<"ol">) {
-  return (
-    <ol
-      className={cn(
-        "my-5 ml-7 list-decimal space-y-2.5 text-[1.02rem] text-db-navy/85 dark:text-white/85",
-        className,
-      )}
-      {...props}
-    />
-  );
+  return <ol className={cn(className)} {...props} />;
 }
 
 function Li({ className, ...props }: ComponentPropsWithoutRef<"li">) {
-  return (
-    <li
-      className={cn("pl-1 leading-8 marker:text-db-lava", className)}
-      {...props}
-    />
-  );
+  return <li className={cn(className)} {...props} />;
 }
 
 function Blockquote({
   className,
   ...props
 }: ComponentPropsWithoutRef<"blockquote">) {
-  return (
-    <blockquote
-      className={cn(
-        "my-6 rounded-r-lg border-l-4 border-db-lava bg-db-bg px-4 py-3 italic text-db-navy/80 dark:bg-db-navy/30 dark:text-white/80",
-        className,
-      )}
-      {...props}
-    />
-  );
+  return <blockquote className={cn(className)} {...props} />;
 }
 
 function Hr({ className, ...props }: ComponentPropsWithoutRef<"hr">) {
@@ -173,15 +75,7 @@ function Hr({ className, ...props }: ComponentPropsWithoutRef<"hr">) {
 }
 
 function Img({ className, ...props }: ComponentPropsWithoutRef<"img">) {
-  return (
-    <img
-      className={cn(
-        "my-6 rounded-xl border border-db-border bg-db-card p-1 shadow-sm",
-        className,
-      )}
-      {...props}
-    />
-  );
+  return <img className={cn(className)} {...props} />;
 }
 
 function InlineCode({
@@ -222,49 +116,43 @@ function InlineCode({
 
 function Table({ className, ...props }: ComponentPropsWithoutRef<"table">) {
   return (
-    <table
-      className={cn(
-        "my-6 w-full border-collapse overflow-hidden rounded-xl border border-db-border text-sm",
-        className,
-      )}
-      {...props}
-    />
+    <figure className="not-prose -mx-5 my-8 md:mx-0">
+      <ScrollArea className="w-full">
+        <table
+          className={cn(
+            "mx-5 table w-184 border-separate border-spacing-0 text-sm md:mx-0 md:w-full",
+            className,
+          )}
+          {...props}
+        />
+        <ScrollBar className="invisible" orientation="horizontal" />
+      </ScrollArea>
+    </figure>
   );
 }
 
 function Thead({ className, ...props }: ComponentPropsWithoutRef<"thead">) {
-  return (
-    <thead
-      className={cn(
-        "bg-db-bg text-sm font-semibold text-db-navy dark:bg-db-navy/35 dark:text-white",
-        className,
-      )}
-      {...props}
-    />
-  );
+  return <thead className={cn("bg-transparent", className)} {...props} />;
 }
 
 function Tbody({ className, ...props }: ComponentPropsWithoutRef<"tbody">) {
-  return <tbody className={cn("bg-db-card", className)} {...props} />;
-}
-
-function Tr({ className, ...props }: ComponentPropsWithoutRef<"tr">) {
   return (
-    <tr
-      className={cn(
-        "border-t border-db-border even:bg-db-bg/35 dark:even:bg-db-navy/20",
-        className,
-      )}
+    <tbody
+      className={cn("[&_tr:last-child_td]:border-b-0", className)}
       {...props}
     />
   );
+}
+
+function Tr({ className, ...props }: ComponentPropsWithoutRef<"tr">) {
+  return <tr className={cn("bg-transparent", className)} {...props} />;
 }
 
 function Th({ className, ...props }: ComponentPropsWithoutRef<"th">) {
   return (
     <th
       className={cn(
-        "px-3 py-2 text-left align-top text-xs uppercase tracking-wide text-db-navy/80 dark:text-white/90",
+        "min-w-36 border-b border-prose-border pb-3 text-left align-top text-sm leading-snug font-medium tracking-tight text-white",
         className,
       )}
       {...props}
@@ -276,7 +164,7 @@ function Td({ className, ...props }: ComponentPropsWithoutRef<"td">) {
   return (
     <td
       className={cn(
-        "px-3 py-2.5 align-top text-db-navy/85 dark:text-white/85",
+        "min-w-36 border-b border-prose-border pt-3 pr-10 pb-3 text-left align-top text-sm leading-snug tracking-tight text-grey-90 last:pr-0 [&_code:first-child]:ml-0",
         className,
       )}
       {...props}
@@ -284,7 +172,7 @@ function Td({ className, ...props }: ComponentPropsWithoutRef<"td">) {
   );
 }
 
-function ChevronRight({ className }: { className?: string }) {
+function ChevronDown({ className }: { className?: string }) {
   return (
     <svg
       className={className}
@@ -295,7 +183,7 @@ function ChevronRight({ className }: { className?: string }) {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <path d="m9 18 6-6-6-6" />
+      <path d="m6 9 6 6 6-6" />
     </svg>
   );
 }
@@ -315,22 +203,18 @@ function Details({
   const rest = items.filter((child) => child !== summaryItem);
 
   return (
-    <details
-      className={cn(
-        "group/details my-6 rounded-xl border border-db-border bg-db-card px-4 py-3 shadow-sm",
-        className,
-      )}
-      {...props}
-    >
+    <details className={cn("group/details my-8", className)} {...props}>
       {summaryItem && (
-        <summary className="flex cursor-pointer list-none items-center gap-2 text-base font-semibold text-db-navy dark:text-white [&::-webkit-details-marker]:hidden">
-          <ChevronRight className="h-4 w-4 shrink-0 text-db-lava transition-transform group-open/details:rotate-90" />
+        <Summary>
           {React.isValidElement<{ children?: React.ReactNode }>(summaryItem)
             ? summaryItem.props.children
             : null}
-        </summary>
+          <ChevronDown className="size-5 shrink-0 text-grey-70 transition-transform group-open/details:rotate-180" />
+        </Summary>
       )}
-      {rest}
+      {rest.length > 0 ? (
+        <div className="prose-inside-content my-5 px-5">{rest}</div>
+      ) : null}
     </details>
   );
 }
@@ -339,7 +223,7 @@ function Summary({ className, ...props }: ComponentPropsWithoutRef<"summary">) {
   return (
     <summary
       className={cn(
-        "flex cursor-pointer list-none items-center gap-2 text-base font-semibold text-db-navy dark:text-white [&::-webkit-details-marker]:hidden",
+        "not-prose w-fit cursor-pointer rounded text-base leading-snug font-medium tracking-tight text-foreground normal-case outline-offset-4 transition-colors duration-300 hover:text-secondary-foreground/85",
         className,
       )}
       {...props}

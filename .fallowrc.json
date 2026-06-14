@@ -1,6 +1,12 @@
 {
   "$schema": "https://raw.githubusercontent.com/fallow-rs/fallow/main/schema.json",
-  "ignorePatterns": ["examples/**", "content/**", ".docusaurus/**", "build/**"],
+  "ignorePatterns": [
+    "examples/**",
+    "content/**",
+    ".docusaurus/**",
+    "build/**",
+    "static/js/home-hero-player.js"
+  ],
   "ignoreDependencies": [
     "@modelcontextprotocol/sdk",
     "@docusaurus/module-type-aliases",
@@ -10,7 +16,8 @@
     "unified",
     "unist",
     "unist-util-visit",
-    "prism-react-renderer"
+    "prism-react-renderer",
+    "@tailwindcss/typography"
   ],
   "ignoreExports": [
     {

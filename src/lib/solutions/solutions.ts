@@ -1,57 +1,66 @@
-type SolutionBase = {
+import { getSolutionAuthor } from "./authors";
+
+type SolutionItemBase = {
   id: string;
   title: string;
   description: string;
   tags: string[];
+  authors: string[];
+  publishedAt: string;
+  previewImage?: string;
+  previewImageAlt?: string;
+  isDraft?: boolean;
 };
 
-/**
- * Solution authored on DevHub: content lives in `content/solutions/<id>.md`
- * and is rendered into a generated route at /solutions/<id>.
- *
- * `authors` references author IDs in `authors.ts`. `publishedAt` is an
- * ISO date (YYYY-MM-DD) used to sort the solutions index newest-first.
- */
-export type NativeSolution = SolutionBase & {
+export type NativeSolutionItem = SolutionItemBase & {
   type: "native";
-  authors: string[];
-  publishedAt: string;
+  source: "DevHub";
 };
 
-/**
- * Solution that links out to an article hosted elsewhere (e.g. databricks.com/blog).
- * Metadata is hard-coded here; clicking the card opens the original article.
- *
- * `previewImage` is a path relative to `static/` (served as `/<previewImage>`),
- * stored at the Open Graph aspect ratio (1.91:1). All linked-article previews
- * must share the same format so the card grid renders consistently. This is
- * enforced by `scripts/verify-resource-images.mjs`.
- */
-export type LinkedSolution = SolutionBase & {
+export type LinkedSolutionItem = SolutionItemBase & {
   type: "linked";
-  url: string;
+  href: string;
   source: string;
-  authors: string[];
-  publishedAt: string;
   previewImage: string;
   previewImageAlt: string;
 };
 
-export type Solution = NativeSolution | LinkedSolution;
+export type SolutionItem = NativeSolutionItem | LinkedSolutionItem;
 
-export function isNativeSolution(
-  solution: Solution,
-): solution is NativeSolution {
-  return solution.type === "native";
-}
+type SolutionItemFilter = {
+  category: string | null;
+  searchQuery: string;
+};
 
-export function isLinkedSolution(
-  solution: Solution,
-): solution is LinkedSolution {
-  return solution.type === "linked";
-}
+export const SOLUTION_FEATURED_ITEM_ID = "devhub-launch";
+export const SOLUTION_ITEMS_SECTION_ID = "solution-items";
+export const SOLUTION_ITEMS_SCROLL_STORAGE_KEY =
+  "devhub:solution-scroll-to-items";
+const SOLUTION_ITEMS_PER_PAGE = 9;
+const SOLUTION_PAGINATION_TEST_ITEM_COUNT = 18;
 
-export const solutions: Solution[] = [
+const PREFERRED_SOLUTION_CATEGORIES = [
+  "Launch",
+  "Developer Experience",
+  "Updates",
+  "Agent-Led Development",
+  "Database Development",
+  "Lakebase",
+  "Databricks Apps",
+  "Agent Bricks",
+];
+
+const SOLUTION_PAGINATION_TEST_CATEGORIES = [
+  "Updates",
+  "Developer Experience",
+  "Lakebase",
+  "Databricks Apps",
+  "Agent Bricks",
+];
+const DATABRICKS_BLOG_HREF_PATTERN =
+  /^https:\/\/(?:www\.)?databricks\.com\/blog(?:\/|$)/;
+
+export const solutionItems: SolutionItem[] = [
   {
     type: "native",
     id: "devhub-launch",
@@ -61,58 +70,62 @@ export const solutions: Solution[] = [
     tags: ["Launch", "Developer Experience", "Agent-Led Development"],
     authors: ["andre-landgraf"],
     publishedAt: "2026-05-04",
+    source: "DevHub",
+    previewImage: "/img/solutions/devhub-launch.jpg",
+    previewImageAlt:
+      "Cover graphic for Introducing DevHub with a grid, launch tags, and developer hub label",
   },
   {
     type: "linked",
-    id: "blog-apps-lakebase-production",
+    id: "apps-lakebase-production",
     title:
       "How to Build Production-Ready Data and AI Apps with Databricks Apps and Lakebase",
     description:
       "Build full-stack data apps on Databricks Apps with Lakebase synced tables that replicate Unity Catalog data in seconds, and ship everything as code with Databricks Asset Bundles.",
     tags: ["Apps", "Lakebase", "Synced Tables", "Asset Bundles"],
-    url: "https://www.databricks.com/blog/how-build-production-ready-data-and-ai-apps-databricks-apps-and-lakebase",
+    href: "https://www.databricks.com/blog/how-build-production-ready-data-and-ai-apps-databricks-apps-and-lakebase",
     source: "Databricks Blog",
     authors: ["Pascal Vogel", "Evan Pandya", "Christopher Pries"],
     publishedAt: "2025-11-19",
-    previewImage: "/img/solutions/blog-apps-lakebase-production.png",
+    previewImage: "/img/solutions/apps-lakebase-production.jpg",
     previewImageAlt:
-      "Architecture diagram for a production-ready Databricks App backed by a Lakebase synced table",
+      "Cover graphic for building production-ready data and AI apps with Databricks Apps and Lakebase",
   },
   {
     type: "linked",
-    id: "blog-agent-bricks-apps-business-users",
+    id: "agent-bricks-apps-business-users",
     title:
       "Ship quality enterprise AI agents to business users with Agent Bricks and Databricks Apps",
     description:
       "Build domain-specific AI agents with Agent Bricks, deploy them through a chat UI on Databricks Apps, and distribute them to business users via Databricks One.",
     tags: ["Agent Bricks", "Apps", "AI Agents", "Databricks One"],
-    url: "https://www.databricks.com/blog/ship-quality-enterprise-ai-agents-business-users-agent-bricks-and-databricks-apps",
+    href: "https://www.databricks.com/blog/ship-quality-enterprise-ai-agents-business-users-agent-bricks-and-databricks-apps",
     source: "Databricks Blog",
     authors: ["Pascal Vogel", "Evan Pandya"],
     publishedAt: "2026-03-16",
-    previewImage: "/img/solutions/blog-agent-bricks-apps-business-users.png",
+    previewImage: "/img/solutions/agent-bricks-apps-business-users.jpg",
     previewImageAlt:
-      "Agent Bricks, Databricks Apps, and Databricks One delivering enterprise AI agents to business users",
+      "Cover graphic for shipping quality enterprise AI agents with Agent Bricks and Databricks Apps",
   },
   {
     type: "linked",
-    id: "blog-lakebase-transactional-layer",
+    id: "lakebase-transactional-layer",
     title:
       "How to use Lakebase as a transactional data layer for Databricks Apps",
     description:
       "Walk through a holiday request app that uses Lakebase as the operational Postgres tier behind Databricks Apps, from database setup to a fully connected frontend.",
     tags: ["Lakebase", "Apps", "Postgres", "Tutorial"],
-    url: "https://www.databricks.com/blog/how-use-lakebase-transactional-data-layer-databricks-apps",
+    href: "https://www.databricks.com/blog/how-use-lakebase-transactional-data-layer-databricks-apps",
     source: "Databricks Blog",
     authors: ["Jasper Puts", "Antonio Javier Samaniego Jurado"],
     publishedAt: "2025-08-28",
-    previewImage: "/img/solutions/blog-lakebase-transactional-layer.png",
+    previewImage: "/img/solutions/lakebase-transactional-layer.jpg",
     previewImageAlt:
-      "Conceptual diagram of a Databricks App using Lakebase Postgres as its transactional data layer",
+      "Cover graphic for using Lakebase as a transactional data layer for Databricks Apps",
   },
   {
     type: "linked",
-    id: "blog-lakebase-database-branching",
+    id: "lakebase-database-branching",
     title:
       "Database Branching in Postgres: Git-Style Workflows with Databricks Lakebase",
     description:
@@ -123,17 +136,17 @@ export const solutions: Solution[] = [
       "Developer Experience",
       "Agent-Led Development",
     ],
-    url: "https://www.databricks.com/blog/database-branching-postgres-git-style-workflows-databricks-lakebase",
+    href: "https://www.databricks.com/blog/database-branching-postgres-git-style-workflows-databricks-lakebase",
     source: "Databricks Blog",
     authors: ["Susan Pierce"],
     publishedAt: "2026-04-10",
-    previewImage: "/img/solutions/blog-lakebase-database-branching.png",
+    previewImage: "/img/solutions/lakebase-database-branching.jpg",
     previewImageAlt:
-      "Lakebase database branching graphic showing git-style Postgres workflows on Databricks",
+      "Cover graphic for database branching in Postgres with Databricks Lakebase",
   },
   {
     type: "linked",
-    id: "blog-evolutionary-database-development-part-1",
+    id: "evolutionary-database-development-part-1",
     title:
       "Enabling Evolutionary Database Development: database branching with Lakebase",
     description:
@@ -144,7 +157,7 @@ export const solutions: Solution[] = [
       "Database Development",
       "Developer Experience",
     ],
-    url: "https://www.databricks.com/blog/enabling-evolutionary-database-development-database-branching-lakebase",
+    href: "https://www.databricks.com/blog/enabling-evolutionary-database-development-database-branching-lakebase",
     source: "Databricks Blog",
     authors: ["Pramod Sadalage", "Kevin Hartman"],
     publishedAt: "2026-05-29",
@@ -155,7 +168,7 @@ export const solutions: Solution[] = [
   },
   {
     type: "linked",
-    id: "blog-evolutionary-database-development-part-2",
+    id: "evolutionary-database-development-part-2",
     title:
       "Enabling Evolutionary Database Development: database branching with Lakebase, continued",
     description:
@@ -166,7 +179,7 @@ export const solutions: Solution[] = [
       "Database Development",
       "Developer Experience",
     ],
-    url: "https://www.databricks.com/blog/enabling-evolutionary-database-development-database-branching-lakebase-part-2",
+    href: "https://www.databricks.com/blog/enabling-evolutionary-database-development-database-branching-lakebase-part-2",
     source: "Databricks Blog",
     authors: ["Pramod Sadalage", "Kevin Hartman"],
     publishedAt: "2026-06-05",
@@ -177,7 +190,7 @@ export const solutions: Solution[] = [
   },
   {
     type: "linked",
-    id: "blog-evolutionary-database-development-part-3",
+    id: "evolutionary-database-development-part-3",
     title:
       "Enabling Evolutionary Database Development: Database branching with Lakebase, the conclusion",
     description:
@@ -188,7 +201,7 @@ export const solutions: Solution[] = [
       "Database Development",
       "Developer Experience",
     ],
-    url: "https://www.databricks.com/blog/enabling-evolutionary-database-development-database-branching-lakebase-part-3",
+    href: "https://www.databricks.com/blog/enabling-evolutionary-database-development-database-branching-lakebase-part-3",
     source: "Databricks Blog",
     authors: ["Pramod Sadalage", "Kevin Hartman"],
     publishedAt: "2026-06-12",
@@ -199,11 +212,152 @@ export const solutions: Solution[] = [
   },
 ];
 
-export const nativeSolutions: NativeSolution[] =
-  solutions.filter(isNativeSolution);
-export const linkedSolutions: LinkedSolution[] =
-  solutions.filter(isLinkedSolution);
+export function isNativeSolutionItem(
+  item: SolutionItem,
+): item is NativeSolutionItem {
+  return item.type === "native";
+}
 
-export const solutionsByPublishedDesc: Solution[] = [...solutions].sort(
-  (a, b) => b.publishedAt.localeCompare(a.publishedAt),
-);
+export function isLinkedSolutionItem(
+  item: SolutionItem,
+): item is LinkedSolutionItem {
+  return item.type === "linked";
+}
+
+export const nativeSolutionItems: NativeSolutionItem[] =
+  solutionItems.filter(isNativeSolutionItem);
+
+type Draftable = { isDraft?: boolean };
+
+export function filterPublishedSolutionItems<T extends Draftable>(
+  items: T[],
+  includeDrafts: boolean,
+): T[] {
+  if (includeDrafts) return items;
+  return items.filter((item) => !item.isDraft);
+}
+
+export function buildSolutionItems(
+  includeDrafts = false,
+  entries: SolutionItem[] = solutionItems,
+): SolutionItem[] {
+  return [...filterPublishedSolutionItems(entries, includeDrafts)].sort(
+    (a, b) => b.publishedAt.localeCompare(a.publishedAt),
+  );
+}
+
+export function getSolutionItemHref(item: SolutionItem): string {
+  return isLinkedSolutionItem(item) ? item.href : `/solutions/${item.id}`;
+}
+
+export function getSolutionItemAuthorNames(item: SolutionItem): string[] {
+  if (isLinkedSolutionItem(item)) return item.authors;
+  return item.authors.map((id) => getSolutionAuthor(id).name);
+}
+
+export function isDatabricksSolutionItem(
+  item: Pick<SolutionItem, "type"> & { href?: string },
+): boolean {
+  return (
+    item.type === "linked" &&
+    item.href !== undefined &&
+    DATABRICKS_BLOG_HREF_PATTERN.test(item.href)
+  );
+}
+
+export function buildSolutionPaginationTestItems(
+  count = SOLUTION_PAGINATION_TEST_ITEM_COUNT,
+): SolutionItem[] {
+  return Array.from({ length: count }, (_, index) => {
+    const itemNumber = index + 1;
+    const category =
+      SOLUTION_PAGINATION_TEST_CATEGORIES[
+        index % SOLUTION_PAGINATION_TEST_CATEGORIES.length
+      ];
+
+    return {
+      type: "native",
+      id: `mock-pagination-solution-item-${itemNumber}`,
+      title: `Mock pagination solution item ${String(itemNumber).padStart(2, "0")}`,
+      description:
+        "Development-only item used to verify solution pagination, category filtering, and search dialog grouping.",
+      tags: [category],
+      authors: ["andre-landgraf"],
+      publishedAt: `2026-02-${String(itemNumber).padStart(2, "0")}`,
+      source: "DevHub",
+    };
+  });
+}
+
+export function getFeaturedSolutionItem(
+  items: SolutionItem[],
+): SolutionItem | undefined {
+  return (
+    items.find((item) => item.id === SOLUTION_FEATURED_ITEM_ID) ?? items.at(0)
+  );
+}
+
+export function getSolutionCategories(items: SolutionItem[]): string[] {
+  const availableTags = new Set(items.flatMap((item) => item.tags));
+  return PREFERRED_SOLUTION_CATEGORIES.filter((category) =>
+    availableTags.has(category),
+  );
+}
+
+export function filterSolutionItems(
+  items: SolutionItem[],
+  filter: SolutionItemFilter,
+): SolutionItem[] {
+  const query = filter.searchQuery.trim().toLowerCase();
+
+  return items.filter((item) => {
+    const matchesCategory =
+      filter.category === null || item.tags.includes(filter.category);
+    if (!matchesCategory) return false;
+
+    if (query.length === 0) return true;
+
+    const searchable = [
+      item.title,
+      item.description,
+      item.source,
+      ...item.tags,
+      ...getSolutionItemAuthorNames(item),
+    ]
+      .join(" ")
+      .toLowerCase();
+
+    return searchable.includes(query);
+  });
+}
+
+export function paginateSolutionItems(
+  items: SolutionItem[],
+  page: number,
+  pageSize = SOLUTION_ITEMS_PER_PAGE,
+): {
+  currentPage: number;
+  pageCount: number;
+  items: SolutionItem[];
+} {
+  const pageCount = Math.max(1, Math.ceil(items.length / pageSize));
+  const currentPage = Math.min(Math.max(1, page), pageCount);
+  const start = (currentPage - 1) * pageSize;
+
+  return {
+    currentPage,
+    pageCount,
+    items: items.slice(start, start + pageSize),
+  };
+}
+
+export function getSolutionPagePath(page: number): string {
+  return page <= 1 ? "/solutions" : `/solutions/page/${page}`;
+}
+
+export function getSolutionPageFromPathname(pathname: string): number {
+  const match = pathname.match(/(?:^|\/)solutions(?:\/page\/(\d+))?\/?$/);
+  const page = Number(match?.[1] ?? "1");
+
+  return Number.isSafeInteger(page) && page > 0 ? page : 1;
+}

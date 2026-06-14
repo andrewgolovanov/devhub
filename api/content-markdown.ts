@@ -25,12 +25,13 @@ import {
 } from "../src/lib/recipes/recipes";
 import { showDrafts } from "../src/lib/feature-flags-server";
 import {
-  solutions,
-  isLinkedSolution,
-  isNativeSolution,
-  type NativeSolution,
+  buildSolutionItems,
+  isLinkedSolutionItem,
+  isNativeSolutionItem,
+  solutionItems,
+  type NativeSolutionItem,
 } from "../src/lib/solutions/solutions";
-import { getAuthor } from "../src/lib/solutions/authors";
+import { buildNativeSolutionMarkdown } from "../src/lib/solutions/solution-markdown";
 import { resolveSiteUrl } from "../src/lib/site-url";
 
 export type MarkdownSection =
@@ -103,66 +104,16 @@ function readSolutionMarkdown(
     throw new Error(`Solution page not found: "${slug}"`);
   }
 
-  const contentPath = resolve(rootDir, "content", "solutions", `${slug}.md`);
-  const content = readIfExists(contentPath);
-  if (!content) {
-    throw new Error(
-      `Solution markdown source missing for "${slug}" at content/solutions/${slug}.md`,
-    );
-  }
-
-  const native = solutions.find(
-    (entry): entry is NativeSolution =>
-      entry.id === slug && isNativeSolution(entry),
+  const native = solutionItems.find(
+    (entry): entry is NativeSolutionItem =>
+      entry.id === slug && isNativeSolutionItem(entry),
   );
   if (!native) {
-    return content;
+    throw new Error(`Solution page not found: "${slug}"`);
   }
-  return prependSolutionFrontmatter(content, native, siteOrigin);
-}
 
-const FRONTMATTER_PATTERN = /^---\n[\s\S]*?\n---\n?/;
-
-/**
- * Builds the solution markdown payload by prepending a frontmatter block
- * derived entirely from `solutions.ts`. Any frontmatter that may still be
- * present in the source `.md` file is stripped first so the registry stays
- * the single source of truth for solution metadata.
- *
- * The `url` field is emitted as an absolute URL using the resolved site
- * origin, so the frontmatter is portable when the markdown is fetched and
- * pasted into an agent context outside the originating host.
- */
-function prependSolutionFrontmatter(
-  content: string,
-  solution: NativeSolution,
-  siteOrigin: string,
-): string {
-  const stripped = content.replace(FRONTMATTER_PATTERN, "").trimStart();
-  const origin = siteOrigin.replace(/\/$/, "");
-  const escapedTitle = solution.title.replace(/"/g, '\\"');
-  const escapedSummary = solution.description.replace(/"/g, '\\"');
-  const authorBlock = solution.authors
-    .map((id) => {
-      const author = getAuthor(id);
-      return [`  - name: ${author.name}`, `    role: ${author.role}`].join(
-        "\n",
-      );
-    })
-    .join("\n");
-
-  const frontmatter = [
-    "---",
-    `title: "${escapedTitle}"`,
-    `url: ${origin}/solutions/${solution.id}`,
-    `summary: "${escapedSummary}"`,
-    `publishedAt: ${solution.publishedAt}`,
-    `authors:`,
-    authorBlock,
-    "---",
-  ].join("\n");
-
-  return `${frontmatter}\n\n${stripped}`;
+  const content = goalOnly(readContentSections(rootDir, "solutions", slug));
+  return buildNativeSolutionMarkdown(content, native, siteOrigin);
 }
 
 function readRecipeMarkdown(rootDir: string, slug: string): string {
@@ -287,9 +238,9 @@ function readSolutionsIndex(): string {
     "",
   ];
 
-  for (const s of solutions) {
-    const target = isLinkedSolution(s) ? s.url : `/solutions/${s.id}.md`;
-    const suffix = isLinkedSolution(s) ? ` (${s.source})` : "";
+  for (const s of buildSolutionItems(showDrafts())) {
+    const target = isLinkedSolutionItem(s) ? s.href : `/solutions/${s.id}.md`;
+    const suffix = isLinkedSolutionItem(s) ? ` (${s.source})` : "";
     lines.push(`- [${s.title}](${target}): ${s.description}${suffix}`);
   }
   lines.push("");
@@ -351,8 +302,8 @@ export function loadAgentPromptParts(
 
 /**
  * Resolves the agent-prompt kind for a section + slug combination. Returns
- * undefined for sections/slugs that should _not_ be wrapped (docs, solutions,
- * empty-slug index pages).
+ * undefined for sections/slugs that should _not_ be wrapped (docs,
+ * solutions, empty-slug index pages).
  */
 export function resolveTemplateKind(
   section: MarkdownSection,

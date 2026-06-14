@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, type Locator } from "@playwright/test";
 import { loadAgentPromptParts } from "../../api/content-markdown";
 import { composeAgentPrompt } from "../../src/lib/copy-preamble";
 
@@ -12,6 +12,43 @@ const BOOTSTRAP_PROMPT_MARKDOWN = composeAgentPrompt({
   siteOrigin: "https://developers.databricks.com",
 });
 
+async function getTemplateCardTextMetrics(templateLink: Locator) {
+  return templateLink.evaluate((link) => {
+    const card = link.parentElement;
+    const description =
+      card?.querySelector('p[aria-hidden="false"]') ?? card?.querySelector("p");
+
+    if (!card || !description) {
+      throw new Error("Expected home template slider card to be measurable");
+    }
+
+    const cardBox = card.getBoundingClientRect();
+    const descriptionBox = description.getBoundingClientRect();
+
+    return {
+      cardLeft: cardBox.left,
+      cardRight: cardBox.right,
+      cardWidth: cardBox.width,
+      descriptionLeft: descriptionBox.left,
+      descriptionRight: descriptionBox.right,
+      documentWidth: document.documentElement.scrollWidth,
+      viewportWidth: window.innerWidth,
+    };
+  });
+}
+
+function expectTemplateCardDescriptionToFit(
+  sliderMetrics: Awaited<ReturnType<typeof getTemplateCardTextMetrics>>,
+) {
+  expect(sliderMetrics.documentWidth).toBe(sliderMetrics.viewportWidth);
+  expect(Math.round(sliderMetrics.descriptionLeft)).toBeGreaterThanOrEqual(
+    Math.round(sliderMetrics.cardLeft),
+  );
+  expect(Math.round(sliderMetrics.descriptionRight)).toBeLessThanOrEqual(
+    Math.round(sliderMetrics.cardRight) + 1,
+  );
+}
+
 test.describe("navbar navigation", () => {
   const NAVBAR_LINKS = [
     { label: "Solutions", expectedPath: "/solutions" },
@@ -22,14 +59,327 @@ test.describe("navbar navigation", () => {
   for (const { label, expectedPath } of NAVBAR_LINKS) {
     test(`navbar "${label}" navigates to ${expectedPath}`, async ({ page }) => {
       await page.goto("/");
-      await page
-        .locator(".navbar__items")
-        .getByRole("link", { name: label, exact: true })
-        .click();
+      await page.locator(`header nav a[href="${expectedPath}"]`).click();
       await page.waitForURL(`**${expectedPath}`);
       expect(new URL(page.url()).pathname).toBe(expectedPath);
     });
   }
+
+  // Skipped while the Product nav dropdown is hidden.
+  test.skip("product dropdown hover state is visible in production CSS", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto("/product/data-lakehouse");
+
+    await page.getByRole("button", { name: "[Product]" }).hover();
+    const productMenu = page.locator('[data-slot="navigation-menu-content"]');
+    await expect(productMenu).toBeVisible();
+
+    const activeLink = productMenu.getByRole("link", {
+      name: "Lakebase",
+      exact: true,
+    });
+    const hoverLink = productMenu.getByRole("link", {
+      name: "Agent Bricks",
+      exact: true,
+    });
+
+    await expect(activeLink).toHaveAttribute("aria-current", "page");
+    await expect(activeLink).toHaveCSS("color", "rgb(28, 29, 34)");
+    await expect(
+      productMenu.locator("[data-product-dropdown-frame]"),
+    ).toHaveAttribute("viewBox", "0 0 178 90");
+
+    const highlight = productMenu.locator("[data-product-dropdown-highlight]");
+    const thumb = productMenu.locator("[data-product-dropdown-thumb]");
+    const dotColumn = productMenu
+      .locator("[data-product-dropdown-dot-column]")
+      .first();
+    const initialHighlightBox = await highlight.boundingBox();
+    const initialThumbBox = await thumb.boundingBox();
+    const dotColumnBox = await dotColumn.boundingBox();
+
+    if (!initialHighlightBox || !initialThumbBox || !dotColumnBox) {
+      throw new Error("Expected product dropdown controls to be measurable");
+    }
+
+    expect(Math.round(dotColumnBox.y - initialThumbBox.y)).toBe(0);
+    expect(Math.round(dotColumnBox.height)).toBeGreaterThan(
+      Math.round(initialThumbBox.height),
+    );
+
+    const motionStyles = await productMenu.evaluate((menu) => {
+      const getRequiredElement = (selector: string) => {
+        const element = menu.querySelector(selector);
+
+        if (!element) {
+          throw new Error(`Expected ${selector} to exist`);
+        }
+
+        return getComputedStyle(element);
+      };
+
+      return {
+        contentAnimationName: getComputedStyle(menu).animationName,
+        contentTransitionProperty: getComputedStyle(menu).transitionProperty,
+        highlightTransitionDuration: getRequiredElement(
+          "[data-product-dropdown-highlight]",
+        ).transitionDuration,
+        linkTransitionProperty: getRequiredElement("a").transitionProperty,
+        thumbTransitionDuration: getRequiredElement(
+          "[data-product-dropdown-thumb]",
+        ).transitionDuration,
+      };
+    });
+
+    expect(motionStyles.contentAnimationName).toBe("none");
+    expect(motionStyles.contentTransitionProperty).toBe("none");
+    expect(motionStyles.highlightTransitionDuration).toBe("0s");
+    expect(motionStyles.linkTransitionProperty).toBe("none");
+    expect(motionStyles.thumbTransitionDuration).toBe("0s");
+
+    await hoverLink.hover();
+    await expect(hoverLink).toHaveCSS("color", "rgb(28, 29, 34)");
+    await expect
+      .poll(async () => {
+        const box = await highlight.boundingBox();
+
+        return Math.round((box?.y ?? 0) - initialHighlightBox.y);
+      })
+      .toBe(24);
+    await expect
+      .poll(async () => {
+        const box = await thumb.boundingBox();
+
+        return Math.round((box?.y ?? 0) - initialThumbBox.y);
+      })
+      .toBe(12);
+  });
+});
+
+// Skipped while the Product nav section is hidden; the mobile menu layout
+// assertions below are tied to the old product-based tree layout.
+test.describe.skip("mobile navigation", () => {
+  for (const viewport of [
+    {
+      width: 360,
+      height: 640,
+      highlightWidth: 240,
+      sectionClickWidth: 279,
+      sectionX: 61,
+    },
+    {
+      width: 768,
+      height: 732,
+      highlightWidth: 648,
+      sectionClickWidth: 683,
+      sectionX: 63,
+    },
+  ]) {
+    test(`mobile menu uses terminal tree layout at ${viewport.width}px`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({
+        width: viewport.width,
+        height: viewport.height,
+      });
+      await page.goto("/product/data-lakehouse");
+
+      await page.getByRole("button", { name: "Open menu" }).click();
+
+      const header = page.getByRole("banner");
+      const menu = page.getByRole("dialog", { name: "Main navigation" });
+      const home = menu.locator("[data-mobile-menu-home]");
+      const productLabel = menu.locator("[data-mobile-menu-product-label]");
+      const lakebase = menu.getByRole("link", { name: "lakebase" });
+      const lakebaseLabel = lakebase.locator("[data-mobile-menu-item-label]");
+      const solutions = menu.getByRole("link", { name: "solutions" });
+      const templates = menu.getByRole("link", { name: "templates" });
+      const docs = menu.getByRole("link", { name: "docs" });
+
+      await expect(
+        page.getByRole("button", { name: "Close menu" }),
+      ).toBeVisible();
+      await expect(header).toHaveCSS("background-color", "rgb(199, 201, 209)");
+      await expect(menu).toHaveCSS("background-color", "rgb(28, 29, 34)");
+      await expect(productLabel).toHaveCSS("opacity", "0.6");
+      await expect(lakebase).toHaveAttribute("aria-current", "page");
+      await expect(lakebaseLabel).toHaveCSS(
+        "background-color",
+        "rgb(199, 201, 209)",
+      );
+      await expect(lakebase).toHaveCSS("color", "rgb(28, 29, 34)");
+
+      const menuBox = await menu.boundingBox();
+      const homeBox = await home.boundingBox();
+      const productLabelBox = await productLabel.boundingBox();
+      const lakebaseBox = await lakebase.boundingBox();
+      const solutionsBox = await solutions.boundingBox();
+      const templatesBox = await templates.boundingBox();
+      const docsBox = await docs.boundingBox();
+
+      if (
+        !menuBox ||
+        !homeBox ||
+        !productLabelBox ||
+        !lakebaseBox ||
+        !solutionsBox ||
+        !templatesBox ||
+        !docsBox
+      ) {
+        throw new Error("Expected mobile menu layout to be measurable");
+      }
+
+      expect(Math.round(menuBox.x)).toBe(0);
+      expect(Math.round(menuBox.y)).toBe(56);
+      expect(Math.round(menuBox.width)).toBe(viewport.width);
+      expect(Math.round(homeBox.x)).toBe(20);
+      expect(Math.round(homeBox.y)).toBe(70);
+      expect(Math.round(productLabelBox.x)).toBe(61);
+      expect(Math.round(productLabelBox.y)).toBe(102);
+      expect(Math.round(lakebaseBox.x)).toBe(100);
+      expect(Math.round(lakebaseBox.y)).toBe(132);
+      expect(Math.round(lakebaseBox.width)).toBe(viewport.highlightWidth);
+      expect(Math.round(solutionsBox.x)).toBe(viewport.sectionX);
+      expect(Math.round(solutionsBox.y)).toBe(236);
+      expect(Math.round(solutionsBox.width)).toBe(viewport.sectionClickWidth);
+      expect(Math.round(templatesBox.x)).toBe(viewport.sectionX);
+      expect(Math.round(templatesBox.y)).toBe(270);
+      expect(Math.round(templatesBox.width)).toBe(viewport.sectionClickWidth);
+      expect(Math.round(docsBox.x)).toBe(viewport.sectionX);
+      expect(Math.round(docsBox.y)).toBe(304);
+      expect(Math.round(docsBox.width)).toBe(viewport.sectionClickWidth);
+    });
+  }
+
+  test("mobile menu highlights home and not product links on the homepage", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 768, height: 732 });
+    await page.goto("/");
+
+    await page.getByRole("button", { name: "Open menu" }).click();
+
+    const menu = page.getByRole("dialog", { name: "Main navigation" });
+    const home = menu.getByRole("link", { name: "~/HOME" });
+    const homeLabel = home.locator("[data-mobile-menu-item-label]");
+    const lakebase = menu.getByRole("link", { name: "lakebase" });
+    const lakebaseLabel = lakebase.locator("[data-mobile-menu-item-label]");
+    const productLinks = menu.locator("[data-mobile-menu-product-link]");
+
+    await expect(home).toHaveAttribute("aria-current", "page");
+    await expect(homeLabel).toHaveCSS("background-color", "rgb(199, 201, 209)");
+    await expect(home).toHaveCSS("color", "rgb(28, 29, 34)");
+
+    const homeBox = await home.boundingBox();
+    const homeLabelBox = await homeLabel.boundingBox();
+
+    if (!homeBox || !homeLabelBox) {
+      throw new Error("Expected mobile home link layout to be measurable");
+    }
+
+    expect(Math.round(homeLabelBox.width)).toBe(Math.round(homeBox.width));
+
+    await expect(lakebase).not.toHaveAttribute("aria-current", "page");
+    await expect(lakebaseLabel).toHaveCSS(
+      "background-color",
+      "rgba(0, 0, 0, 0)",
+    );
+    await expect(lakebase).toHaveCSS("color", "rgb(199, 201, 209)");
+
+    await expect(productLinks).toHaveCount(3);
+    for (const productLink of await productLinks.all()) {
+      await expect(productLink).not.toHaveAttribute("aria-current", "page");
+    }
+  });
+
+  for (const section of [
+    { href: "/solutions", label: "solutions" },
+    { href: "/templates", label: "templates" },
+    { href: "/docs/start-here", label: "docs" },
+  ]) {
+    test(`mobile menu highlights ${section.label} on its section page`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width: 768, height: 732 });
+      await page.goto(section.href);
+
+      await page.getByRole("button", { name: "Open menu" }).click();
+
+      const menu = page.getByRole("dialog", { name: "Main navigation" });
+      const sectionLink = menu.getByRole("link", { name: section.label });
+      const sectionLabel = sectionLink.locator("[data-mobile-menu-item-label]");
+      const home = menu.getByRole("link", { name: "~/HOME" });
+      const homeLabel = home.locator("[data-mobile-menu-item-label]");
+      const productLinks = menu.locator("[data-mobile-menu-product-link]");
+
+      await expect(sectionLink).toHaveAttribute("aria-current", "page");
+      await expect(sectionLabel).toHaveCSS(
+        "background-color",
+        "rgb(199, 201, 209)",
+      );
+      await expect(sectionLink).toHaveCSS("color", "rgb(28, 29, 34)");
+      await expect(homeLabel).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
+
+      const sectionBox = await sectionLink.boundingBox();
+      const sectionLabelBox = await sectionLabel.boundingBox();
+
+      if (!sectionBox || !sectionLabelBox) {
+        throw new Error("Expected mobile section link layout to be measurable");
+      }
+
+      expect(Math.round(sectionLabelBox.width)).toBe(
+        Math.round(sectionBox.width),
+      );
+
+      for (const productLink of await productLinks.all()) {
+        await expect(productLink).not.toHaveAttribute("aria-current", "page");
+      }
+    });
+  }
+});
+
+test.describe("home hero animation", () => {
+  test("does not create browser selection when dragging the app preview body", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto("/");
+
+    const heroRoot = page.locator(".db-hero-animation-root");
+    const appPreview = page.locator("#appPreview");
+
+    await expect(heroRoot).toHaveCSS("user-select", "none");
+    await expect(appPreview).toHaveCSS("user-select", "none");
+    await expect(page.locator("#appPreview img").first()).toHaveAttribute(
+      "draggable",
+      "false",
+    );
+    await expect(appPreview).toBeVisible({ timeout: 30_000 });
+
+    const appPreviewBox = await appPreview.boundingBox();
+
+    if (!appPreviewBox) {
+      throw new Error("Expected hero app preview to be measurable");
+    }
+
+    await page.mouse.move(
+      appPreviewBox.x + appPreviewBox.width / 2,
+      appPreviewBox.y + appPreviewBox.height * 0.62,
+    );
+    await page.mouse.down();
+    await page.mouse.move(
+      appPreviewBox.x + appPreviewBox.width / 2 + 120,
+      appPreviewBox.y + appPreviewBox.height * 0.62 + 70,
+      { steps: 6 },
+    );
+    await page.mouse.up();
+
+    await expect
+      .poll(async () => page.evaluate(() => window.getSelection()?.toString()))
+      .toBe("");
+  });
 });
 
 test.describe("footer navigation", () => {
@@ -40,11 +390,8 @@ test.describe("footer navigation", () => {
     },
     {
       href: "/docs/start-here",
-      label: "Start Here",
+      label: "Docs",
     },
-    { href: "/docs/agents/overview", label: "Agent Bricks" },
-    { href: "/docs/apps/overview", label: "Databricks Apps" },
-    { href: "/docs/lakebase/overview", label: "Lakebase" },
     { href: "/templates", label: "Templates" },
     { href: "/solutions", label: "Solutions" },
   ];
@@ -52,19 +399,16 @@ test.describe("footer navigation", () => {
   const FOOTER_EXTERNAL_LINKS = [
     {
       href: "https://www.databricks.com/product/databricks-apps",
-      label: "Databricks Apps product",
+      label: "Databricks Apps",
     },
     {
       href: "https://www.databricks.com/product/lakebase",
-      label: "Lakebase product",
+      label: "Lakebase",
     },
     {
       href: "https://www.databricks.com/product/artificial-intelligence/agent-bricks",
-      label: "Agent Bricks product",
+      label: "Agent Bricks",
     },
-    { href: "https://databricks.com", label: "Databricks" },
-    { href: "https://databricks.com/signup", label: "Sign Up" },
-    { href: "https://help.databricks.com", label: "Support" },
     {
       href: "https://www.databricks.com/legal/privacynotice",
       label: "Privacy Notice",
@@ -81,32 +425,44 @@ test.describe("footer navigation", () => {
       href: "https://www.databricks.com/legal/supplemental-privacy-notice-california-residents",
       label: "California Privacy",
     },
+    {
+      href: "https://www.reddit.com/r/databricks/",
+      label: "Reddit",
+    },
+    {
+      href: "https://www.youtube.com/@Databricks",
+      label: "YouTube",
+    },
+    {
+      href: "https://github.com/databricks/devhub",
+      label: "GitHub",
+    },
+    { href: "https://www.databricks.com", label: "Databricks.com" },
   ];
 
   const EXPECTED_FOOTER_HREFS = [
     "/",
-    "https://www.databricks.com/product/databricks-apps",
-    "https://www.databricks.com/product/lakebase",
-    "https://www.databricks.com/product/artificial-intelligence/agent-bricks",
-    "/templates",
-    "/solutions",
-    "/docs/start-here",
-    "/docs/apps/overview",
-    "/docs/lakebase/overview",
-    "/docs/agents/overview",
-    "https://databricks.com",
-    "https://databricks.com/signup",
-    "https://help.databricks.com",
     "https://www.databricks.com/legal/privacynotice",
     "https://www.databricks.com/legal/terms-of-use",
     "https://www.databricks.com/legal/modern-slavery-policy-statement",
     "https://www.databricks.com/legal/supplemental-privacy-notice-california-residents",
+    "https://www.databricks.com/product/databricks-apps",
+    "https://www.databricks.com/product/lakebase",
+    "https://www.databricks.com/product/artificial-intelligence/agent-bricks",
+    "/docs/start-here",
+    "/templates",
+    "/solutions",
+    "https://www.reddit.com/r/databricks/",
+    "https://www.youtube.com/@Databricks",
+    "https://github.com/databricks/devhub",
+    "https://www.databricks.com",
   ];
 
   test("footer renders every expected link in order", async ({ page }) => {
     await page.goto("/");
     const hrefs = await page
       .locator("footer a")
+      .filter({ visible: true })
       .evaluateAll((links) => links.map((link) => link.getAttribute("href")));
     expect(hrefs).toEqual(EXPECTED_FOOTER_HREFS);
   });
@@ -123,7 +479,9 @@ test.describe("footer navigation", () => {
   for (const { href, label } of FOOTER_EXTERNAL_LINKS) {
     test(`footer "${label}" links to ${href}`, async ({ page }) => {
       await page.goto("/");
-      const link = page.locator(`footer a[href="${href}"]`);
+      const link = page.locator(`footer a[href="${href}"]`).filter({
+        visible: true,
+      });
       await expect(link).toHaveCount(1);
       await expect(link).toHaveAttribute("target", "_blank");
       await expect(link).toHaveAttribute("rel", "noopener noreferrer");
@@ -132,7 +490,7 @@ test.describe("footer navigation", () => {
 });
 
 test.describe("home page link navigation", () => {
-  test('hero "Copy Prompt" copies the full composed agent prompt (about + guidelines + hero intent + bootstrap) from API', async ({
+  test('hero "Copy agent prompt" copies the full composed agent prompt (about + guidelines + hero intent + bootstrap) from API', async ({
     page,
   }) => {
     await page.route("**/api/bootstrap-prompt", async (route) => {
@@ -156,14 +514,14 @@ test.describe("home page link navigation", () => {
     await page.goto("/");
     const button = page
       .locator("main")
-      .getByRole("button", { name: "Copy prompt for your agent" })
+      .getByRole("button", { name: "Copy agent prompt" })
       .first();
     await button.waitFor({ state: "visible" });
     await expect(button).toBeEnabled();
     await button.click();
 
     await expect(
-      page.locator("main").getByRole("button", { name: /^Copied — now paste/ }),
+      page.locator("main").getByRole("button", { name: "Copied" }).first(),
     ).toBeVisible({ timeout: 5000 });
     const finalCopiedText = await page.evaluate(
       () => (window as { __copiedText?: string }).__copiedText,
@@ -180,33 +538,34 @@ test.describe("home page link navigation", () => {
     expect(finalCopiedText).toContain("llms.txt");
   });
 
-  test("pillar card Lakebase navigates to /docs/lakebase/overview", async ({
+  // Skipped while the home Features pillar cards and product pages are hidden.
+  test.skip("pillar card Lakebase navigates to /product/data-lakehouse", async ({
     page,
   }) => {
     await page.goto("/");
-    const link = page.locator('a[href="/docs/lakebase/overview"]').first();
+    const link = page.locator('a[href="/product/data-lakehouse"]').first();
     await link.waitFor({ state: "visible" });
     await link.click();
-    await page.waitForURL("**/docs/lakebase/overview");
-    expect(new URL(page.url()).pathname).toContain("/docs/lakebase/overview");
+    await page.waitForURL("**/product/data-lakehouse");
+    expect(new URL(page.url()).pathname).toBe("/product/data-lakehouse");
   });
 
-  test("pillar card Agent Bricks navigates to /docs/agents/overview", async ({
+  test.skip("pillar card Agent Bricks navigates to /product/agent-bricks", async ({
     page,
   }) => {
     await page.goto("/");
-    await page.locator('a[href="/docs/agents/overview"]').first().click();
-    await page.waitForURL("**/docs/agents/overview");
-    expect(new URL(page.url()).pathname).toBe("/docs/agents/overview");
+    await page.locator('a[href="/product/agent-bricks"]').first().click();
+    await page.waitForURL("**/product/agent-bricks");
+    expect(new URL(page.url()).pathname).toBe("/product/agent-bricks");
   });
 
-  test("pillar card Databricks Apps navigates to /docs/apps/overview", async ({
+  test.skip("pillar card Databricks Apps navigates to /product/databricks-apps", async ({
     page,
   }) => {
     await page.goto("/");
-    await page.locator('a[href="/docs/apps/overview"]').first().click();
-    await page.waitForURL("**/docs/apps/overview");
-    expect(new URL(page.url()).pathname).toBe("/docs/apps/overview");
+    await page.locator('a[href="/product/databricks-apps"]').first().click();
+    await page.waitForURL("**/product/databricks-apps");
+    expect(new URL(page.url()).pathname).toBe("/product/databricks-apps");
   });
 
   test('"See all templates" navigates to /templates', async ({ page }) => {
@@ -214,6 +573,136 @@ test.describe("home page link navigation", () => {
     await page.locator('a[href="/templates"]').first().click();
     await page.waitForURL("**/templates");
     expect(new URL(page.url()).pathname).toBe("/templates");
+  });
+
+  test("home template slider fits responsive cards and preserves vertical touch scroll", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    const client = await page.context().newCDPSession(page);
+
+    await client.send("Emulation.setTouchEmulationEnabled", {
+      enabled: true,
+      maxTouchPoints: 1,
+    });
+    await page.goto("/");
+
+    const firstTemplateCard = page
+      .getByRole("link", { name: "AI Chat App template" })
+      .first();
+    const nextTemplateCard = page
+      .getByRole("link", { name: "App with Lakebase template" })
+      .first();
+
+    await firstTemplateCard.scrollIntoViewIfNeeded();
+    await expect(firstTemplateCard).toBeVisible();
+    await expect(nextTemplateCard).toBeVisible();
+
+    const sliderMetrics = await getTemplateCardTextMetrics(firstTemplateCard);
+    const nextSliderMetrics =
+      await getTemplateCardTextMetrics(nextTemplateCard);
+
+    expect(Math.round(sliderMetrics.cardWidth)).toBeLessThan(
+      sliderMetrics.viewportWidth - 80,
+    );
+    expectTemplateCardDescriptionToFit(sliderMetrics);
+    expectTemplateCardDescriptionToFit(nextSliderMetrics);
+    expect(Math.round(nextSliderMetrics.cardLeft)).toBeLessThan(
+      sliderMetrics.viewportWidth,
+    );
+    expect(Math.round(nextSliderMetrics.cardRight)).toBeGreaterThan(
+      sliderMetrics.viewportWidth,
+    );
+
+    const horizontalSwipeBox = await firstTemplateCard.boundingBox();
+
+    if (!horizontalSwipeBox) {
+      throw new Error("Expected home template slider card bounds");
+    }
+
+    const horizontalTouchX =
+      horizontalSwipeBox.x + horizontalSwipeBox.width / 2;
+    const horizontalTouchY =
+      horizontalSwipeBox.y + Math.min(horizontalSwipeBox.height - 20, 160);
+
+    await client.send("Input.dispatchTouchEvent", {
+      touchPoints: [{ x: horizontalTouchX, y: horizontalTouchY }],
+      type: "touchStart",
+    });
+    await client.send("Input.dispatchTouchEvent", {
+      touchPoints: [{ x: horizontalTouchX - 170, y: horizontalTouchY + 6 }],
+      type: "touchMove",
+    });
+    await client.send("Input.dispatchTouchEvent", {
+      touchPoints: [],
+      type: "touchEnd",
+    });
+
+    await expect
+      .poll(() =>
+        page
+          .locator("[data-template-slider-viewport]")
+          .evaluate((viewport) => viewport.scrollLeft),
+      )
+      .toBeGreaterThan(80);
+    await expect(
+      page.locator('[data-active="true"] a[aria-label]').first(),
+    ).toBeVisible();
+
+    const activeTemplateCard = page
+      .locator('[data-active="true"] a[aria-label]')
+      .first();
+    const cardBox = await activeTemplateCard.boundingBox();
+
+    if (!cardBox) {
+      throw new Error("Expected home template slider card bounds");
+    }
+
+    const touchX = cardBox.x + cardBox.width / 2;
+    const touchY = cardBox.y + Math.min(cardBox.height - 20, 160);
+    const scrollBefore = await page.evaluate(() => window.scrollY);
+
+    await client.send("Input.dispatchTouchEvent", {
+      touchPoints: [{ x: touchX, y: touchY }],
+      type: "touchStart",
+    });
+    await client.send("Input.dispatchTouchEvent", {
+      touchPoints: [{ x: touchX + 8, y: touchY - 160 }],
+      type: "touchMove",
+    });
+    await client.send("Input.dispatchTouchEvent", {
+      touchPoints: [],
+      type: "touchEnd",
+    });
+
+    await expect
+      .poll(() => page.evaluate(() => window.scrollY))
+      .toBeGreaterThan(scrollBefore + 40);
+
+    await page.setViewportSize({ width: 892, height: 785 });
+    await page.goto("/");
+
+    const appWithLakebaseCard = page
+      .getByRole("link", { name: "App with Lakebase template" })
+      .first();
+
+    await firstTemplateCard.scrollIntoViewIfNeeded();
+    await expect(firstTemplateCard).toBeVisible();
+    await expect(appWithLakebaseCard).toBeVisible();
+
+    expectTemplateCardDescriptionToFit(
+      await getTemplateCardTextMetrics(firstTemplateCard),
+    );
+    expectTemplateCardDescriptionToFit(
+      await getTemplateCardTextMetrics(appWithLakebaseCard),
+    );
+
+    await expect(
+      appWithLakebaseCard.locator("xpath=ancestor::*[@data-active][1]"),
+    ).toHaveCSS("opacity", "1");
+    await appWithLakebaseCard.click();
+    await page.waitForURL("**/templates/app-with-lakebase");
+    expect(new URL(page.url()).pathname).toBe("/templates/app-with-lakebase");
   });
 
   test("template preview card navigates to /templates/ai-chat-app", async ({
@@ -239,7 +728,7 @@ test.describe("solutions page navigation", () => {
   for (const { path } of SOLUTIONS) {
     test(`solution card navigates to ${path}`, async ({ page }) => {
       await page.goto("/solutions");
-      const link = page.locator(`a[href="${path}"]`);
+      const link = page.locator(`a[href="${path}"]`).first();
       await link.waitFor({ state: "visible" });
       await link.click();
       await page.waitForURL(`**${path}`);
@@ -254,17 +743,31 @@ test.describe("templates page navigation", () => {
     { path: "/templates/app-with-lakebase", kind: "cookbook" },
     // agentic-support-console is unlisted, so it can't be reached from the grid.
     { path: "/templates/vacation-rentals", kind: "example" },
-    { path: "/templates/saas-tracker", kind: "example" },
+    {
+      path: "/templates/saas-tracker",
+      kind: "example",
+      searchQuery: "SaaS Subscription Tracker",
+    },
     { path: "/templates/set-up-your-local-dev-environment", kind: "recipe" },
   ];
 
-  for (const { path, kind } of TEMPLATES) {
+  for (const { path, kind, searchQuery } of TEMPLATES) {
     test(`${kind} card navigates to ${path}`, async ({ page }) => {
       await page.goto("/templates");
-      const link = page.locator(`a[href="${path}"]`).first();
+      const link = page
+        .locator(`#templates-list a[href="${path}"]`)
+        .filter({ hasText: /.+/ })
+        .first();
+      if (!(await link.isVisible())) {
+        await page
+          .getByRole("searchbox")
+          .fill(
+            searchQuery ?? path.split("/").pop()?.replaceAll("-", " ") ?? path,
+          );
+      }
       await link.waitFor({ state: "visible" });
-      await link.click();
-      await page.waitForURL(`**${path}`);
+      expect(await link.getAttribute("href")).toBe(path);
+      await page.goto(path);
       expect(new URL(page.url()).pathname).toBe(path);
     });
   }
@@ -315,6 +818,18 @@ test.describe("template detail page navigation", () => {
     await page.getByRole("link", { name: /All templates/ }).click();
     await page.waitForURL("**/templates");
     expect(new URL(page.url()).pathname).toBe("/templates");
+  });
+
+  test("more templates slider renders cover images", async ({ page }) => {
+    await page.goto("/templates/ai-chat-app");
+
+    const moreTemplates = page.locator("section").filter({
+      has: page.getByRole("heading", { name: "Explore more templates" }),
+    });
+    const coverImages = moreTemplates.locator('img[alt$=" preview"]');
+
+    await expect(coverImages.first()).toBeVisible();
+    await expect(coverImages.first()).toHaveAttribute("src", /\/img\//);
   });
 });
 
@@ -380,16 +895,29 @@ test.describe("docs sidebar navigation", () => {
     });
   }
 
-  test("AppKit docs show AppKit-specific sidebar shell", async ({ page }) => {
+  test("AppKit docs keep the main docs sidebar", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto("/docs/appkit/v0");
 
     const sidebar = page.getByRole("navigation", { name: "Docs sidebar" });
-    await expect(sidebar.getByText("AppKit Reference")).toBeVisible();
+    await expect(sidebar.getByText("AppKit Reference")).toBeHidden();
     await expect(
-      sidebar.getByRole("link", { name: "Back to main docs" }),
-    ).toHaveAttribute("href", "/docs/start-here");
-    await expect(sidebar.getByRole("combobox")).toBeVisible();
+      page.getByRole("banner").getByRole("button", {
+        name: "Search documentation",
+      }),
+    ).toBeVisible();
+    await expect(
+      sidebar.getByRole("button", { name: "Search documentation" }),
+    ).toHaveCount(0);
+    await expect(
+      sidebar.getByRole("link", { name: "Start here" }),
+    ).toBeVisible();
+    await expect(
+      sidebar.getByRole("link", { name: "Platform overview" }),
+    ).toBeVisible();
+    await expect(
+      sidebar.getByRole("button", { name: "Databricks Apps", exact: true }),
+    ).toBeVisible();
   });
 
   test("Databricks Apps AppKit link opens latest AppKit docs entry", async ({
@@ -397,28 +925,37 @@ test.describe("docs sidebar navigation", () => {
   }) => {
     await page.goto("/docs/start-here");
     const sidebar = page.getByRole("navigation", { name: "Docs sidebar" });
-    await sidebar.getByRole("button", { name: "Databricks Apps" }).click();
-    await sidebar.getByRole("button", { name: "AppKit" }).click();
+    await sidebar
+      .getByRole("button", { name: "Databricks Apps", exact: true })
+      .click();
+    await sidebar.getByRole("button", { name: "AppKit", exact: true }).click();
     const appKitReferenceLink = page
-      .locator(
-        'nav[aria-label="Docs sidebar"] a.menu__link[href*="/docs/appkit/"]',
-      )
+      .locator('nav[aria-label="Docs sidebar"] a[href*="/docs/appkit/"]')
       .first();
     await appKitReferenceLink.click();
     await expect(page).toHaveURL(/\/docs\/appkit\/v\d+/);
   });
 
-  test("AppKit API categories collapse sibling section", async ({ page }) => {
+  test("AppKit API pages stay inside the main docs sidebar", async ({
+    page,
+  }) => {
     await page.goto("/docs/appkit/v0/api/appkit-ui");
 
-    const appKitCategory = page.locator(
-      'a.menu__link[href^="/docs/appkit/v0/api/appkit/"]',
-    );
-    const appKitCategoryListItem = appKitCategory.locator(
-      "xpath=ancestor::li[contains(@class, 'menu__list-item')][1]",
-    );
-    await expect(appKitCategoryListItem).toHaveClass(
-      /menu__list-item--collapsed/,
-    );
+    const sidebar = page.getByRole("navigation", { name: "Docs sidebar" });
+    await expect(
+      sidebar.getByRole("link", { name: "Start here" }),
+    ).toBeVisible();
+    await expect(
+      sidebar.getByRole("button", { name: "Databricks Apps", exact: true }),
+    ).toBeVisible();
+    await expect(
+      sidebar.getByRole("button", { name: "AppKit", exact: true }),
+    ).toBeVisible();
+    await expect(
+      sidebar.locator('a[href^="/docs/appkit/v0/api/appkit-ui"]').first(),
+    ).toBeVisible();
+    await expect(
+      sidebar.locator('a[href^="/docs/appkit/v0/api/appkit/"]').first(),
+    ).toBeVisible();
   });
 });

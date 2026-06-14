@@ -39,8 +39,8 @@ describe("getHackathonBannerConfig", () => {
     });
     expect(config).toBeDefined();
     expect(config?.isCloseable).toBe(false);
-    expect(config?.backgroundColor).toBe("var(--db-lava)");
-    expect(config?.textColor).toBe("#ffffff");
+    expect(config?.backgroundColor).toBe("#FF5F46");
+    expect(config?.textColor).toBe("#040406");
   });
 
   test("links to the event slug and namespaces the id per event", () => {
@@ -94,9 +94,16 @@ describe("getHackathonBannerConfig", () => {
       HACKATHON_EVENT_SLUG: "apps-agents-for-good-2026",
       HACKATHON_BANNER_TEXT: "Custom message   ",
     });
-    expect(config?.content).toBe(
-      'Custom message <a href="/hackathon/apps-agents-for-good-2026"><b>See resources &rarr;</b></a>',
+    expect(config?.content).toContain(
+      '<span class="banner-lead-text">Custom message</span><a href="/hackathon/apps-agents-for-good-2026">',
     );
+    expect(config?.content).toContain(
+      '<span class="banner-marquee-item banner-marquee-copy" aria-hidden="true">',
+    );
+    expect(config?.content).toContain(
+      '<a href="/hackathon/apps-agents-for-good-2026" tabindex="-1" aria-hidden="true">',
+    );
+    expect(config?.content).not.toContain("Custom message   ");
   });
 
   test("default lead text is used when HACKATHON_BANNER_TEXT is unset", () => {

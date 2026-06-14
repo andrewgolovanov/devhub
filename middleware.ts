@@ -42,7 +42,7 @@ export default function middleware(request: Request): Response | undefined {
   if (!accept.includes("text/markdown") && !accept.includes("text/plain"))
     return undefined;
 
-  const path = url.pathname;
+  const path = sitePath;
 
   let section: string | undefined;
   let slug = "";

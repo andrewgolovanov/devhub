@@ -34,6 +34,7 @@ describe("vercel rewrites", () => {
   test("serves production static assets under /devhub without stripping dev-server assets", () => {
     expectRewrite("/devhub/assets/(.*)", "/assets/$1");
     expectRewrite("/devhub/img/(.*)", "/img/$1");
+    expectRewrite("/devhub/js/(.*)", "/js/$1");
     expectRewrite("/devhub/appkit-preview/(.*)", "/appkit-preview/$1");
     expectRewrite("/devhub/raw-docs/(.*)", "/raw-docs/$1");
     expectRewrite("/devhub/sitemap.xml", "/sitemap.xml");
@@ -73,6 +74,22 @@ describe("vercel rewrites", () => {
 });
 
 describe("vercel headers", () => {
+  test("caches the versioned home hero player asset", () => {
+    const cacheHeader = {
+      key: "Cache-Control",
+      value: "public, max-age=31536000, immutable",
+    };
+
+    expect(config.headers).toContainEqual({
+      source: "/js/home-hero-player.js",
+      headers: [cacheHeader],
+    });
+    expect(config.headers).toContainEqual({
+      source: "/devhub/js/home-hero-player.js",
+      headers: [cacheHeader],
+    });
+  });
+
   test("applies API hardening headers to both root and /devhub API paths", () => {
     expect(config.headers).toContainEqual({
       source: "/api/(.*)",

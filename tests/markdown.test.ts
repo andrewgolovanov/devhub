@@ -1,8 +1,11 @@
+import matter from "gray-matter";
 import { describe, expect, test } from "vitest";
 import {
   composeTemplateAgentPrompt,
   getDetailMarkdown,
 } from "../api/content-markdown";
+import { buildNativeSolutionMarkdown } from "../src/lib/solutions/solution-markdown";
+import type { NativeSolutionItem } from "../src/lib/solutions/solutions";
 
 describe("detail markdown resolver", () => {
   test("resolves docs markdown", () => {
@@ -24,19 +27,19 @@ describe("detail markdown resolver", () => {
       process.cwd(),
       "https://developers.databricks.com",
     );
-    const frontmatter = markdown.match(/^---\n([\s\S]*?)\n---/);
-    expect(frontmatter).not.toBeNull();
-    if (!frontmatter) return;
-    const block = frontmatter[1];
-    expect(block).toMatch(/^title:\s+"Introducing DevHub"$/m);
-    expect(block).toMatch(
-      /^url:\s+https:\/\/developers\.databricks\.com\/solutions\/devhub-launch$/m,
-    );
-    expect(block).toMatch(/^summary:\s+".+"$/m);
-    expect(block).toMatch(/^publishedAt:\s*2026-05-04$/m);
-    expect(block).toMatch(/^authors:$/m);
-    expect(block).toContain("name: Andre Landgraf");
-    expect(block).toContain("role: Staff Developer Advocate, Databricks");
+    const { data } = matter(markdown);
+    expect(data).toMatchObject({
+      title: "Introducing DevHub",
+      url: "https://developers.databricks.com/solutions/devhub-launch",
+      publishedAt: "2026-05-04",
+      authors: [
+        {
+          name: "Andre Landgraf",
+          role: "Staff Developer Advocate, Databricks",
+        },
+      ],
+    });
+    expect(data.summary).toEqual(expect.any(String));
   });
 
   test("solution frontmatter url is absolute and uses the supplied site origin", () => {
@@ -49,9 +52,34 @@ describe("detail markdown resolver", () => {
     const frontmatter = markdown.match(/^---\n([\s\S]*?)\n---/);
     expect(frontmatter).not.toBeNull();
     if (!frontmatter) return;
-    expect(frontmatter[1]).toMatch(
-      /^url:\s+http:\/\/localhost:3001\/solutions\/devhub-launch$/m,
+    const { data } = matter(markdown);
+    expect(data.url).toBe("http://localhost:3001/solutions/devhub-launch");
+  });
+
+  test("solution markdown strips existing source frontmatter before adding registry metadata", () => {
+    const item: NativeSolutionItem = {
+      type: "native",
+      id: "mock-solution-entry",
+      title: "Registry title",
+      description: "Registry description",
+      tags: ["Updates"],
+      authors: ["andre-landgraf"],
+      publishedAt: "2026-04-14",
+      source: "DevHub",
+    };
+
+    const markdown = buildNativeSolutionMarkdown(
+      "---\ntitle: Stale source title\n---\n\nBody",
+      item,
+      "https://dev.databricks.com/",
     );
+    const { data, content } = matter(markdown);
+
+    expect(data.title).toBe("Registry title");
+    expect(data.url).toBe(
+      "https://dev.databricks.com/solutions/mock-solution-entry",
+    );
+    expect(content.trim()).toBe("Body");
   });
 
   test("source .md file no longer carries its own frontmatter (registry is the source of truth)", () => {
@@ -280,5 +308,10 @@ describe("slug normalization strips .md extension", () => {
       "agentic-support-console.md",
     );
     expect(markdown).toContain("AI-powered support console");
+  });
+
+  test("solution slug with .md extension resolves", () => {
+    const markdown = getDetailMarkdown("solutions", "devhub-launch.md");
+    expect(markdown).toContain("Hello World, developers.databricks.com!");
   });
 });

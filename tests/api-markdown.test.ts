@@ -1,3 +1,4 @@
+import matter from "gray-matter";
 import { describe, expect, test } from "vitest";
 import handler from "../api/markdown";
 import { resolveSiteUrlForRequest } from "../src/lib/site-url";
@@ -130,8 +131,9 @@ describe("/api/markdown about-devhub preamble policy", () => {
       host,
     });
     expect(result.statusCode).toBe(200);
-    expect(result.body).toContain(
-      `url: ${resolveSiteUrlForRequest(host)}/solutions/devhub-launch`,
+    const { data } = matter(result.body);
+    expect(data.url).toBe(
+      `${resolveSiteUrlForRequest(host)}/solutions/devhub-launch`,
     );
     expect(result.body).not.toMatch(/^url:\s+\/solutions\//m);
   });
@@ -142,10 +144,18 @@ describe("/api/markdown about-devhub preamble policy", () => {
       slug: "devhub-launch",
       host: "developers.databricks.com",
     });
-    expect(result.body).toMatch(/^title:\s+"Introducing DevHub"$/m);
-    expect(result.body).toMatch(/^summary:\s+".+"$/m);
-    expect(result.body).toMatch(/^publishedAt:\s*2026-05-04$/m);
-    expect(result.body).toMatch(/^authors:$/m);
+    const { data } = matter(result.body);
+    expect(data).toMatchObject({
+      title: "Introducing DevHub",
+      publishedAt: "2026-05-04",
+    });
+    expect(data.summary).toEqual(expect.any(String));
+    expect(data.authors).toEqual([
+      {
+        name: "Andre Landgraf",
+        role: "Staff Developer Advocate, Databricks",
+      },
+    ]);
   });
 
   test("solutions index does NOT include the preamble", () => {
@@ -215,8 +225,8 @@ describe("/api/markdown about-devhub preamble policy", () => {
         slug: "devhub-launch",
         host,
       });
-      expect(solution.body).toContain(
-        "url: https://stage.databricks.com/devhub/solutions/devhub-launch",
+      expect(matter(solution.body).data.url).toBe(
+        "https://stage.databricks.com/devhub/solutions/devhub-launch",
       );
 
       const template = call({

@@ -4,7 +4,7 @@ import TOCItems from "@theme/TOCItems";
 import type { Props } from "@theme/TOC";
 
 const LINK_CLASS_NAME =
-  "toc-link block py-1 pl-3 -ml-px border-l-2 border-transparent text-[13px] leading-snug no-underline transition-colors text-muted-foreground hover:text-foreground hover:border-db-navy dark:text-[rgb(245_247_248/0.55)] dark:hover:text-white dark:hover:border-white focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-2";
+  "toc-link -ml-px block border-l-2 border-transparent py-1 pl-3 text-[13px] leading-snug text-grey-70 no-underline transition-colors hover:border-db-navy hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring dark:text-[rgb(245_247_248/0.55)] dark:hover:border-white dark:hover:text-white [&.toc-link-active]:!border-l-orange [&.toc-link-active]:!text-orange [&.toc-link-active]:font-normal";
 
 const LINK_ACTIVE_CLASS_NAME = "toc-link-active";
 
@@ -12,11 +12,11 @@ function TOC({ className, ...props }: Props): ReactNode {
   return (
     <div
       className={clsx(
-        "sticky top-[calc(var(--ifm-navbar-height)+1rem)] max-h-[calc(100vh-var(--ifm-navbar-height)-2rem)] overflow-y-auto text-sm thin-scrollbar max-[996px]:static",
+        "sticky top-0 overflow-y-auto text-sm thin-scrollbar max-[996px]:static",
         className,
       )}
     >
-      <p className="m-0 mb-3 text-xs font-semibold uppercase tracking-[0.06em] text-muted-foreground dark:text-[rgb(245_247_248/0.5)]">
+      <p className="m-0 mb-3 text-xs/none font-mono font-semibold uppercase tracking-normal text-grey-50">
         On this page
       </p>
       <TOCItems

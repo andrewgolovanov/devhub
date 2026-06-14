@@ -747,15 +747,15 @@ Hive variable substitution (`SET hivevar:name = value` + `${hivevar:name}`) is n
 -- BEFORE (Classic) — uses Hive variable substitution
 SET hivevar:target_date = '2024-01-01';
 SET hivevar:min_amount = 100;
-SELECT * FROM transactions 
-WHERE date >= '${hivevar:target_date}' 
+SELECT * FROM transactions
+WHERE date >= '${hivevar:target_date}'
 AND amount > ${hivevar:min_amount};
 
 -- AFTER (Serverless) — uses SQL session variables (DBR 14.1+)
 DECLARE OR REPLACE VARIABLE target_date STRING = '2024-01-01';
 DECLARE OR REPLACE VARIABLE min_amount INT = 100;
-SELECT * FROM transactions 
-WHERE date >= target_date 
+SELECT * FROM transactions
+WHERE date >= target_date
 AND amount > min_amount;
 ```
 

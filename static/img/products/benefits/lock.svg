@@ -1,0 +1,20 @@
+<svg
+  fill="none"
+  viewBox="0 0 48 48"
+  width="48"
+  height="48"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <rect
+    height="18"
+    stroke="#FF5F46"
+    stroke-width="3"
+    width="28"
+    x="10"
+    y="22"
+  />
+  <rect fill="#FF5F46" height="11" width="3" x="15" y="10" />
+  <rect fill="#FF5F46" height="3" width="12" x="18" y="7" />
+  <rect fill="#FF5F46" height="11" width="3" x="30" y="10" />
+  <rect fill="#FF5F46" height="6" width="3" x="22" y="28" />
+</svg>

@@ -1,7 +1,11 @@
 import fs from "fs";
 import path from "path";
 import type { LoadContext, Plugin } from "@docusaurus/types";
-import { solutions, isLinkedSolution } from "../src/lib/solutions/solutions";
+import {
+  buildSolutionItems,
+  getSolutionItemHref,
+  isLinkedSolutionItem,
+} from "../src/lib/solutions/solutions";
 import {
   cookbooks,
   recipesInOrder,
@@ -226,16 +230,16 @@ export function generateLlmsTxt(baseUrl: string, docsDir: string): string {
     "",
   );
 
-  // Solutions last — least actionable
+  const allSolutionItems = buildSolutionItems(showDrafts());
   lines.push(
     "## Solutions",
     "",
     "Databricks use-case solutions built on Lakebase, Agent Bricks, and Databricks Apps.",
     "",
     `- [All Solutions](${baseUrl}/solutions.md): Overview of Databricks developer solutions`,
-    ...solutions.map((s) => {
-      if (isLinkedSolution(s)) {
-        return `- [${s.title}](${s.url}): ${s.description} (${s.source})`;
+    ...allSolutionItems.map((s) => {
+      if (isLinkedSolutionItem(s)) {
+        return `- [${s.title}](${getSolutionItemHref(s)}): ${s.description} (${s.source})`;
       }
       return `- [${s.title}](${baseUrl}/solutions/${s.id}.md): ${s.description}`;
     }),

@@ -1,16 +1,19 @@
 import { themes as prismThemes } from "prism-react-renderer";
 import type { Config } from "@docusaurus/types";
 import type * as Preset from "@docusaurus/preset-classic";
+import { normalizeUrl } from "@docusaurus/utils";
 import path from "path";
 import aboutDevhubPlugin from "./plugins/about-devhub";
 import chunkReloadPlugin from "./plugins/chunk-reload";
 import contentEntriesPlugin from "./plugins/content-entries";
 import cookbooksPlugin from "./plugins/cookbooks";
 import llmsTxtPlugin from "./plugins/llms-txt";
+import markdownStaticRoutesPlugin from "./plugins/markdown-static-routes";
 import perspectivesPlugin from "./plugins/perspectives";
 import remarkCliTabs from "./plugins/remark-cli-tabs";
 import remarkSiteUrl from "./plugins/remark-site-url";
 import robotsTxtPlugin from "./plugins/robots-txt";
+import solutionRssFeedPlugin from "./plugins/solutions-rss-feed";
 import { showDrafts } from "./src/lib/feature-flags-server";
 import { getHackathonBannerConfig } from "./src/lib/hackathon-banner-server";
 import {
@@ -76,6 +79,13 @@ const config: Config = {
     {
       tagName: "meta",
       attributes: {
+        name: "theme-color",
+        content: "#040406",
+      },
+    },
+    {
+      tagName: "meta",
+      attributes: {
         name: "google-site-verification",
         content: "r9cgLLCpOwLqma0I_MXet4Ix8AK6v_UNHMe1CHsfNr8",
       },
@@ -138,6 +148,18 @@ const config: Config = {
         },
       };
     },
+    function solutionsPaginationRoutesPlugin() {
+      return {
+        name: "solutions-pagination-routes",
+        contentLoaded({ actions }) {
+          actions.addRoute({
+            path: normalizeUrl([siteBaseUrl, "/solutions/page/:page"]),
+            component: path.resolve(__dirname, "src/pages/solutions/index.tsx"),
+            exact: true,
+          });
+        },
+      };
+    },
     [
       contentEntriesPlugin,
       {
@@ -166,8 +188,10 @@ const config: Config = {
       },
     ],
     llmsTxtPlugin,
+    markdownStaticRoutesPlugin,
     robotsTxtPlugin,
     aboutDevhubPlugin,
+    solutionRssFeedPlugin,
     cookbooksPlugin,
     perspectivesPlugin,
     chunkReloadPlugin,
@@ -175,7 +199,7 @@ const config: Config = {
 
   themeConfig: {
     ...(hackathonBanner && { announcementBar: hackathonBanner }),
-    image: "img/databricks-social-card.svg",
+    image: "img/databricks-social-card.jpg",
     colorMode: {
       respectPrefersColorScheme: true,
     },

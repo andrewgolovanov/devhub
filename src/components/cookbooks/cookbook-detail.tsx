@@ -1,13 +1,13 @@
-import Link from "@docusaurus/Link";
-import Layout from "@theme/Layout";
 import { MDXProvider } from "@mdx-js/react";
-import type { ReactNode } from "react";
-import { AgentUsageCard } from "@/components/agent-usage-card";
+import { useRef, type ReactNode } from "react";
 import { RecipePre } from "@/components/cookbooks/recipe-code-block";
-import { TemplatePreviewImage } from "@/components/examples/template-preview-image";
 import { FallbackCardArt } from "@/components/examples/fallback-card-art";
-import type { Cookbook } from "@/lib/recipes/recipes";
+import { TemplatePreviewImage } from "@/components/examples/template-preview-image";
+import { recipes, type Cookbook } from "@/lib/recipes/recipes";
 import { BaseUrlAnchor } from "@/components/base-url-anchor";
+import { MarkdownProse } from "@/components/markdown-prose";
+import { TemplateDetailShell } from "@/components/templates/template-detail-shell";
+import type { TemplateItem } from "@/components/templates/template-card";
 
 const recipeComponents = { a: BaseUrlAnchor, pre: RecipePre };
 
@@ -22,53 +22,43 @@ export function CookbookDetail({
   rawMarkdown,
   children,
 }: CookbookDetailProps): ReactNode {
+  const contentRef = useRef<HTMLDivElement>(null);
   const permalink = `/templates/${cookbook.id}`;
+  const relatedItems: TemplateItem[] = cookbook.recipeIds
+    .map((id) => recipes.find((recipe) => recipe.id === id))
+    .filter(
+      (recipe): recipe is (typeof recipes)[number] => recipe !== undefined,
+    )
+    .map((data) => ({ kind: "recipe" as const, data }));
 
   return (
-    <Layout title={cookbook.name} description={cookbook.description}>
-      <main>
-        <div className="container px-4 py-8 md:py-12">
-          <div className="mx-auto max-w-3xl">
-            <Link
-              to="/templates"
-              className="mb-6 inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground no-underline transition-colors hover:text-foreground"
-            >
-              <span aria-hidden="true">&larr;</span>
-              All templates
-            </Link>
-
-            <div className="mb-10">
-              <h1 className="mb-3 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-                {cookbook.name}
-              </h1>
-              <p className="mb-6 max-w-xl text-base leading-relaxed text-muted-foreground">
-                {cookbook.description}
-              </p>
-              <AgentUsageCard
-                kind="cookbook"
-                slug={cookbook.id}
-                rawMarkdown={rawMarkdown}
-                title={cookbook.name}
-                description={cookbook.description}
-                permalink={permalink}
-              />
-            </div>
-
-            <div className="relative mb-12 aspect-video w-full overflow-hidden rounded-xl border border-border/60 bg-muted/30">
-              <TemplatePreviewImage
-                lightUrl={cookbook.previewImageLightUrl}
-                darkUrl={cookbook.previewImageDarkUrl}
-                alt={`${cookbook.name} preview`}
-                fallback={<FallbackCardArt index={0} />}
-              />
-            </div>
-
-            <MDXProvider components={recipeComponents}>
-              <div className="prose-solution">{children}</div>
-            </MDXProvider>
-          </div>
+    <TemplateDetailShell
+      title={cookbook.name}
+      description={cookbook.description}
+      contentRef={contentRef}
+      usage={{
+        kind: "cookbook",
+        slug: cookbook.id,
+        rawMarkdown,
+        title: cookbook.name,
+        description: cookbook.description,
+        permalink,
+      }}
+      heroMedia={
+        <div className="relative aspect-[16/9] w-full overflow-hidden border border-black/12 bg-black/4 dark:border-white/15 dark:bg-white/5">
+          <TemplatePreviewImage
+            lightUrl={cookbook.previewImageLightUrl}
+            darkUrl={cookbook.previewImageDarkUrl}
+            alt={`${cookbook.name} preview`}
+            fallback={<FallbackCardArt index={0} />}
+          />
         </div>
-      </main>
-    </Layout>
+      }
+      relatedItems={relatedItems}
+    >
+      <MDXProvider components={recipeComponents}>
+        <MarkdownProse variant="dark">{children}</MarkdownProse>
+      </MDXProvider>
+    </TemplateDetailShell>
   );
 }

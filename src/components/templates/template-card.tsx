@@ -1,5 +1,4 @@
 import Link from "@docusaurus/Link";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Example, Recipe, Cookbook } from "@/lib/recipes/recipes";
 import { FallbackCardArt } from "@/components/examples/fallback-card-art";
 import { TemplatePreviewImage } from "@/components/examples/template-preview-image";
@@ -13,6 +12,16 @@ function getTemplateHref(item: TemplateItem): string {
   return `/templates/${item.data.id}`;
 }
 
+export function getTemplateCardFields(item: TemplateItem) {
+  return {
+    name: item.data.name,
+    description: item.data.description,
+    href: getTemplateHref(item),
+    lightUrl: item.data.previewImageLightUrl,
+    darkUrl: item.data.previewImageDarkUrl,
+  };
+}
+
 export function TemplateCard({
   item,
   index,
@@ -20,34 +29,39 @@ export function TemplateCard({
   item: TemplateItem;
   index: number;
 }) {
-  const name = item.data.name;
-  const description = item.data.description;
-  const href = getTemplateHref(item);
-  const lightUrl = item.data.previewImageLightUrl;
-  const darkUrl = item.data.previewImageDarkUrl;
+  const { name, description, href, lightUrl, darkUrl } =
+    getTemplateCardFields(item);
 
   return (
-    <Link to={href} className="no-underline">
-      <Card className="group flex h-full flex-col overflow-hidden rounded-xl border border-black/10 shadow-none transition-all duration-200 hover:border-black/20 dark:border-white/10 dark:hover:border-white/20 bg-[#f7f6f4] dark:bg-[#182a32]">
-        <div className="relative aspect-[16/9] overflow-hidden border-b border-black/10 dark:border-white/10">
+    <article className="min-w-0 text-black">
+      <Link
+        className="group flex min-w-0 flex-col gap-6 no-underline hover:no-underline"
+        to={href}
+        aria-label={`Read ${name}`}
+      >
+        <div className="relative aspect-video min-w-0 overflow-hidden border border-db-navy bg-db-oat-medium">
           <TemplatePreviewImage
             lightUrl={lightUrl}
             darkUrl={darkUrl}
-            alt={name}
+            alt={`${name} preview`}
             fallback={<FallbackCardArt index={index} />}
           />
+          <span className="absolute top-0 right-0 z-10 flex size-11 items-center justify-center bg-orange opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100">
+            <img
+              className="size-6"
+              src="/img/templates/arrow-right-up.svg"
+              alt=""
+              aria-hidden="true"
+            />
+          </span>
         </div>
-        <CardHeader className="pb-2">
-          <CardTitle className="text-lg leading-tight font-medium text-black dark:text-white">
-            {name}
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="flex-1 pt-0">
-          <p className="m-0 text-[14px] leading-relaxed text-black/68 dark:text-white/68">
-            {description}
-          </p>
-        </CardContent>
-      </Card>
-    </Link>
+
+        <div className="flex min-w-0 flex-col gap-5">
+          <h2 className="m-0 line-clamp-4 text-xl/tight text-black/30 font-normal tracking-[-0.04em] text-balance md:text-2xl/tight">
+            <span className="text-black">{name}.</span> [{description}]
+          </h2>
+        </div>
+      </Link>
+    </article>
   );
 }

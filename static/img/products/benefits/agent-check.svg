@@ -1,0 +1,20 @@
+<svg
+  fill="#FF5F46"
+  shape-rendering="crispEdges"
+  viewBox="0 0 48 48"
+  width="48"
+  height="48"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <g transform="translate(8 9)">
+    <rect height="4" width="4" x="0" y="17.5402" />
+    <rect height="4" width="4" x="4" y="21.5402" />
+    <rect height="4" width="4" x="8" y="25.5402" />
+    <path
+      d="M10.4961 28.2034L34.0373 1.31752"
+      fill="none"
+      stroke="#FF5F46"
+      stroke-width="4"
+    />
+  </g>
+</svg>

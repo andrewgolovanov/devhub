@@ -43,6 +43,10 @@ type UseAgentMarkdownResult = {
   baseUrl: string;
   /** Page URL with origin. */
   fullUrl: string;
+  /** Pretty raw markdown URL for pages served by the markdown rewrites. */
+  markdownUrl: string;
+  /** MCP endpoint URL on the same origin as the current page. */
+  mcpUrl: string;
   /** Build the final agent-ready markdown string. Safe to call after fetch resolves. */
   buildAIMarkdown: () => string;
   /** Ensure rawMarkdownUrl is fetched before reading; resolves once content is available. */
@@ -75,6 +79,8 @@ export function useAgentMarkdown(
     siteConfig.baseUrl,
   );
   const fullUrl = baseUrl + siteRelativePermalink;
+  const markdownUrl = `${fullUrl.replace(/\/$/, "")}.md`;
+  const mcpUrl = `${baseUrl}/api/mcp`;
   const fetchMarkdownUrl = rawMarkdownUrl
     ? withSiteBaseUrl(rawMarkdownUrl, siteConfig.baseUrl)
     : undefined;
@@ -138,7 +144,14 @@ export function useAgentMarkdown(
     buildSiteUrl,
   ]);
 
-  return { baseUrl, fullUrl, buildAIMarkdown, ensureFetched };
+  return {
+    baseUrl,
+    fullUrl,
+    markdownUrl,
+    mcpUrl,
+    buildAIMarkdown,
+    ensureFetched,
+  };
 }
 
 function buildFrontmatterBody(input: {

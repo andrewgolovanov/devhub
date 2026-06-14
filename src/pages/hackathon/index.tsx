@@ -6,6 +6,9 @@ import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
 import type { ReactNode } from "react";
 
+import NewFooter from "@/components/theme/footer";
+import { Button } from "@/components/ui/button";
+
 /**
  * `/hackathon` redirects to the active event named by the `HACKATHON_EVENT_SLUG`
  * env var (exposed via `customFields` in `docusaurus.config.ts`). Each event
@@ -43,24 +46,29 @@ export default function HackathonIndex(): ReactNode {
       <Head>
         <meta name="robots" content="noindex, nofollow" />
       </Head>
-      <main className="border-t border-db-cyan/30 bg-db-bg dark:border-db-cyan/25 dark:bg-[#0d1a1f]">
-        <section className="container px-4 pt-20 pb-28 md:pt-28 md:pb-36">
-          <div className="mx-auto max-w-2xl text-center">
-            <h1 className="mb-4 text-3xl font-medium tracking-tight text-black dark:text-white md:text-4xl">
+      <main className="bg-black text-white">
+        <section className="mx-auto flex min-h-[60vh] w-full max-w-400 flex-col items-center justify-center gap-8 px-5 py-24 text-center md:px-8 md:py-32">
+          <div className="flex flex-col items-center gap-5">
+            <h1 className="font-sans text-3xl/[1.125] font-normal tracking-normal text-balance text-white md:text-5xl/[1.125] md:whitespace-nowrap">
               No active hackathon right now
             </h1>
-            <p className="mb-8 text-base text-black/68 dark:text-white/68">
+            <p className="max-w-md text-base leading-tight tracking-normal text-grey-80 md:text-lg">
               There isn&rsquo;t a hackathon running at the moment. In the
               meantime, explore templates to jumpstart your next Databricks app.
             </p>
-            <Link
-              to="/templates"
-              className="inline-flex items-center gap-2 rounded-full bg-db-lava px-5 py-2 text-sm font-semibold text-white no-underline transition-colors hover:bg-db-lava/90"
-            >
+          </div>
+          <Button
+            asChild
+            variant="orange"
+            size="xl"
+            className="font-mono text-base leading-none font-medium tracking-tight text-black uppercase shadow-none"
+          >
+            <Link to="/templates" className="no-underline hover:no-underline">
               Browse templates
             </Link>
-          </div>
+          </Button>
         </section>
+        <NewFooter className="mx-auto max-w-432 border-t border-white/10 lg:px-8" />
       </main>
     </Layout>
   );

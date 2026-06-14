@@ -1,0 +1,516 @@
+.prose {
+  @apply tracking-tight text-grey-90 text-base md:text-lg/normal;
+
+  @apply prose-headings:text-white;
+
+  @apply prose-h1:font-sans prose-h1:font-normal prose-h1:mb-4 prose-h1:text-pretty;
+
+  @apply prose-h2:mt-10 prose-h2:mb-5 prose-h2:scroll-mt-8 prose-h2:w-full prose-h2:self-stretch prose-h2:border-0 prose-h2:border-b-0 prose-h2:pb-0 prose-h2:text-xl/snug prose-h2:font-medium prose-h2:tracking-tight prose-h2:text-white md:prose-h2:mt-12 md:prose-h2:mb-6 md:prose-h2:text-3xl/normal;
+
+  @apply prose-h3:my-4 prose-h3:scroll-mt-6 prose-h3:w-full prose-h3:self-stretch prose-h3:border-0 prose-h3:border-b-0 prose-h3:pb-0 prose-h3:text-lg/snug prose-h3:font-medium prose-h3:tracking-tight prose-h3:text-white md:prose-h3:mt-8 md:prose-h3:mb-6 md:prose-h3:text-xl/normal;
+
+  @apply prose-h4:mt-6 prose-h4:mb-2.5 prose-h4:w-full prose-h4:self-stretch prose-h4:border-0 prose-h4:border-b-0 prose-h4:pb-0 prose-h4:text-xl/normal prose-h4:font-medium prose-h4:tracking-tight prose-h4:text-white;
+
+  @apply prose-p:my-5 prose-p:overflow-x-auto prose-p:tracking-tight prose-p:text-grey-90 prose-p:text-base md:prose-p:my-6 md:prose-p:text-lg/normal;
+
+  @apply prose-a:rounded-sm prose-a:font-normal prose-a:break-words prose-a:text-orange prose-a:no-underline prose-a:transition-colors prose-a:duration-300 prose-a:hover:text-db-lava;
+
+  @apply prose-ol:flex prose-ol:flex-col prose-ul:flex prose-ul:flex-col;
+
+  @apply prose-ul:my-6 prose-ul:gap-y-2.5 prose-ul:pl-0 md:prose-ul:pl-11;
+
+  @apply prose-ol:my-6 prose-ol:gap-y-2.5 prose-ol:pl-4.5 md:prose-ol:pl-10;
+
+  @apply prose-li:m-0 prose-li:leading-normal prose-li:tracking-tight prose-li:text-grey-90 prose-li:text-base md:prose-li:text-lg/normal;
+
+  @apply prose-strong:font-medium prose-strong:text-white;
+
+  @apply prose-figure:my-8;
+
+  @apply prose-hr:my-8 prose-hr:border-grey-30;
+
+  @apply prose-blockquote:pl-4 prose-blockquote:border-l-2 prose-blockquote:border-white prose-blockquote:text-foreground prose-blockquote:not-italic;
+
+  @apply prose-img:my-0 prose-img:rounded-lg;
+
+  @apply prose-img:my-0 prose-img:rounded-lg;
+
+  &.prose-clear-first-child > * {
+    &:first-child {
+      @apply !mt-0;
+    }
+  }
+
+  > * {
+    &:last-child {
+      @apply !mb-0;
+    }
+  }
+
+  & h1:first-child {
+    @apply lg:max-w-[calc(100%-8rem)];
+  }
+
+  h2 a,
+  h3 a,
+  h4 a,
+  h5 a,
+  h6 a {
+    font-weight: inherit;
+    color: inherit;
+  }
+
+  .not-prose {
+    table a {
+      @apply rounded-sm font-normal break-words text-orange underline decoration-transparent transition-colors duration-300;
+    }
+  }
+
+  h1 + p,
+  h2 + p,
+  h3 + p,
+  h4 + p {
+    @apply mt-0;
+  }
+
+  h2 + h3 {
+    @apply mt-6;
+  }
+
+  h2 + h4,
+  h3 + h4 {
+    @apply mt-0;
+  }
+
+  a {
+    strong {
+      @apply text-orange transition-colors duration-300 hover:text-db-lava;
+    }
+  }
+
+  > * {
+    &:last-child {
+      @apply mb-0;
+    }
+  }
+
+  ol ol,
+  ul ol {
+    @apply mt-2.5 mb-0 pl-5;
+  }
+  ol ul,
+  ul ul {
+    @apply mt-2.5 mb-0 pl-6;
+  }
+
+  ol strong,
+  ul strong {
+    @apply font-medium;
+  }
+
+  ul {
+    @apply prose-li:marker:text-[0px];
+
+    li {
+      @apply relative;
+
+      @apply before:absolute before:top-3 before:left-0 before:h-px before:w-2 before:rounded-full before:bg-white md:before:top-3.5 md:before:-left-6;
+    }
+  }
+
+  ol {
+    li {
+      @apply relative pl-1;
+    }
+    li::marker {
+      @apply text-white!;
+    }
+  }
+
+  li {
+    @apply ps-4.5 md:ps-0;
+
+    > * {
+      &:first-child:not(ol, ul) {
+        @apply mt-0;
+      }
+
+      &:last-child {
+        @apply mb-0;
+      }
+    }
+  }
+
+  details {
+    @apply my-8 border border-grey-30;
+
+    &[open] summary {
+      @apply after:opacity-100;
+    }
+
+    summary {
+      @apply relative cursor-pointer rounded-none flex justify-between w-full p-5 text-base leading-tight font-medium tracking-tight text-grey-90 normal-case outline-offset-4 transition-colors duration-300 hover:text-white;
+
+      @apply after:absolute after:inset-x-5 after:bottom-0 after:h-px after:bg-grey-30 after:opacity-0 after:pointer-events-none;
+    }
+
+    summary + * {
+      @apply mt-5!;
+    }
+  }
+
+  figure.code-block {
+    @apply my-8;
+  }
+
+  :not(pre) {
+    > code {
+      @apply inline-flex max-w-full flex-col items-center justify-center gap-2.5 overflow-x-auto border border-[#2E3038] bg-[#1C1D22] rounded px-1 py-px text-sm leading-snug font-normal tracking-tight text-white before:hidden after:hidden;
+    }
+  }
+
+  p:has(> img) {
+    @apply my-8;
+  }
+}
+
+.recipe-content-card .prose h2 {
+  font-size: 1.125rem; /* 18px */
+  line-height: 1.375;
+  margin-top: 2.25rem; /* 36px */
+  margin-bottom: 1.125rem; /* 18px */
+}
+
+@media (width >= 48rem) {
+  .recipe-content-card .prose h2 {
+    font-size: 1.25rem; /* 20px */
+    margin-top: 2.5rem; /* 40px */
+    margin-bottom: 1.25rem; /* 20px */
+  }
+}
+
+@media (width >= 64rem) {
+  .recipe-content-card .prose h2 {
+    font-size: 1.5rem; /* 24px */
+    line-height: 1.5;
+    margin-top: 3rem; /* 48px */
+    margin-bottom: 1.5rem; /* 24px */
+  }
+}
+
+.prose.prose-docs {
+  @apply prose-h2:mb-4 prose-h2:text-3xl/tight;
+}
+
+.prose.prose-docs h1 {
+  font-size: 1.75rem; /* 28px */
+}
+
+@media (width >= 48rem) {
+  .prose.prose-docs h1 {
+    font-size: 2rem; /* 32px */
+  }
+}
+
+@media (width >= 64rem) {
+  .prose.prose-docs h1 {
+    font-size: 2.25rem; /* 36px */
+  }
+}
+
+@media (width >= 80rem) {
+  .prose.prose-docs h1 {
+    font-size: 2.25em; /* restore original em-based value */
+  }
+}
+
+.prose.prose-docs h2 {
+  font-size: 1.25rem; /* 20px */
+  font-weight: 400;
+  margin-top: 2rem; /* 32px */
+  margin-bottom: 0.75rem; /* 12px */
+}
+
+@media (width >= 48rem) {
+  .prose.prose-docs h2 {
+    font-size: 1.5rem; /* 24px */
+    margin-top: 2.5rem; /* 40px */
+    margin-bottom: 1rem; /* 16px */
+  }
+}
+
+@media (width >= 64rem) {
+  .prose.prose-docs h2 {
+    font-size: 1.75rem; /* 28px */
+    margin-top: 2.75rem; /* 44px */
+    margin-bottom: 1rem; /* 16px */
+  }
+}
+
+@media (width >= 80rem) {
+  .prose.prose-docs h2 {
+    font-size: 1.875rem; /* 30px — restore original */
+    margin-top: 3rem; /* 48px — restore original */
+    margin-bottom: 1rem; /* 16px */
+  }
+}
+
+.prose-inside-content {
+  & > *,
+  & .prose > * {
+    @apply my-2.5;
+  }
+
+  & > *,
+  & .prose > * {
+    &:first-child:not(h2) {
+      @apply mt-0;
+    }
+
+    &:last-child {
+      @apply mb-0;
+    }
+  }
+
+  & .code-block {
+    @apply my-4;
+  }
+
+  :not(pre) > code {
+    @apply border text-sm leading-snug;
+  }
+
+  p {
+    @apply my-2.5 text-base leading-snug tracking-tight;
+  }
+
+  ol,
+  ul {
+    @apply my-2.5 flex flex-col gap-y-2.5 pl-5;
+  }
+
+  ol,
+  ul {
+    li {
+      @apply text-base leading-snug tracking-tight before:top-2.5 before:-left-5;
+    }
+  }
+
+  table {
+    @apply min-w-full w-full;
+  }
+}
+
+.accordion {
+  & :not(.prose-inside-content) h3 {
+    @apply my-0;
+  }
+}
+
+@layer components {
+  .theme-code-block {
+    @apply relative rounded-none border border-prose-border bg-transparent mb-6;
+
+    > div[class*="codeBlockTitle"] {
+      @apply border-b border-prose-border px-4 py-3.5 text-[13px] font-medium tracking-tight;
+      color: var(--code-comment);
+    }
+
+    > div[class*="codeBlockContent"] {
+      @apply relative text-base font-mono;
+
+      [class*="buttonGroup"] {
+        @apply absolute right-4 top-4 flex;
+
+        button {
+          @apply flex size-7 shrink-0 items-center justify-center border border-grey-20 bg-black text-white transition-colors duration-200 hover:bg-grey-12;
+
+          > span[class*="copyButtonIcons"] {
+            @apply size-3.5!;
+          }
+        }
+      }
+    }
+
+    pre {
+      @apply bg-transparent! my-0! p-4!;
+      color: var(--code-foreground);
+    }
+
+    .theme-code-block-highlighted-line,
+    .token-line.highlight-line {
+      background: var(--code-highlight-neutral);
+    }
+
+    .token-line.diff-line-add,
+    .token-line.inserted,
+    .token.inserted {
+      background: var(--code-highlight-true);
+    }
+
+    .token-line.diff-line-delete,
+    .token-line.deleted,
+    .token.deleted {
+      background: var(--code-highlight-false);
+    }
+
+    .token.plain,
+    .token.punctuation,
+    .token.namespace,
+    .token.entity {
+      color: var(--code-foreground);
+    }
+
+    .token.comment,
+    .token.comments,
+    .token.prolog,
+    .token.doctype,
+    .token.cdata {
+      color: var(--code-comment);
+    }
+
+    .token.keyword,
+    .token.atrule,
+    .token.rule,
+    .token.important,
+    .token.boolean,
+    .token.deleted {
+      color: var(--code-keyword);
+    }
+
+    .token.function,
+    .token.method,
+    .token.function-variable {
+      color: var(--code-function);
+    }
+
+    .token.class-name,
+    .token.constant,
+    .token.builtin,
+    .token.attr-name,
+    .token.symbol {
+      color: var(--code-class);
+    }
+
+    .token.number,
+    .token.unit,
+    .token.attr-value,
+    .token.hexcode {
+      color: var(--code-number);
+    }
+
+    .token.string,
+    .token.char,
+    .token.regex,
+    .token.url,
+    .token.tag,
+    .token.selector,
+    .token.inserted {
+      color: var(--code-string);
+    }
+
+    .token.variable,
+    .token.parameter,
+    .token.parameter.variable {
+      color: var(--code-variable);
+    }
+
+    .token.operator,
+    .token.property,
+    .token.module,
+    .token.imports,
+    .token.exports,
+    .token.directive,
+    .token.directive-hash {
+      color: var(--code-operator);
+    }
+  }
+
+  .template-dark-prose [class*="codeBlockTitle"] {
+    @apply border-0 bg-transparent text-white;
+  }
+}
+
+.recipe-content-card .theme-code-block pre,
+.recipe-content-card .theme-code-block pre code,
+.recipe-content-card .theme-code-block pre code span,
+.recipe-content-card .theme-code-block pre code .token.plain,
+.recipe-content-card .theme-code-block pre code .token.plain-text,
+.recipe-content-card .theme-code-block pre code .token.maybe-class-name,
+.recipe-content-card .theme-code-block pre code .token.script,
+.recipe-content-card .theme-code-block pre code .token.punctuation,
+.recipe-content-card .theme-code-block pre code .token.namespace,
+.recipe-content-card .theme-code-block pre code .token.entity {
+  color: var(--code-foreground) !important;
+}
+
+.recipe-content-card .theme-code-block pre code .token.comment,
+.recipe-content-card .theme-code-block pre code .token.comments,
+.recipe-content-card .theme-code-block pre code .token.prolog,
+.recipe-content-card .theme-code-block pre code .token.doctype,
+.recipe-content-card .theme-code-block pre code .token.cdata {
+  color: var(--code-comment) !important;
+}
+
+.recipe-content-card .theme-code-block pre code .token.keyword,
+.recipe-content-card .theme-code-block pre code .token.atrule,
+.recipe-content-card .theme-code-block pre code .token.rule,
+.recipe-content-card .theme-code-block pre code .token.important,
+.recipe-content-card .theme-code-block pre code .token.boolean,
+.recipe-content-card .theme-code-block pre code .token.deleted {
+  color: var(--code-keyword) !important;
+}
+
+.recipe-content-card .theme-code-block pre code .token.function,
+.recipe-content-card .theme-code-block pre code .token.method,
+.recipe-content-card .theme-code-block pre code .token.function-variable {
+  color: var(--code-function) !important;
+}
+
+.recipe-content-card .theme-code-block pre code .token.tag,
+.recipe-content-card .theme-code-block pre code .token.selector {
+  color: var(--code-string) !important;
+}
+
+.recipe-content-card .theme-code-block pre code .token.number,
+.recipe-content-card .theme-code-block pre code .token.unit,
+.recipe-content-card .theme-code-block pre code .token.attr-value,
+.recipe-content-card .theme-code-block pre code .token.hexcode {
+  color: var(--code-number) !important;
+}
+
+.recipe-content-card .theme-code-block pre code .token.string,
+.recipe-content-card .theme-code-block pre code .token.char,
+.recipe-content-card .theme-code-block pre code .token.regex,
+.recipe-content-card .theme-code-block pre code .token.url,
+.recipe-content-card .theme-code-block pre code .token.inserted {
+  color: var(--code-string) !important;
+}
+
+.recipe-content-card .theme-code-block pre code .token.class-name,
+.recipe-content-card .theme-code-block pre code .token.attr-name,
+.recipe-content-card .theme-code-block pre code .token.constant,
+.recipe-content-card .theme-code-block pre code .token.builtin,
+.recipe-content-card .theme-code-block pre code .token.symbol {
+  color: var(--code-class) !important;
+}
+
+.recipe-content-card .theme-code-block pre code .token.variable,
+.recipe-content-card .theme-code-block pre code .token.parameter,
+.recipe-content-card .theme-code-block pre code .token.parameter.variable {
+  color: var(--code-variable) !important;
+}
+
+.recipe-content-card .theme-code-block pre code .token.operator {
+  color: var(--code-operator) !important;
+}
+
+.recipe-content-card .theme-code-block pre code .token.property,
+.recipe-content-card .theme-code-block pre code .token.property-access,
+.recipe-content-card .theme-code-block pre code .token.module,
+.recipe-content-card .theme-code-block pre code .token.imports,
+.recipe-content-card .theme-code-block pre code .token.exports,
+.recipe-content-card .theme-code-block pre code .token.directive,
+.recipe-content-card .theme-code-block pre code .token.directive-hash {
+  color: var(--code-foreground) !important;
+}

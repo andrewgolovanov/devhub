@@ -2,6 +2,10 @@ import { test, expect } from "@playwright/test";
 
 const PAGES = [
   { path: "/", title: "Databricks Developer" },
+  // Product pages temporarily unpublished (hidden via `_` prefix).
+  // { path: "/product/data-lakehouse", title: "Lakebase" },
+  // { path: "/product/agent-bricks", title: "Agent Bricks" },
+  // { path: "/product/databricks-apps", title: "Databricks Apps" },
   { path: "/solutions", title: "Solutions" },
   {
     path: "/solutions/devhub-launch",
@@ -108,5 +112,23 @@ test.describe("static assets load correctly", () => {
   test("llms.txt returns 200", async ({ request }) => {
     const response = await request.get("/llms.txt");
     expect(response.status()).toBe(200);
+  });
+
+  test("solutions RSS feed returns RSS XML", async ({ request }) => {
+    const response = await request.get("/solutions/rss.xml");
+    expect(response.status()).toBe(200);
+    expect(await response.text()).toContain("<rss");
+  });
+});
+
+test.describe("solutions RSS", () => {
+  test("RSS action links to the generated feed", async ({ page }) => {
+    await page.goto("/solutions");
+
+    const rssLink = page.getByRole("link", {
+      name: "Subscribe to the Databricks Developer Solutions RSS feed",
+    });
+
+    await expect(rssLink).toHaveAttribute("href", /\/solutions\/rss\.xml$/);
   });
 });

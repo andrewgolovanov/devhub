@@ -1,8 +1,5 @@
 import { test, expect, type Page } from "@playwright/test";
 
-const SPINNER_DELAY_MS = 400;
-const SPINNER_MIN_VISIBLE_MS = 800;
-
 function setupClipboardMock(page: Page) {
   return page.addInitScript(() => {
     Object.defineProperty(window.navigator, "clipboard", {
@@ -33,8 +30,8 @@ async function stubBootstrapPrompt(page: Page, delayMs: number) {
 }
 
 /**
- * Sample which label is currently visible in the BootstrapCopyButton's CSS
- * Grid. The active label is the only child that is not `.invisible`.
+ * Sample the new homepage hero copy button while the test-controlled API
+ * request is in flight.
  */
 async function recordButtonStateSamples(
   page: Page,
@@ -43,46 +40,46 @@ async function recordButtonStateSamples(
 ) {
   return page.evaluate(
     ({ duration, interval }) => {
-      return new Promise<Array<{ t: number; label: string | null }>>(
-        (resolve) => {
-          const btn = document.querySelector<HTMLButtonElement>(
-            'button[title*="Copies instructions"]',
-          );
-          if (!btn) {
-            resolve([]);
-            return;
-          }
-          const span = btn.querySelector<HTMLSpanElement>("span.grid");
-          const visibleText = (): string | null => {
-            if (!span) return null;
-            const labels = Array.from(span.children) as HTMLElement[];
-            const active = labels.find(
-              (l) => !l.classList.contains("invisible"),
-            );
-            return active ? (active.textContent || "").trim() : null;
-          };
-          const samples: Array<{ t: number; label: string | null }> = [];
-          const start = performance.now();
-          const id = window.setInterval(() => {
-            samples.push({
-              t: Math.round(performance.now() - start),
-              label: visibleText(),
-            });
-          }, interval);
-          btn.click();
-          window.setTimeout(() => {
-            window.clearInterval(id);
-            resolve(samples);
-          }, duration);
-        },
-      );
+      type Sample = {
+        t: number;
+        label: string | null;
+        disabled: boolean;
+        hasSpinner: boolean;
+      };
+
+      return new Promise<Array<Sample>>((resolve) => {
+        const btn = document.querySelector<HTMLButtonElement>(
+          'button[title="Copy agent prompt"]',
+        );
+        if (!btn) {
+          resolve([]);
+          return;
+        }
+        const samples: Array<Sample> = [];
+        const start = performance.now();
+        const sample = () => {
+          samples.push({
+            t: Math.round(performance.now() - start),
+            label: (btn.textContent || "").trim(),
+            disabled: btn.disabled,
+            hasSpinner: Boolean(btn.querySelector("svg.animate-spin")),
+          });
+        };
+        const id = window.setInterval(sample, interval);
+        btn.click();
+        sample();
+        window.setTimeout(() => {
+          window.clearInterval(id);
+          resolve(samples);
+        }, duration);
+      });
     },
     { duration: durationMs, interval: intervalMs },
   );
 }
 
-test.describe("hero bootstrap copy button — debounced spinner", () => {
-  test("fast path: spinner is suppressed when copy completes quickly", async ({
+test.describe("hero copy prompt button", () => {
+  test("fast path: copies quickly and lands on copied state", async ({
     page,
   }) => {
     await setupClipboardMock(page);
@@ -92,40 +89,38 @@ test.describe("hero bootstrap copy button — debounced spinner", () => {
     const samples = await recordButtonStateSamples(page, 1000);
 
     expect(samples.length).toBeGreaterThan(10);
-    const labels = new Set(samples.map((s) => s.label));
-    expect(labels.has("Copying…")).toBe(false);
-    expect(samples.at(-1)?.label).toBe("Copied — now paste into your agent");
+    expect(samples.at(-1)?.label).toBe("Copied");
+    expect(samples.at(-1)?.disabled).toBe(false);
+    await expect(page.getByRole("button", { name: "Copied" })).toBeVisible();
+    expect(
+      await page.evaluate(
+        () => (window as { __copiedText?: string }).__copiedText,
+      ),
+    ).toBe("# About DevHub\n\nstub bootstrap prompt");
   });
 
-  test("slow path: spinner appears after threshold and holds for the minimum visible window", async ({
+  test("slow path: disables the button and shows a spinner while the API request is pending", async ({
     page,
   }) => {
     await setupClipboardMock(page);
-    // Just barely past the spinner threshold so the min-visible hold is the
-    // dominant factor rather than the fetch latency itself.
     await stubBootstrapPrompt(page, 500);
     await page.goto("/");
 
-    const samples = await recordButtonStateSamples(page, 2200);
+    const samples = await recordButtonStateSamples(page, 1200);
 
-    const firstSpinner = samples.find((s) => s.label === "Copying…");
+    const firstSpinner = samples.find((s) => s.disabled && s.hasSpinner);
     const firstCopied = samples.find(
-      (s) => s.label === "Copied — now paste into your agent",
+      (s) => s.label === "Copied" && !s.disabled,
     );
 
     expect(
       firstSpinner,
-      "spinner should appear once fetch crosses threshold",
+      "spinner should appear while the bootstrap prompt is loading",
     ).toBeDefined();
     expect(
       firstCopied,
       "copy state should eventually transition to copied",
     ).toBeDefined();
-
-    // 50ms tolerance for sampling jitter.
-    expect(firstSpinner!.t).toBeGreaterThanOrEqual(SPINNER_DELAY_MS - 50);
-    expect(firstCopied!.t - firstSpinner!.t).toBeGreaterThanOrEqual(
-      SPINNER_MIN_VISIBLE_MS - 50,
-    );
+    expect(firstCopied!.t).toBeGreaterThan(firstSpinner!.t);
   });
 });

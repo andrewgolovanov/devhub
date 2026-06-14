@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { track } from "@vercel/analytics";
 import { toast } from "sonner";
-import { Check, Clipboard, LoaderCircle } from "lucide-react";
+import { Check, LoaderCircle } from "lucide-react";
+import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
@@ -13,6 +14,7 @@ import {
   useAgentMarkdown,
   type AgentMarkdownInput,
 } from "@/lib/use-agent-markdown";
+import { cn } from "@/lib/utils";
 
 export type CopyPromptButtonProps = AgentMarkdownInput & {
   disabled?: boolean;
@@ -49,7 +51,6 @@ export function CopyPromptButton({
       await navigator.clipboard.writeText(md);
       setCopyState("copied");
       track("copy_prompt", { title: input.title, permalink: input.permalink });
-      toast.success("Prompt copied");
     } catch {
       setCopyState("error");
       toast.error("Failed to copy prompt");
@@ -66,7 +67,7 @@ export function CopyPromptButton({
           <TooltipTrigger asChild>
             <span className="inline-flex">
               <Button size="sm" className={className} disabled>
-                <Clipboard className="h-4 w-4" />
+                <Icons.copy className="h-4 w-4" />
                 {label}
               </Button>
             </span>
@@ -80,7 +81,7 @@ export function CopyPromptButton({
   return (
     <Button
       size="sm"
-      className={className}
+      className={cn(className)}
       onClick={handleCopy}
       disabled={copyState === "copying"}
     >
@@ -98,7 +99,7 @@ export function CopyPromptButton({
         "Try again"
       ) : (
         <>
-          <Clipboard className="h-4 w-4" />
+          <Icons.copy className="h-4 w-4" />
           {label}
         </>
       )}

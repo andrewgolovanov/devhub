@@ -1,9 +1,5 @@
 import * as React from "react";
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  MoreHorizontalIcon,
-} from "lucide-react";
+import { MoreHorizontalIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { buttonVariants, type Button } from "@/components/ui/button";
@@ -65,6 +61,32 @@ function PaginationLink({
   );
 }
 
+function PaginationArrowIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      width="14"
+      height="14"
+      viewBox="0 0 14 14"
+      fill="none"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M7.0013 11.0807L2.91797 6.9974L7.0013 2.91406"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
+      <path
+        d="M11.0846 7L2.91797 7"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 function PaginationPrevious({
   className,
   ...props
@@ -76,7 +98,7 @@ function PaginationPrevious({
       className={cn("gap-1 px-2.5 sm:pl-2.5", className)}
       {...props}
     >
-      <ChevronLeftIcon />
+      <PaginationArrowIcon />
       <span className="hidden sm:block">Previous</span>
     </PaginationLink>
   );
@@ -94,7 +116,7 @@ function PaginationNext({
       {...props}
     >
       <span className="hidden sm:block">Next</span>
-      <ChevronRightIcon />
+      <PaginationArrowIcon className="rotate-180" />
     </PaginationLink>
   );
 }

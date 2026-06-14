@@ -31,17 +31,14 @@ export default function DocSidebarItemLink({
       <Link
         className={clsx(
           "menu__link",
-          "relative !rounded-md !border-none !px-2.5 !py-2 !text-[13.5px] !leading-snug transition-colors duration-150",
-          level === 1 ? "!font-semibold" : "!font-normal",
-          "!text-muted-foreground hover:!text-foreground hover:!bg-db-navy/[0.04] dark:hover:!bg-white/[0.05]",
+          "relative !rounded-none !border-none !px-2 !py-1.5 !text-[13px] !font-normal !leading-snug transition-colors duration-150",
+          "!bg-transparent !text-grey-70 hover:!bg-transparent hover:!text-white",
           "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
           !isInternalLink && "items-center",
           isActive && [
             "menu__link--active",
-            "!font-semibold !text-db-navy dark:!text-white",
-            "!bg-db-lava/[0.08] hover:!bg-db-lava/[0.12]",
-            "dark:!bg-db-lava-light/[0.14] dark:hover:!bg-db-lava-light/[0.18]",
-            "before:content-[''] before:absolute before:left-0 before:top-1.5 before:bottom-1.5 before:w-[3px] before:rounded-full before:bg-db-lava dark:before:bg-db-lava-light",
+            "!font-normal !text-orange hover:!text-orange",
+            "!bg-transparent hover:!bg-transparent",
           ],
         )}
         autoAddBaseUrl={autoAddBaseUrl}

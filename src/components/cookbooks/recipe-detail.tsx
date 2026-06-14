@@ -1,15 +1,14 @@
-import Link from "@docusaurus/Link";
-import Layout from "@theme/Layout";
 import { MDXProvider } from "@mdx-js/react";
-import type { ReactNode } from "react";
-import { AgentUsageCard } from "@/components/agent-usage-card";
-import { Badge } from "@/components/ui/badge";
+import { useRef, type ReactNode } from "react";
 import { RecipePre } from "@/components/cookbooks/recipe-code-block";
-import { TemplatePreviewImage } from "@/components/examples/template-preview-image";
 import { FallbackCardArt } from "@/components/examples/fallback-card-art";
+import { TemplatePreviewImage } from "@/components/examples/template-preview-image";
 import { recipes } from "@/lib/recipes/recipes";
 import { useRawRecipeMarkdown } from "@/lib/use-raw-content-markdown";
 import { BaseUrlAnchor } from "@/components/base-url-anchor";
+import { MarkdownProse } from "@/components/markdown-prose";
+import { TemplateDetailShell } from "@/components/templates/template-detail-shell";
+import type { TemplateItem } from "@/components/templates/template-card";
 
 const recipeComponents = { a: BaseUrlAnchor, pre: RecipePre };
 
@@ -22,6 +21,7 @@ export function RecipeDetail({
   recipeId,
   children,
 }: RecipeDetailProps): ReactNode {
+  const contentRef = useRef<HTMLDivElement>(null);
   const recipe = recipes.find((item) => item.id === recipeId);
   const rawMarkdown = useRawRecipeMarkdown(recipeId);
 
@@ -29,62 +29,58 @@ export function RecipeDetail({
     throw new Error(`Recipe ${recipeId} not found`);
   }
 
+  const relatedItems: TemplateItem[] = recipes
+    .filter(
+      (item) =>
+        item.id !== recipe.id &&
+        !item.unlisted &&
+        item.services.some((service) => recipe.services.includes(service)),
+    )
+    .slice(0, 3)
+    .map((data) => ({ kind: "recipe" as const, data }));
+  const isHackathonTemplate = recipe.id === "hackathon-app-with-synced-dataset";
+
   return (
-    <Layout title={recipe.name} description={recipe.description}>
-      <main>
-        <div className="container px-4 py-8 md:py-12">
-          <div className="mx-auto max-w-3xl">
-            <Link
-              to="/templates"
-              className="mb-6 inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground no-underline transition-colors hover:text-foreground"
-            >
-              <span aria-hidden="true">&larr;</span>
-              All templates
-            </Link>
-
-            <div className="mb-10">
-              <h1 className="mb-3 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-                {recipe.name}
-              </h1>
-              <p className="mb-4 max-w-xl text-base leading-relaxed text-muted-foreground">
-                {recipe.description}
-              </p>
-              {recipe.services.length > 0 && (
-                <div className="mb-6 flex flex-wrap gap-2">
-                  {recipe.services.map((service) => (
-                    <Badge key={service} variant="secondary">
-                      {service}
-                    </Badge>
-                  ))}
-                </div>
-              )}
-              <AgentUsageCard
-                kind="recipe"
-                slug={recipe.id}
-                rawMarkdown={rawMarkdown}
-                title={recipe.name}
-                description={recipe.description}
-                permalink={`/templates/${recipe.id}`}
-              />
-            </div>
-
-            <div className="relative mb-8 aspect-video w-full overflow-hidden rounded-xl border border-border/60 bg-muted/30">
-              <TemplatePreviewImage
-                lightUrl={recipe.previewImageLightUrl}
-                darkUrl={recipe.previewImageDarkUrl}
-                alt={`${recipe.name} preview`}
-                fallback={<FallbackCardArt index={0} />}
-              />
-            </div>
-
-            <div className="border-t border-border/60 pt-8">
-              <MDXProvider components={recipeComponents}>
-                <div className="prose-solution">{children}</div>
-              </MDXProvider>
-            </div>
+    <TemplateDetailShell
+      title={recipe.name}
+      description={recipe.description}
+      contentRef={contentRef}
+      services={recipe.services}
+      usage={{
+        kind: "recipe",
+        slug: recipe.id,
+        rawMarkdown,
+        title: recipe.name,
+        description: recipe.description,
+        permalink: `/templates/${recipe.id}`,
+      }}
+      heroMedia={
+        isHackathonTemplate ? undefined : (
+          <div className="relative aspect-[16/9] w-full overflow-hidden border border-black/12 bg-black/4 dark:border-white/15 dark:bg-white/5">
+            <TemplatePreviewImage
+              lightUrl={recipe.previewImageLightUrl}
+              darkUrl={recipe.previewImageDarkUrl}
+              alt={`${recipe.name} preview`}
+              fallback={<FallbackCardArt index={0} />}
+            />
           </div>
-        </div>
-      </main>
-    </Layout>
+        )
+      }
+      relatedItems={relatedItems}
+      presentation={isHackathonTemplate ? "hackathon" : "default"}
+    >
+      <MDXProvider components={recipeComponents}>
+        <MarkdownProse
+          className={
+            isHackathonTemplate
+              ? "mt-10 max-w-[46rem] recipe-content-card template-dark-prose md:mt-12"
+              : undefined
+          }
+          variant="dark"
+        >
+          {children}
+        </MarkdownProse>
+      </MDXProvider>
+    </TemplateDetailShell>
   );
 }

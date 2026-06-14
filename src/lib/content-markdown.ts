@@ -6,7 +6,7 @@ import {
 } from "./content-sections";
 
 type ContentMarkdownSection = "recipes" | "solutions" | "examples";
-type FolderContentSection = "recipes" | "examples";
+type FolderContentSection = "recipes" | "solutions" | "examples";
 
 function markdownDirectory(
   rootDir: string,
@@ -15,13 +15,8 @@ function markdownDirectory(
   return resolve(rootDir, "content", section);
 }
 
-/** Solutions are still single flat `.md` files. */
-export function getSolutionSlugs(rootDir: string): string[] {
-  const directory = markdownDirectory(rootDir, "solutions");
-  return readdirSync(directory)
-    .filter((fileName) => fileName.endsWith(".md"))
-    .map((fileName) => fileName.slice(0, -3))
-    .sort();
+function getSolutionSlugs(rootDir: string): string[] {
+  return getContentSlugs(rootDir, "solutions");
 }
 
 export function hasSolutionSlug(rootDir: string, slug: string): boolean {
@@ -29,7 +24,8 @@ export function hasSolutionSlug(rootDir: string, slug: string): boolean {
 }
 
 /**
- * Recipes and examples live in `content/<section>/<slug>/` folders.
+ * Recipes, examples, and solutions live in `content/<section>/<slug>/`
+ * folders.
  * A folder is published if it has goal.md.
  */
 export function getContentSlugs(

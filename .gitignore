@@ -11,7 +11,15 @@ bun.lock
 .cache-loader
 static/llms.txt
 static/robots.txt
+static/blog/rss.xml
 static/raw-docs
+static/docs
+static/templates
+static/solutions
+static/blog/*.md
+static/blog.md
+static/templates.md
+static/solutions.md
 docs/appkit/
 src/components/doc-examples/
 static/appkit-preview/
