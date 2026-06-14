@@ -2,10 +2,9 @@ import { test, expect } from "@playwright/test";
 
 const PAGES = [
   { path: "/", title: "Databricks Developer" },
-  // Product pages temporarily unpublished (hidden via `_` prefix).
-  // { path: "/product/data-lakehouse", title: "Lakebase" },
-  // { path: "/product/agent-bricks", title: "Agent Bricks" },
-  // { path: "/product/databricks-apps", title: "Databricks Apps" },
+  { path: "/product/data-lakehouse", title: "Lakebase" },
+  { path: "/product/agent-bricks", title: "Agent Bricks" },
+  { path: "/product/databricks-apps", title: "Databricks Apps" },
   { path: "/solutions", title: "Solutions" },
   {
     path: "/solutions/devhub-launch",

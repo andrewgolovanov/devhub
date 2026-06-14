@@ -1,6 +1,5 @@
 export const HEADER_LINKS = [
-  // Temporarily hidden while product pages are unpublished.
-  // { label: "Product", href: "/product/data-lakehouse" },
+  { label: "Product", href: "/product/data-lakehouse" },
   { label: "Solutions", href: "/solutions" },
   { label: "Templates", href: "/templates" },
   { label: "Docs", href: "/docs/start-here", activePath: "/docs" },
