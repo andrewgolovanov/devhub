@@ -388,7 +388,6 @@ test.describe("footer navigation", () => {
       href: "/",
       label: "Databricks logo",
     },
-    // Product footer links temporarily hidden.
     {
       href: "/docs/start-here",
       label: "Docs",
@@ -399,12 +398,16 @@ test.describe("footer navigation", () => {
 
   const FOOTER_EXTERNAL_LINKS = [
     {
-      href: "https://www.databricks.com/company/contact",
-      label: "Contact Sales",
+      href: "https://www.databricks.com/product/databricks-apps",
+      label: "Databricks Apps",
     },
     {
-      href: "https://docs.databricks.com/release-notes/",
-      label: "Changelog",
+      href: "https://www.databricks.com/product/lakebase",
+      label: "Lakebase",
+    },
+    {
+      href: "https://www.databricks.com/product/artificial-intelligence/agent-bricks",
+      label: "Agent Bricks",
     },
     {
       href: "https://www.databricks.com/legal/privacynotice",
@@ -423,12 +426,12 @@ test.describe("footer navigation", () => {
       label: "California Privacy",
     },
     {
-      href: "https://www.youtube.com/@Databricks",
-      label: "YouTube",
-    },
-    {
       href: "https://www.reddit.com/r/databricks/",
       label: "Reddit",
+    },
+    {
+      href: "https://www.youtube.com/@Databricks",
+      label: "YouTube",
     },
     {
       href: "https://github.com/databricks/devhub",
@@ -443,14 +446,15 @@ test.describe("footer navigation", () => {
     "https://www.databricks.com/legal/terms-of-use",
     "https://www.databricks.com/legal/modern-slavery-policy-statement",
     "https://www.databricks.com/legal/supplemental-privacy-notice-california-residents",
-    "https://www.databricks.com/company/contact",
+    "https://www.databricks.com/product/databricks-apps",
+    "https://www.databricks.com/product/lakebase",
+    "https://www.databricks.com/product/artificial-intelligence/agent-bricks",
     "/docs/start-here",
     "/templates",
     "/solutions",
-    "https://docs.databricks.com/release-notes/",
-    "https://github.com/databricks/devhub",
-    "https://www.youtube.com/@Databricks",
     "https://www.reddit.com/r/databricks/",
+    "https://www.youtube.com/@Databricks",
+    "https://github.com/databricks/devhub",
     "https://www.databricks.com",
   ];
 
