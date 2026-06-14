@@ -163,7 +163,8 @@ const event: HackathonEvent = {
     },
     {
       title: "Evidence and uncertainty",
-      detail: "Is the user clear? Are the workflow and tradeoffs thoughtful?",
+      detail:
+        "Are outputs grounded in citations? Is uncertainty handled honestly?",
     },
     {
       title: "Technical execution",
