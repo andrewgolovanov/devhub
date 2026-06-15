@@ -545,6 +545,12 @@
   gap: 6px;
 }
 
+/* Underline the link text so it's clearly recognizable as a link */
+.theme-announcement-bar .banner-link-text {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 /* Arrow icon */
 .theme-announcement-bar .banner-arrow {
   width: 16px;
