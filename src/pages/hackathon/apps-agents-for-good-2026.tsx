@@ -66,7 +66,15 @@ const event: HackathonEvent = {
       href: "/hackathon/quick-start-checklist",
       description:
         "Follow the step-by-step checklist to get set up and start coding.",
+      wide: true,
       showWhenAllResources: true,
+    },
+    {
+      label: "Challenge",
+      title: "The challenge",
+      href: "/hackathon/challenge",
+      description:
+        "Read the full challenge prompt, dataset overview, and the four tracks you can pick from.",
     },
     {
       label: "Setup guide",
