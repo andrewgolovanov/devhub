@@ -61,7 +61,7 @@ const testimonialLogoAssets = [
   {
     match: "lippert",
     src: "/img/products/testimonials/lippert.svg",
-    width: 158,
+    width: 160,
   },
 ] as const;
 
