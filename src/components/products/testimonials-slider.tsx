@@ -41,12 +41,12 @@ const testimonialLogoAssets = [
   {
     match: "e.on",
     src: "/img/products/testimonials/eon.svg",
-    width: 158,
+    width: 160,
   },
   {
     match: "addi",
     src: "/img/products/testimonials/addi.svg",
-    width: 158,
+    width: 128,
   },
   {
     match: "astrazeneca",
@@ -56,7 +56,7 @@ const testimonialLogoAssets = [
   {
     match: "flo health",
     src: "/img/products/testimonials/flo-health.svg",
-    width: 158,
+    width: 104,
   },
   {
     match: "lippert",
