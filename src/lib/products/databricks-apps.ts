@@ -67,11 +67,11 @@ export const databricksAppsProduct: ProductPageContent = {
       index: "01",
       title: "Run your app inside Databricks.",
       description:
-        "Serverless hosting for full-stack apps, with compute, routing, and deployment handled.",
+        "Serverless hosting for full-stack apps, with compute, TLS, and deployment handled.",
       body: "Apps run inside your workspace — no infrastructure to manage and no separate hosting to maintain.",
       details: [
         "Containerized runtime with managed compute",
-        "Built-in routing, TLS, and app URLs",
+        "Built-in TLS and automatic HTTPS app URLs",
         "Automatic builds and deploys from source",
       ],
       visual: "serverless",

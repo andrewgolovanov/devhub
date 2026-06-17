@@ -5,7 +5,7 @@ export const lakebaseProduct: ProductPageContent = {
   title: "Lakebase",
   description:
     "Managed Postgres with branching, autoscaling, and Lakehouse sync for modern operational workloads.",
-  canonicalPath: "/product/lakebase",
+  canonicalPath: "/product/data-lakehouse",
   hero: {
     eyebrow: "Lakebase",
     title: "Managed Postgres, built for modern operational workloads.",
@@ -82,7 +82,7 @@ export const lakebaseProduct: ProductPageContent = {
       title: "Right-size your compute automatically.",
       description:
         "Demand-driven, scaled to zero on idle, milliseconds to wake.",
-      body: "Lakebase tracks load in real time and adjusts capacity within the range you set, billing per active second.",
+      body: "Lakebase tracks load in real time and adjusts capacity within the range you set, with no compute cost while idle.",
       details: [
         "Non-disruptive scaling within range",
         "Independent autoscaling per replica",
@@ -94,7 +94,8 @@ export const lakebaseProduct: ProductPageContent = {
       eyebrow: "Lakehouse sync",
       index: "03",
       title: "Connect your app to your Lakehouse.",
-      description: "Two-way, fully managed, governed by Unity Catalog.",
+      description:
+        "Inbound and outbound, fully managed, governed by Unity Catalog.",
       body: "Both directions are managed by Databricks, no external pipelines, no jobs you have to operate, no glue code to maintain.",
       details: [
         "Snapshot, triggered, or continuous sync",

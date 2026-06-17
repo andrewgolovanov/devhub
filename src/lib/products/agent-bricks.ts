@@ -68,10 +68,10 @@ export const agentBricksProduct: ProductPageContent = {
       title: "Use the right model for every task.",
       description:
         "Switch between leading models like GPT, Claude, Llama, and more.",
-      body: "Send requests through a single API and route each task to the best-fitting model — without building your own orchestration layer.",
+      body: "Send requests through a single API and route across models by cost, performance, or availability — without building your own orchestration layer.",
       details: [
         "Access models from multiple providers in one place",
-        "Route requests by task, cost, or performance",
+        "Route requests by cost, performance, or availability",
         "Built-in fallback and usage controls",
       ],
       visual: "multi-model",
