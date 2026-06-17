@@ -51,7 +51,7 @@ const testimonialLogoAssets = [
   {
     match: "astrazeneca",
     src: "/img/products/testimonials/astrazeneca.svg",
-    width: 200,
+    width: 193,
   },
   {
     match: "flo health",
