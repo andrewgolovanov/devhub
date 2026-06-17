@@ -72,7 +72,7 @@ export const databricksAppsProduct: ProductPageContent = {
       details: [
         "Containerized runtime with managed compute",
         "Built-in routing, TLS, and app URLs",
-        "Built-in routing, TLS, and app URLs",
+        "Automatic builds and deploys from source",
       ],
       visual: "serverless",
     },
