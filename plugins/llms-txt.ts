@@ -63,7 +63,7 @@ const SIDEBAR_SECTIONS: Array<{
   {
     title: "Lakebase",
     description:
-      "Managed PostgreSQL for operational workloads with Databricks-native governance and Delta Lake sync.",
+      "Managed PostgreSQL for agentic workloads with Databricks-native governance and Delta Lake sync.",
     slugs: [
       "lakebase/quickstart",
       "lakebase/configuration",

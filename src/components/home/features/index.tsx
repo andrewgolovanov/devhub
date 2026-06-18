@@ -16,6 +16,14 @@ import {
 
 const FEATURES = [
   {
+    eyebrow: "Databricks Apps",
+    title: "Web apps that run inside your workspace.",
+    description:
+      "One CLI command to deploy. Fixed URL, built-in OAuth, and direct access to your workspace data, with no separate hosting service.",
+    href: "/product/databricks-apps",
+    visual: "apps",
+  },
+  {
     eyebrow: "Lakebase",
     title: "Managed Postgres, colocated with your Lakehouse.",
     description:
@@ -30,14 +38,6 @@ const FEATURES = [
       "Any Python framework, Databricks-hosted models, automatic MLflow tracing, and MCP for workspace tools.",
     href: "/product/agent-bricks",
     visual: "agents",
-  },
-  {
-    eyebrow: "Databricks Apps",
-    title: "Web apps that run inside your workspace.",
-    description:
-      "One CLI command to deploy. Fixed URL, built-in OAuth, and direct access to your workspace data, with no separate hosting service.",
-    href: "/product/databricks-apps",
-    visual: "apps",
   },
 ] as const;
 

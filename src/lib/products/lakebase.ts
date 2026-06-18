@@ -4,14 +4,14 @@ export const lakebaseProduct: ProductPageContent = {
   slug: "lakebase",
   title: "Lakebase",
   description:
-    "Managed Postgres with branching, autoscaling, and Lakehouse sync for modern operational workloads.",
+    "Managed Postgres with branching, autoscaling, and Lakehouse sync for modern agentic workloads.",
   canonicalPath: "/product/data-lakehouse",
   hero: {
     eyebrow: "Lakebase",
-    title: "Managed Postgres, built for modern operational workloads.",
+    title: "Managed Postgres, built for modern agentic workloads.",
     highlightedTitle: "Lakebase.",
     description:
-      "The operational database with branching, autoscaling, and your Lakehouse data.",
+      "The serverless database with branching, autoscaling, and your Lakehouse data.",
     image: {
       src: "/img/products/hero/lakebase.png",
       alt: "Lakebase dashboard showing monitoring, branches, and project settings.",
@@ -109,7 +109,7 @@ export const lakebaseProduct: ProductPageContent = {
     eyebrow: "Use cases",
     title: "How teams use Lakebase in production.",
     description:
-      "Lakebase powers the operational layer between apps, agents, and your Lakehouse.",
+      "Lakebase powers the data layer between apps, agents, and your Lakehouse.",
   },
   useCases: [
     {
