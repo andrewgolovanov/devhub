@@ -29,10 +29,6 @@ const testimonialLogoAssets = [
     src: "/img/products/testimonials/yipitdata.svg",
     width: 197,
   },
-  // TODO(design): the SVGs below do not exist yet. Add the real brand logos to
-  // /static/img/products/testimonials/ before publishing the Databricks Apps
-  // and Agent Bricks pages, or these logos will 404. Registering them here
-  // prevents the wrong yipitDATA fallback logo from rendering in the meantime.
   {
     match: "sae",
     src: "/img/products/testimonials/sae-international.svg",
