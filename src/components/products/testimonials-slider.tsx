@@ -82,7 +82,7 @@ function TestimonialLogo({
   return (
     <img
       alt={`${company} logo`}
-      className="h-7 max-w-full self-start object-contain object-left md:h-8 lg:h-9 xl:h-12"
+      className="h-7 max-w-full self-start object-contain object-left brightness-0 invert md:h-8 lg:h-9 xl:h-12"
       decoding="async"
       height={36}
       loading="lazy"
