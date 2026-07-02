@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import Link from "@docusaurus/Link";
+import Link from "next/link";
 
 import { cn } from "@/lib/utils";
 
@@ -14,6 +14,30 @@ type DocsFooterProps = {
   previous?: FooterLink | null;
 };
 
+function DocsFooterLink({
+  children,
+  className,
+  href,
+}: {
+  children: ReactNode;
+  className: string;
+  href: string;
+}): ReactNode {
+  if (href.endsWith("/")) {
+    return (
+      <a className={className} href={href}>
+        {children}
+      </a>
+    );
+  }
+
+  return (
+    <Link className={className} href={href}>
+      {children}
+    </Link>
+  );
+}
+
 export function DocsFooter({
   className,
   next,
@@ -27,30 +51,30 @@ export function DocsFooter({
           <div className="flex justify-between gap-x-6">
             {previous ? (
               <p className="flex flex-col gap-y-3">
-                <span className="relative z-10 inline-flex whitespace-nowrap text-[0.8125rem]/none text-[#A1A1AA]">
+                <span className="relative z-10 inline-flex text-[0.8125rem]/none whitespace-nowrap text-[#A1A1AA]">
                   Previous
                 </span>
-                <Link
-                  className="text-sm leading-none text-orange no-underline hover:text-db-lava hover:no-underline"
-                  to={previous.permalink}
+                <DocsFooterLink
+                  className="text-orange hover:text-db-lava text-sm leading-none no-underline hover:no-underline"
+                  href={previous.permalink}
                 >
                   {previous.title}
-                </Link>
+                </DocsFooterLink>
               </p>
             ) : (
               <span aria-hidden="true" />
             )}
             {next ? (
-              <p className="ml-auto flex flex-col gap-y-3 text-right items-end">
-                <span className="relative z-10 inline-flex whitespace-nowrap text-[0.8125rem]/none text-[#A1A1AA]">
+              <p className="ml-auto flex flex-col items-end gap-y-3 text-right">
+                <span className="relative z-10 inline-flex text-[0.8125rem]/none whitespace-nowrap text-[#A1A1AA]">
                   Next
                 </span>
-                <Link
-                  className="text-sm leading-none text-orange no-underline hover:text-db-lava hover:no-underline"
-                  to={next.permalink}
+                <DocsFooterLink
+                  className="text-orange hover:text-db-lava text-sm leading-none no-underline hover:no-underline"
+                  href={next.permalink}
                 >
                   {next.title}
-                </Link>
+                </DocsFooterLink>
               </p>
             ) : null}
           </div>

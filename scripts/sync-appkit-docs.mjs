@@ -1,12 +1,19 @@
+import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { spawnSync } from "node:child_process";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..");
+const nextAppKitDocsRoot = path.join(
+  repoRoot,
+  "src",
+  "content",
+  "docs",
+  "appkit",
+);
 
 const APPKIT_REMOTE =
   process.env.APPKIT_REMOTE || "https://github.com/databricks/appkit.git";
@@ -82,6 +89,82 @@ function replaceDir(source, destination) {
   copyDirRecursive(source, destination);
 }
 
+function walkFiles(root) {
+  if (!fs.existsSync(root)) {
+    return [];
+  }
+
+  const files = [];
+  for (const entry of fs.readdirSync(root, { withFileTypes: true })) {
+    const entryPath = path.join(root, entry.name);
+
+    if (entry.isDirectory()) {
+      files.push(...walkFiles(entryPath));
+    } else {
+      files.push(entryPath);
+    }
+  }
+
+  return files;
+}
+
+function normalizeSyncedDocs(docsRoot) {
+  const upstreamLlmsLinkHelper =
+    /import\s+\w+Context\s+from\s+["'][^"']+["'];\n\nexport function LlmsTxtLink\([\s\S]*?^}\n\n/gm;
+  const upstreamSidebarConfigImport =
+    /import\s+\{\s*SidebarsConfig\s*\}\s+from\s+["'][^"']+["'];\n/;
+
+  const typedocSidebarTypes = `type SidebarDocItem = {
+  type: "doc";
+  id: string;
+  label: string;
+};
+
+type SidebarCategoryItem = {
+  type: "category";
+  label: string;
+  items: Array<SidebarDocItem | SidebarCategoryItem>;
+};
+
+type TypedocSidebar = {
+  items: SidebarCategoryItem[];
+};
+
+`;
+
+  for (const filePath of walkFiles(docsRoot)) {
+    if (!/\.(md|mdx|ts|tsx)$/.test(filePath)) {
+      continue;
+    }
+
+    const source = fs.readFileSync(filePath, "utf-8");
+    let updated = source
+      .replaceAll(
+        "@site@/components/DocExample",
+        "@/components/content/doc-example",
+      )
+      .replaceAll(
+        "@site/src/components/DocExample",
+        "@/components/content/doc-example",
+      )
+      .replace(upstreamLlmsLinkHelper, "")
+      .replaceAll("<LlmsTxtLink />", "[`llms.txt`](/llms.txt)");
+
+    if (upstreamSidebarConfigImport.test(updated)) {
+      updated = updated
+        .replace(upstreamSidebarConfigImport, typedocSidebarTypes)
+        .replace(
+          "const typedocSidebar: SidebarsConfig = {",
+          "const typedocSidebar: TypedocSidebar = {",
+        );
+    }
+
+    if (updated !== source) {
+      fs.writeFileSync(filePath, updated, "utf-8");
+    }
+  }
+}
+
 // Reads the major version of the installed @databricks/appkit-ui package and
 // returns the matching channel directory name (e.g. v0, v1). The local docs
 // channel always tracks the installed package's major so the sidebar, the
@@ -97,7 +180,7 @@ function readInstalledAppKitChannel() {
   );
   if (!fs.existsSync(pkgJsonPath)) {
     fail(
-      "@databricks/appkit-ui is not installed. Run `npm install` and retry.",
+      "@databricks/appkit-ui is not installed. Run `pnpm install` and retry.",
     );
   }
   const { version } = JSON.parse(fs.readFileSync(pkgJsonPath, "utf-8"));
@@ -135,9 +218,9 @@ function readSyncedSha(sourceRefPath) {
 // Decides whether the existing on-disk sync is still valid. The sync is valid
 // only when ALL of these hold:
 //
-//   1. docs/appkit/<channel>/.source-ref exists (docs were synced before)
+//   1. src/content/docs/appkit/<channel>/.source-ref exists (docs were synced before)
 //   2. src/components/doc-examples/registry.ts exists (examples were synced)
-//   3. static/appkit-preview/<channel>/styles.css exists (styles compiled)
+//   3. public/appkit-preview/<channel>/styles.css exists (styles compiled)
 //   4. The recorded SHA matches the current upstream HEAD on APPKIT_BRANCH
 //
 // Item 4 is the important one: Vercel restores the build cache between
@@ -156,7 +239,7 @@ function isAlreadySynced(channelDir, channel) {
   );
   const stylesPath = path.join(
     repoRoot,
-    "static",
+    "public",
     "appkit-preview",
     channel,
     "styles.css",
@@ -240,14 +323,14 @@ function getHeadSha(repoDir) {
 }
 
 // Copies versioned docs from the cloned repo if they exist.
-// Currently AppKit has no versioned_docs — this is future-proofing for when
-// AppKit adopts Docusaurus versioning (docs/versioned_docs/version-X/).
+// Currently AppKit has no versioned_docs, but the upstream repository may add
+// versioned documentation folders later.
 //
-// TODO: When AppKit starts using Docusaurus versioning:
+// TODO: When AppKit starts publishing versioned docs:
 // - Read docs/versions.json to determine the latest released version
-// - Copy docs/versioned_docs/version-<latest>/ → docs/appkit/v<major>/ (instead of docs/docs/)
-// - Copy docs/docs/ → docs/appkit/next/ (unreleased dev docs)
-// - Copy remaining versioned_docs/version-*/ → docs/appkit/version-*/
+// - Copy docs/versioned_docs/version-<latest>/ → src/content/docs/appkit/v<major>/ (instead of docs/docs/)
+// - Copy docs/docs/ → src/content/docs/appkit/next/ (unreleased dev docs)
+// - Copy remaining versioned_docs/version-*/ → src/content/docs/appkit/version-*/
 function syncVersionedDocs(clonedRoot, docsRoot) {
   const versionedDocsDir = path.join(clonedRoot, "docs", "versioned_docs");
 
@@ -282,10 +365,34 @@ function pascalCase(stem) {
     .join("");
 }
 
+function adaptExampleSourceForNext(filename, source) {
+  if (filename !== "aspect-ratio.example.tsx") return source;
+
+  return source
+    .replace(
+      'import { AspectRatio } from "@databricks/appkit-ui/react"',
+      'import Image from "next/image"\nimport { AspectRatio } from "@databricks/appkit-ui/react"',
+    )
+    .replace(
+      `      <img
+        src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80"
+        alt="Photo by Drew Beamer"
+        className="h-full w-full rounded-md object-cover"
+      />`,
+      `      <Image
+        src="/img/guides/ai-chat-app-preview-light.png"
+        alt="AI Chat App preview"
+        width={1600}
+        height={900}
+        className="h-full w-full rounded-md object-cover"
+      />`,
+    );
+}
+
 // Walks the cloned appkit tree for example files and writes them under
 // src/components/doc-examples, preserving kebab-case filenames so the
 // <DocExample name="..."> contract stays stable. The synced channel name
-// (e.g. "v0") is embedded in the registry so DocExample.tsx can load the
+// (e.g. "v0") is embedded in the registry so doc-example.tsx can load the
 // matching `/appkit-preview/<channel>/styles.css` stylesheet without
 // re-deriving it from package.json.
 function syncExamples(clonedRoot, syncedChannel) {
@@ -304,7 +411,11 @@ function syncExamples(clonedRoot, syncedChannel) {
 
       const src = path.join(srcDir, entry.name);
       const dest = path.join(outDir, entry.name);
-      fs.copyFileSync(src, dest);
+      const source = adaptExampleSourceForNext(
+        entry.name,
+        fs.readFileSync(src, "utf-8"),
+      );
+      fs.writeFileSync(dest, source, "utf-8");
 
       const stem = entry.name.slice(0, -".example.tsx".length);
       collected.push({ stem, filename: entry.name });
@@ -332,7 +443,7 @@ function syncExamples(clonedRoot, syncedChannel) {
     })
     .join(",\n");
 
-  const registry = `// Auto-generated by scripts/sync-appkit-docs.mjs. Do not edit by hand.\n// Source files alongside this registry are vendored verbatim from the\n// appkit main branch and import from '@databricks/appkit-ui/react'.\nimport type { ComponentType } from "react";\n${imports}\n\nexport type DocExampleEntry = { Component: ComponentType; source: string };\n\n// The AppKit channel directory the sync script wrote docs and styles into\n// (e.g. v0, v1). Kept in sync with @databricks/appkit-ui's installed major\n// version so DocExample can load the matching compiled stylesheet.\nexport const APPKIT_CHANNEL = ${JSON.stringify(syncedChannel)};\n\nexport const docExamples = {\n${entries},\n} as const satisfies Record<string, DocExampleEntry>;\n\nexport type DocExampleKey = keyof typeof docExamples;\n`;
+  const registry = `// Auto-generated by scripts/sync-appkit-docs.mjs. Do not edit by hand.\n// Source files alongside this registry are vendored from the appkit main\n// branch, with DevHub's Next.js runtime adapters applied where needed.\nimport type { ComponentType } from "react";\n${imports}\n\ntype DocExampleEntry = { Component: ComponentType; source: string };\n\n// The AppKit channel directory the sync script wrote docs and styles into\n// (e.g. v0, v1). Kept in sync with @databricks/appkit-ui's installed major\n// version so DocExample can load the matching compiled stylesheet.\nexport const APPKIT_CHANNEL = ${JSON.stringify(syncedChannel)};\n\nexport const docExamples = {\n${entries},\n} as const satisfies Record<string, DocExampleEntry>;\n\nexport type DocExampleKey = keyof typeof docExamples;\n`;
 
   fs.writeFileSync(path.join(outDir, "registry.ts"), registry, "utf-8");
 
@@ -358,7 +469,7 @@ async function syncCompiledStyles(channel, version) {
     fail(`dist/styles.css not found in @databricks/appkit-ui@${version}.`);
   }
 
-  const destDir = path.join(repoRoot, "static", "appkit-preview", channel);
+  const destDir = path.join(repoRoot, "public", "appkit-preview", channel);
   fs.mkdirSync(destDir, { recursive: true });
   const destCss = path.join(destDir, "styles.css");
 
@@ -375,7 +486,7 @@ async function syncCompiledStyles(channel, version) {
 
   // NOTE: avoid `*/` anywhere inside this banner -- it would terminate the
   // CSS comment early and break the entire stylesheet's parsing.
-  const banner = `/* Synced from @databricks/appkit-ui@${version} (${channel}).\n * Source of truth: https://github.com/databricks/appkit\n * Compiled via @tailwindcss/postcss; do not edit by hand.\n * Regenerate via: npm run sync:appkit-docs\n */\n`;
+  const banner = `/* Synced from @databricks/appkit-ui@${version} (${channel}).\n * Source of truth: https://github.com/databricks/appkit\n * Compiled via @tailwindcss/postcss; do not edit by hand.\n * Regenerate via: pnpm sync:appkit-docs\n */\n`;
   fs.writeFileSync(destCss, banner + result.css, "utf-8");
 
   console.log(
@@ -387,12 +498,13 @@ async function syncCompiledStyles(channel, version) {
 async function main() {
   const force = process.argv.includes("--force");
 
-  const docsRoot = path.join(repoRoot, "docs", "appkit");
+  const docsRoot = nextAppKitDocsRoot;
   const { channel, version } = readInstalledAppKitChannel();
   const channelDir = path.join(docsRoot, channel);
 
   // Skip if docs already exist (unless --force)
   if (!force && isAlreadySynced(channelDir, channel)) {
+    normalizeSyncedDocs(docsRoot);
     return;
   }
 
@@ -426,12 +538,13 @@ async function main() {
 
     // Copy versioned docs if present (future-proofing)
     syncVersionedDocs(tempDir, docsRoot);
+    normalizeSyncedDocs(docsRoot);
 
     syncExamples(tempDir, channel);
     await syncCompiledStyles(channel, version);
 
     console.log(
-      `\nAppKit docs synced from ${APPKIT_BRANCH} (${sha}) into docs/appkit/${channel}/, styles @ ${version}.`,
+      `\nAppKit docs synced from ${APPKIT_BRANCH} (${sha}) into src/content/docs/appkit/${channel}/, styles @ ${version}.`,
     );
     console.log("Done.");
   } finally {

@@ -1,8 +1,10 @@
 import { readFileSync } from "fs";
 import { resolve } from "path";
+
 import { describe, expect, test } from "vitest";
 
 type VercelConfig = {
+  devCommand: string;
   rewrites: Array<{ source: string; destination: string }>;
   headers: Array<{
     source: string;
@@ -14,12 +16,18 @@ const config = JSON.parse(
   readFileSync(resolve(__dirname, "..", "vercel.json"), "utf-8"),
 ) as VercelConfig;
 
+describe("vercel development command", () => {
+  test("passes the port flag through pnpm to Next.js", () => {
+    expect(config.devCommand).toBe("pnpm dev --port $PORT");
+  });
+});
+
 function expectRewrite(source: string, destination: string): void {
   expect(config.rewrites).toContainEqual({ source, destination });
 }
 
 describe("vercel rewrites", () => {
-  test("serves DevHub from /devhub while preserving Docusaurus baseUrl links", () => {
+  test("serves DevHub from /devhub while preserving base path links", () => {
     expectRewrite("/devhub", "/");
     expectRewrite("/devhub/", "/");
     expectRewrite("/devhub/docs/(.*)", "/docs/$1");
@@ -70,6 +78,7 @@ describe("vercel rewrites", () => {
       "/devhub/solutions.md",
       "/api/markdown?section=solutions&slug=",
     );
+    expectRewrite("/raw-docs/(.*)", "/api/markdown?section=docs&slug=$1");
   });
 });
 
@@ -104,6 +113,34 @@ describe("vercel headers", () => {
         { key: "X-Content-Type-Options", value: "nosniff" },
         { key: "X-Frame-Options", value: "SAMEORIGIN" },
       ],
+    });
+  });
+
+  test("serves generated agent index and RSS artifacts inline", () => {
+    const llmsHeaders = [
+      { key: "Cache-Control", value: "public, max-age=0, s-maxage=600" },
+      { key: "Content-Disposition", value: 'inline; filename="llms.txt"' },
+    ];
+    const rssHeaders = [
+      { key: "Cache-Control", value: "public, max-age=0, s-maxage=600" },
+      { key: "Content-Disposition", value: 'inline; filename="rss.xml"' },
+    ];
+
+    expect(config.headers).toContainEqual({
+      source: "/llms.txt",
+      headers: llmsHeaders,
+    });
+    expect(config.headers).toContainEqual({
+      source: "/devhub/llms.txt",
+      headers: llmsHeaders,
+    });
+    expect(config.headers).toContainEqual({
+      source: "/solutions/rss.xml",
+      headers: rssHeaders,
+    });
+    expect(config.headers).toContainEqual({
+      source: "/devhub/solutions/rss.xml",
+      headers: rssHeaders,
     });
   });
 });

@@ -1,12 +1,86 @@
-import { readFileSync } from "fs";
+import { existsSync, readdirSync, readFileSync, statSync } from "fs";
 import { resolve } from "path";
-import { describe, test, expect } from "vitest";
+
+import { imageSize } from "image-size";
+import { describe, expect, test } from "vitest";
+
 import { resolveSiteUrl } from "../src/lib/site-url";
 
-const BUILD_DIR = resolve(__dirname, "..", "build");
+const PUBLIC_DIR = resolve(__dirname, "..", "public");
+const NEXT_APP_DIR = resolve(__dirname, "..", ".next", "server", "app");
+const NEXT_STATIC_DIR = resolve(__dirname, "..", ".next", "static");
+const APPKIT_DOC_EXAMPLES_REGISTRY_PATH = resolve(
+  __dirname,
+  "..",
+  "src",
+  "components",
+  "doc-examples",
+  "registry.ts",
+);
 
-function readBuildFile(filePath: string): string {
-  return readFileSync(resolve(BUILD_DIR, filePath), "utf-8");
+function readPublicFile(filePath: string): string {
+  return readFileSync(resolve(PUBLIC_DIR, filePath), "utf-8");
+}
+
+function readPublicImageSize(filePath: string): {
+  height: number | undefined;
+  width: number | undefined;
+} {
+  return imageSize(readFileSync(resolve(PUBLIC_DIR, filePath)));
+}
+
+function readAppKitDocExamplesRegistry(): string {
+  return readFileSync(APPKIT_DOC_EXAMPLES_REGISTRY_PATH, "utf-8");
+}
+
+function readRouteHtml(routePath: string): string {
+  const trimmedRoute = routePath.replace(/^\/+|\/+$/g, "");
+  const htmlPath = trimmedRoute ? `${trimmedRoute}.html` : "index.html";
+  return readFileSync(resolve(NEXT_APP_DIR, htmlPath), "utf-8");
+}
+
+function listFiles(root: string): string[] {
+  if (!existsSync(root)) {
+    return [];
+  }
+
+  return readdirSync(root).flatMap((entry) => {
+    const entryPath = resolve(root, entry);
+    return statSync(entryPath).isDirectory() ? listFiles(entryPath) : entryPath;
+  });
+}
+
+function findFilesContaining(root: string, pattern: string): string[] {
+  return listFiles(root).filter((filePath) =>
+    readFileSync(filePath, "utf-8").includes(pattern),
+  );
+}
+
+function readSitemapLocs(filePath = "sitemap.xml"): string[] {
+  const text = readPublicFile(filePath);
+  const locs = Array.from(text.matchAll(/<loc>([^<]+)<\/loc>/g), (m) => m[1]);
+
+  if (!text.includes("<sitemapindex")) {
+    return locs;
+  }
+
+  return locs.flatMap((loc) => {
+    const sitemapPath = new URL(loc).pathname.replace(/^\//, "");
+    return readSitemapLocs(sitemapPath);
+  });
+}
+
+function toSiteRelativePath(loc: string): string {
+  const expectedSitePath = new URL(resolveExpectedSiteUrl()).pathname.replace(
+    /\/$/,
+    "",
+  );
+  const pathname = new URL(loc).pathname;
+  if (!expectedSitePath) return pathname;
+  if (pathname === expectedSitePath) return "/";
+  return pathname.startsWith(`${expectedSitePath}/`)
+    ? pathname.slice(expectedSitePath.length)
+    : pathname;
 }
 
 function escapeRegex(value: string): string {
@@ -19,19 +93,57 @@ function resolveExpectedSiteUrl(): string {
 
 describe("production build smoke tests", () => {
   test("sitemap.xml exists and is valid XML", () => {
-    const text = readBuildFile("sitemap.xml");
-    expect(text).toContain("<urlset");
-    expect(text).toContain("<url>");
+    const text = readPublicFile("sitemap.xml");
+    expect(text).toMatch(/<(urlset|sitemapindex)\b/);
+    expect(text).toContain("<loc>");
+  });
+
+  test("favicon files and web manifest match the public asset contract", () => {
+    const expectedSizes = [32, 48, 72, 96, 144, 192, 256, 384, 512];
+    for (const size of expectedSizes) {
+      const filePath = `favicon/favicon-${size}x${size}.png`;
+      const dimensions = readPublicImageSize(filePath);
+      expect(dimensions.width).toBe(size);
+      expect(dimensions.height).toBe(size);
+    }
+
+    const sourceDimensions = readPublicImageSize("favicon/favicon.png");
+    expect(sourceDimensions.width).toBe(512);
+    expect(sourceDimensions.height).toBe(512);
+
+    const manifest = JSON.parse(readPublicFile("manifest.webmanifest")) as {
+      background_color: string;
+      display: string;
+      icons: Array<{ sizes: string; src: string; type: string }>;
+      name: string;
+      short_name: string;
+      theme_color: string;
+    };
+
+    expect(manifest).toMatchObject({
+      name: "Databricks Developer",
+      short_name: "DevHub",
+      display: "standalone",
+      background_color: "#040406",
+      theme_color: "#040406",
+    });
+    expect(manifest.icons.map((icon) => icon.sizes)).toEqual(
+      expectedSizes.slice(1).map((size) => `${size}x${size}`),
+    );
+    for (const icon of manifest.icons) {
+      expect(icon.type).toBe("image/png");
+      expect(icon.src).toMatch(/^\/favicon\/favicon-\d+x\d+\.png$/);
+    }
   });
 
   test("robots.txt exists and has required directives", () => {
-    const text = readBuildFile("robots.txt");
+    const text = readPublicFile("robots.txt");
     expect(text).toContain("User-agent:");
     expect(text).toContain("Sitemap:");
   });
 
   test("robots.txt Sitemap URL matches the resolved site URL (no hardcoded prod domain)", () => {
-    const text = readBuildFile("robots.txt");
+    const text = readPublicFile("robots.txt");
     const sitemapMatch = text.match(/^Sitemap:\s*(\S+)\s*$/m);
     expect(sitemapMatch).not.toBeNull();
     const sitemapUrl = sitemapMatch![1];
@@ -39,22 +151,19 @@ describe("production build smoke tests", () => {
   });
 
   test("llms.txt has correct H1 and description", () => {
-    const text = readBuildFile("llms.txt");
+    const text = readPublicFile("llms.txt");
     expect(text).toContain("# Databricks Developer Hub");
     expect(text).toContain("> Documentation, templates, and examples");
   });
 
-  test("solutions RSS feed exists and uses the resolved site URL", () => {
-    const text = readBuildFile("solutions/rss.xml");
-    const expectedSiteUrl = resolveExpectedSiteUrl();
-    expect(text).toContain("<rss");
-    expect(text).toContain(
-      `<atom:link href="${expectedSiteUrl}/solutions/rss.xml" rel="self" type="application/rss+xml" />`,
-    );
+  test("solutions RSS feed route is included in the build output", () => {
+    expect(
+      existsSync(resolve(NEXT_APP_DIR, "(website)", "solutions", "rss.xml")),
+    ).toBe(true);
   });
 
   test("llms.txt internal links use the resolved site URL", () => {
-    const text = readBuildFile("llms.txt");
+    const text = readPublicFile("llms.txt");
     const expectedSiteUrl = resolveExpectedSiteUrl();
     const expectedSiteUrlPattern = escapeRegex(expectedSiteUrl);
     // Internal links in llms.txt are absolute URLs whose path starts with
@@ -78,9 +187,8 @@ describe("production build smoke tests", () => {
   });
 
   test("sitemap.xml uses the resolved site URL for <loc> entries", () => {
-    const text = readBuildFile("sitemap.xml");
     const expectedSiteUrl = resolveExpectedSiteUrl();
-    const locs = Array.from(text.matchAll(/<loc>([^<]+)<\/loc>/g), (m) => m[1]);
+    const locs = readSitemapLocs();
     expect(locs.length).toBeGreaterThan(0);
     for (const loc of locs) {
       expect(loc.startsWith(expectedSiteUrl)).toBe(true);
@@ -88,9 +196,8 @@ describe("production build smoke tests", () => {
   });
 
   test("sitemap.xml includes plugin-generated detail routes under the resolved site URL", () => {
-    const text = readBuildFile("sitemap.xml");
     const expectedSiteUrl = resolveExpectedSiteUrl();
-    const locs = Array.from(text.matchAll(/<loc>([^<]+)<\/loc>/g), (m) => m[1]);
+    const locs = readSitemapLocs();
 
     expect(locs).toContain(`${expectedSiteUrl}/solutions/devhub-launch`);
     expect(locs).toContain(
@@ -101,8 +208,33 @@ describe("production build smoke tests", () => {
     );
   });
 
+  test("sitemap.xml preserves the production URL visibility contract", () => {
+    const paths = readSitemapLocs().map(toSiteRelativePath);
+
+    expect(paths).toContain("/solutions/");
+    expect(paths).toContain("/templates/");
+    expect(paths).toContain("/docs/appkit/v0/");
+    expect(paths).toContain("/docs/appkit/v0/api/");
+    expect(paths).toContain("/docs/appkit/v0/api/appkit/");
+    expect(paths).toContain("/docs/appkit/v0/api/appkit-ui/");
+    expect(paths).toContain("/docs/appkit/v0/development/");
+    expect(paths).toContain("/docs/appkit/v0/plugins/");
+
+    expect(paths).not.toContain("/solutions");
+    expect(paths).not.toContain("/solutions/page/:page");
+    expect(paths).not.toContain("/templates");
+    expect(paths).not.toContain("/product");
+    expect(paths).not.toContain("/product/agent-bricks");
+    expect(paths).not.toContain("/product/data-lakehouse");
+    expect(paths).not.toContain("/product/databricks-apps");
+
+    for (const path of paths) {
+      expect(path.startsWith("/hackathon")).toBe(false);
+    }
+  });
+
   test("homepage HTML uses resolved site URL in JSON-LD (no hardcoded developers.databricks.com when overridden)", () => {
-    const html = readBuildFile("index.html");
+    const html = readRouteHtml("/");
     const expectedSiteUrl = resolveExpectedSiteUrl();
     expect(html).toContain(`"url":"${expectedSiteUrl}"`);
     expect(html).toContain(
@@ -118,10 +250,10 @@ describe("production build smoke tests", () => {
     if (!basePath) return;
 
     const renderedHtml = [
-      readBuildFile("docs/start-here/index.html"),
-      readBuildFile("docs/tools/ai-tools/docs-mcp-server/index.html"),
-      readBuildFile("templates/ai-chat-app/index.html"),
-      readBuildFile("solutions/devhub-launch/index.html"),
+      readRouteHtml("/docs/start-here"),
+      readRouteHtml("/docs/tools/ai-tools/docs-mcp-server"),
+      readRouteHtml("/templates/ai-chat-app"),
+      readRouteHtml("/solutions/devhub-launch"),
     ].join("\n");
 
     expect(renderedHtml).not.toMatch(
@@ -132,9 +264,7 @@ describe("production build smoke tests", () => {
   });
 
   test("rendered Docs MCP install commands use the resolved site URL", () => {
-    const html = readBuildFile(
-      "docs/tools/ai-tools/docs-mcp-server/index.html",
-    );
+    const html = readRouteHtml("/docs/tools/ai-tools/docs-mcp-server");
     const expectedSiteUrl = resolveExpectedSiteUrl();
     expect(html).toContain(`npx add-mcp ${expectedSiteUrl}/api/mcp`);
     if (expectedSiteUrl !== "https://developers.databricks.com") {
@@ -143,7 +273,7 @@ describe("production build smoke tests", () => {
   });
 
   test("llms.txt links use .md suffix", () => {
-    const text = readBuildFile("llms.txt");
+    const text = readPublicFile("llms.txt");
     expect(text).toContain("/docs/start-here.md");
     expect(text).toContain("/templates/ai-chat-app.md");
     expect(text).toContain("/solutions.md");
@@ -151,7 +281,7 @@ describe("production build smoke tests", () => {
   });
 
   test("llms.txt links to native solutions internally and to linked solutions externally", () => {
-    const text = readBuildFile("llms.txt");
+    const text = readPublicFile("llms.txt");
     expect(text).toContain("/solutions/devhub-launch.md");
     expect(text).toContain(
       "https://www.databricks.com/blog/how-build-production-ready-data-and-ai-apps-databricks-apps-and-lakebase",
@@ -163,7 +293,7 @@ describe("production build smoke tests", () => {
   });
 
   test("llms.txt section order: Start Here before Templates before Solutions", () => {
-    const text = readBuildFile("llms.txt");
+    const text = readPublicFile("llms.txt");
     const startHereIdx = text.indexOf("## Start Here");
     const templatesIdx = text.indexOf("## Templates");
     const solutionsIdx = text.indexOf("## Solutions");
@@ -173,14 +303,14 @@ describe("production build smoke tests", () => {
   });
 
   test("llms.txt Templates section is flat (no Cookbooks/Recipes/Examples subheadings)", () => {
-    const text = readBuildFile("llms.txt");
+    const text = readPublicFile("llms.txt");
     expect(text).not.toContain("### Cookbooks");
     expect(text).not.toContain("### Recipes");
     expect(text).not.toContain("### Examples");
   });
 
   test("llms.txt Templates section lists cookbooks, recipes, and examples in one flat list", () => {
-    const text = readBuildFile("llms.txt");
+    const text = readPublicFile("llms.txt");
 
     const templatesIdx = text.indexOf("## Templates");
     const solutionsIdx = text.indexOf("## Solutions");
@@ -200,7 +330,7 @@ describe("production build smoke tests", () => {
   });
 
   test("llms.txt links to all resource guides", () => {
-    const text = readBuildFile("llms.txt");
+    const text = readPublicFile("llms.txt");
 
     const expectedTemplates = [
       "/solutions.md",
@@ -221,7 +351,7 @@ describe("production build smoke tests", () => {
   });
 
   test("llms.txt links to all docs pages", () => {
-    const text = readBuildFile("llms.txt");
+    const text = readPublicFile("llms.txt");
 
     const expectedDocPaths = [
       "/docs/start-here.md",
@@ -247,100 +377,68 @@ describe("production build smoke tests", () => {
     }
   });
 
-  test("compiled AppKit preview stylesheet ships in the build", () => {
-    const registry = readFileSync(
-      resolve(
-        __dirname,
-        "..",
-        "src",
-        "components",
-        "doc-examples",
-        "registry.ts",
-      ),
-      "utf-8",
-    );
+  test("compiled AppKit preview stylesheet ships in public assets", () => {
+    const registry = readAppKitDocExamplesRegistry();
     const channel = registry.match(
       /export const APPKIT_CHANNEL = "([^"]+)";/,
     )?.[1];
     expect(channel).toBeDefined();
-    const css = readBuildFile(`appkit-preview/${channel}/styles.css`);
+    const css = readPublicFile(`appkit-preview/${channel}/styles.css`);
     expect(css.length).toBeGreaterThan(50_000);
     expect(css).toContain("Synced from @databricks/appkit-ui@");
     expect(css).toMatch(/--color-(primary|background|foreground|border)/);
   });
 
   test("AppKit DocExample iframe references the compiled stylesheet path", () => {
-    // The Docusaurus client bundle inlines the iframe HTML template; ensure
+    // The client bundle inlines the iframe HTML template; ensure
     // the dynamic `/appkit-preview/<channel>/styles.css` href made it into the
     // emitted JS so previews actually load styles in production.
-    const registry = readFileSync(
-      resolve(
-        __dirname,
-        "..",
-        "src",
-        "components",
-        "doc-examples",
-        "registry.ts",
-      ),
-      "utf-8",
-    );
+    const registry = readAppKitDocExamplesRegistry();
     const channel = registry.match(
       /export const APPKIT_CHANNEL = "([^"]+)";/,
     )?.[1];
     expect(channel).toBeDefined();
-    // Confirm the asset itself is reachable in build/ (covered above) and
-    // assert the legacy hardcoded path no longer ships anywhere in the build.
-    const buildRoot = resolve(__dirname, "..", "build");
-    const grep = (pattern: string) => {
-      const { execSync } =
-        require("child_process") as typeof import("child_process");
-      try {
-        const out = execSync(
-          `grep -rl ${JSON.stringify(pattern)} "${buildRoot}/assets/js" || true`,
-          {
-            encoding: "utf-8",
-            maxBuffer: 50 * 1024 * 1024,
-          },
-        );
-        return out.trim();
-      } catch {
-        return "";
-      }
-    };
-    expect(grep("/appkit-preview/latest/styles.css")).toBe("");
+    // Confirm the asset itself is reachable in public/ (covered above) and
+    // assert the legacy hardcoded path no longer ships in client chunks.
+    expect(
+      findFilesContaining(
+        resolve(NEXT_STATIC_DIR, "chunks"),
+        "/appkit-preview/latest/styles.css",
+      ),
+    ).toEqual([]);
   });
 
-  test("raw-docs strip Docusaurus frontmatter", () => {
-    const text = readBuildFile("raw-docs/start-here.md");
+  test("raw-docs strip frontmatter", () => {
+    const text = readPublicFile("raw-docs/start-here.md");
     expect(text).not.toMatch(/^---\n/);
     expect(text).toMatch(/^# Start here/);
   });
 
   test("pretty markdown routes are emitted as static files for local serving", () => {
-    expect(readBuildFile("docs/start-here.md")).toContain("# Start here");
-    expect(readBuildFile("solutions/devhub-launch.md")).toContain(
+    expect(readPublicFile("docs/start-here.md")).toContain("# Start here");
+    expect(readPublicFile("solutions/devhub-launch.md")).toContain(
       "title: Introducing DevHub",
     );
-    expect(readBuildFile("templates/ai-chat-app.md")).toContain(
+    expect(readPublicFile("templates/ai-chat-app.md")).toContain(
       "# About DevHub",
     );
-    expect(readBuildFile("templates.md")).toContain("# Templates");
-    expect(readBuildFile("solutions.md")).toContain("# Solutions");
+    expect(readPublicFile("templates.md")).toContain("# Templates");
+    expect(readPublicFile("solutions.md")).toContain("# Solutions");
   });
 
   test("raw-docs preserve closing HTML tags inside code examples", () => {
-    const text = readBuildFile("raw-docs/lakehouse/analytical-reads.md");
+    const text = readPublicFile("raw-docs/lakehouse/analytical-reads.md");
     expect(text).toContain("if (loading) return <p>Loading...</p>;");
     expect(text).not.toMatch(/https?:\/\/[^)\s]+\/(?:p|li|ul)>/);
   });
 
   test("raw-docs preserve CLI tab code blocks for markdown export", () => {
-    const coreConcepts = readBuildFile("raw-docs/lakebase/configuration.md");
+    const coreConcepts = readPublicFile("raw-docs/lakebase/configuration.md");
     expect(coreConcepts).toContain('title="Common"');
     expect(coreConcepts).toContain('title="All Options"');
     expect(coreConcepts).toContain("databricks postgres update-endpoint");
 
-    const development = readBuildFile("raw-docs/lakebase/development.md");
+    const development = readPublicFile("raw-docs/lakebase/development.md");
     expect(development).toContain('title="Common"');
     expect(development).toContain('title="All Options"');
     expect(development).toContain("databricks postgres create-branch");

@@ -1,10 +1,7 @@
 import { useCallback, useEffect, useRef } from "react";
-import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import {
-  buildTemplateAgentMarkdown,
-  useAgentPromptParts,
-} from "@/lib/copy-about-devhub";
+
 import { absolutizeMarkdown } from "@/lib/copy-preamble";
+import { useSiteContext } from "@/lib/site-context";
 import { toSiteRelativePath, withSiteBaseUrl } from "@/lib/site-paths";
 import { siteUrlFromConfig } from "@/lib/site-url";
 
@@ -24,15 +21,8 @@ export type AgentMarkdownInput = {
   rawMarkdown?: string;
   /** URL to fetch the raw markdown from when `rawMarkdown` is not pre-supplied. */
   rawMarkdownUrl?: string;
-  /** Extra markdown appended after the raw body (recipe / cookbook / doc / solution). */
-  additionalMarkdown?: string;
-  /**
-   * For kind="example": a pre-composed example body that replaces the default
-   * `frontmatter + raw + additional` body. The example detail page builds
-   * this with `buildFullPrompt` because examples need their own ordered
-   * `Get started` flow that frontmatter/raw can't express.
-   */
-  customTemplateBody?: string;
+  /** Server-composed agent prompt. Template detail pages pass this to avoid client fallback prompt parts. */
+  prebuiltAgentMarkdown?: string;
   title: string;
   description: string;
   permalink: string;
@@ -60,14 +50,13 @@ export function useAgentMarkdown(
     kind,
     rawMarkdown,
     rawMarkdownUrl,
-    additionalMarkdown,
-    customTemplateBody,
+    prebuiltAgentMarkdown,
     title,
     description,
     permalink,
   } = input;
 
-  const { siteConfig } = useDocusaurusContext();
+  const { siteConfig } = useSiteContext();
   const buildSiteUrl = siteUrlFromConfig(siteConfig.url, siteConfig.baseUrl);
   const browserBasePath = siteConfig.baseUrl.replace(/\/$/, "");
   const baseUrl =
@@ -84,7 +73,6 @@ export function useAgentMarkdown(
   const fetchMarkdownUrl = rawMarkdownUrl
     ? withSiteBaseUrl(rawMarkdownUrl, siteConfig.baseUrl)
     : undefined;
-  const parts = useAgentPromptParts();
   const fetchedMarkdownRef = useRef<string | null>(null);
 
   useEffect(() => {
@@ -105,38 +93,29 @@ export function useAgentMarkdown(
 
   const buildAIMarkdown = useCallback((): string => {
     const siteOrigin = baseUrl || buildSiteUrl;
+    if (prebuiltAgentMarkdown !== undefined) {
+      return absolutizeMarkdown(prebuiltAgentMarkdown, siteOrigin);
+    }
+
     const rawContent = rawMarkdown ?? fetchedMarkdownRef.current ?? "";
     const frontmatterBody = buildFrontmatterBody({
       title,
       description,
       fullUrl,
       rawContent,
-      additionalMarkdown,
     });
 
     if (kind === "doc" || kind === "solution") {
       return absolutizeMarkdown(frontmatterBody, siteOrigin);
     }
 
-    const templateBody =
-      kind === "example" && customTemplateBody !== undefined
-        ? customTemplateBody
-        : frontmatterBody;
-
-    return buildTemplateAgentMarkdown({
-      parts,
-      kind,
-      templateName: title,
-      templateUrl: fullUrl,
-      templateBody,
-      siteOrigin,
-    });
+    throw new Error(
+      `useAgentMarkdown: kind="${kind}" requires prebuiltAgentMarkdown from the server.`,
+    );
   }, [
     kind,
     rawMarkdown,
-    additionalMarkdown,
-    customTemplateBody,
-    parts,
+    prebuiltAgentMarkdown,
     title,
     description,
     fullUrl,
@@ -159,12 +138,10 @@ function buildFrontmatterBody(input: {
   description: string;
   fullUrl: string;
   rawContent: string;
-  additionalMarkdown?: string;
 }): string {
   const escapedTitle = input.title.replace(/"/g, '\\"');
   const escapedDescription = input.description.replace(/"/g, '\\"');
   let body = `---\ntitle: "${escapedTitle}"\nurl: ${input.fullUrl}\nsummary: "${escapedDescription}"\n---\n\n`;
   if (input.rawContent) body += `${input.rawContent}\n\n`;
-  if (input.additionalMarkdown) body += `${input.additionalMarkdown}\n\n`;
   return body.trimEnd() + "\n";
 }

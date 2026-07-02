@@ -1,4 +1,6 @@
-import { test, expect, type Locator, type Page } from "@playwright/test";
+import { expect, test, type Locator, type Page } from "@playwright/test";
+
+import { expectDevHubImageToUseNextOptimizer } from "./image-assertions";
 
 function templateLinks(page: Page) {
   return page.locator('#templates-list a[href^="/templates/"]');
@@ -40,7 +42,10 @@ test.describe("templates page search", () => {
 
     expect(cardCount).toBeGreaterThan(6);
     await expect(coverImages).toHaveCount(cardCount);
-    await expect(coverImages.first()).toHaveAttribute("src", /\/img\//);
+    await expectDevHubImageToUseNextOptimizer(
+      coverImages.first(),
+      "/img/guides/ai-chat-app-preview-light.png",
+    );
   });
 
   test("search bar filters results and clearing restores all", async ({
@@ -248,9 +253,18 @@ test.describe("templates page Build-with Replit filter", () => {
     const initialCount = await visibleCount(templateLinks(page));
     expect(initialCount).toBeGreaterThan(0);
 
-    await page.getByRole("checkbox", { name: "Replit", exact: true }).check();
+    const replitFilter = page.getByRole("checkbox", {
+      name: "Replit",
+      exact: true,
+    });
+    await replitFilter.check();
     const filteredCount = await visibleCount(templateLinks(page));
     expect(filteredCount).toBeGreaterThan(0);
+    await expect(replitFilter).toHaveCSS(
+      "background-color",
+      "rgb(255, 95, 70)",
+    );
+    await expect(replitFilter).toHaveCSS("border-color", "rgb(255, 95, 70)");
 
     // saas-tracker ships a replit-prompt.md, so it should still be visible.
     await expect(
@@ -265,7 +279,20 @@ test.describe("templates page Build-with Replit filter", () => {
     await expect(page.getByText("1 FILTER selected")).toBeVisible();
     await expect(page.getByRole("button", { name: "Clear all" })).toBeVisible();
 
-    await page.getByRole("checkbox", { name: "Replit", exact: true }).uncheck();
+    await page.getByRole("searchbox").fill("genie");
+    expect(await visibleCount(templateLinks(page))).toBe(7);
+    await expect(
+      templateTextLink(page, "/templates/genie-analytics-app"),
+    ).toBeVisible();
+    await expect(
+      templateTextLink(page, "/templates/inventory-intelligence"),
+    ).toBeVisible();
+    await expect(
+      templateTextLink(page, "/templates/operational-data-analytics"),
+    ).toBeHidden();
+
+    await page.getByRole("searchbox").fill("");
+    await replitFilter.uncheck();
     expect(await visibleCount(templateLinks(page))).toBe(initialCount);
   });
 

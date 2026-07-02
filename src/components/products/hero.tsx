@@ -1,11 +1,10 @@
-import Link from "@docusaurus/Link";
-import useBaseUrl from "@docusaurus/useBaseUrl";
+import Link from "next/link";
 import { ArrowUpRight, FileText } from "lucide-react";
 
+import type { ProductPageContent } from "@/lib/products/product-page";
+import { Button } from "@/components/ui/button";
 import { BenefitIcon } from "@/components/products/icons/benefit-icon";
 import { SectionKicker } from "@/components/products/section-kicker";
-import { Button } from "@/components/ui/button";
-import type { ProductPageContent } from "@/lib/products/product-page";
 
 type HeroProps = {
   content: ProductPageContent;
@@ -39,13 +38,13 @@ function HeroActionLink({ action }: { action: HeroAction }) {
     return (
       <Button
         asChild
-        className="group h-auto min-h-10 w-full max-w-full rounded-none bg-transparent p-0 font-mono text-sm/none font-medium uppercase tracking-normal text-black shadow-none gap-x-0.5 hover:bg-transparent sm:w-auto lg:min-h-11 lg:text-base/none"
+        className="group h-auto min-h-10 w-full max-w-full gap-x-0.5 rounded-none bg-transparent p-0 font-mono text-sm/none font-medium tracking-normal text-black uppercase shadow-none hover:bg-transparent sm:w-auto lg:min-h-11 lg:text-base/none"
       >
         <Link
-          className="inline-flex w-full max-w-full items-stretch no-underline gap-x-0.5 hover:no-underline sm:w-auto"
-          to={action.href}
+          className="inline-flex w-full max-w-full items-stretch gap-x-0.5 no-underline hover:no-underline sm:w-auto"
+          href={action.href}
         >
-          <span className="flex min-h-10 min-w-0 flex-1 items-center justify-center bg-white px-4 py-2 text-center leading-tight -tracking-[0.32px] whitespace-normal sm:flex-none sm:justify-start sm:text-left sm:whitespace-nowrap group-hover:bg-white/90 lg:min-h-11 lg:px-5 lg:py-3">
+          <span className="flex min-h-10 min-w-0 flex-1 items-center justify-center bg-white px-4 py-2 text-center leading-tight tracking-normal whitespace-normal group-hover:bg-white/90 sm:flex-none sm:justify-start sm:text-left sm:whitespace-nowrap lg:min-h-11 lg:px-5 lg:py-3">
             {action.label}
           </span>
           <span className="grid min-h-10 w-10 shrink-0 place-items-center bg-white lg:min-h-11 lg:w-11">
@@ -59,11 +58,11 @@ function HeroActionLink({ action }: { action: HeroAction }) {
   return (
     <Button
       asChild
-      className="h-auto min-h-10 w-full max-w-full gap-3 rounded-none border-0 bg-[#2e3038] px-0 font-mono text-sm/none font-medium uppercase tracking-normal text-white shadow-none pl-5 pr-4 hover:bg-[#343741] sm:w-fit lg:min-h-11 lg:gap-4.5 lg:text-base/none lg:pl-7 lg:pr-6"
+      className="bg-grey-20 hover:bg-grey-30 h-auto min-h-10 w-full max-w-full gap-3 rounded-none border-0 px-0 pr-4 pl-5 font-mono text-sm/none font-medium tracking-normal text-white uppercase shadow-none sm:w-fit lg:min-h-11 lg:gap-4.5 lg:pr-6 lg:pl-7 lg:text-base/none"
     >
       <Link
-        className="flex w-full items-center justify-between gap-4.5 no-underline hover:no-underline -tracking-[0.32px] sm:inline-flex sm:w-auto sm:justify-start"
-        to={action.href}
+        className="flex w-full items-center justify-between gap-4.5 tracking-normal no-underline hover:no-underline sm:inline-flex sm:w-auto sm:justify-start"
+        href={action.href}
       >
         {action.label}
         <span className="grid size-4 place-items-center">
@@ -76,10 +75,10 @@ function HeroActionLink({ action }: { action: HeroAction }) {
 
 export function Hero({ content }: HeroProps) {
   const image = content.hero.image;
-  const src = useBaseUrl(image.src);
+
   return (
     <section className="relative overflow-hidden bg-black text-white">
-      <div className="relative mx-auto flex w-full max-w-304 flex-col px-5 pb-24 pt-9 md:px-8 md:pb-32 xl:px-0 lg:pb-40 xl:pb-60">
+      <div className="relative mx-auto flex w-full max-w-304 flex-col px-5 pt-9 pb-24 md:px-8 md:pb-32 lg:pb-40 xl:px-0 xl:pb-60">
         <div className="relative w-full">
           <img
             alt={image.alt}
@@ -88,14 +87,17 @@ export function Hero({ content }: HeroProps) {
             fetchPriority="high"
             height={image.height}
             loading="eager"
-            src={src}
+            src={image.src}
             width={image.width}
           />
-          <div className="absolute -bottom-[72px] h-40 w-full bg-[linear-gradient(180deg,rgba(4,4,6,0.00)_0%,#040406_60%)] sm:-bottom-8 lg:h-71.5" />
+          <div
+            className="absolute -bottom-[72px] h-40 w-full bg-[linear-gradient(180deg,rgb(4_4_6/0)_0%,var(--black)_60%)] sm:-bottom-8 lg:h-71.5"
+            aria-hidden="true"
+          />
         </div>
 
-        <header className="lg:-mt-12.5 relative">
-          <h1 className="max-w-241.5 font-heading text-[32px] font-normal leading-[0.95] tracking-normal text-white md:text-[40px] lg:text-5xl xl:text-[56px]">
+        <header className="relative lg:-mt-12.5">
+          <h1 className="font-heading max-w-241.5 text-[32px] leading-[0.95] font-normal tracking-normal text-white md:text-[40px] lg:text-5xl xl:text-[56px]">
             <HighlightedProductTitle
               highlight={content.hero.highlightedTitle}
               title={`${content.hero.highlightedTitle} ${content.hero.title}`}
@@ -107,7 +109,7 @@ export function Hero({ content }: HeroProps) {
                 <HeroActionLink action={action} key={action.label} />
               ))}
             </div>
-            <p className="max-w-85 text-base/tight text-grey-70 lg:mt-1 lg:text-right lg:justify-self-end">
+            <p className="text-grey-70 max-w-85 text-base/tight lg:mt-1 lg:justify-self-end lg:text-right">
               {content.hero.description}
             </p>
           </div>
@@ -117,22 +119,24 @@ export function Hero({ content }: HeroProps) {
           className="mt-24 md:mt-32 lg:mt-40 xl:mt-60"
           aria-labelledby="product-benefits"
         >
-          <h2
-            className="inline md:flex md:flex-wrap md:justify-between md:flex-row md:items-center max-w-304 font-sans text-[28px]/tight font-normal tracking-[-0.04em] md:text-[32px] lg:text-[40px] 2xl:text-[44px]"
-            id="product-benefits"
-          >
-            <SectionKicker className="text-grey-40 mb-6 md:mb-0">
+          <div className="max-w-304">
+            <SectionKicker className="text-grey-40 mb-6">
               {content.benefitsIntro.eyebrow}
             </SectionKicker>
-            <span className="inline">{content.benefitsIntro.title} </span>
-            <span className="inline text-grey-70">
-              {content.benefitsIntro.description}
-            </span>
-          </h2>
+            <h2
+              className="font-sans text-[28px]/tight font-normal tracking-normal text-white md:text-[32px] lg:text-[40px] 2xl:text-[44px]"
+              id="product-benefits"
+            >
+              {content.benefitsIntro.title}{" "}
+              <span className="text-grey-70">
+                {content.benefitsIntro.description}
+              </span>
+            </h2>
+          </div>
           <div className="mt-11 grid gap-6 md:mt-14 md:grid-cols-3 md:gap-3 lg:mt-12 lg:gap-8 xl:mt-14">
             {content.benefits.map(({ description, icon, title }) => (
               <article
-                className="relative min-h-0 overflow-hidden border border-[#9194a1] bg-black p-[18px] md:min-h-64 md:p-5 lg:p-6 xl:p-8 xl:pr-6"
+                className="border-grey-60 relative min-h-0 overflow-hidden border bg-black p-[18px] md:min-h-64 md:p-5 lg:p-6 xl:p-8 xl:pr-6"
                 key={title}
               >
                 <div
@@ -141,10 +145,10 @@ export function Hero({ content }: HeroProps) {
                 />
                 <div className="relative">
                   <BenefitIcon icon={icon} />
-                  <h3 className="mt-12 text-[18px]/tight font-medium tracking-tight text-white md:mt-[60px] md:text-xl/tight lg:mt-18 lg:text-2xl/tight xl:text-[28px]/tight 2xl:mt-29">
+                  <h3 className="mt-12 text-[18px]/tight font-medium tracking-normal text-white md:mt-[60px] md:text-xl/tight lg:mt-18 lg:text-2xl/tight xl:text-[28px]/tight 2xl:mt-29">
                     {title}
                   </h3>
-                  <p className="mt-1.5 max-w-80 text-base text-grey-70 -tracking-[0.5px] md:mt-2 md:max-w-[400px] md:text-lg/normal lg:mt-2.5 xl:mt-3 xl:text-xl/normal text-pretty">
+                  <p className="text-grey-70 mt-1.5 max-w-80 text-base tracking-normal text-pretty md:mt-2 md:max-w-[400px] md:text-lg/normal lg:mt-2.5 xl:mt-3 xl:text-xl/normal">
                     {description}
                   </p>
                 </div>

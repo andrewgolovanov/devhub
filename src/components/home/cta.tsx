@@ -1,13 +1,14 @@
-import Link from "@docusaurus/Link";
-import useBaseUrl from "@docusaurus/useBaseUrl";
+"use client";
+
+import { useCallback, useState, type ReactNode } from "react";
+import Link from "next/link";
 import { track } from "@vercel/analytics";
 import { Check, Copy, LoaderCircle } from "lucide-react";
-import { type ReactNode, useCallback, useState } from "react";
 
-import { Button } from "@/components/ui/button";
-import { TitleCross } from "@/components/title-cross";
 import { getBootstrapPromptApiPath } from "@/lib/bootstrap-prompt";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { TitleCross } from "@/components/home/title-cross";
 
 const TOPBAR_DOTS = ["bg-db-lava", "bg-yellow-400", "bg-green-500"] as const;
 
@@ -52,15 +53,15 @@ function titleSegments(title: string): {
 
 function CTATitleHighlight({ children }: { children: string }) {
   return (
-    <span className="relative inline-block text-db-lava md:whitespace-nowrap">
+    <span className="text-db-lava relative inline-block md:whitespace-nowrap">
       <span
-        className="pointer-events-none absolute -inset-x-0.5 inset-y-0 hidden border border-grey-20 md:block"
+        className="border-grey-20 pointer-events-none absolute -inset-x-0.5 inset-y-0 hidden border md:block"
         aria-hidden="true"
       />
       <TitleCross className="-top-2 -left-2.25" />
       <TitleCross className="-top-2 -right-2.25" />
       <TitleCross className="-bottom-2 -left-2.25" />
-      <TitleCross className="-bottom-2 -right-2.25" />
+      <TitleCross className="-right-2.25 -bottom-2" />
       <span className="relative">{children}</span>
     </span>
   );
@@ -70,9 +71,9 @@ function Topbar({ theme }: { theme: CTATheme }) {
   return (
     <header
       className={cn(
-        "flex items-center gap-x-4.5 md:gap-x-6.5 py-4.5 px-6.5",
+        "flex items-center gap-x-4.5 px-6.5 py-4.5 md:gap-x-6.5",
         theme === "outline"
-          ? "border-y border-grey-20 bg-black"
+          ? "border-grey-20 border-y bg-black"
           : "mx-1.5 bg-[#202021]",
       )}
     >
@@ -83,8 +84,8 @@ function Topbar({ theme }: { theme: CTATheme }) {
         {TOPBAR_DOTS.map((dotClassName) => (
           <span
             className={cn(
-              "size-2.5 md:size-3 lg:size-4 shrink-0",
-              theme === "outline" && "border border-grey-20",
+              "size-2.5 shrink-0 md:size-3 lg:size-4",
+              theme === "outline" && "border-grey-20 border",
               dotClassName,
             )}
             key={dotClassName}
@@ -106,9 +107,9 @@ function CTAButtons({
   onCopy: () => void;
 }) {
   return (
-    <div className="flex w-full flex-col gap-y-3 gap-x-5 sm:w-auto sm:flex-row sm:items-center lg:justify-end">
+    <div className="flex w-full flex-col gap-x-5 gap-y-3 sm:w-auto sm:flex-row sm:items-center lg:justify-end">
       <Button
-        className="font-mono gap-x-4.5 text-base leading-none tracking-tight text-black uppercase shadow-none h-10 lg:h-11"
+        className="h-10 gap-x-4.5 font-mono text-base leading-none tracking-tight text-black uppercase shadow-none lg:h-11"
         onClick={onCopy}
         disabled={copyState === "copying"}
         title="Copy agent prompt"
@@ -126,10 +127,13 @@ function CTAButtons({
         )}
       </Button>
       <Button
-        className="h-10 lg:h-11 rounded-none bg-white px-7 font-mono text-base leading-none font-medium tracking-tight text-black uppercase shadow-none hover:bg-white/90"
+        className="h-10 rounded-none bg-white px-7 font-mono text-base leading-none font-medium tracking-tight text-black uppercase shadow-none hover:bg-white/90 lg:h-11"
         asChild
       >
-        <Link className="no-underline hover:no-underline" to="/docs/start-here">
+        <Link
+          className="no-underline hover:no-underline"
+          href="/docs/start-here"
+        >
           Read docs
         </Link>
       </Button>
@@ -144,7 +148,7 @@ function CTA({
   actions,
   theme = "filled",
 }: CTAProps) {
-  const bootstrapPromptApiPath = useBaseUrl(getBootstrapPromptApiPath());
+  const bootstrapPromptApiPath = getBootstrapPromptApiPath();
   const [copyState, setCopyState] = useState<CopyState>("idle");
   const { before, highlight, after } = titleSegments(title);
 
@@ -171,12 +175,12 @@ function CTA({
   return (
     <section
       aria-label={label}
-      className={cn("cta bg-black text-white pt-1.5", className)}
+      className={cn("cta bg-black pt-1.5 text-white", className)}
     >
       <Topbar theme={theme} />
       <div className="relative mx-auto px-5 md:px-8 lg:px-16 2xl:px-24">
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-end mt-10 md:mt-16 lg:mt-20">
-          <h2 className="relative font-heading text-4xl/none font-normal tracking-normal text-balance text-white md:text-5xl/none xl:text-6xl/none 2xl:text-[5rem]">
+        <div className="mt-10 flex flex-col gap-8 md:mt-16 lg:mt-20 lg:flex-row lg:items-end">
+          <h2 className="font-heading relative text-4xl/none font-normal tracking-normal text-balance text-white md:text-5xl/none xl:text-6xl/none 2xl:text-[5rem]">
             <span className="relative z-10">{before}</span>
             {highlight ? (
               <CTATitleHighlight>{highlight}</CTATitleHighlight>

@@ -1,12 +1,10 @@
 // When DevHub is redeployed, its content-hashed JS/CSS bundles get new
 // filenames and the old files stop existing at the production domain. A tab
-// left open across a deploy then 404s on those assets. On the homepage this
-// triggers Docusaurus's "site did not load properly" banner (misleadingly
-// blaming baseUrl), rendered unstyled because the CSS 404'd too. Recover by
-// reloading onto the current deployment.
+// left open across a deploy then 404s on those assets. Recover by reloading
+// onto the current deployment.
 //
 // IMPORTANT: installChunkReload is serialized with .toString() and injected as
-// an inline <head> script by plugins/chunk-reload.ts. It therefore must be
+// an inline <head> script. It therefore must be
 // fully self-contained (no imports, no module-scope references) and use only
 // browser globals, so that it still runs even when the hashed app bundle
 // itself fails to load -- a clientModule would be bundled into that 404'd file
@@ -14,13 +12,6 @@
 // nullish coalescing / spread) so transpilation never injects runtime helpers
 // into the inlined source.
 //
-// Why not Vercel Skew Protection? Docusaurus is not a zero-config Skew
-// Protection framework, so it never attaches a ?dpl= deployment ID to its
-// asset requests. The only signal that works for its tag-based loads is the
-// __vdpl cookie, which pins document navigations too and traps users on a
-// stale deployment until it ages past max-age. This inline reload is simpler
-// and has no staleness risk.
-
 export function installChunkReload(): void {
   var RELOAD_KEY = "devhub:chunk-reload-at";
   var COOLDOWN_MS = 10000;
@@ -43,7 +34,7 @@ export function installChunkReload(): void {
   }
 
   function isStaleAsset(url: unknown): boolean {
-    return typeof url === "string" && url.indexOf("/assets/") !== -1;
+    return typeof url === "string" && url.indexOf("/_next/static/") !== -1;
   }
 
   // Capture phase: failed <script>/<link> loads do not bubble. Catches the
@@ -77,12 +68,10 @@ export function installChunkReload(): void {
     },
   );
 
-  // Primary boot-failure signal, mirroring Docusaurus's own BaseUrlIssueBanner
-  // check: if the client bundle never set window.docusaurus by the time the DOM
-  // is ready, an asset failed to load -- recover by reloading.
+  // Primary boot-failure signal: if Next's document data is missing after the
+  // DOM is ready, the page booted incompletely.
   function checkBoot(): void {
-    var w = window as unknown as { docusaurus?: unknown };
-    if (typeof w.docusaurus === "undefined") reloadOnce();
+    if (!document.getElementById("__NEXT_DATA__")) reloadOnce();
   }
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", checkBoot);

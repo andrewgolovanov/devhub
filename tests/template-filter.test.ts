@@ -1,10 +1,11 @@
 import { describe, expect, test } from "vitest";
+
 import {
+  cookbooks,
+  examples,
   filterTemplates,
   matchesTemplateFilter,
   recipesInOrder,
-  cookbooks,
-  examples,
   type Recipe,
   type Service,
 } from "../src/lib/recipes/recipes";

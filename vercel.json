@@ -1,20 +1,16 @@
 {
-  "devCommand": "docusaurus start --port $PORT --no-open",
+  "devCommand": "pnpm dev --port $PORT",
   "functions": {
-    "api/mcp.ts": {
-      "includeFiles": "docs/**",
+    "src/app/api/mcp/route.ts": {
       "maxDuration": 30
     },
-    "api/markdown.ts": {
-      "includeFiles": "{docs/**,content/about-devhub.md,content/solutions/**,content/recipes/**/*.md,content/examples/**/*.md}",
+    "src/app/api/markdown/route.ts": {
       "maxDuration": 30
     },
-    "api/bootstrap-prompt.ts": {
-      "includeFiles": "{content/about-devhub.md,content/recipes/**/*.md}",
+    "src/app/api/bootstrap-prompt/route.ts": {
       "maxDuration": 10
     },
-    "api/llms.ts": {
-      "includeFiles": "docs/**",
+    "src/app/api/llms/route.ts": {
       "maxDuration": 10
     }
   },
@@ -156,6 +152,10 @@
       "destination": "/api/markdown?section=templates&slug=$1"
     },
     {
+      "source": "/raw-docs/(.*)",
+      "destination": "/api/markdown?section=docs&slug=$1"
+    },
+    {
       "source": "/(.+)\\.md",
       "destination": "/api/markdown?section=docs&slug=$1"
     }
@@ -176,6 +176,84 @@
         {
           "key": "Cache-Control",
           "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/llms.txt",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, s-maxage=600"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "inline; filename=\"llms.txt\""
+        }
+      ]
+    },
+    {
+      "source": "/devhub/llms.txt",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, s-maxage=600"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "inline; filename=\"llms.txt\""
+        }
+      ]
+    },
+    {
+      "source": "/solutions/rss.xml",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, s-maxage=600"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "inline; filename=\"rss.xml\""
+        }
+      ]
+    },
+    {
+      "source": "/(.+)\\.md",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, s-maxage=600"
+        },
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
+    },
+    {
+      "source": "/devhub/(.+)\\.md",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, s-maxage=600"
+        },
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
+    },
+    {
+      "source": "/devhub/solutions/rss.xml",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, s-maxage=600"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "inline; filename=\"rss.xml\""
         }
       ]
     },

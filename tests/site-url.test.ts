@@ -1,4 +1,5 @@
 import { describe, expect, test } from "vitest";
+
 import {
   PRODUCTION_FALLBACK_SITE_URL,
   resolveSiteBaseUrl,
@@ -129,7 +130,7 @@ describe("resolveSiteBaseUrl", () => {
 });
 
 describe("siteUrlFromConfig", () => {
-  test("recombines Docusaurus url and baseUrl", () => {
+  test("recombines configured url and baseUrl", () => {
     expect(siteUrlFromConfig("https://stage.databricks.com", "/devhub/")).toBe(
       "https://stage.databricks.com/devhub",
     );

@@ -1,4 +1,5 @@
 import { describe, expect, test } from "vitest";
+
 import {
   ABOUT_DEVHUB_CANONICAL_SITE_URL,
   composeAgentPrompt,

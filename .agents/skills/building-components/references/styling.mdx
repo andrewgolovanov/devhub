@@ -107,7 +107,7 @@ const Component = ({ className, ...props }: ComponentProps) => {
 The `cn` function, popularized by [shadcn/ui](https://ui.shadcn.com/), combines `clsx` and `tailwind-merge` to give you both conditional logic and intelligent merging:
 
 ```tsx title="lib/utils.ts"
-import { type ClassValue, clsx } from "clsx";
+import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
@@ -224,7 +224,7 @@ import { cn } from "@/lib/utils";
 
 <button
   className={cn(
-    "px-4 py-2 rounded-lg",
+    "rounded-lg px-4 py-2",
     variant === "primary" && "bg-blue-500 text-white",
     className,
   )}

@@ -1,10 +1,14 @@
 import type { SVGProps } from "react";
 
-type IconProps = SVGProps<SVGSVGElement> & {
+type IconProps = Omit<SVGProps<SVGSVGElement>, "height" | "width"> & {
   size?: number;
-  width?: number;
-  height?: number;
+  width?: SVGProps<SVGSVGElement>["width"];
+  height?: SVGProps<SVGSVGElement>["height"];
 };
+
+// Replit brand mark from Simple Icons (CC0).
+const REPLIT_PATH =
+  "M2 1.5A1.5 1.5 0 0 1 3.5 0h7A1.5 1.5 0 0 1 12 1.5V8H3.5A1.5 1.5 0 0 1 2 6.5ZM12 8h8.5A1.5 1.5 0 0 1 22 9.5v5a1.5 1.5 0 0 1-1.5 1.5H12ZM2 17.5A1.5 1.5 0 0 1 3.5 16H12v6.5a1.5 1.5 0 0 1-1.5 1.5h-7A1.5 1.5 0 0 1 2 22.5Z";
 
 function IconWrapper({ children, size, width, height, ...props }: IconProps) {
   const iconWidth = width ?? size ?? 18;
@@ -77,6 +81,20 @@ export const Icons = {
         fill="currentColor"
       />
     </IconWrapper>
+  ),
+  replit: ({ size = 18, width, height, ...props }: IconProps) => (
+    <svg
+      aria-hidden="true"
+      fill="currentColor"
+      height={height ?? size}
+      role="img"
+      viewBox="0 0 24 24"
+      width={width ?? size}
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path d={REPLIT_PATH} />
+    </svg>
   ),
   youtube: (props: IconProps) => (
     <IconWrapper {...props}>

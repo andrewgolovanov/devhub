@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Verifies raster images under static/img/{guides,examples,solutions}/ meet
+// Verifies raster images under public/img/{guides,examples,solutions}/ meet
 // the DevHub image-format contracts so cards + detail pages render
 // consistently.
 //
@@ -17,14 +17,13 @@
 //
 // Both contracts skip .svg files (vector exempt).
 //
-// Run locally:      npm run verify:images
+// Run locally:      pnpm verify:images
 // Runs on:          pre-commit
-
-import { readdir, stat } from "node:fs/promises";
-import { join, relative, extname } from "node:path";
+import { readdir, readFile, stat } from "node:fs/promises";
+import { extname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
+
 import { imageSize } from "image-size";
-import { readFile } from "node:fs/promises";
 
 const REPO_ROOT = fileURLToPath(new URL("..", import.meta.url));
 
@@ -37,8 +36,8 @@ const FORMATS = [
   {
     name: "16:9 (recipes/examples/cookbooks)",
     roots: [
-      join(REPO_ROOT, "static/img/guides"),
-      join(REPO_ROOT, "static/img/examples"),
+      join(REPO_ROOT, "public/img/guides"),
+      join(REPO_ROOT, "public/img/examples"),
     ],
     targetRatio: 16 / 9,
     minWidth: 1600,
@@ -48,7 +47,7 @@ const FORMATS = [
   },
   {
     name: "1.91:1 (linked solutions / Open Graph)",
-    roots: [join(REPO_ROOT, "static/img/solutions")],
+    roots: [join(REPO_ROOT, "public/img/solutions")],
     targetRatio: 1200 / 628,
     minWidth: 1200,
     minHeight: 628,
@@ -143,14 +142,14 @@ for (const format of FORMATS) {
 
 if (totalFiles === 0) {
   console.log(
-    `verify:images — no files under static/img/{guides,examples,solutions}/, skipping.`,
+    `verify:images — no files under public/img/{guides,examples,solutions}/, skipping.`,
   );
   process.exit(0);
 }
 
 if (errors.length > 0) {
   console.error(
-    `\nverify:images — ${errors.length} issue(s) in static/img/{guides,examples,solutions}/:\n`,
+    `\nverify:images — ${errors.length} issue(s) in public/img/{guides,examples,solutions}/:\n`,
   );
   for (const e of errors) console.error(`  ✗ ${e}\n`);
   console.error(

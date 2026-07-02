@@ -19,7 +19,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: `npx docusaurus serve --port ${PORT} --no-open`,
+    command: `pnpm exec next start -p ${PORT}`,
     port: PORT,
     reuseExistingServer: true,
     timeout: 30_000,

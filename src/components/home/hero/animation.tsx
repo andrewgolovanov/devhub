@@ -1,8 +1,11 @@
-import { cn } from "@/lib/utils";
-import Head from "@docusaurus/Head";
-import useBaseUrl from "@docusaurus/useBaseUrl";
+"use client";
+
 import type { CSSProperties } from "react";
 import { useEffect, useRef } from "react";
+import Image from "next/image";
+import Script from "next/script";
+
+import { cn } from "@/lib/utils";
 
 import "./animation.css";
 
@@ -35,26 +38,6 @@ function dispatchViewportState(element: HTMLElement) {
       },
     }),
   );
-}
-
-function preloadPlayerScript(src: string) {
-  const normalizedSrc = new URL(src, window.location.href).href;
-  const hasPreload = Array.from(document.head.querySelectorAll("link")).some(
-    (link) =>
-      link.rel === "preload" &&
-      link.as === "script" &&
-      link.href === normalizedSrc,
-  );
-
-  if (hasPreload) {
-    return;
-  }
-
-  const link = document.createElement("link");
-  link.rel = "preload";
-  link.as = "script";
-  link.href = normalizedSrc;
-  document.head.appendChild(link);
 }
 
 function DbHeroPlayerScene() {
@@ -186,17 +169,23 @@ function DbHeroPlayerScene() {
                   className="app-reveal-overlay"
                   aria-hidden="true"
                 ></div>
-                <img
+                <Image
                   className="app-prototype-image"
                   src="/img/home/hero/app-prototype.png"
                   alt=""
+                  width={1536}
+                  height={1028}
+                  loading="eager"
                   draggable={false}
                   aria-hidden="true"
                 />
-                <img
+                <Image
                   className="app-done-image"
                   src="/img/home/hero/app-done.png"
                   alt=""
+                  width={1536}
+                  height={1028}
+                  loading="eager"
                   draggable={false}
                   aria-hidden="true"
                 />
@@ -576,32 +565,7 @@ function DbHeroPlayerScene() {
 
 export function DbHeroAnimation({ className }: DbHeroAnimationProps) {
   const rootRef = useRef<HTMLDivElement>(null);
-  const playerScriptBaseSrc = useBaseUrl(playerScriptPath);
-  const playerScriptSrc = `${playerScriptBaseSrc}?v=${playerScriptVersion}`;
-
-  useEffect(() => {
-    if (!rootRef.current?.querySelector("#stage")) {
-      return undefined;
-    }
-
-    const scriptId = `db-hero-player-script-${Date.now().toString(36)}`;
-    const script = document.createElement("script");
-    script.id = scriptId;
-    script.src = playerScriptSrc;
-    script.async = true;
-    script.onload = () => {
-      if (rootRef.current) {
-        dispatchViewportState(rootRef.current);
-      }
-    };
-
-    preloadPlayerScript(playerScriptSrc);
-    document.body.appendChild(script);
-
-    return () => {
-      script?.remove();
-    };
-  }, [playerScriptSrc]);
+  const playerScriptSrc = `${playerScriptPath}?v=${playerScriptVersion}`;
 
   useEffect(() => {
     const root = rootRef.current;
@@ -650,9 +614,16 @@ export function DbHeroAnimation({ className }: DbHeroAnimationProps) {
 
   return (
     <>
-      <Head>
-        <link rel="preload" href={playerScriptSrc} as="script" />
-      </Head>
+      <Script
+        id="db-hero-player-script"
+        src={playerScriptSrc}
+        strategy="afterInteractive"
+        onReady={() => {
+          if (rootRef.current) {
+            dispatchViewportState(rootRef.current);
+          }
+        }}
+      />
       <div
         ref={rootRef}
         className={cn(

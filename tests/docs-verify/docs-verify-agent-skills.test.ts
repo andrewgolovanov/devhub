@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { describe, test, expect } from "vitest";
+
+import { describe, expect, test } from "vitest";
 
 const DOCS_DIR = resolve(__dirname, "..", "..", "docs");
 const AGENT_SKILLS_MD = resolve(

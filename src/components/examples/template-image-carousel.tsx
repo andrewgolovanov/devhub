@@ -1,7 +1,8 @@
 "use client";
 
-import useBaseUrl from "@docusaurus/useBaseUrl";
-import { useColorMode } from "@docusaurus/theme-common";
+import Image from "next/image";
+
+import type { GalleryImage } from "@/lib/recipes/recipes";
 import {
   Carousel,
   CarouselContent,
@@ -9,15 +10,14 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import type { GalleryImage } from "@/lib/recipes/recipes";
 
 /**
  * Image carousel for template detail pages.
  *
- * - Each slide renders the light or dark variant based on the current site
- *   color mode; there is no manual light/dark toggle.
+ * - Each slide renders the production light preview variant, falling back to
+ *   dark when needed.
  * - Every slide is a fixed 16:9 frame; image contract is enforced by
- *   `npm run verify:images`.
+ *   `pnpm verify:images`.
  * - Arrows only render when there's more than one image.
  */
 export function TemplateImageCarousel({
@@ -27,8 +27,6 @@ export function TemplateImageCarousel({
   images: GalleryImage[];
   exampleName: string;
 }) {
-  const { colorMode } = useColorMode();
-  const isDark = colorMode === "dark";
   const multiple = images.length > 1;
 
   if (images.length === 0) return null;
@@ -41,8 +39,8 @@ export function TemplateImageCarousel({
             <CarouselItem key={`${image.lightUrl}-${image.darkUrl}`}>
               <Slide
                 image={image}
-                isDark={isDark}
                 alt={`${exampleName} screenshot ${i + 1} of ${images.length}`}
+                loading="eager"
               />
             </CarouselItem>
           ))}
@@ -60,21 +58,24 @@ export function TemplateImageCarousel({
 
 function Slide({
   image,
-  isDark,
   alt,
+  loading,
 }: {
   image: GalleryImage;
-  isDark: boolean;
   alt: string;
+  loading: "eager" | "lazy";
 }) {
-  const src = useBaseUrl(isDark ? image.darkUrl : image.lightUrl);
+  const src = image.lightUrl ?? image.darkUrl;
   return (
-    <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-border/60 bg-muted/30">
-      <img
+    <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-black/12 bg-black/4">
+      <Image
         src={src}
         alt={alt}
         className="absolute inset-0 h-full w-full object-cover object-center"
-        loading="lazy"
+        fill
+        loading={loading}
+        sizes="(min-width: 1024px) 768px, calc(100vw - 40px)"
+        quality={100}
       />
     </div>
   );

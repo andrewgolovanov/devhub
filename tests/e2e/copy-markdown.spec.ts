@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
 function setupClipboardMock(page: import("@playwright/test").Page) {
   return page.addInitScript(() => {
@@ -19,7 +19,7 @@ function getCopiedText(page: import("@playwright/test").Page) {
   );
 }
 
-async function clickCopyMarkdownAndWaitForToast(
+async function clickCopyMarkdownAndWaitForCopiedState(
   page: import("@playwright/test").Page,
 ) {
   const trigger = page.getByRole("button", { name: /copy (as|article)/i });
@@ -28,9 +28,10 @@ async function clickCopyMarkdownAndWaitForToast(
   const menuItem = page.getByRole("menuitem", { name: "Copy Markdown" });
   await menuItem.waitFor({ state: "visible" });
   await menuItem.click();
-  await expect(page.getByText("Markdown copied")).toBeVisible({
+  await expect(page.getByRole("button", { name: "Copied" })).toBeVisible({
     timeout: 5000,
   });
+  await expect(page.getByText("Markdown copied")).toBeHidden();
 }
 
 async function clickCopyPromptAndWaitForCopiedState(
@@ -57,7 +58,7 @@ async function expectCopyMarkdownWithoutPreamble({
   await setupClipboardMock(page);
   await page.goto(path, { waitUntil: "domcontentloaded" });
 
-  await clickCopyMarkdownAndWaitForToast(page);
+  await clickCopyMarkdownAndWaitForCopiedState(page);
 
   const copied = await getCopiedText(page);
   expect(copied).not.toContain("# About DevHub");
@@ -102,6 +103,8 @@ test.describe("copy markdown exports raw markdown on template pages", () => {
     expect(copied).toContain("Databricks CLI");
     // Cookbook body comes after the meta-prompt, with its own frontmatter:
     expect(copied).toContain('title: "AI Chat App"');
+    expect(copied).toContain("url: http://localhost");
+    expect(copied).not.toContain("\n# AI Chat App\n");
     expect(copied).toContain("# The cookbook the user copied");
     // Agent mode: recipe goals as components
     expect(copied).toContain("## Component:");
@@ -117,9 +120,25 @@ test.describe("copy markdown exports raw markdown on template pages", () => {
 
     const copied = await getCopiedText(page);
     expect(copied).toContain("# About DevHub");
+    expect(copied).toContain(
+      "Follow these rules every time you act on a DevHub prompt.",
+    );
+    expect(copied).not.toContain(
+      "Follow the repository instructions, ask for missing workspace details",
+    );
     // Agent mode: recipe goals appear as labeled components, not full content
     expect(copied).toContain("## Component: Lakebase Data Persistence");
     expect(copied).toContain("---");
+
+    const markdownResponse = await page.request.get(
+      "/templates/app-with-lakebase.md",
+    );
+    expect(markdownResponse.status()).toBe(200);
+    const routeMarkdown = await markdownResponse.text();
+    const pageOrigin = new URL(page.url()).origin;
+    expect(
+      copied.replaceAll(pageOrigin, "https://developers.databricks.com"),
+    ).toBe(routeMarkdown);
   });
 });
 
@@ -149,8 +168,8 @@ test.describe("copy markdown exports raw markdown on example pages", () => {
     expect(copied).toContain("Data Flow");
   });
 
-  // Full `npm run test` runs `build` before Playwright; if you run `test:e2e`
-  // alone, run `npm run build` first so `docusaurus serve` is not stale.
+  // Full `pnpm test` runs `build` before Playwright; if you run `test:e2e`
+  // alone, run `pnpm build` first so Next can serve the production output.
   test("Banner Copy prompt includes clone bash block and included templates preamble", async ({
     page,
   }) => {
@@ -239,9 +258,10 @@ test.describe("copy markdown exports raw markdown on solution pages", () => {
 
     await page.getByRole("button", { name: /copy (as|article)/i }).click();
     await page.getByRole("menuitem", { name: "Connect to MCP Server" }).click();
-    await expect(page.getByText("MCP config copied")).toBeVisible({
+    await expect(page.getByRole("button", { name: "Copied" })).toBeVisible({
       timeout: 5000,
     });
+    await expect(page.getByText("MCP config copied")).toBeHidden();
 
     const copied = JSON.parse(await getCopiedText(page)) as {
       mcpServers: Record<string, { url: string }>;
@@ -264,11 +284,20 @@ test.describe("copy markdown exports raw markdown on docs pages", () => {
     });
   });
 
-  test("raw-docs static files are served", async ({ request }) => {
+  test("raw-docs files are served for static and generated docs", async ({
+    request,
+  }) => {
     const response = await request.get("/raw-docs/start-here.md");
     expect(response.status()).toBe(200);
     const text = await response.text();
     expect(text).toContain("# Start here");
+
+    const appkitResponse = await request.get(
+      "/raw-docs/appkit/v0/api/appkit-ui/ui/Calendar.md",
+    );
+    expect(appkitResponse.status()).toBe(200);
+    expect(appkitResponse.headers()["content-type"]).toContain("text/markdown");
+    expect(await appkitResponse.text()).toContain("# Calendar");
   });
 
   test("docs page with CLI tabs includes both code variants and no About preamble", async ({
@@ -277,7 +306,7 @@ test.describe("copy markdown exports raw markdown on docs pages", () => {
     await setupClipboardMock(page);
     await page.goto("/docs/lakebase/development");
 
-    await clickCopyMarkdownAndWaitForToast(page);
+    await clickCopyMarkdownAndWaitForCopiedState(page);
 
     const copied = await getCopiedText(page);
     expect(copied).not.toContain("# About DevHub");
@@ -287,5 +316,5 @@ test.describe("copy markdown exports raw markdown on docs pages", () => {
   });
 });
 
-// Vercel still rewrites pretty .md URLs to /api/markdown, but Docusaurus also
+// Vercel rewrites pretty .md URLs to /api/markdown, and the Next postbuild
 // emits static .md files for local development and Playwright coverage.

@@ -1,4 +1,5 @@
 import { afterEach, describe, expect, test, vi } from "vitest";
+
 import { installChunkReload } from "../src/client/chunk-reload";
 
 function fakeSessionStorage(): Storage {
@@ -17,7 +18,7 @@ function fakeSessionStorage(): Storage {
 
 type Listener = (event: unknown) => void;
 
-function setup(options: { docusaurusBooted?: boolean; readyState?: string }) {
+function setup(options: { nextBooted?: boolean; readyState?: string }) {
   const reload = vi.fn();
   const windowListeners: Record<string, Listener[]> = {};
   const documentListeners: Record<string, Listener[]> = {};
@@ -29,10 +30,10 @@ function setup(options: { docusaurusBooted?: boolean; readyState?: string }) {
       (windowListeners[type] ??= []).push(cb);
     },
   } as Record<string, unknown>;
-  if (options.docusaurusBooted) win.docusaurus = {};
-
   const doc = {
     readyState: options.readyState ?? "loading",
+    getElementById: (id: string) =>
+      id === "__NEXT_DATA__" && options.nextBooted ? {} : null,
     addEventListener: (type: string, cb: Listener) => {
       (documentListeners[type] ??= []).push(cb);
     },
@@ -58,21 +59,21 @@ afterEach(() => {
 });
 
 describe("installChunkReload boot check", () => {
-  test("reloads when the app never booted (window.docusaurus undefined)", () => {
-    const { reload, fireDocument } = setup({ docusaurusBooted: false });
+  test("reloads when the app never booted", () => {
+    const { reload, fireDocument } = setup({ nextBooted: false });
     fireDocument("DOMContentLoaded", {});
     expect(reload).toHaveBeenCalledTimes(1);
   });
 
   test("does not reload when the app booted normally", () => {
-    const { reload, fireDocument } = setup({ docusaurusBooted: true });
+    const { reload, fireDocument } = setup({ nextBooted: true });
     fireDocument("DOMContentLoaded", {});
     expect(reload).not.toHaveBeenCalled();
   });
 
   test("checks immediately when the DOM is already parsed", () => {
     const { reload } = setup({
-      docusaurusBooted: false,
+      nextBooted: false,
       readyState: "complete",
     });
     expect(reload).toHaveBeenCalledTimes(1);
@@ -81,23 +82,23 @@ describe("installChunkReload boot check", () => {
 
 describe("installChunkReload asset error capture", () => {
   test("reloads on a failed hashed <script> load", () => {
-    const { reload, fireWindow } = setup({ docusaurusBooted: true });
+    const { reload, fireWindow } = setup({ nextBooted: true });
     fireWindow("error", {
-      target: { tagName: "SCRIPT", src: "/assets/js/main.abc123.js" },
+      target: { tagName: "SCRIPT", src: "/_next/static/chunks/main.js" },
     });
     expect(reload).toHaveBeenCalledTimes(1);
   });
 
   test("reloads on a failed hashed <link> stylesheet load", () => {
-    const { reload, fireWindow } = setup({ docusaurusBooted: true });
+    const { reload, fireWindow } = setup({ nextBooted: true });
     fireWindow("error", {
-      target: { tagName: "LINK", href: "/assets/css/styles.abc123.css" },
+      target: { tagName: "LINK", href: "/_next/static/css/styles.css" },
     });
     expect(reload).toHaveBeenCalledTimes(1);
   });
 
   test("ignores non-asset resource errors", () => {
-    const { reload, fireWindow } = setup({ docusaurusBooted: true });
+    const { reload, fireWindow } = setup({ nextBooted: true });
     fireWindow("error", {
       target: {
         tagName: "SCRIPT",
@@ -110,7 +111,7 @@ describe("installChunkReload asset error capture", () => {
 
 describe("installChunkReload dynamic import rejection", () => {
   test("reloads on a ChunkLoadError rejection", () => {
-    const { reload, fireWindow } = setup({ docusaurusBooted: true });
+    const { reload, fireWindow } = setup({ nextBooted: true });
     const error = new Error("Loading chunk 5 failed.");
     error.name = "ChunkLoadError";
     fireWindow("unhandledrejection", { reason: error });
@@ -118,7 +119,7 @@ describe("installChunkReload dynamic import rejection", () => {
   });
 
   test("ignores unrelated rejections", () => {
-    const { reload, fireWindow } = setup({ docusaurusBooted: true });
+    const { reload, fireWindow } = setup({ nextBooted: true });
     fireWindow("unhandledrejection", {
       reason: new Error("validation failed"),
     });
@@ -129,7 +130,7 @@ describe("installChunkReload dynamic import rejection", () => {
 describe("installChunkReload cooldown", () => {
   test("suppresses a second reload within the cooldown window", () => {
     vi.spyOn(Date, "now").mockReturnValue(1_000_000);
-    const { reload, fireWindow } = setup({ docusaurusBooted: true });
+    const { reload, fireWindow } = setup({ nextBooted: true });
     const error = new Error("boom");
     error.name = "ChunkLoadError";
     fireWindow("unhandledrejection", { reason: error });
@@ -139,7 +140,7 @@ describe("installChunkReload cooldown", () => {
 
   test("reloads again once the cooldown elapses", () => {
     const now = vi.spyOn(Date, "now").mockReturnValue(1_000_000);
-    const { reload, fireWindow } = setup({ docusaurusBooted: true });
+    const { reload, fireWindow } = setup({ nextBooted: true });
     const error = new Error("boom");
     error.name = "ChunkLoadError";
     fireWindow("unhandledrejection", { reason: error });

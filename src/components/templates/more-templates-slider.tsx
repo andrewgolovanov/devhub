@@ -1,55 +1,64 @@
-import Link from "@docusaurus/Link";
+"use client";
 
-import { FallbackCardArt } from "@/components/examples/fallback-card-art";
-import { TemplatePreviewImage } from "@/components/examples/template-preview-image";
+import Image from "next/image";
+import Link from "next/link";
+
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { SliderArrowIcon } from "@/components/ui/slider-arrow-icon";
 import { useScrollSlider } from "@/components/ui/use-scroll-slider";
-import {
-  getTemplateCardFields,
-  type TemplateItem,
-} from "@/components/templates/template-card";
-import { cn } from "@/lib/utils";
+import { FallbackCardArt } from "@/components/examples/fallback-card-art";
+import { TemplatePreviewImage } from "@/components/examples/template-preview-image";
+
+export type MoreTemplateItem = {
+  darkUrl?: string;
+  description: string;
+  href: string;
+  lightUrl?: string;
+  name: string;
+};
 
 function MoreTemplateCard({
   item,
   index,
 }: {
-  item: TemplateItem;
+  item: MoreTemplateItem;
   index: number;
 }) {
-  const { name, description, href, lightUrl, darkUrl } =
-    getTemplateCardFields(item);
+  const { name, description, href, lightUrl, darkUrl } = item;
 
   return (
     <article className="group w-[calc(100vw-4rem)] shrink-0 snap-start md:w-xl">
       <Link
         className="block no-underline hover:no-underline"
-        to={href}
+        href={href}
         aria-label={`Read ${name}`}
       >
-        <div className="relative aspect-video w-full overflow-hidden border border-db-navy bg-db-oat-medium">
+        <div className="border-db-navy bg-db-oat-medium relative aspect-video w-full overflow-hidden border">
           <TemplatePreviewImage
             lightUrl={lightUrl}
             darkUrl={darkUrl}
             alt={`${name} preview`}
             fallback={<FallbackCardArt index={index} />}
+            loading="eager"
           />
-          <span className="absolute top-0 right-0 z-10 flex size-11 items-center justify-center bg-orange opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100">
-            <img
+          <span className="bg-orange absolute top-0 right-0 z-10 flex size-11 items-center justify-center opacity-0 transition-opacity group-focus-within:opacity-100 group-hover:opacity-100">
+            <Image
               className="size-6"
               src="/img/templates/arrow-right-up.svg"
               alt=""
               aria-hidden="true"
+              width={24}
+              height={24}
             />
           </span>
         </div>
       </Link>
 
-      <h3 className="mt-5 mb-0 line-clamp-3 text-xl leading-tight font-normal tracking-[-0.04em] text-black/30 md:text-2xl xl:text-[1.75rem] xl:line-clamp-4 2xl:line-clamp-5">
+      <h3 className="mt-5 mb-0 line-clamp-3 text-xl leading-tight font-normal tracking-[-0.04em] text-black/30 md:text-2xl xl:line-clamp-4 xl:text-[1.75rem] 2xl:line-clamp-5">
         <Link
           className="text-inherit no-underline hover:no-underline"
-          to={href}
+          href={href}
         >
           <span className="text-black">{name}.</span> [{description}]
         </Link>
@@ -58,7 +67,7 @@ function MoreTemplateCard({
   );
 }
 
-export function MoreTemplatesSlider({ items }: { items: TemplateItem[] }) {
+export function MoreTemplatesSlider({ items }: { items: MoreTemplateItem[] }) {
   const slider = useScrollSlider({ itemCount: items.length });
 
   if (items.length === 0) return null;
@@ -77,12 +86,12 @@ export function MoreTemplatesSlider({ items }: { items: TemplateItem[] }) {
 
         <div className="mt-6 flex items-center gap-x-4 md:gap-8 lg:mt-14 xl:mt-18">
           <div
-            className="h-1.5 grow bg-db-oat-medium lg:h-2"
+            className="bg-db-oat-medium h-1.5 grow lg:h-2"
             role="presentation"
             aria-hidden="true"
           >
             <div
-              className="h-full bg-orange transition-[width] duration-300"
+              className="bg-orange h-full transition-[width] duration-300"
               style={{ width: progress }}
             />
           </div>
@@ -91,9 +100,9 @@ export function MoreTemplatesSlider({ items }: { items: TemplateItem[] }) {
               className={cn(
                 "static size-10 translate-0 rounded-none shadow-none transition-colors duration-150 disabled:opacity-100 md:size-11",
                 slider.currentIndex === 0
-                  ? "border border-grey-70 bg-transparent text-grey-70"
-                  : "border border-orange bg-orange text-white hover:bg-db-lava",
-                "focus-visible:ring-2 focus-visible:ring-db-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-db-bg",
+                  ? "border-grey-70 text-grey-70 border bg-transparent"
+                  : "border-orange bg-orange hover:bg-db-lava border text-white",
+                "focus-visible:ring-db-cyan focus-visible:ring-offset-db-bg focus-visible:ring-2 focus-visible:ring-offset-2",
                 "[&_svg]:size-6",
               )}
               type="button"
@@ -107,9 +116,9 @@ export function MoreTemplatesSlider({ items }: { items: TemplateItem[] }) {
               className={cn(
                 "static size-10 translate-0 rounded-none shadow-none transition-colors duration-150 disabled:opacity-100 md:size-11",
                 slider.currentIndex === slider.lastIndex
-                  ? "border border-grey-70 bg-transparent text-grey-70"
-                  : "border border-orange bg-orange text-white hover:bg-db-lava",
-                "focus-visible:ring-2 focus-visible:ring-db-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-db-bg",
+                  ? "border-grey-70 text-grey-70 border bg-transparent"
+                  : "border-orange bg-orange hover:bg-db-lava border text-white",
+                "focus-visible:ring-db-cyan focus-visible:ring-offset-db-bg focus-visible:ring-2 focus-visible:ring-offset-2",
                 "[&_svg]:size-6",
               )}
               type="button"
@@ -123,14 +132,14 @@ export function MoreTemplatesSlider({ items }: { items: TemplateItem[] }) {
         </div>
       </div>
 
-      <div className="mt-6 [--templates-slider-left:1.25rem] md:[--templates-slider-left:2rem] md:mt-10 2xl:[--templates-slider-left:max(2rem,calc((100vw-96rem)/2))]">
+      <div className="mt-6 [--templates-slider-left:1.25rem] md:mt-10 md:[--templates-slider-left:2rem] 2xl:[--templates-slider-left:max(2rem,calc((100vw-96rem)/2))]">
         <div
-          className="flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pb-2 pl-(--templates-slider-left) pr-(--templates-slider-left) [scroll-padding-left:var(--templates-slider-left)] [scroll-padding-right:var(--templates-slider-left)] [scrollbar-width:none] md:gap-8 xl:gap-10 [&::-webkit-scrollbar]:hidden"
+          className="flex snap-x snap-mandatory [scroll-padding-right:var(--templates-slider-left)] [scroll-padding-left:var(--templates-slider-left)] [scrollbar-width:none] gap-5 overflow-x-auto scroll-smooth pr-(--templates-slider-left) pb-2 pl-(--templates-slider-left) md:gap-8 xl:gap-10 [&::-webkit-scrollbar]:hidden"
           ref={slider.trackRef}
           onScroll={slider.handleScroll}
         >
           {items.map((item, index) => (
-            <MoreTemplateCard item={item} index={index} key={item.data.id} />
+            <MoreTemplateCard item={item} index={index} key={item.href} />
           ))}
         </div>
       </div>

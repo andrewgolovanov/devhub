@@ -1,5 +1,7 @@
+import { NextRequest } from "next/server";
 import { describe, expect, test } from "vitest";
-import middleware, { config } from "../middleware";
+
+import proxy, { config } from "../src/proxy";
 
 function withSiteUrl<T>(siteUrl: string | undefined, run: () => T): T {
   const previous = process.env.SITE_URL;
@@ -23,8 +25,8 @@ function withSiteUrl<T>(siteUrl: string | undefined, run: () => T): T {
 describe("middleware root redirect", () => {
   test("redirects root requests to SITE_URL when SITE_URL includes a path", () => {
     withSiteUrl("https://stage.databricks.com/devhub", () => {
-      const response = middleware(
-        new Request("https://dev-databricks.vercel.app/"),
+      const response = proxy(
+        new NextRequest("https://dev-databricks.vercel.app/"),
       );
 
       expect(response?.status).toBe(307);
@@ -36,8 +38,8 @@ describe("middleware root redirect", () => {
 
   test("preserves query strings when redirecting root requests", () => {
     withSiteUrl("https://stage.databricks.com/devhub", () => {
-      const response = middleware(
-        new Request("https://dev-databricks.vercel.app/?utm_source=test"),
+      const response = proxy(
+        new NextRequest("https://dev-databricks.vercel.app/?utm_source=test"),
       );
 
       expect(response?.status).toBe(307);
@@ -50,7 +52,7 @@ describe("middleware root redirect", () => {
   test("does not redirect root requests when SITE_URL has no path", () => {
     withSiteUrl("https://developers.databricks.com", () => {
       expect(
-        middleware(new Request("https://developers.databricks.com/")),
+        proxy(new NextRequest("https://developers.databricks.com/")),
       ).toBeUndefined();
     });
   });
@@ -58,7 +60,7 @@ describe("middleware root redirect", () => {
   test("does not redirect requests already under the configured base path", () => {
     withSiteUrl("https://stage.databricks.com/devhub", () => {
       expect(
-        middleware(new Request("https://dev-databricks.vercel.app/devhub")),
+        proxy(new NextRequest("https://dev-databricks.vercel.app/devhub")),
       ).toBeUndefined();
     });
   });
@@ -71,8 +73,10 @@ describe("middleware base-path API routing", () => {
 
   test("rewrites configured base-path API requests to the root API function", () => {
     withSiteUrl("https://stage.databricks.com/devhub", () => {
-      const response = middleware(
-        new Request("https://stage.databricks.com/devhub/api/mcp?transport=1"),
+      const response = proxy(
+        new NextRequest(
+          "https://stage.databricks.com/devhub/api/mcp?transport=1",
+        ),
       );
 
       expect(response?.headers.get("x-middleware-rewrite")).toBe(
@@ -84,8 +88,49 @@ describe("middleware base-path API routing", () => {
   test("leaves root API requests alone when SITE_URL has no base path", () => {
     withSiteUrl("https://developers.databricks.com", () => {
       expect(
-        middleware(new Request("https://developers.databricks.com/api/mcp")),
+        proxy(new NextRequest("https://developers.databricks.com/api/mcp")),
       ).toBeUndefined();
     });
+  });
+});
+
+describe("middleware markdown negotiation", () => {
+  test("rewrites template HTML requests with markdown Accept to the static markdown artifact", () => {
+    const response = proxy(
+      new NextRequest(
+        "https://developers.databricks.com/templates/ai-chat-app",
+        {
+          headers: { accept: "text/markdown" },
+        },
+      ),
+    );
+
+    expect(response?.headers.get("x-middleware-rewrite")).toBe(
+      "https://developers.databricks.com/templates/ai-chat-app.md",
+    );
+  });
+
+  test("rewrites docs HTML requests with text Accept to the static markdown artifact", () => {
+    const response = proxy(
+      new NextRequest("https://developers.databricks.com/docs/start-here", {
+        headers: { accept: "text/plain" },
+      }),
+    );
+
+    expect(response?.headers.get("x-middleware-rewrite")).toBe(
+      "https://developers.databricks.com/docs/start-here.md",
+    );
+  });
+
+  test("rewrites section index requests with markdown Accept to the index artifact", () => {
+    const response = proxy(
+      new NextRequest("https://developers.databricks.com/templates/", {
+        headers: { accept: "text/markdown" },
+      }),
+    );
+
+    expect(response?.headers.get("x-middleware-rewrite")).toBe(
+      "https://developers.databricks.com/templates.md",
+    );
   });
 });

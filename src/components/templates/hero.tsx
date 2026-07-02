@@ -19,13 +19,13 @@ export function Hero(): ReactNode {
           </span>
         </h1>
         <div className="flex flex-col gap-3 xl:absolute xl:right-8 xl:-bottom-1 xl:pb-2 2xl:pb-3">
-          <p className="max-w-md text-base leading-tight tracking-normal text-grey-80 xl:max-w-2xs 2xl:max-w-68 min-[100rem]:max-w-79">
+          <p className="text-grey-80 max-w-md text-base leading-tight tracking-normal xl:max-w-2xs 2xl:max-w-68 min-[100rem]:max-w-79">
             Copy any template as a prompt for your coding agent to build for
             you.
           </p>
           <AnimatedArrowLink
-            to="/docs/templates"
-            className="inline-flex w-fit items-center gap-2 font-sans text-base font-normal tracking-tight text-orange no-underline transition-colors hover:text-db-lava md:text-lg"
+            href="/docs/templates"
+            className="text-orange hover:text-db-lava inline-flex w-fit items-center gap-2 font-sans text-base font-normal tracking-tight no-underline transition-colors md:text-lg"
             size="size-4 md:size-5"
           >
             New to templates? Learn more here

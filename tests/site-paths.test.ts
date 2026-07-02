@@ -1,4 +1,5 @@
 import { describe, expect, test } from "vitest";
+
 import {
   routePathWithBaseUrl,
   toSiteRelativePath,
@@ -6,13 +7,13 @@ import {
 } from "../src/lib/site-paths";
 
 describe("routePathWithBaseUrl", () => {
-  test("leaves generated Docusaurus routes at root when baseUrl is root", () => {
+  test("leaves generated routes at root when baseUrl is root", () => {
     expect(routePathWithBaseUrl("/", "/templates/ai-chat-app")).toBe(
       "/templates/ai-chat-app",
     );
   });
 
-  test("prefixes generated Docusaurus routes with a configured baseUrl", () => {
+  test("prefixes generated routes with a configured baseUrl", () => {
     expect(routePathWithBaseUrl("/devhub/", "/templates/ai-chat-app")).toBe(
       "/devhub/templates/ai-chat-app",
     );

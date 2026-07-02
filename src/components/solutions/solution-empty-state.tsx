@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
-import { Button } from "@/components/ui/button";
+
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 type SolutionEmptyStateProps = {
   className?: string;
@@ -22,12 +23,12 @@ export function SolutionEmptyState({
         <p className="m-0 w-full text-xl tracking-normal text-white">
           No posts match your filter.
         </p>
-        <p className="m-0 w-full text-base tracking-normal text-grey-70">
+        <p className="text-grey-70 m-0 w-full text-base tracking-normal">
           Please try a different filter.
         </p>
       </div>
       <Button
-        className="font-mono text-base leading-none font-medium tracking-normal text-black uppercase shadow-none hover:bg-orange/90 focus-visible:ring-db-cyan focus-visible:ring-offset-black"
+        className="hover:bg-orange/90 focus-visible:ring-db-cyan font-mono text-base leading-none font-medium tracking-normal text-black uppercase shadow-none focus-visible:ring-offset-black"
         type="button"
         variant="orange"
         size="xl"

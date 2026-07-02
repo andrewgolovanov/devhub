@@ -1,4 +1,4 @@
-/** Allowed file names inside each content/<recipes|examples>/<slug>/ folder. */
+/** Allowed file names inside each src/content/<recipes|examples>/<slug>/ folder. */
 export type ContentSectionFile = "goal" | "prerequisites";
 
 export type ContentSections = {

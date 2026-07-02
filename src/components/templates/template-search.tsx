@@ -1,4 +1,5 @@
 import { SearchIcon } from "lucide-react";
+
 import { Input } from "@/components/ui/input";
 
 function CloseIcon({ className }: { className?: string }) {
@@ -38,10 +39,10 @@ export function TemplateSearch({
   onChange: (value: string) => void;
 }) {
   return (
-    <div className="relative bg-db-oat-medium">
-      <SearchIcon className="absolute top-1/2 left-3 size-5 -translate-y-1/2 text-grey-70" />
+    <div className="bg-db-oat-medium relative">
+      <SearchIcon className="text-grey-70 absolute top-1/2 left-3 size-5 -translate-y-1/2" />
       <Input
-        className="h-10 rounded-none border-grey-80 bg-transparent pr-11 pl-11 text-base tracking-tight shadow-none placeholder:text-grey-60 md:text-base active:border-db-lava focus-visible:ring-0 focus-visible:border-db-lava [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden dark:border-grey-80 dark:bg-transparent lg:h-11"
+        className="border-grey-80 placeholder:text-grey-60 active:border-db-lava focus-visible:border-db-lava dark:border-grey-80 h-10 rounded-none bg-transparent pr-11 pl-11 text-base tracking-tight shadow-none focus-visible:ring-0 md:text-base lg:h-11 dark:bg-transparent [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden"
         type="search"
         placeholder="Search templates..."
         value={value}
@@ -49,7 +50,7 @@ export function TemplateSearch({
       />
       {value.length > 0 ? (
         <button
-          className="absolute top-1/2 right-3 flex size-5 -translate-y-1/2 items-center justify-center text-grey-70 transition-colors hover:text-black focus-visible:ring-0 focus-visible:text-black focus-visible:outline-none"
+          className="text-grey-70 absolute top-1/2 right-3 flex size-5 -translate-y-1/2 items-center justify-center transition-colors hover:text-black focus-visible:text-black focus-visible:ring-0 focus-visible:outline-none"
           type="button"
           aria-label="Clear search"
           onClick={() => onChange("")}

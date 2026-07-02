@@ -1,5 +1,6 @@
-import { describe, expect, test } from "vitest";
 import { decompressFromEncodedURIComponent } from "lz-string";
+import { describe, expect, test } from "vitest";
+
 import { getPromptTargets } from "../src/lib/prompt-targets";
 
 describe("getPromptTargets", () => {

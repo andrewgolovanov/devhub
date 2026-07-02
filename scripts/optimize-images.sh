@@ -4,7 +4,7 @@
 # Re-runs are safe (idempotent): once a PNG is at the smallest size oxipng can
 # produce at -o max, subsequent runs leave it unchanged.
 #
-# Run locally: npm run optimize:images
+# Run locally: pnpm optimize:images
 
 set -euo pipefail
 
@@ -17,5 +17,5 @@ fi
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 
 oxipng -o max --strip safe --preserve \
-  "$ROOT/static/img/examples/"*.png \
-  "$ROOT/static/img/guides/"*.png
+  "$ROOT/public/img/examples/"*.png \
+  "$ROOT/public/img/guides/"*.png

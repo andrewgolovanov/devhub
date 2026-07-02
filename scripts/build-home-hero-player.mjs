@@ -1,9 +1,10 @@
-import { gzipSync } from "node:zlib";
 import { readFileSync, statSync } from "node:fs";
+import { gzipSync } from "node:zlib";
+
 import { build } from "esbuild";
 
 const sourcePath = "src/components/home/hero/player.source.js";
-const outputPath = "static/js/home-hero-player.js";
+const outputPath = "public/js/home-hero-player.js";
 
 await build({
   entryPoints: [sourcePath],

@@ -60,7 +60,10 @@ export const SHORT_TO_LONG: Record<string, string> = {
 };
 
 export function getAllOptionsBlocks(docPath: string): string[] {
-  const content = readFileSync(resolve(process.cwd(), docPath), "utf-8");
+  const sourcePath = docPath.startsWith("docs/")
+    ? `src/content/${docPath}`
+    : docPath;
+  const content = readFileSync(resolve(process.cwd(), sourcePath), "utf-8");
   const blocks: string[] = [];
   const regex = /```\w+\s+title="All Options"\s*\n([\s\S]*?)```/g;
   let match;

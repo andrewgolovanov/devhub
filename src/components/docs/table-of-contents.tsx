@@ -1,3 +1,5 @@
+"use client";
+
 import {
   useCallback,
   useEffect,
@@ -6,7 +8,8 @@ import {
   type MouseEvent,
   type ReactNode,
 } from "react";
-import Link from "@docusaurus/Link";
+import Link from "next/link";
+
 import { cn } from "@/lib/utils";
 
 export type DocsTableOfContentsItem = {
@@ -126,7 +129,7 @@ export function TableOfContents({
 
   return (
     <nav className={cn("table-of-contents", className)} aria-label={title}>
-      <h2 className="mb-6 text-xs/none font-mono font-medium uppercase tracking-normal text-grey-50">
+      <h2 className="text-grey-50 mb-6 font-mono text-xs/none font-medium tracking-normal uppercase">
         {title}
       </h2>
 

@@ -1,6 +1,8 @@
-import { test, expect, type Locator } from "@playwright/test";
-import { loadAgentPromptParts } from "../../api/content-markdown";
+import { expect, test, type Locator } from "@playwright/test";
+
+import { loadAgentPromptParts } from "../../src/lib/agent-content-markdown";
 import { composeAgentPrompt } from "../../src/lib/copy-preamble";
+import { expectDevHubImageToUseNextOptimizer } from "./image-assertions";
 
 // Reproduce what `/api/bootstrap-prompt` returns for the hero "Copy prompt"
 // button: the full agent-prompt composer with kind="hero". We mock the API
@@ -339,6 +341,57 @@ test.describe.skip("mobile navigation", () => {
   }
 });
 
+test.describe("current mobile navigation", () => {
+  test("uses the production hamburger menu with search inside the drawer", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/");
+
+    await expect(page.getByRole("button", { name: "Open menu" })).toBeVisible();
+    await expect(
+      page.getByRole("button", { name: "Search documentation" }),
+    ).toHaveCount(0);
+
+    await page.getByRole("button", { name: "Open menu" }).click();
+
+    const header = page.locator("header").first();
+    const mainContent = page.locator("#devhub-main-content");
+    const menu = page.getByRole("dialog", { name: "Main navigation" });
+    const home = menu.getByRole("link", { name: "~/HOME" });
+    const homeLabel = home.locator("[data-mobile-menu-item-label]");
+
+    await expect(
+      page.getByRole("button", { name: "Close menu" }),
+    ).toBeVisible();
+    await expect(header).toHaveCSS("background-color", "rgb(199, 201, 209)");
+    await expect(mainContent).toHaveAttribute("aria-hidden", "true");
+    await expect(mainContent).toHaveJSProperty("inert", true);
+    await expect(menu).toHaveCSS("background-color", "rgb(28, 29, 34)");
+    await expect(home).toHaveAttribute("aria-current", "page");
+    await expect(homeLabel).toHaveCSS("background-color", "rgb(199, 201, 209)");
+    await expect(menu.getByRole("link", { name: "solutions" })).toHaveAttribute(
+      "href",
+      "/solutions",
+    );
+    await expect(menu.getByRole("link", { name: "templates" })).toHaveAttribute(
+      "href",
+      "/templates",
+    );
+    await expect(menu.getByRole("link", { name: "docs" })).toHaveAttribute(
+      "href",
+      "/docs/start-here",
+    );
+    await expect(
+      menu.getByRole("button", { name: "Search documentation" }),
+    ).toBeVisible();
+
+    await page.getByRole("button", { name: "Close menu" }).click();
+    await expect(mainContent).not.toHaveAttribute("aria-hidden", "true");
+    await expect(mainContent).toHaveJSProperty("inert", false);
+  });
+});
+
 test.describe("home hero animation", () => {
   test("does not create browser selection when dragging the app preview body", async ({
     page,
@@ -408,6 +461,10 @@ test.describe("footer navigation", () => {
       href: "https://www.databricks.com/product/artificial-intelligence/agent-bricks",
       label: "Agent Bricks",
     },
+    { href: "https://www.reddit.com/r/databricks/", label: "Reddit" },
+    { href: "https://www.youtube.com/@Databricks", label: "YouTube" },
+    { href: "https://github.com/databricks/devhub", label: "GitHub" },
+    { href: "https://www.databricks.com", label: "Databricks.com" },
     {
       href: "https://www.databricks.com/legal/privacynotice",
       label: "Privacy Notice",
@@ -424,19 +481,6 @@ test.describe("footer navigation", () => {
       href: "https://www.databricks.com/legal/supplemental-privacy-notice-california-residents",
       label: "California Privacy",
     },
-    {
-      href: "https://www.reddit.com/r/databricks/",
-      label: "Reddit",
-    },
-    {
-      href: "https://www.youtube.com/@Databricks",
-      label: "YouTube",
-    },
-    {
-      href: "https://github.com/databricks/devhub",
-      label: "GitHub",
-    },
-    { href: "https://www.databricks.com", label: "Databricks.com" },
   ];
 
   const EXPECTED_FOOTER_HREFS = [
@@ -728,6 +772,10 @@ test.describe("solutions page navigation", () => {
       await page.goto("/solutions");
       const link = page.locator(`a[href="${path}"]`).first();
       await link.waitFor({ state: "visible" });
+      await expectDevHubImageToUseNextOptimizer(
+        page.locator(`a[href="${path}"] img`).first(),
+        "/img/solutions/devhub-launch.jpg",
+      );
       await link.click();
       await page.waitForURL(`**${path}`);
       expect(new URL(page.url()).pathname).toBe(path);
@@ -797,6 +845,19 @@ test.describe("solution detail page navigation", () => {
     expect(hrefs).toContain("/docs/start-here");
     expect(hrefs).toContain("/templates");
   });
+
+  test("solution detail hero image uses the Next image optimizer", async ({
+    page,
+  }) => {
+    await page.goto("/solutions/devhub-launch");
+
+    await expectDevHubImageToUseNextOptimizer(
+      page.getByRole("img", {
+        name: "Cover graphic for Introducing DevHub with a grid, launch tags, and developer hub label",
+      }),
+      "/img/solutions/devhub-launch.jpg",
+    );
+  });
 });
 
 test.describe("template detail page navigation", () => {
@@ -826,8 +887,31 @@ test.describe("template detail page navigation", () => {
     });
     const coverImages = moreTemplates.locator('img[alt$=" preview"]');
 
-    await expect(coverImages.first()).toBeVisible();
-    await expect(coverImages.first()).toHaveAttribute("src", /\/img\//);
+    await expectDevHubImageToUseNextOptimizer(coverImages.first());
+  });
+
+  test("template detail pages keep production light preview assets", async ({
+    page,
+  }) => {
+    await page.goto("/templates/lakebase-change-data-feed-autoscaling");
+
+    await expectDevHubImageToUseNextOptimizer(
+      page
+        .locator(
+          'img[alt="Lakebase Change Data Feed: Sync Lakebase to Unity Catalog (Autoscaling) preview"]',
+        )
+        .first(),
+      "/img/guides/lakebase-change-data-feed-autoscaling-preview-light.png",
+    );
+
+    const moreTemplates = page.locator("section").filter({
+      has: page.getByRole("heading", { name: "Explore more templates" }),
+    });
+
+    await expectDevHubImageToUseNextOptimizer(
+      moreTemplates.locator('img[alt="Lakebase Agent Memory preview"]').first(),
+      "/img/guides/lakebase-agent-memory-preview-light.png",
+    );
   });
 });
 
@@ -950,10 +1034,10 @@ test.describe("docs sidebar navigation", () => {
       sidebar.getByRole("button", { name: "AppKit", exact: true }),
     ).toBeVisible();
     await expect(
-      sidebar.locator('a[href^="/docs/appkit/v0/api/appkit-ui"]').first(),
+      sidebar.locator('a[href="/docs/appkit/v0/api/appkit-ui"]'),
     ).toBeVisible();
     await expect(
-      sidebar.locator('a[href^="/docs/appkit/v0/api/appkit/"]').first(),
+      sidebar.locator('a[href="/docs/appkit/v0/api/appkit"]'),
     ).toBeVisible();
   });
 });

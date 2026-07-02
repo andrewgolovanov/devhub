@@ -68,13 +68,14 @@ my-app/
 ```
 
 **Key files to modify:**
-| Task | File |
-|------|------|
-| Build UI | `client/src/App.tsx` |
-| Add SQL query | `config/queries/<NAME>.sql` |
-| Add API endpoint | `server/server.ts` (tRPC) |
+
+| Task                          | File                                                       |
+| ----------------------------- | ---------------------------------------------------------- |
+| Build UI                      | `client/src/App.tsx`                                       |
+| Add SQL query                 | `config/queries/<NAME>.sql`                                |
+| Add API endpoint              | `server/server.ts` (tRPC)                                  |
 | Add shared helpers (optional) | create `shared/types.ts` or `client/src/lib/formatters.ts` |
-| Fix smoke test | `tests/smoke.spec.ts` |
+| Fix smoke test                | `tests/smoke.spec.ts`                                      |
 
 ## Type Safety
 

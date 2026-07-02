@@ -1,12 +1,13 @@
 import { describe, expect, test } from "vitest";
+
+import type { ContentSections } from "../src/lib/content-sections";
 import {
-  buildFullPrompt,
   buildAdditionalMarkdown,
   buildExportGetStartedSection,
+  buildFullPrompt,
   buildIncludedTemplatesPreamble,
 } from "../src/lib/examples/build-example-markdown";
 import type { ExampleMarkdownOptions } from "../src/lib/examples/build-example-markdown";
-import type { ContentSections } from "../src/lib/content-sections";
 import type { Example } from "../src/lib/recipes/recipes";
 
 const minimalExample: Example = {

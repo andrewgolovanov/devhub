@@ -1,0 +1,95 @@
+---
+title: Databricks CLI
+---
+
+# Databricks CLI
+
+The Databricks CLI (command-line interface) allows you to interact with the Databricks platform from your local terminal or via a coding agent. Installation and authentication with the CLI are required for developing apps on Databricks and for running the [templates](/templates) on this site.
+
+This page covers installation and authentication. For the full command reference, see the [official CLI docs](https://docs.databricks.com/aws/en/dev-tools/cli/).
+
+## Install or upgrade
+
+From your terminal, run the following commands to install or upgrade the CLI:
+
+<Tabs groupId="os">
+<TabItem value="mac-linux" label="macOS / Linux">
+
+```bash
+brew tap databricks/tap
+brew install databricks
+
+brew update && brew upgrade databricks
+```
+
+</TabItem>
+<TabItem value="windows" label="Windows">
+
+```bash
+winget install Databricks.DatabricksCLI
+
+winget upgrade Databricks.DatabricksCLI
+```
+
+</TabItem>
+<TabItem value="curl" label="curl (all platforms)">
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
+```
+
+On Windows, use WSL. If `/usr/local/bin` is not writable, rerun with `sudo`. Re-running the script also upgrades an existing install.
+
+</TabItem>
+</Tabs>
+
+:::note
+All DevHub templates assume the Databricks CLI is version `1.0.0+`.
+:::
+
+## Authenticate
+
+In order to develop apps on Databricks, you need to authenticate with the CLI. This allows the CLI to interact with your Databricks workspace and perform actions on your behalf.
+
+To authenticate, run the following command:
+
+```bash
+databricks auth login
+```
+
+This prompts you for a profile name (defaults to `DEFAULT`), then opens a browser where you sign in and pick a workspace.
+
+Once authenticated, credentials are saved to `~/.databrickscfg`.
+
+To authenticate to a specific workspace or to name the profile, use the `--host` and `--profile` flags:
+
+```bash
+databricks auth login --host <workspace-url> --profile <PROFILE>
+```
+
+If you have multiple authenticated profiles, you can pass `--profile <PROFILE>` on subsequent commands to target a specific profile.
+
+To list all saved profiles, run the following command:
+
+```bash
+databricks auth profiles
+```
+
+Example output:
+
+```text
+Name              Host                                             Valid
+DEFAULT           https://adb-1234567890.12.azuredatabricks.net    YES
+my-prod-workspace https://mycompany.cloud.databricks.com           YES
+```
+
+- **Name** is the profile label.
+- **Host** is the workspace URL.
+- **Valid** is the result of a live authentication check against the workspace. `NO` means the check failed; re-run `databricks auth login --profile <NAME>` to re-authenticate.
+
+For CI/CD, use OAuth client credentials or token-based auth (no browser step). See [CLI authentication](https://docs.databricks.com/aws/en/dev-tools/cli/authentication).
+
+## Where to next
+
+- [Install agent skills](/docs/tools/ai-tools/agent-skills) to give AI coding assistants Databricks platform knowledge.
+- Set up the [DevHub Docs MCP server](/docs/tools/ai-tools/docs-mcp-server) to give AI coding assistants access to DevHub documentation.

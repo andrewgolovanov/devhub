@@ -15,7 +15,7 @@
  *
  * The resolver is a pure function so it can be unit-tested with synthetic envs.
  * The config builder is the thin imperative shell consumed by
- * `docusaurus.config.ts` at build time.
+ * the app environment at build time.
  */
 
 type HackathonBannerEnv = {
@@ -38,7 +38,7 @@ export function resolveHackathonBannerActive(env: HackathonBannerEnv): boolean {
 
 const DEFAULT_BANNER_LEAD_TEXT = "Databricks Developer Hackathon is live.";
 
-const ARROW_SVG = `<img src="/img/arrow-right-banner.svg" alt="" class="banner-arrow">`;
+const ARROW_SVG = `<svg class="banner-arrow" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.5 8.01562H14.5" stroke="#040406" stroke-width="2" stroke-miterlimit="10"/><path d="M10 3.51562L14.5 8.01562L10 12.5156" stroke="#040406" stroke-width="2" stroke-miterlimit="10" stroke-linecap="square"/></svg>`;
 
 function bannerLinkHtml(slug: string, hidden = false): string {
   const target = slug ? `/hackathon/${slug}` : "/hackathon";

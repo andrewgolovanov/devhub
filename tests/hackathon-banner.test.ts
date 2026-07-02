@@ -1,4 +1,5 @@
 import { describe, expect, test } from "vitest";
+
 import {
   getHackathonBannerConfig,
   resolveHackathonBannerActive,
@@ -52,6 +53,10 @@ describe("getHackathonBannerConfig", () => {
       'href="/hackathon/apps-agents-for-good-2026"',
     );
     expect(config?.id).toBe("hackathon-apps-agents-for-good-2026");
+    expect(config?.content).not.toContain("<img");
+    expect(config?.content).toContain(
+      '<svg class="banner-arrow" aria-hidden="true"',
+    );
   });
 
   test("falls back to /hackathon and a generic id when no slug is set", () => {

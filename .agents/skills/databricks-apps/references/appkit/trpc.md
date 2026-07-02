@@ -60,10 +60,10 @@ Read `server/server.ts` (or `server/trpc.ts`) to see what routes already exist. 
 
 ```tsx
 // server/trpc.ts
-import { initTRPC } from "@trpc/server";
 import { getExecutionContext } from "@databricks/appkit";
-import { z } from "zod";
+import { initTRPC } from "@trpc/server";
 import superjson from "superjson";
+import { z } from "zod";
 
 const t = initTRPC.create({ transformer: superjson });
 const publicProcedure = t.procedure;

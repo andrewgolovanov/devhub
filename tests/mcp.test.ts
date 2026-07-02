@@ -1,4 +1,4 @@
-import { describe, test, expect, beforeAll } from "vitest";
+import { beforeAll, describe, expect, test } from "vitest";
 
 function rpc(method: string, params?: unknown) {
   return { jsonrpc: "2.0", id: 1, method, params };
@@ -15,7 +15,7 @@ describe("MCP server handler", () => {
 
   beforeAll(async () => {
     process.env.SITE_URL = "http://localhost:4173";
-    const mod = await import("../api/mcp");
+    const mod = await import("../src/app/api/mcp/route");
     handler = mod.POST;
   });
 

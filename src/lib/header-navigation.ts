@@ -1,17 +1,12 @@
 export const HEADER_LINKS = [
-  { label: "Product", href: "/product/lakebase" },
+  // Temporarily hidden while product pages are unpublished.
+  // { label: "Product", href: "/product/data-lakehouse" },
   { label: "Solutions", href: "/solutions" },
   { label: "Templates", href: "/templates" },
   { label: "Docs", href: "/docs/start-here", activePath: "/docs" },
 ] as const;
 
 export type HeaderNavItem = (typeof HEADER_LINKS)[number];
-
-export const PRODUCT_LINKS = [
-  { label: "Lakebase", href: "/product/lakebase" },
-  { label: "Agent Bricks", href: "/product/agent-bricks" },
-  { label: "Databricks Apps", href: "/product/databricks-apps" },
-] as const;
 
 function normalizePath(path: string) {
   if (path === "/") return path;
@@ -39,8 +34,4 @@ export function isHeaderNavItemActive(item: HeaderNavItem, pathname: string) {
     "activePath" in item ? item.activePath : item.href,
     pathname,
   );
-}
-
-export function getActiveProductHref(pathname: string) {
-  return PRODUCT_LINKS.find(({ href }) => isHrefActive(href, pathname))?.href;
 }

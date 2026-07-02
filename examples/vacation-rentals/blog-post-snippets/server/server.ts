@@ -1,9 +1,9 @@
 import {
-  createApp,
-  server,
   analytics,
+  createApp,
   genie,
   lakebase,
+  server,
 } from "@databricks/appkit";
 
 const appkit = await createApp({

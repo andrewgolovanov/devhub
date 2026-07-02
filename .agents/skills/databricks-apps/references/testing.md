@@ -5,7 +5,7 @@
 **CRITICAL**: Use vitest for all tests. Put tests next to the code (e.g. src/\*.test.ts)
 
 ```typescript
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 
 describe("Feature Name", () => {
   it("should do something", () => {

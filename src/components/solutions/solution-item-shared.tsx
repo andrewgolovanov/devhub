@@ -1,6 +1,7 @@
-import Link from "@docusaurus/Link";
-import useBaseUrl from "@docusaurus/useBaseUrl";
 import type { CSSProperties, ReactNode } from "react";
+import Image from "next/image";
+import Link from "next/link";
+
 import {
   getSolutionItemHref,
   isLinkedSolutionItem,
@@ -76,7 +77,7 @@ export function SolutionItemLink({
   }
 
   return (
-    <Link className={className} to={href} aria-label={ariaLabel}>
+    <Link className={className} href={href} aria-label={ariaLabel}>
       {children}
     </Link>
   );
@@ -87,36 +88,42 @@ export function SolutionItemVisual({
   variant,
   width,
   height,
+  preload = false,
+  loading,
 }: {
   item: SolutionItem;
   variant: "card" | "featured";
   width?: number;
   height?: number;
+  preload?: boolean;
+  loading?: "eager" | "lazy";
 }): ReactNode {
-  const imageUrl = useBaseUrl(item.previewImage ?? "");
+  const shouldPreload = preload || variant === "featured";
 
   if (item.previewImage) {
     return (
-      <img
+      <Image
         className={cn(
           "absolute inset-0 h-full w-full object-cover",
           variant === "card" &&
             "transition-transform duration-300 group-hover:scale-102",
         )}
-        src={imageUrl}
+        src={item.previewImage}
         alt={item.previewImageAlt ?? ""}
-        width={width}
-        height={height}
-        loading={variant === "card" ? "lazy" : "eager"}
+        fill
+        sizes={width ? `${width}px` : "100vw"}
+        loading={shouldPreload ? "eager" : loading}
+        preload={shouldPreload}
+        quality={100}
       />
     );
   }
 
   if (variant === "featured") {
     return (
-      <div className="absolute inset-0 bg-linear-to-b from-db-navy-light to-grey-40" />
+      <div className="from-db-navy-light to-grey-40 absolute inset-0 bg-linear-to-b" />
     );
   }
 
-  return <div className="absolute inset-0 bg-grey-20" />;
+  return <div className="bg-grey-20 absolute inset-0" />;
 }

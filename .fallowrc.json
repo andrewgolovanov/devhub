@@ -2,20 +2,53 @@
   "$schema": "https://raw.githubusercontent.com/fallow-rs/fallow/main/schema.json",
   "ignorePatterns": [
     "examples/**",
-    "content/**",
-    ".docusaurus/**",
-    "build/**",
-    "static/js/home-hero-player.js"
+    "nextjs/**",
+    "src/content/**",
+    "src/components/ui/**",
+    "src/components/docs/content-tabs.tsx",
+    "src/components/next/tab-item.tsx",
+    "src/components/next/tabs.tsx",
+    "src/components/products/**",
+    "src/hooks/use-mobile.ts",
+    "src/lib/content-tabs-state.ts",
+    "src/lib/mdx-plugins/**",
+    "src/lib/products/**",
+    "src/app/(website)/product/**",
+    "public/raw-docs/**",
+    "public/appkit-preview/**",
+    "public/js/home-hero-player.js",
+    "scripts/render-resource-image.mjs",
+    "scripts/serve-mcp.ts"
   ],
   "ignoreDependencies": [
+    "@base-ui/react",
+    "@mdx-js/loader",
     "@modelcontextprotocol/sdk",
-    "@docusaurus/module-type-aliases",
-    "@docusaurus/tsconfig",
+    "@next/mdx",
+    "@shikijs/rehype",
+    "@shikijs/transformers",
+    "class-variance-authority",
+    "cmdk",
+    "embla-carousel-react",
+    "github-slugger",
+    "hast-util-to-jsx-runtime",
+    "input-otp",
     "mdast",
+    "mdast-util-mdx-jsx",
     "mdast-util-mdx",
-    "unified",
+    "next-themes",
+    "npm-to-yarn",
+    "react-day-picker",
+    "react-hook-form",
+    "react-resizable-panels",
+    "remark-gfm",
+    "remark-frontmatter",
+    "remark-mdx",
+    "remark-mdx-frontmatter",
+    "shiki",
     "unist",
     "unist-util-visit",
+    "vaul",
     "prism-react-renderer",
     "@tailwindcss/typography"
   ],
@@ -25,8 +58,16 @@
       "exports": ["GET", "POST", "DELETE"]
     },
     {
-      "file": "src/components/ui/**",
-      "exports": ["*"]
+      "file": "src/app/not-found.tsx",
+      "exports": ["metadata"]
+    },
+    {
+      "file": "src/lib/content-markdown.ts",
+      "exports": ["getContentSlugs", "getCookbookSlugs"]
+    },
+    {
+      "file": "src/lib/llms-txt.ts",
+      "exports": ["copyRawDocs"]
     }
   ],
   "rules": {

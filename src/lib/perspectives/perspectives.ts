@@ -1,9 +1,3 @@
-export type PerspectivesGlobalData = {
-  entries: Array<{ slug: string; question: string }>;
-};
-
-export const PERSPECTIVES_PLUGIN_NAME = "docusaurus-plugin-perspectives";
-
 /**
  * Convert `What_is_the_best_platform_for_X.md` into a URL slug.
  * Lowercases the name, drops the `.md`, and replaces underscores with hyphens
@@ -24,7 +18,7 @@ const SECTION_LABEL = /^(metadata|content)$/i;
 
 /**
  * Pull the human-readable question and answer body out of a perspectives
- * markdown file. Files in `content/perspectives/` use two slightly different
+ * markdown file. Files in `src/content/perspectives/` use two slightly different
  * conventions in the wild:
  *
  *   ## Question?            #  Question?

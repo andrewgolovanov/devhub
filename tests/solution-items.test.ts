@@ -1,22 +1,23 @@
 import { describe, expect, test } from "vitest";
+
 import {
-  SOLUTION_FEATURED_ITEM_ID,
-  buildSolutionPaginationTestItems,
-  buildSolutionItems,
-  filterSolutionItems,
-  getSolutionPageFromPathname,
-  getSolutionPagePath,
-  getSolutionCategories,
-  getFeaturedSolutionItem,
-  isDatabricksSolutionItem,
-  paginateSolutionItems,
-  type SolutionItem,
-} from "../src/lib/solutions/solutions";
-import {
-  SOLUTION_RSS_PATH,
   buildSolutionRssFeed,
   getSolutionRssUrl,
+  SOLUTION_RSS_PATH,
 } from "../src/lib/solutions/rss-feed";
+import {
+  buildSolutionItems,
+  buildSolutionPaginationTestItems,
+  filterSolutionItems,
+  getFeaturedSolutionItem,
+  getSolutionCategories,
+  getSolutionPageFromPathname,
+  getSolutionPagePath,
+  isDatabricksSolutionItem,
+  paginateSolutionItems,
+  SOLUTION_FEATURED_ITEM_ID,
+  type SolutionItem,
+} from "../src/lib/solutions/solutions";
 
 describe("solution items", () => {
   test("builds solution items newest-first", () => {

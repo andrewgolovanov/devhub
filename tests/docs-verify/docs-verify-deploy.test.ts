@@ -1,12 +1,14 @@
 import { existsSync, mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { resolve } from "node:path";
-import { describe, test, expect, afterAll } from "vitest";
+
+import { afterAll, describe, expect, test } from "vitest";
+
 import {
   cli,
   cliJson,
-  scaffoldApp,
   installAndBuild,
+  scaffoldApp,
 } from "../helpers/scaffold-app";
 
 const PROFILE = process.env.DATABRICKS_PROFILE;

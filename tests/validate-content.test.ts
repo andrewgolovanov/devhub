@@ -1,8 +1,9 @@
-import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from "node:fs";
-import { tmpdir } from "node:os";
-import { resolve, join } from "node:path";
 import { execFileSync } from "node:child_process";
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+
 import { afterEach, beforeEach, describe, expect, test } from "vitest";
 
 const REPO_ROOT = resolve(fileURLToPath(new URL("..", import.meta.url)));
@@ -40,8 +41,8 @@ function seedFixture(rootDir: string, layout: Record<string, string>): void {
     mkdirSync(resolve(filePath, ".."), { recursive: true });
     writeFileSync(filePath, contents, "utf-8");
   }
-  mkdirSync(join(rootDir, "content", "recipes"), { recursive: true });
-  mkdirSync(join(rootDir, "content", "examples"), { recursive: true });
+  mkdirSync(join(rootDir, "src", "content", "recipes"), { recursive: true });
+  mkdirSync(join(rootDir, "src", "content", "examples"), { recursive: true });
 }
 
 describe("validate-content script", () => {
@@ -57,8 +58,8 @@ describe("validate-content script", () => {
 
   test("passes for a valid folder layout with goal.md", () => {
     seedFixture(workDir, {
-      "content/recipes/my-recipe/goal.md": "Build something.\n",
-      "content/examples/my-example/goal.md": "Build an example.\n",
+      "src/content/recipes/my-recipe/goal.md": "Build something.\n",
+      "src/content/examples/my-example/goal.md": "Build an example.\n",
     });
 
     const result = runValidator(workDir);
@@ -68,8 +69,8 @@ describe("validate-content script", () => {
 
   test("passes when optional prerequisites.md is present", () => {
     seedFixture(workDir, {
-      "content/examples/full/goal.md": "Build it.\n",
-      "content/examples/full/prerequisites.md": "### Prereqs\n",
+      "src/content/examples/full/goal.md": "Build it.\n",
+      "src/content/examples/full/prerequisites.md": "### Prereqs\n",
     });
 
     const result = runValidator(workDir);
@@ -78,7 +79,7 @@ describe("validate-content script", () => {
 
   test("fails when content folder has a flat .md file instead of a subfolder", () => {
     seedFixture(workDir, {
-      "content/recipes/flat-file.md": "## Flat\n",
+      "src/content/recipes/flat-file.md": "## Flat\n",
     });
 
     const result = runValidator(workDir);
@@ -89,7 +90,7 @@ describe("validate-content script", () => {
 
   test("fails when a folder is missing required goal.md", () => {
     seedFixture(workDir, {
-      "content/recipes/no-goal/prerequisites.md": "### Prereqs\n",
+      "src/content/recipes/no-goal/prerequisites.md": "### Prereqs\n",
     });
 
     const result = runValidator(workDir);
@@ -100,7 +101,7 @@ describe("validate-content script", () => {
 
   test("fails when goal.md is whitespace-only", () => {
     seedFixture(workDir, {
-      "content/recipes/blank/goal.md": "   \n  \n",
+      "src/content/recipes/blank/goal.md": "   \n  \n",
     });
 
     const result = runValidator(workDir);
@@ -110,8 +111,8 @@ describe("validate-content script", () => {
 
   test("fails when a folder contains a disallowed filename", () => {
     seedFixture(workDir, {
-      "content/recipes/stray/goal.md": "Build it.\n",
-      "content/recipes/stray/content.md": "## Steps\n",
+      "src/content/recipes/stray/goal.md": "Build it.\n",
+      "src/content/recipes/stray/content.md": "## Steps\n",
     });
 
     const result = runValidator(workDir);
@@ -122,11 +123,11 @@ describe("validate-content script", () => {
 
   test("accepts replit-prompt.md alongside goal.md in a resource folder", () => {
     seedFixture(workDir, {
-      "content/recipes/with-replit/goal.md": "Build it.\n",
-      "content/recipes/with-replit/replit-prompt.md":
+      "src/content/recipes/with-replit/goal.md": "Build it.\n",
+      "src/content/recipes/with-replit/replit-prompt.md":
         "You are Replit Agent. Build...\n",
-      "content/examples/also-replit/goal.md": "Build it.\n",
-      "content/examples/also-replit/replit-prompt.md":
+      "src/content/examples/also-replit/goal.md": "Build it.\n",
+      "src/content/examples/also-replit/replit-prompt.md":
         "You are Replit Agent. Build...\n",
     });
 
@@ -135,34 +136,37 @@ describe("validate-content script", () => {
     expect(result.stdout).toContain("validation passed");
   });
 
-  test("accepts content/cookbooks/<slug>/intro.md", () => {
+  test("requires src/content/cookbooks/<slug>/goal.md", () => {
     seedFixture(workDir, {
-      "content/recipes/r/goal.md": "Build it.\n",
-      "content/examples/e/goal.md": "Build it.\n",
-      "content/cookbooks/my-cookbook/intro.md": "## Intro\n",
-    });
-
-    const result = runValidator(workDir);
-    expect(result.status).toBe(0);
-  });
-
-  test("fails when content/cookbooks has a flat file instead of a folder", () => {
-    seedFixture(workDir, {
-      "content/cookbooks/flat.md": "## Flat\n",
+      "src/content/recipes/r/goal.md": "Build it.\n",
+      "src/content/examples/e/goal.md": "Build it.\n",
+      "src/content/cookbooks/my-cookbook/replit-prompt.md":
+        "You are Replit Agent. Build...\n",
     });
 
     const result = runValidator(workDir);
     expect(result.status).toBe(1);
-    expect(result.stderr).toContain("content/cookbooks/flat.md");
+    expect(result.stderr).toContain("src/content/cookbooks/my-cookbook/");
+    expect(result.stderr).toContain("missing a required file");
+  });
+
+  test("fails when src/content/cookbooks has a flat file instead of a folder", () => {
+    seedFixture(workDir, {
+      "src/content/cookbooks/flat.md": "## Flat\n",
+    });
+
+    const result = runValidator(workDir);
+    expect(result.status).toBe(1);
+    expect(result.stderr).toContain("src/content/cookbooks/flat.md");
     expect(result.stderr).toContain("not a directory");
   });
 
-  test("accepts replit-prompt.md alongside intro.md in a cookbook folder", () => {
+  test("accepts replit-prompt.md alongside goal.md in a cookbook folder", () => {
     seedFixture(workDir, {
-      "content/recipes/r/goal.md": "Build it.\n",
-      "content/examples/e/goal.md": "Build it.\n",
-      "content/cookbooks/with-replit/intro.md": "## Intro\n",
-      "content/cookbooks/with-replit/replit-prompt.md":
+      "src/content/recipes/r/goal.md": "Build it.\n",
+      "src/content/examples/e/goal.md": "Build it.\n",
+      "src/content/cookbooks/with-replit/goal.md": "## Goal\n",
+      "src/content/cookbooks/with-replit/replit-prompt.md":
         "You are Replit Agent. Build...\n",
     });
 
@@ -173,25 +177,27 @@ describe("validate-content script", () => {
 
   test("fails when a cookbook folder has a disallowed filename", () => {
     seedFixture(workDir, {
-      "content/cookbooks/my-cookbook/intro.md": "## Intro\n",
-      "content/cookbooks/my-cookbook/content.md": "## Content\n",
+      "src/content/cookbooks/my-cookbook/goal.md": "## Goal\n",
+      "src/content/cookbooks/my-cookbook/content.md": "## Content\n",
     });
 
     const result = runValidator(workDir);
     expect(result.status).toBe(1);
-    expect(result.stderr).toContain("content/cookbooks/my-cookbook/content.md");
+    expect(result.stderr).toContain(
+      "src/content/cookbooks/my-cookbook/content.md",
+    );
     expect(result.stderr).toContain("not an allowed filename");
   });
 
   test("fails on absolute DevHub markdown links inside templates and docs", () => {
     seedFixture(workDir, {
-      "content/recipes/bad/goal.md": [
+      "src/content/recipes/bad/goal.md": [
         "Build it.",
         "",
         "See [docs](https://developers.databricks.com/docs/start-here) for setup.",
         "",
       ].join("\n"),
-      "docs/bad-doc.md": [
+      "src/content/docs/bad-doc.md": [
         "# Bad doc",
         "",
         "<https://developers.databricks.com/templates/foo>",
@@ -204,22 +210,22 @@ describe("validate-content script", () => {
     const result = runValidator(workDir);
     expect(result.status).toBe(1);
     expect(result.stderr).toContain(
-      "content/recipes/bad/goal.md: absolute DevHub markdown link",
+      "src/content/recipes/bad/goal.md: absolute DevHub markdown link",
     );
     expect(result.stderr).toContain(
       '"https://developers.databricks.com/docs/start-here"',
     );
     expect(result.stderr).toContain(
-      "docs/bad-doc.md: absolute DevHub autolink",
+      "src/content/docs/bad-doc.md: absolute DevHub autolink",
     );
     expect(result.stderr).toContain(
-      "docs/bad-doc.md: absolute DevHub reference definition",
+      "src/content/docs/bad-doc.md: absolute DevHub reference definition",
     );
   });
 
   test("allows bare prose URLs and code-block URLs that mention developers.databricks.com", () => {
     seedFixture(workDir, {
-      "content/recipes/ok/goal.md": [
+      "src/content/recipes/ok/goal.md": [
         "Build it.",
         "",
         "Website: https://developers.databricks.com.",
@@ -242,7 +248,7 @@ describe("validate-content script", () => {
 
   test("fails when a solution markdown contains a `# ` ATX H1 heading", () => {
     seedFixture(workDir, {
-      "content/solutions/bad-launch.md": [
+      "src/content/solutions/bad-launch/goal.md": [
         "# Should not have an H1",
         "",
         "Body paragraph.",
@@ -253,13 +259,13 @@ describe("validate-content script", () => {
     const result = runValidator(workDir);
     expect(result.status).toBe(1);
     expect(result.stderr).toContain(
-      "content/solutions/bad-launch.md:1: solution markdown must not contain an H1 heading.",
+      "src/content/solutions/bad-launch/goal.md:1: solution markdown must not contain an H1 heading.",
     );
   });
 
   test("fails when a solution markdown uses a setext H1 (`===` underline)", () => {
     seedFixture(workDir, {
-      "content/solutions/setext.md": [
+      "src/content/solutions/setext/goal.md": [
         "Title that should be in the registry",
         "===",
         "",
@@ -271,13 +277,13 @@ describe("validate-content script", () => {
     const result = runValidator(workDir);
     expect(result.status).toBe(1);
     expect(result.stderr).toContain(
-      "content/solutions/setext.md:2: solution markdown must not contain a setext H1",
+      "src/content/solutions/setext/goal.md:2: solution markdown must not contain a setext H1",
     );
   });
 
   test("passes when a solution markdown opens with a body paragraph and uses `## ` for sections", () => {
     seedFixture(workDir, {
-      "content/solutions/launch.md": [
+      "src/content/solutions/launch/goal.md": [
         "Hello World, developers.databricks.com!",
         "",
         "Lede paragraph that does the work an H1 would have done.",
@@ -296,7 +302,7 @@ describe("validate-content script", () => {
 
   test("ignores `# ` heading look-alikes inside fenced code blocks", () => {
     seedFixture(workDir, {
-      "content/solutions/fenced.md": [
+      "src/content/solutions/fenced/goal.md": [
         "Lede paragraph.",
         "",
         "```bash",
