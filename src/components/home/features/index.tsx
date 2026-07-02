@@ -22,14 +22,20 @@ const FEATURES = [
       "One CLI command to deploy. Fixed URL, built-in OAuth, and direct access to your workspace data, with no separate hosting service.",
     href: "/product/databricks-apps",
     visual: "apps",
+    footerLabel: "Ship internal tools",
+    footerDescription:
+      "Turn a script or notebook into a shared dashboard your team opens in the browser, no infrastructure to stand up.",
   },
   {
     eyebrow: "Lakebase",
     title: "Managed Postgres, colocated with your Lakehouse.",
     description:
-      "Provision with the CLI, connect like any Postgres. Instant branching, scales to zero, and change data feed to Unity Catalog.",
+      "Provision with the CLI, query from any app. Autoscaling, instant branching, scale to zero. Fully integrated with your workspace.",
     href: "/product/lakebase",
     visual: "lakebase",
+    footerLabel: "Postgres, batteries included",
+    footerDescription:
+      "Ship web apps and agents faster with a Postgres database that's integrated and secured within your Databricks workspace.",
   },
   {
     eyebrow: "Agent Bricks",
@@ -38,6 +44,9 @@ const FEATURES = [
       "Any Python framework, Databricks-hosted models, automatic MLflow tracing, and MCP for workspace tools.",
     href: "/product/agent-bricks",
     visual: "agents",
+    footerLabel: "Ship agents to prod",
+    footerDescription:
+      "Go from a prototype agent to one your users can trust, with evaluation and quality checks that run as you iterate.",
   },
 ] as const;
 
@@ -51,6 +60,8 @@ type FeatureCardProps = {
   description: string;
   href: string;
   visual: FeatureVisual;
+  footerLabel: string;
+  footerDescription: string;
   reversed?: boolean;
 };
 
@@ -80,7 +91,18 @@ function Features({ className }: { className?: string }) {
           Databricks developer platform features
         </h2>
         {FEATURES.map(
-          ({ eyebrow, title, visual, description, href }, index) => {
+          (
+            {
+              eyebrow,
+              title,
+              visual,
+              description,
+              href,
+              footerLabel,
+              footerDescription,
+            },
+            index,
+          ) => {
             return (
               <FeatureCard
                 key={eyebrow}
@@ -90,6 +112,8 @@ function Features({ className }: { className?: string }) {
                 description={description}
                 href={href}
                 visual={visual}
+                footerLabel={footerLabel}
+                footerDescription={footerDescription}
                 reversed={index % 2 === 1}
               />
             );
@@ -107,6 +131,8 @@ function FeatureCard({
   description,
   href,
   visual,
+  footerLabel,
+  footerDescription,
   reversed = false,
 }: FeatureCardProps) {
   return (
@@ -145,8 +171,8 @@ function FeatureCard({
       </FeatureCardVisual>
       <FeatureCardFooter
         className={cn("lg:row-start-2", !reversed && "lg:col-start-2")}
-        label="A central repository"
-        description="A central repository where data from multiple sources is collected, cleaned, structured, and governed, providing a reliable, unified."
+        label={footerLabel}
+        description={footerDescription}
       />
     </FeatureCardRoot>
   );
