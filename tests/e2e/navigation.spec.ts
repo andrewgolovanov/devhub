@@ -769,7 +769,7 @@ test.describe("solutions page navigation", () => {
 
   for (const { path } of SOLUTIONS) {
     test(`solution card navigates to ${path}`, async ({ page }) => {
-      await page.goto("/solutions");
+      await page.goto("/solutions", { waitUntil: "domcontentloaded" });
       const link = page.locator(`a[href="${path}"]`).first();
       await link.waitFor({ state: "visible" });
       await expectDevHubImageToUseNextOptimizer(
