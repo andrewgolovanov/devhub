@@ -22,7 +22,7 @@ export default function QuickStartChecklistPage(): ReactNode {
       <section className="pt-9 md:pt-12 xl:pt-17.5">
         <div className="mx-auto max-w-4xl px-5 md:px-8">
           <BackLink href="/hackathon">Back to the hackathon</BackLink>
-          <h1 className="mt-6.5 text-[2rem]/[1.125] font-normal tracking-[-0.04em] wrap-break-word text-white md:text-[2.5rem]/[1.125] lg:text-[3rem]/[1.125] xl:text-[3.5rem]/[1.125]">
+          <h1 className="mt-6.5 text-[2rem]/[1.125] font-normal tracking-[-0.04em] wrap-break-word text-white md:text-[2.5rem]/[1.125] lg:text-5xl/[1.125] xl:text-[3.5rem]/[1.125]">
             Hackathon quick start checklist
           </h1>
           <p className="text-grey-90 mt-4 text-lg/snug tracking-[-0.04em] text-pretty md:text-xl/snug">

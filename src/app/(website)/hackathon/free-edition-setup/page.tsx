@@ -102,7 +102,7 @@ export default async function FreeEditionSetupPage(): Promise<ReactNode> {
               Here&rsquo;s how to get your account and team set up.
             </HackathonSupportIntro>
 
-            <div className="mt-12 max-w-[46rem] md:mt-16">
+            <div className="mt-12 max-w-184 md:mt-16">
               <Prose variant="dark">{body}</Prose>
             </div>
           </article>

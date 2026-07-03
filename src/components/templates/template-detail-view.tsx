@@ -152,7 +152,7 @@ function getRecipeDetailView({
   return {
     body,
     bodyClassName: isHackathonTemplate
-      ? "mt-10 max-w-[46rem] recipe-content-card template-dark-prose md:mt-12"
+      ? "mt-10 max-w-184 recipe-content-card template-dark-prose md:mt-12"
       : undefined,
     description: recipe.description,
     heroMedia: isHackathonTemplate ? undefined : (
@@ -222,10 +222,10 @@ function getExampleDetailView({
       relatedItems.length > 0 ? (
         <div className="mt-12 flex flex-col gap-6">
           <div className="flex flex-col gap-6">
-            <h2 className="m-0 text-2xl leading-normal font-medium tracking-[-0.6px] text-white">
+            <h2 className="m-0 text-2xl leading-normal font-medium tracking-tight text-white">
               Built on these templates
             </h2>
-            <p className="text-grey-90 m-0 text-lg leading-normal tracking-[-0.45px]">
+            <p className="text-grey-90 m-0 text-lg leading-normal tracking-tight">
               This example's codebase and the agent prompt above both build on
               top of the templates below. Open one to dive into a specific
               technique on its own or apply it to a different project.

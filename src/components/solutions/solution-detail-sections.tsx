@@ -72,7 +72,7 @@ export function SolutionDetailHeader({
         </time>
       </div>
 
-      <h1 className="m-0 mt-6 text-[2rem]/[1.125] font-normal tracking-[-0.04em] wrap-break-word text-white md:text-[2.5rem]/[1.125] lg:text-[3rem]/[1.125] xl:text-[3.5rem]/[1.125]">
+      <h1 className="m-0 mt-6 text-[2rem]/[1.125] font-normal tracking-[-0.04em] wrap-break-word text-white md:text-[2.5rem]/[1.125] lg:text-5xl/[1.125] xl:text-[3.5rem]/[1.125]">
         {item.title}
       </h1>
       <p className="text-grey-90 m-0 mt-2.5 max-w-208 text-lg leading-snug tracking-[-0.04em] md:mt-3 md:text-xl lg:mt-3.5 xl:mt-4">
@@ -89,7 +89,7 @@ export function SolutionDetailHeader({
           appearance="article"
           kind="solution"
           mobileLabel="COPY"
-          contentClassName="w-[15.5625rem] min-w-[15.5625rem]"
+          contentClassName="w-62.25 min-w-62.25"
           rawMarkdownUrl={rawMarkdownUrl}
           title={item.title}
           description={item.description}
@@ -150,21 +150,21 @@ export function SolutionReadMore({
   return (
     <section className="px-5 pt-16 pb-24 font-sans text-black md:px-8 md:pt-18 lg:px-0 lg:pt-22 lg:pb-60">
       <div className="mx-auto w-full max-w-208">
-        <h2 className="m-0 text-[1.75rem]/[1.125] font-normal tracking-[-0.09rem] wrap-break-word text-black md:text-[2rem]/[1.125] lg:text-[2.25rem]/[1.125]">
+        <h2 className="m-0 text-[1.75rem]/[1.125] font-normal tracking-[-0.09rem] wrap-break-word text-black md:text-[2rem]/[1.125] lg:text-4xl/[1.125]">
           Read more
         </h2>
-        <div className="mt-[2.625rem] flex flex-col gap-[2.625rem]">
+        <div className="mt-10.5 flex flex-col gap-10.5">
           {items.map((item) => (
             <article
               key={item.id}
-              className="grid gap-6 md:min-h-[12.625rem] md:grid-cols-[minmax(0,24.0625rem)_minmax(0,1fr)] md:gap-[1.625rem]"
+              className="grid gap-6 md:min-h-50.5 md:grid-cols-[minmax(0,24.0625rem)_minmax(0,1fr)] md:gap-6.5"
             >
               <SolutionItemLink
                 className="group focus-visible:ring-db-cyan focus-visible:ring-offset-db-oat-light block self-end no-underline outline-none focus-visible:ring-2 focus-visible:ring-offset-4"
                 item={item}
                 ariaLabel={`Read ${item.title}`}
               >
-                <div className="border-db-navy bg-db-oat-medium relative aspect-[385/202] overflow-hidden border md:aspect-auto md:h-[12.625rem]">
+                <div className="border-db-navy bg-db-oat-medium relative aspect-385/202 overflow-hidden border md:aspect-auto md:h-50.5">
                   <SolutionItemVisual
                     item={item}
                     variant="card"
@@ -173,15 +173,15 @@ export function SolutionReadMore({
                   />
                 </div>
               </SolutionItemLink>
-              <div className="flex min-w-0 flex-col justify-between gap-2 md:h-[12.625rem]">
+              <div className="flex min-w-0 flex-col justify-between gap-2 md:h-50.5">
                 <div className="min-w-0">
                   <time
-                    className="text-grey-40 block font-mono text-[0.875rem]/none font-medium tracking-normal uppercase"
+                    className="text-grey-40 block font-mono text-sm/none font-medium tracking-normal uppercase"
                     dateTime={item.publishedAt}
                   >
                     [{formatSolutionDate(item.publishedAt).toUpperCase()}]
                   </time>
-                  <h3 className="m-0 mt-4 text-[1.125rem]/[1.25] font-medium tracking-[-0.0375rem] wrap-break-word text-black md:text-[1.25rem]/[1.25] lg:text-[1.5rem]/[1.25]">
+                  <h3 className="m-0 mt-4 text-lg/tight font-medium tracking-[-0.0375rem] wrap-break-word text-black md:text-xl/tight lg:text-2xl/tight">
                     <SolutionItemLink
                       className="focus-visible:outline-db-cyan line-clamp-1 text-black no-underline transition-colors outline-none hover:text-black/70 hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-4"
                       item={item}
@@ -189,7 +189,7 @@ export function SolutionReadMore({
                       {item.title}
                     </SolutionItemLink>
                   </h3>
-                  <p className="text-grey-50 m-0 mt-2.5 line-clamp-3 text-[1rem]/[1.5] font-normal tracking-[-0.025rem]">
+                  <p className="text-grey-50 m-0 mt-2.5 line-clamp-3 text-base font-normal tracking-[-0.025rem]">
                     {item.description}
                   </p>
                 </div>
@@ -201,7 +201,7 @@ export function SolutionReadMore({
                       ? "noopener noreferrer"
                       : undefined
                   }
-                  className="border-orange text-orange hover:border-primary hover:text-primary focus-visible:outline-db-cyan flex items-center justify-between border-b-2 pb-2.5 text-[1.125rem]/[1.375] font-normal tracking-[-0.06rem] no-underline transition-colors outline-none hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-4 md:text-[1.25rem]/[1.375] lg:text-[1.5rem]/[1.375]"
+                  className="border-orange text-orange hover:border-primary hover:text-primary focus-visible:outline-db-cyan flex items-center justify-between border-b-2 pb-2.5 text-lg/snug font-normal tracking-[-0.06rem] no-underline transition-colors outline-none hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-4 md:text-xl/snug lg:text-2xl/snug"
                   ariaLabel={`Learn more about ${item.title}`}
                   size="size-4.5 md:size-5 lg:size-6"
                 >

@@ -97,7 +97,7 @@ function CodeBlock({
       data-language={normalizedLanguage || undefined}
     >
       {title ? (
-        <div className="border-prose-border text-muted-foreground border-b px-4 py-3.5 text-[13px] font-medium tracking-tight">
+        <div className="border-prose-border text-muted-foreground border-b px-4 py-3.5 text-[0.8125rem] font-medium tracking-tight">
           {title}
         </div>
       ) : null}

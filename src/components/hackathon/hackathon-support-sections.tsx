@@ -18,7 +18,7 @@ export function HackathonSupportIntro({
         Back to the hackathon
       </BackLink>
 
-      <h1 className="mt-6 text-[2rem]/[1.125] font-normal tracking-[-0.04em] wrap-break-word text-white md:text-[2.5rem]/[1.125] lg:text-[3rem]/[1.125] xl:text-[3.5rem]/[1.125]">
+      <h1 className="mt-6 text-[2rem]/[1.125] font-normal tracking-[-0.04em] wrap-break-word text-white md:text-[2.5rem]/[1.125] lg:text-5xl/[1.125] xl:text-[3.5rem]/[1.125]">
         {title}
       </h1>
       <p className="text-grey-90 mt-4 text-base leading-snug tracking-[-0.04em] text-pretty md:text-lg">

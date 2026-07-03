@@ -102,13 +102,13 @@ function TestimonialCard({
   return (
     <article
       className={cn(
-        "bg-db-navy-light flex min-h-[306px] w-[calc(100vw-2.5rem)] shrink-0 snap-start flex-col justify-between border border-white/18 p-6 md:w-lg md:px-8 md:py-10 lg:min-h-[459px] xl:min-h-143.5",
+        "bg-db-navy-light flex min-h-76.5 w-[calc(100vw-2.5rem)] shrink-0 snap-start flex-col justify-between border border-white/18 p-6 md:w-lg md:px-8 md:py-10 lg:min-h-114.75 xl:min-h-143.5",
         active && "bg-db-cyan/20",
       )}
     >
       <TestimonialLogo company={testimonial.company} />
       <div>
-        <blockquote className="mt-12 max-w-[448px] text-base leading-normal tracking-normal text-white md:mt-13 md:text-lg lg:mt-5 lg:text-xl xl:mt-10 xl:text-2xl">
+        <blockquote className="mt-12 max-w-md text-base leading-normal tracking-normal text-white md:mt-13 md:text-lg lg:mt-5 lg:text-xl xl:mt-10 xl:text-2xl">
           "{testimonial.quote}"
         </blockquote>
         <p className="mt-auto pt-7 text-base tracking-normal text-white/80 md:pt-8 lg:pt-12">
@@ -136,7 +136,7 @@ export function TestimonialsSlider({ content }: TestimonialsSliderProps) {
         <SectionKicker className="text-grey-70">
           {content.testimonialsIntro.eyebrow}
         </SectionKicker>
-        <h2 className="mt-6 max-w-304 font-sans text-[36px] leading-tight font-normal tracking-normal text-balance md:text-[40px] lg:text-[44px]">
+        <h2 className="mt-6 max-w-304 font-sans text-4xl leading-tight font-normal tracking-normal text-balance md:text-[2.5rem] lg:text-[2.75rem]">
           {content.testimonialsIntro.titleLead}{" "}
           <span className="text-white/60">
             {content.testimonialsIntro.titleMuted}
@@ -192,7 +192,7 @@ export function TestimonialsSlider({ content }: TestimonialsSliderProps) {
       </div>
 
       <div
-        className="mt-[39px] [--testimonial-left:max(1.25rem,calc((100vw-76rem)/2))] md:[--testimonial-left:max(2rem,calc((100vw-76rem)/2))]"
+        className="mt-10 [--testimonial-left:max(1.25rem,calc((100vw-76rem)/2))] md:[--testimonial-left:max(2rem,calc((100vw-76rem)/2))]"
         aria-live="polite"
       >
         <div

@@ -209,7 +209,7 @@ export function AIExportMenu({
         </DropdownMenuGroup>
         <DropdownMenuItem
           className={cn(
-            "wqeqweqw text-grey-70 mx-4 my-[0.9375rem] h-3.5 min-h-0 cursor-pointer gap-2.5 rounded-none bg-transparent p-0 font-mono text-sm leading-none font-medium tracking-normal uppercase transition-colors outline-none hover:!bg-transparent hover:!text-white focus:!bg-transparent focus:!text-white data-[highlighted]:!bg-transparent data-[highlighted]:!text-white [&_svg]:size-3.5 [&_svg]:text-current",
+            "text-grey-70 mx-4 my-3.75 h-3.5 min-h-0 cursor-pointer gap-2.5 rounded-none bg-transparent p-0 font-mono text-sm leading-none font-medium tracking-normal uppercase transition-colors outline-none hover:!bg-transparent hover:!text-white focus:!bg-transparent focus:!text-white data-[highlighted]:!bg-transparent data-[highlighted]:!text-white [&_svg]:size-3.5 [&_svg]:text-current",
             itemClassName,
           )}
           onSelect={handleCopyMCP}

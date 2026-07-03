@@ -83,7 +83,7 @@ export function DocExample({ name }: DocExampleProps): ReactNode {
             Code
           </TabButton>
         </div>
-        <span className="text-muted-foreground text-[11px] font-medium tracking-wider uppercase">
+        <span className="text-muted-foreground text-[0.6875rem] font-medium tracking-wider uppercase">
           {name}
         </span>
       </header>

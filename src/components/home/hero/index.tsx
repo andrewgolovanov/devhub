@@ -86,10 +86,10 @@ function Hero({ className }: HeroProps) {
         className,
       )}
     >
-      <div className="relative flex min-h-[max(125vw,660px)] w-full flex-col justify-end overflow-hidden pb-16 sm:min-h-[max(100vw,700px)] md:min-h-200 md:pb-20 lg:min-h-[max(min(calc(100vh-2rem),1000px),700px)] lg:pb-[min(5vh,6.5rem)] xl:min-h-[max(min(calc(100vh-2rem),1000px),700px)] 2xl:min-h-[max(min(calc(100vh-2rem),1200px),800px)]">
+      <div className="relative flex min-h-[max(125vw,41.25rem)] w-full flex-col justify-end overflow-hidden pb-16 sm:min-h-[max(100vw,43.75rem)] md:min-h-200 md:pb-20 lg:min-h-[max(min(calc(100vh-2rem),62.5rem),43.75rem)] lg:pb-[min(5vh,6.5rem)] xl:min-h-[max(min(calc(100vh-2rem),62.5rem),43.75rem)] 2xl:min-h-[max(min(calc(100vh-2rem),75rem),50rem)]">
         <div className="absolute top-8 bottom-0 left-1/2 w-full max-w-400 -translate-x-1/2 px-5 md:top-8 md:px-8 lg:top-0">
           <div
-            className="absolute top-0 left-[-20%] aspect-2300/1144 w-[150vw] sm:left-[-23%] md:-left-38 md:w-5xl lg:left-0 lg:h-[max(min(85vh,800px),640px)] lg:w-auto lg:-translate-x-[14.5%] xl:h-[max(min(90vh,1024px),640px)] 2xl:h-[max(min(95vh,1144px),640px)]"
+            className="absolute top-0 left-[-20%] aspect-2300/1144 w-[150vw] sm:left-[-23%] md:-left-38 md:w-5xl lg:left-0 lg:h-[max(min(85vh,50rem),40rem)] lg:w-auto lg:translate-x-[-14.5%] xl:h-[max(min(90vh,64rem),40rem)] 2xl:h-[max(min(95vh,71.5rem),40rem)]"
             aria-hidden="true"
           >
             <DbHeroAnimation />
@@ -105,7 +105,7 @@ function Hero({ className }: HeroProps) {
         />
         <header className="pointer-events-none relative z-10 flex flex-col justify-end">
           <div className="pointer-events-auto mx-auto grid w-full max-w-400 grid-cols-1 px-5 md:px-8 xl:grid-cols-[1fr_auto] xl:items-end xl:gap-7">
-            <h1 className="font-heading max-w-md pb-1 text-4xl/none tracking-normal text-white md:max-w-4xl md:text-5xl/none lg:text-[64px]/none 2xl:text-7xl/none">
+            <h1 className="font-heading max-w-md pb-1 text-4xl/none tracking-normal text-white md:max-w-4xl md:text-5xl/none lg:text-[4rem]/none 2xl:text-7xl/none">
               <span className="relative z-10">Build </span>
               <HeroTitleHighlight>agentic applications</HeroTitleHighlight>
               <br />

@@ -6,7 +6,7 @@ export function Hero(): ReactNode {
   return (
     <section
       id="templates-hero"
-      className="bg-black py-8 text-white md:py-12 lg:pt-18 lg:pb-[3.625rem] xl:pt-40 xl:pb-29"
+      className="bg-black py-8 text-white md:py-12 lg:pt-18 lg:pb-14.5 xl:pt-40 xl:pb-29"
     >
       <div className="relative mx-auto flex w-full max-w-400 flex-col gap-2 px-5 md:gap-5 md:px-8 lg:gap-6">
         <h1 className="max-w-330 font-sans text-3xl/[1.125] font-normal tracking-normal text-balance md:text-5xl/[1.125] lg:text-6xl/[1.125] xl:text-7xl/[1.125]">

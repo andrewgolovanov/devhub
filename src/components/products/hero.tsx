@@ -91,13 +91,13 @@ export function Hero({ content }: HeroProps) {
             width={image.width}
           />
           <div
-            className="absolute -bottom-[72px] h-40 w-full bg-[linear-gradient(180deg,rgb(4_4_6/0)_0%,var(--black)_60%)] sm:-bottom-8 lg:h-71.5"
+            className="absolute -bottom-18 h-40 w-full bg-[linear-gradient(180deg,rgb(4_4_6/0)_0%,var(--black)_60%)] sm:-bottom-8 lg:h-71.5"
             aria-hidden="true"
           />
         </div>
 
         <header className="relative lg:-mt-12.5">
-          <h1 className="font-heading max-w-241.5 text-[32px] leading-[0.95] font-normal tracking-normal text-white md:text-[40px] lg:text-5xl xl:text-[56px]">
+          <h1 className="font-heading max-w-241.5 text-[2rem] leading-[0.95] font-normal tracking-normal text-white md:text-[2.5rem] lg:text-5xl xl:text-[3.5rem]">
             <HighlightedProductTitle
               highlight={content.hero.highlightedTitle}
               title={`${content.hero.highlightedTitle} ${content.hero.title}`}
@@ -124,7 +124,7 @@ export function Hero({ content }: HeroProps) {
               {content.benefitsIntro.eyebrow}
             </SectionKicker>
             <h2
-              className="font-sans text-[28px]/tight font-normal tracking-normal text-white md:text-[32px] lg:text-[40px] 2xl:text-[44px]"
+              className="font-sans text-[1.75rem]/tight font-normal tracking-normal text-white md:text-[2rem] lg:text-[2.5rem] 2xl:text-[2.75rem]"
               id="product-benefits"
             >
               {content.benefitsIntro.title}{" "}
@@ -136,7 +136,7 @@ export function Hero({ content }: HeroProps) {
           <div className="mt-11 grid gap-6 md:mt-14 md:grid-cols-3 md:gap-3 lg:mt-12 lg:gap-8 xl:mt-14">
             {content.benefits.map(({ description, icon, title }) => (
               <article
-                className="border-grey-60 relative min-h-0 overflow-hidden border bg-black p-[18px] md:min-h-64 md:p-5 lg:p-6 xl:p-8 xl:pr-6"
+                className="border-grey-60 relative min-h-0 overflow-hidden border bg-black p-4.5 md:min-h-64 md:p-5 lg:p-6 xl:p-8 xl:pr-6"
                 key={title}
               >
                 <div
@@ -145,10 +145,10 @@ export function Hero({ content }: HeroProps) {
                 />
                 <div className="relative">
                   <BenefitIcon icon={icon} />
-                  <h3 className="mt-12 text-[18px]/tight font-medium tracking-normal text-white md:mt-[60px] md:text-xl/tight lg:mt-18 lg:text-2xl/tight xl:text-[28px]/tight 2xl:mt-29">
+                  <h3 className="mt-12 text-lg/tight font-medium tracking-normal text-white md:mt-15 md:text-xl/tight lg:mt-18 lg:text-2xl/tight xl:text-[1.75rem]/tight 2xl:mt-29">
                     {title}
                   </h3>
-                  <p className="text-grey-70 mt-1.5 max-w-80 text-base tracking-normal text-pretty md:mt-2 md:max-w-[400px] md:text-lg/normal lg:mt-2.5 xl:mt-3 xl:text-xl/normal">
+                  <p className="text-grey-70 mt-1.5 max-w-80 text-base tracking-normal text-pretty md:mt-2 md:max-w-100 md:text-lg/normal lg:mt-2.5 xl:mt-3 xl:text-xl/normal">
                     {description}
                   </p>
                 </div>

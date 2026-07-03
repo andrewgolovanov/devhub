@@ -110,7 +110,7 @@ export function TemplateDetailIntro({
 }): ReactNode {
   return (
     <>
-      <h1 className="font-sans text-[28px]/[1.125] font-normal tracking-[-0.04em] text-balance text-white md:text-4xl/[1.125] lg:text-[3.5rem]/[1.125]">
+      <h1 className="font-sans text-[1.75rem]/[1.125] font-normal tracking-[-0.04em] text-balance text-white md:text-4xl/[1.125] lg:text-[3.5rem]/[1.125]">
         {title}
       </h1>
       <p className="text-grey-90 mt-4 text-base/snug tracking-tight md:text-xl/snug">
@@ -162,12 +162,12 @@ export function TemplateStarterCodeCard({
 
   return (
     <div className="mt-10 py-2 md:mt-12">
-      <div className="border-grey-30 flex flex-col gap-5 border bg-black px-6 py-[25px]">
+      <div className="border-grey-30 flex flex-col gap-5 border bg-black px-6 py-6.25">
         <div className="flex flex-col gap-4">
-          <p className="m-0 text-xl leading-[1.375] font-medium tracking-[-0.5px] text-white">
+          <p className="m-0 text-xl leading-snug font-medium tracking-tight text-white">
             Includes a working starter app
           </p>
-          <p className="text-grey-90 m-0 text-lg leading-normal tracking-[-0.45px]">
+          <p className="text-grey-90 m-0 text-lg leading-normal tracking-tight">
             Real, runnable code lives on GitHub. When you copy the prompt above,
             your coding agent clones it as the starting point and adapts it to
             your data and use case.
@@ -177,7 +177,7 @@ export function TemplateStarterCodeCard({
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="text-grey-70 inline-flex min-w-0 items-center gap-2.5">
             <GitBranch className="size-4 shrink-0" />
-            <span className="text-grey-70 min-w-0 truncate font-mono text-base leading-normal tracking-[-0.4px]">
+            <span className="text-grey-70 min-w-0 truncate font-mono text-base leading-normal tracking-tight">
               {displayPath}
             </span>
           </div>
@@ -187,7 +187,7 @@ export function TemplateStarterCodeCard({
             rel="noopener noreferrer"
             className="group focus-visible:outline-db-cyan inline-flex w-fit max-w-full shrink-0 items-stretch gap-x-0.5 text-white no-underline hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-2"
           >
-            <span className="bg-grey-20 group-hover:bg-grey-30 inline-flex h-9 min-w-0 items-center justify-center px-[18px] font-mono text-sm leading-none font-medium tracking-[-0.28px] uppercase transition-colors">
+            <span className="bg-grey-20 group-hover:bg-grey-30 inline-flex h-9 min-w-0 items-center justify-center px-4.5 font-mono text-sm leading-none font-medium tracking-tight uppercase transition-colors">
               View on GitHub
             </span>
             <span
@@ -223,10 +223,10 @@ export function TemplateIncludedCard({
         [TEMPLATES]
       </p>
       <div className="flex flex-col gap-2">
-        <h3 className="m-0 text-xl leading-[1.375] font-medium tracking-[-0.5px] text-white">
+        <h3 className="m-0 text-xl leading-snug font-medium tracking-tight text-white">
           {name}
         </h3>
-        <p className="m-0 text-base leading-normal tracking-[-0.4px] text-[#9194a1]">
+        <p className="m-0 text-base leading-normal tracking-tight text-[#9194a1]">
           {description}
         </p>
       </div>
@@ -300,7 +300,7 @@ export function HackathonTemplateIntro({
 }): ReactNode {
   return (
     <>
-      <h1 className="mt-6.5 text-[2rem]/[1.125] font-normal tracking-[-0.04em] wrap-break-word text-white md:text-[2.5rem]/[1.125] lg:text-[3rem]/[1.125] xl:text-[3.5rem]/[1.125]">
+      <h1 className="mt-6.5 text-[2rem]/[1.125] font-normal tracking-[-0.04em] wrap-break-word text-white md:text-[2.5rem]/[1.125] lg:text-5xl/[1.125] xl:text-[3.5rem]/[1.125]">
         {title}
       </h1>
       <p className="text-grey-90 mt-4 max-w-208 text-lg/snug tracking-[-0.04em] md:text-xl/snug">

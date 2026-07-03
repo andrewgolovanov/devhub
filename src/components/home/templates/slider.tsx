@@ -95,7 +95,7 @@ function TemplateDescriptionText({
     <p
       aria-hidden={!isVisible}
       className={cn(
-        "text-grey-70 col-start-1 row-start-1 line-clamp-3 max-w-full min-w-0 text-[15px] leading-normal tracking-tight break-words transition-[opacity,transform] ease-out",
+        "text-grey-70 col-start-1 row-start-1 line-clamp-3 max-w-full min-w-0 text-[0.9375rem] leading-normal tracking-tight break-words transition-[opacity,transform] ease-out",
         isVisible
           ? "pointer-events-auto translate-y-0 opacity-100"
           : "pointer-events-none translate-y-1 opacity-0",
@@ -371,7 +371,7 @@ export function TemplateSlider({
             className={cn(
               "@container mx-auto w-full max-w-400 px-5 transition-opacity duration-150 md:px-8",
               slider.shouldUseNativeScroll
-                ? "snap-x snap-mandatory [scroll-padding-right:1.25rem] [scroll-padding-left:1.25rem] [scrollbar-width:none] overflow-x-auto overflow-y-hidden overscroll-x-contain scroll-smooth [-webkit-overflow-scrolling:touch] md:[scroll-padding-right:2rem] md:[scroll-padding-left:2rem] [&::-webkit-scrollbar]:hidden"
+                ? "snap-x snap-mandatory scroll-pr-5 scroll-pl-5 scrollbar-none overflow-x-auto overflow-y-hidden overscroll-x-contain scroll-smooth [-webkit-overflow-scrolling:touch] md:scroll-pr-8 md:scroll-pl-8 [&::-webkit-scrollbar]:hidden"
                 : "overflow-visible",
               slider.isCarouselMeasured
                 ? "opacity-100"
@@ -474,10 +474,10 @@ export function TemplateSlider({
                     className={cn(
                       "pointer-events-auto flex w-[var(--template-card-width)] shrink-0 flex-col justify-end overflow-hidden transition-[width] ease-out will-change-transform [contain:layout_paint]",
                       slider.shouldUseNativeScroll && "snap-start",
-                      "[--template-card-width:min(72cqw,360px)]",
-                      "md:[--template-card-width:min(calc((100cqw-24px)/2),576px)]",
-                      "xl:[--template-card-width:344px] 2xl:[--template-card-width:448px]",
-                      "data-[active=true]:xl:[--template-card-width:448px] data-[active=true]:2xl:[--template-card-width:576px]",
+                      "[--template-card-width:min(72cqw,22.5rem)]",
+                      "md:[--template-card-width:min(calc((100cqw-1.5rem)/2),36rem)]",
+                      "xl:[--template-card-width:21.5rem] 2xl:[--template-card-width:28rem]",
+                      "data-[active=true]:xl:[--template-card-width:28rem] data-[active=true]:2xl:[--template-card-width:36rem]",
                       isActive && "relative z-10",
                     )}
                     initial={false}

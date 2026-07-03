@@ -128,7 +128,7 @@ function FooterItemLabel({ item }: { item: FooterItem }) {
 
 function FooterLinkItem({ item }: { item: FooterItem }): ReactNode {
   const className = cn(
-    "inline-flex w-fit items-center rounded-sm font-sans text-[15px] leading-none tracking-tight text-grey-60 no-underline transition-colors hover:text-white hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-db-cyan",
+    "inline-flex w-fit items-center rounded-sm font-sans text-[0.9375rem] leading-none tracking-tight text-grey-60 no-underline transition-colors hover:text-white hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-db-cyan",
     item.icon ? "gap-2.5 font-normal" : "gap-1.5",
   );
 

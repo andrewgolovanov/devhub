@@ -86,7 +86,7 @@ export function Table({
             />
           </table>
         ) : (
-          <table className="mx-5 table w-[46rem] min-w-[46rem] border-separate border-spacing-0 text-sm md:mx-0 md:w-full md:min-w-0">
+          <table className="mx-5 table w-184 min-w-184 border-separate border-spacing-0 text-sm md:mx-0 md:w-full md:min-w-0">
             <TableHead
               className="border-prose-border min-w-36 border-b pb-3 text-left align-top text-sm leading-snug font-medium tracking-tight text-white"
               headers={headers}

@@ -164,10 +164,10 @@ function ResourceCard({
         {resource.label}]
       </p>
       <div>
-        <h3 className="m-0 text-xl leading-snug font-medium tracking-[-0.5px] text-white">
+        <h3 className="m-0 text-xl leading-snug font-medium tracking-[-0.03125rem] text-white">
           {resource.title}
         </h3>
-        <div className="mt-2 max-w-lg text-base leading-normal tracking-[-0.4px] text-[#9194a1]">
+        <div className="mt-2 max-w-lg text-base leading-normal tracking-[-0.025rem] text-[#9194a1]">
           {resource.description}
         </div>
         {resource.links ? (

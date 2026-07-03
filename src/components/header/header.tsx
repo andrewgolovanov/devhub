@@ -79,7 +79,7 @@ export function Header({
                     <Link
                       href={item.href}
                       aria-current={active ? "page" : undefined}
-                      className="group/nav-item relative inline-flex px-3 py-2 font-mono text-[15px] leading-none text-white no-underline hover:no-underline"
+                      className="group/nav-item relative inline-flex px-3 py-2 font-mono text-[0.9375rem] leading-none text-white no-underline hover:no-underline"
                     >
                       <span
                         className={cn(
