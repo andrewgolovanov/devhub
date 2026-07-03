@@ -268,10 +268,7 @@ function Nav({ className, items }: HeaderNavProps) {
         {items.map((item) => {
           const { href, label } = item;
 
-          // The "Product" entry is temporarily commented out of HEADER_LINKS,
-          // so this branch never renders. Kept (with a widened comparison) so
-          // re-enabling Product is a one-line revert in header-navigation.ts.
-          if ((label as string) === "Product") {
+          if (label === "Product") {
             const isActive = Boolean(activeProductHref);
 
             return (

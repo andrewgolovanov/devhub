@@ -19,4 +19,10 @@ fi
 # Sync AppKit docs if not already present
 node scripts/sync-appkit-docs.mjs
 
+# The Vercel CLI version check fetches package info from registry.npmjs.org
+# directly, ignoring the npm registry config. On Databricks machines that host
+# is blocked via /etc/hosts (resolves to localhost), so the check crashes with
+# ECONNREFUSED. Disable the update notifier to skip it.
+export NO_UPDATE_NOTIFIER=1
+
 exec vercel dev "$@"

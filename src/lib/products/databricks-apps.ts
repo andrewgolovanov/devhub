@@ -67,12 +67,12 @@ export const databricksAppsProduct: ProductPageContent = {
       index: "01",
       title: "Run your app inside Databricks.",
       description:
-        "Serverless hosting for full-stack apps, with compute, routing, and deployment handled.",
+        "Serverless hosting for full-stack apps, with compute, TLS, and deployment handled.",
       body: "Apps run inside your workspace — no infrastructure to manage and no separate hosting to maintain.",
       details: [
         "Containerized runtime with managed compute",
-        "Built-in routing, TLS, and app URLs",
-        "Built-in routing, TLS, and app URLs",
+        "Built-in TLS and automatic HTTPS app URLs",
+        "Automatic builds and deploys from source",
       ],
       visual: "serverless",
     },
@@ -155,31 +155,30 @@ export const databricksAppsProduct: ProductPageContent = {
   ],
   testimonialsIntro: {
     eyebrow: "Testimonials",
-    titleLead: "Lakebase powers applications.",
-    titleMuted:
-      "See how teams use it to bring data directly into user experiences.",
+    titleLead: "Databricks Apps powers real applications.",
+    titleMuted: "See how teams ship data and AI apps on the platform.",
   },
   testimonials: [
     {
-      company: "tibber",
+      company: "SAE International",
       quote:
-        "At Tibber, empowering customers to take control of their energy consumption requires a flexible data infrastructure. Lakebase's integration with Databricks makes it easy to serve analytical and transactional data, helping us deliver real-time insights to our customers.",
-      attributionName: "Niklas Nordansjo",
-      attributionTitle: "Data Platform Lead",
+        "Databricks Apps helped me turn my RAG proof of concept into a polished and branded application. We built a RAG system to answer user questions by utilizing our company's extensive knowledge base.",
+      attributionName: "Heather Gomer",
+      attributionTitle: "Senior Data Scientist",
     },
     {
-      company: "Ensemble Health Partners",
+      company: "E.ON Digital Technology",
       quote:
-        "Lakebase lets an agentic team quickly self-serve the data they need for their models, whether it's historical claims or real-time transactions, and that's really powerful.",
-      attributionName: "Dragon Sky",
-      attributionTitle: "Chief Architect",
+        "The seamless integration of Databricks Apps into our DevOps processes enables us to quickly demonstrate and test new features with users while also providing a secure, production-ready front end for the internal application — all without needing additional infrastructure.",
+      attributionName: "Lukas Heidegger",
+      attributionTitle: "Data and MLOps Engineer",
     },
     {
-      company: "yipitDATA",
+      company: "Addi",
       quote:
-        "Lakebase gives us a durable, low-latency store for application state, so our data apps load quickly, refresh seamlessly and even support shared page links between users.",
-      attributionName: "Bobby Muldoon",
-      attributionTitle: "VP of Engineering",
+        "By using Databricks Apps, we saved many rounds with the security and infrastructure team and were able to instantly share our app with stakeholders in production.",
+      attributionName: "Cesar Augusto Charalla Olazo",
+      attributionTitle: "Senior Machine Learning Engineer",
     },
   ],
 };

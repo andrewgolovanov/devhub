@@ -65,12 +65,11 @@ test.describe("navbar navigation", () => {
     });
   }
 
-  // Skipped while the Product nav dropdown is hidden.
-  test.skip("product dropdown hover state is visible in production CSS", async ({
+  test("product dropdown hover state is visible in production CSS", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto("/product/data-lakehouse");
+    await page.goto("/product/lakebase");
 
     await page.getByRole("button", { name: "[Product]" }).hover();
     const productMenu = page.locator('[data-slot="navigation-menu-content"]');
@@ -184,7 +183,7 @@ test.describe.skip("mobile navigation", () => {
         width: viewport.width,
         height: viewport.height,
       });
-      await page.goto("/product/data-lakehouse");
+      await page.goto("/product/lakebase");
 
       await page.getByRole("button", { name: "Open menu" }).click();
 
@@ -538,19 +537,18 @@ test.describe("home page link navigation", () => {
     expect(finalCopiedText).toContain("llms.txt");
   });
 
-  // Skipped while the home Features pillar cards and product pages are hidden.
-  test.skip("pillar card Lakebase navigates to /product/data-lakehouse", async ({
+  test("pillar card Lakebase navigates to /product/lakebase", async ({
     page,
   }) => {
     await page.goto("/");
-    const link = page.locator('a[href="/product/data-lakehouse"]').first();
+    const link = page.locator('a[href="/product/lakebase"]').first();
     await link.waitFor({ state: "visible" });
     await link.click();
-    await page.waitForURL("**/product/data-lakehouse");
-    expect(new URL(page.url()).pathname).toBe("/product/data-lakehouse");
+    await page.waitForURL("**/product/lakebase");
+    expect(new URL(page.url()).pathname).toBe("/product/lakebase");
   });
 
-  test.skip("pillar card Agent Bricks navigates to /product/agent-bricks", async ({
+  test("pillar card Agent Bricks navigates to /product/agent-bricks", async ({
     page,
   }) => {
     await page.goto("/");
@@ -559,7 +557,7 @@ test.describe("home page link navigation", () => {
     expect(new URL(page.url()).pathname).toBe("/product/agent-bricks");
   });
 
-  test.skip("pillar card Databricks Apps navigates to /product/databricks-apps", async ({
+  test("pillar card Databricks Apps navigates to /product/databricks-apps", async ({
     page,
   }) => {
     await page.goto("/");

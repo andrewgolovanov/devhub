@@ -68,10 +68,10 @@ export const agentBricksProduct: ProductPageContent = {
       title: "Use the right model for every task.",
       description:
         "Switch between leading models like GPT, Claude, Llama, and more.",
-      body: "Send requests through a single API and route each task to the best-fitting model — without building your own orchestration layer.",
+      body: "Send requests through a single API and route across models by cost, performance, or availability — without building your own orchestration layer.",
       details: [
         "Access models from multiple providers in one place",
-        "Route requests by task, cost, or performance",
+        "Route requests by cost, performance, or availability",
         "Built-in fallback and usage controls",
       ],
       visual: "multi-model",
@@ -160,25 +160,25 @@ export const agentBricksProduct: ProductPageContent = {
   },
   testimonials: [
     {
-      company: "tibber",
+      company: "AstraZeneca",
       quote:
-        "At Tibber, empowering customers to take control of their energy consumption requires a flexible data infrastructure. Lakebase's integration with Databricks makes it easy to serve analytical and transactional data, helping us deliver real-time insights to our customers.",
-      attributionName: "Niklas Nordansjo",
-      attributionTitle: "Data Platform Lead",
+        "With Agent Bricks, our teams were able to parse through more than 400,000 clinical trial documents and extract structured data points — without writing a single line of code. In just under 60 minutes, we had a working agent that can transform complex unstructured data usable for Analytics.",
+      attributionName: "Joseph Roemer",
+      attributionTitle: "Head of Data & AI, Commercial IT",
     },
     {
-      company: "Ensemble Health Partners",
+      company: "Flo Health",
       quote:
-        "Lakebase lets an agentic team quickly self-serve the data they need for their models, whether it's historical claims or real-time transactions, and that's really powerful.",
-      attributionName: "Dragon Sky",
-      attributionTitle: "Chief Architect",
+        "Agent Bricks enabled us to double our medical accuracy over standard commercial LLMs, while meeting Flo Health's high internal standards for clinical accuracy, safety, privacy, and security.",
+      attributionName: "Roman Bugaev",
+      attributionTitle: "CTO",
     },
     {
-      company: "yipitDATA",
+      company: "Lippert",
       quote:
-        "Lakebase gives us a durable, low-latency store for application state, so our data apps load quickly, refresh seamlessly and even support shared page links between users.",
-      attributionName: "Bobby Muldoon",
-      attributionTitle: "VP of Engineering",
+        "With Agent Bricks, we can quickly productionize domain-specific AI agents for tasks like extracting insights from customer support calls — something that used to take weeks of manual review.",
+      attributionName: "Chris Nishnick",
+      attributionTitle: "Director of AI",
     },
   ],
 };
