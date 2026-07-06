@@ -2,8 +2,6 @@ import { useCallback, useEffect, useRef } from "react";
 
 import { absolutizeMarkdown } from "@/lib/copy-preamble";
 import { useSiteContext } from "@/lib/site-context";
-import { toSiteRelativePath, withSiteBaseUrl } from "@/lib/site-paths";
-import { siteUrlFromConfig } from "@/lib/site-url";
 
 /**
  * Discriminator for the "Copy as Markdown" / "Copy prompt" flows. Every
@@ -57,22 +55,15 @@ export function useAgentMarkdown(
   } = input;
 
   const { siteConfig } = useSiteContext();
-  const buildSiteUrl = siteUrlFromConfig(siteConfig.url, siteConfig.baseUrl);
-  const browserBasePath = siteConfig.baseUrl.replace(/\/$/, "");
   const baseUrl =
-    typeof window !== "undefined"
-      ? `${window.location.origin}${browserBasePath}`
-      : buildSiteUrl;
-  const siteRelativePermalink = toSiteRelativePath(
-    permalink,
-    siteConfig.baseUrl,
-  );
+    typeof window !== "undefined" ? window.location.origin : siteConfig.url;
+  const siteRelativePermalink = permalink.startsWith("/")
+    ? permalink
+    : `/${permalink}`;
   const fullUrl = baseUrl + siteRelativePermalink;
   const markdownUrl = `${fullUrl.replace(/\/$/, "")}.md`;
   const mcpUrl = `${baseUrl}/api/mcp`;
-  const fetchMarkdownUrl = rawMarkdownUrl
-    ? withSiteBaseUrl(rawMarkdownUrl, siteConfig.baseUrl)
-    : undefined;
+  const fetchMarkdownUrl = rawMarkdownUrl;
   const fetchedMarkdownRef = useRef<string | null>(null);
 
   useEffect(() => {
@@ -92,7 +83,7 @@ export function useAgentMarkdown(
   }, [rawMarkdown, fetchMarkdownUrl]);
 
   const buildAIMarkdown = useCallback((): string => {
-    const siteOrigin = baseUrl || buildSiteUrl;
+    const siteOrigin = baseUrl || siteConfig.url;
     if (prebuiltAgentMarkdown !== undefined) {
       return absolutizeMarkdown(prebuiltAgentMarkdown, siteOrigin);
     }
@@ -120,7 +111,7 @@ export function useAgentMarkdown(
     description,
     fullUrl,
     baseUrl,
-    buildSiteUrl,
+    siteConfig.url,
   ]);
 
   return {

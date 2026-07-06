@@ -370,7 +370,7 @@ export function getSolutionPagePath(page: number): string {
 }
 
 export function getSolutionPageFromPathname(pathname: string): number {
-  const match = pathname.match(/(?:^|\/)solutions(?:\/page\/(\d+))?\/?$/);
+  const match = pathname.match(/^\/solutions(?:\/page\/(\d+))?\/?$/);
   const page = Number(match?.[1] ?? "1");
 
   return Number.isSafeInteger(page) && page > 0 ? page : 1;

@@ -70,19 +70,6 @@ function readSitemapLocs(filePath = "sitemap.xml"): string[] {
   });
 }
 
-function toSiteRelativePath(loc: string): string {
-  const expectedSitePath = new URL(resolveExpectedSiteUrl()).pathname.replace(
-    /\/$/,
-    "",
-  );
-  const pathname = new URL(loc).pathname;
-  if (!expectedSitePath) return pathname;
-  if (pathname === expectedSitePath) return "/";
-  return pathname.startsWith(`${expectedSitePath}/`)
-    ? pathname.slice(expectedSitePath.length)
-    : pathname;
-}
-
 function escapeRegex(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
@@ -209,7 +196,7 @@ describe("production build smoke tests", () => {
   });
 
   test("sitemap.xml preserves the production URL visibility contract", () => {
-    const paths = readSitemapLocs().map(toSiteRelativePath);
+    const paths = readSitemapLocs().map((loc) => new URL(loc).pathname);
 
     expect(paths).toContain("/solutions/");
     expect(paths).toContain("/templates/");
@@ -240,27 +227,6 @@ describe("production build smoke tests", () => {
     expect(html).toContain(
       `"logo":"${expectedSiteUrl}/img/databricks-logo.svg"`,
     );
-  });
-
-  test("rendered MDX internal links stay under the configured base path", () => {
-    const basePath = new URL(resolveExpectedSiteUrl()).pathname.replace(
-      /\/$/,
-      "",
-    );
-    if (!basePath) return;
-
-    const renderedHtml = [
-      readRouteHtml("/docs/start-here"),
-      readRouteHtml("/docs/tools/ai-tools/docs-mcp-server"),
-      readRouteHtml("/templates/ai-chat-app"),
-      readRouteHtml("/solutions/devhub-launch"),
-    ].join("\n");
-
-    expect(renderedHtml).not.toMatch(
-      /href="\/(?:docs|templates|solutions|api|llms\.txt)(?:[/"#?]|$)/,
-    );
-    expect(renderedHtml).toContain(`href="${basePath}/docs/start-here"`);
-    expect(renderedHtml).toContain(`href="${basePath}/templates`);
   });
 
   test("rendered Docs MCP install commands use the resolved site URL", () => {

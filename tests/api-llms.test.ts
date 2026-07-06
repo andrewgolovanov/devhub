@@ -75,17 +75,14 @@ describe("/api/llms", () => {
     expect(result.body).toContain("/docs/start-here.md");
   });
 
-  test("uses the configured SITE_URL base path with the request host", async () => {
-    await withSiteUrl("https://stage.databricks.com/devhub", async () => {
+  test("uses the configured SITE_URL origin with the request host", async () => {
+    await withSiteUrl("https://developers.databricks.com/docs", async () => {
       const result = await call({ host: "127.0.0.1:4182" });
       expect(result.body).toContain(
-        "https://stage.databricks.com/devhub/docs/start-here.md",
+        "https://developers.databricks.com/docs/start-here.md",
       );
       expect(result.body).toContain(
-        "https://stage.databricks.com/devhub/templates/ai-chat-app.md",
-      );
-      expect(result.body).not.toContain(
-        "https://stage.databricks.com/templates/",
+        "https://developers.databricks.com/templates/ai-chat-app.md",
       );
       expect(result.body).not.toMatch(
         /\]\(\/(?:docs|templates|solutions|api|llms\.txt)[^)]+\)/,

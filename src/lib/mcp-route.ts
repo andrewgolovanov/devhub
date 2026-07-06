@@ -6,8 +6,7 @@ import { z } from "zod";
 
 import { absolutizeMarkdown } from "./copy-preamble";
 import { expandMdxImports } from "./expand-mdx";
-import { toSiteRelativePath } from "./site-paths";
-import { resolveSiteBaseUrl, resolveSiteUrl } from "./site-url";
+import { resolveSiteUrl } from "./site-url";
 
 function docsDirectory(): string {
   return resolve(process.cwd(), "src", "content", "docs");
@@ -37,18 +36,6 @@ function readDocFile(slug: string): string | undefined {
     }
   }
   return undefined;
-}
-
-function normalizeMcpRequestPath(request: Request): Request {
-  const url = new URL(request.url);
-  const sitePath = toSiteRelativePath(url.pathname, resolveSiteBaseUrl());
-
-  if (sitePath === url.pathname || !sitePath.startsWith("/api/")) {
-    return request;
-  }
-
-  url.pathname = sitePath;
-  return new Request(url, request);
 }
 
 const mcpHandler = createMcpHandler(
@@ -110,7 +97,7 @@ const mcpHandler = createMcpHandler(
 );
 
 async function handler(request: Request): Promise<Response> {
-  return mcpHandler(normalizeMcpRequestPath(request));
+  return mcpHandler(request);
 }
 
 export { handler as GET, handler as POST, handler as DELETE };

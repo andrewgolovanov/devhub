@@ -12,12 +12,7 @@ let MCP_PORT = 3002;
 let MCP_URL = `http://localhost:${MCP_PORT}/api/mcp`;
 
 function localSiteUrl(port: number): string {
-  if (!process.env.SITE_URL || process.env.SITE_URL.trim() === "") {
-    return `http://127.0.0.1:${port}`;
-  }
-  const configured = new URL(process.env.SITE_URL);
-  const basePath = configured.pathname.replace(/\/$/, "");
-  return `http://127.0.0.1:${port}${basePath}`;
+  return `http://127.0.0.1:${port}`;
 }
 
 async function getFreePort(): Promise<number> {

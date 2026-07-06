@@ -34,27 +34,25 @@ export default async function PerspectiveDetailPage({
   });
 
   return (
-    <main className="border-t border-white/10 bg-black text-white">
-      <article className="mx-auto w-full max-w-4xl px-5 py-12 md:px-8 md:py-15 lg:py-19">
-        <BackLink
-          className="text-grey-50"
-          href="/perspectives"
-          aria-label="All perspectives"
-        >
-          Back
-        </BackLink>
+    <article className="mx-auto w-full max-w-4xl px-5 py-12 md:px-8 md:py-15">
+      <BackLink
+        className="text-grey-50"
+        href="/perspectives"
+        aria-label="All perspectives"
+      >
+        Back
+      </BackLink>
 
-        <header className="mt-6 max-w-3xl">
-          <h1 className="mt-5 text-3xl leading-tight font-medium tracking-tight text-pretty md:text-4xl md:leading-tight">
-            {entry.question}
-          </h1>
-        </header>
+      <header className="mt-6 max-w-3xl">
+        <h1 className="mt-5 text-3xl leading-tight font-medium tracking-tight text-pretty md:text-4xl md:leading-tight">
+          {entry.question}
+        </h1>
+      </header>
 
-        <div className="border-grey-30 mt-10 border-t pt-10">
-          <Prose variant="dark">{body}</Prose>
-        </div>
-      </article>
-    </main>
+      <div className="border-grey-30 mt-10 border-t pt-10">
+        <Prose variant="dark">{body}</Prose>
+      </div>
+    </article>
   );
 }
 

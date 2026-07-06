@@ -16,118 +16,6 @@
   },
   "rewrites": [
     {
-      "source": "/devhub",
-      "destination": "/"
-    },
-    {
-      "source": "/devhub/",
-      "destination": "/"
-    },
-    {
-      "source": "/devhub/api/(.*)",
-      "destination": "/api/$1"
-    },
-    {
-      "source": "/devhub/docs/llms.txt",
-      "destination": "/api/llms"
-    },
-    {
-      "source": "/devhub/llms.txt",
-      "destination": "/api/llms"
-    },
-    {
-      "source": "/devhub/docs/(.+)\\.md",
-      "destination": "/api/markdown?section=docs&slug=$1"
-    },
-    {
-      "source": "/devhub/templates.md",
-      "destination": "/api/markdown?section=templates&slug="
-    },
-    {
-      "source": "/devhub/solutions.md",
-      "destination": "/api/markdown?section=solutions&slug="
-    },
-    {
-      "source": "/devhub/solutions/(.+)\\.md",
-      "destination": "/api/markdown?section=solutions&slug=$1"
-    },
-    {
-      "source": "/devhub/templates/(.+)\\.md",
-      "destination": "/api/markdown?section=templates&slug=$1"
-    },
-    {
-      "source": "/devhub/(.+)\\.md",
-      "destination": "/api/markdown?section=docs&slug=$1"
-    },
-    {
-      "source": "/devhub/docs/(.*)",
-      "destination": "/docs/$1"
-    },
-    {
-      "source": "/devhub/templates/(.*)",
-      "destination": "/templates/$1"
-    },
-    {
-      "source": "/devhub/solutions/(.*)",
-      "destination": "/solutions/$1"
-    },
-    {
-      "source": "/devhub/perspectives",
-      "destination": "/perspectives"
-    },
-    {
-      "source": "/devhub/perspectives/(.*)",
-      "destination": "/perspectives/$1"
-    },
-    {
-      "source": "/devhub/hackathon",
-      "destination": "/hackathon"
-    },
-    {
-      "source": "/devhub/hackathon/(.*)",
-      "destination": "/hackathon/$1"
-    },
-    {
-      "source": "/devhub/assets/(.*)",
-      "destination": "/assets/$1"
-    },
-    {
-      "source": "/devhub/img/(.*)",
-      "destination": "/img/$1"
-    },
-    {
-      "source": "/devhub/js/(.*)",
-      "destination": "/js/$1"
-    },
-    {
-      "source": "/devhub/appkit-preview/(.*)",
-      "destination": "/appkit-preview/$1"
-    },
-    {
-      "source": "/devhub/raw-docs/(.*)",
-      "destination": "/raw-docs/$1"
-    },
-    {
-      "source": "/devhub/sitemap.xml",
-      "destination": "/sitemap.xml"
-    },
-    {
-      "source": "/devhub/robots.txt",
-      "destination": "/robots.txt"
-    },
-    {
-      "source": "/devhub/BingSiteAuth.xml",
-      "destination": "/BingSiteAuth.xml"
-    },
-    {
-      "source": "/devhub/search-doc(.*).json",
-      "destination": "/search-doc$1.json"
-    },
-    {
-      "source": "/devhub/lunr-index(.*).json",
-      "destination": "/lunr-index$1.json"
-    },
-    {
       "source": "/docs/llms.txt",
       "destination": "/llms.txt"
     },
@@ -171,29 +59,7 @@
       ]
     },
     {
-      "source": "/devhub/js/home-hero-player.js",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    },
-    {
       "source": "/llms.txt",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, s-maxage=600"
-        },
-        {
-          "key": "Content-Disposition",
-          "value": "inline; filename=\"llms.txt\""
-        }
-      ]
-    },
-    {
-      "source": "/devhub/llms.txt",
       "headers": [
         {
           "key": "Cache-Control",
@@ -232,46 +98,7 @@
       ]
     },
     {
-      "source": "/devhub/(.+)\\.md",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, s-maxage=600"
-        },
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex"
-        }
-      ]
-    },
-    {
-      "source": "/devhub/solutions/rss.xml",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, s-maxage=600"
-        },
-        {
-          "key": "Content-Disposition",
-          "value": "inline; filename=\"rss.xml\""
-        }
-      ]
-    },
-    {
       "source": "/api/(.*)",
-      "headers": [
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "X-Frame-Options",
-          "value": "SAMEORIGIN"
-        }
-      ]
-    },
-    {
-      "source": "/devhub/api/(.*)",
       "headers": [
         {
           "key": "X-Content-Type-Options",

@@ -158,12 +158,12 @@ describe("solution items", () => {
     expect(getSolutionPageFromPathname("/solutions")).toBe(1);
     expect(getSolutionPageFromPathname("/solutions/")).toBe(1);
     expect(getSolutionPageFromPathname("/solutions/page/2")).toBe(2);
-    expect(getSolutionPageFromPathname("/devhub/solutions/page/3/")).toBe(3);
+    expect(getSolutionPageFromPathname("/legacy/solutions/page/3/")).toBe(1);
     expect(getSolutionPageFromPathname("/solutions/page/0")).toBe(1);
   });
 
   test("builds an RSS feed from solution items", () => {
-    const siteUrl = "https://dev.databricks.com/devhub";
+    const siteUrl = "https://developers.databricks.com";
     const items = buildSolutionItems();
     const feed = buildSolutionRssFeed(items, siteUrl);
 
@@ -175,7 +175,7 @@ describe("solution items", () => {
     );
     expect(feed).toContain("<title>Introducing DevHub</title>");
     expect(feed).toContain(
-      "<link>https://dev.databricks.com/devhub/solutions/devhub-launch</link>",
+      "<link>https://developers.databricks.com/solutions/devhub-launch</link>",
     );
   });
 

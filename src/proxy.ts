@@ -1,8 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 
 import { resolveMarkdownNegotiationPath } from "./lib/markdown-sections";
-import { toSiteRelativePath } from "./lib/site-paths";
-import { resolveSiteBaseUrl, resolveSiteUrl } from "./lib/site-url";
 
 /**
  * Content negotiation: when a client sends Accept: text/markdown or
@@ -11,25 +9,11 @@ import { resolveSiteBaseUrl, resolveSiteUrl } from "./lib/site-url";
  */
 export function proxy(request: NextRequest): NextResponse | undefined {
   const url = request.nextUrl.clone();
-  const baseUrl = resolveSiteBaseUrl();
-  if (url.pathname === "/" && baseUrl !== "/") {
-    const redirectUrl = new URL(resolveSiteUrl());
-    redirectUrl.search = url.search;
-    return NextResponse.redirect(redirectUrl, 307);
-  }
-
-  const sitePath = toSiteRelativePath(url.pathname, baseUrl);
-  if (sitePath !== url.pathname && sitePath.startsWith("/api/")) {
-    const dest = new URL(url);
-    dest.pathname = sitePath;
-    return NextResponse.rewrite(dest);
-  }
-
   const accept = request.headers.get("accept") ?? "";
   if (!accept.includes("text/markdown") && !accept.includes("text/plain"))
     return undefined;
 
-  const path = sitePath;
+  const path = url.pathname;
   const negotiated = resolveMarkdownNegotiationPath(path);
   if (!negotiated) return undefined;
 

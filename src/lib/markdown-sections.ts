@@ -48,6 +48,11 @@ function getMarkdownArtifactPath(
 export function resolveMarkdownNegotiationPath(
   path: string,
 ): { artifactPath: string; section: MarkdownSection; slug: string } | null {
+  const normalizedPath = path.replace(/\/$/, "");
+  if (normalizedPath.endsWith(".md") || normalizedPath.endsWith(".txt")) {
+    return null;
+  }
+
   for (const { prefix, section } of MARKDOWN_HTML_PREFIXES) {
     if (path.startsWith(prefix)) {
       const slug = path.slice(prefix.length).replace(/\/$/, "");
@@ -59,7 +64,6 @@ export function resolveMarkdownNegotiationPath(
     }
   }
 
-  const normalizedPath = path.replace(/\/$/, "");
   const indexSection = MARKDOWN_INDEX_PATHS[normalizedPath];
   if (!indexSection) {
     return null;

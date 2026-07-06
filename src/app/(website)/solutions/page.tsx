@@ -1,8 +1,6 @@
 import type { ReactNode } from "react";
 
 import { absoluteSiteUrl, getMetadata } from "@/lib/get-metadata";
-import { withSiteBaseUrl } from "@/lib/site-paths";
-import { resolveSiteBaseUrl } from "@/lib/site-url";
 import { SOLUTION_RSS_PATH } from "@/lib/solutions/rss-feed";
 import {
   buildSolutionItems,
@@ -33,7 +31,6 @@ export default function SolutionsPage(): ReactNode {
   const featuredItem = getFeaturedSolutionItem(allItems);
   const listItems = getSolutionListItems(allItems);
   const categories = getSolutionCategories(allItems);
-  const rssHref = withSiteBaseUrl(SOLUTION_RSS_PATH, resolveSiteBaseUrl());
 
   return (
     <>
@@ -57,7 +54,7 @@ export default function SolutionsPage(): ReactNode {
           <SolutionItemsSection
             categories={categories}
             items={listItems}
-            rssHref={rssHref}
+            rssHref={SOLUTION_RSS_PATH}
             searchItems={allItems}
           />
         </div>

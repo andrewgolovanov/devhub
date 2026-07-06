@@ -66,15 +66,15 @@ describe("/solutions/rss.xml", () => {
     );
   });
 
-  test("uses the configured SITE_URL base path", async () => {
-    await withSiteUrl("https://stage.databricks.com/devhub", async () => {
+  test("uses the configured SITE_URL origin", async () => {
+    await withSiteUrl("https://developers.databricks.com/docs", async () => {
       const result = await call(GET, "127.0.0.1:4182");
 
       expect(result.body).toContain(
-        '<atom:link href="https://stage.databricks.com/devhub/solutions/rss.xml" rel="self" type="application/rss+xml" />',
+        '<atom:link href="https://developers.databricks.com/solutions/rss.xml" rel="self" type="application/rss+xml" />',
       );
       expect(result.body).toContain(
-        "<link>https://stage.databricks.com/devhub/solutions/devhub-launch</link>",
+        "<link>https://developers.databricks.com/solutions/devhub-launch</link>",
       );
     });
   });
