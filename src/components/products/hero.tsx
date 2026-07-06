@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, FileText } from "lucide-react";
 
@@ -80,8 +81,8 @@ export function Hero({ content }: HeroProps) {
     <section className="relative overflow-hidden bg-black text-white">
       <div className="relative mx-auto flex w-full max-w-304 flex-col px-5 pt-9 pb-24 md:px-8 md:pb-32 lg:pb-40 xl:px-0 xl:pb-60">
         <div className="relative w-full">
-          <img
-            alt={image.alt}
+          <Image
+            alt={image.alt ?? ""}
             className="block h-auto w-full"
             decoding="async"
             fetchPriority="high"

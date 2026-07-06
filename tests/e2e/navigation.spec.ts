@@ -159,9 +159,7 @@ test.describe("navbar navigation", () => {
   });
 });
 
-// Skipped while the Product nav section is hidden; the mobile menu layout
-// assertions below are tied to the old product-based tree layout.
-test.describe.skip("mobile navigation", () => {
+test.describe("mobile navigation", () => {
   for (const viewport of [
     {
       width: 360,
@@ -370,6 +368,19 @@ test.describe("current mobile navigation", () => {
     await expect(menu).toHaveCSS("background-color", "rgb(28, 29, 34)");
     await expect(home).toHaveAttribute("aria-current", "page");
     await expect(homeLabel).toHaveCSS("background-color", "rgb(199, 201, 209)");
+    await expect(menu.locator("[data-mobile-menu-product-label]")).toHaveText(
+      "product",
+    );
+    await expect(menu.getByRole("link", { name: "lakebase" })).toHaveAttribute(
+      "href",
+      "/product/lakebase",
+    );
+    await expect(
+      menu.getByRole("link", { name: "agent bricks" }),
+    ).toHaveAttribute("href", "/product/agent-bricks");
+    await expect(
+      menu.getByRole("link", { name: "databricks apps" }),
+    ).toHaveAttribute("href", "/product/databricks-apps");
     await expect(menu.getByRole("link", { name: "solutions" })).toHaveAttribute(
       "href",
       "/solutions",
@@ -581,7 +592,8 @@ test.describe("home page link navigation", () => {
     expect(finalCopiedText).toContain("llms.txt");
   });
 
-  test("pillar card Lakebase navigates to /product/lakebase", async ({
+  // Skipped while the home Features pillar cards are hidden.
+  test.skip("pillar card Lakebase navigates to /product/lakebase", async ({
     page,
   }) => {
     await page.goto("/");
@@ -592,7 +604,7 @@ test.describe("home page link navigation", () => {
     expect(new URL(page.url()).pathname).toBe("/product/lakebase");
   });
 
-  test("pillar card Agent Bricks navigates to /product/agent-bricks", async ({
+  test.skip("pillar card Agent Bricks navigates to /product/agent-bricks", async ({
     page,
   }) => {
     await page.goto("/");
@@ -601,7 +613,7 @@ test.describe("home page link navigation", () => {
     expect(new URL(page.url()).pathname).toBe("/product/agent-bricks");
   });
 
-  test("pillar card Databricks Apps navigates to /product/databricks-apps", async ({
+  test.skip("pillar card Databricks Apps navigates to /product/databricks-apps", async ({
     page,
   }) => {
     await page.goto("/");
@@ -615,6 +627,38 @@ test.describe("home page link navigation", () => {
     await page.locator('a[href="/templates"]').first().click();
     await page.waitForURL("**/templates");
     expect(new URL(page.url()).pathname).toBe("/templates");
+  });
+
+  test("home features section renders product feature cards", async ({
+    page,
+  }) => {
+    await page.goto("/");
+
+    const features = page.locator("section.features");
+    await features.scrollIntoViewIfNeeded();
+
+    await expect(features.locator("#home-features-heading")).toHaveText(
+      "Databricks developer platform features",
+    );
+    await expect(features.locator('[data-slot="feature-card"]')).toHaveCount(3);
+    await expect(features).toContainText(
+      "Web apps that run inside your workspace.",
+    );
+    await expect(features).toContainText(
+      "Managed Postgres, colocated with your Lakehouse.",
+    );
+    await expect(features).toContainText(
+      "LLM-driven apps that call tools and return structured output.",
+    );
+    await expect(
+      features.locator('a[href="/product/databricks-apps"]'),
+    ).toHaveText("Learn more");
+    await expect(features.locator('a[href="/product/lakebase"]')).toHaveText(
+      "Learn more",
+    );
+    await expect(
+      features.locator('a[href="/product/agent-bricks"]'),
+    ).toHaveText("Learn more");
   });
 
   test("home template slider fits responsive cards and preserves vertical touch scroll", async ({

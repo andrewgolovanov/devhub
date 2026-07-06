@@ -5,7 +5,7 @@ import type { ProductPageContent } from "@/lib/products/product-page";
 
 const productPages = [
   { routeSlug: "agent-bricks", product: agentBricksProduct },
-  { routeSlug: "data-lakehouse", product: lakebaseProduct },
+  { routeSlug: "lakebase", product: lakebaseProduct },
   { routeSlug: "databricks-apps", product: databricksAppsProduct },
 ] as const satisfies ReadonlyArray<{
   routeSlug: string;

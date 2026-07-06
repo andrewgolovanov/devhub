@@ -4,7 +4,7 @@ import { expectDevHubImageToUseNextOptimizer } from "./image-assertions";
 
 const PRODUCT_PAGES = [
   { path: "/product/agent-bricks", title: "Agent Bricks" },
-  { path: "/product/data-lakehouse", title: "Lakebase" },
+  { path: "/product/lakebase", title: "Lakebase" },
   { path: "/product/databricks-apps", title: "Databricks Apps" },
 ];
 
@@ -242,7 +242,7 @@ test.describe("static assets load correctly", () => {
   });
 });
 
-test.describe.skip("product pages", () => {
+test.describe("product pages", () => {
   for (const { path, title } of PRODUCT_PAGES) {
     test(`${path} renders product metadata and structured data`, async ({
       page,
@@ -286,6 +286,15 @@ test.describe.skip("product pages", () => {
   test("/product root stays unpublished", async ({ request }) => {
     const response = await request.get("/product");
     expect(response.status()).toBe(404);
+  });
+
+  test("/product/data-lakehouse redirects to /product/lakebase", async ({
+    page,
+  }) => {
+    await page.goto("/product/data-lakehouse");
+    await page.waitForURL("**/product/lakebase");
+    expect(new URL(page.url()).pathname).toBe("/product/lakebase");
+    await expect(page).toHaveTitle("Lakebase | Databricks Developer");
   });
 });
 
@@ -1309,7 +1318,7 @@ test.describe("hackathon resources", () => {
   });
 });
 
-test.describe.skip("product routes", () => {
+test.describe("product routes", () => {
   test("/product returns the 404 shell with CTA and footer", async ({
     page,
   }) => {
@@ -1326,7 +1335,7 @@ test.describe.skip("product routes", () => {
       page.getByRole("heading", { name: "Page Not Found" }),
     ).toBeVisible();
     await expect(
-      page.getByText("We could not find what you were looking for."),
+      page.getByText("We know this isn't where you intended to land"),
     ).toBeVisible();
     await expect(
       page.getByRole("region", { name: "Start building" }),
@@ -1346,12 +1355,12 @@ test.describe.skip("product routes", () => {
     await expectMarketing404Footer(page);
   });
 
-  test("/product/data-lakehouse keeps the product CTA and footer on mobile", async ({
+  test("/product/lakebase keeps the product CTA and footer on mobile", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
 
-    const response = await page.goto("/product/data-lakehouse");
+    const response = await page.goto("/product/lakebase");
 
     expect(response?.status()).toBe(200);
     await expect(page).toHaveTitle("Lakebase | Databricks Developer");

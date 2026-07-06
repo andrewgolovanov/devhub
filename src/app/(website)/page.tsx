@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { absoluteSiteUrl, getMetadata } from "@/lib/get-metadata";
 import Footer from "@/components/footer";
 import CTA from "@/components/home/cta";
+import Features from "@/components/home/features";
 import Hero from "@/components/home/hero";
 import LovedByDevelopers from "@/components/home/loved-by-developers";
 import Templates from "@/components/home/templates";
@@ -58,6 +59,7 @@ export default function HomePage(): ReactNode {
       />
       <Hero />
       <Templates />
+      <Features />
       <div className="bg-linear-to-b from-[#1A2E2F] from-65% to-[#2A4647]">
         <LovedByDevelopers />
         <CTA

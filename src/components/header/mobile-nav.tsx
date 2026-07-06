@@ -5,7 +5,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import {
+  getActiveProductHref,
   isHeaderNavItemActive,
+  PRODUCT_LINKS,
   type HeaderNavItem,
 } from "@/lib/header-navigation";
 import { cn } from "@/lib/utils";
@@ -133,7 +135,10 @@ export function MobileNav({
 }: MobileNavProps) {
   const menuId = useId();
   const pathname = usePathname() ?? "/";
+  const activeProductHref = getActiveProductHref(pathname);
   const isHomeActive = pathname === "/";
+  const productItem = items.find(({ label }) => label === "Product");
+  const sectionItems = items.filter(({ label }) => label !== "Product");
 
   useEffect(() => {
     onOpenChange(false);
@@ -227,7 +232,7 @@ export function MobileNav({
     };
   }, [onOpenChange, open]);
 
-  if (items.length === 0) {
+  if (!productItem || items.length === 0) {
     return null;
   }
 
@@ -254,10 +259,15 @@ export function MobileNav({
             className="relative flex h-full w-full justify-between font-mono text-xl leading-none font-normal tracking-[-0.025rem]"
             aria-label="Main navigation"
           >
-            <MobileTreeLine className="top-9.5 left-5.75 h-25.5 w-px" />
-            <MobileTreeLine className="top-18 left-6 h-px w-9.25 md:w-9.75" />
-            <MobileTreeLine className="top-26.5 left-6 h-px w-9.25 md:w-9.75" />
-            <MobileTreeLine className="top-35 left-6 h-px w-9.25 md:w-9.75" />
+            <MobileTreeLine className="top-[38px] left-[23px] h-[226px] w-px" />
+            <MobileTreeLine className="top-[58px] left-6 h-px w-[37px]" />
+            <MobileTreeLine className="top-[90px] left-[63px] h-px w-[37px]" />
+            <MobileTreeLine className="top-[124px] left-[63px] h-px w-[37px]" />
+            <MobileTreeLine className="top-[158px] left-[63px] h-px w-[37px]" />
+            <MobileTreeLine className="top-[194px] left-6 h-px w-[37px] md:w-[39px]" />
+            <MobileTreeLine className="top-[228px] left-6 h-px w-[37px] md:w-[39px]" />
+            <MobileTreeLine className="top-[264px] left-6 h-px w-[37px] md:w-[39px]" />
+            <MobileTreeLine className="top-[72px] left-[63px] h-[86px] w-px md:top-[73px] md:h-[85px]" />
 
             <MobileTreeText
               active={isHomeActive}
@@ -270,7 +280,37 @@ export function MobileNav({
               ~/HOME
             </MobileTreeText>
 
-            {items.map((item, index) => {
+            <span
+              className="text-grey-80 absolute top-[46px] left-[61px] flex h-6 items-center opacity-60"
+              data-mobile-menu-product-label="true"
+            >
+              {productItem.label.toLowerCase()}
+            </span>
+
+            {PRODUCT_LINKS.map((product, index) => {
+              const isActive = product.href === activeProductHref;
+
+              return (
+                <MobileTreeText
+                  active={isActive}
+                  activeFill="full"
+                  aria-current={isActive ? "page" : undefined}
+                  className={cn(
+                    "right-5 left-[100px]",
+                    index === 0 && "top-[76px]",
+                    index === 1 && "top-[110px]",
+                    index === 2 && "top-36",
+                  )}
+                  data-mobile-menu-product-link="true"
+                  href={product.href}
+                  key={product.href}
+                >
+                  {product.label.toLowerCase()}
+                </MobileTreeText>
+              );
+            })}
+
+            {sectionItems.map((item, index) => {
               const isActive = isHeaderNavItemActive(item, pathname);
 
               return (
@@ -279,10 +319,10 @@ export function MobileNav({
                   activeFill="full"
                   aria-current={isActive ? "page" : undefined}
                   className={cn(
-                    "right-5 left-15.25 md:right-5.5 md:left-15.75",
-                    index === 0 && "top-14.5",
-                    index === 1 && "top-23",
-                    index === 2 && "top-31.5",
+                    "right-5 left-[61px] md:right-[22px] md:left-[63px]",
+                    index === 0 && "top-[180px]",
+                    index === 1 && "top-[214px]",
+                    index === 2 && "top-[248px]",
                   )}
                   data-mobile-menu-section-link="true"
                   href={item.href}

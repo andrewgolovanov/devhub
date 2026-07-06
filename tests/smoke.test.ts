@@ -211,9 +211,11 @@ describe("production build smoke tests", () => {
     expect(paths).not.toContain("/solutions/page/:page");
     expect(paths).not.toContain("/templates");
     expect(paths).not.toContain("/product");
-    expect(paths).not.toContain("/product/agent-bricks");
+    expect(paths).toContain("/product/agent-bricks");
+    expect(paths).toContain("/product/lakebase");
+    expect(paths).toContain("/product/databricks-apps");
     expect(paths).not.toContain("/product/data-lakehouse");
-    expect(paths).not.toContain("/product/databricks-apps");
+    expect(paths).not.toContain("/product/data-lakehouse/");
 
     for (const path of paths) {
       expect(path.startsWith("/hackathon")).toBe(false);

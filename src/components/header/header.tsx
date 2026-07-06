@@ -5,11 +5,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { HEADER_LINKS, isHeaderNavItemActive } from "@/lib/header-navigation";
+import { HEADER_LINKS } from "@/lib/header-navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { SiteSearch, type SiteSearchItem } from "@/components/ui/site-search";
 import { MobileNav } from "@/components/header/mobile-nav";
+import { HeaderNav } from "@/components/header/nav";
 import { Icons } from "@/components/icons";
 
 export function Header({
@@ -70,33 +71,10 @@ export function Header({
               width={177}
             />
           </Link>
-          <nav aria-label="Main" className="ml-10 hidden xl:block 2xl:ml-19.5">
-            <ul className="m-0 flex list-none justify-start gap-0 p-0">
-              {HEADER_LINKS.map((item) => {
-                const active = isHeaderNavItemActive(item, pathname);
-                return (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      aria-current={active ? "page" : undefined}
-                      className="group/nav-item relative inline-flex px-3 py-2 font-mono text-[0.9375rem] leading-none text-white no-underline hover:no-underline"
-                    >
-                      <span
-                        className={cn(
-                          "bg-grey-12 pointer-events-none absolute inset-0 overflow-hidden opacity-0 group-hover/nav-item:opacity-100",
-                          active && "opacity-100",
-                        )}
-                        aria-hidden="true"
-                      >
-                        <span className="bg-orange absolute top-0 right-0 size-3 translate-x-1/2 -translate-y-1/2 rotate-45 overflow-hidden border-2 border-black" />
-                      </span>
-                      <span className="relative z-10">[{item.label}]</span>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </nav>
+          <HeaderNav
+            className="ml-10 hidden xl:flex 2xl:ml-19.5"
+            items={HEADER_LINKS}
+          />
           <div className="hidden grow items-center justify-end gap-x-3 xl:flex">
             <div className="flex items-center gap-x-6">
               <Link

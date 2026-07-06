@@ -54,6 +54,11 @@ const nextConfig = {
         destination: "/docs/start-here",
         permanent: true,
       },
+      {
+        source: "/product/data-lakehouse",
+        destination: "/product/lakebase",
+        permanent: true,
+      },
     ];
   },
   async rewrites() {
