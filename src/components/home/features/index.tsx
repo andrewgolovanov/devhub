@@ -95,7 +95,7 @@ function FeatureCard({
           <span className="font-mono text-sm/none">0{index + 1}</span>
           {eyebrow}
         </FeatureCardEyebrow>
-        <div className="flex grow flex-col justify-between md:w-full lg:mt-7 lg:pl-8 xl:mt-0 xl:pl-16">
+        <div className="3xl:mt-0 3xl:pl-16 flex grow flex-col justify-between md:w-full lg:mt-7 lg:pl-8">
           <FeatureCardTitle>
             {title}
             <span className="text-black/30"> [{description}]</span>
@@ -103,7 +103,7 @@ function FeatureCard({
           <FeatureCardAction>
             <AnimatedArrowLink
               href={href}
-              className="text-orange hover:text-primary focus-visible:text-primary relative inline-flex w-full items-center justify-between pb-4 font-sans text-2xl leading-none font-normal tracking-[-0.04em] no-underline transition-colors md:text-[28px] lg:text-3xl xl:text-[2.5625rem]"
+              className="text-orange hover:text-primary focus-visible:text-primary 3xl:text-[2.5rem] relative inline-flex w-full items-center justify-between pb-4 font-sans text-2xl leading-none font-normal tracking-[-0.04em] no-underline transition-colors md:text-[28px] lg:text-3xl xl:text-4xl"
               size="size-5 md:size-7"
               underlineClassName="pointer-events-none absolute inset-x-0 bottom-0 h-[3px] bg-current"
             >
@@ -140,7 +140,7 @@ export default function Features({ className }: { className?: string }) {
       )}
       aria-labelledby="home-features-heading"
     >
-      <div className="mx-auto flex max-w-400 flex-col gap-16 px-5 md:gap-28 md:px-8 lg:gap-50 xl:gap-60">
+      <div className="3xl:max-w-400 mx-auto flex max-w-360 flex-col gap-16 px-5 md:gap-28 md:px-8 lg:gap-50 xl:gap-60">
         <h2 id="home-features-heading" className="sr-only">
           Databricks developer platform features
         </h2>

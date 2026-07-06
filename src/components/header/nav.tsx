@@ -51,12 +51,19 @@ function NavItemChrome({
       )}
     >
       <span
-        className="bg-grey-12 pointer-events-none absolute inset-0 overflow-hidden opacity-0 group-hover/nav-item:opacity-100 group-data-[active=true]/nav-item:opacity-100 group-data-[state=open]/product-trigger:opacity-100"
+        className={cn(
+          "bg-grey-12 pointer-events-none absolute inset-0 overflow-hidden opacity-0 group-data-[state=open]/product-trigger:opacity-100",
+          !active && "group-hover/nav-item:opacity-100",
+        )}
         aria-hidden="true"
       >
         <span className="bg-orange absolute top-0 right-0 size-3 translate-x-1/2 -translate-y-1/2 rotate-45 overflow-hidden border-2 border-black" />
       </span>
-      <span className="relative z-10">{children}</span>
+      <span className="relative z-10">
+        <span className={cn(active && "text-orange transition-colors")}>[</span>
+        {children}
+        <span className={cn(active && "text-orange transition-colors")}>]</span>
+      </span>
     </span>
   );
 }
@@ -267,7 +274,7 @@ export function HeaderNav({ className, items }: HeaderNavProps) {
       className={cn("flex max-w-none flex-none justify-start", className)}
       aria-label="Main"
     >
-      <NavigationMenuList className="flex justify-start gap-0">
+      <NavigationMenuList className="flex justify-start gap-0.5">
         {items.map((item) => {
           const { href, label } = item;
 
@@ -279,8 +286,8 @@ export function HeaderNav({ className, items }: HeaderNavProps) {
                 key={href}
                 onPointerLeave={() => setHighlightedProductHref(null)}
               >
-                <NavigationMenuTrigger className="group/product-trigger focus-visible:outline-db-cyan h-auto rounded-none bg-transparent! p-0 font-mono text-white shadow-none !transition-none hover:bg-transparent! hover:text-white! focus:bg-transparent! focus:text-white! focus-visible:ring-0! focus-visible:outline-2 focus-visible:outline-offset-2 data-[state=open]:bg-transparent! data-[state=open]:text-white! [&>svg]:hidden">
-                  <NavItemChrome active={isActive}>[{label}]</NavItemChrome>
+                <NavigationMenuTrigger className="group/product-trigger focus-visible:outline-db-cyan h-auto rounded-none bg-transparent! p-0 font-mono text-white shadow-none !transition-none hover:bg-transparent! hover:text-white! focus:bg-transparent! focus:text-white! focus-visible:outline-offset-2 data-[active=true]:!bg-transparent data-[state=open]:bg-transparent! data-[state=open]:text-white! [&>svg]:hidden">
+                  <NavItemChrome active={isActive}>{label}</NavItemChrome>
                 </NavigationMenuTrigger>
                 <NavigationMenuContent className="bg-grey-12! z-60 mt-0! h-[111px]! w-[185px]! overflow-visible! rounded-none! border-0! p-0! shadow-none! !transition-none !duration-0 group-data-[viewport=false]/navigation-menu:!duration-0 data-[motion^=from-]:!animate-none data-[motion^=to-]:!animate-none data-[state=closed]:!animate-none group-data-[viewport=false]/navigation-menu:data-[state=closed]:!animate-none data-[state=open]:!animate-none group-data-[viewport=false]/navigation-menu:data-[state=open]:!animate-none">
                   <ProductDropdown
@@ -301,10 +308,10 @@ export function HeaderNav({ className, items }: HeaderNavProps) {
               <NavigationMenuLink
                 active={isActive}
                 asChild
-                className="block !rounded-none !bg-transparent !p-0 !text-white no-underline hover:!bg-transparent hover:!text-white hover:no-underline focus:!bg-transparent focus:!text-white data-[active=true]:!bg-transparent"
+                className="block rounded-none bg-transparent p-0 text-white no-underline hover:bg-transparent hover:text-white hover:no-underline focus:bg-transparent focus:text-white data-active:bg-transparent data-active:hover:cursor-default"
               >
                 <Link href={href}>
-                  <NavItemChrome active={isActive}>[{label}]</NavItemChrome>
+                  <NavItemChrome active={isActive}>{label}</NavItemChrome>
                 </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>

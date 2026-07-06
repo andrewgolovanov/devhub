@@ -70,7 +70,7 @@ function FeatureCardTitle({ className, ...props }: ComponentProps<"h3">) {
     <h3
       data-slot="feature-card-title"
       className={cn(
-        "mt-5 font-sans text-[28px]/tight font-normal tracking-[-0.04em] text-pretty text-black md:mt-6 md:text-[32px]/tight lg:mt-0 lg:text-[36px]/tight xl:mt-7 xl:text-[2.5rem]/tight",
+        "3xl:mt-7 3xl:text-[2.5rem]/tight mt-5 font-sans text-[28px]/tight font-normal tracking-[-0.04em] text-pretty text-black md:mt-6 md:text-[32px]/tight lg:mt-0 lg:text-[36px]/tight",
         className,
       )}
       {...props}
@@ -134,7 +134,7 @@ function FeatureCardFooter({
           [ {label} ]
         </span>
       </span>
-      <p className="text-base/tight tracking-tight text-pretty text-black xl:max-w-120">
+      <p className="3xl:max-w-100 text-base/tight tracking-tight text-pretty text-black lg:max-w-88">
         {description}
       </p>
     </div>

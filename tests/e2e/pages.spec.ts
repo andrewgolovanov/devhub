@@ -296,6 +296,143 @@ test.describe("product pages", () => {
     expect(new URL(page.url()).pathname).toBe("/product/lakebase");
     await expect(page).toHaveTitle("Lakebase | Databricks Developer");
   });
+
+  test("uses static testimonial cards on desktop when three testimonials fit", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 1000 });
+    await page.goto("/product/agent-bricks");
+
+    const testimonials = page.locator("section").filter({
+      hasText: "Agent Bricks powers real agents in production.",
+    });
+
+    await expect(
+      testimonials.getByTestId("testimonials-slider-controls"),
+    ).toBeHidden();
+    await expect(
+      testimonials.getByRole("button", {
+        includeHidden: true,
+        name: "Next testimonial",
+      }),
+    ).toBeHidden();
+
+    const layout = await testimonials
+      .getByTestId("testimonials-track")
+      .evaluate((track) => {
+        const trackRect = track.getBoundingClientRect();
+        const styles = window.getComputedStyle(track);
+        const cards = Array.from(track.querySelectorAll("article")).map(
+          (card) => {
+            const rect = card.getBoundingClientRect();
+
+            return {
+              left: Math.round(rect.left),
+              right: Math.round(rect.right),
+              top: Math.round(rect.top),
+              width: Math.round(rect.width),
+            };
+          },
+        );
+
+        return {
+          cardCount: cards.length,
+          cardWidths: cards.map((card) => card.width),
+          display: styles.display,
+          overflowX: styles.overflowX,
+          rowCount: new Set(cards.map((card) => card.top)).size,
+          scrollWidth: track.scrollWidth,
+          clientWidth: track.clientWidth,
+          cardsInsideTrack: cards.every(
+            (card) =>
+              card.left >= Math.floor(trackRect.left) &&
+              card.right <= Math.ceil(trackRect.right),
+          ),
+        };
+      });
+
+    expect(layout.display).toBe("grid");
+    expect(layout.overflowX).toBe("visible");
+    expect(layout.cardCount).toBe(3);
+    expect(layout.rowCount).toBe(1);
+    expect(layout.cardsInsideTrack).toBe(true);
+    expect(layout.scrollWidth).toBeLessThanOrEqual(layout.clientWidth + 2);
+    expect(layout.cardWidths.every((width) => width <= 390)).toBe(true);
+  });
+
+  test("keeps testimonial slider below 1280px", async ({ page }) => {
+    await page.setViewportSize({ width: 1279, height: 900 });
+    await page.goto("/product/agent-bricks");
+
+    const testimonials = page.locator("section").filter({
+      hasText: "Agent Bricks powers real agents in production.",
+    });
+    const track = testimonials.getByTestId("testimonials-track");
+
+    await expect(
+      testimonials.getByTestId("testimonials-slider-controls"),
+    ).toBeVisible();
+
+    const layout = await track.evaluate((element) => {
+      const styles = window.getComputedStyle(element);
+
+      return {
+        display: styles.display,
+        documentScrollWidth: document.documentElement.scrollWidth,
+        overflowX: styles.overflowX,
+        scrollWidth: element.scrollWidth,
+        clientWidth: element.clientWidth,
+        viewportWidth: window.innerWidth,
+      };
+    });
+
+    expect(layout.display).toBe("flex");
+    expect(layout.overflowX).toBe("auto");
+    expect(layout.scrollWidth).toBeGreaterThan(layout.clientWidth);
+    expect(layout.documentScrollWidth).toBeLessThanOrEqual(
+      layout.viewportWidth + 1,
+    );
+  });
+
+  test("keeps testimonial slider behavior on mobile", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/product/agent-bricks");
+
+    const testimonials = page.locator("section").filter({
+      hasText: "Agent Bricks powers real agents in production.",
+    });
+    const track = testimonials.getByTestId("testimonials-track");
+
+    await expect(
+      testimonials.getByTestId("testimonials-slider-controls"),
+    ).toBeVisible();
+
+    const layout = await track.evaluate((element) => {
+      const styles = window.getComputedStyle(element);
+
+      return {
+        display: styles.display,
+        overflowX: styles.overflowX,
+        scrollWidth: element.scrollWidth,
+        clientWidth: element.clientWidth,
+      };
+    });
+
+    expect(layout.display).toBe("flex");
+    expect(layout.overflowX).toBe("auto");
+    expect(layout.scrollWidth).toBeGreaterThan(layout.clientWidth);
+
+    await track.evaluate((element) => {
+      element.scrollTo({
+        behavior: "instant" as ScrollBehavior,
+        left: element.clientWidth,
+      });
+    });
+
+    await expect
+      .poll(() => track.evaluate((element) => Math.round(element.scrollLeft)))
+      .toBeGreaterThan(0);
+  });
 });
 
 test.describe("solutions RSS", () => {

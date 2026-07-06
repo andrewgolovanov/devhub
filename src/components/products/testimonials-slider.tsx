@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 import type { ProductPageContent } from "@/lib/products/product-page";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -71,47 +73,52 @@ function getTestimonialLogoAsset(company: string) {
   );
 }
 
-function TestimonialLogo({
-  company,
-}: {
-  company: ProductTestimonial["company"];
-}) {
-  const logo = getTestimonialLogoAsset(company);
-
-  return (
-    <img
-      alt={`${company} logo`}
-      className="h-7 max-w-full self-start object-contain object-left brightness-0 invert md:h-8 lg:h-9 xl:h-12"
-      decoding="async"
-      height={36}
-      loading="lazy"
-      src={logo.src}
-      style={{ width: logo.width }}
-      width={logo.width}
-    />
-  );
-}
-
 function TestimonialCard({
   active,
+  staticDesktopLayout,
   testimonial,
 }: {
   active: boolean;
+  staticDesktopLayout: boolean;
   testimonial: ProductTestimonial;
 }) {
+  const logo = getTestimonialLogoAsset(testimonial.company);
+
   return (
     <article
       className={cn(
         "bg-db-navy-light flex min-h-76.5 w-[calc(100vw-2.5rem)] shrink-0 snap-start flex-col justify-between border border-white/18 p-6 md:w-lg md:px-8 md:py-10 lg:min-h-114.75 xl:min-h-143.5",
-        active && "bg-db-cyan/20",
+        staticDesktopLayout && "xl:w-auto xl:min-w-0 xl:py-8 xl:lg:min-h-115",
+        active &&
+          (staticDesktopLayout ? "max-xl:bg-db-cyan/20" : "bg-db-cyan/20"),
       )}
     >
-      <TestimonialLogo company={testimonial.company} />
+      <Image
+        alt={`${testimonial.company} logo`}
+        className={cn(
+          "h-7 max-w-full self-start object-contain object-left brightness-0 invert md:h-8 lg:h-9 xl:h-12",
+          staticDesktopLayout && "xl:h-10",
+        )}
+        src={logo.src}
+        width={logo.width}
+        height={logo.width}
+        loading="lazy"
+      />
       <div>
-        <blockquote className="mt-12 max-w-md text-base leading-normal tracking-normal text-white md:mt-13 md:text-lg lg:mt-5 lg:text-xl xl:mt-10 xl:text-2xl">
+        <blockquote
+          className={cn(
+            "mt-12 max-w-md text-base leading-normal tracking-normal text-white md:mt-13 md:text-lg lg:mt-5 lg:text-xl xl:mt-10 xl:text-2xl",
+            staticDesktopLayout && "xl:mt-12 xl:text-lg",
+          )}
+        >
           "{testimonial.quote}"
         </blockquote>
-        <p className="mt-auto pt-7 text-base tracking-normal text-white/80 md:pt-8 lg:pt-12">
+        <p
+          className={cn(
+            "mt-auto pt-7 text-base tracking-normal text-white/80 md:pt-8 lg:pt-12",
+            staticDesktopLayout && "xl:pt-8",
+          )}
+        >
           <span className="text-white">{testimonial.attributionName}</span>
           {testimonial.attributionTitle
             ? `, ${testimonial.attributionTitle}`
@@ -125,6 +132,7 @@ function TestimonialCard({
 export function TestimonialsSlider({ content }: TestimonialsSliderProps) {
   const slider = useScrollSlider({ itemCount: content.testimonials.length });
   const { activeIndex, currentIndex, lastIndex } = slider;
+  const staticDesktopLayout = content.testimonials.length <= 3;
   const progress = `${Math.min(
     100,
     ((currentIndex + 2) / (content.testimonials.length + 1)) * 100,
@@ -143,7 +151,13 @@ export function TestimonialsSlider({ content }: TestimonialsSliderProps) {
           </span>
         </h2>
 
-        <div className="mt-12 flex items-center gap-5">
+        <div
+          data-testid="testimonials-slider-controls"
+          className={cn(
+            "mt-12 flex items-center gap-5",
+            staticDesktopLayout && "xl:hidden",
+          )}
+        >
           <div
             className="h-2 grow bg-white/8"
             role="presentation"
@@ -192,17 +206,27 @@ export function TestimonialsSlider({ content }: TestimonialsSliderProps) {
       </div>
 
       <div
-        className="mt-10 [--testimonial-left:max(1.25rem,calc((100vw-76rem)/2))] md:[--testimonial-left:max(2rem,calc((100vw-76rem)/2))]"
+        className={cn(
+          "mt-10 [--testimonial-left:max(1.25rem,calc((100vw-76rem)/2))] md:[--testimonial-left:max(2rem,calc((100vw-76rem)/2))]",
+          staticDesktopLayout &&
+            "xl:mx-auto xl:mt-20 xl:w-full xl:max-w-304 xl:px-0",
+        )}
         aria-live="polite"
       >
         <div
-          className="flex snap-x snap-mandatory [scroll-padding-right:var(--testimonial-left)] [scroll-padding-left:var(--testimonial-left)] [scrollbar-width:none] gap-8 overflow-x-auto scroll-smooth pr-[var(--testimonial-left)] pb-2 pl-[var(--testimonial-left)] [&::-webkit-scrollbar]:hidden"
+          data-testid="testimonials-track"
+          className={cn(
+            "flex snap-x snap-mandatory [scroll-padding-right:var(--testimonial-left)] [scroll-padding-left:var(--testimonial-left)] [scrollbar-width:none] gap-8 overflow-x-auto scroll-smooth pr-[var(--testimonial-left)] pb-2 pl-[var(--testimonial-left)] [&::-webkit-scrollbar]:hidden",
+            staticDesktopLayout &&
+              "xl:grid xl:snap-none xl:[scroll-padding-right:0] xl:[scroll-padding-left:0] xl:grid-cols-3 xl:gap-6 xl:overflow-visible xl:scroll-auto xl:px-0 xl:pb-0",
+          )}
           ref={slider.trackRef}
           onScroll={slider.handleScroll}
         >
           {content.testimonials.map((testimonial, index) => (
             <TestimonialCard
               active={index === activeIndex}
+              staticDesktopLayout={staticDesktopLayout}
               testimonial={testimonial}
               key={testimonial.company}
             />
