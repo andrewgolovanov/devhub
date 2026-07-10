@@ -4141,7 +4141,7 @@
     const baseStep = Math.max(18, duration / stepCount);
     const cadence = [0.55, 0.95, 0.72, 1.2, 0.68];
 
-    for (let cursor = 0; cursor < order.length; ) {
+    for (let cursor = 0; cursor < order.length;) {
       if (token !== runId) {
         throw new Error("Animation cancelled");
       }

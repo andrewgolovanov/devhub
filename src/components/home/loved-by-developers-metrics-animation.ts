@@ -1,10 +1,5 @@
 type LovedTimelineLayerName =
-  | "lines"
-  | "scan"
-  | "checker"
-  | "bars"
-  | "glow"
-  | "solid";
+  "lines" | "scan" | "checker" | "bars" | "glow" | "solid";
 
 type LovedMetricsSettings = {
   look: "original" | "cipher" | "crt" | "terminal";

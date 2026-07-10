@@ -56,6 +56,7 @@ Select **Lakebase** and the CLI walks you through selecting an existing project,
 
 ```bash
 databricks apps init --name my-app --features lakebase \
+  --set lakebase.postgres.project=projects/<project-id> \
   --set lakebase.postgres.branch=projects/<project-id>/branches/<branch-id> \
   --set lakebase.postgres.database=projects/<project-id>/branches/<branch-id>/databases/<database-id>
 ```

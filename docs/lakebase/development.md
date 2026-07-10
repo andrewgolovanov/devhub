@@ -47,6 +47,8 @@ lakebase({
 });
 ```
 
+The `max: 10` default applies to the shared service-principal pool. Per-user on-behalf-of pools (created by `asUser(req)`) default to `max: 3`.
+
 ### Caching integration
 
 Lakebase Postgres also backs the [AppKit caching plugin](/docs/appkit/v0/plugins/caching) when healthy. For the full API, ORM integration, and connection configuration, read the [plugin reference](/docs/appkit/v0/plugins/lakebase).
@@ -95,6 +97,7 @@ databricks postgres create-branch \
   projects/$PROJECT_ID \
   $BRANCH_ID \
   --json '{"spec": {"source_branch": "projects/$PROJECT_ID/branches/$SOURCE_BRANCH_ID", "no_expiry": true}}' \
+  --replace-existing \
   --debug \
   -o json \
   --target $TARGET \
@@ -106,17 +109,18 @@ databricks postgres create-branch \
 <details>
 <summary>Options</summary>
 
-| Option      | Required | Description                                                                                                                                                                 |
-| ----------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `PARENT`    | yes      | Project resource path: `projects/{project_id}`                                                                                                                              |
-| `BRANCH_ID` | yes      | Unique branch identifier (1-63 chars, lowercase)                                                                                                                            |
-| `--json`    | no       | JSON spec with `source_branch` and expiration policy (`no_expiry`, `ttl`, or `expire_time`). If omitted, branches from the project's default branch with default expiration |
-| `--no-wait` | no       | Return immediately with operation details                                                                                                                                   |
-| `--timeout` | no       | Max time to wait for completion                                                                                                                                             |
-| `--debug`   | no       | Enable debug logging                                                                                                                                                        |
-| `-o json`   | no       | Output as JSON (default: text)                                                                                                                                              |
-| `--target`  | no       | Bundle target to use (if applicable)                                                                                                                                        |
-| `--profile` | no       | Databricks CLI profile name                                                                                                                                                 |
+| Option               | Required | Description                                                                                                                                                                 |
+| -------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `PARENT`             | yes      | Project resource path: `projects/{project_id}`                                                                                                                              |
+| `BRANCH_ID`          | yes      | Unique branch identifier (1-63 chars, lowercase)                                                                                                                            |
+| `--json`             | no       | JSON spec with `source_branch` and expiration policy (`no_expiry`, `ttl`, or `expire_time`). If omitted, branches from the project's default branch with default expiration |
+| `--replace-existing` | no       | Update the branch if it already exists instead of returning an error                                                                                                        |
+| `--no-wait`          | no       | Return immediately with operation details                                                                                                                                   |
+| `--timeout`          | no       | Max time to wait for completion                                                                                                                                             |
+| `--debug`            | no       | Enable debug logging                                                                                                                                                        |
+| `-o json`            | no       | Output as JSON (default: text)                                                                                                                                              |
+| `--target`           | no       | Bundle target to use (if applicable)                                                                                                                                        |
+| `--profile`          | no       | Databricks CLI profile name                                                                                                                                                 |
 
 </details>
 
@@ -131,6 +135,7 @@ databricks postgres delete-branch projects/my-project/branches/feature-xyz
 ```bash title="All Options"
 databricks postgres delete-branch \
   projects/$PROJECT_ID/branches/$BRANCH_ID \
+  --purge \
   --no-wait \
   --timeout 10m \
   --debug \
@@ -142,15 +147,16 @@ databricks postgres delete-branch \
 <details>
 <summary>Options</summary>
 
-| Option      | Required | Description                                                        |
-| ----------- | -------- | ------------------------------------------------------------------ |
-| `NAME`      | yes      | Branch resource path: `projects/{project_id}/branches/{branch_id}` |
-| `--no-wait` | no       | Return immediately with operation details                          |
-| `--timeout` | no       | Max time to wait for completion                                    |
-| `--debug`   | no       | Enable debug logging                                               |
-| `-o json`   | no       | Output as JSON (default: text)                                     |
-| `--target`  | no       | Bundle target to use (if applicable)                               |
-| `--profile` | no       | Databricks CLI profile name                                        |
+| Option      | Required | Description                                                           |
+| ----------- | -------- | --------------------------------------------------------------------- |
+| `NAME`      | yes      | Branch resource path: `projects/{project_id}/branches/{branch_id}`    |
+| `--purge`   | no       | Permanently delete the branch; if omitted, the branch is soft-deleted |
+| `--no-wait` | no       | Return immediately with operation details                             |
+| `--timeout` | no       | Max time to wait for completion                                       |
+| `--debug`   | no       | Enable debug logging                                                  |
+| `-o json`   | no       | Output as JSON (default: text)                                        |
+| `--target`  | no       | Bundle target to use (if applicable)                                  |
+| `--profile` | no       | Databricks CLI profile name                                           |
 
 </details>
 

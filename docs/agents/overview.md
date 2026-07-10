@@ -6,20 +6,20 @@ description: Agent Bricks is Databricks' enterprise agent platform. It unifies m
 
 # What is Agent Bricks?
 
-**Agent Bricks** is Databricks' enterprise agent platform for building, deploying, and governing agents that operate on your business data. It unifies model access, execution, governance, and context across a single system: from the model you call, to the data your agent reads, to the identity it acts under. In your workspace you configure Knowledge Assistants, Multi-Agent Supervisors, and custom Python agents. Databricks handles evaluation, tuning, and quality improvement, then hosts each agent at an HTTP endpoint your app can call.
+**Agent Bricks** is Databricks' enterprise agent platform for building, deploying, and governing agents that operate on your business data. It unifies model access, execution, governance, and context across a single system: from the model you call, to the data your agent reads, to the identity it acts under. In your workspace you configure Knowledge Assistants, Supervisor Agents, and custom Python agents. Databricks handles evaluation, tuning, and quality improvement, then hosts each agent at an HTTP endpoint your app can call.
 
-Your AppKit app connects to Agent Bricks capabilities through two plugins: the [Model Serving plugin](/docs/appkit/v0/plugins/serving) for agents, foundation models, and governed endpoints, and the [Genie plugin](/docs/appkit/v0/plugins/genie) for natural-language queries over Unity Catalog tables.
+Your AppKit app connects to Agent Bricks capabilities through two plugins: the [Model Serving plugin](/docs/appkit/v0/plugins/model-serving) for agents, foundation models, and governed endpoints, and the [Genie plugin](/docs/appkit/v0/plugins/genie) for natural-language queries over Unity Catalog tables.
 
 ## How it fits together
 
-Your AppKit app calls Agent Bricks through a **Model Serving endpoint** (a foundation model, Knowledge Assistant, Agent Bricks Multi-Agent Supervisor, or custom Python agent) or a **Genie space** (natural-language queries over Unity Catalog tables). The [Model Serving plugin](/docs/appkit/v0/plugins/serving) and [Genie plugin](/docs/appkit/v0/plugins/genie) cover both.
+Your AppKit app calls Agent Bricks through a **Model Serving endpoint** (a foundation model, Knowledge Assistant, Supervisor Agent, or custom Python agent) or a **Genie Agent** (natural-language queries over Unity Catalog tables). The [Model Serving plugin](/docs/appkit/v0/plugins/model-serving) and [Genie plugin](/docs/appkit/v0/plugins/genie) cover both.
 
 ```mermaid
 flowchart LR
     React["React<br/>(@databricks/appkit-ui/react)"] -->|"useServingStream /<br/>useGenieChat"| Node["AppKit server<br/>(@databricks/appkit)"]
     Node -->|"Model Serving plugin"| Endpoint["Model Serving endpoint<br/>(LLM, Knowledge Assistant,<br/>Supervisor Agent,<br/>custom Python)"]
-    Node -->|"Genie plugin"| Space["Genie space"]
-    Endpoint --> Gateway["AI Gateway<br/>(governance, rate limits,<br/>system tables)"]
+    Node -->|"Genie plugin"| Space["Genie Agent"]
+    Endpoint --> Gateway["Unity AI Gateway<br/>(governance, rate limits,<br/>system tables)"]
     Space --> UC["Unity Catalog<br/>tables"]
 ```
 
@@ -35,7 +35,7 @@ Pick the plugin that matches the resource. No other primitive is required for th
 
 ## Auth
 
-Serving and Genie HTTP routes run on behalf of the authenticated user by default. If the user doesn't have `CAN QUERY` on the serving endpoint or `CAN RUN` on the Genie space, the call fails with a 403. You don't write the permission check.
+Serving and Genie HTTP routes run on behalf of the authenticated user by default. If the user doesn't have `CAN QUERY` on the serving endpoint or `CAN RUN` on the Genie Agent, the call fails with a 403. You don't write the permission check.
 
 For server logic outside a route handler, call `AppKit.serving("alias").asUser(req).invoke(...)` to keep the same behavior.
 
@@ -50,7 +50,7 @@ You could call a serving endpoint directly with `fetch` and a token. The plugin 
 
 :::note[Creating a custom agent]
 
-Creating a custom agent is a Python workflow: the `ResponsesAgent` interface, an agent framework (OpenAI Agents SDK, LangGraph, LlamaIndex), and MLflow for tracing. See [Create an AI agent](https://docs.databricks.com/aws/en/generative-ai/agent-framework/create-agent) on docs.databricks.com for that track.
+Creating a custom agent is a Python workflow: the `ResponsesAgent` interface, an agent framework (OpenAI Agents SDK, LangGraph, LlamaIndex), and MLflow for tracing. See [Author an AI agent](https://docs.databricks.com/aws/en/agents/agent-framework/author-agent) on docs.databricks.com for that track.
 
 :::
 
@@ -66,6 +66,6 @@ Start from a template that matches your use case. Each one includes the Model Se
 
 ## Where to next
 
-- [AI Gateway](/docs/agents/ai-gateway) for governed access to models, agent endpoints, and external tools.
-- [Genie spaces](/docs/agents/genie) for chat-with-your-data over Unity Catalog tables.
+- [Unity AI Gateway](/docs/agents/ai-gateway) for governed access to models, agent endpoints, and external tools.
+- [Genie Agents](/docs/agents/genie) for chat-with-your-data over Unity Catalog tables.
 - [Custom agent endpoints](/docs/agents/custom-agents) for wiring Knowledge Assistant, Supervisor Agent, or your own Python agent.
