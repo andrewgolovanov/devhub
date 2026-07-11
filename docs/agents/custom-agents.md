@@ -18,11 +18,11 @@ When your AppKit app needs more than a foundation model response or a Genie-styl
 
 Three Databricks products produce agent endpoints. The table summarizes when to use each; subsections below link to the setup docs.
 
-| Builder                                     | Use when                                                                                            | Setup                                                                                                            |
-| ------------------------------------------- | --------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| [Knowledge Assistant](#knowledge-assistant) | You need Q&A over documents (PDFs, Markdown, Office files) with citations                           | Click-through UI in the workspace                                                                                |
-| [Supervisor Agent](#supervisor-agent)       | You need to coordinate existing Genie Agents, other agents, Unity Catalog functions, or MCP servers | Click-through UI, or the [Supervisor API](https://docs.databricks.com/aws/en/agents/agent-bricks/supervisor-api) |
-| [Custom Python agent](#custom-python-agent) | No builder fits; you need arbitrary orchestration, custom tools, or a proprietary framework         | Write Python with `ResponsesAgent`, deploy to an endpoint via `agents.deploy()`                                  |
+| Builder                                     | Use when                                                                                            | Setup                                                                                                                                                              |
+| ------------------------------------------- | --------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| [Knowledge Assistant](#knowledge-assistant) | You need Q&A over documents (PDFs, Markdown, Office files) with citations                           | Click-through UI in the workspace                                                                                                                                  |
+| [Supervisor Agent](#supervisor-agent)       | You need to coordinate existing Genie Agents, other agents, Unity Catalog functions, or MCP servers | Click-through UI, or the [Supervisor API](https://docs.databricks.com/aws/en/agents/agent-bricks/supervisor-api)                                                   |
+| [Custom Python agent](#custom-python-agent) | No builder fits; you need arbitrary orchestration, custom tools, or a proprietary framework         | Write Python with `ResponsesAgent`, deploy to an endpoint via `agents.deploy()` (legacy path — prefer the [agents plugin](/docs/appkit/v0/plugins/agents) on Apps) |
 
 ### Knowledge Assistant
 
