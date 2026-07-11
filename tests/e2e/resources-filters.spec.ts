@@ -127,7 +127,7 @@ test.describe("templates page service filter", () => {
       templateTextLink(page, "/templates/lakebase-off-platform"),
     ).toBeVisible();
     await expect(
-      templateTextLink(page, "/templates/query-ai-gateway-endpoints"),
+      templateTextLink(page, "/templates/foundation-models-api"),
     ).toBeHidden();
   });
 
@@ -148,7 +148,7 @@ test.describe("templates page service filter", () => {
       .toBeGreaterThan(listTop + 200);
 
     await page
-      .getByRole("checkbox", { name: "AI Gateway", exact: true })
+      .getByRole("checkbox", { name: "Unity AI Gateway", exact: true })
       .check();
 
     await expect

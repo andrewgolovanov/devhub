@@ -1,7 +1,7 @@
 Complete these prerequisite templates first:
 
 - [Set Up Your Local Dev Environment](/templates/set-up-your-local-dev-environment) — install the Databricks CLI and authenticate a profile.
-- [Query AI Gateway Endpoints](/templates/ai-chat-app#query-ai-gateway-endpoints) — confirm your workspace exposes a chat endpoint via the AI Gateway.
+- [Query Foundation Model Endpoints](/templates/foundation-models-api) — confirm your workspace exposes a Databricks-hosted foundation-model chat endpoint.
 
 Then verify these Databricks workspace features are enabled. If any check fails, ask your workspace admin to enable the feature.
 

@@ -2,11 +2,11 @@ This template demonstrates a Retrieval-Augmented Generation chat app built on Da
 
 ### Data Flow
 
-All retrieval and chat state live in Lakebase Postgres; generation uses AI Gateway:
+All retrieval and chat state live in Lakebase Postgres; generation uses Model Serving:
 
-1. **Seeding** pulls a handful of Wikipedia articles on startup, chunks them by paragraph, embeds each chunk through the AI Gateway embeddings endpoint (`databricks-gte-large-en` by default), and writes rows into `rag.documents` with a `vector(1024)` column.
+1. **Seeding** pulls a handful of Wikipedia articles on startup, chunks them by paragraph, embeds each chunk through the foundation-model embeddings endpoint (`databricks-gte-large-en` by default), and writes rows into `rag.documents` with a `vector(1024)` column.
 2. **User turns** are embedded with the same endpoint. The server runs a pgvector cosine-similarity search to retrieve the top-k matching chunks.
-3. **Context injection**: the retrieved chunks are prepended as a system message before the user's conversation history is sent to the chat completion endpoint (`databricks-gpt-5-4-mini` by default) via AI Gateway.
+3. **Context injection**: the retrieved chunks are prepended as a system message before the user's conversation history is sent to the chat completion endpoint (`databricks-gpt-5-4-mini` by default) via Model Serving.
 4. **Streaming**: `streamText` streams tokens back to the client while an `onFinish` callback appends the assistant turn to Lakebase.
 5. **Chat history**: every user and assistant turn is persisted in `chat.messages`, keyed by `chat_id`, so conversations can be resumed.
 

@@ -3,7 +3,7 @@ export const SERVICES = [
   "Lakebase Postgres",
   "Agent Bricks",
   "Genie",
-  "AI Gateway",
+  "Unity AI Gateway",
   "Data Lakehouse",
   "Lakeflow Pipelines",
   "Unity Catalog",
@@ -97,8 +97,8 @@ export const recipes: Recipe[] = [
     name: "Streaming AI Chat with Model Serving",
     description:
       "Build a streaming AI chat experience using AI SDK and Databricks Model Serving endpoints.",
-    tags: ["Agent Bricks", "AI", "Chat", "AI SDK", "AI Gateway"],
-    services: ["Databricks Apps", "AI Gateway"],
+    tags: ["Agent Bricks", "AI", "Chat", "AI SDK", "Unity AI Gateway"],
+    services: ["Databricks Apps", "Unity AI Gateway"],
     previewImageLightUrl: "/img/guides/ai-chat-model-serving-preview-light.png",
     previewImageDarkUrl: "/img/guides/ai-chat-model-serving-preview-dark.png",
     prerequisites: [
@@ -109,22 +109,22 @@ export const recipes: Recipe[] = [
   },
   {
     id: "foundation-models-api",
-    name: "Query AI Gateway Endpoints",
+    name: "Query Foundation Model Endpoints",
     description:
-      "Query AI Gateway endpoints for production-ready access to foundation models with built-in governance.",
-    tags: ["Agent Bricks", "AI", "AI Gateway", "Foundation Models"],
-    services: ["AI Gateway"],
+      "Query Databricks foundation-model endpoints for production-ready access to hosted models with built-in AI Gateway governance.",
+    tags: ["Agent Bricks", "AI", "Unity AI Gateway", "Foundation Models"],
+    services: ["Unity AI Gateway"],
     prerequisites: ["set-up-your-local-dev-environment"],
     previewImageLightUrl: "/img/guides/foundation-models-api-preview-light.png",
     previewImageDarkUrl: "/img/guides/foundation-models-api-preview-dark.png",
   },
   {
     id: "embeddings-generation",
-    name: "Generate Embeddings with AI Gateway",
+    name: "Generate Embeddings with Foundation Models",
     description:
-      "Generate text embeddings from a Databricks AI Gateway endpoint using the Databricks SDK.",
-    tags: ["Agent Bricks", "AI", "AI Gateway", "Embeddings"],
-    services: ["AI Gateway"],
+      "Generate text embeddings from a Databricks foundation-model endpoint using the Databricks SDK.",
+    tags: ["Agent Bricks", "AI", "Unity AI Gateway", "Embeddings"],
+    services: ["Unity AI Gateway"],
     prerequisites: ["set-up-your-local-dev-environment"],
     previewImageLightUrl: "/img/guides/embeddings-generation-preview-light.png",
     previewImageDarkUrl: "/img/guides/embeddings-generation-preview-dark.png",
@@ -134,8 +134,8 @@ export const recipes: Recipe[] = [
     name: "Create a Databricks Model Serving endpoint",
     description:
       "Create and validate a Databricks Model Serving endpoint for AI chat inference in Databricks Apps.",
-    tags: ["Agent Bricks", "AI Gateway", "Endpoints", "Inference"],
-    services: ["AI Gateway"],
+    tags: ["Agent Bricks", "Unity AI Gateway", "Endpoints", "Inference"],
+    services: ["Unity AI Gateway"],
     prerequisites: ["set-up-your-local-dev-environment"],
     previewImageLightUrl:
       "/img/guides/model-serving-endpoint-creation-preview-light.png",
