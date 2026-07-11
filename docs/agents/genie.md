@@ -55,7 +55,7 @@ env:
 
 The Databricks Apps runtime injects the space ID from the resource into the env var. Find your space ID in the **About** tab of the Genie Agent page in your workspace.
 
-For a single-space app, skip the `spaces` config entirely and bind the plugin's default env var:
+For a single-agent app, skip the `spaces` config entirely and bind the plugin's default env var:
 
 ```yaml title="app.yaml"
 env:
@@ -127,7 +127,7 @@ genie({
 }),
 ```
 
-Bind each ID to a separate resource in `app.yaml`. See the [Genie Multi-Space Selector](/templates/genie-multi-space) template for a working UI with space switching, conversation cleanup, and URL sync.
+Bind each ID to a separate resource in `app.yaml`. See the [Genie Multi-Agent Selector](/templates/genie-multi-space) template for a working UI with agent switching, conversation cleanup, and URL sync.
 
 ## Permissions and data access
 

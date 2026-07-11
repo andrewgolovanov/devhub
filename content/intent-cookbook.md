@@ -25,7 +25,7 @@ Ask **one** question, ideally with a multiple-choice tool:
 
 Cookbooks compose multiple Databricks primitives — Lakebase, Agent Bricks, Model Serving, Genie, Lakeflow Pipelines depending on the cookbook. Before generating code, ask:
 
-- For each primitive the cookbook needs: **create new** or **reuse existing**? Never assume — Lakebase instances, Model Serving endpoints, and Genie spaces all cost money and take minutes to provision.
+- For each primitive the cookbook needs: **create new** or **reuse existing**? Never assume — Lakebase instances, Model Serving endpoints, and Genie Agents all cost money and take minutes to provision.
 - Which **Databricks profile** to target? (`databricks auth profiles`.)
 - **Data**: real data from the user's Unity Catalog, or seed data to start and swap later?
 - **Scope today**: ship the full archetype, or stop after a working slice (e.g. just the Lakebase + UI layer, no AI yet)?

@@ -1,6 +1,6 @@
-This template upgrades an existing single-space Genie app to switch between multiple spaces. Verify these Databricks workspace features are enabled before starting. If any check fails, ask your workspace admin to enable the feature.
+This template upgrades an existing single-agent Genie app to switch between multiple Genie Agents. Verify these Databricks workspace features are enabled before starting. If any check fails, ask your workspace admin to enable the feature.
 
 - **AI/BI Genie enabled.** Run `databricks genie list-spaces --profile <PROFILE>` and confirm the command succeeds.
-- **Two or more Genie spaces configured.** The list above must return at least two spaces — one per entry you want in the selector. If you have fewer, create additional spaces in **AI/BI Genie** in the Databricks UI.
+- **Two or more Genie Agents configured.** The list above must return at least two Genie Agents — one per entry you want in the selector. If you have fewer, create additional Genie Agents in **AI/BI Genie** in the Databricks UI.
 - **Databricks Apps enabled.** Run `databricks apps list --profile <PROFILE>` and confirm the command succeeds.
-- **A scaffolded AppKit app with the Genie feature.** Complete the [Genie Conversational Analytics](/templates/genie-conversational-analytics) template first. This template only covers the upgrade from one space to many — not the initial Genie wiring.
+- **A scaffolded AppKit app with the Genie feature.** Complete the [Genie Conversational Analytics](/templates/genie-conversational-analytics) template first. This template only covers the upgrade from one Genie Agent to many — not the initial Genie wiring.

@@ -62,7 +62,7 @@ Start from a template that matches your use case. Each one includes the Model Se
 | -------------------------------------------------- | ---------------------------------------------------------- |
 | Add a streaming chatbot to your app                | [AI Chat App](/templates/ai-chat-app)                      |
 | Let users query tables in natural language         | [Genie Analytics App](/templates/genie-analytics-app)      |
-| Add multi-space Genie switching to an existing app | [Genie Multi-Space Selector](/templates/genie-multi-space) |
+| Add multi-agent Genie switching to an existing app | [Genie Multi-Agent Selector](/templates/genie-multi-space) |
 
 ## Where to next
 

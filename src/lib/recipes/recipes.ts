@@ -268,7 +268,7 @@ export const recipes: Recipe[] = [
   },
   {
     id: "genie-multi-space",
-    name: "Genie Multi-Space Selector",
+    name: "Genie Multi-Agent Selector",
     description:
       "Add a selector so users can switch between multiple AI/BI Genie Agents from a single page. Covers multi-alias server config, per-agent bundle resources, and automatic conversation cleanup on agent switch and redeployment.",
     tags: ["Agent Bricks", "Genie", "AI/BI", "Natural Language", "Data"],
