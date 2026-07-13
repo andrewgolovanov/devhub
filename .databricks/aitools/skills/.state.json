@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "release": "v0.2.9",
-  "last_updated": "2026-07-10T16:24:56.198204-07:00",
+  "last_updated": "2026-07-13T14:45:52.405427-07:00",
   "skills": {
     "databricks-agent-bricks": "0.1.0",
     "databricks-ai-functions": "0.1.0",

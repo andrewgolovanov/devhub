@@ -35,11 +35,7 @@ import { buildNativeSolutionMarkdown } from "../src/lib/solutions/solution-markd
 import { resolveSiteUrl } from "../src/lib/site-url";
 
 export type MarkdownSection =
-  | "docs"
-  | "recipes"
-  | "solutions"
-  | "examples"
-  | "templates";
+  "docs" | "recipes" | "solutions" | "examples" | "templates";
 
 /**
  * Recipe injected into every agent-prompt copy as the "Verify your local
