@@ -198,18 +198,16 @@ describe("production build smoke tests", () => {
   test("sitemap.xml preserves the production URL visibility contract", () => {
     const paths = readSitemapLocs().map((loc) => new URL(loc).pathname);
 
-    expect(paths).toContain("/solutions/");
-    expect(paths).toContain("/templates/");
-    expect(paths).toContain("/docs/appkit/v0/");
-    expect(paths).toContain("/docs/appkit/v0/api/");
-    expect(paths).toContain("/docs/appkit/v0/api/appkit/");
-    expect(paths).toContain("/docs/appkit/v0/api/appkit-ui/");
-    expect(paths).toContain("/docs/appkit/v0/development/");
-    expect(paths).toContain("/docs/appkit/v0/plugins/");
+    expect(paths).toContain("/solutions");
+    expect(paths).toContain("/templates");
+    expect(paths).toContain("/docs/appkit/v0");
+    expect(paths).toContain("/docs/appkit/v0/api");
+    expect(paths).toContain("/docs/appkit/v0/api/appkit");
+    expect(paths).toContain("/docs/appkit/v0/api/appkit-ui");
+    expect(paths).toContain("/docs/appkit/v0/development");
+    expect(paths).toContain("/docs/appkit/v0/plugins");
 
-    expect(paths).not.toContain("/solutions");
     expect(paths).not.toContain("/solutions/page/:page");
-    expect(paths).not.toContain("/templates");
     expect(paths).not.toContain("/product");
     expect(paths).toContain("/product/agent-bricks");
     expect(paths).toContain("/product/lakebase");
@@ -218,6 +216,9 @@ describe("production build smoke tests", () => {
     expect(paths).not.toContain("/product/data-lakehouse/");
 
     for (const path of paths) {
+      if (path !== "/") {
+        expect(path.endsWith("/")).toBe(false);
+      }
       expect(path.startsWith("/hackathon")).toBe(false);
     }
   });
