@@ -4,6 +4,7 @@ import {
   useEffect,
   useRef,
   useState,
+  type KeyboardEvent,
   type ReactNode,
   type RefObject,
 } from "react";
@@ -11,6 +12,7 @@ import { PortalContainerProvider } from "@databricks/appkit-ui/react";
 import { createPortal } from "react-dom";
 import { Toaster } from "sonner";
 
+import { getNextTabIndex } from "@/lib/tab-keyboard-navigation";
 import { cn } from "@/lib/utils";
 import CodeBlock from "@/components/content/code-block";
 import {
@@ -22,6 +24,9 @@ import {
 type DocExampleProps = {
   name: string;
 };
+
+const exampleTabs = ["preview", "code"] as const;
+type ExampleTab = (typeof exampleTabs)[number];
 
 // Components whose previews need more vertical space than the auto-sizing can
 // infer (dialogs/popovers/menus that open _above_ their trigger, components
@@ -48,7 +53,7 @@ function isValidExampleName(name: string): name is DocExampleKey {
 }
 
 export function DocExample({ name }: DocExampleProps): ReactNode {
-  const [tab, setTab] = useState<"preview" | "code">("preview");
+  const [tab, setTab] = useState<ExampleTab>("preview");
 
   if (!isValidExampleName(name)) {
     return (
@@ -61,6 +66,26 @@ export function DocExample({ name }: DocExampleProps): ReactNode {
   }
 
   const entry = docExamples[name];
+
+  function handleTabKeyDown(
+    event: KeyboardEvent<HTMLButtonElement>,
+    currentTab: ExampleTab,
+  ) {
+    const nextIndex = getNextTabIndex(
+      event.key,
+      exampleTabs.indexOf(currentTab),
+      exampleTabs.length,
+    );
+    if (nextIndex === null) {
+      return;
+    }
+
+    event.preventDefault();
+    setTab(exampleTabs[nextIndex]);
+    event.currentTarget.parentElement
+      ?.querySelectorAll<HTMLButtonElement>('[role="tab"]')
+      [nextIndex]?.focus();
+  }
 
   return (
     <section
@@ -76,10 +101,15 @@ export function DocExample({ name }: DocExampleProps): ReactNode {
           <TabButton
             active={tab === "preview"}
             onClick={() => setTab("preview")}
+            onKeyDown={(event) => handleTabKeyDown(event, "preview")}
           >
             Preview
           </TabButton>
-          <TabButton active={tab === "code"} onClick={() => setTab("code")}>
+          <TabButton
+            active={tab === "code"}
+            onClick={() => setTab("code")}
+            onKeyDown={(event) => handleTabKeyDown(event, "code")}
+          >
             Code
           </TabButton>
         </div>
@@ -106,10 +136,12 @@ export function DocExample({ name }: DocExampleProps): ReactNode {
 function TabButton({
   active,
   onClick,
+  onKeyDown,
   children,
 }: {
   active: boolean;
   onClick: () => void;
+  onKeyDown: (event: KeyboardEvent<HTMLButtonElement>) => void;
   children: ReactNode;
 }) {
   return (
@@ -118,6 +150,8 @@ function TabButton({
       role="tab"
       aria-selected={active}
       onClick={onClick}
+      onKeyDown={onKeyDown}
+      tabIndex={active ? 0 : -1}
       className={cn(
         "inline-flex h-7 items-center rounded px-3 text-xs font-medium transition-colors",
         active

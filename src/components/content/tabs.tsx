@@ -1,8 +1,10 @@
 "use client";
 
-import { useId, useMemo, type ReactNode } from "react";
+import { useId, useMemo, type KeyboardEvent, type ReactNode } from "react";
 
 import { useTabs, type TabValue } from "@/lib/content-tabs-state";
+import { getNextTabIndex } from "@/lib/tab-keyboard-navigation";
+import { cn } from "@/lib/utils";
 
 export type Tab = {
   content: ReactNode;
@@ -43,6 +45,22 @@ export function Tabs({
     values: tabValues,
   });
 
+  function handleTabKeyDown(
+    event: KeyboardEvent<HTMLButtonElement>,
+    currentIndex: number,
+  ) {
+    const nextIndex = getNextTabIndex(event.key, currentIndex, tabs.length);
+    if (nextIndex === null) {
+      return;
+    }
+
+    event.preventDefault();
+    tabsState.selectValue(tabs[nextIndex].value);
+    event.currentTarget.parentElement
+      ?.querySelectorAll<HTMLButtonElement>('[role="tab"]')
+      [nextIndex]?.focus();
+  }
+
   return (
     <div className="markdown-tabs mt-5 mb-6 w-full max-w-full overflow-hidden">
       <div
@@ -50,7 +68,7 @@ export function Tabs({
         className="border-grey-30 flex h-11 w-full gap-x-5 overflow-x-auto border-b"
         role="tablist"
       >
-        {tabs.map((tab) => {
+        {tabs.map((tab, index) => {
           const selected = tabsState.selectedValue === tab.value;
           const triggerId = `${tabsId}-${tab.value}-trigger`;
           const panelId = `${tabsId}-${tab.value}-panel`;
@@ -58,14 +76,17 @@ export function Tabs({
             <button
               aria-controls={panelId}
               aria-selected={selected}
-              className={`relative h-11 shrink-0 px-0 text-sm leading-none font-semibold tracking-tight transition-colors ${
-                selected ? "text-white" : "text-grey-70 hover:text-white/80"
-              } after:absolute after:inset-x-0 after:-bottom-px after:h-0.5 after:bg-white after:transition-opacity after:content-[''] ${
-                selected ? "after:opacity-100" : "after:opacity-0"
-              }`}
+              className={cn(
+                "relative h-full shrink-0 px-0 text-sm leading-none font-semibold tracking-tight transition-colors",
+                "after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 after:bg-white after:transition-opacity after:content-['']",
+                selected
+                  ? "text-white after:opacity-100"
+                  : "text-grey-70 after:opacity-0 hover:text-white/80",
+              )}
               id={triggerId}
               key={tab.value}
               onClick={() => tabsState.selectValue(tab.value)}
+              onKeyDown={(event) => handleTabKeyDown(event, index)}
               role="tab"
               tabIndex={selected ? 0 : -1}
               type="button"

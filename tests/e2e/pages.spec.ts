@@ -590,10 +590,11 @@ test.describe("docs MDX compatibility", () => {
       "content",
       /import Tabs|<Tabs/,
     );
-    await expect(
-      page.getByRole("tab", { name: "macOS / Linux" }),
-    ).toHaveAttribute("aria-selected", "true");
-    await expect(page.getByRole("tab", { name: "Windows" })).toBeVisible();
+    const macOsTab = page.getByRole("tab", { name: "macOS / Linux" });
+    const windowsTab = page.getByRole("tab", { name: "Windows" });
+    await expect(macOsTab).toHaveAttribute("aria-selected", "true");
+    await expect(macOsTab).toHaveAttribute("tabindex", "0");
+    await expect(windowsTab).toHaveAttribute("tabindex", "-1");
     await expect(
       page.getByRole("button", { name: "Copy code" }).first(),
     ).toBeVisible();
@@ -601,7 +602,12 @@ test.describe("docs MDX compatibility", () => {
       "All DevHub templates assume",
     );
 
-    await page.getByRole("tab", { name: "Windows" }).click();
+    await macOsTab.focus();
+    await page.keyboard.press("ArrowRight");
+    await expect(windowsTab).toBeFocused();
+    await expect(windowsTab).toHaveAttribute("aria-selected", "true");
+    await expect(windowsTab).toHaveAttribute("tabindex", "0");
+    await expect(macOsTab).toHaveAttribute("tabindex", "-1");
     await expect(page.getByText("winget install")).toBeVisible();
   });
 
@@ -1068,14 +1074,25 @@ test.describe("docs MDX compatibility", () => {
     const example = page.locator('[data-doc-example="button"]');
     await expect(article).not.toContainText('<DocExample name="button" />');
     await expect(example).toBeVisible();
-    await expect(example.getByRole("tab", { name: "Preview" })).toHaveAttribute(
-      "aria-selected",
-      "true",
-    );
+    const previewTab = example.getByRole("tab", { name: "Preview" });
+    const codeTab = example.getByRole("tab", { name: "Code" });
+    await expect(previewTab).toHaveAttribute("aria-selected", "true");
+    await expect(previewTab).toHaveAttribute("tabindex", "0");
+    await expect(codeTab).toHaveAttribute("tabindex", "-1");
     await expect(page.locator('iframe[title="button preview"]')).toBeVisible();
 
-    await example.getByRole("tab", { name: "Code" }).click();
+    await previewTab.focus();
+    await page.keyboard.press("ArrowRight");
+    await expect(codeTab).toBeFocused();
+    await expect(codeTab).toHaveAttribute("aria-selected", "true");
+    await expect(codeTab).toHaveAttribute("tabindex", "0");
+    await expect(previewTab).toHaveAttribute("tabindex", "-1");
     await expect(example).toContainText("import { Button }");
+
+    await page.keyboard.press("ArrowLeft");
+    await expect(previewTab).toBeFocused();
+    await expect(previewTab).toHaveAttribute("aria-selected", "true");
+    await expect(page.locator('iframe[title="button preview"]')).toBeVisible();
   });
 
   test("keeps AppKit API source links and prop tables aligned", async ({
