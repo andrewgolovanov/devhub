@@ -861,7 +861,7 @@ test.describe("example detail page", () => {
       page.getByText("Genie Conversational Analytics", { exact: true }),
     ).toBeVisible();
     await expect(
-      page.getByText("Query AI Gateway Endpoints", { exact: true }),
+      page.getByText("Query Foundation Model Endpoints", { exact: true }),
     ).toBeVisible();
   });
 });

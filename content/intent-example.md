@@ -26,7 +26,7 @@ Ask **one** question, ideally with a multiple-choice tool:
 Once the intent is clear, ask follow-ups one at a time:
 
 - **Workspace**: which Databricks workspace and profile? Examples need a valid Databricks CLI profile to scaffold. (`databricks auth profiles`.)
-- **Resources**: the example may need a Lakebase instance, a Model Serving endpoint, a Genie space, or a Unity Catalog catalog/schema. For each: create new or reuse existing? Never assume.
+- **Resources**: the example may need a Lakebase instance, a Model Serving endpoint, a Genie Agent, or a Unity Catalog catalog/schema. For each: create new or reuse existing? Never assume.
 - **Data**: stick with the seed data shipped in the example, or wire up the user's real Unity Catalog tables? If real data, which catalog/schema?
 - **Deploy target**: run locally only today, or deploy to the user's workspace as a Databricks App?
 

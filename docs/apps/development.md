@@ -98,6 +98,7 @@ databricks apps init --name my-app
 databricks apps init \
   --name $APP_NAME \
   --features lakebase,analytics \
+  --set lakebase.postgres.project=projects/$PROJECT_ID \
   --set lakebase.postgres.branch=projects/$PROJECT_ID/branches/production \
   --set lakebase.postgres.database=projects/$PROJECT_ID/branches/production/databases/$DB_NAME \
   --set analytics.sql-warehouse.id=$WAREHOUSE_ID \

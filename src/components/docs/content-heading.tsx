@@ -26,7 +26,9 @@ export function ContentHeading({
     }
 
     const url = `${window.location.origin}${window.location.pathname}#${id}`;
-    await copyText(url);
+    if (!(await copyText(url))) {
+      return;
+    }
     setCopied(true);
     window.setTimeout(() => setCopied(false), 1500);
   }
@@ -71,11 +73,11 @@ export function ContentHeading({
   );
 }
 
-async function copyText(value: string) {
+async function copyText(value: string): Promise<boolean> {
   if (navigator.clipboard?.writeText) {
     try {
       await navigator.clipboard.writeText(value);
-      return;
+      return true;
     } catch {
       // Fall back to execCommand for browser contexts without clipboard access.
     }
@@ -88,6 +90,7 @@ async function copyText(value: string) {
   textarea.style.top = "-9999px";
   document.body.appendChild(textarea);
   textarea.select();
-  document.execCommand("copy");
+  const copied = document.execCommand("copy");
   document.body.removeChild(textarea);
+  return copied;
 }

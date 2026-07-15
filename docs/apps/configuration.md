@@ -67,7 +67,7 @@ AppKit templates use conventional names for plugin-managed resources:
 | [Lakebase Postgres](/docs/lakebase/quickstart)                                       | `postgres`         | PostgreSQL connection         |
 | [SQL Warehouse](https://docs.databricks.com/aws/en/compute/sql-warehouse/index.html) | `sql-warehouse`    | SQL query execution           |
 | [Model Serving](/docs/agents/ai-gateway)                                             | `serving-endpoint` | AI model inference            |
-| [Genie space](/docs/agents/genie)                                                    | `genie-space`      | Natural language data queries |
+| [Genie Agent](/docs/agents/genie)                                                    | `genie-space`      | Natural language data queries |
 | [Job](https://docs.databricks.com/aws/en/dev-tools/databricks-apps/resources)        | `job`              | Scheduled or triggered job    |
 | [UC Volumes](https://docs.databricks.com/aws/en/files/index.html)                    | `volume`           | File storage                  |
 
@@ -136,7 +136,7 @@ Each app gets a dedicated service principal. Databricks injects `DATABRICKS_CLIE
 | Medium | Up to 2 | 6 GB  | 0.5 |
 | Large  | Up to 4 | 12 GB | 1.0 |
 
-Medium is the default. Compute size is configured in the workspace UI (not available through the CLI).
+Medium is the default. Configure compute size in the workspace UI or with the `--compute-size` flag (`MEDIUM` or `LARGE`) on `databricks apps create` and `databricks apps update`.
 
 ## Constraints
 

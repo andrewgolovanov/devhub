@@ -3,7 +3,7 @@ export const SERVICES = [
   "Lakebase Postgres",
   "Agent Bricks",
   "Genie",
-  "AI Gateway",
+  "Unity AI Gateway",
   "Data Lakehouse",
   "Lakeflow Pipelines",
   "Unity Catalog",
@@ -97,8 +97,8 @@ export const recipes: Recipe[] = [
     name: "Streaming AI Chat with Model Serving",
     description:
       "Build a streaming AI chat experience using AI SDK and Databricks Model Serving endpoints.",
-    tags: ["Agent Bricks", "AI", "Chat", "AI SDK", "AI Gateway"],
-    services: ["Databricks Apps", "AI Gateway"],
+    tags: ["Agent Bricks", "AI", "Chat", "AI SDK", "Unity AI Gateway"],
+    services: ["Databricks Apps", "Unity AI Gateway"],
     previewImageLightUrl: "/img/guides/ai-chat-model-serving-preview-light.png",
     previewImageDarkUrl: "/img/guides/ai-chat-model-serving-preview-dark.png",
     prerequisites: [
@@ -109,22 +109,22 @@ export const recipes: Recipe[] = [
   },
   {
     id: "foundation-models-api",
-    name: "Query AI Gateway Endpoints",
+    name: "Query Foundation Model Endpoints",
     description:
-      "Query AI Gateway endpoints for production-ready access to foundation models with built-in governance.",
-    tags: ["Agent Bricks", "AI", "AI Gateway", "Foundation Models"],
-    services: ["AI Gateway"],
+      "Query Databricks foundation-model endpoints for production-ready access to hosted models with built-in AI Gateway governance.",
+    tags: ["Agent Bricks", "AI", "Unity AI Gateway", "Foundation Models"],
+    services: ["Unity AI Gateway"],
     prerequisites: ["set-up-your-local-dev-environment"],
     previewImageLightUrl: "/img/guides/foundation-models-api-preview-light.png",
     previewImageDarkUrl: "/img/guides/foundation-models-api-preview-dark.png",
   },
   {
     id: "embeddings-generation",
-    name: "Generate Embeddings with AI Gateway",
+    name: "Generate Embeddings with Foundation Models",
     description:
-      "Generate text embeddings from a Databricks AI Gateway endpoint using the Databricks SDK.",
-    tags: ["Agent Bricks", "AI", "AI Gateway", "Embeddings"],
-    services: ["AI Gateway"],
+      "Generate text embeddings from a Databricks foundation-model endpoint using the Databricks SDK.",
+    tags: ["Agent Bricks", "AI", "Unity AI Gateway", "Embeddings"],
+    services: ["Unity AI Gateway"],
     prerequisites: ["set-up-your-local-dev-environment"],
     previewImageLightUrl: "/img/guides/embeddings-generation-preview-light.png",
     previewImageDarkUrl: "/img/guides/embeddings-generation-preview-dark.png",
@@ -134,8 +134,8 @@ export const recipes: Recipe[] = [
     name: "Create a Databricks Model Serving endpoint",
     description:
       "Create and validate a Databricks Model Serving endpoint for AI chat inference in Databricks Apps.",
-    tags: ["Agent Bricks", "AI Gateway", "Endpoints", "Inference"],
-    services: ["AI Gateway"],
+    tags: ["Agent Bricks", "Unity AI Gateway", "Endpoints", "Inference"],
+    services: ["Unity AI Gateway"],
     prerequisites: ["set-up-your-local-dev-environment"],
     previewImageLightUrl:
       "/img/guides/model-serving-endpoint-creation-preview-light.png",
@@ -240,7 +240,7 @@ export const recipes: Recipe[] = [
     id: "genie-conversational-analytics",
     name: "Genie Conversational Analytics",
     description:
-      "Embed a Databricks AI/BI Genie chat interface so users can explore data through natural language. Configure a Genie space, wire up server and client plugins, declare app resources, and deploy.",
+      "Embed a Databricks AI/BI Genie chat interface so users can explore data through natural language. Configure a Genie Agent, wire up server and client plugins, declare app resources, and deploy.",
     tags: ["Agent Bricks", "Genie", "AI/BI", "Natural Language", "Analytics"],
     services: ["Genie", "Databricks Apps"],
     prerequisites: ["set-up-your-local-dev-environment"],
@@ -268,9 +268,9 @@ export const recipes: Recipe[] = [
   },
   {
     id: "genie-multi-space",
-    name: "Genie Multi-Space Selector",
+    name: "Genie Multi-Agent Selector",
     description:
-      "Add a space selector so users can switch between multiple AI/BI Genie spaces from a single page. Covers multi-alias server config, per-space bundle resources, and automatic conversation cleanup on space switch and redeployment.",
+      "Add a selector so users can switch between multiple AI/BI Genie Agents from a single page. Covers multi-alias server config, per-agent bundle resources, and automatic conversation cleanup on agent switch and redeployment.",
     tags: ["Agent Bricks", "Genie", "AI/BI", "Natural Language", "Data"],
     services: ["Genie"],
     prerequisites: ["genie-conversational-analytics"],
@@ -486,7 +486,7 @@ export const cookbooks: Cookbook[] = [
     id: "genie-analytics-app",
     name: "Genie Analytics App",
     description:
-      "Build a minimal Databricks App with AI/BI Genie conversational analytics. Covers Genie space configuration, plugin wiring, and deploy.",
+      "Build a minimal Databricks App with AI/BI Genie conversational analytics. Covers Genie Agent configuration, plugin wiring, and deploy.",
     recipeIds: ["genie-conversational-analytics"],
     previewImageLightUrl: "/img/guides/genie-analytics-app-preview-light.png",
     previewImageDarkUrl: "/img/guides/genie-analytics-app-preview-dark.png",
