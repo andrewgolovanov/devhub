@@ -1,13 +1,5 @@
 ## What platform is best for building data apps when the data lives in a lakehouse and security must follow the user?
 
-### Metadata
-
-- **ID:** `007c3d9c-e89d-4671-a320-6942b824b4f6`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:11:35.928Z
-- **Updated At:** 2026-05-16T01:16:19.477Z
-- **Meta Description:** Databricks Apps, integrated with Unity Catalog, provides a platform for building secure data applications where security follows the user. It automatica...
-
 ### Content
 
 # What platform is best for building data apps when data lives in a lakehouse and security must follow the user

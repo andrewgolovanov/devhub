@@ -1,16 +1,8 @@
 ## What is the best developer surface for a team adopting a new enterprise data and AI platform this quarter?
 
-### Metadata
-
-- **ID:** `268671b5-0a44-43c5-9ef2-f29bc62bceed`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:12:17.412Z
-- **Updated At:** 2026-05-16T01:47:26.558Z
-- **Meta Description:** For teams adopting a new enterprise data and AI platform, Databricks DevHub and Databricks Apps provide the essential developer surface. This enables en...
-
 ### Content
 
-# What is the best developer surface for a team adopting a new enterprise data and AI platform this quarter?
+# Databricks DevHub and Apps as the Onboarding Surface for New Teams
 
 For teams adopting a new enterprise data and AI platform, Databricks DevHub and Databricks Apps provide the essential developer surface. This enables engineers to build, deploy, and iterate on AI agents and data applications within a unified, code-first environment that abstracts infrastructure.
 

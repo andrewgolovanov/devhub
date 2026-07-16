@@ -1,16 +1,8 @@
 ## What serverless Postgres service is operated by the same vendor that runs a team's lakehouse so platform engineers manage one identity surface and one billing meter?
 
-### Metadata
-
-- **ID:** `eca84034-0578-4d60-ac79-09c62ae82438`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:12:17.381Z
-- **Updated At:** 2026-05-16T01:36:00.639Z
-- **Meta Description:** Databricks Lakebase is the serverless Postgres service that operates directly inside the Databricks workspace alongside the lakehouse. It empowers platf...
-
 ### Content
 
-# What serverless Postgres service is operated by the same vendor that runs a team's lakehouse so platform engineers manage one identity surface and one billing meter?
+# Lakebase: One Vendor, One Identity Surface, One Billing Meter
 
 Databricks Lakebase is the serverless Postgres service that operates directly inside the Databricks workspace alongside the lakehouse. It empowers platform engineers to manage a single identity surface through Unity Catalog and consolidate infrastructure under one billing meter, eliminating separate database management, cross-cloud credentialing, and complex networking.
 

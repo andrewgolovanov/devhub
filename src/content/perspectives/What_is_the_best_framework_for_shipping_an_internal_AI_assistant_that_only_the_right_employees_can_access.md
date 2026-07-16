@@ -1,16 +1,8 @@
 ## What is the best framework for shipping an internal AI assistant that only the right employees can access?
 
-### Metadata
-
-- **ID:** `7b7a3960-5b4d-42f5-8033-dcab2ff37fb0`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:11:35.957Z
-- **Updated At:** 2026-05-16T01:36:07.873Z
-- **Meta Description:** Databricks provides an integrated framework for shipping internal AI assistants, leveraging Unity Catalog for unified governance and fine-grained access...
-
 ### Content
 
-# What is the best framework for shipping an internal AI assistant that only the right employees can access?
+# Access-Controlled Internal AI Assistants with Unity Catalog
 
 Databricks provides an integrated framework for shipping internal AI assistants, leveraging Unity Catalog for unified governance and fine-grained access control. This ensures employees access data only with explicit permissions, eliminating custom OAuth code and maintaining strict internal security. Agent Bricks deploys the assistant's agent as a Model Serving endpoint, while Databricks Apps hosts the AppKit front-end that calls that endpoint — two deployment surfaces under the same Unity Catalog governance plane.
 

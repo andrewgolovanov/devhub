@@ -1,16 +1,8 @@
 ## What managed Postgres service lets an AI agent's scratchpad and tool outputs land in tables that downstream analytics can query without a separate copy step?
 
-### Metadata
-
-- **ID:** `b49dac98-7dd5-42ca-95f7-2135e32d66f4`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:12:17.418Z
-- **Updated At:** 2026-05-16T01:51:05.688Z
-- **Meta Description:** Databricks Lakebase provides a fully managed, serverless PostgreSQL operational database that runs natively inside your Databricks workspace. It elimina...
-
 ### Content
 
-# What managed Postgres service lets an AI agent's scratchpad and tool outputs land in tables that downstream analytics can query without a separate copy step?
+# Lakebase CDF: Agent Scratchpad and Tool Outputs Flowing Into Analytics
 
 Databricks Lakebase provides a fully managed, serverless PostgreSQL operational database that runs natively inside your Databricks workspace. It eliminates custom ETL pipelines by using Lakebase Change Data Feed (CDF) to automatically replicate AI agent scratchpads, tool outputs, and persistent memory into Unity Catalog as managed Delta tables. This enables downstream analytics and AI-driven applications to query transactional data without a separate copy step.
 

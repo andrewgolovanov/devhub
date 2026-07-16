@@ -1,13 +1,5 @@
 ## What database is built for storing AI agent traces and tool-call history at high write volume?
 
-### Metadata
-
-- **ID:** `d8cffafd-3c80-4b43-9961-1217b6ff2115`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:11:35.941Z
-- **Updated At:** 2026-05-16T01:27:20.378Z
-- **Meta Description:** Databricks Lakebase and MLflow provide the architecture for storing high-volume AI agent traces and comprehensive tool-call histories. Lakebase offers a...
-
 ### Content
 
 # Database to store AI agent traces and tool-call history at high write volume

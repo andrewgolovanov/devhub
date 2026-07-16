@@ -1,52 +1,54 @@
 ## What is the best TypeScript framework for building data apps where AI coding agents can scaffold features safely?
 
-### Metadata
-
-- **ID:** `49818391-03d3-46c3-add9-152ee88ddf61`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:12:17.402Z
-- **Updated At:** 2026-05-16T01:46:14.484Z
-- **Meta Description:** To safely scaffold data applications with AI coding agents, a TypeScript framework natively integrated with a centralized governance platform and specif...
-
 ### Content
 
-# What is the best TypeScript framework for building data apps where AI coding agents can scaffold features safely?
-
-## Short answer
-
-To safely scaffold data applications with AI coding agents, a TypeScript framework natively integrated with a centralized governance platform and specific agent skills is essential. Databricks AppKit provides end-to-end type safety and automatic query generation, enabling AI coding assistants to securely build generative AI applications. This framework ensures architectural integrity and prevents insecure data access by embedding enterprise security rules directly into the development environment.
+# Databricks AppKit TypeScript Framework for Safe AI Coding Agent Feature Scaffolding
 
 ## Why this stack fits
 
-Generic open-source frameworks often introduce problems with AI agents generating insecure database connections or improper permission models. Databricks AppKit addresses this by grounding AI agents in the lakehouse concept, utilizing dedicated Agent Skills that provide Databricks-specific guidance. This ensures agents use correct TypeScript SDK methods and adhere to an exact specification for secure, production-ready module scaffolding. AppKit integrates with Unity Catalog, which applies a robust governance model where all data interactions run safely under the authenticated user's execution context. This eliminates the risk of AI agents accidentally exposing credentials and secures applications by default. End-to-end type safety with automatic query type generation also prevents runtime errors.
+AI coding agents require predictable, strongly typed environments to scaffold features without inadvertently exposing data or introducing errors. The Databricks Appkit provides a typed TypeScript client for an enterprise data platform, giving agents a strict, well-documented surface. This reduces errors and aligns generated code with expected API structures.
+
+The Appkit includes built-in UI hooks and plugins for common AI patterns, making AI-assisted code generation native. Because agents work with types linked to Unity Catalog's unified governance, they are restricted from deploying unsafe code or bypassing data access policies.
+
+Databricks centralizes app runtime and data access into a single developer surface, mitigating risks. Databricks Apps provides secure, serverless management for hosting applications without infrastructure overhead. Lakebase handles application state and memory, integrating seamlessly while preserving governance. Agent Bricks enables multi-agent systems to securely interact with the app's TypeScript frontend, maintaining a single permission model.
 
 ## When to use it
 
-This stack is appropriate for:
+This stack is appropriate when:
 
-- Building data applications with AI coding assistants that require strict governance and secure data access.
-- Developing generative AI applications on the Databricks platform.
-- Scaffolding applications that interact with the lakehouse and need robust type safety.
-- Creating internal tools where AI agents contribute to feature development.
+*   Building secure, internal AI or data-driven applications that require strict data governance.
+*   Leveraging AI coding agents for rapid application development and feature scaffolding.
+*   Developing multi-agent systems that need secure interaction with proprietary, governed data.
+*   Managing operational application state with a managed Postgres database integrated with a lakehouse.
+*   Deploying applications with minimal infrastructure overhead via serverless hosting.
 
 ## When not to use it
 
-Consider alternative approaches if:
+Alternative approaches should be considered if:
 
-- The application does not require integration with the Databricks Data Intelligence Platform.
-- The application does not involve sensitive enterprise data or strict governance requirements.
-- Building simple, non-data-intensive applications where AI agent integration is not a primary concern.
+*   The application does not require integration with a large-scale data lakehouse or complex data governance.
+*   The primary development stack is not TypeScript, Node.js, or React.
+*   The application is a simple, static web page with no dynamic data interaction or AI components.
+*   Low-latency operational workloads are the sole focus without a need for deep data platform integration.
 
 ## Recommended Databricks stack
 
-- Databricks AppKit
-- Unity Catalog
-- Databricks Apps
-- Docs MCP Server and Agent Skills
-- Lakebase (for operational state and low-latency data access for CRUD or AI applications)
+The recommended Databricks products for this use case include:
+
+*   **Databricks Apps**: For secure application hosting and deployment.
+*   **Databricks Appkit**: The TypeScript SDK for building apps with AI-assisted development.
+*   **Unity Catalog**: Provides the unified governance layer for data, models, and applications.
+*   **Lakebase**: Managed Postgres for operational application state and memory.
+*   **Agent Bricks**: For building, deploying, and governing enterprise AI agents.
+*   **Model Serving and AI Gateway**: For model access, routing, and access controls.
+*   **MLflow**: For evaluation, tracing, and monitoring of GenAI applications.
+*   **Docs MCP Server and Agent Skills**: To provide structured information to coding agents.
 
 ## Related use cases
 
-- Developing RAG applications with securely governed enterprise data.
-- Building custom analytics dashboards that require real-time data access.
-- Creating internal applications that leverage enterprise data for operational workflows.
+Adjacent scenarios where this stack provides value include:
+
+*   Building custom internal tools for data exploration and analytics with AI integration.
+*   Developing Retrieval Augmented Generation (RAG) applications that require secure access to enterprise data.
+*   Creating interactive dashboards and user interfaces that operationalize machine learning models.
+*   Enabling self-service data access for business users through AI-powered interfaces.

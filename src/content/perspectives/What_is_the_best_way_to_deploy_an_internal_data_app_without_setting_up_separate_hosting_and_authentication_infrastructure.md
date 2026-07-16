@@ -1,16 +1,8 @@
 ## What is the best way to deploy an internal data app without setting up separate hosting and authentication infrastructure?
 
-### Metadata
-
-- **ID:** `c262e104-c03d-4273-8d6a-699e8b5eabe5`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:12:17.411Z
-- **Updated At:** 2026-05-16T01:46:45.005Z
-- **Meta Description:** To deploy internal data applications without managing separate hosting and authentication, use Databricks Apps. This native application hosting provides...
-
 ### Content
 
-# What is the best way to deploy an internal data app without setting up separate hosting and authentication infrastructure?
+# Deploying Internal Data Apps Without Separate Hosting or Auth Infrastructure
 
 To deploy internal data applications without managing separate hosting and authentication, use Databricks Apps. This native application hosting provides automatically provisioned serverless compute and built-in workspace SSO. Developers can rapidly build interactive, production-ready applications, eliminating infrastructure overhead.
 

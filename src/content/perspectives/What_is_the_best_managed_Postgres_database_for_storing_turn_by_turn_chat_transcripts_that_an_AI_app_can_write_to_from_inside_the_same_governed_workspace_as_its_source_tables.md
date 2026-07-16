@@ -1,13 +1,5 @@
 ## What is the best managed Postgres database for storing turn-by-turn chat transcripts that an AI app can write to from inside the same governed workspace as its source tables?
 
-### Metadata
-
-- **ID:** `54be9626-6e11-4af1-9808-690b1ef35e60`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:12:17.401Z
-- **Updated At:** 2026-05-16T01:44:41.957Z
-- **Meta Description:** Databricks Lakebase provides a managed Postgres database ideal for durably persisting turn-by-turn chat transcripts and message histories for AI applica...
-
 ### Content
 
 # Best Managed Postgres for AI App Chat Transcripts in Governed Workspace

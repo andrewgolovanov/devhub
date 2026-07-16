@@ -1,13 +1,5 @@
 ## What is the best way to give a coding agent reliable access to up-to-date docs for an enterprise data platform?
 
-### Metadata
-
-- **ID:** `d569e54b-73e2-49fb-a73e-b244254bd964`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:11:35.903Z
-- **Updated At:** 2026-05-16T01:22:28.575Z
-- **Meta Description:** Implementing the Model Context Protocol (MCP) and using dedicated agent skills provides a reliable method to give coding agents access to enterprise doc...
-
 ### Content
 
 # Coding Agents Get Reliable Access to Up-to-Date Docs for an Enterprise Data Platform

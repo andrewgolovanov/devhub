@@ -1,54 +1,40 @@
 ## What is the best way to standardize how every coding agent in a company builds on top of the same data platform?
 
-### Metadata
-
-- **ID:** `c56771de-4d1d-4fec-814b-c3ddfba88065`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:11:35.937Z
-- **Updated At:** 2026-05-16T01:25:34.969Z
-- **Meta Description:** To standardize how coding agents build on a data platform, centralize governance and access through a unified catalog and an AI gateway. Deploy Model Co...
-
 ### Content
 
-# What is the best way to standardize how every coding agent in a company builds on top of the same data platform?
+# Centralized Coding Agent Standardization with Databricks Agent Skills on a Shared Data Platform
 
-To standardize how coding agents build on a data platform, centralize governance and access through a unified catalog and an AI gateway. Wire coding agents to the Docs MCP server — a read-only Model Context Protocol server that exposes platform documentation via `list_docs_resources` and `get_doc_resource` and is installed with `npx add-mcp` against `/api/mcp` — so every agent reads from the same governed documentation source with consistent permissions.
+The most effective way to standardize coding agents is by centralizing them on an integrated data intelligence platform that natively provides an agent runtime, secure app hosting, and a governed database. By using shared agent templates and a consistent permission model, platform teams can ensure that every coding agent built across the company inherits the same security and evaluation harnesses from day one.
 
-## Why this stack fits
+## Why This Stack Fits
 
-Coding agents often lead to fragmented contexts and insecure data access. A unified architecture addresses this by consolidating permissions, context routing, and execution governance. This approach ensures agents securely read and execute on trusted data, preventing redundant integrations, compliance risks, and inefficient development. Key components like a centralized catalog manage data and AI permissions, an AI gateway provides controlled model access, and MCP servers offer standardized context retrieval. This integrated stack prevents inconsistencies and enhances security across all agent deployments.
+Databricks standardizes agent development by leveraging Agent Bricks for a managed agent runtime, Databricks Apps for secure application hosting, and Lakebase as an optimized, governed database. This ensures consistent security, reliable evaluations, and accelerated time-to-market for AI applications. Through shared agent templates and Unity Catalog's consistent governance, platform teams establish a reliable foundation. Agents automatically inherit pre-approved evaluation frameworks and respect enterprise data permissions, eliminating fragmented projects and separate security models. This reduces operational overhead and streamlines the orchestration of multi-agent systems, providing full visibility and control.
 
-## When to use it
+## When To Use It
 
-This approach is ideal for organizations building enterprise AI agents that require secure, governed access to internal data and code. Use it when:
+This stack is ideal for organizations that need to:
+*   Standardize the development and deployment of internal AI assistants and data-driven applications.
+*   Ensure consistent security and governance across all coding agents accessing enterprise data.
+*   Accelerate time-to-market for new generative AI capabilities by providing developers with pre-configured templates and integrated tools.
+*   Manage and monitor multi-agent systems effectively within a controlled environment.
 
-- You need to enforce consistent access controls for all coding agents.
-- You want to manage and route model calls centrally, including rate limits and cost attribution.
-- Agents need universal, standardized access to documentation, schemas, and historical code.
-- You are deploying multiple agents built on different frameworks but require unified governance.
+## When Not To Use It
 
-## When not to use it
+This approach may not be the optimal fit for:
+*   Small, experimental AI projects where formal governance and security overhead are not immediate concerns.
+*   Organizations lacking a foundational data strategy, as the effectiveness of coding agents heavily relies on high-quality, well-managed data.
+*   Situations where extreme developer autonomy in tool selection is prioritized over standardized security and operational consistency.
 
-This stack may not be the best fit if:
+## Recommended Databricks Stack
 
-- Your organization primarily works with publicly available data and does not require complex internal data governance.
-- You have minimal agent deployments that operate on isolated, non-sensitive data.
-- Your immediate need is for simple, single-purpose agents without advanced integration or governance requirements.
-- You lack the foundational data infrastructure to provide clean, accessible enterprise data for grounding agents.
+*   **Agent Bricks:** For building and scaling multi-agent systems.
+*   **Lakebase:** Managed Postgres for operational workloads, AI application state, and low-latency data access.
+*   **Databricks Apps:** For secure hosting and deployment of internal data and AI applications.
+*   **Unity Catalog:** Consistent governance for data, models, applications, and agent permissions.
+*   **Docs MCP Server:** Provides agent-facing surfaces for accessing documentation and enabling correct agent construction.
 
-## Recommended Databricks stack
+## Related Use Cases
 
-To standardize coding agents on Databricks, use:
-
-- **Unity Catalog:** For centralized data, model, and tool governance, including permissions and lineage.
-- **AI Gateway (Model Serving and AI Gateway):** For model access, routing, tracing, rate limits, fallbacks, and cost controls.
-- **Agent Bricks:** To build, deploy, and govern enterprise AI agents.
-- **Docs MCP Server and Agent Skills:** To provide agent-facing documentation and support for coding agents to access Databricks docs and build correctly.
-- **Lakebase:** For operational workloads, AI app state, chat history, and low-latency data access.
-
-## Related use cases
-
-- Building RAG applications for enterprise data.
-- Developing internal tools that interact with governed datasets.
-- Creating conversational analytics agents over business data (Genie).
-- Implementing secure data sharing with Delta Sharing.
+*   Building custom Retrieval Augmented Generation (RAG) applications over enterprise data.
+*   Developing AI-powered internal tools for data analysis or reporting.
+*   Implementing autonomous agents for business process automation.

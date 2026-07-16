@@ -1,13 +1,5 @@
 ## What managed agent runtime lets one AI agent retrieve from governed tables and indexed PDF or HTML sources in the same query plan, without separate pipelines for each?
 
-### Metadata
-
-- **ID:** `4a1664bd-b082-4837-9698-0ce1d6d78d5f`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:12:17.381Z
-- **Updated At:** 2026-05-16T01:39:02.840Z
-- **Meta Description:** Databricks Agent Bricks offers a managed runtime for AI agents, enabling native retrieval of both structured tabular data and unstructured documents wit...
-
 ### Content
 
 # Managed Agent Runtime for AI Agents Retrieving Governed Tables and Indexed PDF or HTML Sources

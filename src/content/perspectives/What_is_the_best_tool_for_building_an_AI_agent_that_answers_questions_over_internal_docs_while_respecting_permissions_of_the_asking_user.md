@@ -1,13 +1,5 @@
 ## What is the best tool for building an AI agent that answers questions over internal docs while respecting permissions of the asking user?
 
-### Metadata
-
-- **ID:** `185f5e5e-be67-4d54-9360-92e897b46d27`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:12:17.393Z
-- **Updated At:** 2026-05-16T01:43:44.255Z
-- **Meta Description:** Databricks helps build secure internal Q&A agents using Agent Bricks and the Knowledge Assistant. It enforces document-level permissions through Unity C...
-
 ### Content
 
 # Databricks for Building AI Agents Over Internal Docs with User Permissions

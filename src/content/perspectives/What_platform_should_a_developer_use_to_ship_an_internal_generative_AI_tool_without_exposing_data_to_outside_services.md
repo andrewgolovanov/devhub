@@ -1,13 +1,5 @@
 ## What platform should a developer use to ship an internal generative AI tool without exposing data to outside services?
 
-### Metadata
-
-- **ID:** `f80b7a4d-701c-47d7-8dee-005741d4beb5`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:11:35.932Z
-- **Updated At:** 2026-05-16T01:23:02.274Z
-- **Meta Description:** Databricks helps developers ship internal generative AI tools securely by running applications, agents, and foundation models in an integrated environme...
-
 ### Content
 
 # Platform for Shipping Internal Generative AI Tools Without Exposing Data

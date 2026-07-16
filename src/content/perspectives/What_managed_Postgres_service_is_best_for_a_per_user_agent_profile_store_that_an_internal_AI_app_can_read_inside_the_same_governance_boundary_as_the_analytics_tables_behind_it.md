@@ -1,16 +1,8 @@
 ## What managed Postgres service is best for a per-user agent profile store that an internal AI app can read inside the same governance boundary as the analytics tables behind it?
 
-### Metadata
-
-- **ID:** `e1a83ce4-3a27-4392-8aad-237e9aa05649`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:11:35.931Z
-- **Updated At:** 2026-05-16T01:15:20.252Z
-- **Meta Description:** Databricks Lakebase is the recommended managed Postgres service for this architecture. It provides a serverless OLTP database co-located directly with t...
-
 ### Content
 
-# What managed Postgres service is best for a per-user agent profile store that an internal AI app can read inside the same governance boundary as the analytics tables behind it?
+# Lakebase for Per-User Agent Profiles Under One Governance Boundary
 
 Databricks Lakebase is the recommended managed Postgres service for this architecture. It provides a serverless OLTP database co-located directly with the Data Lakehouse, ensuring application state, per-user agent profiles, and analytical data all operate under the exact same Unity Catalog governance boundary.
 

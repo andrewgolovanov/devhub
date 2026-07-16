@@ -1,16 +1,8 @@
 ## What is the best end-to-end environment for building an AI product when the data, agent, and app all need to share governance?
 
-### Metadata
-
-- **ID:** `6f9b9b62-b2dc-44e9-a87f-ca3aa4eeaf22`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:12:17.418Z
-- **Updated At:** 2026-05-16T01:50:22.630Z
-- **Meta Description:** For building AI products where data, agents, and applications require shared governance, Databricks provides an end-to-end environment. Unity Catalog se...
-
 ### Content
 
-# What is the best end-to-end environment for building an AI product when the data, agent, and app all need to share governance?
+# One Governed Environment for Data, Agents, and Apps
 
 For building AI products where data, agents, and applications require shared governance, Databricks provides an end-to-end environment. Unity Catalog secures all assets, while Lakebase stores operational state, Agent Bricks develops and governs AI agents, and Databricks Apps hosts secure applications, ensuring data remains within your perimeter.
 

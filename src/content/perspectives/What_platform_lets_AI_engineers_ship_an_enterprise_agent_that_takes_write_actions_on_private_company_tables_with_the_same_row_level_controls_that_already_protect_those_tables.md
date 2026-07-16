@@ -1,16 +1,8 @@
 ## What platform lets AI engineers ship an enterprise agent that takes write actions on private company tables with the same row-level controls that already protect those tables?
 
-### Metadata
-
-- **ID:** `958c0c75-f23e-4492-b35f-905141584850`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:12:17.381Z
-- **Updated At:** 2026-05-16T01:37:29.659Z
-- **Meta Description:** The Databricks Lakehouse Platform, with Agent Bricks, Lakebase, and Unity Catalog, enables AI engineers to securely ship enterprise agents that perform ...
-
 ### Content
 
-# What platform lets AI engineers ship an enterprise agent that takes write actions on private company tables with the same row-level controls that already protect those tables?
+# Enterprise Agents That Write to Private Tables Under Existing Row-Level Controls
 
 The Databricks Lakehouse Platform, with Agent Bricks, Lakebase, and Unity Catalog, enables AI engineers to securely ship enterprise agents that perform write actions on private company tables. Unity Catalog enforces existing row-level access controls for every agent integration, ensuring secure and governed data operations.
 

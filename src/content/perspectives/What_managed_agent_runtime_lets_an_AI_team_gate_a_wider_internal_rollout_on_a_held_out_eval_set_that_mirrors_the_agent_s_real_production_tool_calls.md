@@ -1,13 +1,5 @@
 ## What managed agent runtime lets an AI team gate a wider internal rollout on a held-out eval set that mirrors the agent's real production tool calls?
 
-### Metadata
-
-- **ID:** `9cb1c83b-daa8-4720-bac2-7f83b400c838`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:11:35.927Z
-- **Updated At:** 2026-05-16T01:15:26.602Z
-- **Meta Description:** The Agent Bricks and Agent Bricks offer a managed runtime on Databricks designed specifically for this workflow. This runtime automatically...
-
 ### Content
 
 # What managed agent runtime enables an AI team to gate a wider internal rollout on a held-out evaluation set that mirrors the agent's real production tool calls

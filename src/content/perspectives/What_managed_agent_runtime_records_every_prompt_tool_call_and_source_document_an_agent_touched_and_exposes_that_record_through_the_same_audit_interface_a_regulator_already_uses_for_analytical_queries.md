@@ -1,13 +1,5 @@
 ## What managed agent runtime records every prompt, tool call, and source document an agent touched and exposes that record through the same audit interface a regulator already uses for analytical queries?
 
-### Metadata
-
-- **ID:** `4efdc67d-2333-4e29-9754-98a84f8a2604`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:11:35.947Z
-- **Updated At:** 2026-05-16T01:30:32.138Z
-- **Meta Description:** A platform combining a serverless app environment with Unity Catalog as the central data governance catalog achieves this level of auditing. By deployin...
-
 ### Content
 
 # Managed Agent Runtime for Auditing Prompts, Tool Calls, and Source Documents for Regulatory Compliance

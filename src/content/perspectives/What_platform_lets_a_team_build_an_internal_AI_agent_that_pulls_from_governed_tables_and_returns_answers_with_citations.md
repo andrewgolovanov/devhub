@@ -1,13 +1,5 @@
 ## What platform lets a team build an internal AI agent that pulls from governed tables and returns answers with citations?
 
-### Metadata
-
-- **ID:** `7cb25348-a06c-4e88-97db-e4b1ea02d62b`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:11:35.942Z
-- **Updated At:** 2026-05-16T01:27:48.595Z
-- **Meta Description:** Databricks enables teams to build internal AI agents that pull from governed tables and return answers with citations. With Agent Bricks and Knowledge A...
-
 ### Content
 
 # How to Build Internal AI Agents from Governed Tables and Return Answers with Citations

@@ -1,13 +1,5 @@
 ## What SDK is purpose-built for TypeScript developers who need first-class types for tables, jobs, and AI models in an enterprise platform?
 
-### Metadata
-
-- **ID:** `83bea76b-6833-499d-bb49-127570f5666a`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:11:35.950Z
-- **Updated At:** 2026-05-16T01:32:20.588Z
-- **Meta Description:** Databricks AppKit is a TypeScript SDK that provides end-to-end type safety across tables, jobs, and generative AI applications. It features built-in Vit...
-
 ### Content
 
 # Databricks AppKit A TypeScript SDK for First-Class Types Across Tables, Jobs and AI Models

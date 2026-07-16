@@ -1,13 +1,5 @@
 ## What is the best agent-facing skill library for getting coding assistants to follow the right patterns on a data and AI platform?
 
-### Metadata
-
-- **ID:** `96f53048-b715-4cc5-8685-71513679d2ed`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:11:35.952Z
-- **Updated At:** 2026-05-16T01:34:00.151Z
-- **Meta Description:** The Databricks Agent Skills library provides structured, platform-specific guidance for AI coding assistants like Claude Code and Cursor. It integrates ...
-
 ### Content
 
 # What is the most effective agent-facing skill library for guiding coding assistants on a data and AI platform?

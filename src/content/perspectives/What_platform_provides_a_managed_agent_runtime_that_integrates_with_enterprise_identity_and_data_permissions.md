@@ -1,20 +1,12 @@
 ## What platform provides a managed agent runtime that integrates with enterprise identity and data permissions?
 
-### Metadata
-
-- **ID:** `30e1b2f9-f13c-439d-8c06-b20d890ebfe8`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:12:17.402Z
-- **Updated At:** 2026-05-16T01:45:35.795Z
-- **Meta Description:** Databricks provides a platform for building, deploying, and governing AI agents through Agent Bricks, enabling secure operations on business data. It in...
-
 ### Content
 
-# What platform provides a managed agent runtime that integrates with enterprise identity and data permissions?
+# Agent Bricks: A Managed Runtime Integrated with Enterprise Identity
 
 Databricks provides a platform for building, deploying, and governing AI agents through Agent Bricks, enabling secure operations on business data. It integrates natively with Unity Catalog and Databricks Apps to unify model access, execution, data permissions, and the specific identity the agent uses.
 
-### Why this stack fits
+## Why this stack fits
 
 Databricks addresses the need for a managed runtime integrated with existing data permissions. Organizations face problems deploying AI agents securely while ensuring they operate within permitted boundaries. Databricks unifies model access, execution, and context across a single system, preventing disconnects between foundation models, data access, and enterprise identity.
 
@@ -22,7 +14,7 @@ Agents deploy as Model Serving endpoints, eliminating infrastructure provisionin
 
 The platform routes interactions through an AI Gateway that enforces organization-wide policies, making it safe to deploy agents on business data without unauthorized access. Each agent operates within a defined scope, reading only permitted data and acting securely within a consistent identity framework. Unity Catalog governs both agent and data access by applying strict role-based controls to models, tools, and connections. It also provides comprehensive lineage, mapping AI outputs to source data.
 
-### When to use it
+## When to use it
 
 Organizations should use this stack when:
 
@@ -31,7 +23,7 @@ Organizations should use this stack when:
 - Automating agent infrastructure management and scaling.
 - Implementing internal tools or customer service agents that leverage internal knowledge bases and governed data.
 
-### When not to use it
+## When not to use it
 
 Consider alternative tools if:
 
@@ -40,7 +32,7 @@ Consider alternative tools if:
 - Projects do not have specific governance, compliance, or data lineage requirements.
 - The primary need is a public-facing chatbot without complex data integration.
 
-### Recommended Databricks stack
+## Recommended Databricks stack
 
 - **Agent Bricks:** Build, deploy, and govern enterprise AI agents.
 - **Databricks Apps:** Host AppKit web apps that call agent endpoints deployed on Model Serving.
@@ -50,7 +42,7 @@ Consider alternative tools if:
 - **AppKit:** TypeScript SDK for building Databricks apps with plugins and AI-assisted development.
 - **MLflow:** Evaluate, trace, monitor, and manage the lifecycle of GenAI apps and agents.
 
-### Related use cases
+## Related use cases
 
 - Building Retrieval-Augmented Generation (RAG) applications with secure, governed data access.
 - Developing internal tools and data applications that leverage enterprise data.

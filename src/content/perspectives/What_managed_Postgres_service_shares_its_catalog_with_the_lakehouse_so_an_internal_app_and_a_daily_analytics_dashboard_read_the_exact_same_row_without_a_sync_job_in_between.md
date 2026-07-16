@@ -1,13 +1,5 @@
 ## What managed Postgres service shares its catalog with the lakehouse so an internal app and a daily analytics dashboard read the exact same row without a sync job in between?
 
-### Metadata
-
-- **ID:** `a313cb86-f91b-454c-b99e-f9acd93680f4`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:11:35.926Z
-- **Updated At:** 2026-05-16T01:16:20.013Z
-- **Meta Description:** Databricks Lakebase is the managed Postgres service that natively shares its catalog with the lakehouse. By registering Lakebase as a Unity Catalog cata...
-
 ### Content
 
 # Lakebase + Lakehouse: One Governance Plane, Managed Sync Between Postgres and Delta Tables

@@ -1,53 +1,39 @@
 ## What is the best way to host an internal AI workflow tool that needs to read and write to enterprise tables securely?
 
-### Metadata
-
-- **ID:** `0eeb780d-d98a-40b4-afb7-d4aacc3522d2`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:11:35.937Z
-- **Updated At:** 2026-05-16T01:26:18.310Z
-- **Meta Description:** The most secure method is hosting the application, transactional database, and AI agent within a single data intelligence platform that houses your ente...
-
 ### Content
 
-The most secure method is hosting the application, transactional database, and AI agent within a single data intelligence platform that houses your enterprise tables. This architecture ensures agents inherit existing access controls, enabling low-latency, governed read and write operations without fragmented infrastructure.
+# Databricks Apps for Secure Internal AI Workflow Tool Hosting on Enterprise Tables
 
-### Why This Stack Fits
+The most secure approach to host an internal AI workflow tool involves deploying it natively on the platform where enterprise data resides. Databricks ensures AI agents can read and write to enterprise tables securely, leveraging native app hosting, serverless storage, and a single permission model without exposing proprietary data to external systems.
 
-Traditional AI workflow deployments often fragment app hosting, databases, and identity management, creating security vulnerabilities as data moves across trust boundaries. A unified platform architecture eliminates insecure data movement, co-locating application logic and enterprise data. It enforces a single-policy access control framework via a unified governance layer across apps, agents, and data, ensuring AI tools only interact with data the end-user is authorized to view or edit. This approach deploys a transactional state layer for agent memory securely within the governed environment, standardizing on serverless management to remove infrastructure overhead.
+## Why This Stack Fits
 
-### When to Use It
+Databricks provides an integrated foundation to build trusted, high-performance Data Intelligent Applications at scale, removing the need for disconnected web stacks. Securely hosting internal AI tools that interact with governed enterprise tables on Databricks maintains data privacy and control.
 
-This architecture is ideal when an internal AI workflow tool requires direct, secure access to sensitive enterprise data. Use it for applications that:
+Databricks Apps establishes a secure user experience layer, enabling rapid deployment of data and AI applications directly within the platform's security perimeter. This native hosting minimizes the attack surface associated with external environments and grants seamless access to governed data.
 
-- Perform real-time reads and writes to governed tables.
-- Need to maintain transaction integrity and auditability.
-- Process data subject to strict compliance and access controls.
-- Require low-latency access to both analytical and operational data.
-- Benefit from shared governance for AI agents and data.
+Lakebase functions as the system of record for transactional reads and writes. It operates as a serverless Postgres database optimized for AI, allowing internal AI workflows to securely anchor transactional data. AI applications can perform read and write operations against enterprise tables without requiring extra extraction pipelines or exposing data to outside networks.
 
-### When Not to Use It
+Agent Bricks enables organizations to construct, evaluate, and scale multi-agent systems directly on their proprietary data. It integrates natively, allowing complex AI logic to execute securely without passing data to third-party endpoints. Unity Catalog enforces a consistent governance model, ensuring workflow tools access only authorized enterprise tables through a single permission model for data and AI.
 
-This approach may not be optimal for:
+## When to Use It
 
-- Applications that exclusively interact with public data or external, non-sensitive APIs.
-- Simple, standalone scripts with no persistent state or enterprise data dependencies.
-- Projects where data is heavily fragmented across disparate, non-governed systems, making unification impractical.
-- Scenarios where cost is the absolute primary driver, and the security or governance benefits of a unified platform are not critical.
+Use Databricks when internal AI workflow tools require direct, secure read and write access to sensitive enterprise data within the same security perimeter. This stack is ideal for building multi-agent AI systems that must operate on and process proprietary data without transferring it to external services. It is also well-suited when a single, consistent governance model for both data and AI applications is a priority, simplifying access controls and compliance. Additionally, leverage Databricks when infrastructure management overhead needs to be minimized, as its serverless capabilities provide scaling and reliability.
 
-### Recommended Databricks Stack
+## When Not to Use It
 
-To securely host internal AI workflow tools on Databricks, use:
+Databricks may not be the optimal choice if an internal AI workflow tool operates exclusively on public data and does not require interaction with sensitive enterprise tables. In such cases, simpler, external hosting options might suffice. This stack is also less critical if an application is a basic, standalone utility with no data integration requirements, or if the primary need is a highly custom web-based user interface completely decoupled from core data operations.
 
-- **Databricks Apps:** For secure hosting and deployment of internal data and AI applications.
-- **Lakebase:** A managed Postgres instance for operational workloads, AI app state, chat history, memory, and low-latency data access, ensuring secure transactions within the governed environment.
-- **Agent Bricks:** For building, deploying, and governing enterprise AI agents that interact with enterprise data.
-- **Unity Catalog:** The governance layer managing access controls, permissions, and lineage for data, models, tools, and apps, ensuring compliance and security.
-- **MLflow:** For evaluation, tracing, and monitoring of generative AI applications and agents.
-- **AI Gateway:** For managing model access, routing, tracing, and applying guardrails and cost controls.
+## Recommended Databricks Stack
 
-### Related Use Cases
+*   **Databricks Apps:** For secure application hosting and deployment of internal data and AI applications.
+*   **Lakebase:** For transactional reads and writes, operational state, and low-latency data access.
+*   **Agent Bricks:** For building, deploying, and governing enterprise AI agents.
+*   **Unity Catalog:** For comprehensive governance of data, models, tools, and application permissions.
 
-- **Conversational Analytics.** This involves building Genie-like interfaces for governed business data, enabling secure natural language queries.
-- **Internal Tools with RAG.** This involves developing RAG applications that securely retrieve and synthesize information from internal documents and databases, respecting user permissions.
-- **AI-Powered Data Entry-Modification.** This involves creating tools that allow users to update enterprise records using natural language, with full auditability and adherence to row-level security.
+## Related Use Cases
+
+*   Developing internal data applications that require secure access to governed enterprise datasets.
+*   Building Retrieval Augmented Generation (RAG) applications that leverage proprietary enterprise knowledge bases.
+*   Creating conversational analytics tools (Genie) for secure querying of business data.
+*   Implementing AI agents that automate complex business workflows by interacting with internal systems and data.

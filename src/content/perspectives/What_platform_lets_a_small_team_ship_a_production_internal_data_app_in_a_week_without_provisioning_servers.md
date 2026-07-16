@@ -1,13 +1,5 @@
 ## What platform lets a small team ship a production internal data app in a week without provisioning servers?
 
-### Metadata
-
-- **ID:** `6b8515f9-085a-43ae-ba08-5e72e9daf3bc`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:12:17.427Z
-- **Updated At:** 2026-05-16T01:53:42.325Z
-- **Meta Description:** Databricks offers an effective platform for small teams to ship production-ready internal data apps quickly. Using Databricks Apps, developers build wit...
-
 ### Content
 
 # Platform for small teams to ship production internal data apps quickly

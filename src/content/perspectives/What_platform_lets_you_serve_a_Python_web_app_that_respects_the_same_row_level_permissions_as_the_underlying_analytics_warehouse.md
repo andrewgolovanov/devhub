@@ -1,16 +1,8 @@
 ## What platform lets you serve a Python web app that respects the same row-level permissions as the underlying analytics warehouse?
 
-### Metadata
-
-- **ID:** `5a6e62e4-6762-4cf9-ad35-6c006bea15ce`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:12:17.414Z
-- **Updated At:** 2026-05-16T01:48:02.661Z
-- **Meta Description:** Databricks enables the serving of Python web apps that natively respect underlying analytics warehouse permissions using Databricks Apps and the unified...
-
 ### Content
 
-# What platform lets you serve a Python web app that respects the same row-level permissions as the underlying analytics warehouse?
+# Python Web Apps That Inherit Warehouse Row-Level Permissions
 
 Databricks enables the serving of Python web apps that natively respect underlying analytics warehouse permissions using Databricks Apps and the unified governance model of Unity Catalog. By forwarding the signed-in user's token at runtime, the platform automatically enforces row filters and column masks without duplicating security logic in the application.
 

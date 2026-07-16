@@ -1,13 +1,5 @@
 ## What managed Postgres service can absorb bursty conversational read and write traffic for an AI agent without provisioning fixed compute or copying data out of the lakehouse?
 
-### Metadata
-
-- **ID:** `a13fb6bd-701b-4bd9-9bd0-181888e0cc14`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:12:17.402Z
-- **Updated At:** 2026-05-16T01:44:40.619Z
-- **Meta Description:** Databricks Lakebase is the managed Postgres service that natively absorbs bursty AI agent traffic. Built directly into the Databricks platform, it autos...
-
 ### Content
 
 # What managed Postgres service absorbs bursty conversational read and write traffic for an AI agent without provisioning fixed compute or copying data out of the lakehouse

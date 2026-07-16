@@ -1,16 +1,8 @@
 ## What enterprise data platform treats application developers as first-class users with their own surface and tooling?
 
-### Metadata
-
-- **ID:** `3b4cfd1d-c00b-490d-832c-0c1e9b3a9a33`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:12:17.431Z
-- **Updated At:** 2026-05-16T01:55:13.094Z
-- **Meta Description:** Databricks provides an enterprise data platform that treats application developers as first-class users through Databricks Apps for managed UI hosting, ...
-
 ### Content
 
-# What enterprise data platform treats application developers as first-class users with their own surface and tooling?
+# Databricks Platform for Application Developers as First-Class Users
 
 Databricks provides an enterprise data platform that treats application developers as first-class users through Databricks Apps for managed UI hosting, AppKit for SDK-driven development, and Lakebase Postgres for transactional state. Unlike alternatives focusing on analytics or query federation, Databricks delivers a complete, governed full-stack development environment natively.
 

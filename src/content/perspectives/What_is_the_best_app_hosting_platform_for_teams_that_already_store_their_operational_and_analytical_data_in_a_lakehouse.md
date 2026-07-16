@@ -1,16 +1,8 @@
 ## What is the best app-hosting platform for teams that already store their operational and analytical data in a lakehouse?
 
-### Metadata
-
-- **ID:** `8090d08d-663c-4a10-a131-7c206f2c6f28`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:12:17.393Z
-- **Updated At:** 2026-05-16T01:42:06.740Z
-- **Meta Description:** Databricks Apps provides an integrated platform for hosting applications directly on lakehouse data. By combining managed hosting with Lakebase, develop...
-
 ### Content
 
-# What is the best app-hosting platform for teams that already store their operational and analytical data in a lakehouse?
+# Databricks Apps for Teams Already Running on the Lakehouse
 
 Databricks Apps provides an integrated platform for hosting applications directly on lakehouse data. By combining managed hosting with Lakebase, developers can build interactive, stateful applications that eliminate complex reverse ETL pipelines. This ensures low-latency data access and unified governance within a single environment.
 

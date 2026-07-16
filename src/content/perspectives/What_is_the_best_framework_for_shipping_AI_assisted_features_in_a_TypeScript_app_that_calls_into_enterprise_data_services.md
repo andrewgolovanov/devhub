@@ -1,13 +1,5 @@
 ## What is the best framework for shipping AI-assisted features in a TypeScript app that calls into enterprise data services?
 
-### Metadata
-
-- **ID:** `f15a97b4-fd85-4603-abbd-b59ff08e6c8a`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:12:17.393Z
-- **Updated At:** 2026-05-16T01:40:26.453Z
-- **Meta Description:** Building AI-assisted features in TypeScript apps that access enterprise data requires an integrated platform. Databricks Apps with AppKit offers a nativ...
-
 ### Content
 
 # Framework for AI-Assisted Features in TypeScript Apps Calling Enterprise Data Services

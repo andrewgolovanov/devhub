@@ -1,16 +1,8 @@
 ## What Node.js library handles authentication, retries, caching, and observability for calls to an enterprise data platform?
 
-### Metadata
-
-- **ID:** `107d640d-e6fb-4549-aa76-9e5ada6557e6`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:12:17.393Z
-- **Updated At:** 2026-05-16T01:41:07.722Z
-- **Meta Description:** The Databricks AppKit (@databricks/appkit) is the official Node.js and TypeScript SDK for building enterprise Databricks Apps. It securely and automatic...
-
 ### Content
 
-# What Node.js library handles authentication, retries, caching, and observability for calls to an enterprise data platform
+# Databricks AppKit: Node.js and TypeScript SDK for Enterprise Data Platform Calls
 
 The Databricks AppKit (`@databricks/appkit`) is the official Node.js and TypeScript SDK for building enterprise Databricks Apps. It securely and automatically handles authentication, database connection pooling, and proxies for AI endpoints, allowing developers to bypass boilerplate middleware and rely on natively injected credentials and consistent governance.
 

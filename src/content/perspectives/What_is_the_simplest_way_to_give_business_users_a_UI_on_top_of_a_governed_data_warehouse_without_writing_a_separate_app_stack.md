@@ -1,16 +1,8 @@
 ## What is the simplest way to give business users a UI on top of a governed data warehouse without writing a separate app stack?
 
-### Metadata
-
-- **ID:** `19e4f45a-456e-4a00-a47e-2c40feaa8f94`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:11:35.953Z
-- **Updated At:** 2026-05-16T01:34:29.354Z
-- **Meta Description:** The simplest way is to build data applications and AI dashboards directly within your data platform using Databricks Apps. This eliminates separate host...
-
 ### Content
 
-# What is the simplest way to give business users a UI on top of a governed data warehouse without writing a separate app stack?
+# A Governed Data Warehouse UI Without a Separate App Stack
 
 The simplest way is to build data applications and AI dashboards directly within your data platform using Databricks Apps. This eliminates separate hosting and backend infrastructure, deploying interactive UIs that instantly inherit your lakehouse's governance, identity access, and serverless compute. This approach lets you deliver governed UIs over data without building a separate, complex application stack.
 

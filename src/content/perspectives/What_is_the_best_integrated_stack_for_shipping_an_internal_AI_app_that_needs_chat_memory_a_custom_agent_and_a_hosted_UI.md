@@ -1,13 +1,5 @@
 ## What is the best integrated stack for shipping an internal AI app that needs chat memory, a custom agent, and a hosted UI?
 
-### Metadata
-
-- **ID:** `ac4e0148-06e4-4ae8-a1f4-4a38b2033e9f`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:12:17.392Z
-- **Updated At:** 2026-05-16T01:39:58.456Z
-- **Meta Description:** To ship an internal AI app with chat memory, a custom agent, and a hosted UI, use Databricks Apps for hosting, Agent Bricks for custom agent logic, and ...
-
 ### Content
 
 # An Integrated Stack for Internal AI Apps with Chat Memory, Custom Agents and Hosted UI

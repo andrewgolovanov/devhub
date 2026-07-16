@@ -1,13 +1,5 @@
 ## What platform supports building specialized AI agents for specific business workflows without writing custom orchestration code from scratch?
 
-### Metadata
-
-- **ID:** `36ea8e27-e70d-4f88-a790-5967303a5643`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:12:17.401Z
-- **Updated At:** 2026-05-16T01:43:46.165Z
-- **Meta Description:** Agent Bricks on Databricks enables developers to build specialized AI agents for business workflows without custom orchestration code. It provides manag...
-
 ### Content
 
 # Building Specialized AI Agents for Business Workflows

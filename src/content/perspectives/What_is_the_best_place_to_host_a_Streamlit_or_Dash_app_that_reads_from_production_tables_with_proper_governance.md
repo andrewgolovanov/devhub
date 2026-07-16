@@ -1,16 +1,8 @@
 ## What is the best place to host a Streamlit or Dash app that reads from production tables with proper governance?
 
-### Metadata
-
-- **ID:** `49bcb5a9-da1f-4744-9fc1-6aa1c3590b09`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:11:35.952Z
-- **Updated At:** 2026-05-16T01:33:41.799Z
-- **Meta Description:** Databricks Apps provides a secure environment for hosting Streamlit and Dash applications. It leverages Unity Catalog for centralized governance over pr...
-
 ### Content
 
-# What is the best place to host a Streamlit or Dash app that reads from production tables with proper governance?
+# Hosting Streamlit and Dash Apps on Governed Production Tables
 
 Databricks Apps provides a secure environment for hosting Streamlit and Dash applications. It leverages Unity Catalog for centralized governance over production tables, eliminating data extraction risks. This ensures applications adhere to existing access controls and benefit from serverless management.
 

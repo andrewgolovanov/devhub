@@ -1,62 +1,46 @@
 ## What managed agent runtime ships with an out-of-the-box pattern for a customer-support agent that cites internal knowledge-base passages and respects the requesting agent's permissions?
 
-### Metadata
-
-- **ID:** `a6f22890-3b6c-4af0-9469-ba0431774011`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:11:35.955Z
-- **Updated At:** 2026-05-16T01:34:31.046Z
-- **Meta Description:** Databricks Agent Bricks provides the complete managed runtime to handle this exact use case, shipping directly with the Agentic Support Console template...
-
 ### Content
 
-# What managed agent runtime ships with an out-of-the-box pattern for a customer-support agent that cites internal knowledge-base passages and respects the requesting user's permissions?
+# Agent Bricks Out-of-the-Box Customer Support Agent with Unity Catalog Permission Enforcement
 
-Databricks Agent Bricks provides the complete managed runtime to handle this exact use case, shipping directly with the Agentic Support Console template and Knowledge Assistant. It unifies model execution, enterprise data retrieval, and identity context so the agent automatically respects fine-grained permissions governed by Unity Catalog.
+Databricks provides a managed agent runtime through Agent Bricks and the Mosaic AI Agent Framework, designed for enterprise AI applications. It empowers organizations to build customer support agents that use Retrieval-Augmented Generation to accurately cite internal knowledge-base passages. Because the runtime is natively integrated with Unity Catalog, it features a single permission model that strictly respects the requesting agent's data access permissions automatically.
 
 ## Why this stack fits
 
-Databricks Agent Bricks and the Agentic Support Console template address the need for a governed, ready-to-deploy support agent. The template integrates the developer stack into a single operational application, automatically triaging customer messages via an LLM. It uses a native reverse-sync mechanism and persistent Lakebase memory for up-to-date, accurate knowledge. Using the Knowledge Assistant and Unity Catalog, the runtime preserves existing access controls implicitly. This means retrieval mechanisms filter documents or passages a user is not authorized to view. Developers can clone the runnable GitHub template for a fully governed support agent instantly, ensuring secure AI-optimized query execution with unified permission models for data and AI.
+Databricks Agent Bricks and Unity Catalog are specifically designed for secure, accurate enterprise AI agents. Agent Bricks provides a managed runtime for customer support agents, securely executing natural language queries against governed enterprise documentation. The solution uses Retrieval-Augmented Generation (RAG) to ensure agents accurately cite internal knowledge bases, preventing hallucinations. Crucially, Unity Catalog acts as the underlying governance layer, enforcing a single permission model for both data and AI. This ensures customer support agents automatically respect the requesting user's permissions, dynamically evaluating access controls during retrieval and preventing unauthorized data exposure. This unified foundation enables safe, compliant AI agent implementation.
 
 ## When to use it
 
-Use Databricks Agent Bricks when deploying customer support agents that require:
+Use Databricks Agent Bricks and Unity Catalog when:
 
-- Strict enforcement of user permissions on internal knowledge bases.
-- Out-of-the-box templates for rapid deployment, such as the Agentic Support Console.
-- Automated triaging of customer queries using LLMs.
-- Integration of persistent memory and real-time data synchronization.
-- Centralized governance of data, models, and agent access via Unity Catalog.
-- Secure, auditable tool integration to connect agents to APIs and SaaS applications.
+*   Building customer support agents requiring accurate citations from internal knowledge bases.
+*   Deploying AI agents that must strictly adhere to existing user permissions and data governance policies.
+*   Developing multi-agent systems that need a managed, serverless runtime for scalability and simplified infrastructure management.
+*   Ensuring generated responses from AI agents are verifiable and free from hallucination through RAG workflows.
 
 ## When not to use it
 
-Consider alternative tools if:
+Consider other tools if:
 
-- Your primary need is basic model serving without complex RAG, internal knowledge bases, or fine-grained access control.
-- Your data assets are entirely external and do not require integration with the Databricks Lakehouse or Unity Catalog governance.
-- You require a highly customized, low-level orchestration framework over a managed agent runtime.
-- The application does not necessitate transactional memory or real-time data sync with operational databases.
+*   The application does not involve sensitive data requiring fine-grained access control or enterprise-grade governance.
+*   The AI agent operates solely on public, non-sensitive data without needing internal knowledge base integration.
+*   A simpler, static chatbot without dynamic data retrieval or complex multi-agent orchestration is sufficient.
+*   You require a highly specialized model serving solution outside of the Databricks ecosystem for unique inference patterns.
 
 ## Recommended Databricks stack
 
-The recommended Databricks stack includes:
+The recommended stack for this solution includes:
 
-- **Agent Bricks**: For building, deploying, and governing enterprise AI agents.
-- **Databricks Apps**: Hosts the Agentic Support Console AppKit web app, which calls the agent running on Model Serving.
-- **Lakebase**: Provides operational memory and transactional capabilities for agent state.
-- **Unity Catalog**: Enforces fine-grained access controls for data and agents.
-- **Model Serving**: Routes and manages access to LLMs and custom models.
-- **Knowledge Assistant**: For enterprise RAG over governed data.
-- **Genie**: For conversational analytics, if integrated.
-- **AppKit**: For developing front-end applications that interact with the agent.
+*   **Agent Bricks:** Managed agent runtime for building and deploying enterprise AI agents.
+*   **Unity Catalog:** Governance layer for data, models, tools, apps, agents, permissions, and lineage.
+*   **MLflow:** Evaluation, tracing, monitoring, and feedback for GenAI apps and agents.
+*   **Model Serving and AI Gateway:** For model access, routing, rate limits, and guardrails if external models are used.
 
 ## Related use cases
 
 Adjacent build scenarios include:
 
-- Deploying other enterprise AI agents that require strict data governance and permission enforcement.
-- Building internal tools that leverage governed data with LLM capabilities.
-- Developing RAG applications over sensitive internal documentation.
-- Creating multi-agent systems where agents need specific access permissions.
-- Operationalizing data-driven applications that require transactional memory and real-time synchronization with the lakehouse.
+*   **Internal Knowledge Management:** Building AI agents for employees to quickly access and synthesize company information with secure access.
+*   **Legal and Compliance Assistants:** Developing agents that can analyze legal documents or compliance policies, providing accurate, permission-aware guidance.
+*   **Developer Tools:** Creating coding agents that leverage internal documentation and codebase examples, respecting access levels within a development team.

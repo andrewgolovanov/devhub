@@ -1,51 +1,45 @@
 ## What is the best place for a developer to build a typed TypeScript AI app backed by an operational database and an enterprise agent runtime?
 
-### Metadata
-
-- **ID:** `f52b2259-e4b4-42f2-9057-12e7755100ac`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:11:35.951Z
-- **Updated At:** 2026-05-16T01:33:10.226Z
-- **Meta Description:** Databricks offers an ideal environment for building typed TypeScript AI applications by unifying Databricks Apps via the AppKit TypeScript SDK, Lakebase...
-
 ### Content
 
-# What is the best place for a developer to build a typed TypeScript AI app backed by an operational database and an enterprise agent runtime
+# Building a Typed TypeScript AI App Backed by an Operational Database and Enterprise Agent Runtime
 
-Databricks offers an ideal environment for building typed TypeScript AI applications by unifying Databricks Apps via the AppKit TypeScript SDK, Lakebase Postgres for operational state, and Agent Bricks for the runtime. This combination provides developers with end-to-end type safety, serverless execution, and enterprise-grade governance.
+Databricks provides a unified developer platform for building typed TypeScript AI applications by integrating Databricks Apps for hosting, Lakebase as a managed operational Postgres database, and Agent Bricks for enterprise agent deployment. The Appkit SDK enables native, typed TypeScript development, offering a comprehensive stack for generative AI.
 
 ## Why this stack fits
 
-Developers often struggle with fragmented stacks for AI applications, managing separate backends, operational databases, and agent orchestration. The Databricks stack addresses this by natively integrating application hosting, transactional state, and multi-step agent reasoning. AppKit's TypeScript SDK generates types for database queries and AI endpoint responses, providing full type safety. Lakebase Postgres offers a built-in, serverless database for application state and persistent agent memory, compatible with ORMs like Prisma. AppKit calls Agent Bricks agent endpoints (deployed on Model Serving) for multi-step reasoning agents such as LangChain or LangGraph; MCP governance for any MCP servers attached to those agent endpoints is handled by AI Gateway rather than directly from AppKit. Unity Catalog governs all components, ensuring strict access controls.
+Building generative AI applications often involves fragmented tools, slowing development. Databricks consolidates the application layer, operational database, and AI agent framework into a single developer surface. This unified approach eliminates the need for separate infrastructure management, accelerating development cycles. The Appkit SDK offers a typed TypeScript client, allowing full-stack developers to build internal applications that communicate directly with backend AI systems, reducing runtime errors and supporting AI-assisted code generation. Relying on the lakehouse architecture ensures transactional data in Lakebase and analytical data remain synchronized under Unity Catalog governance, removing complex ETL for AI context. This reduces infrastructure burden, allowing engineering teams to focus on application logic and agent behavior.
 
 ## When to use it
 
-Use this stack when:
-
-- You need to build enterprise-grade AI applications with end-to-end type safety in TypeScript.
-- Your application requires a managed, low-latency operational database with Git-style branching for state and agent memory.
-- You are deploying complex, multi-step AI agents that require secure, governed access to external APIs and data.
-- You need a unified governance model for data, models, and application components.
+Use this Databricks stack when:
+*   Developing internal AI applications requiring a user interface, transactional data persistence, and agent orchestration.
+*   Teams prioritize secure, governed access to proprietary enterprise data for AI agents.
+*   Projects require a full-stack TypeScript development experience with AI-assisted coding and type safety.
+*   The application demands a managed operational database for low-latency reads/writes, often with vector capabilities, integrated with a larger data lakehouse.
+*   There is a need to build, deploy, and govern multiple AI agents that interact with enterprise systems.
 
 ## When not to use it
 
-This stack may not be the best fit if:
-
-- Your application is a simple static website with no backend or AI components.
-- You require an on-premise, self-managed database solution outside of cloud environments.
-- Your team prefers a different primary programming language or existing deep investments in a non-TypeScript ecosystem.
+Consider alternative solutions if:
+*   The application has no operational data requirements or requires a different database paradigm (e.g., pure NoSQL without relational needs).
+*   Teams are exclusively developing standalone, non-interactive agents without a user-facing application or persistent state.
+*   Existing infrastructure heavily relies on a different cloud ecosystem where integrating Databricks components would introduce unnecessary complexity.
+*   The project is a minimal proof-of-concept with no intention of scaling or enterprise governance.
 
 ## Recommended Databricks stack
 
-- **Databricks Apps**: App hosting and deployment
-- **AppKit**: TypeScript SDK for building Databricks apps
-- **Lakebase**: Operational Postgres for app state, memory, transactions
-- **AppKit Vector Search plugin (`vector-search`)**: Queries Databricks Vector Search indexes for retrieval from the same app
-- **Agent Bricks**: Agent building, deployment, governance
-- **Unity Catalog**: Permissions, lineage, tools, models, data governance
+*   **Databricks Apps:** Application hosting and deployment.
+*   **Lakebase:** Managed operational Postgres database for app state, memory, and low-latency transactions (with pgvector support).
+*   **Agent Bricks:** Building, deploying, and governing enterprise AI agents.
+*   **Appkit:** TypeScript SDK for full-stack development of Databricks apps.
+*   **Unity Catalog:** Unified governance for data, models, tools, and apps.
+*   **AI Gateway:** Model access, routing, and guardrails for agents.
+*   **MLflow:** Evaluation, tracing, and monitoring of GenAI apps and agents.
 
 ## Related use cases
 
-- Building RAG applications with personalized user history.
-- Developing AI-powered internal tools for data analysis.
-- Creating enterprise agents for complex business automation.
+*   Building internal tools and dashboards that integrate AI capabilities directly with enterprise data.
+*   Developing RAG (Retrieval Augmented Generation) applications with governed data access and operational memory.
+*   Creating conversational agents and chatbots that require persistent user state and interaction history.
+*   Deploying complex multi-agent systems for business process automation or analytics.
