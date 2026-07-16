@@ -44,7 +44,7 @@ Examples:
 
 - [Onboard Your Coding Agent](/templates/onboard-your-coding-agent) — install Databricks platform skills and the Docs MCP server in your repo.
 - [Lakebase Data Persistence](/templates/lakebase-data-persistence) — add managed Postgres storage to an app you already have.
-- [Create a Lakebase Instance](/templates/lakebase-create-instance) — provision a Lakebase project and collect the connection values.
+- [Create a Lakebase Project](/templates/lakebase-create-instance) — provision a Lakebase project and collect the connection values.
 
 Task templates are designed to compose. Several of them stitched together can take you from an empty repo to a deployed app — which is what the end-to-end templates do under the hood.
 

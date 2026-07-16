@@ -12,7 +12,7 @@ title: Quickstart
 
 ## Template path
 
-Browse the templates below, pick one for your use case, and copy it into your AI coding assistant. Each includes the [Create a Lakebase Instance](/templates/lakebase-create-instance) resource, which walks through project creation and connection value collection.
+Browse the templates below, pick one for your use case, and copy it into your AI coding assistant. Each includes the [Create a Lakebase Project](/templates/lakebase-create-instance) resource, which walks through project creation and connection value collection.
 
 | Template                                                            | Best for                                                       |
 | ------------------------------------------------------------------- | -------------------------------------------------------------- |

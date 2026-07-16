@@ -26,7 +26,7 @@ Three Databricks products produce agent endpoints. The table summarizes when to 
 
 ### Knowledge Assistant
 
-Turns a folder of documents (plain text, PDFs, Markdown, Office files in a Unity Catalog volume) or a vector search index into a Q&A chatbot with source citations. Good for product docs, HR policies, support knowledge bases. Databricks builds and deploys the agent endpoint for you.
+Turns a folder of documents (plain text, PDFs, Markdown, Office files in a Unity Catalog volume) or an AI Search (formerly Vector Search) index into a Q&A chatbot with source citations. Good for product docs, HR policies, support knowledge bases. Databricks builds and deploys the agent endpoint for you.
 
 See [Knowledge Assistant](https://docs.databricks.com/aws/en/agents/agent-bricks/knowledge-assistant).
 

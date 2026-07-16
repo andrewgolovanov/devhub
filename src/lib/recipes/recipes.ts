@@ -155,7 +155,7 @@ export const recipes: Recipe[] = [
   },
   {
     id: "lakebase-create-instance",
-    name: "Create a Lakebase Instance",
+    name: "Create a Lakebase Project",
     description:
       "Provision a managed Lakebase Postgres project on Databricks and collect the connection values needed by downstream templates.",
     tags: ["Lakebase", "Postgres", "Setup"],
