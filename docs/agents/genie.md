@@ -53,7 +53,7 @@ env:
     valueFrom: genie-space
 ```
 
-The Databricks Apps runtime injects the space ID from the resource into the env var. Find your space ID in the **About** tab of the Genie Agent page in your workspace.
+The Databricks Apps runtime injects the space ID from the resource into the env var. Find your space ID in the **Settings** tab of the Genie Agent page in your workspace.
 
 For a single-agent app, skip the `spaces` config entirely and bind the plugin's default env var:
 
@@ -112,7 +112,7 @@ export function CustomChat() {
 }
 ```
 
-`status` cycles through `idle`, `streaming`, `loading-history`, `loading-older`, and `error`. Use it to drive loading states in your UI. The hook also returns `error`, `conversationId`, and pagination helpers (`hasPreviousPage`, `isFetchingPreviousPage`, `fetchPreviousPage`). See the [AppKit Genie plugin reference](/docs/appkit/v0/plugins/genie) for the full return type and the [Genie conversation API](https://docs.databricks.com/aws/en/genie/conversation-api) for the underlying REST API.
+`status` cycles through `idle`, `streaming`, `loading-history`, `loading-older`, and `error`. Use it to drive loading states in your UI. The hook also returns `error`, `conversationId`, and pagination helpers (`hasPreviousPage`, `isFetchingPreviousPage`, `fetchPreviousPage`). See the [AppKit Genie plugin reference](/docs/appkit/v0/plugins/genie) for the full return type and the [Genie conversation API](https://docs.databricks.com/aws/en/genie-agents/conversation-api) for the underlying REST API.
 
 ## Multiple spaces
 
@@ -133,7 +133,7 @@ Bind each ID to a separate resource in `app.yaml`. See the [Genie Multi-Agent Se
 
 The `genie` plugin calls the Genie API on behalf of the signed-in user. Both the app's service principal and each end user need access for a request to succeed:
 
-- **App service principal**: `CAN RUN` on the Genie Agent, plus `SELECT` on the underlying Unity Catalog tables. Attach the agent as a resource in `app.yaml` to provision these automatically. See [Add a Genie Agent resource to an app](https://docs.databricks.com/aws/en/dev-tools/databricks-apps/genie).
+- **App service principal**: `CAN RUN` on the Genie Agent, granted automatically when you attach the agent as a resource in `app.yaml`. Permissions on the underlying data are not auto-provisioned: grant the service principal `USE CATALOG`, `USE SCHEMA`, and `SELECT` on the Unity Catalog tables separately. See [Add a Genie Agent resource to an app](https://docs.databricks.com/aws/en/dev-tools/databricks-apps/genie).
 - **End users**: access to the Genie Agent (shared with them or via a group) and `SELECT` on the same tables. If the user doesn't have access, the call returns a 403. You don't write the permission check.
 
 ## Where to next

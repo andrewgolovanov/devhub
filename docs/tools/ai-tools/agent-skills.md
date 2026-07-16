@@ -20,16 +20,18 @@ databricks aitools install
 This requires the Databricks CLI to be installed. See [Databricks CLI](/docs/tools/databricks-cli) for installation instructions.
 :::
 
-The CLI detects which coding agents you have installed and links the skills into each agent's config directory from a shared location (`~/.databricks/aitools/skills/`).
+The CLI detects which coding agents you have installed. For agents with plugin support (Claude Code, Codex CLI, GitHub Copilot), it installs the `databricks` plugin through the agent's own CLI. Agents without a headless plugin install (Cursor, OpenCode, Antigravity) get raw skill files linked from a shared location (`~/.databricks/aitools/skills/`).
 
 The following flags are available for the `databricks aitools install` command:
 
-| Option           | Description                                                                           |
-| ---------------- | ------------------------------------------------------------------------------------- |
-| `--scope`        | Scope to apply: `global` (default), `project`, or `both` (`both` on update/uninstall) |
-| `--agents`       | Target specific agents (comma-separated, e.g. `--agents cursor,claude-code`)          |
-| `--skills`       | Install specific skills only (comma-separated)                                        |
-| `--experimental` | Include experimental skills                                                           |
+| Option           | Description                                                                          |
+| ---------------- | ------------------------------------------------------------------------------------ |
+| `--scope`        | Install scope: `project` or `global` (default: `global`, or prompt when interactive) |
+| `--agents`       | Target specific agents (comma-separated, e.g. `--agents cursor,claude-code`)         |
+| `--skills`       | Install specific skills only (comma-separated)                                       |
+| `--skills-only`  | Force raw skill files for every agent instead of the plugin                          |
+| `--path`         | Write resolved skill files to a directory (no agents, no state)                      |
+| `--experimental` | Include experimental skills                                                          |
 
 Run `databricks aitools install --help` for the full list of options.
 
@@ -41,13 +43,15 @@ databricks aitools update
 databricks aitools uninstall
 ```
 
-`update` fetches the latest release and auto-installs new skills. Pass `--check` to preview without downloading, `--no-new` to skip auto-installing new skills, or `--force` to re-download even if versions match.
+`update` fetches the latest release and auto-installs new skills. Pass `--check` to preview without downloading, `--no-new` to skip auto-installing new skills, `--no-prune` to keep skills that were removed from the manifest, or `--force` to re-download even if versions match.
 
-All commands accept `--scope=global` (default), `--scope=project`, or `--scope=both` to control scope.
+`uninstall` removes the plugin or skill files. Pass `--keep-marketplace` to keep the marketplace registration when removing a plugin.
+
+All commands accept `--scope` to control scope: `install` and `uninstall` take `project` or `global`; `update` and `list` also accept `both` (`list` defaults to `both`).
 
 ## Alternative install methods
 
-You can also install Databricks skills with the [Skills CLI](https://github.com/vercel-labs/skills) (e.g. `npx skills add databricks/databricks-agent-skills`) or directly from Cursor chat with `/add-plugin databricks-skills`. That said, `databricks aitools install` is the recommended method — it's maintained by Databricks and always installs the latest stable versions.
+You can also install Databricks skills with the [Skills CLI](https://github.com/vercel-labs/skills) (e.g. `npx skills add databricks/databricks-agent-skills`) or directly from Cursor chat with `/add-plugin databricks`. That said, `databricks aitools install` is the recommended method — it's maintained by Databricks and always installs the latest stable versions.
 
 ## Available skills
 
@@ -57,7 +61,6 @@ Run `databricks aitools list` to see available skills and their install status.
 | ---------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
 | `databricks-agent-bricks`                | Create Agent Bricks: Knowledge Assistants for document Q&A and Supervisor Agents for multi-agent orchestration. |
 | `databricks-ai-functions`                | Use Databricks built-in AI Functions (`ai_classify`, `ai_extract`, `ai_summarize`, `ai_query`, and more).       |
-| `databricks-ai-runtime`                  | Databricks AI Runtime (`air`) CLI for submitting and managing GPU training workloads on serverless compute.     |
 | `databricks-aibi-dashboards`             | Create Databricks AI/BI dashboards. Use when creating, updating, or deploying Lakeview dashboards.              |
 | `databricks-app-design`                  | Design the UX of custom-code Databricks Apps (AppKit/React) data screens mapped to concrete AppKit components.  |
 | `databricks-apps`                        | Build apps on the Databricks Apps platform.                                                                     |
@@ -68,7 +71,6 @@ Run `databricks aitools list` to see available skills and their install status.
 | `databricks-dbsql`                       | Databricks SQL (DBSQL) advanced features and SQL warehouse capabilities.                                        |
 | `databricks-docs`                        | Databricks documentation reference via `llms.txt` index.                                                        |
 | `databricks-execution-compute`           | Execute code and manage compute: run Python/Scala/SQL/R via serverless, classic, or interactive clusters.       |
-| `databricks-genie`                       | Create and query Databricks Genie Agents for natural language SQL exploration.                                  |
 | `databricks-iceberg`                     | Apache Iceberg tables on Databricks — Managed Iceberg, External Iceberg Reads, IRC, Iceberg v3, and more.       |
 | `databricks-jobs`                        | Develop and deploy Lakeflow Jobs via DABs, Python SDK, or the CLI.                                              |
 | `databricks-lakebase`                    | Databricks Lakebase Postgres: projects, scaling, connectivity, synced tables, and Data API.                     |
@@ -86,7 +88,14 @@ Run `databricks aitools list` to see available skills and their install status.
 | `databricks-unstructured-pdf-generation` | Build RAG / unstructured-document evaluation datasets and demo documents on Databricks.                         |
 | `databricks-vector-search`               | Databricks Vector Search endpoints and indexes for RAG and semantic search.                                     |
 | `databricks-zerobus-ingest`              | Build Zerobus Ingest clients for near real-time data ingestion into Databricks Delta tables via gRPC.           |
-| `spark-python-data-source`               | Build custom Python data sources for Apache Spark using the PySpark DataSource API.                             |
+
+The following skills are experimental. They install only when you pass `--experimental`, and `databricks aitools list` shows them under "Experimental skills":
+
+| Skill                      | Description                                                                                                 |
+| -------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `databricks-ai-runtime`    | Databricks AI Runtime (`air`) CLI for submitting and managing GPU training workloads on serverless compute. |
+| `databricks-genie`         | Create and query Databricks Genie Agents for natural language SQL exploration.                              |
+| `spark-python-data-source` | Build custom Python data sources for Apache Spark using the PySpark DataSource API.                         |
 
 ## Where to next
 

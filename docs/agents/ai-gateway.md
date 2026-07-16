@@ -109,7 +109,7 @@ The examples above use **named mode** with an explicit alias. Omit the config to
 
 You might see governance in two places in your workspace:
 
-- **Unity AI Gateway** (recommended): the current standalone product. Its **model services** are Unity Catalog objects managed under the **AI Gateway** sidebar entry, and you query them by fully qualified name through the Unity AI Gateway APIs (`https://<workspace>/ai-gateway/openai/v1` and the other provider paths), not through the Model Serving plugin. Usage logs to `system.ai_gateway.usage`.
+- **Unity AI Gateway** (recommended; Beta): the current standalone product. An account admin must enable it from the account console **Previews** page. Its **model services** are Unity Catalog objects managed under the **AI Gateway** sidebar entry, and you query them by fully qualified name through the Unity AI Gateway APIs (`https://<workspace>/ai-gateway/openai/v1` and the other provider paths), not through the Model Serving plugin. Usage logs to `system.ai_gateway.usage`.
 - **Previous version of AI Gateway**: features toggled on an existing Model Serving endpoint. Usage logs to `system.serving.endpoint_usage`. The Model Serving plugin calls these endpoints directly by name.
 
 The Model Serving plugin in this guide calls serving endpoints by name, including the Databricks-hosted foundation models (`databricks-` prefix). It does not call Unity AI Gateway model services; to use one, query its OpenAI-compatible API. See [Query model services](https://docs.databricks.com/aws/en/ai-gateway/query-model-services).

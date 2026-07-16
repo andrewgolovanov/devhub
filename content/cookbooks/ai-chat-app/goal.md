@@ -7,7 +7,7 @@ Work through the steps in the order below. Each one adds one concrete piece; by 
 1. **Spin Up a Databricks App** — scaffold a fresh AppKit Databricks App with `databricks apps init` (the meta-prompt above already verifies the CLI profile via [Set Up Your Local Dev Environment](/templates/set-up-your-local-dev-environment)).
 2. **Query Foundation Model Endpoints** — pick a chat model (e.g. `databricks-gpt-5-4-mini`) and wire up `createOpenAI()` with your workspace's `/serving-endpoints` base URL.
 3. **Streaming AI Chat with Model Serving** — add the `/api/chat` route with `streamText()` and a `useChat` UI backed by `TextStreamChatTransport`.
-4. **Create a Lakebase Instance** — provision a managed Postgres project, branch, and endpoint; capture the connection values.
+4. **Create a Lakebase Project** — provision a managed Postgres project, branch, and endpoint; capture the connection values.
 5. **Lakebase Data Persistence** — add the `lakebase()` plugin, schema setup, and CRUD plumbing against your new project.
 6. **Lakebase Agent Memory** — create the `chat.chats` and `chat.messages` tables and persist each turn of every conversation.
 
