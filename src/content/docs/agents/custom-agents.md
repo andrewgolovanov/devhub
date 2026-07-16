@@ -1,12 +1,12 @@
 ---
 title: Custom agent endpoints
 sidebar_label: Custom agents
-description: Call a Knowledge Assistant, Supervisor Agent, or custom Python agent from your AppKit app. Same Model Serving plugin wiring for all three.
+description: Call a Knowledge Assistant, Supervisor Agent, or custom Python agent from your AppKit app. Wire any of them into the Model Serving plugin.
 ---
 
 # Custom agent endpoints
 
-When your AppKit app needs more than a foundation model response or a Genie-style data query, you call a **custom agent**: an LLM shaped by instructions, tools, document grounding, or multi-agent orchestration. On Databricks, custom agents deploy as Model Serving endpoints, so the Model Serving plugin calls them like any foundation model.
+When your AppKit app needs more than a foundation model response or a Genie-style data query, you call a **custom agent**: an LLM shaped by instructions, tools, document grounding, or multi-agent orchestration. This page covers custom agents that your app reaches at a Model Serving endpoint, which the Model Serving plugin calls like any foundation model. If instead you want the agent to run inside your App, see the [agents plugin](/docs/appkit/v0/plugins/agents) (beta).
 
 ## Prerequisites
 
@@ -18,29 +18,37 @@ When your AppKit app needs more than a foundation model response or a Genie-styl
 
 Three Databricks products produce agent endpoints. The table summarizes when to use each; subsections below link to the setup docs.
 
-| Builder                                                                     | Use when                                                                                            | Setup                                                            |
-| --------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| [Knowledge Assistant](#knowledge-assistant)                                 | You need Q&A over documents (PDFs, Markdown, Office files) with citations                           | Click-through UI in the workspace                                |
-| [Agent Bricks Multi-Agent Supervisor](#agent-bricks-multi-agent-supervisor) | You need to coordinate existing Genie spaces, other agents, Unity Catalog functions, or MCP servers | Click-through UI in the workspace                                |
-| [Custom Python agent](#custom-python-agent)                                 | No builder fits; you need arbitrary orchestration, custom tools, or a proprietary framework         | Write Python with `ResponsesAgent`, deploy via `agents.deploy()` |
+| Builder                                     | Use when                                                                                            | Setup                                                                                                                                                              |
+| ------------------------------------------- | --------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| [Knowledge Assistant](#knowledge-assistant) | You need Q&A over documents (PDFs, Markdown, Office files) with citations                           | Click-through UI in the workspace                                                                                                                                  |
+| [Supervisor Agent](#supervisor-agent)       | You need to coordinate existing Genie Agents, other agents, Unity Catalog functions, or MCP servers | Click-through UI, or the [Supervisor API](https://docs.databricks.com/aws/en/agents/agent-bricks/supervisor-api)                                                   |
+| [Custom Python agent](#custom-python-agent) | No builder fits; you need arbitrary orchestration, custom tools, or a proprietary framework         | Write Python with `ResponsesAgent`, deploy to an endpoint via `agents.deploy()` (legacy path — prefer the [agents plugin](/docs/appkit/v0/plugins/agents) on Apps) |
 
 ### Knowledge Assistant
 
-Turns a folder of documents (plain text, PDFs, Markdown, Office files in a Unity Catalog volume) or a vector search index into a Q&A chatbot with source citations. Good for product docs, HR policies, support knowledge bases. Databricks builds and deploys the agent endpoint for you.
+Turns a folder of documents (plain text, PDFs, Markdown, Office files in a Unity Catalog volume) or an AI Search (formerly Vector Search) index into a Q&A chatbot with source citations. Good for product docs, HR policies, support knowledge bases. Databricks builds and deploys the agent endpoint for you.
 
-See [Knowledge Assistant](https://docs.databricks.com/aws/en/generative-ai/agent-bricks/knowledge-assistant).
+See [Knowledge Assistant](https://docs.databricks.com/aws/en/agents/agent-bricks/knowledge-assistant).
 
-### Agent Bricks Multi-Agent Supervisor
+### Supervisor Agent
 
-Coordinates subagents (Genie spaces, other agent endpoints, Unity Catalog functions, MCP servers) to complete a task, handling delegation and result synthesis. Good for workflows that span domains, for example searching research reports and querying usage data in the same conversation. Like Knowledge Assistant, the builder produces a single agent endpoint.
+Coordinates subagents (Genie Agents, other agent endpoints, Unity Catalog functions, MCP servers) to complete a task, handling delegation and result synthesis. Good for workflows that span domains, for example searching research reports and querying usage data in the same conversation. Like Knowledge Assistant, the builder produces a single agent endpoint.
 
-See [Agent Bricks Multi-Agent Supervisor](https://docs.databricks.com/aws/en/generative-ai/agent-bricks/multi-agent-supervisor) and the [Supervisor API](https://docs.databricks.com/aws/en/generative-ai/agent-bricks/supervisor-api) for response shapes and query parameters.
+See [Supervisor Agent](https://docs.databricks.com/aws/en/agents/agent-bricks/multi-agent-supervisor) and the [Supervisor API](https://docs.databricks.com/aws/en/agents/agent-bricks/supervisor-api) for response shapes and query parameters.
 
 ### Custom Python agent
 
-Author an agent in Python when neither builder covers your use case. The Databricks path is the `ResponsesAgent` interface plus a framework of your choice (OpenAI Agents SDK, LangGraph, LlamaIndex), with MLflow handling tracing. Agents deploy as Model Serving endpoints (via `agents.deploy()`) or as full Databricks Apps. The App-based path produces a standalone app, not an endpoint you'd call from another AppKit app.
+Author an agent in Python when neither builder covers your use case. The Databricks path is the `ResponsesAgent` interface plus a framework of your choice (OpenAI Agents SDK, LangGraph, LlamaIndex), with MLflow handling tracing. Databricks recommends deploying the agent on Databricks Apps; deploying to a Model Serving endpoint (via `agents.deploy()`) is a legacy path.
 
-See [Create an AI agent](https://docs.databricks.com/aws/en/generative-ai/agent-framework/create-agent) on docs.databricks.com. Authoring is out of scope for this page.
+:::note[Prefer building the agent on Apps]
+
+For an AppKit app, the recommended way to build a custom agent is the [agents plugin](/docs/appkit/v0/plugins/agents) (beta). The agent runs inside your App, so there's no separate serving endpoint to deploy or wire up.
+
+This page covers a narrower case: calling a custom agent as an endpoint from a separate AppKit app. That requires a Model Serving endpoint, either a builder (Knowledge Assistant, Supervisor Agent) or a deployed Python agent. Reach for it only when the agent must be a shared endpoint that several apps call, not the app itself.
+
+:::
+
+Authoring is out of scope for this page. For the Python (non-AppKit) track, where a `ResponsesAgent` agent is deployed to Apps, see [Author an AI agent](https://docs.databricks.com/aws/en/agents/agent-framework/author-agent) and [Migrate from Model Serving to Apps](https://docs.databricks.com/aws/en/agents/agent-framework/migrate-agent-to-apps) on docs.databricks.com.
 
 ## Wire it up
 
@@ -76,16 +84,18 @@ If streaming, responses arrive as `useServingStream` chunks; if non-streaming, `
 
 Broad patterns to expect:
 
-- **Knowledge Assistant**: text answers with source citations. The endpoint returns document references alongside the answer, ready to render as citations for verifiability. See [Knowledge Assistant](https://docs.databricks.com/aws/en/generative-ai/agent-bricks/knowledge-assistant#query-the-agent-endpoint).
-- **Agent Bricks Multi-Agent Supervisor**: a synthesized answer drawn from whatever subagents the supervisor routed to (Genie spaces, Knowledge Assistants, Unity Catalog functions, MCP servers). The MLflow trace captures the full sequence of model calls and tool executions.
+- **Knowledge Assistant**: text answers with source citations. The endpoint returns document references alongside the answer, ready to render as citations for verifiability. See [Knowledge Assistant](https://docs.databricks.com/aws/en/agents/agent-bricks/knowledge-assistant#query-the-agent-endpoint).
+- **Supervisor Agent**: a synthesized answer drawn from whatever subagents the supervisor routed to (Genie Agents, Knowledge Assistants, Unity Catalog functions, MCP servers). The MLflow trace captures the full sequence of model calls and tool executions.
 - **Custom Python agent**: whatever the author designed. Agents built on the `ResponsesAgent` interface use the OpenAI Responses API (`input` instead of `messages`).
 
 ## Per-user permissions
 
-Serving routes in AppKit run on behalf of the authenticated user by default. If the agent hits user-scoped data (for example a Supervisor Agent that routes to a Genie space the user can query), the user only sees the data they're allowed to see. No extra auth code.
+Serving routes in AppKit run on behalf of the authenticated user by default. If the agent hits user-scoped data (for example a Supervisor Agent that routes to a Genie Agent the user can query), the user only sees the data they're allowed to see. No extra auth code.
 
 For server logic outside the built-in plugin routes (for example, custom Express routes), call `AppKit.serving("assistant").asUser(req).invoke(...)` to keep per-user behavior. For background work without a request (scheduled tasks, workers), omit `asUser` and the call runs as the app's service principal.
 
 ## Where to next
 
 Try the [AI Chat App](/templates/ai-chat-app) for a complete AppKit and agent setup, or browse the [templates catalog](/templates) for more patterns.
+
+To host the agent inside your App instead, see the [agents plugin](/docs/appkit/v0/plugins/agents) (beta).

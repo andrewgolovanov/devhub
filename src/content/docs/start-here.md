@@ -14,8 +14,8 @@ DevHub is the developer resource for building **enterprise apps** with Databrick
 The Databricks platform combines a first-class developer experience with the production readiness and governance that large organizations need:
 
 - **Developer experience**: agent-first tooling lets anyone ship real apps fast, with coding agents doing the heavy lifting.
-- **Production readiness**: stable, zero-downtime deployments, horizontal scaling, and stateful sessions out of the box.
-- **Governance & administration**: workspace-level permissions and SSO apply automatically to every app, and per-app scale-to-zero and scale-to-one keep spend under control.
+- **Production readiness**: stable managed deployments out of the box, plus horizontal scaling (Beta) with zero-downtime rollouts and session affinity.
+- **Governance & administration**: workspace-level permissions and SSO apply automatically to every app, and per-app compute controls (fixed sizes, stop and start on demand) keep spend under control.
 
 ## Your workspace is the foundation
 

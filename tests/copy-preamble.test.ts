@@ -182,10 +182,10 @@ describe("composeAgentPrompt — recipe / cookbook / example", () => {
       templateName: "Lakebase Data Persistence",
       templateUrl: "http://localhost:3001/templates/lakebase-data-persistence",
       templateBody:
-        "See [Create a Lakebase Instance](/templates/lakebase-create-instance) for setup.",
+        "See [Create a Lakebase Project](/templates/lakebase-create-instance) for setup.",
     });
     expect(out).toContain(
-      "[Create a Lakebase Instance](http://localhost:3001/templates/lakebase-create-instance)",
+      "[Create a Lakebase Project](http://localhost:3001/templates/lakebase-create-instance)",
     );
     expect(out).not.toContain("](/templates/lakebase-create-instance)");
   });

@@ -40,7 +40,7 @@ const SIDEBAR_SECTIONS: Array<{
   {
     title: "Agent Bricks",
     description:
-      "Connect Agent Bricks agents, governed LLM endpoints, and Genie spaces to your AppKit app. Covers AI Gateway, the Model Serving plugin for calling LLM and agent endpoints, and the Genie plugin for natural-language data queries.",
+      "Connect Agent Bricks agents, governed LLM endpoints, and Genie Agents to your AppKit app. Covers Unity AI Gateway, the Model Serving plugin for calling LLM and agent endpoints, and the Genie plugin for natural-language data queries.",
     slugs: [
       "agents/overview",
       "agents/ai-gateway",

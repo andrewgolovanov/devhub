@@ -50,8 +50,8 @@ const PAGES = [
   { path: "/perspectives", title: "Perspectives" },
   { path: "/docs/start-here", title: "Start here" },
   { path: "/docs/agents/overview", title: "What is Agent Bricks?" },
-  { path: "/docs/agents/ai-gateway", title: "AI Gateway" },
-  { path: "/docs/agents/genie", title: "Genie spaces" },
+  { path: "/docs/agents/ai-gateway", title: "Unity AI Gateway" },
+  { path: "/docs/agents/genie", title: "Genie Agents" },
   { path: "/docs/agents/custom-agents", title: "Custom agent endpoints" },
   { path: "/docs/apps/quickstart", title: "Quickstart" },
   { path: "/docs/apps/configuration", title: "App configuration" },
@@ -522,8 +522,8 @@ test.describe("detail prose visual parity", () => {
       });
 
     expect(mobileTemplateLayout).toEqual({
-      cardHeight: 1266,
-      paragraphHeight: 216,
+      cardHeight: 1315,
+      paragraphHeight: 240,
     });
 
     await page.setViewportSize({ width: 1440, height: 1000 });
@@ -1193,13 +1193,13 @@ test.describe("docs MDX compatibility", () => {
       };
     });
 
-    expect(collapsedLayout.articleHeight).toBeGreaterThanOrEqual(6780);
-    expect(collapsedLayout.articleHeight).toBeLessThanOrEqual(6810);
+    expect(collapsedLayout.articleHeight).toBeGreaterThanOrEqual(6990);
+    expect(collapsedLayout.articleHeight).toBeLessThanOrEqual(7030);
     expect(collapsedLayout.exampleSummary).toBe(
       "Example databricks.yml with a project, dev branch, and read-only replica",
     );
     expect(collapsedLayout.hiddenHeadingVisible).toBe(false);
-    expect(collapsedLayout.longRunningOffsetFromArticleY).toBe(3960);
+    expect(collapsedLayout.longRunningOffsetFromArticleY).toBe(4119);
   });
 
   test("renders fenced code blocks nested inside ordered lists", async ({

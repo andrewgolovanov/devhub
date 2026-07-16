@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Check, Link as LinkIcon } from "lucide-react";
 
-function copyTextWithTextarea(value: string) {
+function copyTextWithTextarea(value: string): boolean {
   const textarea = document.createElement("textarea");
   textarea.value = value;
   textarea.setAttribute("readonly", "");
@@ -11,8 +11,14 @@ function copyTextWithTextarea(value: string) {
   textarea.style.top = "-9999px";
   document.body.appendChild(textarea);
   textarea.select();
-  document.execCommand("copy");
+  let copied = false;
+  try {
+    copied = document.execCommand("copy");
+  } catch {
+    copied = false;
+  }
   document.body.removeChild(textarea);
+  return copied;
 }
 
 export function HeadingCopyButton({ id }: { id: string }) {
@@ -21,14 +27,20 @@ export function HeadingCopyButton({ id }: { id: string }) {
   async function copyHeadingLink() {
     const url = `${window.location.origin}${window.location.pathname}#${id}`;
 
+    let succeeded = false;
     if (navigator.clipboard?.writeText) {
       try {
         await navigator.clipboard.writeText(url);
+        succeeded = true;
       } catch {
-        copyTextWithTextarea(url);
+        succeeded = copyTextWithTextarea(url);
       }
     } else {
-      copyTextWithTextarea(url);
+      succeeded = copyTextWithTextarea(url);
+    }
+
+    if (!succeeded) {
+      return;
     }
 
     setCopied(true);

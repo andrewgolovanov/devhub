@@ -12,7 +12,7 @@ title: Quickstart
 
 ## Template path
 
-Browse the templates below, pick one for your use case, and copy it into your AI coding assistant. Each includes the [Create a Lakebase Instance](/templates/lakebase-create-instance) resource, which walks through project creation and connection value collection.
+Browse the templates below, pick one for your use case, and copy it into your AI coding assistant. Each includes the [Create a Lakebase Project](/templates/lakebase-create-instance) resource, which walks through project creation and connection value collection.
 
 | Template                                                            | Best for                                                       |
 | ------------------------------------------------------------------- | -------------------------------------------------------------- |
@@ -56,6 +56,7 @@ Select **Lakebase** and the CLI walks you through selecting an existing project,
 
 ```bash
 databricks apps init --name my-app --features lakebase \
+  --set lakebase.postgres.project=projects/<project-id> \
   --set lakebase.postgres.branch=projects/<project-id>/branches/<branch-id> \
   --set lakebase.postgres.database=projects/<project-id>/branches/<branch-id>/databases/<database-id>
 ```

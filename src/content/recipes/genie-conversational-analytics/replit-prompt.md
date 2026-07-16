@@ -9,16 +9,16 @@ Use the Databricks connector for SQL verification of the existing tables, and us
 Ask for:
 
 - which Unity Catalog catalog/schema/tables the app already reads from
-- the Genie space to use for natural-language questions
+- the Genie Agent to use for natural-language questions
 - SQL Warehouse, if not already configured by the connector
 
-If the user does not already have a Genie space, ask whether to continue without conversational analytics, configure a Genie space in Databricks first, or use the PAT fallback for direct Genie API access if available.
+If the user does not already have a Genie Agent, ask whether to continue without conversational analytics, configure a Genie Agent in Databricks first, or use the PAT fallback for direct Genie API access if available.
 
 ## Additional Secrets
 
 If the user is on the PAT fallback path and wants direct Genie API access, also ask for:
 
-- `DATABRICKS_GENIE_SPACE_ID` — the Genie space ID to use for conversational analytics. The user can list their Genie spaces with the Databricks CLI — for example, `databricks api get /api/2.0/genie/spaces` — and copy the ID of the space they want to use.
+- `DATABRICKS_GENIE_SPACE_ID` — the Genie Agent ID to use for conversational analytics. The user can list their Genie Agents with the Databricks CLI — for example, `databricks api get /api/2.0/genie/spaces` — and copy the ID of the space they want to use.
 
 ## Features
 
@@ -36,7 +36,7 @@ The panel should integrate into the existing app's layout (sidebar, modal, drawe
 
 1. Resolve Databricks access per the general routing above.
 2. Verify warehouse access with `SELECT current_user()`.
-3. Ask for the existing tables and the Genie space.
+3. Ask for the existing tables and the Genie Agent.
 4. Add the Genie chat panel component and wire it into the existing app's layout.
 5. Add suggested-question chips generated from the configured tables.
 6. Add SQL preview/citations beneath query-backed answers.

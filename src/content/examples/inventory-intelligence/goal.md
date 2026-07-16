@@ -26,4 +26,4 @@ To make this template your own:
 - **Tables**: The seed script creates the OLTP schema with 5 stores, 25 products, and 90 days of sales history. After seeding, configure Change Data Feed to replicate the `inventory` schema tables.
 - **Sync Tables**: Manually create the three reverse sync configurations (see the README for the exact table mappings).
 - **Forecast Model**: Set the `forecast_model` variable in the demand forecast pipeline to `weighted_moving_average` (default), `exponential_smoothing`, `prophet`, or `model_serving`.
-- **Genie Space**: Create a Genie space over your gold tables and set the `genie_space_id` in the app bundle to activate the Analytics tab.
+- **Genie Agent**: Create a Genie Agent over your gold tables and set the `genie_space_id` in the app bundle to activate the Analytics tab.

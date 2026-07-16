@@ -15,7 +15,7 @@ Use it for the data your apps actively write and read at low latency: user state
 - **Runs inside your workspace**, eliminating VPC peering, cross-cloud credential management, and network latency.
 - **Instant branching** via copy-on-write storage creates isolated database copies in seconds, similar to git branches. Branches share unchanged data so they're cheap to create and maintain.
 - **Autoscales** with your workload, scaling up under load and back down when demand drops, within a configured min/max range. No capacity planning or manual resize.
-- **Scales to zero** when idle and resumes on the next query. No cost for idle compute. Development branches suspend by default after five minutes.
+- **Scales to zero** when idle and resumes on the next query. No cost for idle compute. The inactivity timeout defaults to 24 hours and can be set anywhere from 60 seconds to 7 days.
 
 ## How AppKit wires it up
 

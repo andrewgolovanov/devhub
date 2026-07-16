@@ -18,14 +18,14 @@ AppKit uses a three-layer architecture with plugins that register capabilities a
 - **Server**: Express HTTP server with Databricks OAuth built in. Plugins attach routes and middleware at this layer.
 - **Data**: Plugin-based access to Databricks resources. Each plugin wraps a resource type and exposes a typed API on the `AppKit` object.
 
-| Plugin                                             | What it adds                                                                                                                                                                            |
-| -------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [**server**](/docs/appkit/v0/plugins/server)       | Express HTTP server, static file serving, Vite dev mode (always included)                                                                                                               |
-| [**lakebase**](/docs/appkit/v0/plugins/lakebase)   | Postgres connection pool for [Lakebase Postgres](/docs/lakebase/quickstart) with automatic OAuth token refresh                                                                          |
-| [**analytics**](/docs/appkit/v0/plugins/analytics) | SQL query execution against [Databricks SQL Warehouses](https://docs.databricks.com/aws/en/compute/sql-warehouse/index.html). See [Analytical reads](/docs/lakehouse/analytical-reads). |
-| [**genie**](/docs/appkit/v0/plugins/genie)         | [Genie space](/docs/agents/genie) integration for natural-language data queries                                                                                                         |
-| [**serving**](/docs/appkit/v0/plugins/serving)     | Authenticated proxy to [Model Serving](/docs/agents/ai-gateway) endpoints with streaming support                                                                                        |
-| [**files**](/docs/appkit/v0/plugins/files)         | File operations against [Unity Catalog Volumes](https://docs.databricks.com/aws/en/files/index.html)                                                                                    |
+| Plugin                                               | What it adds                                                                                                                                                                  |
+| ---------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [**server**](/docs/appkit/v0/plugins/server)         | Express HTTP server, static file serving, Vite dev mode (always included)                                                                                                     |
+| [**lakebase**](/docs/appkit/v0/plugins/lakebase)     | Postgres connection pool for [Lakebase Postgres](/docs/lakebase/quickstart) with automatic OAuth token refresh                                                                |
+| [**analytics**](/docs/appkit/v0/plugins/analytics)   | SQL query execution against [Databricks SQL Warehouses](https://docs.databricks.com/aws/en/compute/sql-warehouse/). See [Analytical reads](/docs/lakehouse/analytical-reads). |
+| [**genie**](/docs/appkit/v0/plugins/genie)           | [Genie Agent](/docs/agents/genie) integration for natural-language data queries                                                                                               |
+| [**serving**](/docs/appkit/v0/plugins/model-serving) | Authenticated proxy to [Model Serving](/docs/agents/ai-gateway) endpoints with streaming support                                                                              |
+| [**files**](/docs/appkit/v0/plugins/files)           | File operations against [Unity Catalog Volumes](https://docs.databricks.com/aws/en/files/)                                                                                    |
 
 ## How auth works
 
@@ -40,7 +40,7 @@ Apps are about **interactivity**, not only analytics. A dashboard is great for r
 ## When not to use it
 
 - **Static sites with no Databricks data access.** Host these anywhere.
-- **Public-facing or customer-facing apps.** By default, users must be authenticated identities in your Databricks workspace. For external or customer-facing access, see [App Users](https://docs.databricks.com/aws/en/dev-tools/databricks-apps/key-concepts/#app-users).
+- **Public-facing or customer-facing apps.** By default, users must be authenticated identities in your Databricks account (they don't need to belong to the app's workspace). For external or customer-facing access, see [App Users](https://docs.databricks.com/aws/en/dev-tools/databricks-apps/key-concepts/#app-sharing).
 - **Pure read-only dashboards** that AI/BI [Dashboards](https://docs.databricks.com/aws/en/dashboards/) already cover. Use a dashboard until you need to persist user input or run custom logic on top of it.
 
 ## Where to next

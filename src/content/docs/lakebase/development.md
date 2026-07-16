@@ -47,6 +47,8 @@ lakebase({
 });
 ```
 
+The `max: 10` default applies to the shared service-principal pool. Per-user on-behalf-of pools (created by `asUser(req)`) default to `max: 3`.
+
 ### Caching integration
 
 Lakebase Postgres also backs the [AppKit caching plugin](/docs/appkit/v0/plugins/caching) when healthy. For the full API, ORM integration, and connection configuration, read the [plugin reference](/docs/appkit/v0/plugins/lakebase).
@@ -69,9 +71,9 @@ Lakebase Postgres authenticates database connections using OAuth tokens or nativ
 
 If you created the Lakebase Postgres project, your identity already has the access it needs. After `databricks apps deploy` runs once, `npm run dev` works.
 
-For collaborators and other identities that need local read/write access, add them in the Lakebase UI: open **Branch Overview**, click **Add role**, select the identity, and check the `databricks_superuser` system role.
+For collaborators and other identities that need local read/write access, add them in the Lakebase UI: open the branch's **Roles & Databases** tab, click **Add role**, choose the identity on the **OAuth** tab, and check the `databricks_superuser` system role.
 
-[Postgres password authentication](https://docs.databricks.com/aws/en/oltp/projects/authentication#overview) is a simpler alternative that avoids OAuth role setup. Set a password in the Branch Overview page and use it as `PGPASSWORD` in `.env`.
+[Postgres password authentication](https://docs.databricks.com/aws/en/oltp/projects/authentication#overview) is an alternative that avoids OAuth token refresh. Password connections are disabled by default for new projects: enable them under project **Settings** > **Database connections**, then create a password role from the branch's **Roles & Databases** tab (**Add role** > **Password**), copy the generated password, and use it as `PGPASSWORD` in `.env`.
 
 You can also generate a short-lived credential for use with any PostgreSQL client (DBeaver, pgAdmin, DataGrip, or a language driver):
 
@@ -95,6 +97,7 @@ databricks postgres create-branch \
   projects/$PROJECT_ID \
   $BRANCH_ID \
   --json '{"spec": {"source_branch": "projects/$PROJECT_ID/branches/$SOURCE_BRANCH_ID", "no_expiry": true}}' \
+  --replace-existing \
   --debug \
   -o json \
   --target $TARGET \
@@ -106,17 +109,18 @@ databricks postgres create-branch \
 <details>
 <summary>Options</summary>
 
-| Option      | Required | Description                                                                                                                                                                 |
-| ----------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `PARENT`    | yes      | Project resource path: `projects/{project_id}`                                                                                                                              |
-| `BRANCH_ID` | yes      | Unique branch identifier (1-63 chars, lowercase)                                                                                                                            |
-| `--json`    | no       | JSON spec with `source_branch` and expiration policy (`no_expiry`, `ttl`, or `expire_time`). If omitted, branches from the project's default branch with default expiration |
-| `--no-wait` | no       | Return immediately with operation details                                                                                                                                   |
-| `--timeout` | no       | Max time to wait for completion                                                                                                                                             |
-| `--debug`   | no       | Enable debug logging                                                                                                                                                        |
-| `-o json`   | no       | Output as JSON (default: text)                                                                                                                                              |
-| `--target`  | no       | Bundle target to use (if applicable)                                                                                                                                        |
-| `--profile` | no       | Databricks CLI profile name                                                                                                                                                 |
+| Option               | Required | Description                                                                                                                                                                 |
+| -------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `PARENT`             | yes      | Project resource path: `projects/{project_id}`                                                                                                                              |
+| `BRANCH_ID`          | yes      | Unique branch identifier (1-63 chars, lowercase)                                                                                                                            |
+| `--json`             | no       | JSON spec with `source_branch` and expiration policy (`no_expiry`, `ttl`, or `expire_time`). If omitted, branches from the project's default branch with default expiration |
+| `--replace-existing` | no       | Update the branch if it already exists instead of returning an error                                                                                                        |
+| `--no-wait`          | no       | Return immediately with operation details                                                                                                                                   |
+| `--timeout`          | no       | Max time to wait for completion                                                                                                                                             |
+| `--debug`            | no       | Enable debug logging                                                                                                                                                        |
+| `-o json`            | no       | Output as JSON (default: text)                                                                                                                                              |
+| `--target`           | no       | Bundle target to use (if applicable)                                                                                                                                        |
+| `--profile`          | no       | Databricks CLI profile name                                                                                                                                                 |
 
 </details>
 
@@ -131,6 +135,7 @@ databricks postgres delete-branch projects/my-project/branches/feature-xyz
 ```bash title="All Options"
 databricks postgres delete-branch \
   projects/$PROJECT_ID/branches/$BRANCH_ID \
+  --purge \
   --no-wait \
   --timeout 10m \
   --debug \
@@ -142,15 +147,16 @@ databricks postgres delete-branch \
 <details>
 <summary>Options</summary>
 
-| Option      | Required | Description                                                        |
-| ----------- | -------- | ------------------------------------------------------------------ |
-| `NAME`      | yes      | Branch resource path: `projects/{project_id}/branches/{branch_id}` |
-| `--no-wait` | no       | Return immediately with operation details                          |
-| `--timeout` | no       | Max time to wait for completion                                    |
-| `--debug`   | no       | Enable debug logging                                               |
-| `-o json`   | no       | Output as JSON (default: text)                                     |
-| `--target`  | no       | Bundle target to use (if applicable)                               |
-| `--profile` | no       | Databricks CLI profile name                                        |
+| Option      | Required | Description                                                           |
+| ----------- | -------- | --------------------------------------------------------------------- |
+| `NAME`      | yes      | Branch resource path: `projects/{project_id}/branches/{branch_id}`    |
+| `--purge`   | no       | Permanently delete the branch; if omitted, the branch is soft-deleted |
+| `--no-wait` | no       | Return immediately with operation details                             |
+| `--timeout` | no       | Max time to wait for completion                                       |
+| `--debug`   | no       | Enable debug logging                                                  |
+| `-o json`   | no       | Output as JSON (default: text)                                        |
+| `--target`  | no       | Bundle target to use (if applicable)                                  |
+| `--profile` | no       | Databricks CLI profile name                                           |
 
 </details>
 
@@ -382,6 +388,8 @@ databricks postgres generate-database-credential \
 ```bash title="All Options"
 databricks postgres generate-database-credential \
   projects/$PROJECT_ID/branches/$BRANCH_ID/endpoints/$ENDPOINT_ID \
+  --expire-time $EXPIRE_TIME \
+  --ttl $TTL \
   --json '{}' \
   --debug \
   --target $TARGET \
@@ -392,14 +400,16 @@ databricks postgres generate-database-credential \
 <details>
 <summary>Options</summary>
 
-| Option      | Required | Description                                                                                  |
-| ----------- | -------- | -------------------------------------------------------------------------------------------- |
-| `ENDPOINT`  | yes      | Endpoint resource path: `projects/{project_id}/branches/{branch_id}/endpoints/{endpoint_id}` |
-| `--json`    | no       | Inline JSON or `@path/to/file.json` with request body                                        |
-| `--debug`   | no       | Enable debug logging                                                                         |
-| `-o json`   | no       | Output as JSON (default: text)                                                               |
-| `--target`  | no       | Bundle target to use (if applicable)                                                         |
-| `--profile` | no       | Databricks CLI profile name                                                                  |
+| Option          | Required | Description                                                                                  |
+| --------------- | -------- | -------------------------------------------------------------------------------------------- |
+| `ENDPOINT`      | yes      | Endpoint resource path: `projects/{project_id}/branches/{branch_id}/endpoints/{endpoint_id}` |
+| `--expire-time` | no       | Timestamp in UTC of when the credential should expire                                        |
+| `--ttl`         | no       | Requested time-to-live for the generated credential token                                    |
+| `--json`        | no       | Inline JSON or `@path/to/file.json` with request body                                        |
+| `--debug`       | no       | Enable debug logging                                                                         |
+| `-o json`       | no       | Output as JSON (default: text)                                                               |
+| `--target`      | no       | Bundle target to use (if applicable)                                                         |
+| `--profile`     | no       | Databricks CLI profile name                                                                  |
 
 </details>
 
@@ -489,7 +499,7 @@ For multiple fields, use a comma-separated update mask (for example, `spec.autos
 For Databricks Apps configuration issues (resources in `databricks.yml` and `app.yaml`), [Add a Lakebase resource to a Databricks app](https://docs.databricks.com/aws/en/dev-tools/databricks-apps/lakebase) has the resource and environment variable reference. For connection problems including idle wake-up and endpoint format, [Troubleshooting in Connect external apps](https://docs.databricks.com/aws/en/oltp/projects/external-apps-connect#troubleshooting) has fixes.
 
 - **`permission denied for schema app` (deployed app)**: `npm run dev` ran before `databricks apps deploy`, so the schema is owned by your personal credentials and the app's service principal can't access it. _(PostgreSQL schema ownership is tied to the role that created it and cannot be reassigned by regular users.)_ If you have data to preserve, export it first (`pg_dump` or copy tables to a temporary schema) before dropping. Then drop the schema and redeploy — the SP recreates it on startup: `databricks psql --project <project-id> -- -c "DROP SCHEMA IF EXISTS app CASCADE;"` then `databricks apps deploy`.
-- **`permission denied for schema app` (local dev, collaborator)**: Only the Lakebase project creator has `databricks_superuser` access automatically. To grant a teammate local access, the project creator opens **Branch Overview** in the Lakebase UI, clicks **Add role**, selects the teammate's identity, and checks `databricks_superuser`. Postgres password auth is a simpler alternative: set a password in **Branch Overview** and add `PGPASSWORD=<password>` to `.env`.
+- **`permission denied for schema app` (local dev, collaborator)**: Only the Lakebase project creator has `databricks_superuser` access automatically. To grant a teammate local access, the project creator opens the branch's **Roles & Databases** tab in the Lakebase UI, clicks **Add role**, selects the teammate's identity on the **OAuth** tab, and checks `databricks_superuser`. Postgres password auth is an alternative: enable password connections under project **Settings** > **Database connections**, create a password role (**Add role** > **Password**), and add the generated password as `PGPASSWORD=<password>` in `.env`.
 - **`Unknown field path in update_mask: 'spec.suspend_timeout_duration'`**: Use `spec.suspension` as the update mask for all endpoint-level suspension changes with `update-endpoint`. To disable scale to zero, pass `{"spec": {"no_suspension": true}}`; to change the timeout, pass `{"spec": {"suspend_timeout_duration": "300s"}}`. Setting `no_suspension: false` is not supported.
 - **Connection refused after period of inactivity**: Lakebase Autoscaling scales to zero when idle. The first connection after inactivity triggers a wake-up and may take a few seconds. If your connection library doesn't retry automatically, add a short retry loop.
 

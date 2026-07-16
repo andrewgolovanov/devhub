@@ -98,6 +98,7 @@ databricks apps init --name my-app
 databricks apps init \
   --name $APP_NAME \
   --features lakebase,analytics \
+  --set lakebase.postgres.project=projects/$PROJECT_ID \
   --set lakebase.postgres.branch=projects/$PROJECT_ID/branches/production \
   --set lakebase.postgres.database=projects/$PROJECT_ID/branches/production/databases/$DB_NAME \
   --set analytics.sql-warehouse.id=$WAREHOUSE_ID \
@@ -107,6 +108,7 @@ databricks apps init \
   --branch $BRANCH \
   --deploy \
   --run none \
+  --skip-install \
   --version $APPKIT_VERSION \
   --debug \
   -o json \
@@ -118,23 +120,24 @@ databricks apps init \
 <details>
 <summary>Options</summary>
 
-| Option          | Required | Description                                                                                             |
-| --------------- | -------- | ------------------------------------------------------------------------------------------------------- |
-| `--name`        | no       | App name (lowercase, hyphenated, 26 chars max). Suppresses prompts and applies defaults for other flags |
-| `--features`    | no       | Comma-separated plugins to enable (for example, `lakebase`, `analytics`, `genie`)                       |
-| `--set`         | no       | Resource values: `plugin.resourceKey.field=value`. Multi-field resources require all fields together    |
-| `--description` | no       | App description                                                                                         |
-| `--output-dir`  | no       | Directory to write the project to                                                                       |
-| `--deploy`      | no       | Deploy the app after creation                                                                           |
-| `--run`         | no       | Run after creation: `none`, `dev`, or `dev-remote`                                                      |
-| `--template`    | no       | Template path (local directory or GitHub URL)                                                           |
-| `--branch`      | no       | Git branch or tag (for GitHub templates, mutually exclusive with `--version`)                           |
-| `--version`     | no       | AppKit version to use (default: latest release, `latest` for main branch)                               |
-| `--debug`       | no       | Enable debug logging                                                                                    |
-| `-o json`       | no       | Output as JSON (default: text)                                                                          |
-| `--target`      | no       | Bundle target to use (if applicable)                                                                    |
-| `--var`         | no       | Set values for bundle config variables (for example, `--var="key=value"`)                               |
-| `--profile`     | no       | Databricks CLI profile name                                                                             |
+| Option           | Required | Description                                                                                             |
+| ---------------- | -------- | ------------------------------------------------------------------------------------------------------- |
+| `--name`         | no       | App name (lowercase, hyphenated, 26 chars max). Suppresses prompts and applies defaults for other flags |
+| `--features`     | no       | Comma-separated plugins to enable (for example, `lakebase`, `analytics`, `genie`)                       |
+| `--set`          | no       | Resource values: `plugin.resourceKey.field=value`. Multi-field resources require all fields together    |
+| `--description`  | no       | App description                                                                                         |
+| `--output-dir`   | no       | Directory to write the project to                                                                       |
+| `--deploy`       | no       | Deploy the app after creation                                                                           |
+| `--run`          | no       | Run after creation: `none`, `dev`, or `dev-remote`                                                      |
+| `--skip-install` | no       | Skip installing project dependencies (for example, `npm install`). Cannot be combined with `--run`      |
+| `--template`     | no       | Template path (local directory or GitHub URL)                                                           |
+| `--branch`       | no       | Git branch or tag (for GitHub templates, mutually exclusive with `--version`)                           |
+| `--version`      | no       | AppKit version to use (default: latest release, `latest` for main branch)                               |
+| `--debug`        | no       | Enable debug logging                                                                                    |
+| `-o json`        | no       | Output as JSON (default: text)                                                                          |
+| `--target`       | no       | Bundle target to use (if applicable)                                                                    |
+| `--var`          | no       | Set values for bundle config variables (for example, `--var="key=value"`)                               |
+| `--profile`      | no       | Databricks CLI profile name                                                                             |
 
 </details>
 

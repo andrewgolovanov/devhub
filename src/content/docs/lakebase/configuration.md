@@ -75,12 +75,12 @@ Project, branch, endpoint, and database IDs must be 1-63 characters, start with 
 
 Computes autoscale between a configured min and max compute unit (CU) range. Default settings by branch type when created via API or CLI:
 
-- **Production branch**: 1 CU (min and max), scale to zero disabled.
-- **Child branches**: 1 CU (min and max), scale to zero enabled (5-minute default).
+- **Production branch**: 1 CU (min and max), scale to zero enabled (24-hour default timeout).
+- **Child branches**: 1 CU (min and max), scale to zero enabled (24-hour default timeout).
 
 The Lakebase Postgres UI sets higher defaults: 8–16 CU for production and 2–4 CU for child branches.
 
-[Autoscaling](https://docs.databricks.com/aws/en/oltp/projects/autoscaling) is supported from 0.5 to 32 CU; computes from 36 to 112 CU are fixed size. The difference between max and min cannot exceed 16 CU (`max - min <= 16`).
+[Autoscaling](https://docs.databricks.com/aws/en/oltp/projects/autoscaling) is available for computes up to 64 CU (128 GB). For workloads requiring more than 64 CU, larger fixed-size computes are available. The difference between max and min cannot exceed 16 CU (`max - min <= 16`).
 
 Compute units (CU) are the capacity measure for Lakebase Postgres. Each CU provides approximately 2 GB of RAM.
 
@@ -130,17 +130,19 @@ databricks postgres update-endpoint \
 
 [Scale to zero](https://docs.databricks.com/aws/en/oltp/projects/scale-to-zero) suspends idle computes to eliminate costs. When a new query arrives, the compute resumes automatically (typically a few hundred milliseconds).
 
-| Setting         | Default    |
-| --------------- | ---------- |
-| Timeout         | 5 minutes  |
-| Minimum timeout | 60 seconds |
+| Setting         | Value                |
+| --------------- | -------------------- |
+| Default timeout | 24 hours             |
+| Timeout range   | 60 seconds to 7 days |
 
-Apps connecting to a scaled-down compute will see a brief pause on the first query. Implement connection retry logic in your app.
+For development branches, shorter timeouts (for example 30 minutes) reduce costs further. Apps connecting to a scaled-down compute will see a brief pause on the first query. Implement connection retry logic in your app.
 
 When a compute resumes, session context resets (temporary tables, prepared statements, session settings, connection pools).
 
 <details>
 <summary>Configure scale to zero</summary>
+
+The `300s` values below are illustrative custom timeouts, not the default (the default is 24 hours). Set any value from 60 seconds to 7 days.
 
 **Project defaults** (new branches inherit these settings):
 

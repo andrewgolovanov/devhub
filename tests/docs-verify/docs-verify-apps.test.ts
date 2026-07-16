@@ -35,10 +35,13 @@ afterAll(() => {
 describe("CLI prerequisites", { timeout: 30_000 }, () => {
   test("databricks CLI is installed and meets minimum version", () => {
     const version = execSync("databricks -v", { encoding: "utf-8" }).trim();
-    expect(version).toMatch(/Databricks CLI v0\.\d+\.\d+/);
-    const match = version.match(/v0\.(\d+)\.\d+/);
+    expect(version).toMatch(/Databricks CLI v\d+\.\d+\.\d+/);
+    const match = version.match(/v(\d+)\.(\d+)\.\d+/);
     expect(match).not.toBeNull();
-    expect(Number(match![1])).toBeGreaterThanOrEqual(295);
+    const major = Number(match![1]);
+    const minor = Number(match![2]);
+    // Minimum: v1.0.0, or the pre-1.0 floor of v0.295.0
+    expect(major >= 1 || minor >= 295).toBe(true);
   });
 
   test("profile is authenticated and valid", () => {
@@ -162,6 +165,7 @@ describe("Scaffold app with Lakebase feature", { timeout: 120_000 }, () => {
       profile: PROFILE,
       features: "lakebase",
       setFlags: [
+        "lakebase.postgres.project=projects/fake",
         "lakebase.postgres.branch=projects/fake/branches/production",
         "lakebase.postgres.database=projects/fake/branches/production/databases/databricks_postgres",
         "lakebase.postgres.databaseName=databricks_postgres",

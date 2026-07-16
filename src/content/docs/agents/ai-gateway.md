@@ -1,12 +1,12 @@
 ---
-title: AI Gateway
-sidebar_label: AI Gateway
-description: Call governed LLM endpoints from your AppKit app using the Model Serving plugin. AI Gateway adds rate limits, usage tracking, guardrails, and cost attribution.
+title: Unity AI Gateway
+sidebar_label: Unity AI Gateway
+description: Call governed LLM endpoints from your AppKit app using the Model Serving plugin. Unity AI Gateway adds rate limits, usage tracking, guardrails, and cost attribution.
 ---
 
-# AI Gateway
+# Unity AI Gateway
 
-**AI Gateway** is a Databricks governance layer for LLM endpoints and MCP servers. It tracks usage, enforces rate limits, logs payloads, filters unsafe content and PII, and attributes cost. See the [AI Gateway overview](https://docs.databricks.com/aws/en/ai-gateway/) for a full product introduction. From your AppKit app, you call a governed endpoint with the Model Serving plugin. This page covers the AppKit wiring, the governance features, and the CLI for inspecting and provisioning endpoints.
+**Unity AI Gateway** is a Databricks governance layer for LLM endpoints and MCP servers. It tracks usage, enforces rate limits, logs payloads, filters unsafe content and PII, and attributes cost. See the [Unity AI Gateway overview](https://docs.databricks.com/aws/en/ai-gateway/) for a full product introduction. From your AppKit app, you call a governed endpoint with the Model Serving plugin. This page covers the AppKit wiring, the governance features, and the CLI for inspecting and provisioning endpoints.
 
 ## Prerequisites
 
@@ -16,7 +16,7 @@ description: Call governed LLM endpoints from your AppKit app using the Model Se
 
 ## Call a governed endpoint from AppKit
 
-The [Model Serving plugin](/docs/appkit/v0/plugins/serving) handles the HTTP plumbing, auth, and streaming. Endpoint names come from environment variables at runtime, so the same code runs locally and in production.
+The [Model Serving plugin](/docs/appkit/v0/plugins/model-serving) handles the HTTP plumbing, auth, and streaming. Endpoint names come from environment variables at runtime, so the same code runs locally and in production.
 
 ### Register the plugin
 
@@ -107,13 +107,17 @@ The examples above use **named mode** with an explicit alias. Omit the config to
 
 :::note[Two surfaces, one plugin]
 
-You might see AI Gateway in two places in your workspace:
+You might see governance in two places in your workspace:
 
-- **Classic**: features toggled on an existing Model Serving endpoint. Usage logs to `system.serving.endpoint_usage`. The Model Serving plugin calls these endpoints directly.
-- **Beta standalone**: a separate product with its own endpoints under the **LLMs** tab of the AI Gateway UI. Usage logs to `system.ai_gateway.usage`. The Model Serving plugin doesn't call these directly. For Databricks-hosted Beta endpoints, click **View legacy endpoint** in the workspace UI to get the underlying Model Serving endpoint name, then point the plugin at that.
+- **Unity AI Gateway** (recommended; Beta): the current standalone product. An account admin must enable it from the account console **Previews** page. Its **model services** are Unity Catalog objects managed under the **AI Gateway** sidebar entry, and you query them by fully qualified name through the Unity AI Gateway APIs (`https://<workspace>/ai-gateway/openai/v1` and the other provider paths), not through the Model Serving plugin. Usage logs to `system.ai_gateway.usage`.
+- **Previous version of AI Gateway**: features toggled on an existing Model Serving endpoint. Usage logs to `system.serving.endpoint_usage`. The Model Serving plugin calls these endpoints directly by name.
 
-- [AI Gateway landing](https://docs.databricks.com/aws/en/ai-gateway/)
-- [AI Gateway for LLM endpoints](https://docs.databricks.com/aws/en/ai-gateway/overview-beta)
+The Model Serving plugin in this guide calls serving endpoints by name, including the Databricks-hosted foundation models (`databricks-` prefix). It does not call Unity AI Gateway model services; to use one, query its OpenAI-compatible API. See [Query model services](https://docs.databricks.com/aws/en/ai-gateway/query-model-services).
+
+For more detail, see:
+
+- [Unity AI Gateway](https://docs.databricks.com/aws/en/ai-gateway/)
+- [Previous version: AI Gateway on model serving endpoints](https://docs.databricks.com/aws/en/ai-gateway/overview-serving-endpoints)
 - [Configure AI Gateway on model serving endpoints](https://docs.databricks.com/aws/en/ai-gateway/configure-ai-gateway-endpoints)
 
 :::
@@ -131,9 +135,9 @@ AI Gateway features vary by endpoint type. Configure them in the workspace UI or
 | **Fallbacks**         | Route to backup endpoints on failure                                 |
 | **Traffic splitting** | Split traffic across multiple served entities                        |
 
-See [Configure AI Gateway on serving endpoints](https://docs.databricks.com/aws/en/ai-gateway/configure-ai-gateway-endpoints) for the full configuration guide. For the newer standalone experience, see [AI Gateway for LLM endpoints](https://docs.databricks.com/aws/en/ai-gateway/overview-beta).
+See [Configure AI Gateway on serving endpoints](https://docs.databricks.com/aws/en/ai-gateway/configure-ai-gateway-endpoints) for the full configuration guide, or [Unity AI Gateway](https://docs.databricks.com/aws/en/ai-gateway/) for governing model services.
 
-AI Gateway also governs MCP server access. AppKit apps don't configure this directly. It applies when an agent endpoint you call (for example ABMAS or a custom Python agent) routes to an MCP server internally. See [custom agent endpoints](/docs/agents/custom-agents).
+Unity AI Gateway also governs MCP server access. AppKit apps don't configure this directly. It applies when an agent endpoint you call (for example a Supervisor Agent or a custom Python agent) routes to an MCP server internally. See [custom agent endpoints](/docs/agents/custom-agents).
 
 ## List available endpoints
 
@@ -322,12 +326,12 @@ Wait for the endpoint to reach `READY` state before querying it. For a step-by-s
 
 ## Coding agent integrations
 
-AI Gateway can also govern AI coding tools. Route requests from Cursor, Codex CLI, and Gemini CLI through a Databricks AI Gateway endpoint to get one invoice, one usage dashboard, and one place to manage permissions and rate limits across your organization.
+Unity AI Gateway can also govern AI coding tools. Route requests from Cursor, Codex CLI, and Gemini CLI through Unity AI Gateway model services to get one invoice, one usage dashboard, and one place to manage permissions and rate limits across your organization.
 
-To set up an integration, open **AI Gateway** in your workspace sidebar, go to the **LLMs** tab, and open the **Coding agents** section. Follow the tool-specific instructions (base URL, API key, model provider).
+Databricks recommends [`ucode`](https://github.com/databricks/ucode), a CLI that installs, authenticates, and configures supported coding agents against Unity AI Gateway in one command. You can also configure an agent by hand with its base URL and a Databricks token.
 
-See [Integrate with coding agents](https://docs.databricks.com/aws/en/ai-gateway/coding-agent-integration-beta) for the full walkthrough and the current list of supported tools.
+See [Integrate with coding agents](https://docs.databricks.com/aws/en/ai-gateway/coding-agent-integration-model-services) for the `ucode` setup steps, the manual configuration option, and the current list of supported tools.
 
 ## Where to next
 
-Try the [AI Chat App](/templates/ai-chat-app) to wire a governed endpoint into your app, or explore the other agent capabilities: [Genie spaces](/docs/agents/genie) or [Custom agent endpoints](/docs/agents/custom-agents).
+Try the [AI Chat App](/templates/ai-chat-app) to wire a governed endpoint into your app, or explore the other agent capabilities: [Genie Agents](/docs/agents/genie) or [Custom agent endpoints](/docs/agents/custom-agents).

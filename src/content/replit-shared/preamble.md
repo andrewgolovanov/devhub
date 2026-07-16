@@ -33,7 +33,7 @@ If the user wants the native connector instead, tell them it requires Replit Ent
 If a Databricks call fails because the connector or PAT lacks permission:
 
 - Explain the failed operation
-- Ask whether to use a different table/space/volume, switch to read-only mode, or request Databricks permissions
+- Ask whether to use a different table/Genie Agent/volume, switch to read-only mode, or request Databricks permissions
 - Do not silently switch to local-only mock data or storage
 
 The source of truth for the data, files, and analytics this app shows should remain Databricks.
