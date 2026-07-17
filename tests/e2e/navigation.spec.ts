@@ -210,6 +210,7 @@ test.describe("mobile navigation", () => {
       );
       await expect(lakebase).toHaveCSS("color", "rgb(28, 29, 34)");
 
+      const headerBox = await header.boundingBox();
       const menuBox = await menu.boundingBox();
       const homeBox = await home.boundingBox();
       const productLabelBox = await productLabel.boundingBox();
@@ -219,6 +220,7 @@ test.describe("mobile navigation", () => {
       const docsBox = await docs.boundingBox();
 
       if (
+        !headerBox ||
         !menuBox ||
         !homeBox ||
         !productLabelBox ||
@@ -230,24 +232,28 @@ test.describe("mobile navigation", () => {
         throw new Error("Expected mobile menu layout to be measurable");
       }
 
+      // Announcement banners (e.g. the hackathon banner) render above the
+      // header and shift the whole menu down, so measure from the header's top.
+      const offsetY = Math.round(headerBox.y);
+
       expect(Math.round(menuBox.x)).toBe(0);
-      expect(Math.round(menuBox.y)).toBe(56);
+      expect(Math.round(menuBox.y)).toBe(offsetY + 56);
       expect(Math.round(menuBox.width)).toBe(viewport.width);
       expect(Math.round(homeBox.x)).toBe(20);
-      expect(Math.round(homeBox.y)).toBe(70);
+      expect(Math.round(homeBox.y)).toBe(offsetY + 70);
       expect(Math.round(productLabelBox.x)).toBe(61);
-      expect(Math.round(productLabelBox.y)).toBe(102);
+      expect(Math.round(productLabelBox.y)).toBe(offsetY + 102);
       expect(Math.round(lakebaseBox.x)).toBe(100);
-      expect(Math.round(lakebaseBox.y)).toBe(132);
+      expect(Math.round(lakebaseBox.y)).toBe(offsetY + 132);
       expect(Math.round(lakebaseBox.width)).toBe(viewport.highlightWidth);
       expect(Math.round(solutionsBox.x)).toBe(viewport.sectionX);
-      expect(Math.round(solutionsBox.y)).toBe(236);
+      expect(Math.round(solutionsBox.y)).toBe(offsetY + 236);
       expect(Math.round(solutionsBox.width)).toBe(viewport.sectionClickWidth);
       expect(Math.round(templatesBox.x)).toBe(viewport.sectionX);
-      expect(Math.round(templatesBox.y)).toBe(270);
+      expect(Math.round(templatesBox.y)).toBe(offsetY + 270);
       expect(Math.round(templatesBox.width)).toBe(viewport.sectionClickWidth);
       expect(Math.round(docsBox.x)).toBe(viewport.sectionX);
-      expect(Math.round(docsBox.y)).toBe(304);
+      expect(Math.round(docsBox.y)).toBe(offsetY + 304);
       expect(Math.round(docsBox.width)).toBe(viewport.sectionClickWidth);
     });
   }

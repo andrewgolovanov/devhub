@@ -13,6 +13,9 @@ export const metadata: Metadata = {
     template: "%s | Databricks Developer",
   },
   description: "Build and deploy data apps and AI agents on Databricks.",
+  verification: {
+    google: "r9cgLLCpOwLqma0I_MXet4Ix8AK6v_UNHMe1CHsfNr8",
+  },
   manifest: "/manifest.webmanifest",
   icons: {
     icon: [
