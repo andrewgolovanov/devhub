@@ -108,26 +108,6 @@ const nextConfig = {
         ],
       },
       {
-        source: "/llms.txt",
-        headers: [
-          textArtifactCacheHeader,
-          {
-            key: "Content-Disposition",
-            value: 'inline; filename="llms.txt"',
-          },
-        ],
-      },
-      {
-        source: "/solutions/rss.xml",
-        headers: [
-          textArtifactCacheHeader,
-          {
-            key: "Content-Disposition",
-            value: 'inline; filename="rss.xml"',
-          },
-        ],
-      },
-      {
         source: "/:slug*.md",
         headers: markdownArtifactHeaders,
       },

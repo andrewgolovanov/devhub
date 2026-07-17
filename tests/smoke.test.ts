@@ -4,9 +4,11 @@ import { resolve } from "path";
 import { imageSize } from "image-size";
 import { describe, expect, test } from "vitest";
 
+import { generateLlmsTxt } from "../src/lib/llms-txt";
 import { resolveSiteUrl } from "../src/lib/site-url";
 
 const PUBLIC_DIR = resolve(__dirname, "..", "public");
+const DOCS_CONTENT_DIR = resolve(__dirname, "..", "src", "content", "docs");
 const NEXT_APP_DIR = resolve(__dirname, "..", ".next", "server", "app");
 const NEXT_STATIC_DIR = resolve(__dirname, "..", ".next", "static");
 const APPKIT_DOC_EXAMPLES_REGISTRY_PATH = resolve(
@@ -20,6 +22,12 @@ const APPKIT_DOC_EXAMPLES_REGISTRY_PATH = resolve(
 
 function readPublicFile(filePath: string): string {
   return readFileSync(resolve(PUBLIC_DIR, filePath), "utf-8");
+}
+
+// /llms.txt is served by the src/app/llms.txt route (no static public file);
+// generate the same content the route produces to assert on it.
+function readLlmsTxt(): string {
+  return generateLlmsTxt(resolveSiteUrl(), DOCS_CONTENT_DIR);
 }
 
 function readPublicImageSize(filePath: string): {
@@ -138,7 +146,7 @@ describe("production build smoke tests", () => {
   });
 
   test("llms.txt has correct H1 and description", () => {
-    const text = readPublicFile("llms.txt");
+    const text = readLlmsTxt();
     expect(text).toContain("# Databricks Developer Hub");
     expect(text).toContain("> Documentation, templates, and examples");
   });
@@ -150,7 +158,7 @@ describe("production build smoke tests", () => {
   });
 
   test("llms.txt internal links use the resolved site URL", () => {
-    const text = readPublicFile("llms.txt");
+    const text = readLlmsTxt();
     const expectedSiteUrl = resolveExpectedSiteUrl();
     const expectedSiteUrlPattern = escapeRegex(expectedSiteUrl);
     // Internal links in llms.txt are absolute URLs whose path starts with
@@ -242,7 +250,7 @@ describe("production build smoke tests", () => {
   });
 
   test("llms.txt links use .md suffix", () => {
-    const text = readPublicFile("llms.txt");
+    const text = readLlmsTxt();
     expect(text).toContain("/docs/start-here.md");
     expect(text).toContain("/templates/ai-chat-app.md");
     expect(text).toContain("/solutions.md");
@@ -250,7 +258,7 @@ describe("production build smoke tests", () => {
   });
 
   test("llms.txt links to native solutions internally and to linked solutions externally", () => {
-    const text = readPublicFile("llms.txt");
+    const text = readLlmsTxt();
     expect(text).toContain("/solutions/devhub-launch.md");
     expect(text).toContain(
       "https://www.databricks.com/blog/how-build-production-ready-data-and-ai-apps-databricks-apps-and-lakebase",
@@ -262,7 +270,7 @@ describe("production build smoke tests", () => {
   });
 
   test("llms.txt section order: Start Here before Templates before Solutions", () => {
-    const text = readPublicFile("llms.txt");
+    const text = readLlmsTxt();
     const startHereIdx = text.indexOf("## Start Here");
     const templatesIdx = text.indexOf("## Templates");
     const solutionsIdx = text.indexOf("## Solutions");
@@ -272,14 +280,14 @@ describe("production build smoke tests", () => {
   });
 
   test("llms.txt Templates section is flat (no Cookbooks/Recipes/Examples subheadings)", () => {
-    const text = readPublicFile("llms.txt");
+    const text = readLlmsTxt();
     expect(text).not.toContain("### Cookbooks");
     expect(text).not.toContain("### Recipes");
     expect(text).not.toContain("### Examples");
   });
 
   test("llms.txt Templates section lists cookbooks, recipes, and examples in one flat list", () => {
-    const text = readPublicFile("llms.txt");
+    const text = readLlmsTxt();
 
     const templatesIdx = text.indexOf("## Templates");
     const solutionsIdx = text.indexOf("## Solutions");
@@ -299,7 +307,7 @@ describe("production build smoke tests", () => {
   });
 
   test("llms.txt links to all resource guides", () => {
-    const text = readPublicFile("llms.txt");
+    const text = readLlmsTxt();
 
     const expectedTemplates = [
       "/solutions.md",
@@ -320,7 +328,7 @@ describe("production build smoke tests", () => {
   });
 
   test("llms.txt links to all docs pages", () => {
-    const text = readPublicFile("llms.txt");
+    const text = readLlmsTxt();
 
     const expectedDocPaths = [
       "/docs/start-here.md",

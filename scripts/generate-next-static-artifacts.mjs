@@ -3,7 +3,6 @@ import {
   existsSync,
   mkdirSync,
   readdirSync,
-  readFileSync,
   rmSync,
   statSync,
   writeFileSync,
@@ -181,10 +180,9 @@ const helpers = await loadHelpers();
 const siteUrl = helpers.resolveSiteUrl();
 
 mkdirSync(publicDir, { recursive: true });
-writeTextFile(
-  join(publicDir, "llms.txt"),
-  helpers.generateLlmsTxt(siteUrl, docsContentDir),
-);
+// /llms.txt is served by the src/app/llms.txt route handler (same output as
+// /docs/llms.txt via /api/llms). Writing a static public/llms.txt here would
+// collide with that route ("conflicting public file and page" — breaks dev).
 
 for (const directory of ["docs", "raw-docs", "templates", "solutions"]) {
   resetGeneratedPath(join(publicDir, directory));
@@ -244,7 +242,6 @@ for (const item of helpers.nativeSolutionItems) {
 }
 
 const generatedSummary = [
-  `llms.txt (${readFileSync(join(publicDir, "llms.txt"), "utf-8").length} bytes)`,
   `${collectDocsSlugs(docsContentDir).length} docs markdown files`,
   `${helpers.getCookbookSlugs(rootDir).length} cookbook markdown files`,
   `${helpers.getContentSlugs(rootDir, "recipes").length} recipe markdown files`,

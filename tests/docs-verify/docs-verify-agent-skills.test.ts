@@ -3,7 +3,7 @@ import { resolve } from "node:path";
 
 import { describe, expect, test } from "vitest";
 
-const DOCS_DIR = resolve(__dirname, "..", "..", "docs");
+const DOCS_DIR = resolve(__dirname, "..", "..", "src", "content", "docs");
 const AGENT_SKILLS_MD = resolve(
   DOCS_DIR,
   "tools",

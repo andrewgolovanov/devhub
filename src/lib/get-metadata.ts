@@ -42,6 +42,12 @@ export function getMetadata({
 }: MetadataOptions): Metadata {
   const canonicalUrl = absoluteSiteUrl(pathname);
   const imageUrl = absoluteSiteUrl(imagePath);
+
+  // Next's title `template` only applies to the document <title>, not to
+  // openGraph/twitter titles. Mirror it here so social cards match the page
+  // title (e.g. "Start here | Databricks Developer").
+  const socialTitle =
+    titleMode === "absolute" ? title : `${title} | ${SITE_NAME}`;
   const alternateTypes: NonNullable<Metadata["alternates"]>["types"] = {};
 
   if (markdownPath) {
@@ -54,7 +60,7 @@ export function getMetadata({
   const openGraph =
     type === "article"
       ? {
-          title,
+          title: socialTitle,
           description,
           siteName: SITE_NAME,
           type: "article" as const,
@@ -62,7 +68,7 @@ export function getMetadata({
           images: [imageUrl],
         }
       : {
-          title,
+          title: socialTitle,
           description,
           siteName: SITE_NAME,
           type: "website" as const,
@@ -81,7 +87,7 @@ export function getMetadata({
     openGraph,
     twitter: {
       card: "summary_large_image",
-      title,
+      title: socialTitle,
       description,
       images: [imageUrl],
     },

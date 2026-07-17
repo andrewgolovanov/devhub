@@ -8,6 +8,8 @@ const DOC_PATH = resolve(
   __dirname,
   "..",
   "..",
+  "src",
+  "content",
   "docs",
   "tools",
   "ai-tools",
