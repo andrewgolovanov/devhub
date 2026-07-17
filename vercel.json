@@ -1,4 +1,5 @@
 {
+  "framework": "nextjs",
   "devCommand": "pnpm dev --port $PORT",
   "functions": {
     "src/app/api/mcp/route.ts": {
