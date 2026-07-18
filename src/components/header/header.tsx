@@ -112,7 +112,7 @@ export function Header({
             >
               <Link
                 className="uppercase no-underline hover:no-underline"
-                href="https://databricks.com/signup"
+                href="https://www.databricks.com/try-databricks"
                 target="_blank"
               >
                 Try Databricks
