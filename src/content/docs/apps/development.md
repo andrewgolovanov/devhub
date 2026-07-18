@@ -24,7 +24,7 @@ If your app uses Lakebase, also grant your local user the `databricks_superuser`
 GRANT databricks_superuser TO "<your-email>";
 ```
 
-See [Lakebase Development](/docs/lakebase/development#local-development) for the full local access workflow.
+See [Lakebase Development](/docs/lakebase/development#local-database-access) for the full local access workflow.
 
 For testing against production data without redeploying, see the [remote bridge](/docs/appkit/v0/development/remote-bridge).
 
