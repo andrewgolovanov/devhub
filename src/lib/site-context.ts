@@ -10,9 +10,6 @@ export function useSiteContext() {
       url,
       customFields: {
         showDrafts: process.env.NEXT_PUBLIC_SHOW_DRAFTS === "true",
-        hackathonEventSlug: process.env.NEXT_PUBLIC_HACKATHON_EVENT_SLUG,
-        showAllResources:
-          process.env.NEXT_PUBLIC_HACKATHON_SHOW_ALL_RESOURCES !== "false",
       },
     },
     siteMetadata: {

@@ -439,8 +439,9 @@ export function getVisibleHackathonResources({
 }: {
   event: HackathonEvent;
 }): HackathonResource[] {
-  const showAllResources =
-    process.env.NEXT_PUBLIC_HACKATHON_SHOW_ALL_RESOURCES !== "false";
+  // Gated resources stay hidden unless HACKATHON_SHOW_ALL_RESOURCES is
+  // explicitly "true", matching the pre-migration behavior of the env knob.
+  const showAllResources = process.env.HACKATHON_SHOW_ALL_RESOURCES === "true";
   return event.resources.filter(
     (resource) => !resource.showWhenAllResources || showAllResources,
   );
