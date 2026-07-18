@@ -25,21 +25,9 @@ const FOOTER_SECTIONS: FooterSection[] = [
   {
     title: "Products",
     items: [
-      {
-        label: "Databricks Apps",
-        href: "https://www.databricks.com/product/databricks-apps",
-        externalArrow: true,
-      },
-      {
-        label: "Lakebase",
-        href: "https://www.databricks.com/product/lakebase",
-        externalArrow: true,
-      },
-      {
-        label: "Agent Bricks",
-        href: "https://www.databricks.com/product/artificial-intelligence/agent-bricks",
-        externalArrow: true,
-      },
+      { label: "Databricks Apps", to: "/product/databricks-apps" },
+      { label: "Lakebase", to: "/product/lakebase" },
+      { label: "Agent Bricks", to: "/product/agent-bricks" },
     ],
   },
   {
