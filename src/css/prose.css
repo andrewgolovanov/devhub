@@ -278,6 +278,13 @@
   color: rgb(248 248 242);
 }
 
+/* Unlayered on purpose: it must beat the unlayered width: max-content above,
+   which pins the code box to its unwrapped text width and would otherwise
+   make the word-wrap toggle a no-op. */
+.prose.prose-docs .theme-code-block.code-block--word-wrap pre code {
+  width: auto;
+}
+
 .prose.prose-docs > code {
   display: inline-flex;
   width: fit-content;
@@ -655,6 +662,13 @@
       code {
         white-space: pre-wrap;
         word-break: break-word;
+      }
+
+      /* Shiki lines are inline-block with min-width: 100% (full-width line
+         highlights), which floors each line at its unwrapped width and makes
+         pre-wrap a no-op. Wrapped mode must flatten lines back to inline. */
+      .shiki span.line {
+        display: inline;
       }
     }
 
