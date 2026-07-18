@@ -1,5 +1,5 @@
 import { existsSync, readFileSync } from "fs";
-import { resolve, dirname } from "path";
+import { dirname, resolve } from "path";
 
 type ImportEntry = {
   name: string;
@@ -21,26 +21,36 @@ function isLocalMdxImport(source: string): boolean {
 function resolveImportContent(
   source: string,
   fileDir: string,
+  visited: Set<string>,
 ): string | undefined {
   const resolved = resolve(fileDir, source);
   if (!existsSync(resolved)) return undefined;
-  return readFileSync(resolved, "utf-8").trim();
+  if (visited.has(resolved)) return undefined;
+
+  return expandLocalMdxImports(
+    readFileSync(resolved, "utf-8"),
+    resolved,
+    visited,
+  ).trim();
 }
 
 /**
- * Expand local MDX partial imports into inline markdown content and
- * strip all remaining import statements and unresolved JSX tags so the
- * output is plain markdown suitable for AI agents.
+ * Expand local MDX partial imports into inline markdown content while
+ * preserving unresolved JSX for the docs renderer.
  *
  * Handles:
  *   import Foo from "./_foo.mdx";  +  <Foo />  →  inlined content
  *   import { X } from "@pkg";  →  stripped
- *   <SomeComponent prop="val" />  →  stripped (non-content JSX)
  */
-export function expandMdxImports(content: string, filePath: string): string {
+export function expandLocalMdxImports(
+  content: string,
+  filePath: string,
+  visited = new Set<string>(),
+): string {
   const fileDir = dirname(filePath);
   const lines = content.split("\n");
 
+  visited.add(filePath);
   const localImports = new Map<string, string>();
   const outputLines: string[] = [];
   let inCodeBlock = false;
@@ -60,7 +70,7 @@ export function expandMdxImports(content: string, filePath: string): string {
     if (line.trimStart().startsWith("import ")) {
       const entry = parseImportLine(line.trim());
       if (entry && isLocalMdxImport(entry.source)) {
-        const imported = resolveImportContent(entry.source, fileDir);
+        const imported = resolveImportContent(entry.source, fileDir, visited);
         if (imported) {
           localImports.set(entry.name, imported);
         }
@@ -80,6 +90,18 @@ export function expandMdxImports(content: string, filePath: string): string {
     const withChildren = new RegExp(`<${name}\\s*>[\\s\\S]*?</${name}>`, "g");
     result = result.replace(withChildren, replacement);
   }
+
+  result = result.replace(/\n{3,}/g, "\n\n");
+
+  return result.trim() + "\n";
+}
+
+/**
+ * Expand local MDX partial imports and strip unresolved JSX tags so the
+ * output is plain markdown suitable for AI agents.
+ */
+export function expandMdxImports(content: string, filePath: string): string {
+  let result = expandLocalMdxImports(content, filePath);
 
   result = result.replace(/^[ \t]*<[A-Z]\w*(?:\s[^>]*)?\/>\s*$/gm, "");
   result = result.replace(/^[ \t]*<[A-Z]\w*(?:\s[^>]*)?>[ \t]*$/gm, (match) => {

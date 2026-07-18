@@ -269,14 +269,14 @@ NOW implementation begins. Each module uses ONLY its generated types:
 
 ```typescript
 import type {
-  StoredArtifact,
-  UploadRequest,
-} from "../proto/gen/<app>/v1/storage";
-import type { RunRecord, MetricRecord } from "../proto/gen/<app>/v1/database";
-import type {
   JobTaskInput,
   JobTaskOutput,
 } from "../proto/gen/<app>/v1/compute";
+import type { MetricRecord, RunRecord } from "../proto/gen/<app>/v1/database";
+import type {
+  StoredArtifact,
+  UploadRequest,
+} from "../proto/gen/<app>/v1/storage";
 ```
 
 No `any`, no `unknown`, no `JSON.parse()` at module boundaries.

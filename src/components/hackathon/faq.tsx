@@ -1,7 +1,8 @@
 import type { ReactNode } from "react";
 import { Accordion as AccordionPrimitive } from "radix-ui";
-import { Accordion, AccordionItem } from "@/components/ui/accordion";
+
 import { cn } from "@/lib/utils";
+import { Accordion, AccordionItem } from "@/components/ui/accordion";
 
 export type HackathonFaqItem = {
   question: string;
@@ -111,11 +112,11 @@ export function Faq({
               key={index}
               value={`item-${index}`}
             >
-              <AccordionPrimitive.Header className="flex">
+              <AccordionPrimitive.Header className="flex leading-5">
                 <AccordionPrimitive.Trigger
                   data-slot="accordion-trigger"
                   className={cn(
-                    "flex w-full flex-1 items-start justify-between gap-x-4 rounded-md py-6 text-left tracking-tight transition-colors outline-none hover:no-underline focus-visible:ring-[3px] focus-visible:ring-db-cyan/70 disabled:pointer-events-none disabled:opacity-50",
+                    "focus-visible:ring-db-cyan/70 flex w-full flex-1 items-start justify-between gap-x-4 rounded-md py-6 text-left tracking-tight transition-colors outline-none hover:no-underline focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50",
                     classes.trigger,
                   )}
                 >
@@ -131,7 +132,7 @@ export function Faq({
               >
                 <div
                   className={cn(
-                    "flex flex-col gap-y-5 pt-1 pr-8 pb-3 text-base tracking-tight md:pt-0 md:pr-10 [&_a]:decoration-none [&_a]:decoration-none [&_a]:text-orange [&_a]:hover:text-db-lava",
+                    "[&_a]:decoration-none [&_a]:decoration-none [&_a]:text-orange [&_a]:hover:text-db-lava flex flex-col gap-y-5 pt-1 pr-8 pb-3 text-base tracking-tight md:pt-0 md:pr-10",
                     classes.content,
                   )}
                 >

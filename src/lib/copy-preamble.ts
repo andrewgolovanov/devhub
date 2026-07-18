@@ -1,9 +1,8 @@
 /**
  * Pure composer for the "Copy prompt for your agent" markdown payload that
  * powers both the landing-page hero and every template/recipe/cookbook/example
- * detail page. The composer is shared between the server (Vercel functions)
- * and the browser (Docusaurus React components) so they always emit the same
- * structure for the same `kind`.
+ * detail page. The composer is shared by server handlers and browser
+ * components so they always emit the same structure for the same `kind`.
  *
  * Output shape (in order):
  *   1. About DevHub (origin info)
@@ -13,13 +12,13 @@
  *   5. Template body (omitted for kind="hero" — the wizard is the entire job)
  */
 
-/** As written in the canonical content/*.md files; substituted to caller's origin. */
+/** As written in the canonical src/content/*.md files; substituted to caller's origin. */
 export const ABOUT_DEVHUB_CANONICAL_SITE_URL =
   "https://developers.databricks.com";
 
 export type AgentPromptKind = "hero" | "recipe" | "cookbook" | "example";
 
-/** Static markdown blocks loaded from content/*.md (server-side: fs; browser: Docusaurus global data). */
+/** Static markdown blocks loaded from src/content/*.md. */
 export type AgentPromptParts = {
   about: string;
   guidelines: string;
@@ -118,7 +117,10 @@ function buildLocalBootstrapBlock(
   ].join("\n");
 }
 
-function buildTemplateBlock(kind: AgentPromptKind, body: string): string {
+function buildTemplateBlock(
+  kind: Exclude<AgentPromptKind, "hero">,
+  body: string,
+): string {
   const labels: Record<Exclude<AgentPromptKind, "hero">, string> = {
     recipe: "recipe",
     cookbook: "cookbook",

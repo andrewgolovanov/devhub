@@ -10,8 +10,11 @@ type CookbookCompositionInput = {
   cookbookName: string;
   cookbookDescription: string;
   goal?: string;
-  intro?: string;
   recipes: CookbookRecipeInput[];
+};
+
+type CookbookMarkdownDocumentInput = CookbookCompositionInput & {
+  cookbookUrl: string;
 };
 
 /**
@@ -23,12 +26,11 @@ type CookbookCompositionInput = {
 export function composeCookbookMarkdown(
   input: CookbookCompositionInput,
 ): string {
-  const introText = input.goal ?? input.intro;
   const { recipes } = input;
   const parts: string[] = [];
 
-  if (introText && introText.trim()) {
-    parts.push(introText.trim());
+  if (input.goal && input.goal.trim()) {
+    parts.push(input.goal.trim());
   }
 
   for (const recipe of recipes) {
@@ -42,11 +44,11 @@ export function composeCookbookMarkdown(
 }
 
 /**
- * Wraps the composed body with YAML frontmatter + title block, matching the API markdown
+ * Wraps the composed body with YAML frontmatter, matching the API markdown
  * shape expected by `/templates/<template>.md` consumers.
  */
 export function buildCookbookMarkdownDocument(
-  input: CookbookCompositionInput,
+  input: CookbookMarkdownDocumentInput,
 ): string {
   const body = composeCookbookMarkdown(input);
   const escape = (value: string) => value.replace(/"/g, '\\"');
@@ -54,12 +56,9 @@ export function buildCookbookMarkdownDocument(
   const header = [
     "---",
     `title: "${escape(input.cookbookName)}"`,
+    `url: ${input.cookbookUrl}`,
     `summary: "${escape(input.cookbookDescription)}"`,
     "---",
-    "",
-    `# ${input.cookbookName}`,
-    "",
-    input.cookbookDescription,
     "",
   ].join("\n");
 

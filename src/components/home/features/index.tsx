@@ -1,8 +1,4 @@
 import { cn } from "@/lib/utils";
-
-import { AgentBricksInfographic } from "./agent-bricks-infographic";
-import { DatabricksAppsInfographic } from "./databricks-apps-infographic";
-import { LakebaseInfographic } from "./lakebase-infographic";
 import { AnimatedArrowLink } from "@/components/ui/animated-arrow-link";
 import {
   FeatureCardAction,
@@ -13,6 +9,10 @@ import {
   FeatureCardTitle,
   FeatureCardVisual,
 } from "@/components/ui/feature-card";
+
+import { AgentBricksInfographic } from "./agent-bricks-infographic";
+import { DatabricksAppsInfographic } from "./databricks-apps-infographic";
+import { LakebaseInfographic } from "./lakebase-infographic";
 
 const FEATURES = [
   {
@@ -77,53 +77,6 @@ function FeatureVisualContent({ visual }: { visual: FeatureVisual }) {
   return <DatabricksAppsInfographic />;
 }
 
-function Features({ className }: { className?: string }) {
-  return (
-    <section
-      className={cn(
-        "features bg-[#F9F7F4] pt-18 pb-18 md:pt-28 md:pb-28 lg:pt-40 lg:pb-50 xl:pt-44 xl:pb-54",
-        className,
-      )}
-      aria-labelledby="home-features-heading"
-    >
-      <div className="mx-auto flex max-w-400 flex-col gap-16 px-5 md:gap-28 md:px-8 lg:gap-50 xl:gap-60">
-        <h2 id="home-features-heading" className="sr-only">
-          Databricks developer platform features
-        </h2>
-        {FEATURES.map(
-          (
-            {
-              eyebrow,
-              title,
-              visual,
-              description,
-              href,
-              footerLabel,
-              footerDescription,
-            },
-            index,
-          ) => {
-            return (
-              <FeatureCard
-                key={eyebrow}
-                eyebrow={eyebrow}
-                index={index}
-                title={title}
-                description={description}
-                href={href}
-                visual={visual}
-                footerLabel={footerLabel}
-                footerDescription={footerDescription}
-                reversed={index % 2 === 1}
-              />
-            );
-          },
-        )}
-      </div>
-    </section>
-  );
-}
-
 function FeatureCard({
   eyebrow,
   index,
@@ -142,15 +95,15 @@ function FeatureCard({
           <span className="font-mono text-sm/none">0{index + 1}</span>
           {eyebrow}
         </FeatureCardEyebrow>
-        <div className="flex grow flex-col justify-between md:w-full lg:mt-7 lg:pl-8 xl:mt-0 xl:pl-16">
+        <div className="3xl:mt-0 3xl:pl-16 flex grow flex-col justify-between md:w-full lg:mt-7 lg:pl-8">
           <FeatureCardTitle>
             {title}
             <span className="text-black/30"> [{description}]</span>
           </FeatureCardTitle>
           <FeatureCardAction>
             <AnimatedArrowLink
-              to={href}
-              className="relative inline-flex w-full items-center justify-between pb-4 font-sans text-2xl leading-none font-normal tracking-[-0.04em] text-orange no-underline transition-colors hover:text-primary focus-visible:text-primary md:text-[28px] lg:text-3xl xl:text-[2.5625rem]"
+              href={href}
+              className="text-orange hover:text-primary focus-visible:text-primary 3xl:text-[2.5rem] relative inline-flex w-full items-center justify-between pb-4 font-sans text-2xl leading-none font-normal tracking-[-0.04em] no-underline transition-colors md:text-[28px] lg:text-3xl xl:text-4xl"
               size="size-5 md:size-7"
               underlineClassName="pointer-events-none absolute inset-x-0 bottom-0 h-[3px] bg-current"
             >
@@ -164,7 +117,7 @@ function FeatureCard({
           className="mx-auto my-auto w-full max-w-184 max-md:relative max-md:size-full md:max-w-[66.67%] lg:max-w-75 xl:max-w-184"
           aria-hidden="true"
         >
-          <div className="max-md:absolute max-md:top-1/2 max-md:left-1/2 max-md:w-[800px] max-md:max-w-none max-md:-translate-x-1/2 max-md:-translate-y-1/2 max-md:origin-center max-md:scale-[0.37] max-md:transform-gpu md:w-full">
+          <div className="max-md:absolute max-md:top-1/2 max-md:left-1/2 max-md:w-[800px] max-md:max-w-none max-md:origin-center max-md:-translate-x-1/2 max-md:-translate-y-1/2 max-md:scale-[0.37] max-md:transform-gpu md:w-full">
             <FeatureVisualContent visual={visual} />
           </div>
         </div>
@@ -178,4 +131,47 @@ function FeatureCard({
   );
 }
 
-export default Features;
+export default function Features({ className }: { className?: string }) {
+  return (
+    <section
+      className={cn(
+        "features bg-[#F9F7F4] pt-18 pb-18 md:pt-28 md:pb-28 lg:pt-40 lg:pb-50 xl:pt-44 xl:pb-54",
+        className,
+      )}
+      aria-labelledby="home-features-heading"
+    >
+      <div className="3xl:max-w-400 mx-auto flex max-w-360 flex-col gap-16 px-5 md:gap-28 md:px-8 lg:gap-50 xl:gap-60">
+        <h2 id="home-features-heading" className="sr-only">
+          Databricks developer platform features
+        </h2>
+        {FEATURES.map(
+          (
+            {
+              eyebrow,
+              title,
+              visual,
+              description,
+              href,
+              footerLabel,
+              footerDescription,
+            },
+            index,
+          ) => (
+            <FeatureCard
+              key={eyebrow}
+              eyebrow={eyebrow}
+              index={index}
+              title={title}
+              description={description}
+              href={href}
+              visual={visual}
+              footerLabel={footerLabel}
+              footerDescription={footerDescription}
+              reversed={index % 2 === 1}
+            />
+          ),
+        )}
+      </div>
+    </section>
+  );
+}

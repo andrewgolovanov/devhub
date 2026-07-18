@@ -1,7 +1,10 @@
-import { Checkbox } from "@/components/ui/checkbox";
-import { Button } from "@/components/ui/button";
 import { SERVICES, type Service } from "@/lib/recipes/recipes";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+
+const templateFilterCheckboxClassName =
+  "size-5 rounded-none border-grey-60 bg-transparent data-[state=checked]:border-orange! data-[state=checked]:bg-orange! data-[state=checked]:text-white dark:border-grey-60 dark:bg-transparent dark:data-[state=checked]:border-orange! dark:data-[state=checked]:bg-orange!";
 
 function FilterCheckIcon({ className }: { className?: string }) {
   return (
@@ -75,7 +78,7 @@ export function TemplateFilters({
               {selectedFilterLabel}
             </p>
             <Button
-              className="h-auto gap-1 rounded-none bg-transparent p-0 font-sans text-xs/none font-medium tracking-tight text-black/30 uppercase shadow-none hover:bg-transparent! hover:text-black active:bg-transparent! focus-visible:bg-transparent! focus-visible:ring-db-cyan focus-visible:ring-offset-db-oat-light [&_svg:not([class*='size-'])]:size-3"
+              className="focus-visible:ring-db-cyan focus-visible:ring-offset-db-oat-light h-auto gap-1 rounded-none bg-transparent p-0 font-sans text-xs/none font-medium tracking-tight text-black/30 uppercase shadow-none hover:bg-transparent! hover:text-black focus-visible:bg-transparent! active:bg-transparent! [&_svg:not([class*='size-'])]:size-3"
               type="button"
               variant="ghost"
               onClick={onClearFilters}
@@ -99,7 +102,7 @@ export function TemplateFilters({
               </svg>
             </Button>
           </div>
-          <div className="h-px w-full bg-grey-80" aria-hidden="true" />
+          <div className="bg-grey-80 h-px w-full" aria-hidden="true" />
         </div>
       ) : null}
       <TemplateFiltersTitle title="Services" />
@@ -109,7 +112,7 @@ export function TemplateFilters({
           key={service}
         >
           <Checkbox
-            className="size-5 rounded-none border-grey-60 bg-transparent data-[state=checked]:border-orange data-[state=checked]:bg-orange data-[state=checked]:text-white dark:border-grey-60 dark:bg-transparent"
+            className={templateFilterCheckboxClassName}
             indicatorIcon={<FilterCheckIcon className="size-4" />}
             checked={selectedServices.has(service)}
             onCheckedChange={() => onToggleService(service)}
@@ -121,7 +124,7 @@ export function TemplateFilters({
       <TemplateFiltersTitle className="mt-7" title="Build with" />
       <label className="flex min-h-9 cursor-pointer items-center gap-2.5 text-base/snug text-black transition-colors hover:text-black">
         <Checkbox
-          className="size-5 rounded-none border-grey-60 bg-transparent data-[state=checked]:border-orange data-[state=checked]:bg-orange data-[state=checked]:text-white dark:border-grey-60 dark:bg-transparent"
+          className={templateFilterCheckboxClassName}
           indicatorIcon={<FilterCheckIcon className="size-4" />}
           checked={replitOnly}
           onCheckedChange={onToggleReplitOnly}

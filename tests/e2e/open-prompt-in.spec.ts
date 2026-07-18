@@ -1,5 +1,6 @@
-import { test, expect, type Page } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
 import { decompressFromEncodedURIComponent } from "lz-string";
+
 import { readReplitPrompt } from "../../src/lib/content-markdown";
 
 // Playwright is run from the repo root (per package.json scripts and CI).
@@ -68,7 +69,7 @@ test.describe("Open prompt in dropdown", () => {
     // End-to-end roundtrip: the prompt Replit Agent will see after decoding
     // must equal the COMPOSED replit-prompt (shared preamble + --- +
     // per-template task) byte-for-byte. Catches any future regression in
-    // lz-string encoding, the plugin pipeline, the useReplitPrompt
+    // lz-string encoding, the plugin pipeline, the replit-prompt
     // aggregator, the buildReplitUrl helper, or the preamble composition.
     const decoded = decompressFromEncodedURIComponent(encoded!);
     const composed = readReplitPrompt(REPO_ROOT, "examples", "saas-tracker");
@@ -82,7 +83,9 @@ test.describe("Open prompt in dropdown", () => {
   test("does not render on a template without a replit-prompt.md", async ({
     page,
   }) => {
-    await page.goto("/templates/set-up-your-local-dev-environment");
+    await page.goto("/templates/set-up-your-local-dev-environment", {
+      waitUntil: "domcontentloaded",
+    });
     await expect(
       page.getByRole("button", { name: "Copy prompt" }),
     ).toBeVisible();

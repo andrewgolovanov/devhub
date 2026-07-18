@@ -1,14 +1,14 @@
 import type { ReactNode } from "react";
-import Link from "@docusaurus/Link";
-import type { TOCItem } from "@docusaurus/mdx-loader";
+import Link from "next/link";
+
+import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
 import { BackToTop } from "@/components/docs/back-to-top";
-import { Icons } from "@/components/icons";
 import {
   TableOfContents,
   type DocsTableOfContentsItem,
 } from "@/components/docs/table-of-contents";
-import { cn } from "@/lib/utils";
+import { Icons } from "@/components/icons";
 
 type DocsAsideProps = {
   className?: string;
@@ -16,11 +16,17 @@ type DocsAsideProps = {
   minHeadingLevel?: number;
   suggestEditsUrl?: string;
   sticky?: boolean;
-  toc: readonly TOCItem[];
+  toc: readonly DocsAsideTocItem[];
+};
+
+type DocsAsideTocItem = {
+  id: string;
+  level: number;
+  value: string;
 };
 
 function getTableOfContentsItems(
-  items: readonly TOCItem[],
+  items: readonly DocsAsideTocItem[],
 ): DocsTableOfContentsItem[] {
   return items.map((item) => ({
     anchor: item.id,
@@ -47,7 +53,7 @@ export function DocsAside({
   return (
     <aside
       className={cn(
-        "aside flex flex-col py-8 -my-8 leading-none",
+        "aside -my-8 flex flex-col py-8 leading-none",
         sticky && "sticky top-16 h-fit max-h-[calc(100svh-4rem)]",
         className,
       )}
@@ -56,13 +62,13 @@ export function DocsAside({
       {tableOfContents.length > 0 ? (
         <>
           <TableOfContents title="On this page" items={tableOfContents} />
-          <Separator className="my-3.5 bg-prose-border" />
+          <Separator className="bg-prose-border my-3.5" />
         </>
       ) : null}
 
       {suggestEditsUrl ? (
         <Link
-          className="inline-flex items-center gap-x-2 py-1.5 text-sm leading-none font-normal tracking-tight text-grey-70 no-underline hover:text-white hover:no-underline [&_svg]:size-5"
+          className="text-grey-70 inline-flex items-center gap-x-2 py-1.5 text-sm leading-none font-normal tracking-tight no-underline hover:text-white hover:no-underline [&_svg]:size-5"
           href={suggestEditsUrl}
           target="_blank"
           rel="noopener noreferrer"

@@ -1,5 +1,6 @@
-import Link from "@docusaurus/Link";
 import type { ComponentProps, ReactNode } from "react";
+import Link from "next/link";
+
 import { cn } from "@/lib/utils";
 
 type BackLinkProps = ComponentProps<typeof Link> & {
@@ -43,7 +44,7 @@ export function BackLink({
   return (
     <Link
       className={cn(
-        "inline-flex items-center gap-1.5 font-mono text-xs font-medium text-grey-60 uppercase no-underline hover:text-white hover:no-underline",
+        "text-grey-60 inline-flex items-center gap-1.5 font-mono text-xs font-medium uppercase no-underline hover:text-white hover:no-underline",
         className,
       )}
       {...props}

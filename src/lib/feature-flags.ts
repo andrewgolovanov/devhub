@@ -1,7 +1,7 @@
-import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import { useSiteContext } from "@/lib/site-context";
 
 export function useFeatureFlags() {
-  const { siteConfig } = useDocusaurusContext();
+  const { siteConfig } = useSiteContext();
   const fields = siteConfig.customFields as Record<string, unknown>;
   return {
     showDrafts: fields.showDrafts === true,

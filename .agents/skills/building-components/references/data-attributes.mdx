@@ -58,7 +58,7 @@ const Dialog = ({ className, ...props }: DialogProps) => {
 Now consumers can style the component based on state from the outside:
 
 ```tsx title="app.tsx"
-<Dialog className="data-[state=open]:opacity-100 data-[state=closed]:opacity-0" />
+<Dialog className="data-[state=closed]:opacity-0 data-[state=open]:opacity-100" />
 ```
 
 ### Benefits of this approach
@@ -130,7 +130,7 @@ module.exports = {
 Now you can use shorthand:
 
 ```tsx
-<Dialog className="data-open:opacity-100 data-closed:opacity-0" />
+<Dialog className="data-closed:opacity-0 data-open:opacity-100" />
 ```
 
 ### Integration with Radix UI
@@ -261,7 +261,7 @@ function Card({ className, ...props }: React.ComponentProps<"div">) {
         // Target any descendant with data-slot
         "[&_[data-slot=card-header]]:mb-4",
         "[&_[data-slot=card-title]]:text-lg [&_[data-slot=card-title]]:font-semibold",
-        "[&_[data-slot=card-description]]:text-sm [&_[data-slot=card-description]]:text-muted-foreground",
+        "[&_[data-slot=card-description]]:text-muted-foreground [&_[data-slot=card-description]]:text-sm",
         "[&_[data-slot=card-footer]]:mt-4 [&_[data-slot=card-footer]]:border-t [&_[data-slot=card-footer]]:pt-4",
         className,
       )}

@@ -1,18 +1,19 @@
 import type { ReactNode } from "react";
-import {
-  SolutionArrowIcon,
-  SolutionItemLink,
-  SolutionItemVisual,
-  formatSolutionDate,
-} from "@/components/solutions/solution-item-shared";
+
 import {
   isDatabricksSolutionItem,
   type SolutionItem,
 } from "@/lib/solutions/solutions";
+import {
+  formatSolutionDate,
+  SolutionArrowIcon,
+  SolutionItemLink,
+  SolutionItemVisual,
+} from "@/components/solutions/solution-item-shared";
 
 function SolutionDatabricksBadge(): ReactNode {
   return (
-    <span className="inline-flex shrink-0 items-center gap-2 font-mono text-base leading-snug font-normal tracking-normal text-orange">
+    <span className="text-orange inline-flex shrink-0 items-center gap-2 font-mono text-base leading-snug font-normal tracking-normal">
       <span>Databricks Blog</span>
       <span
         className="relative size-3.5 shrink-0 overflow-visible"
@@ -30,7 +31,7 @@ function SolutionCardMeta({ item }: { item: SolutionItem }): ReactNode {
   return (
     <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
       <time
-        className="shrink-0 font-mono text-base leading-none font-medium text-grey-60 uppercase"
+        className="text-grey-60 shrink-0 font-mono text-base leading-none font-medium uppercase"
         dateTime={item.publishedAt}
       >
         {formatSolutionDate(item.publishedAt)}
@@ -40,19 +41,27 @@ function SolutionCardMeta({ item }: { item: SolutionItem }): ReactNode {
   );
 }
 
-function SolutionCardVisualLink({ item }: { item: SolutionItem }): ReactNode {
+function SolutionCardVisualLink({
+  item,
+  preloadVisual = false,
+}: {
+  item: SolutionItem;
+  preloadVisual?: boolean;
+}): ReactNode {
   return (
     <SolutionItemLink
-      className="group block no-underline outline-none focus-visible:ring-2 focus-visible:ring-db-cyan focus-visible:ring-offset-4 focus-visible:ring-offset-black"
+      className="group focus-visible:ring-db-cyan block no-underline outline-none focus-visible:ring-2 focus-visible:ring-offset-4 focus-visible:ring-offset-black"
       item={item}
       ariaLabel={`Read ${item.title}`}
     >
-      <div className="relative aspect-490/257 overflow-hidden bg-grey-20">
+      <div className="bg-grey-20 relative aspect-490/257 overflow-hidden">
         <SolutionItemVisual
           item={item}
           variant="card"
           width={490}
           height={257}
+          preload={preloadVisual}
+          loading="eager"
         />
       </div>
     </SolutionItemLink>
@@ -65,23 +74,29 @@ function SolutionCardBody({ item }: { item: SolutionItem }): ReactNode {
       <SolutionCardMeta item={item} />
       <h2 className="m-0 mt-5 text-lg leading-tight font-normal tracking-[-0.04em] md:text-xl xl:text-2xl">
         <SolutionItemLink
-          className="line-clamp-2 text-white no-underline outline-none transition-colors hover:text-white/80 hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-db-cyan"
+          className="focus-visible:outline-db-cyan line-clamp-2 text-white no-underline transition-colors outline-none hover:text-white/80 hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-4"
           item={item}
         >
           {item.title}
         </SolutionItemLink>
       </h2>
-      <p className="m-0 mt-1.5 line-clamp-3 text-base leading-6 tracking-[-0.04em] text-grey-60 md:mt-2 lg:mt-2.5 xl:mt-3">
+      <p className="text-grey-60 m-0 mt-1.5 line-clamp-3 text-base leading-6 tracking-[-0.04em] md:mt-2 lg:mt-2.5 xl:mt-3">
         {item.description}
       </p>
     </div>
   );
 }
 
-export function SolutionCard({ item }: { item: SolutionItem }): ReactNode {
+export function SolutionCard({
+  item,
+  preloadVisual = false,
+}: {
+  item: SolutionItem;
+  preloadVisual?: boolean;
+}): ReactNode {
   return (
     <article className="h-full">
-      <SolutionCardVisualLink item={item} />
+      <SolutionCardVisualLink item={item} preloadVisual={preloadVisual} />
       <SolutionCardBody item={item} />
     </article>
   );

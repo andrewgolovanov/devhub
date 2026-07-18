@@ -1,3 +1,5 @@
+"use client";
+
 import {
   useCallback,
   useEffect,
@@ -5,6 +7,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+
 import { cn } from "@/lib/utils";
 
 type SolutionFiltersProps = {
@@ -146,7 +149,7 @@ export function SolutionFilters({
       aria-label="Solution categories"
     >
       <div
-        className="scroll-px-5 overflow-x-auto overscroll-x-contain px-5 md:scroll-px-8 md:px-8 lg:scroll-px-0 lg:px-0 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="scroll-px-5 [scrollbar-width:none] overflow-x-auto overscroll-x-contain px-5 [-ms-overflow-style:none] md:scroll-px-8 md:px-8 lg:scroll-px-0 lg:px-0 [&::-webkit-scrollbar]:hidden"
         ref={scrollContainerRef}
         onScroll={updateScrollEdgeState}
       >
@@ -157,10 +160,10 @@ export function SolutionFilters({
               <li className="m-0 shrink-0 p-0" key={item.label}>
                 <button
                   className={cn(
-                    "shrink-0 border px-3.5 py-2.25 font-mono text-sm leading-none font-medium whitespace-nowrap transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-db-cyan",
+                    "focus-visible:outline-db-cyan shrink-0 border px-3.5 py-2.25 font-mono text-sm leading-none font-medium whitespace-nowrap transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2",
                     selected
                       ? "border-grey-60 bg-transparent text-white"
-                      : "border-transparent bg-grey-12 text-grey-60 hover:bg-white/10 hover:text-white/78",
+                      : "bg-grey-12 text-grey-60 border-transparent hover:bg-white/10 hover:text-white/78",
                   )}
                   ref={selected ? selectedButtonRef : undefined}
                   type="button"

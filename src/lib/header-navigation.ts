@@ -41,6 +41,6 @@ export function isHeaderNavItemActive(item: HeaderNavItem, pathname: string) {
   );
 }
 
-export function getActiveProductHref(pathname: string) {
+export function getActiveProductHref(pathname: string): string | undefined {
   return PRODUCT_LINKS.find(({ href }) => isHrefActive(href, pathname))?.href;
 }

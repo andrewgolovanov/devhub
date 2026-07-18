@@ -1,14 +1,13 @@
-import {
-  LazyMotion,
-  domAnimation,
-  useInView,
-  useReducedMotion,
-} from "motion/react";
-import * as m from "motion/react-m";
-import { useRef, type ReactNode } from "react";
+"use client";
 
+import type { ReactNode } from "react";
+import { domAnimation, LazyMotion } from "motion/react";
+import * as m from "motion/react-m";
+
+import { cn } from "@/lib/utils";
 import { FeatureInfographicCard } from "@/components/ui/feature-card";
-import { cn } from "@site/src/lib/utils";
+
+import { useFeatureInfographicVisibility } from "./use-feature-infographic-visibility";
 
 const appLogoSrc = "/img/home/features/db-apps-logo.svg";
 const browserGraphOneSrc = "/img/home/features/db-apps-graph.svg";
@@ -63,7 +62,6 @@ const TEXT_LINE_DURATION = 0.24;
 const TEXT_LINE_DELAY = 0.08;
 const TEXT_LINE_EASE = [0.22, 1, 0.36, 1] as const;
 const TERMINAL_CURSOR_LINE_INDEX = 3;
-const INFOGRAPHIC_IN_VIEW_AMOUNT = 0.45;
 const TERMINAL_LINES = [
   {
     id: "command",
@@ -212,7 +210,7 @@ function getBrowserCardShimmerTransition(itemIndex: number) {
   };
 }
 
-function getBrowserLoadedAssetTransition(_itemIndex: number) {
+function getBrowserLoadedAssetTransition() {
   return {
     delay: BROWSER_LOADED_ASSET_REVEAL_DELAY,
     duration: BROWSER_LOADED_ASSET_DURATION,
@@ -430,12 +428,12 @@ function DeployingText({
   return (
     <span
       aria-live="polite"
-      className="relative inline-block whitespace-nowrap text-center w-[8ch]"
+      className="relative inline-block w-[8ch] text-center whitespace-nowrap"
     >
       <m.span
         animate={isVisible ? { opacity: [1, 1, 0], y: [0, 0, -6] } : undefined}
         aria-label={DEPLOYING_LABEL}
-        className="absolute left-1/2 top-0 -translate-x-1/2"
+        className="absolute top-0 left-1/2 -translate-x-1/2"
         initial={{ opacity: 1, y: 0 }}
         transition={{
           delay: DEPLOY_SUCCESS_DELAY,
@@ -456,10 +454,10 @@ function DeployingText({
         ))}
         <LoadingDots isVisible={isVisible} reduceMotion={reduceMotion} />
       </m.span>
-      <span className="invisible block ml-5">{DEPLOYING_LABEL}</span>
+      <span className="invisible ml-5 block">{DEPLOYING_LABEL}</span>
       <m.span
         animate={isVisible ? { opacity: 1, x: 0, y: 0 } : undefined}
-        className="absolute left-1/2 top-0 -translate-x-1/2"
+        className="absolute top-0 left-1/2 -translate-x-1/2"
         initial={{ opacity: 0, x: 0, y: 8 }}
         transition={{
           delay: DEPLOY_SUCCESS_DELAY + DEPLOY_TEXT_EXIT_DURATION - 0.17 + 0.07,
@@ -531,7 +529,7 @@ function Placeholder({ className }: { className: string }) {
   return (
     <div
       className={cn(
-        "rounded-full bg-[#E9E7E4] h-1.5 shrink-0 @sm/infographic:h-2",
+        "h-1.5 shrink-0 rounded-full bg-[#E9E7E4] @sm/infographic:h-2",
         className,
       )}
     />
@@ -587,7 +585,6 @@ function BrowserLoadedAsset({
   className,
   height,
   isVisible,
-  itemIndex,
   reduceMotion,
   src,
   width,
@@ -613,21 +610,15 @@ function BrowserLoadedAsset({
       }
       loading="lazy"
       src={src}
-      transition={getBrowserLoadedAssetTransition(itemIndex)}
+      transition={getBrowserLoadedAssetTransition()}
       width={width}
     />
   );
 }
 
 export function DatabricksAppsInfographic() {
-  const infographicRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(infographicRef, {
-    once: true,
-    amount: INFOGRAPHIC_IN_VIEW_AMOUNT,
-    margin: "0px",
-  });
-  const reduceMotion = useReducedMotion();
-  const isVisible = reduceMotion || isInView;
+  const { infographicRef, isVisible, reduceMotion } =
+    useFeatureInfographicVisibility();
 
   return (
     <LazyMotion features={domAnimation}>
@@ -640,7 +631,7 @@ export function DatabricksAppsInfographic() {
           reduceMotion={reduceMotion}
           stepIndex={0}
         >
-          <FeatureInfographicCard className="flex flex-col px-4 py-3 font-mono tracking-tight text-sm/snug w-67.5 @md/infographic:p-3 @md/infographic:text-[13px]/snug">
+          <FeatureInfographicCard className="flex w-67.5 flex-col px-4 py-3 font-mono text-sm/snug tracking-tight @md/infographic:p-3 @md/infographic:text-[13px]/snug">
             {TERMINAL_LINES.map(({ className, content, id }, index) => (
               <AnimatedTextLine
                 className={className}
@@ -651,7 +642,7 @@ export function DatabricksAppsInfographic() {
                 stepIndex={0}
               >
                 {content}
-                {id === "linking" && (
+                {id === "linking" ? (
                   <>
                     {" "}
                     <TerminalCursor
@@ -659,7 +650,7 @@ export function DatabricksAppsInfographic() {
                       reduceMotion={reduceMotion}
                     />
                   </>
-                )}
+                ) : null}
               </AnimatedTextLine>
             ))}
           </FeatureInfographicCard>
@@ -674,7 +665,7 @@ export function DatabricksAppsInfographic() {
           reduceMotion={reduceMotion}
           stepIndex={1}
         >
-          <div className="flex shrink-0 h-8 items-center justify-center pl-2.5 pr-3 gap-1.5 border border-black/10 tracking-[-0.02em] bg-white text-[11px] font-medium shadow-[0_.625rem_1.25rem_rgba(0,0,0,.06)] @md/infographic:gap-1.5 @md/infographic:text-[13px]">
+          <div className="flex h-8 shrink-0 items-center justify-center gap-1.5 border border-black/10 bg-white pr-3 pl-2.5 text-[11px] font-medium tracking-[-0.02em] shadow-[0_.625rem_1.25rem_rgba(0,0,0,.06)] @md/infographic:gap-1.5 @md/infographic:text-[13px]">
             <DeployStatusIcon
               isVisible={isVisible}
               reduceMotion={reduceMotion}
@@ -694,14 +685,14 @@ export function DatabricksAppsInfographic() {
           reduceMotion={reduceMotion}
           stepIndex={2}
         >
-          <FeatureInfographicCard className="overflow-hidden w-full">
+          <FeatureInfographicCard className="w-full overflow-hidden">
             <div className="relative flex items-center border-b border-[#D4D2CF] bg-[#F0EEEB] px-3 py-1.5 @md/infographic:px-4">
-              <div className="absolute top-1/2 left-3 -translate-y-1/2 flex gap-x-1.5">
-                <span className="size-2.5 shrink-0 rounded-full bg-orange" />
+              <div className="absolute top-1/2 left-3 flex -translate-y-1/2 gap-x-1.5">
+                <span className="bg-orange size-2.5 shrink-0 rounded-full" />
                 <span className="size-2.5 shrink-0 rounded-full bg-[#CCCAC6]" />
                 <span className="size-2.5 shrink-0 rounded-full bg-[#00A972]" />
               </div>
-              <span className="ml-auto flex items-center justify-center tracking-tight bg-white text-[9px] w-44 h-5 text-black/80 @xs/infographic:mx-auto @md/infographic:text-[10px] @md/infographic:w-56 @md/infographic:h-5.5">
+              <span className="ml-auto flex h-5 w-44 items-center justify-center bg-white text-[9px] tracking-tight text-black/80 @xs/infographic:mx-auto @md/infographic:h-5.5 @md/infographic:w-56 @md/infographic:text-[10px]">
                 <BrowserUrlText
                   isVisible={isVisible}
                   reduceMotion={reduceMotion}

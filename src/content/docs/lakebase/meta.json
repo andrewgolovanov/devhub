@@ -1,0 +1,4 @@
+{
+  "title": "Lakebase Postgres",
+  "pages": ["overview", "quickstart", "configuration", "development"]
+}

@@ -8,7 +8,7 @@ export function BrandStrip({
 }: ComponentProps<"div">): ReactNode {
   return (
     <div
-      className={cn("h-[3.4375rem] w-full bg-orange", className)}
+      className={cn("bg-orange h-8 w-full md:h-14", className)}
       aria-hidden="true"
       {...props}
     />

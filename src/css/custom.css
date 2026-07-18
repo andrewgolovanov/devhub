@@ -4,11 +4,12 @@
 
 @import "./prose.css";
 
-/* Docusaurus toggles theme with [data-theme="dark"], not .dark */
-@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+@custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
   :root {
+    color-scheme: light;
+
     /* Databricks brand palette */
     --db-navy: #0b2026;
     --db-navy-light: #1b3139;
@@ -41,15 +42,17 @@
     --code-bg: #09090b;
     --code-surface: #242427;
     --code-border: #464853;
-    --code-foreground: #f9fafa;
+    --code-foreground: #f8f8f2;
     --code-grey: #e3e4e9;
-    --code-comment: #777a88;
-    --code-keyword: #e87d85;
-    --code-function: #ae93ea;
-    --code-variable: #87b6f9;
-    --code-class: #ae93ea;
-    --code-number: #a7cafa;
-    --code-string: #9de6a4;
+    --code-comment: #6272a4;
+    --code-keyword: #bd93f9;
+    --code-function: #50fa7b;
+    --code-variable: #bd93f9;
+    --code-class: #8be9fd;
+    --code-attribute: #f1fa8c;
+    --code-key: #e87d85;
+    --code-number: #bd93f9;
+    --code-string: #ff79c6;
     --code-operator: #f3af7a;
     --code-highlight-neutral: #242427;
     --code-highlight-true: #2d492f;
@@ -67,7 +70,7 @@
     --secondary: var(--db-oat-medium);
     --secondary-foreground: var(--db-navy);
     --muted: var(--db-oat-medium);
-    --muted-foreground: rgb(11 32 38 / 0.65);
+    --muted-foreground: hsl(240 5 65); /* #A1A1AA */
     --accent: #e3e2dd;
     --accent-foreground: var(--db-navy);
     --destructive: #d41400;
@@ -82,26 +85,8 @@
     --chart-5: #8b5cf6;
     --radius: 0.625rem;
 
-    /* Docusaurus Infima overrides */
-    --ifm-color-primary: var(--db-lava);
-    --ifm-color-primary-dark: var(--db-lava-dark);
-    --ifm-color-primary-darker: #d41400;
-    --ifm-color-primary-darkest: #ae1000;
-    --ifm-color-primary-light: var(--db-lava-light);
-    --ifm-color-primary-lighter: #ff6b5c;
-    --ifm-color-primary-lightest: var(--db-lava-lightest);
-    --ifm-background-color: var(--db-bg);
-    --ifm-font-family-base:
-      "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    --ifm-font-family-monospace:
-      "Geist Mono", SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    --ifm-code-font-size: 95%;
-    --ifm-pre-padding: 1rem 1.25rem;
-    --ifm-navbar-background-color: #000000;
-    --ifm-footer-background-color: var(--db-navy);
-    --ifm-card-background-color: var(--db-card);
-    --ifm-global-border-color: var(--db-border);
-    --docusaurus-highlighted-code-line-bg: rgb(0 0 0 / 0.1);
+    --sticky-header-height: 3.5rem;
+    --devhub-mobile-menu-top: 3.5rem;
     --sidebar: hsl(0 0% 98%);
     --sidebar-foreground: hsl(240 5.3% 26.1%);
     --sidebar-primary: hsl(240 5.9% 10%);
@@ -112,8 +97,11 @@
     --sidebar-ring: hsl(217.2 91.2% 59.8%);
   }
 
-  [data-theme="dark"] {
+  .dark {
+    color-scheme: dark;
+
     --db-dark-bg: #111b20;
+    --db-perspectives-bg: #0d1518;
     --db-dark-surface: #162027;
     --db-dark-card: #182a32;
     --db-dark-border: #2a3f4a;
@@ -158,21 +146,6 @@
     --input: var(--db-dark-border);
     --ring: var(--db-cyan);
 
-    --ifm-color-primary: var(--db-lava-light);
-    --ifm-color-primary-dark: var(--db-lava);
-    --ifm-color-primary-darker: #ff2710;
-    --ifm-color-primary-darkest: #d41400;
-    --ifm-color-primary-light: #ff7463;
-    --ifm-color-primary-lighter: #ff8374;
-    --ifm-color-primary-lightest: #ffb1a6;
-    --ifm-background-color: var(--db-dark-bg);
-    --ifm-background-surface-color: var(--db-dark-surface);
-    --ifm-navbar-background-color: #000000;
-    --ifm-footer-background-color: #0d1518;
-    --ifm-card-background-color: var(--db-dark-card);
-    --ifm-global-border-color: var(--db-dark-border);
-    --docusaurus-highlighted-code-line-bg: rgb(0 0 0 / 0.3);
-
     --sidebar: hsl(240 5.9% 10%);
     --sidebar-foreground: hsl(240 4.8% 95.9%);
     --sidebar-primary: hsl(224.3 76.3% 48%);
@@ -181,6 +154,12 @@
     --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
     --sidebar-border: hsl(240 3.7% 15.9%);
     --sidebar-ring: hsl(217.2 91.2% 59.8%);
+  }
+
+  @media (width >= 80rem) {
+    :root {
+      --sticky-header-height: 4rem;
+    }
   }
 }
 
@@ -291,6 +270,9 @@
 
   body {
     @apply selection:bg-orange selection:text-white;
+    -webkit-font-smoothing: antialiased;
+    overflow-wrap: break-word;
+    text-rendering: optimizelegibility;
   }
 
   button,
@@ -298,12 +280,14 @@
     cursor: pointer;
   }
 
-  /* Tailwind v4 container can conflict with Infima defaults in dev/hot reload. */
+  /* Keep the site container stable across hot reloads. */
   .container {
+    width: 100%;
+    max-width: 1320px !important;
     margin-inline: auto;
   }
 
-  /* Infima paragraph styles can override Tailwind's mx-auto utility. */
+  /* Preserve Tailwind's mx-auto utility when broad component styles apply. */
   .mx-auto {
     margin-left: auto !important;
     margin-right: auto !important;
@@ -320,129 +304,167 @@
       transform 0.15s ease;
   }
 
-  /* Perspectives pages render a self-contained minimal shell with its own
-     home link + theme toggle, so the standard Docusaurus chrome must step
-     aside. Scope off the `html.plugin-<name>` class that Docusaurus emits
-     statically for every plugin route - it's part of the SSR render and
-     never touched by react-helmet-async hydration, so the navbar stays
-     hidden across the first paint + hydration window with no flicker. */
-  html.plugin-perspectives .navbar,
-  html.plugin-perspectives .navbar-sidebar,
-  html.plugin-perspectives .navbar-sidebar__backdrop {
-    display: none !important;
-  }
-
-  html.plugin-perspectives .main-wrapper {
-    margin-top: 0;
-  }
-
-  /* Infima styles every anchor with --ifm-link-color (lava) at the same
-     specificity as Tailwind's text-* utilities, so the perspectives footer
-     legal links need an explicitly scoped rule to read as muted body text. */
-  html.plugin-perspectives .perspectives-legal-link {
+  .perspectives-legal-link {
     color: var(--muted-foreground);
   }
 
-  html.plugin-perspectives .perspectives-legal-link:hover {
+  .perspectives-legal-link:hover {
     color: var(--foreground);
   }
 
-  /* Search results dropdown */
-  .algolia-autocomplete .ds-dropdown-menu [class^="ds-dataset-"] {
-    background: var(--ifm-background-color) !important;
+  .devhub-hackathon-banner {
+    position: relative;
+    z-index: 60;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 44px;
+    overflow: hidden;
+    padding: 14px 0;
+    font-family: "Geist Mono", monospace;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1;
+    text-align: center;
+    text-transform: uppercase;
   }
 
-  .algolia-autocomplete .algolia-docsearch-suggestion--wrapper {
-    background-color: var(--ifm-background-color) !important;
+  .devhub-hackathon-banner > div {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    font-size: inherit;
   }
 
-  .algolia-autocomplete .ds-cursor .algolia-docsearch-suggestion--wrapper {
-    background: var(--ifm-background-surface-color) !important;
-    box-shadow: inset -2px 0 0 var(--db-lava) !important;
+  .devhub-hackathon-banner .banner-marquee-track {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .algolia-autocomplete .algolia-docsearch-suggestion--title {
-    color: var(--ifm-font-color-base) !important;
+  .devhub-hackathon-banner .banner-marquee-item {
+    display: inline-flex;
+    align-items: center;
   }
 
-  .algolia-autocomplete .algolia-docsearch-suggestion--text {
-    color: var(--muted-foreground) !important;
+  .devhub-hackathon-banner .banner-marquee-copy {
+    display: none;
   }
 
-  [data-theme="dark"]
-    .algolia-autocomplete
-    .algolia-docsearch-suggestion--text {
-    color: rgb(245 247 248 / 0.7) !important;
+  .devhub-hackathon-banner a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 0.5rem;
+    color: inherit;
+    font-weight: 500;
+    text-decoration: none !important;
   }
 
-  .algolia-autocomplete .algolia-docsearch-suggestion--category-header {
-    background-color: var(--db-navy) !important;
-    color: #fff !important;
+  .devhub-hackathon-banner .banner-link-text {
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
 
-  [data-theme="dark"]
-    .algolia-autocomplete
-    .algolia-docsearch-suggestion--category-header {
-    background-color: var(--db-navy-light) !important;
+  .devhub-hackathon-banner .banner-arrow {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    vertical-align: middle;
   }
 
-  .algolia-autocomplete .algolia-docsearch-footer {
-    background-color: var(--ifm-background-color) !important;
+  @keyframes devhub-banner-marquee {
+    0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(-50%);
+    }
   }
 
-  .algolia-autocomplete .algolia-docsearch-suggestion--highlight {
-    background: rgb(255 54 33 / 0.15) !important;
-    color: var(--db-lava) !important;
-  }
+  @media (max-width: 768px) {
+    .devhub-hackathon-banner {
+      min-height: 38px;
+      padding: 12px 0;
+      font-size: 14px;
+    }
 
-  /* No-results state */
-  .algolia-autocomplete .algolia-docsearch-suggestion--no-results {
-    background-color: var(--ifm-background-color) !important;
-    color: var(--ifm-font-color-base) !important;
-    padding: 1.25rem 1rem !important;
-    font-size: 0.9rem !important;
-    text-align: left !important;
-  }
+    .devhub-hackathon-banner > div {
+      justify-content: flex-start;
+    }
 
-  .algolia-autocomplete
-    .algolia-docsearch-suggestion--no-results
-    .algolia-docsearch-suggestion--text {
-    color: var(--muted-foreground) !important;
-    margin-top: 0.25rem !important;
-  }
+    .devhub-hackathon-banner .banner-marquee-track {
+      display: flex;
+      min-width: max-content;
+      align-items: center;
+      white-space: nowrap;
+      animation: devhub-banner-marquee 12s linear infinite;
+      will-change: transform;
+    }
 
-  .algolia-autocomplete .algolia-docsearch-suggestion--no-results::before {
-    display: none !important;
-  }
+    .devhub-hackathon-banner .banner-marquee-item {
+      flex: 0 0 auto;
+      padding-right: 2rem;
+      white-space: nowrap;
+    }
 
-  @media (max-width: 996px) {
-    :root {
-      --ifm-navbar-sidebar-width: 100vw;
+    .devhub-hackathon-banner .banner-marquee-copy {
+      display: inline-flex;
+    }
+
+    .devhub-hackathon-banner a {
+      margin-left: 6px;
+      white-space: nowrap;
+    }
+
+    .devhub-hackathon-banner .banner-arrow {
+      width: 14px;
+      height: 14px;
     }
   }
 }
 
+.skip-to-content {
+  position: fixed;
+  top: 1rem;
+  left: 100%;
+  z-index: 201;
+}
+
+.skip-to-content:focus {
+  left: 1rem;
+  background-color: #ffffff;
+  outline: auto 1px -webkit-focus-ring-color;
+}
+
+next-route-announcer {
+  display: none;
+}
+
 @layer utilities {
   /* Templates filters sidebar: custom dark variant uses :where() (zero specificity), so dark:bg-* can tie bg-white/60 and lose cascade order in prod. */
-  [data-theme="dark"] .templates-filter-surface {
+  .dark .templates-filter-surface {
     background-color: var(--db-dark-card);
     border-color: rgb(255 255 255 / 0.12);
   }
 
   /* Tailwind slash-opacity classes need explicit dark overrides */
-  [data-theme="dark"] .text-db-navy {
+  .dark .text-db-navy {
     color: rgb(245 247 248) !important;
   }
 
-  [data-theme="dark"] .text-db-navy\/70 {
+  .dark .text-db-navy\/70 {
     color: rgb(245 247 248 / 0.72) !important;
   }
 
-  [data-theme="dark"] .text-db-navy\/65 {
+  .dark .text-db-navy\/65 {
     color: rgb(245 247 248 / 0.66) !important;
   }
 
-  [data-theme="dark"] .text-db-navy\/60 {
+  .dark .text-db-navy\/60 {
     color: rgb(245 247 248 / 0.6) !important;
   }
 }
@@ -457,195 +479,5 @@
     transition:
       background-color 5000s,
       color 5000s;
-  }
-}
-
-/* Override Infima's `table { display: block }` so columns fill the container.
- * Unlayered to beat Infima's @layer docusaurus.infima rule. */
-.db-docs-article .theme-doc-markdown table {
-  display: table;
-}
-
-/* Let long paths/URLs in cells break when they'd overflow the column. */
-.db-docs-article .theme-doc-markdown td code,
-.db-docs-article .theme-doc-markdown th code {
-  overflow-wrap: break-word;
-}
-
-/* Hackathon announcement bar
- * height: auto !important overrides Docusaurus's @media (min-width: 997px)
- * rule that hard-codes --docusaurus-announcement-bar-height: 30px, which
- * would otherwise crush our padding-block values on desktop. */
-:root {
-  --docusaurus-announcement-bar-height: auto;
-  --devhub-mobile-menu-top: 3.5rem;
-}
-
-.theme-announcement-bar {
-  font-family: "Geist Mono", monospace;
-  font-size: 1rem;
-  line-height: 1;
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
-  text-align: center;
-  width: 100%;
-  box-sizing: border-box;
-  /* Override Docusaurus fixed height so padding controls height */
-  height: auto;
-  min-height: 44px;
-  /* Stretch inner div to full height so bg fills edge-to-edge */
-  align-items: stretch;
-  border-bottom: none;
-  /* Explicit padding on the orange wrapper */
-  padding-top: 14px;
-  padding-bottom: 14px;
-  padding-inline: 0;
-  z-index: 10;
-}
-
-/* Inner content wrapper: stretch to fill, use flex to center text vertically */
-/* Override Docusaurus AnnouncementBar/Content CSS Module:
- * .content { font-size: 85%; padding: 5px 0 } loads after ours and would
- * shrink text to ~11.9px and add unwanted padding.
- * display: flex + align-items: center ensures text is vertically centred
- * while the inner div stretches to fill the full orange wrapper. */
-.theme-announcement-bar > div {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  font-size: inherit;
-  padding: 0;
-}
-
-.theme-announcement-bar .banner-marquee-track {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.theme-announcement-bar .banner-marquee-item {
-  display: inline-flex;
-  align-items: center;
-}
-
-.theme-announcement-bar .banner-marquee-copy {
-  display: none;
-}
-
-/* "See resources" link */
-.theme-announcement-bar a {
-  color: inherit;
-  text-decoration: none !important;
-  font-weight: 500;
-  margin-left: 0.5rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-/* Underline the link text so it's clearly recognizable as a link */
-.theme-announcement-bar .banner-link-text {
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-/* Arrow icon */
-.theme-announcement-bar .banner-arrow {
-  width: 16px;
-  height: 16px;
-  display: inline-block;
-  vertical-align: middle;
-  flex-shrink: 0;
-}
-
-/* 768px–1024px: smaller text, smaller arrow, less padding */
-@media (max-width: 768px) {
-  .theme-announcement-bar {
-    font-size: 14px;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    min-height: 38px;
-  }
-
-  .theme-announcement-bar .banner-arrow {
-    width: 14px;
-    height: 14px;
-  }
-}
-
-/* Marquee keyframes for small viewports.
- * The track contains two identical items; moving by 50% loops seamlessly. */
-@keyframes banner-marquee {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-/* 768px and below: marquee — full line in one row, scrolling */
-@media (max-width: 768px) {
-  /* Keep display:flex from base so align-items:stretch fills the orange bg
-   * edge-to-edge; overflow:hidden clips the scrolling content. */
-  .theme-announcement-bar {
-    overflow: hidden;
-    padding-inline: 0;
-    padding-top: 12px;
-    padding-bottom: 12px;
-  }
-
-  /* Content wrapper clips a wider marquee track without changing page width. */
-  .theme-announcement-bar > div {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-  }
-
-  /* Track is wider than the viewport because it contains the visible item and
-   * an aria-hidden duplicate. The 50% transform moves exactly one item width. */
-  .theme-announcement-bar .banner-marquee-track {
-    display: flex;
-    align-items: center;
-    min-width: max-content;
-    white-space: nowrap;
-    animation: banner-marquee 12s linear infinite;
-    will-change: transform;
-  }
-
-  .theme-announcement-bar .banner-marquee-item {
-    display: inline-flex;
-    align-items: center;
-    flex: 0 0 auto;
-    padding-right: 2rem;
-    white-space: nowrap;
-  }
-
-  .theme-announcement-bar .banner-marquee-copy {
-    display: inline-flex;
-  }
-
-  /* Restore "See resources" text inline */
-  .theme-announcement-bar .banner-link-text {
-    display: inline;
-    white-space: nowrap;
-  }
-
-  /* Link stays on the same axis as the lead text */
-  .theme-announcement-bar a {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    margin-left: 6px;
-    white-space: nowrap;
-  }
-
-  /* Arrow inherits flex alignment — no extra vertical offset needed */
-  .theme-announcement-bar .banner-arrow {
-    display: inline-block;
-    flex-shrink: 0;
   }
 }

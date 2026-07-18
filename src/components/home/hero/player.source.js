@@ -1,5 +1,5 @@
 // fallow-ignore-file unused-file
-// Source for the generated public asset at static/js/home-hero-player.js.
+// Source for the generated public asset at public/js/home-hero-player.js.
 (() => {
   window.DATABRICKS_EXPORT_MODE = true;
   window.DATABRICKS_USED_FEATURES = {

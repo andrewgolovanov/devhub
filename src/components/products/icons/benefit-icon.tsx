@@ -1,5 +1,3 @@
-import useBaseUrl from "@docusaurus/useBaseUrl";
-
 import type { ProductBenefitIcon as ProductBenefitIconName } from "@/lib/products/product-page";
 
 type BenefitIconProps = {
@@ -23,8 +21,6 @@ export function BenefitIcon({
   className = "size-9 md:size-10 lg:size-11 xl:size-12",
   icon,
 }: BenefitIconProps) {
-  const src = useBaseUrl(benefitIconSrc[icon]);
-
   return (
     <img
       alt=""
@@ -33,7 +29,7 @@ export function BenefitIcon({
       decoding="async"
       height={48}
       loading="eager"
-      src={src}
+      src={benefitIconSrc[icon]}
       width={48}
     />
   );

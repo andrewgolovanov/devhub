@@ -7,8 +7,10 @@ import {
 } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { describe, test, expect, beforeAll, afterAll } from "vitest";
-import { run, cliJson } from "../helpers/scaffold-app";
+
+import { afterAll, beforeAll, describe, expect, test } from "vitest";
+
+import { cliJson, run } from "../helpers/scaffold-app";
 
 const sleepSync = (ms: number) =>
   Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);

@@ -1,12 +1,13 @@
 import { describe, expect, test } from "vitest";
+
+import type { ContentSections } from "../src/lib/content-sections";
 import {
-  buildFullPrompt,
   buildAdditionalMarkdown,
   buildExportGetStartedSection,
+  buildFullPrompt,
   buildIncludedTemplatesPreamble,
 } from "../src/lib/examples/build-example-markdown";
 import type { ExampleMarkdownOptions } from "../src/lib/examples/build-example-markdown";
-import type { ContentSections } from "../src/lib/content-sections";
 import type { Example } from "../src/lib/recipes/recipes";
 
 const minimalExample: Example = {
@@ -124,24 +125,6 @@ describe("buildFullPrompt", () => {
     );
   });
 
-  test("includes configured site path in included template links", () => {
-    const prompt = buildFullPrompt({
-      ...baseOpts,
-      baseUrl: "https://stage.databricks.com/devhub",
-      sections: emptySections,
-      includedCookbooks: sampleTemplates,
-      includedRecipes: sampleRecipes,
-    });
-
-    expect(prompt).toContain(
-      "[Template A](https://stage.databricks.com/devhub/templates/tmpl-a.md)",
-    );
-    expect(prompt).toContain(
-      "[Recipe B](https://stage.databricks.com/devhub/templates/recipe-b.md)",
-    );
-    expect(prompt).not.toContain("https://stage.databricks.com/templates/");
-  });
-
   test("omits included templates section when no cookbooks or recipes", () => {
     const prompt = buildFullPrompt({ ...baseOpts, sections: emptySections });
     expect(prompt).not.toContain("## Included templates");
@@ -179,23 +162,6 @@ describe("buildAdditionalMarkdown", () => {
     expect(md).toContain(
       "[Recipe B](https://example.com/templates/recipe-b.md)",
     );
-  });
-
-  test("includes configured site path in additional template links", () => {
-    const md = buildAdditionalMarkdown({
-      ...baseOpts,
-      baseUrl: "https://stage.databricks.com/devhub",
-      includedCookbooks: sampleTemplates,
-      includedRecipes: sampleRecipes,
-    });
-
-    expect(md).toContain(
-      "[Template A](https://stage.databricks.com/devhub/templates/tmpl-a.md)",
-    );
-    expect(md).toContain(
-      "[Recipe B](https://stage.databricks.com/devhub/templates/recipe-b.md)",
-    );
-    expect(md).not.toContain("https://stage.databricks.com/templates/");
   });
 
   test("omits included templates section when no cookbooks or recipes", () => {

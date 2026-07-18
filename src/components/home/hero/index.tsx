@@ -1,13 +1,15 @@
-import { cn } from "@/lib/utils";
-import { Icons } from "@/components/icons";
-import { TitleCross } from "@/components/title-cross";
-import { Button } from "@/components/ui/button";
-import { getBootstrapPromptApiPath } from "@/lib/bootstrap-prompt";
-import Link from "@docusaurus/Link";
-import useBaseUrl from "@docusaurus/useBaseUrl";
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
 import { track } from "@vercel/analytics";
 import { Check, LoaderCircle } from "lucide-react";
-import { useState } from "react";
+
+import { getBootstrapPromptApiPath } from "@/lib/bootstrap-prompt";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { TitleCross } from "@/components/home/title-cross";
+import { Icons } from "@/components/icons";
 
 import { DbHeroAnimation } from "./animation";
 
@@ -16,7 +18,7 @@ interface HeroProps {
 }
 
 function HeroCopyPromptButton() {
-  const apiPath = useBaseUrl(getBootstrapPromptApiPath());
+  const apiPath = getBootstrapPromptApiPath();
   const [copyState, setCopyState] = useState<"idle" | "copying" | "copied">(
     "idle",
   );
@@ -41,7 +43,7 @@ function HeroCopyPromptButton() {
 
   return (
     <Button
-      className="h-10 font-mono gap-x-4.5 text-base leading-none tracking-tight text-black uppercase shadow-none lg:h-11"
+      className="h-10 gap-x-4.5 font-mono text-base leading-none tracking-tight text-black uppercase shadow-none lg:h-11"
       onClick={handleCopy}
       disabled={copyState === "copying"}
       title="Copy agent prompt"
@@ -62,15 +64,15 @@ function HeroCopyPromptButton() {
 
 function HeroTitleHighlight({ children }: { children: string }) {
   return (
-    <span className="relative inline-block text-db-lava md:whitespace-nowrap">
+    <span className="text-db-lava relative inline-block md:whitespace-nowrap">
       <span
-        className="pointer-events-none absolute -inset-x-1.5 inset-y-0 hidden border border-grey-20 md:block"
+        className="border-grey-20 pointer-events-none absolute -inset-x-1.5 inset-y-0 hidden border md:block"
         aria-hidden="true"
       />
       <TitleCross className="-top-2 -left-3.5" />
       <TitleCross className="-top-2 -right-3.5" />
       <TitleCross className="-bottom-2 -left-3.5" />
-      <TitleCross className="-bottom-2 -right-3.5" />
+      <TitleCross className="-right-3.5 -bottom-2" />
       <span className="relative">{children}</span>
     </span>
   );
@@ -80,21 +82,21 @@ function Hero({ className }: HeroProps) {
   return (
     <section
       className={cn(
-        "hero relative -mt-16 block bg-black text-white border-b border-grey-20",
+        "hero border-grey-20 relative -mt-16 block border-b bg-black text-white",
         className,
       )}
     >
-      <div className="relative flex flex-col justify-end min-h-[max(125vw,660px)] w-full overflow-hidden pb-16 sm:min-h-[max(100vw,700px)] md:min-h-200 md:pb-20 lg:min-h-[max(min(calc(100vh-2rem),1000px),700px)] lg:pb-[min(5vh,6.5rem)] xl:min-h-[max(min(calc(100vh-2rem),1000px),700px)] 2xl:min-h-[max(min(calc(100vh-2rem),1200px),800px)]">
-        <div className="absolute top-8 left-1/2 -translate-x-1/2 bottom-0 md:top-8 w-full max-w-400 px-5 md:px-8 lg:top-0">
+      <div className="relative flex min-h-[max(125vw,41.25rem)] w-full flex-col justify-end overflow-hidden pb-16 sm:min-h-[max(100vw,43.75rem)] md:min-h-200 md:pb-20 lg:min-h-[max(min(calc(100vh-2rem),62.5rem),43.75rem)] lg:pb-[min(5vh,6.5rem)] xl:min-h-[max(min(calc(100vh-2rem),62.5rem),43.75rem)] 2xl:min-h-[max(min(calc(100vh-2rem),75rem),50rem)]">
+        <div className="absolute top-8 bottom-0 left-1/2 w-full max-w-400 -translate-x-1/2 px-5 md:top-8 md:px-8 lg:top-0">
           <div
-            className="absolute top-0 left-[-20%] w-[150vw] aspect-2300/1144 sm:left-[-23%] md:w-5xl md:-left-38 lg:h-[max(min(85vh,800px),640px)] lg:left-0 lg:-translate-x-[14.5%] lg:w-auto xl:h-[max(min(90vh,1024px),640px)] 2xl:h-[max(min(95vh,1144px),640px)]"
+            className="absolute top-0 left-[-20%] aspect-2300/1144 w-[150vw] sm:left-[-23%] md:-left-38 md:w-5xl lg:left-0 lg:h-[max(min(85vh,50rem),40rem)] lg:w-auto lg:translate-x-[-14.5%] xl:h-[max(min(90vh,64rem),40rem)] 2xl:h-[max(min(95vh,71.5rem),40rem)]"
             aria-hidden="true"
           >
             <DbHeroAnimation />
-            <div className="absolute inset-x-0 top-0 pointer-events-none bg-linear-to-t from-transparent to-black h-16 lg:h-24" />
-            <div className="absolute inset-x-0 bottom-0 pointer-events-none bg-linear-to-b from-transparent to-black h-1/3" />
-            <div className="absolute inset-y-0 left-0 pointer-events-none bg-linear-to-l from-transparent via-black/90 via-80% to-black w-1/7" />
-            <div className="absolute inset-y-0 right-0 pointer-events-none bg-linear-to-r from-transparent via-black/90 via-80% to-black w-1/7" />
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-linear-to-t from-transparent to-black lg:h-24" />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-b from-transparent to-black" />
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-1/7 bg-linear-to-l from-transparent via-black/90 via-80% to-black" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-1/7 bg-linear-to-r from-transparent via-black/90 via-80% to-black" />
           </div>
         </div>
         <div
@@ -103,7 +105,7 @@ function Hero({ className }: HeroProps) {
         />
         <header className="pointer-events-none relative z-10 flex flex-col justify-end">
           <div className="pointer-events-auto mx-auto grid w-full max-w-400 grid-cols-1 px-5 md:px-8 xl:grid-cols-[1fr_auto] xl:items-end xl:gap-7">
-            <h1 className="max-w-md md:max-w-4xl pb-1 font-heading text-4xl/none tracking-normal text-white md:text-5xl/none lg:text-[64px]/none 2xl:text-7xl/none">
+            <h1 className="font-heading max-w-md pb-1 text-4xl/none tracking-normal text-white md:max-w-4xl md:text-5xl/none lg:text-[4rem]/none 2xl:text-7xl/none">
               <span className="relative z-10">Build </span>
               <HeroTitleHighlight>agentic applications</HeroTitleHighlight>
               <br />
@@ -111,7 +113,7 @@ function Hero({ className }: HeroProps) {
                 in&nbsp;minutes, not months.
               </span>
             </h1>
-            <p className="order-last max-w-sm text-base/tight tracking-normal mt-4 text-grey-80 xl:order-0 xl:mt-0 xl:row-span-2">
+            <p className="text-grey-80 order-last mt-4 max-w-sm text-base/tight tracking-normal xl:order-0 xl:row-span-2 xl:mt-0">
               Copy the prompt into Cursor, Claude Code, Codex, or any coding
               agent — it will walk you through building a complete app, step by
               step.
@@ -123,7 +125,7 @@ function Hero({ className }: HeroProps) {
               >
                 <Link
                   className="no-underline hover:no-underline"
-                  to="/docs/start-here"
+                  href="/docs/start-here"
                 >
                   Read the docs
                 </Link>

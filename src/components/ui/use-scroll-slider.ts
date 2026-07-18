@@ -1,4 +1,4 @@
-import { type UIEvent, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type UIEvent } from "react";
 
 function getNearestSliderItemIndex(track: HTMLDivElement): number {
   const items = Array.from(track.children).filter(

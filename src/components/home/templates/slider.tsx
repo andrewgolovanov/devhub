@@ -1,27 +1,27 @@
-import Link from "@docusaurus/Link";
-
-import { FallbackCardArt } from "@/components/examples/fallback-card-art";
-import { TemplatePreviewImage } from "@/components/examples/template-preview-image";
-import { getTemplateCardFields } from "@/components/templates/template-card";
-import { Button } from "@/components/ui/button";
-import { SliderArrowIcon } from "@/components/ui/slider-arrow-icon";
-import { useFeatureFlags } from "@/lib/feature-flags";
-import { buildTemplateItems } from "@/lib/templates/template-items";
-import { cn } from "@/lib/utils";
-import { domAnimation, LazyMotion } from "motion/react";
-import * as m from "motion/react-m";
 import {
-  type KeyboardEvent,
-  type RefObject,
-  type SVGProps,
   useCallback,
   useEffect,
   useMemo,
   useRef,
   useState,
+  type KeyboardEvent,
+  type RefObject,
+  type SVGProps,
 } from "react";
+import Link from "next/link";
+import { domAnimation, LazyMotion } from "motion/react";
+import * as m from "motion/react-m";
 
-import { type TemplateSliderSettings, useTemplateSlider } from "./use-slider";
+import { useFeatureFlags } from "@/lib/feature-flags";
+import { buildTemplateItems } from "@/lib/templates/template-items";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { SliderArrowIcon } from "@/components/ui/slider-arrow-icon";
+import { FallbackCardArt } from "@/components/examples/fallback-card-art";
+import { TemplatePreviewImage } from "@/components/examples/template-preview-image";
+import { getTemplateCardFields } from "@/components/templates/template-card";
+
+import { useTemplateSlider, type TemplateSliderSettings } from "./use-slider";
 
 type TemplateCardItem = {
   id: string;
@@ -95,7 +95,7 @@ function TemplateDescriptionText({
     <p
       aria-hidden={!isVisible}
       className={cn(
-        "col-start-1 row-start-1 min-w-0 max-w-full text-[15px] leading-normal tracking-tight break-words text-grey-70 line-clamp-3 transition-[opacity,transform] ease-out",
+        "text-grey-70 col-start-1 row-start-1 line-clamp-3 max-w-full min-w-0 text-[0.9375rem] leading-normal tracking-tight break-words transition-[opacity,transform] ease-out",
         isVisible
           ? "pointer-events-auto translate-y-0 opacity-100"
           : "pointer-events-none translate-y-1 opacity-0",
@@ -130,24 +130,24 @@ function TemplateCarouselCard({
 }) {
   return (
     <Link
-      className="group/card mt-auto flex h-fit w-full min-w-0 flex-col justify-end text-white no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-db-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-[#121317]"
-      to={item.href}
+      className="group/card focus-visible:ring-db-cyan mt-auto flex h-fit w-full min-w-0 flex-col justify-end text-white no-underline focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[#121317] focus-visible:outline-none"
+      href={item.href}
       draggable={false}
       aria-label={`${item.title} template`}
       onDragStart={(event) => event.preventDefault()}
     >
-      <h3 className="text-xl leading-tight font-medium tracking-tight text-white text-pretty">
+      <h3 className="text-xl leading-tight font-medium tracking-tight text-pretty text-white">
         <span className="inline-flex items-center gap-1.5 text-white">
           <span>{item.title}</span>
           <TitleLinkIcon
             className={cn(
-              "size-6 text-db-lava-light opacity-0 transition-[opacity,transform] duration-200",
+              "text-db-lava-light size-6 opacity-0 transition-[opacity,transform] duration-200",
               canOpenLink &&
-                "group-hover/card:-translate-y-0.5 group-hover/card:translate-x-0.5 group-hover/card:opacity-100 group-focus-visible/card:-translate-y-0.5 group-focus-visible/card:translate-x-0.5 group-focus-visible/card:opacity-100",
+                "group-hover/card:translate-x-0.5 group-hover/card:-translate-y-0.5 group-hover/card:opacity-100 group-focus-visible/card:translate-x-0.5 group-focus-visible/card:-translate-y-0.5 group-focus-visible/card:opacity-100",
               isKeyboardMode &&
                 isActive &&
                 canOpenLink &&
-                "-translate-y-0.5 translate-x-0.5 opacity-100",
+                "translate-x-0.5 -translate-y-0.5 opacity-100",
             )}
             aria-hidden="true"
           />
@@ -170,13 +170,14 @@ function TemplateCarouselCard({
         </TemplateDescriptionText>
       </div>
       <div
-        className="relative mt-6 aspect-video w-full overflow-hidden border border-[#515151] bg-db-oat-medium shadow-[0_18px_50px_rgb(0_0_0/0.32)] ease-out"
+        className="bg-db-oat-medium relative mt-6 aspect-video w-full overflow-hidden border border-[#515151] shadow-[0_18px_50px_rgb(0_0_0/0.32)] ease-out"
         style={{ transitionDuration: `${imageDuration}s` }}
       >
         <TemplatePreviewImage
           lightUrl={item.lightUrl}
           alt={`${item.title} preview`}
           fallback={<FallbackCardArt index={index} />}
+          preload={index === 0}
         />
       </div>
     </Link>
@@ -335,14 +336,14 @@ export function TemplateSlider({
               "static size-11 translate-0 rounded-none shadow-none transition-colors duration-150",
               slider.isPreviousSlideDisabled
                 ? "border border-white/25 bg-transparent text-white/35 hover:border-white/25 hover:bg-transparent hover:text-white/35"
-                : "border border-db-lava-light bg-db-lava-light text-white hover:border-db-lava hover:bg-db-lava focus-visible:ring-2 focus-visible:ring-db-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-[#121317]",
+                : "border-db-lava-light bg-db-lava-light hover:border-db-lava hover:bg-db-lava focus-visible:ring-db-cyan border text-white focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[#121317]",
               keyboardPressedArrow === "previous" &&
                 !slider.isPreviousSlideDisabled &&
                 "border-db-lava bg-db-lava text-white transition-none",
               "[&_svg]:size-6",
             )}
           >
-            <SliderArrowIcon className="rotate-180 size-6" />
+            <SliderArrowIcon className="size-6 rotate-180" />
           </Button>
           <Button
             aria-label="Next slide"
@@ -353,7 +354,7 @@ export function TemplateSlider({
               "static size-11 translate-0 rounded-none shadow-none transition-colors duration-150",
               slider.isNextSlideDisabled
                 ? "border border-white/25 bg-transparent text-white/35 hover:border-white/25 hover:bg-transparent hover:text-white/35"
-                : "border border-db-lava-light bg-db-lava-light text-white hover:border-db-lava hover:bg-db-lava focus-visible:ring-2 focus-visible:ring-db-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-[#121317]",
+                : "border-db-lava-light bg-db-lava-light hover:border-db-lava hover:bg-db-lava focus-visible:ring-db-cyan border text-white focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[#121317]",
               keyboardPressedArrow === "next" &&
                 !slider.isNextSlideDisabled &&
                 "border-db-lava bg-db-lava text-white transition-none",
@@ -370,7 +371,7 @@ export function TemplateSlider({
             className={cn(
               "@container mx-auto w-full max-w-400 px-5 transition-opacity duration-150 md:px-8",
               slider.shouldUseNativeScroll
-                ? "snap-x snap-mandatory overflow-x-auto overflow-y-hidden overscroll-x-contain scroll-smooth [scroll-padding-left:1.25rem] [scroll-padding-right:1.25rem] [scrollbar-width:none] [-webkit-overflow-scrolling:touch] md:[scroll-padding-left:2rem] md:[scroll-padding-right:2rem] [&::-webkit-scrollbar]:hidden"
+                ? "snap-x snap-mandatory scroll-pr-5 scroll-pl-5 scrollbar-none overflow-x-auto overflow-y-hidden overscroll-x-contain scroll-smooth [-webkit-overflow-scrolling:touch] md:scroll-pr-8 md:scroll-pl-8 [&::-webkit-scrollbar]:hidden"
                 : "overflow-visible",
               slider.isCarouselMeasured
                 ? "opacity-100"
@@ -407,7 +408,7 @@ export function TemplateSlider({
             <m.div
               animate={{ x: slider.shouldUseNativeScroll ? 0 : slider.trackX }}
               className={cn(
-                "flex w-max min-h-[65vw] md:min-h-88 lg:min-h-112 2xl:min-h-120",
+                "flex min-h-[65vw] w-max md:min-h-88 lg:min-h-112 2xl:min-h-120",
                 slider.shouldUseNativeScroll
                   ? "cursor-auto touch-auto"
                   : "cursor-grab touch-pan-y active:cursor-grabbing",
@@ -471,12 +472,12 @@ export function TemplateSlider({
                     }}
                     data-active={isActive}
                     className={cn(
-                      "pointer-events-auto w-[var(--template-card-width)] shrink-0 flex flex-col justify-end overflow-hidden transition-[width] ease-out [contain:layout_paint] will-change-transform",
+                      "pointer-events-auto flex w-[var(--template-card-width)] shrink-0 flex-col justify-end overflow-hidden transition-[width] ease-out will-change-transform [contain:layout_paint]",
                       slider.shouldUseNativeScroll && "snap-start",
-                      "[--template-card-width:min(72cqw,360px)]",
-                      "md:[--template-card-width:min(calc((100cqw-24px)/2),576px)]",
-                      "xl:[--template-card-width:344px] 2xl:[--template-card-width:448px]",
-                      "data-[active=true]:xl:[--template-card-width:448px] data-[active=true]:2xl:[--template-card-width:576px]",
+                      "[--template-card-width:min(72cqw,22.5rem)]",
+                      "md:[--template-card-width:min(calc((100cqw-1.5rem)/2),36rem)]",
+                      "xl:[--template-card-width:21.5rem] 2xl:[--template-card-width:28rem]",
+                      "data-[active=true]:xl:[--template-card-width:28rem] data-[active=true]:2xl:[--template-card-width:36rem]",
                       isActive && "relative z-10",
                     )}
                     initial={false}

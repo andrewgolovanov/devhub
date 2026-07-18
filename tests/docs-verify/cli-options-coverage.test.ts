@@ -1,6 +1,8 @@
 import { readdirSync } from "node:fs";
 import { resolve } from "node:path";
-import { describe, test, expect } from "vitest";
+
+import { describe, expect, test } from "vitest";
+
 import { CLI_COMMANDS, getAllOptionsBlocks } from "./cli-commands";
 
 // Extract all databricks subcommands from a block. Combined blocks (multiple
@@ -21,7 +23,7 @@ function getCommandsFromBlock(block: string): string[] {
 
 describe("All 'All Options' blocks are covered by CLI_COMMANDS", () => {
   test("every databricks 'All Options' block in docs has a CLI_COMMANDS entry", () => {
-    const docsDir = resolve(process.cwd(), "docs");
+    const docsDir = resolve(process.cwd(), "src", "content", "docs");
     const mdFiles = (
       readdirSync(docsDir, { recursive: true, encoding: "utf-8" }) as string[]
     )

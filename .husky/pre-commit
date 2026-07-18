@@ -1,5 +1,5 @@
-npx prettier -c .
-npm run typecheck
-npm run validate:content
-npm run verify:images
-npm run build
+pnpm exec prettier -c .
+pnpm typecheck
+pnpm validate:content
+pnpm verify:images
+pnpm build

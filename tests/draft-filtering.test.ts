@@ -1,9 +1,10 @@
-import { describe, expect, test, afterEach, vi } from "vitest";
+import { afterEach, describe, expect, test, vi } from "vitest";
+
 import {
   filterPublished,
-  type Recipe,
   type Cookbook,
   type Example,
+  type Recipe,
 } from "../src/lib/recipes/recipes";
 
 describe("filterPublished", () => {
@@ -118,7 +119,8 @@ describe("templates index in API markdown", () => {
   });
 
   test("templates index includes published entries from every internal kind", async () => {
-    const { getDetailMarkdown } = await import("../api/content-markdown");
+    const { getDetailMarkdown } =
+      await import("../src/lib/agent-content-markdown");
     const markdown = getDetailMarkdown("templates", "");
     expect(markdown).toContain("# Templates");
     expect(markdown).not.toContain("## Cookbooks");
@@ -130,5 +132,52 @@ describe("templates index in API markdown", () => {
       "/templates/set-up-your-local-dev-environment.md",
     );
     expect(markdown).toContain("/templates/agentic-support-console.md");
+  });
+});
+
+describe("template static params slugs", () => {
+  afterEach(() => {
+    delete process.env.SHOW_DRAFTS;
+    vi.doUnmock("@/lib/recipes/recipes");
+    vi.resetModules();
+  });
+
+  test("uses the published/draft filter for recipes, cookbooks, and examples", async () => {
+    vi.doMock("@/lib/recipes/recipes", () => ({
+      recipesInOrder: [
+        { id: "published-recipe" },
+        { id: "draft-recipe", isDraft: true },
+      ],
+      cookbooks: [
+        { id: "published-cookbook" },
+        { id: "draft-cookbook", isDraft: true },
+      ],
+      examples: [
+        { id: "published-example" },
+        { id: "draft-example", isDraft: true },
+      ],
+      filterPublished: <T extends { isDraft?: boolean }>(
+        items: T[],
+        includeDrafts: boolean,
+      ) => (includeDrafts ? items : items.filter((item) => !item.isDraft)),
+    }));
+
+    const { getAllTemplateSlugs } = await import("../src/lib/template-content");
+
+    expect(getAllTemplateSlugs()).toEqual([
+      "published-cookbook",
+      "published-example",
+      "published-recipe",
+    ]);
+
+    process.env.SHOW_DRAFTS = "true";
+    expect(getAllTemplateSlugs()).toEqual([
+      "draft-cookbook",
+      "draft-example",
+      "draft-recipe",
+      "published-cookbook",
+      "published-example",
+      "published-recipe",
+    ]);
   });
 });

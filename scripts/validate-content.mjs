@@ -3,10 +3,12 @@ import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { relative, resolve } from "node:path";
 
 const ROOT = process.argv[2] ? resolve(process.argv[2]) : process.cwd();
+const CONTENT_ROOT = resolve(ROOT, "src", "content");
+const CONTENT_LABEL = "src/content";
 
-if (!existsSync(resolve(ROOT, "content"))) {
+if (!existsSync(CONTENT_ROOT)) {
   console.error(
-    `No content/ directory found in ${ROOT}. Run validate-content from the DevHub repo root or pass a path.`,
+    `No src/content/ directory found in ${ROOT}. Run validate-content from the DevHub repo root or pass a path.`,
   );
   process.exit(1);
 }
@@ -20,11 +22,7 @@ const RESOURCE_ALLOWED_FILES = new Set([
 const RESOURCE_REQUIRED_FILES = ["goal.md"];
 const RESOURCE_SECTIONS = /** @type {const} */ (["recipes", "examples"]);
 
-const COOKBOOK_ALLOWED_FILES = new Set([
-  "goal.md",
-  "intro.md",
-  "replit-prompt.md",
-]);
+const COOKBOOK_ALLOWED_FILES = new Set(["goal.md", "replit-prompt.md"]);
 
 /** @type {string[]} */
 const errors = [];
@@ -35,7 +33,7 @@ const errors = [];
  * with `requiredFile` present when set.
  *
  * @param {object} opts
- * @param {string} opts.sectionPath  e.g. "content/recipes" — used in error messages
+ * @param {string} opts.sectionPath  e.g. "src/content/recipes" — used in error messages
  * @param {string} opts.sectionDir   absolute filesystem path to the section
  * @param {Set<string>} opts.allowedFiles  whitelist of allowed direct-child filenames
  * @param {string[]=} opts.requiredFiles  at least one of these must be present (omit for none)
@@ -103,29 +101,29 @@ function validateContentFolder({
 
 for (const section of RESOURCE_SECTIONS) {
   validateContentFolder({
-    sectionPath: `content/${section}`,
-    sectionDir: resolve(ROOT, "content", section),
+    sectionPath: `${CONTENT_LABEL}/${section}`,
+    sectionDir: resolve(CONTENT_ROOT, section),
     allowedFiles: RESOURCE_ALLOWED_FILES,
     requiredFiles: RESOURCE_REQUIRED_FILES,
     emptyHint: "Add goal.md.",
-    flatHint: `Flat files are not allowed. Move to content/${section}/<slug>/goal.md.`,
+    flatHint: `Flat files are not allowed. Move to src/content/${section}/<slug>/goal.md.`,
   });
 }
 
 /**
- * Solutions are flat markdown files at content/solutions/<slug>.md. Their H1
+ * Solutions are folders at src/content/solutions/<slug>/goal.md. Their H1
  * (title) is injected by the SolutionDetail component from the registry, so
  * the markdown body must NOT start with — or contain — a `# ` ATX heading.
  * Section headings start at `##` (and may go deeper). Setext-style underlines
  * (`====` / `----`) are also rejected to keep the rule mechanical.
  */
-const solutionsDir = resolve(ROOT, "content", "solutions");
+const solutionsDir = resolve(CONTENT_ROOT, "solutions");
 if (existsSync(solutionsDir)) {
   for (const entry of readdirSync(solutionsDir)) {
-    if (!entry.endsWith(".md")) continue;
-    const filePath = resolve(solutionsDir, entry);
-    if (!statSync(filePath).isFile()) continue;
-    const fileLabel = `content/solutions/${entry}`;
+    const goalPath = resolve(solutionsDir, entry, "goal.md");
+    if (!existsSync(goalPath)) continue;
+    const filePath = goalPath;
+    const fileLabel = `${CONTENT_LABEL}/solutions/${entry}/goal.md`;
     const source = readFileSync(filePath, "utf-8");
     const body = stripFencedCodeBlocks(stripFrontmatter(source));
     const lines = body.split("\n");
@@ -148,14 +146,16 @@ if (existsSync(solutionsDir)) {
   }
 }
 
-const cookbooksDir = resolve(ROOT, "content", "cookbooks");
+const cookbooksDir = resolve(CONTENT_ROOT, "cookbooks");
 if (existsSync(cookbooksDir)) {
   validateContentFolder({
-    sectionPath: "content/cookbooks",
+    sectionPath: `${CONTENT_LABEL}/cookbooks`,
     sectionDir: cookbooksDir,
     allowedFiles: COOKBOOK_ALLOWED_FILES,
-    emptyHint: "Add goal.md or intro.md, or remove the folder.",
-    flatHint: "Cookbook content lives under content/cookbooks/<template-id>/.",
+    requiredFiles: ["goal.md"],
+    emptyHint: "Add goal.md or remove the folder.",
+    flatHint:
+      "Cookbook content lives under src/content/cookbooks/<template-id>/.",
   });
 }
 
@@ -249,7 +249,7 @@ function* walkMarkdownFiles(dir) {
   }
 }
 
-const LINK_VALIDATION_ROOTS = ["content", "docs"];
+const LINK_VALIDATION_ROOTS = [CONTENT_LABEL];
 
 for (const dirName of LINK_VALIDATION_ROOTS) {
   const dir = resolve(ROOT, dirName);
@@ -275,7 +275,7 @@ if (errors.length > 0) {
 }
 
 console.log(
-  `Content validation passed (folder layout: ${[...RESOURCE_SECTIONS.map((s) => `content/${s}/`), "content/cookbooks/"].join(", ")}; ` +
-    `solutions H1 audit: content/solutions/; ` +
+  `Content validation passed (folder layout: ${[...RESOURCE_SECTIONS.map((s) => `${CONTENT_LABEL}/${s}/`), `${CONTENT_LABEL}/cookbooks/`].join(", ")}; ` +
+    `solutions H1 audit: ${CONTENT_LABEL}/solutions/; ` +
     `absolute-DevHub link audit: ${LINK_VALIDATION_ROOTS.map((d) => `${d}/`).join(", ")}).`,
 );

@@ -1,13 +1,13 @@
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
+import { sql } from "@databricks/appkit-ui/js";
 import {
-  useAnalyticsQuery,
   Card,
+  CardContent,
   CardHeader,
   CardTitle,
-  CardContent,
   Skeleton,
+  useAnalyticsQuery,
 } from "@databricks/appkit-ui/react";
-import { sql } from "@databricks/appkit-ui/js";
 
 export function BookingManager() {
   const [bookingId, setBookingId] = useState("");
@@ -65,13 +65,13 @@ export function BookingManager() {
     <div className="space-y-4">
       <div className="flex gap-2">
         <input
-          className="border rounded px-3 py-1.5 text-sm"
+          className="rounded border px-3 py-1.5 text-sm"
           placeholder="Booking ID"
           value={bookingId}
           onChange={(e) => setBookingId(e.target.value)}
         />
         <button
-          className="bg-primary text-primary-foreground px-4 py-1.5 rounded text-sm"
+          className="bg-primary text-primary-foreground rounded px-4 py-1.5 text-sm"
           onClick={handleLookup}
         >
           Look up
@@ -87,7 +87,7 @@ export function BookingManager() {
             <CardTitle>{booking.property_title}</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-sm text-muted-foreground space-y-1">
+            <div className="text-muted-foreground space-y-1 text-sm">
               <p>
                 {booking.guest_name} · {booking.guest_email}
               </p>
@@ -101,7 +101,7 @@ export function BookingManager() {
             </div>
 
             <button
-              className={`mt-3 px-3 py-1 rounded text-sm ${
+              className={`mt-3 rounded px-3 py-1 text-sm ${
                 flag
                   ? "bg-destructive text-destructive-foreground"
                   : "bg-secondary text-secondary-foreground"
@@ -115,20 +115,20 @@ export function BookingManager() {
               <h4 className="text-sm font-medium">Notes</h4>
               <div className="flex gap-2">
                 <input
-                  className="border rounded px-3 py-1.5 text-sm flex-1"
+                  className="flex-1 rounded border px-3 py-1.5 text-sm"
                   placeholder="Add a note..."
                   value={newNote}
                   onChange={(e) => setNewNote(e.target.value)}
                 />
                 <button
-                  className="bg-primary text-primary-foreground px-4 py-1.5 rounded text-sm"
+                  className="bg-primary text-primary-foreground rounded px-4 py-1.5 text-sm"
                   onClick={handleAddNote}
                 >
                   Add
                 </button>
               </div>
               {notes.map((n) => (
-                <div key={n.note_id} className="text-sm border-l-2 pl-3 py-1">
+                <div key={n.note_id} className="border-l-2 py-1 pl-3 text-sm">
                   <p>{n.note}</p>
                   <p className="text-muted-foreground text-xs">
                     {n.agent_email} · {new Date(n.created_at).toLocaleString()}

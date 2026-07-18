@@ -1,0 +1,5 @@
+{
+  "title": "Set up your environment",
+  "defaultOpen": true,
+  "pages": ["databricks-cli", "...ai-tools"]
+}

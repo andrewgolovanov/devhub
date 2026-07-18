@@ -2,8 +2,10 @@ import { execSync } from "node:child_process";
 import { existsSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { describe, test, expect, afterAll } from "vitest";
-import { run, cli, cliJson } from "../helpers/scaffold-app";
+
+import { afterAll, describe, expect, test } from "vitest";
+
+import { cli, cliJson, run } from "../helpers/scaffold-app";
 
 const PROFILE = process.env.DATABRICKS_PROFILE;
 if (!PROFILE) {

@@ -229,7 +229,7 @@ export const nativeSolutionItems: NativeSolutionItem[] =
 
 type Draftable = { isDraft?: boolean };
 
-export function filterPublishedSolutionItems<T extends Draftable>(
+function filterPublishedSolutionItems<T extends Draftable>(
   items: T[],
   includeDrafts: boolean,
 ): T[] {
@@ -297,6 +297,13 @@ export function getFeaturedSolutionItem(
   );
 }
 
+export function getSolutionListItems(items: SolutionItem[]): SolutionItem[] {
+  const featuredItem = getFeaturedSolutionItem(items);
+  return featuredItem
+    ? items.filter((item) => item.id !== featuredItem.id)
+    : items;
+}
+
 export function getSolutionCategories(items: SolutionItem[]): string[] {
   const availableTags = new Set(items.flatMap((item) => item.tags));
   return PREFERRED_SOLUTION_CATEGORIES.filter((category) =>
@@ -351,12 +358,19 @@ export function paginateSolutionItems(
   };
 }
 
+export function getSolutionPageCount(
+  items: SolutionItem[],
+  pageSize = SOLUTION_ITEMS_PER_PAGE,
+): number {
+  return Math.max(1, Math.ceil(items.length / pageSize));
+}
+
 export function getSolutionPagePath(page: number): string {
   return page <= 1 ? "/solutions" : `/solutions/page/${page}`;
 }
 
 export function getSolutionPageFromPathname(pathname: string): number {
-  const match = pathname.match(/(?:^|\/)solutions(?:\/page\/(\d+))?\/?$/);
+  const match = pathname.match(/^\/solutions(?:\/page\/(\d+))?\/?$/);
   const page = Number(match?.[1] ?? "1");
 
   return Number.isSafeInteger(page) && page > 0 ? page : 1;

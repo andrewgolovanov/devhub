@@ -161,7 +161,7 @@ Update `src/lib/recipes/recipes.ts`:
 
 ### 4. Add Preview And Gallery Images (Optional)
 
-Images are optional. When omitted, the UI falls back to the generic card art. When you add them, they must conform to the DevHub image contracts that `npm run verify:images` enforces (the pre-commit hook runs this script).
+Images are optional. When omitted, the UI falls back to the generic card art. When you add them, they must conform to the DevHub image contracts that `pnpm verify:images` enforces (the pre-commit hook runs this script).
 
 **Contract for template preview/gallery images:**
 
@@ -199,7 +199,7 @@ Screenshot guidance:
 
 ### 5. Verify The DevHub Build
 
-Run `npm run fmt && npm run typecheck && npm run build && npm run test` from the repo root. The content-entries plugin validates slug uniqueness across the whole catalog and generates routes automatically.
+Run `pnpm fmt && pnpm typecheck && pnpm build && pnpm test` from the repo root. The content-entries plugin validates slug uniqueness across the whole catalog and generates routes automatically.
 
 ### 6. Test With A Dry Run
 
@@ -280,7 +280,7 @@ These rules are enforced mechanically by `scripts/validate-content.mjs`, which f
 1. Add the registry entry in `src/lib/solutions/solutions.ts` with `type: "native"`, the canonical `title` / `description`, `tags`, `authors` (IDs from `src/lib/solutions/authors.ts`), and an ISO `publishedAt` (`YYYY-MM-DD`).
 2. Author `content/solutions/<slug>.md`. Open with the lede paragraph (no heading), then organize the rest with `## ` and deeper headings.
 3. Use root-relative DevHub links (see [Link Style](#link-style-use-relative-urls-for-devhub-pages)) — the same rule that applies to recipes and docs.
-4. Run `npm run validate:content && npm run typecheck && npm run build` to confirm the registry, slug, and H1 rule all pass before committing.
+4. Run `pnpm validate:content && pnpm typecheck && pnpm build` to confirm the registry, slug, and H1 rule all pass before committing.
 
 ## URL Structure
 
@@ -335,7 +335,7 @@ Allowed exceptions (the validator skips these):
 7. Verify commands are runnable and do not skip required auth/profile context.
 8. Verify no slug collisions across recipes, cookbooks, and examples.
 9. Verify the output reads cleanly as a prompt for an AI coding agent.
-10. Run `npm run validate:content && npm run fmt && npm run typecheck && npm run build && npm run test`.
+10. Run `pnpm validate:content && pnpm fmt && pnpm typecheck && pnpm build && pnpm test`.
 11. For examples: verify `examples/<slug>/` contains only `REPLACE_ME` placeholders — no real workspace hosts, warehouse IDs, Lakebase project names, or Genie space IDs.
 12. For examples: verify `examples/<slug>/template/README.md` covers provisioning (manual vs SQL), seeding, pipeline deploys, and app deploy end-to-end.
 13. For examples: verify the dry-run deploy succeeded and the app is functional before considering the example complete.

@@ -79,7 +79,7 @@ export const formatPercent = (value: number | string): string =>
 Use them wherever you render query results:
 
 ```typescript
-import { toNumber, formatCurrency, formatPercent } from "./formatters"; // adjust import path to your file layout
+import { formatCurrency, formatPercent, toNumber } from "./formatters"; // adjust import path to your file layout
 
 // Convert to number
 const amount = toNumber(row.amount); // "123.45" → 123.45
@@ -190,8 +190,8 @@ Use `sql.date()` for date parameters with `YYYY-MM-DD` format strings.
 **Frontend - Using Date Parameters:**
 
 ```typescript
-import { sql } from "@databricks/appkit-ui/js";
 import { useState } from "react";
+import { sql } from "@databricks/appkit-ui/js";
 
 function MyComponent() {
   const [startDate, setStartDate] = useState<string>("2016-02-01");

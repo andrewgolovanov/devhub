@@ -1,6 +1,8 @@
 import { execSync } from "node:child_process";
-import { describe, test, expect, afterAll } from "vitest";
-import { run, cli, cliJson } from "../helpers/scaffold-app";
+
+import { afterAll, describe, expect, test } from "vitest";
+
+import { cli, cliJson, run } from "../helpers/scaffold-app";
 
 const sleepSync = (ms: number) =>
   Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);

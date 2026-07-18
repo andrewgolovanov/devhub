@@ -1,9 +1,10 @@
 import { describe, expect, test } from "vitest";
+
 import {
+  buildSolutionItems,
   isLinkedSolutionItem,
   isNativeSolutionItem,
   nativeSolutionItems,
-  buildSolutionItems,
   solutionItems,
   type LinkedSolutionItem,
 } from "../src/lib/solutions/solutions";

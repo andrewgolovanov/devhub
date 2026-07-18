@@ -3,18 +3,41 @@
   "compilerOptions": {
     "allowJs": true,
     "esModuleInterop": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "target": "ES2022",
     "lib": ["ES2022", "DOM"],
     "moduleResolution": "bundler",
     "module": "ESNext",
     "noEmit": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "incremental": true,
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@site/*": ["./*"],
       "@/*": ["src/*"]
-    }
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "strict": true,
+    "strictNullChecks": true
   },
-  "exclude": [".docusaurus", "build", "tests", "examples"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
+  ],
+  "exclude": [
+    "tests",
+    "examples",
+    "nextjs",
+    "nextjs/.next",
+    "nextjs/node_modules",
+    "node_modules"
+  ]
 }

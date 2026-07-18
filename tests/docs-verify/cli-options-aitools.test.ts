@@ -1,12 +1,15 @@
 import { execSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { describe, test, expect } from "vitest";
+
+import { describe, expect, test } from "vitest";
 
 const DOC_PATH = resolve(
   __dirname,
   "..",
   "..",
+  "src",
+  "content",
   "docs",
   "tools",
   "ai-tools",

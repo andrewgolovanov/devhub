@@ -1,5 +1,6 @@
-import useBaseUrl from "@docusaurus/useBaseUrl";
 import type { ReactNode } from "react";
+import Image from "next/image";
+
 import type { SolutionAuthor } from "@/lib/solutions/authors";
 import { cn } from "@/lib/utils";
 
@@ -13,18 +14,18 @@ function SolutionAuthorAvatar({
   author: SolutionAuthor;
   compact: boolean;
 }): ReactNode {
-  const photoSrc = useBaseUrl(author.photo);
   const avatarSize = compact
     ? SOLUTION_AUTHOR_AVATAR_COMPACT_SIZE
     : SOLUTION_AUTHOR_AVATAR_SIZE;
 
   return (
-    <img
-      src={photoSrc}
+    <Image
+      src={author.photo}
       alt={author.name}
       width={avatarSize}
       height={avatarSize}
       loading="eager"
+      quality={100}
       className={cn(
         "rounded-full object-cover",
         compact ? "size-7 ring-2 ring-black" : "size-10 ring-1 ring-white/15",
@@ -71,13 +72,13 @@ export function SolutionByline({
         <span
           className={cn(
             "truncate",
-            compact ? "font-normal text-grey-90" : "font-medium text-white",
+            compact ? "text-grey-90 font-normal" : "font-medium text-white",
           )}
         >
           {names}
         </span>
         {!compact && sharedRole ? (
-          <span className="truncate text-grey-70">{sharedRole}</span>
+          <span className="text-grey-70 truncate">{sharedRole}</span>
         ) : null}
         <time className="sr-only" dateTime={publishedAt}>
           {publishedAt}

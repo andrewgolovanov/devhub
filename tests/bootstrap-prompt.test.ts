@@ -1,20 +1,35 @@
 import { readFileSync } from "fs";
 import { resolve } from "path";
+
 import { describe, expect, test } from "vitest";
+
 import {
   getDetailMarkdown,
   loadAgentPromptParts,
-} from "../api/content-markdown";
+} from "../src/lib/agent-content-markdown";
 import { composeAgentPrompt } from "../src/lib/copy-preamble";
 
-const ABOUT_PATH = resolve(__dirname, "..", "content", "about-devhub.md");
+const ABOUT_PATH = resolve(
+  __dirname,
+  "..",
+  "src",
+  "content",
+  "about-devhub.md",
+);
 const GUIDELINES_PATH = resolve(
   __dirname,
   "..",
+  "src",
   "content",
   "dev-guidelines.md",
 );
-const HERO_INTENT_PATH = resolve(__dirname, "..", "content", "intent-hero.md");
+const HERO_INTENT_PATH = resolve(
+  __dirname,
+  "..",
+  "src",
+  "content",
+  "intent-hero.md",
+);
 
 function read(path: string): string {
   return readFileSync(path, "utf-8");

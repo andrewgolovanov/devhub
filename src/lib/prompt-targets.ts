@@ -1,6 +1,7 @@
 import type { ComponentType, SVGProps } from "react";
 import { compressToEncodedURIComponent } from "lz-string";
-import { ReplitIcon } from "@/components/icons/replit-icon";
+
+import { Icons } from "@/components/icons";
 
 type PromptTarget = {
   id: string;
@@ -33,7 +34,7 @@ export function getPromptTargets({
     targets.push({
       id: "replit",
       label: "Replit",
-      icon: ReplitIcon,
+      icon: Icons.replit,
       href: buildReplitUrl(replitPrompt),
     });
   }

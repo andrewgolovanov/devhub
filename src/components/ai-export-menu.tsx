@@ -1,18 +1,24 @@
-import { useCallback } from "react";
-import { toast } from "sonner";
+"use client";
+
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
+  ChevronDownIcon,
   ClipboardCopyIcon,
   CodeIcon,
   ServerIcon,
-  ChevronDownIcon,
 } from "lucide-react";
+
+import {
+  useAgentMarkdown,
+  type AgentMarkdownInput,
+} from "@/lib/use-agent-markdown";
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
@@ -21,11 +27,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import {
-  useAgentMarkdown,
-  type AgentMarkdownInput,
-} from "@/lib/use-agent-markdown";
-import { cn } from "@/lib/utils";
 
 type AIExportMenuProps = AgentMarkdownInput & {
   appearance?: "default" | "article";
@@ -55,11 +56,25 @@ export function AIExportMenu({
 }: AIExportMenuProps) {
   const { mcpUrl, markdownUrl, buildAIMarkdown, ensureFetched } =
     useAgentMarkdown(input);
+  const [copyState, setCopyState] = useState<
+    "idle" | "copying" | "copied" | "error"
+  >("idle");
+  const resetTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
   const isArticle = appearance === "article";
   const triggerLabel = label ?? (isArticle ? "Copy Article" : "Copy as");
   const articleIconClassName = isArticle ? "size-3.5 text-grey-70" : undefined;
   const triggerIcon = <ChevronDownIcon aria-hidden="true" />;
-  const triggerContent = mobileLabel ? (
+  const triggerStatus =
+    copyState === "copying"
+      ? "Copying"
+      : copyState === "copied"
+        ? "Copied"
+        : copyState === "error"
+          ? "Copy failed"
+          : null;
+  const triggerContent = triggerStatus ? (
+    <span aria-live="polite">{triggerStatus}</span>
+  ) : mobileLabel ? (
     <>
       <span className="sm:hidden">{mobileLabel}</span>
       <span className="hidden sm:block">{triggerLabel}</span>
@@ -69,21 +84,36 @@ export function AIExportMenu({
   );
   const dropdownAlign = align ?? (isArticle ? "start" : "end");
 
+  useEffect(
+    () => () => {
+      clearTimeout(resetTimerRef.current);
+    },
+    [],
+  );
+
+  const showCopyState = useCallback((nextState: "copied" | "error") => {
+    setCopyState(nextState);
+    clearTimeout(resetTimerRef.current);
+    resetTimerRef.current = setTimeout(() => setCopyState("idle"), 2500);
+  }, []);
+
   const handleCopyMarkdown = useCallback(async () => {
+    setCopyState("copying");
     try {
       await ensureFetched();
       await navigator.clipboard.writeText(buildAIMarkdown());
-      toast.success("Markdown copied");
+      showCopyState("copied");
     } catch {
-      toast.error("Failed to copy markdown");
+      showCopyState("error");
     }
-  }, [ensureFetched, buildAIMarkdown]);
+  }, [ensureFetched, buildAIMarkdown, showCopyState]);
 
   const handleViewRawMarkdown = useCallback(() => {
     window.open(markdownUrl, "_blank", "noopener,noreferrer");
   }, [markdownUrl]);
 
   const handleCopyMCP = useCallback(async () => {
+    setCopyState("copying");
     const mcpConfig = JSON.stringify(
       {
         mcpServers: {
@@ -96,11 +126,11 @@ export function AIExportMenu({
 
     try {
       await navigator.clipboard.writeText(mcpConfig);
-      toast.success("MCP config copied");
+      showCopyState("copied");
     } catch {
-      toast.error("Failed to copy MCP config");
+      showCopyState("error");
     }
-  }, [mcpUrl]);
+  }, [mcpUrl, showCopyState]);
 
   if (disabled) {
     return (
@@ -112,7 +142,7 @@ export function AIExportMenu({
                 variant="outline"
                 size="sm"
                 className={cn(
-                  "h-7.5 gap-2.5 rounded-none border border-grey-30 bg-transparent py-0 pl-3 pr-2.5 font-mono text-sm leading-none font-medium tracking-normal text-grey-70 uppercase shadow-none transition-colors hover:!border-grey-70 hover:!bg-transparent hover:!text-grey-70 focus:!bg-transparent focus:!text-grey-70 focus-visible:!border-grey-70 focus-visible:ring-db-cyan focus-visible:ring-offset-black data-[state=open]:!border-grey-70 data-[state=open]:!bg-transparent data-[state=open]:!text-grey-70 data-[state=open]:hover:!bg-transparent [&_svg]:size-3.5 [&_svg]:text-current",
+                  "border-grey-30 text-grey-70 hover:!border-grey-70 hover:!text-grey-70 focus:!text-grey-70 focus-visible:!border-grey-70 focus-visible:ring-db-cyan data-[state=open]:!border-grey-70 data-[state=open]:!text-grey-70 h-7.5 gap-2.5 rounded-none border bg-transparent py-0 pr-2.5 pl-3 font-mono text-sm leading-none font-medium tracking-normal uppercase shadow-none transition-colors hover:!bg-transparent focus:!bg-transparent focus-visible:ring-offset-black data-[state=open]:!bg-transparent data-[state=open]:hover:!bg-transparent [&_svg]:size-3.5 [&_svg]:text-current",
                   triggerClassName,
                 )}
                 aria-label={triggerLabel}
@@ -135,10 +165,10 @@ export function AIExportMenu({
         <Button
           size="sm"
           className={cn(
-            "h-7.5 gap-2.5 rounded-none border border-grey-30 bg-transparent py-0 pl-3 pr-2.5 font-mono text-sm leading-none font-medium tracking-normal text-grey-70 uppercase shadow-none transition-colors hover:border-grey-70 hover:bg-transparent hover:text-grey-70 focus:bg-transparent focus:text-grey-70 focus-visible:border-grey-70 focus-visible:ring-db-cyan focus-visible:ring-offset-black data-[state=open]:border-grey-70 data-[state=open]:bg-transparent data-[state=open]:text-grey-70 data-[state=open]:hover:bg-transparent [&_svg]:size-3.5 [&_svg]:text-current",
+            "border-grey-30 text-grey-70 hover:border-grey-70 hover:text-grey-70 focus:text-grey-70 focus-visible:border-grey-70 focus-visible:ring-db-cyan data-[state=open]:border-grey-70 data-[state=open]:text-grey-70 h-7.5 gap-2.5 rounded-none border bg-transparent py-0 pr-2.5 pl-3 font-mono text-sm leading-none font-medium tracking-normal uppercase shadow-none transition-colors hover:bg-transparent focus:bg-transparent focus-visible:ring-offset-black data-[state=open]:bg-transparent data-[state=open]:hover:bg-transparent [&_svg]:size-3.5 [&_svg]:text-current",
             triggerClassName,
           )}
-          aria-label={triggerLabel}
+          aria-label={triggerStatus ?? triggerLabel}
         >
           {triggerContent}
           {triggerIcon}
@@ -148,14 +178,14 @@ export function AIExportMenu({
         align={dropdownAlign}
         sideOffset={8}
         className={cn(
-          "rounded-none border border-grey-30 bg-black p-0 text-white shadow-none",
+          "border-grey-30 rounded-none border bg-black p-0 text-white shadow-none",
           contentClassName,
         )}
       >
-        <DropdownMenuGroup className="flex h-20 flex-col gap-5 border-b border-grey-30 px-4 py-4">
+        <DropdownMenuGroup className="border-grey-30 flex h-20 flex-col gap-5 border-b px-4 py-4">
           <DropdownMenuItem
             className={cn(
-              "h-3.5 min-h-0 cursor-pointer gap-2.5 rounded-none bg-transparent p-0 font-mono text-sm leading-none font-medium tracking-normal text-grey-70 uppercase outline-none transition-colors hover:!bg-transparent hover:!text-white focus:!bg-transparent focus:!text-white data-[highlighted]:!bg-transparent data-[highlighted]:!text-white [&_svg]:size-3.5 [&_svg]:text-current",
+              "text-grey-70 h-3.5 min-h-0 cursor-pointer gap-2.5 rounded-none bg-transparent p-0 font-mono text-sm leading-none font-medium tracking-normal uppercase transition-colors outline-none hover:!bg-transparent hover:!text-white focus:!bg-transparent focus:!text-white data-[highlighted]:!bg-transparent data-[highlighted]:!text-white [&_svg]:size-3.5 [&_svg]:text-current",
               itemClassName,
             )}
             onSelect={handleCopyMarkdown}
@@ -168,7 +198,7 @@ export function AIExportMenu({
           </DropdownMenuItem>
           <DropdownMenuItem
             className={cn(
-              "h-3.5 min-h-0 cursor-pointer gap-2.5 rounded-none bg-transparent p-0 font-mono text-sm leading-none font-medium tracking-normal text-grey-70 uppercase outline-none transition-colors hover:!bg-transparent hover:!text-white focus:!bg-transparent focus:!text-white data-[highlighted]:!bg-transparent data-[highlighted]:!text-white [&_svg]:size-3.5 [&_svg]:text-current",
+              "text-grey-70 h-3.5 min-h-0 cursor-pointer gap-2.5 rounded-none bg-transparent p-0 font-mono text-sm leading-none font-medium tracking-normal uppercase transition-colors outline-none hover:!bg-transparent hover:!text-white focus:!bg-transparent focus:!text-white data-[highlighted]:!bg-transparent data-[highlighted]:!text-white [&_svg]:size-3.5 [&_svg]:text-current",
               itemClassName,
             )}
             onSelect={handleViewRawMarkdown}
@@ -179,7 +209,7 @@ export function AIExportMenu({
         </DropdownMenuGroup>
         <DropdownMenuItem
           className={cn(
-            "wqeqweqw h-3.5 min-h-0 cursor-pointer gap-2.5 rounded-none bg-transparent p-0 font-mono text-sm leading-none font-medium tracking-normal text-grey-70 uppercase outline-none transition-colors hover:!bg-transparent hover:!text-white focus:!bg-transparent focus:!text-white data-[highlighted]:!bg-transparent data-[highlighted]:!text-white [&_svg]:size-3.5 [&_svg]:text-current mx-4 my-[0.9375rem]",
+            "text-grey-70 mx-4 my-3.75 h-3.5 min-h-0 cursor-pointer gap-2.5 rounded-none bg-transparent p-0 font-mono text-sm leading-none font-medium tracking-normal uppercase transition-colors outline-none hover:!bg-transparent hover:!text-white focus:!bg-transparent focus:!text-white data-[highlighted]:!bg-transparent data-[highlighted]:!text-white [&_svg]:size-3.5 [&_svg]:text-current",
             itemClassName,
           )}
           onSelect={handleCopyMCP}

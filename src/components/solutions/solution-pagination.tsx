@@ -1,9 +1,10 @@
-import Link from "@docusaurus/Link";
-import { ArrowLeft, ArrowRight } from "lucide-react";
 import type { MouseEvent, ReactNode } from "react";
+import Link from "next/link";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+
 import {
-  SOLUTION_ITEMS_SCROLL_STORAGE_KEY,
   getSolutionPagePath,
+  SOLUTION_ITEMS_SCROLL_STORAGE_KEY,
 } from "@/lib/solutions/solutions";
 import { cn } from "@/lib/utils";
 
@@ -54,10 +55,10 @@ export function SolutionPagination({
     >
       <Link
         className={cn(
-          "inline-flex items-center gap-0.75 text-sm leading-none font-medium tracking-normal text-grey-40 no-underline transition-colors hover:text-white",
+          "text-grey-40 inline-flex items-center gap-0.75 text-sm leading-none font-medium tracking-normal no-underline transition-colors hover:text-white",
           previousDisabled && "pointer-events-none opacity-40",
         )}
-        to={getSolutionPagePath(currentPage - 1)}
+        href={getSolutionPagePath(currentPage - 1)}
         aria-disabled={previousDisabled}
         tabIndex={previousDisabled ? -1 : undefined}
         onClick={handlePaginationClick}
@@ -78,11 +79,11 @@ export function SolutionPagination({
           ) : (
             <Link
               className={cn(
-                "flex size-9 items-center justify-center text-center text-sm leading-none font-medium tracking-normal text-white no-underline transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-db-cyan",
+                "focus-visible:outline-db-cyan flex size-9 items-center justify-center text-center text-sm leading-none font-medium tracking-normal text-white no-underline transition-colors focus-visible:outline-2 focus-visible:outline-offset-2",
                 page === currentPage ? "bg-orange" : "hover:bg-white/8",
               )}
               key={page}
-              to={getSolutionPagePath(page)}
+              href={getSolutionPagePath(page)}
               aria-current={page === currentPage ? "page" : undefined}
               onClick={handlePaginationClick}
             >
@@ -94,10 +95,10 @@ export function SolutionPagination({
 
       <Link
         className={cn(
-          "inline-flex items-center gap-0.75 text-sm leading-none font-medium tracking-normal text-grey-40 no-underline transition-colors hover:text-white",
+          "text-grey-40 inline-flex items-center gap-0.75 text-sm leading-none font-medium tracking-normal no-underline transition-colors hover:text-white",
           nextDisabled && "pointer-events-none opacity-40",
         )}
-        to={getSolutionPagePath(currentPage + 1)}
+        href={getSolutionPagePath(currentPage + 1)}
         aria-disabled={nextDisabled}
         tabIndex={nextDisabled ? -1 : undefined}
         onClick={handlePaginationClick}

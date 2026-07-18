@@ -12,8 +12,8 @@ This document provides Node/TypeScript-specific best practices and examples for 
 
 ```typescript
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import express from "express";
 import { z } from "zod";
 ```
@@ -626,11 +626,10 @@ async function getUser(id: string): Promise<any> {
  * This server provides tools to interact with Example API, including user search,
  * project management, and data export capabilities.
  */
-
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import { z } from "zod";
 import axios, { AxiosError } from "axios";
+import { z } from "zod";
 
 // Constants
 const API_BASE_URL = "https://api.example.com/v1";

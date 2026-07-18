@@ -1,7 +1,10 @@
+"use client";
+
 import { useEffect, useState, type ReactNode } from "react";
 import { CircleArrowUp } from "lucide-react";
 import { AnimatePresence, domAnimation, LazyMotion } from "motion/react";
 import * as m from "motion/react-m";
+
 import { cn } from "@/lib/utils";
 
 type BackToTopProps = {
@@ -41,7 +44,7 @@ export function BackToTop({
           <>
             {withSeparator ? (
               <m.span
-                className="my-3.5 h-px w-full bg-prose-border"
+                className="bg-prose-border my-3.5 h-px w-full"
                 aria-hidden="true"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -52,7 +55,7 @@ export function BackToTop({
             ) : null}
             <m.button
               className={cn(
-                "flex w-fit items-center gap-2 rounded text-sm leading-snug tracking-tight text-grey-70 transition-colors duration-300 hover:text-white",
+                "text-grey-70 flex w-fit items-center gap-2 rounded text-sm leading-snug tracking-tight transition-colors duration-300 hover:text-white",
                 className,
               )}
               onClick={handleClick}

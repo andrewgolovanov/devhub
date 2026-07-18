@@ -1,8 +1,9 @@
-import { describe, test, expect, beforeAll, afterAll } from "vitest";
-import { spawn, execFile, type ChildProcess } from "child_process";
-import { promisify } from "util";
-import { resolve } from "path";
+import { execFile, spawn, type ChildProcess } from "child_process";
 import { createServer } from "net";
+import { resolve } from "path";
+import { promisify } from "util";
+
+import { afterAll, beforeAll, describe, expect, test } from "vitest";
 
 const execFileAsync = promisify(execFile);
 const ROOT = resolve(__dirname, "..");
@@ -11,12 +12,7 @@ let MCP_PORT = 3002;
 let MCP_URL = `http://localhost:${MCP_PORT}/api/mcp`;
 
 function localSiteUrl(port: number): string {
-  if (!process.env.SITE_URL || process.env.SITE_URL.trim() === "") {
-    return `http://127.0.0.1:${port}`;
-  }
-  const configured = new URL(process.env.SITE_URL);
-  const basePath = configured.pathname.replace(/\/$/, "");
-  return `http://127.0.0.1:${port}${basePath}`;
+  return `http://127.0.0.1:${port}`;
 }
 
 async function getFreePort(): Promise<number> {
@@ -68,9 +64,9 @@ async function mcporter(...args: string[]): Promise<string> {
   // here, so we capture stdout regardless of exit code.
   try {
     const { stdout } = await execFileAsync(
-      "npx",
+      "pnpm",
       [
-        "--yes",
+        "dlx",
         "mcporter",
         ...args,
         "--http-url",
@@ -105,20 +101,20 @@ describe("MCP server e2e (mcporter)", () => {
     const siteUrl = localSiteUrl(SITE_PORT);
 
     siteServer = spawn(
-      "npx",
+      "pnpm",
       [
-        "docusaurus",
-        "serve",
-        "--host",
+        "exec",
+        "next",
+        "start",
+        "--hostname",
         "127.0.0.1",
         "--port",
         String(SITE_PORT),
-        "--no-open",
       ],
       { cwd: ROOT, stdio: "pipe" },
     );
 
-    mcpServer = spawn("npx", ["tsx", "scripts/serve-mcp.ts"], {
+    mcpServer = spawn("pnpm", ["exec", "tsx", "scripts/serve-mcp.ts"], {
       cwd: ROOT,
       stdio: "pipe",
       env: {

@@ -4,18 +4,17 @@
 //
 // Usage:
 //   node scripts/render-resource-image.mjs --input <html> --output <png>
-//   node scripts/render-resource-image.mjs --input ./tmp.html --output ./static/img/examples/foo-light.png
+//   node scripts/render-resource-image.mjs --input ./tmp.html --output ./public/img/examples/foo-light.png
 //
 // The input HTML is expected to render a 1920x1080 canvas into <body>. The
 // renderer sets the viewport to 1920x1080 and captures the viewport (not full
 // page) so the image is always exactly 16:9 at the right size.
-
-import { chromium } from "playwright";
-import { resolve, isAbsolute } from "node:path";
 import { existsSync } from "node:fs";
 import { mkdir } from "node:fs/promises";
-import { dirname } from "node:path";
+import { dirname, isAbsolute, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
+
+import { chromium } from "playwright";
 
 function parseArgs(argv) {
   const args = {};

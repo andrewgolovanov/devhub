@@ -1,8 +1,4 @@
-/**
- * Legal links rendered in the site footer and on the bare-bones perspectives
- * pages. Kept in a standalone module so both the swizzled Footer component
- * and PerspectivesShell can share the same authoritative list.
- */
+/** Legal links rendered in the site footer. */
 export type LegalLink = {
   label: string;
   href: string;

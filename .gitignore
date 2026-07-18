@@ -3,26 +3,20 @@ node_modules
 bun.lockb
 bun.lock
 
-# Production
-/build
-
 # Generated files
-.docusaurus
-.cache-loader
-static/llms.txt
-static/robots.txt
-static/blog/rss.xml
-static/raw-docs
-static/docs
-static/templates
-static/solutions
-static/blog/*.md
-static/blog.md
-static/templates.md
-static/solutions.md
-docs/appkit/
+public/llms.txt
+public/robots.txt
+public/sitemap*.xml
+public/raw-docs
+public/docs
+public/templates
+public/solutions
+public/templates.md
+public/solutions.md
+src/content/docs/appkit/
 src/components/doc-examples/
-static/appkit-preview/
+public/appkit-preview/
+public/js/home-hero-player.js
 
 # Misc
 .DS_Store
@@ -48,3 +42,8 @@ examples/**/.databricks/
 /screenshots
 .vercel
 .fallow/
+
+.next/
+# typescript
+*.tsbuildinfo
+next-env.d.ts

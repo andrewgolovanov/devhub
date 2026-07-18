@@ -1,17 +1,18 @@
 import {
   Card,
+  CardContent,
   CardHeader,
   CardTitle,
-  CardContent,
 } from "@databricks/appkit-ui/react";
+
+import { BookingManager } from "./BookingManager";
 import { RevenueByDestination } from "./RevenueByDestination";
 import { RevenueChart } from "./RevenueChart";
-import { BookingManager } from "./BookingManager";
 import { WanderbricksChat } from "./WanderbricksChat";
 
 export default function App() {
   return (
-    <div className="max-w-6xl mx-auto p-6 space-y-6">
+    <div className="mx-auto max-w-6xl space-y-6 p-6">
       <h1 className="text-2xl font-bold">Wanderbricks Operations</h1>
 
       <div className="grid grid-cols-2 gap-6">

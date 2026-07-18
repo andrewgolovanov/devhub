@@ -1,5 +1,6 @@
-import { cn } from "@/lib/utils";
 import type { ComponentProps } from "react";
+
+import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 
 export function FeatureInfographicCard({
@@ -22,7 +23,7 @@ function FeatureCardRoot({ className, ...props }: ComponentProps<"article">) {
     <article
       data-slot="feature-card"
       className={cn(
-        "grid text-foreground max-w-xl mx-auto md:max-w-none lg:grid-cols-2 lg:gap-x-16",
+        "text-foreground mx-auto grid max-w-xl md:max-w-none lg:grid-cols-2 lg:gap-x-16",
         className,
       )}
       {...props}
@@ -56,7 +57,7 @@ function FeatureCardEyebrow({
     <Badge
       data-slot="feature-card-eyebrow"
       className={cn(
-        "flex gap-x-2 rounded-none bg-[#FF5F46] p-1.5 font-mono text-sm leading-none font-medium tracking-normal text-primary-foreground uppercase md:text-base/none",
+        "text-primary-foreground flex gap-x-2 rounded-none bg-[#FF5F46] p-1.5 font-mono text-sm leading-none font-medium tracking-normal uppercase md:text-base/none",
         className,
       )}
       {...props}
@@ -69,7 +70,7 @@ function FeatureCardTitle({ className, ...props }: ComponentProps<"h3">) {
     <h3
       data-slot="feature-card-title"
       className={cn(
-        "mt-5 font-sans text-[28px]/tight font-normal tracking-[-0.04em] text-pretty text-black md:mt-6 md:text-[32px]/tight lg:mt-0 lg:text-[36px]/tight xl:mt-7 xl:text-[2.5rem]/tight",
+        "3xl:mt-7 3xl:text-[2.5rem]/tight mt-5 font-sans text-[28px]/tight font-normal tracking-[-0.04em] text-pretty text-black md:mt-6 md:text-[32px]/tight lg:mt-0 lg:text-[36px]/tight",
         className,
       )}
       {...props}
@@ -99,7 +100,7 @@ function FeatureCardVisual({
     <div
       data-slot="feature-card-visual"
       className={cn(
-        "flex overflow-hidden border border-black bg-[#F2F0ED] aspect-square md:aspect-auto max-md:items-center max-md:justify-center max-md:p-3 lg:justify-end",
+        "flex aspect-square overflow-hidden border border-black bg-[#F2F0ED] max-md:items-center max-md:justify-center max-md:p-3 md:aspect-auto lg:justify-end",
         reversed && "lg:order-1 lg:justify-start",
         className,
       )}
@@ -124,16 +125,16 @@ function FeatureCardFooter({
       data-slot="feature-card-footer"
       {...props}
     >
-      <span className="flex flex-row gap-2 pt-1 font-medium text-muted-foreground">
+      <span className="text-muted-foreground flex flex-row gap-2 pt-1 font-medium">
         <span
-          className="relative top-1 size-1.5 shrink-0 bg-primary"
+          className="bg-primary relative top-1 size-1.5 shrink-0"
           aria-hidden="true"
         />
-        <span className="text-base/none whitespace-nowrap tracking-tight font-medium text-black/30">
+        <span className="text-base/none font-medium tracking-tight whitespace-nowrap text-black/30">
           [ {label} ]
         </span>
       </span>
-      <p className="text-base/tight tracking-tight text-pretty text-black xl:max-w-120">
+      <p className="3xl:max-w-100 text-base/tight tracking-tight text-pretty text-black lg:max-w-88">
         {description}
       </p>
     </div>

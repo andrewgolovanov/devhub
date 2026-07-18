@@ -65,6 +65,7 @@ Note: **No `config/queries/` directory** — Lakebase apps use server-side `pool
 
 ```typescript
 import { createLakebasePool } from "@databricks/lakebase";
+
 // or: import { createLakebasePool } from "@databricks/appkit";
 
 const pool = createLakebasePool({
@@ -98,10 +99,10 @@ Always use tRPC for Lakebase operations — do NOT call `pool.query()` from the 
 
 ```typescript
 // server/server.ts
-import { initTRPC } from "@trpc/server";
 import { createLakebasePool } from "@databricks/lakebase";
-import { z } from "zod";
+import { initTRPC } from "@trpc/server";
 import superjson from "superjson"; // requires: npm install superjson
+import { z } from "zod";
 
 const pool = createLakebasePool(); // reads env vars automatically
 
@@ -157,11 +158,13 @@ The pool returned by `createLakebasePool()` is a standard `pg.Pool` — works wi
 
 ```typescript
 // Drizzle ORM
-import { drizzle } from "drizzle-orm/node-postgres";
-const db = drizzle(pool);
 
 // Prisma (with @prisma/adapter-pg)
 import { PrismaPg } from "@prisma/adapter-pg";
+import { drizzle } from "drizzle-orm/node-postgres";
+
+const db = drizzle(pool);
+
 const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 ```

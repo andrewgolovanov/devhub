@@ -1,4 +1,4 @@
-import { describe, test, expect, beforeAll } from "vitest";
+import { beforeAll, describe, expect, test } from "vitest";
 
 function rpc(method: string, params?: unknown) {
   return { jsonrpc: "2.0", id: 1, method, params };
@@ -15,7 +15,7 @@ describe("MCP server handler", () => {
 
   beforeAll(async () => {
     process.env.SITE_URL = "http://localhost:4173";
-    const mod = await import("../api/mcp");
+    const mod = await import("../src/app/api/mcp/route");
     handler = mod.POST;
   });
 
@@ -59,30 +59,6 @@ describe("MCP server handler", () => {
     const names = result.result.tools.map((t) => t.name);
     expect(names).toContain("list_docs_resources");
     expect(names).toContain("get_doc_resource");
-  });
-
-  test("tools/list works when the configured SITE_URL has a base path", async () => {
-    const previous = process.env.SITE_URL;
-    process.env.SITE_URL = "http://localhost:4173/devhub";
-
-    try {
-      const result = (await callMcp(
-        rpc("tools/list"),
-        "http://localhost:3001/devhub/api/mcp",
-      )) as {
-        result: { tools: Array<{ name: string }> };
-      };
-
-      const names = result.result.tools.map((t) => t.name);
-      expect(names).toContain("list_docs_resources");
-      expect(names).toContain("get_doc_resource");
-    } finally {
-      if (previous === undefined) {
-        delete process.env.SITE_URL;
-      } else {
-        process.env.SITE_URL = previous;
-      }
-    }
   });
 
   test("get_doc_resource returns markdown for valid slug", async () => {

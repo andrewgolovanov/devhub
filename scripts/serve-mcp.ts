@@ -1,5 +1,6 @@
 import { createServer, type IncomingMessage } from "http";
-import { POST } from "../api/mcp";
+
+import { POST } from "../src/lib/mcp-route";
 
 const PORT = Number(process.env.PORT) || 3001;
 

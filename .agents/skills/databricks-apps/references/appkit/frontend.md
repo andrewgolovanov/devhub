@@ -152,8 +152,8 @@ All data components **require `parameters={{}}`** even when the query has no par
 
 ```tsx
 <div className="container mx-auto p-4">
-  <h1 className="text-2xl font-bold mb-4">Page Title</h1>
-  <form className="space-y-4 mb-8">{/* form inputs */}</form>
+  <h1 className="mb-4 text-2xl font-bold">Page Title</h1>
+  <form className="mb-8 space-y-4">{/* form inputs */}</form>
   <div className="grid gap-4">{/* list items */}</div>
 </div>
 ```

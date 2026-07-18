@@ -1,5 +1,5 @@
 .prose {
-  @apply tracking-tight text-grey-90 text-base md:text-lg/normal;
+  @apply text-grey-90 text-base tracking-tight md:text-lg/normal;
 
   @apply prose-headings:text-white;
 
@@ -10,6 +10,15 @@
   @apply prose-h3:my-4 prose-h3:scroll-mt-6 prose-h3:w-full prose-h3:self-stretch prose-h3:border-0 prose-h3:border-b-0 prose-h3:pb-0 prose-h3:text-lg/snug prose-h3:font-medium prose-h3:tracking-tight prose-h3:text-white md:prose-h3:mt-8 md:prose-h3:mb-6 md:prose-h3:text-xl/normal;
 
   @apply prose-h4:mt-6 prose-h4:mb-2.5 prose-h4:w-full prose-h4:self-stretch prose-h4:border-0 prose-h4:border-b-0 prose-h4:pb-0 prose-h4:text-xl/normal prose-h4:font-medium prose-h4:tracking-tight prose-h4:text-white;
+
+  &.prose-docs h2[id],
+  &.prose-docs h3[id] {
+    scroll-margin-top: 2rem !important;
+  }
+
+  &.prose-docs h4[id] {
+    scroll-margin-top: 4.25rem !important;
+  }
 
   @apply prose-p:my-5 prose-p:overflow-x-auto prose-p:tracking-tight prose-p:text-grey-90 prose-p:text-base md:prose-p:my-6 md:prose-p:text-lg/normal;
 
@@ -62,7 +71,7 @@
 
   .not-prose {
     table a {
-      @apply rounded-sm font-normal break-words text-orange underline decoration-transparent transition-colors duration-300;
+      @apply text-orange rounded-sm font-normal break-words underline decoration-transparent transition-colors duration-300;
     }
   }
 
@@ -84,7 +93,7 @@
 
   a {
     strong {
-      @apply text-orange transition-colors duration-300 hover:text-db-lava;
+      @apply text-orange hover:text-db-lava transition-colors duration-300;
     }
   }
 
@@ -142,16 +151,16 @@
   }
 
   details {
-    @apply my-8 border border-grey-30;
+    @apply border-grey-30 my-8 border;
 
     &[open] summary {
       @apply after:opacity-100;
     }
 
     summary {
-      @apply relative cursor-pointer rounded-none flex justify-between w-full p-5 text-base leading-tight font-medium tracking-tight text-grey-90 normal-case outline-offset-4 transition-colors duration-300 hover:text-white;
+      @apply text-grey-90 relative flex w-full cursor-pointer justify-between rounded-none p-5 text-base leading-tight font-medium tracking-tight normal-case outline-offset-4 transition-colors duration-300 hover:text-white;
 
-      @apply after:absolute after:inset-x-5 after:bottom-0 after:h-px after:bg-grey-30 after:opacity-0 after:pointer-events-none;
+      @apply after:bg-grey-30 after:pointer-events-none after:absolute after:inset-x-5 after:bottom-0 after:h-px after:opacity-0;
     }
 
     summary + * {
@@ -159,13 +168,13 @@
     }
   }
 
-  figure.code-block {
+  .code-block {
     @apply my-8;
   }
 
   :not(pre) {
     > code {
-      @apply inline-flex max-w-full flex-col items-center justify-center gap-2.5 overflow-x-auto border border-[#2E3038] bg-[#1C1D22] rounded px-1 py-px text-sm leading-snug font-normal tracking-tight text-white before:hidden after:hidden;
+      @apply inline-flex max-w-full flex-col items-center justify-center gap-2.5 overflow-x-auto rounded border border-[#2E3038] bg-[#1C1D22] px-1 py-px text-sm leading-snug font-normal tracking-tight text-white before:hidden after:hidden;
     }
   }
 
@@ -181,11 +190,23 @@
   margin-bottom: 1.125rem; /* 18px */
 }
 
+.recipe-content-card .prose :not(pre) > code {
+  font-weight: 400;
+  vertical-align: middle;
+}
+
 @media (width >= 48rem) {
   .recipe-content-card .prose h2 {
     font-size: 1.25rem; /* 20px */
     margin-top: 2.5rem; /* 40px */
     margin-bottom: 1.25rem; /* 20px */
+  }
+}
+
+@media (width < 48rem) {
+  .solution-detail-prose p,
+  .recipe-content-card .prose p {
+    line-height: 1.5rem;
   }
 }
 
@@ -206,9 +227,18 @@
   font-size: 1.75rem; /* 28px */
 }
 
+.prose.prose-docs h1 + p {
+  margin-top: 1.25rem; /* 20px */
+}
+
 @media (width >= 48rem) {
   .prose.prose-docs h1 {
     font-size: 2rem; /* 32px */
+    max-width: calc(100% - 8rem);
+  }
+
+  .prose.prose-docs h1 + p {
+    margin-top: 1.5rem; /* 24px */
   }
 }
 
@@ -229,6 +259,75 @@
   font-weight: 400;
   margin-top: 2rem; /* 32px */
   margin-bottom: 0.75rem; /* 12px */
+}
+
+.prose.prose-docs .theme-code-block {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+.prose.prose-docs h2 + .markdown-tabs,
+.prose.prose-docs h3 + .markdown-tabs {
+  margin-top: 0.75rem;
+}
+
+.prose.prose-docs .theme-code-block pre code {
+  display: inline-block;
+  min-width: 100%;
+  width: max-content;
+  color: rgb(248 248 242);
+}
+
+/* Unlayered on purpose: it must beat the unlayered width: max-content above,
+   which pins the code box to its unwrapped text width and would otherwise
+   make the word-wrap toggle a no-op. */
+.prose.prose-docs .theme-code-block.code-block--word-wrap pre code {
+  width: auto;
+}
+
+.prose.prose-docs > code {
+  display: inline-flex;
+  width: fit-content;
+  max-width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  overflow-x: auto;
+  border: 1px solid #2e3038;
+  border-radius: 4px;
+  background: #1c1d22;
+  padding: 1px 4px;
+  color: #f5f7f8;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 19.25px;
+  vertical-align: middle;
+  white-space: normal;
+}
+
+.prose.prose-docs > code::before,
+.prose.prose-docs > code::after {
+  display: none;
+  content: none;
+}
+
+.prose.prose-docs :not(pre) > code {
+  color: #f5f7f8;
+  vertical-align: middle;
+}
+
+.prose.prose-docs li .theme-code-block {
+  margin-bottom: 0;
+}
+
+.prose.prose-docs .admonition .theme-code-block {
+  margin-bottom: 0;
+}
+
+.prose.prose-docs .admonition .theme-code-block pre,
+.prose.prose-docs .admonition .theme-code-block code {
+  line-height: 23.2px;
 }
 
 @media (width >= 48rem) {
@@ -297,8 +396,18 @@
   }
 
   table {
-    @apply min-w-full w-full;
+    @apply w-full min-w-full;
   }
+}
+
+.prose.hackathon-challenge-prose table {
+  display: block;
+  min-width: 0;
+  width: 100%;
+}
+
+.prose.hackathon-challenge-prose tbody tr:nth-child(even) {
+  background: rgb(255 255 255 / 0.07);
 }
 
 .accordion {
@@ -309,21 +418,16 @@
 
 @layer components {
   .theme-code-block {
-    @apply relative rounded-none border border-prose-border bg-transparent mb-6;
-
-    > div[class*="codeBlockTitle"] {
-      @apply border-b border-prose-border px-4 py-3.5 text-[13px] font-medium tracking-tight;
-      color: var(--code-comment);
-    }
+    @apply border-prose-border relative mb-6 rounded-none border bg-transparent;
 
     > div[class*="codeBlockContent"] {
-      @apply relative text-base font-mono;
+      @apply relative font-mono text-base;
 
       [class*="buttonGroup"] {
-        @apply absolute right-4 top-4 flex;
+        @apply absolute top-4 right-4 flex gap-x-1;
 
         button {
-          @apply flex size-7 shrink-0 items-center justify-center border border-grey-20 bg-black text-white transition-colors duration-200 hover:bg-grey-12;
+          @apply border-grey-20 hover:bg-grey-12 flex size-7 shrink-0 items-center justify-center border bg-black text-white transition-colors duration-200;
 
           > span[class*="copyButtonIcons"] {
             @apply size-3.5!;
@@ -333,8 +437,239 @@
     }
 
     pre {
-      @apply bg-transparent! my-0! p-4!;
+      @apply my-0! overflow-x-auto! bg-transparent! p-4!;
       color: var(--code-foreground);
+      scrollbar-width: thin;
+    }
+
+    pre::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+
+    pre::-webkit-scrollbar-track {
+      background: #444;
+    }
+
+    pre::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background: #686868;
+    }
+
+    .shiki {
+      @apply bg-transparent!;
+      color: var(--code-foreground);
+
+      span {
+        color: var(--shiki-light);
+      }
+
+      span.line {
+        display: inline-block;
+        min-width: 100%;
+      }
+
+      span.line::after {
+        content: "";
+      }
+    }
+
+    .dark & .shiki span {
+      color: var(--shiki-dark) !important;
+    }
+
+    .shiki span[style*="--shiki-dark:#FF79C6"] {
+      color: var(--code-keyword) !important;
+      font-style: italic;
+    }
+
+    .shiki span[style*="--shiki-dark:#F1FA8C"],
+    .shiki span[style*="--shiki-dark:#E9F284"],
+    .shiki span[style*="--shiki-dark:#8BE9FE"] {
+      color: var(--code-string) !important;
+    }
+
+    .shiki span[style*="--shiki-dark:#BD93F9"] {
+      color: var(--code-variable) !important;
+      font-style: italic;
+    }
+
+    .shiki span[style*="--shiki-dark:#8BE9FD"] {
+      color: var(--code-key) !important;
+    }
+
+    &[data-language="typescript"] .shiki span[style*="--shiki-dark:#8BE9FD"] {
+      color: var(--code-variable) !important;
+    }
+
+    &[data-language="json"] .shiki span[style*="--shiki-dark:#8BE9FD"],
+    &[data-language="json"] .shiki span[style*="--shiki-dark:#8BE9FE"],
+    &[data-language="json"] .shiki span[style*="--shiki-dark:#FF79C6"] {
+      color: var(--code-operator) !important;
+      font-style: normal;
+    }
+
+    &[data-language="json"] .shiki span[style*="--shiki-dark:#BD93F9"] {
+      color: var(--code-key) !important;
+      font-style: normal;
+    }
+
+    &[data-language="html"] .shiki span[style*="--shiki-dark:#BD93F9"] {
+      color: var(--code-string) !important;
+      font-style: normal;
+    }
+
+    &[data-language="html"] .shiki span[style*="--shiki-dark:#FF79C6"] {
+      color: var(--code-string) !important;
+      font-style: normal;
+    }
+
+    &[data-language="html"] .shiki span[style*="--shiki-dark:#50FA7B"] {
+      color: var(--code-attribute) !important;
+      font-style: normal;
+    }
+
+    &[data-language="html"]
+      .shiki
+      span[style*="--shiki-dark:#50FA7B"]
+      + span[style*="--shiki-dark:#BD93F9"],
+    &[data-language="html"]
+      .shiki
+      span[style*="--shiki-dark:#50FA7B"]
+      + span[style*="--shiki-dark:#BD93F9"]
+      + span[style*="--shiki-dark:#E9F284"],
+    &[data-language="html"]
+      .shiki
+      span[style*="--shiki-dark:#50FA7B"]
+      + span[style*="--shiki-dark:#BD93F9"]
+      + span[style*="--shiki-dark:#E9F284"]
+      + span[style*="--shiki-dark:#F1FA8C"]
+      + span[style*="--shiki-dark:#E9F284"] {
+      color: var(--code-foreground) !important;
+      font-style: normal;
+    }
+
+    &[data-language="html"]
+      .shiki
+      code
+      > span.line:first-child
+      span[style*="--shiki-dark:#FF79C6"],
+    &[data-language="html"]
+      .shiki
+      code
+      > span.line:first-child
+      span[style*="--shiki-dark:#50FA7B"] {
+      color: var(--code-comment) !important;
+      font-style: normal;
+    }
+
+    &[data-language="tsx"]
+      .shiki
+      span[style*="--shiki-dark:#50FA7B"][style*="--shiki-dark-font-style:italic"],
+    &[data-language="jsx"]
+      .shiki
+      span[style*="--shiki-dark:#50FA7B"][style*="--shiki-dark-font-style:italic"] {
+      color: var(--code-attribute) !important;
+      font-style: normal;
+    }
+
+    &[data-language="tsx"]
+      .shiki
+      span[style*="--shiki-dark:#8BE9FD"][style*="--shiki-dark-font-style:italic"],
+    &[data-language="jsx"]
+      .shiki
+      span[style*="--shiki-dark:#8BE9FD"][style*="--shiki-dark-font-style:italic"] {
+      color: var(--code-string) !important;
+      font-style: normal;
+    }
+
+    &[data-language="tsx"]
+      .shiki
+      span[style*="--shiki-dark:#50FA7B"][style*="--shiki-dark-font-style:italic"]
+      + span[style*="--shiki-dark:#FF79C6"],
+    &[data-language="jsx"]
+      .shiki
+      span[style*="--shiki-dark:#50FA7B"][style*="--shiki-dark-font-style:italic"]
+      + span[style*="--shiki-dark:#FF79C6"],
+    &[data-language="tsx"]
+      .shiki
+      span[style*="--shiki-dark:#50FA7B"][style*="--shiki-dark-font-style:italic"]
+      + span[style*="--shiki-dark:#FF79C6"]
+      + span[style*="--shiki-dark:#E9F284"],
+    &[data-language="jsx"]
+      .shiki
+      span[style*="--shiki-dark:#50FA7B"][style*="--shiki-dark-font-style:italic"]
+      + span[style*="--shiki-dark:#FF79C6"]
+      + span[style*="--shiki-dark:#E9F284"],
+    &[data-language="tsx"]
+      .shiki
+      span[style*="--shiki-dark:#50FA7B"][style*="--shiki-dark-font-style:italic"]
+      + span[style*="--shiki-dark:#FF79C6"]
+      + span[style*="--shiki-dark:#E9F284"]
+      + span[style*="--shiki-dark:#F1FA8C"]
+      + span[style*="--shiki-dark:#E9F284"],
+    &[data-language="jsx"]
+      .shiki
+      span[style*="--shiki-dark:#50FA7B"][style*="--shiki-dark-font-style:italic"]
+      + span[style*="--shiki-dark:#FF79C6"]
+      + span[style*="--shiki-dark:#E9F284"]
+      + span[style*="--shiki-dark:#F1FA8C"]
+      + span[style*="--shiki-dark:#E9F284"] {
+      color: var(--code-foreground) !important;
+      font-style: normal;
+    }
+
+    &[data-language="tsx"]
+      .shiki
+      span[style*="--shiki-dark:#50FA7B"][style*="--shiki-dark-font-style:italic"]
+      + span[style*="--shiki-dark:#FF79C6"]
+      + span[style*="--shiki-dark:#F8F8F2"]
+      + span[style*="--shiki-dark:#BD93F9"],
+    &[data-language="jsx"]
+      .shiki
+      span[style*="--shiki-dark:#50FA7B"][style*="--shiki-dark-font-style:italic"]
+      + span[style*="--shiki-dark:#FF79C6"]
+      + span[style*="--shiki-dark:#F8F8F2"]
+      + span[style*="--shiki-dark:#BD93F9"] {
+      color: var(--code-string) !important;
+      font-style: normal;
+    }
+
+    &[data-language="bash"] .shiki span[style*="--shiki-dark:#50FA7B"],
+    &[data-language="bash"] .shiki span[style*="--shiki-dark:#F1FA8C"],
+    &[data-language="bash"] .shiki span[style*="--shiki-dark:#E9F284"],
+    &[data-language="yaml"] .shiki span[style*="--shiki-dark:#F1FA8C"] {
+      color: var(--code-foreground) !important;
+      font-style: normal;
+    }
+
+    &[data-language="bash"] .shiki span[style*="--shiki-dark:#50FA7B"] {
+      color: var(--code-function) !important;
+    }
+
+    &[data-language="bash"] .shiki span[style*="--shiki-dark:#E9F284"],
+    &[data-language="bash"]
+      .shiki
+      span[style*="--shiki-dark:#E9F284"]
+      + span[style*="--shiki-dark:#F1FA8C"]:has(
+        + span[style*="--shiki-dark:#E9F284"]
+      ) {
+      color: var(--code-string) !important;
+    }
+
+    &.code-block--word-wrap {
+      pre,
+      code {
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+
+      /* Shiki lines are inline-block with min-width: 100% (full-width line
+         highlights), which floors each line at its unwrapped width and makes
+         pre-wrap a no-op. Wrapped mode must flatten lines back to inline. */
+      .shiki span.line {
+        display: inline;
+      }
     }
 
     .theme-code-block-highlighted-line,
@@ -376,6 +711,7 @@
     .token.boolean,
     .token.deleted {
       color: var(--code-keyword);
+      font-style: italic;
     }
 
     .token.function,
@@ -413,6 +749,7 @@
     .token.parameter,
     .token.parameter.variable {
       color: var(--code-variable);
+      font-style: italic;
     }
 
     .token.operator,

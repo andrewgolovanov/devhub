@@ -1,12 +1,12 @@
-import Link from "@docusaurus/Link";
 import type { ComponentProps, ReactNode, SVGProps } from "react";
+import Link from "next/link";
 
 import { cn } from "@/lib/utils";
 
 type AnimatedArrowLinkBaseProps = {
   children: ReactNode;
   className?: string;
-  to: string;
+  href: string;
   size?: string;
   target?: ComponentProps<"a">["target"];
   rel?: ComponentProps<"a">["rel"];
@@ -34,7 +34,7 @@ function AnimatedLinkArrowIcon({
         strokeWidth="3"
       />
       <path
-        className="[stroke-dasharray:5.66] [stroke-dashoffset:5.66] opacity-0 transition-[opacity,stroke-dashoffset] duration-300 ease-out group-hover/animated-link:[stroke-dashoffset:0] group-hover/animated-link:opacity-100 group-focus-visible/animated-link:[stroke-dashoffset:0] group-focus-visible/animated-link:opacity-100"
+        className="opacity-0 transition-[opacity,stroke-dashoffset] duration-300 ease-out [stroke-dasharray:5.66] [stroke-dashoffset:5.66] group-hover/animated-link:opacity-100 group-hover/animated-link:[stroke-dashoffset:0] group-focus-visible/animated-link:opacity-100 group-focus-visible/animated-link:[stroke-dashoffset:0]"
         d="M24.1641 5.84375L28.1641 1.84375"
         stroke="currentColor"
         strokeLinecap="square"
@@ -74,7 +74,7 @@ function AnimatedArrowLinkContent({
 export function AnimatedArrowLink({
   children,
   className,
-  to,
+  href,
   size,
   target,
   rel,
@@ -86,7 +86,7 @@ export function AnimatedArrowLink({
   return (
     <Link
       className={linkClassName}
-      to={to}
+      href={href}
       target={target}
       rel={rel}
       aria-label={ariaLabel}

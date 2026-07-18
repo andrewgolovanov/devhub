@@ -1,8 +1,10 @@
-import Link from "@docusaurus/Link";
+"use client";
 
-import { Button } from "@/components/ui/button";
+import { useRef, type SVGProps } from "react";
+import Link from "next/link";
+
 import { cn } from "@/lib/utils";
-import { type SVGProps, useRef } from "react";
+import { Button } from "@/components/ui/button";
 
 import { TemplateSlider } from "./slider";
 import { DEFAULT_TEMPLATE_SLIDER_SETTINGS } from "./use-slider";
@@ -47,7 +49,7 @@ function Templates({ className }: TemplatesProps) {
     <section
       ref={sectionRef}
       className={cn(
-        "templates overflow-hidden bg-grey-8 text-white pt-18 md:pt-22 lg:pt-26 xl:pt-40",
+        "templates bg-grey-8 overflow-hidden pt-18 text-white md:pt-22 lg:pt-26 xl:pt-40",
         className,
       )}
       aria-labelledby="home-templates-title"
@@ -61,7 +63,7 @@ function Templates({ className }: TemplatesProps) {
             </p>
           </div>
           <h2
-            className="text-3xl leading-[1.125] max-w-184 font-normal tracking-[-0.04em] text-balance text-white md:text-4xl md:leading-[1.125] lg:text-5xl lg:leading-[1.125] xl:text-[3.5rem]"
+            className="max-w-184 text-3xl leading-[1.125] font-normal tracking-[-0.04em] text-balance text-white md:text-4xl md:leading-[1.125] lg:text-5xl lg:leading-[1.125] xl:text-[3.5rem]"
             id="home-templates-title"
           >
             Jumpstart your next project{" "}
@@ -76,12 +78,12 @@ function Templates({ className }: TemplatesProps) {
       />
 
       <Button
-        className="mt-10 w-full flex rounded-none bg-orange px-5 font-mono text-base font-medium tracking-normal text-white uppercase shadow-none hover:bg-primary/90 focus-visible:ring-2 focus-visible:ring-db-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-[#121317] md:mt-14 md:text-lg lg:mt-18 lg:text-xl xl:text-[2rem]"
+        className="bg-orange hover:bg-primary/90 focus-visible:ring-db-cyan mt-10 flex w-full rounded-none px-5 font-mono text-base font-medium tracking-normal text-white uppercase shadow-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[#121317] md:mt-14 md:text-lg lg:mt-18 lg:text-xl xl:text-[2rem]"
         asChild
       >
         <Link
-          to="/templates"
-          className="gap-3 h-10 no-underline tracking-tight lg:gap-5 lg:h-14 xl:gap-8"
+          href="/templates"
+          className="h-10 gap-3 tracking-tight no-underline lg:h-14 lg:gap-5 xl:gap-8"
         >
           <LinkArrowIcon className="size-5 lg:size-8" />
           <span>See all templates</span>

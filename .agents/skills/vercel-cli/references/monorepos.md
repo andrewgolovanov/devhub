@@ -116,8 +116,8 @@ packages:
 **apps/api/server.ts:**
 
 ```typescript
-import { Hono } from "hono";
 import { greet } from "@repo/shared";
+import { Hono } from "hono";
 
 const app = new Hono();
 app.get("/", (c) => c.text(greet("world")));

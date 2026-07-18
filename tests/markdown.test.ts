@@ -1,9 +1,10 @@
 import matter from "gray-matter";
 import { describe, expect, test } from "vitest";
+
 import {
   composeTemplateAgentPrompt,
   getDetailMarkdown,
-} from "../api/content-markdown";
+} from "../src/lib/agent-content-markdown";
 import { buildNativeSolutionMarkdown } from "../src/lib/solutions/solution-markdown";
 import type { NativeSolutionItem } from "../src/lib/solutions/solutions";
 
@@ -106,7 +107,11 @@ describe("detail markdown resolver", () => {
 
   test("resolves template markdown (cookbook in agent mode)", () => {
     const markdown = getDetailMarkdown("templates", "ai-chat-app");
-    expect(markdown).toContain("# AI Chat App");
+    expect(markdown).toContain('title: "AI Chat App"');
+    expect(markdown).toContain(
+      "url: https://developers.databricks.com/templates/ai-chat-app",
+    );
+    expect(markdown).not.toContain("# AI Chat App");
     // Agent mode uses "Component:" headings
     expect(markdown).toContain("Component: Lakebase Agent Memory");
   });
@@ -158,7 +163,11 @@ describe("templates section resolves recipes, examples, and cookbooks", () => {
 
   test("resolves a cookbook slug via templates", () => {
     const markdown = getDetailMarkdown("templates", "ai-chat-app");
-    expect(markdown).toContain("# AI Chat App");
+    expect(markdown).toContain('title: "AI Chat App"');
+    expect(markdown).toContain(
+      "url: https://developers.databricks.com/templates/ai-chat-app",
+    );
+    expect(markdown).not.toContain("# AI Chat App");
     expect(markdown).toContain("Component: Lakebase Agent Memory");
   });
 

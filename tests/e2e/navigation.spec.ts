@@ -1,6 +1,8 @@
-import { test, expect, type Locator } from "@playwright/test";
-import { loadAgentPromptParts } from "../../api/content-markdown";
+import { expect, test, type Locator } from "@playwright/test";
+
+import { loadAgentPromptParts } from "../../src/lib/agent-content-markdown";
 import { composeAgentPrompt } from "../../src/lib/copy-preamble";
+import { expectDevHubImageToUseNextOptimizer } from "./image-assertions";
 
 // Reproduce what `/api/bootstrap-prompt` returns for the hero "Copy prompt"
 // button: the full agent-prompt composer with kind="hero". We mock the API
@@ -157,9 +159,7 @@ test.describe("navbar navigation", () => {
   });
 });
 
-// Skipped while the Product nav section is hidden; the mobile menu layout
-// assertions below are tied to the old product-based tree layout.
-test.describe.skip("mobile navigation", () => {
+test.describe("mobile navigation", () => {
   for (const viewport of [
     {
       width: 360,
@@ -210,6 +210,7 @@ test.describe.skip("mobile navigation", () => {
       );
       await expect(lakebase).toHaveCSS("color", "rgb(28, 29, 34)");
 
+      const headerBox = await header.boundingBox();
       const menuBox = await menu.boundingBox();
       const homeBox = await home.boundingBox();
       const productLabelBox = await productLabel.boundingBox();
@@ -219,6 +220,7 @@ test.describe.skip("mobile navigation", () => {
       const docsBox = await docs.boundingBox();
 
       if (
+        !headerBox ||
         !menuBox ||
         !homeBox ||
         !productLabelBox ||
@@ -230,24 +232,28 @@ test.describe.skip("mobile navigation", () => {
         throw new Error("Expected mobile menu layout to be measurable");
       }
 
+      // Announcement banners (e.g. the hackathon banner) render above the
+      // header and shift the whole menu down, so measure from the header's top.
+      const offsetY = Math.round(headerBox.y);
+
       expect(Math.round(menuBox.x)).toBe(0);
-      expect(Math.round(menuBox.y)).toBe(56);
+      expect(Math.round(menuBox.y)).toBe(offsetY + 56);
       expect(Math.round(menuBox.width)).toBe(viewport.width);
       expect(Math.round(homeBox.x)).toBe(20);
-      expect(Math.round(homeBox.y)).toBe(70);
+      expect(Math.round(homeBox.y)).toBe(offsetY + 70);
       expect(Math.round(productLabelBox.x)).toBe(61);
-      expect(Math.round(productLabelBox.y)).toBe(102);
+      expect(Math.round(productLabelBox.y)).toBe(offsetY + 102);
       expect(Math.round(lakebaseBox.x)).toBe(100);
-      expect(Math.round(lakebaseBox.y)).toBe(132);
+      expect(Math.round(lakebaseBox.y)).toBe(offsetY + 132);
       expect(Math.round(lakebaseBox.width)).toBe(viewport.highlightWidth);
       expect(Math.round(solutionsBox.x)).toBe(viewport.sectionX);
-      expect(Math.round(solutionsBox.y)).toBe(236);
+      expect(Math.round(solutionsBox.y)).toBe(offsetY + 236);
       expect(Math.round(solutionsBox.width)).toBe(viewport.sectionClickWidth);
       expect(Math.round(templatesBox.x)).toBe(viewport.sectionX);
-      expect(Math.round(templatesBox.y)).toBe(270);
+      expect(Math.round(templatesBox.y)).toBe(offsetY + 270);
       expect(Math.round(templatesBox.width)).toBe(viewport.sectionClickWidth);
       expect(Math.round(docsBox.x)).toBe(viewport.sectionX);
-      expect(Math.round(docsBox.y)).toBe(304);
+      expect(Math.round(docsBox.y)).toBe(offsetY + 304);
       expect(Math.round(docsBox.width)).toBe(viewport.sectionClickWidth);
     });
   }
@@ -339,6 +345,70 @@ test.describe.skip("mobile navigation", () => {
   }
 });
 
+test.describe("current mobile navigation", () => {
+  test("uses the production hamburger menu with search inside the drawer", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/");
+
+    await expect(page.getByRole("button", { name: "Open menu" })).toBeVisible();
+    await expect(
+      page.getByRole("button", { name: "Search documentation" }),
+    ).toHaveCount(0);
+
+    await page.getByRole("button", { name: "Open menu" }).click();
+
+    const header = page.locator("header").first();
+    const mainContent = page.locator("#devhub-main-content");
+    const menu = page.getByRole("dialog", { name: "Main navigation" });
+    const home = menu.getByRole("link", { name: "~/HOME" });
+    const homeLabel = home.locator("[data-mobile-menu-item-label]");
+
+    await expect(
+      page.getByRole("button", { name: "Close menu" }),
+    ).toBeVisible();
+    await expect(header).toHaveCSS("background-color", "rgb(199, 201, 209)");
+    await expect(mainContent).toHaveAttribute("aria-hidden", "true");
+    await expect(mainContent).toHaveJSProperty("inert", true);
+    await expect(menu).toHaveCSS("background-color", "rgb(28, 29, 34)");
+    await expect(home).toHaveAttribute("aria-current", "page");
+    await expect(homeLabel).toHaveCSS("background-color", "rgb(199, 201, 209)");
+    await expect(menu.locator("[data-mobile-menu-product-label]")).toHaveText(
+      "product",
+    );
+    await expect(menu.getByRole("link", { name: "lakebase" })).toHaveAttribute(
+      "href",
+      "/product/lakebase",
+    );
+    await expect(
+      menu.getByRole("link", { name: "agent bricks" }),
+    ).toHaveAttribute("href", "/product/agent-bricks");
+    await expect(
+      menu.getByRole("link", { name: "databricks apps" }),
+    ).toHaveAttribute("href", "/product/databricks-apps");
+    await expect(menu.getByRole("link", { name: "solutions" })).toHaveAttribute(
+      "href",
+      "/solutions",
+    );
+    await expect(menu.getByRole("link", { name: "templates" })).toHaveAttribute(
+      "href",
+      "/templates",
+    );
+    await expect(menu.getByRole("link", { name: "docs" })).toHaveAttribute(
+      "href",
+      "/docs/start-here",
+    );
+    await expect(
+      menu.getByRole("button", { name: "Search documentation" }),
+    ).toBeVisible();
+
+    await page.getByRole("button", { name: "Close menu" }).click();
+    await expect(mainContent).not.toHaveAttribute("aria-hidden", "true");
+    await expect(mainContent).toHaveJSProperty("inert", false);
+  });
+});
+
 test.describe("home hero animation", () => {
   test("does not create browser selection when dragging the app preview body", async ({
     page,
@@ -393,21 +463,16 @@ test.describe("footer navigation", () => {
     },
     { href: "/templates", label: "Templates" },
     { href: "/solutions", label: "Solutions" },
+    { href: "/product/databricks-apps", label: "Databricks Apps" },
+    { href: "/product/lakebase", label: "Lakebase" },
+    { href: "/product/agent-bricks", label: "Agent Bricks" },
   ];
 
   const FOOTER_EXTERNAL_LINKS = [
-    {
-      href: "https://www.databricks.com/product/databricks-apps",
-      label: "Databricks Apps",
-    },
-    {
-      href: "https://www.databricks.com/product/lakebase",
-      label: "Lakebase",
-    },
-    {
-      href: "https://www.databricks.com/product/artificial-intelligence/agent-bricks",
-      label: "Agent Bricks",
-    },
+    { href: "https://www.reddit.com/r/databricks/", label: "Reddit" },
+    { href: "https://www.youtube.com/@Databricks", label: "YouTube" },
+    { href: "https://github.com/databricks/devhub", label: "GitHub" },
+    { href: "https://www.databricks.com", label: "Databricks.com" },
     {
       href: "https://www.databricks.com/legal/privacynotice",
       label: "Privacy Notice",
@@ -424,19 +489,6 @@ test.describe("footer navigation", () => {
       href: "https://www.databricks.com/legal/supplemental-privacy-notice-california-residents",
       label: "California Privacy",
     },
-    {
-      href: "https://www.reddit.com/r/databricks/",
-      label: "Reddit",
-    },
-    {
-      href: "https://www.youtube.com/@Databricks",
-      label: "YouTube",
-    },
-    {
-      href: "https://github.com/databricks/devhub",
-      label: "GitHub",
-    },
-    { href: "https://www.databricks.com", label: "Databricks.com" },
   ];
 
   const EXPECTED_FOOTER_HREFS = [
@@ -445,9 +497,9 @@ test.describe("footer navigation", () => {
     "https://www.databricks.com/legal/terms-of-use",
     "https://www.databricks.com/legal/modern-slavery-policy-statement",
     "https://www.databricks.com/legal/supplemental-privacy-notice-california-residents",
-    "https://www.databricks.com/product/databricks-apps",
-    "https://www.databricks.com/product/lakebase",
-    "https://www.databricks.com/product/artificial-intelligence/agent-bricks",
+    "/product/databricks-apps",
+    "/product/lakebase",
+    "/product/agent-bricks",
     "/docs/start-here",
     "/templates",
     "/solutions",
@@ -571,6 +623,38 @@ test.describe("home page link navigation", () => {
     await page.locator('a[href="/templates"]').first().click();
     await page.waitForURL("**/templates");
     expect(new URL(page.url()).pathname).toBe("/templates");
+  });
+
+  test("home features section renders product feature cards", async ({
+    page,
+  }) => {
+    await page.goto("/");
+
+    const features = page.locator("section.features");
+    await features.scrollIntoViewIfNeeded();
+
+    await expect(features.locator("#home-features-heading")).toHaveText(
+      "Databricks developer platform features",
+    );
+    await expect(features.locator('[data-slot="feature-card"]')).toHaveCount(3);
+    await expect(features).toContainText(
+      "Web apps that run inside your workspace.",
+    );
+    await expect(features).toContainText(
+      "Managed Postgres, colocated with your Lakehouse.",
+    );
+    await expect(features).toContainText(
+      "LLM-driven apps that call tools and return structured output.",
+    );
+    await expect(
+      features.locator('a[href="/product/databricks-apps"]'),
+    ).toHaveText("Learn more");
+    await expect(features.locator('a[href="/product/lakebase"]')).toHaveText(
+      "Learn more",
+    );
+    await expect(
+      features.locator('a[href="/product/agent-bricks"]'),
+    ).toHaveText("Learn more");
   });
 
   test("home template slider fits responsive cards and preserves vertical touch scroll", async ({
@@ -725,9 +809,13 @@ test.describe("solutions page navigation", () => {
 
   for (const { path } of SOLUTIONS) {
     test(`solution card navigates to ${path}`, async ({ page }) => {
-      await page.goto("/solutions");
+      await page.goto("/solutions", { waitUntil: "domcontentloaded" });
       const link = page.locator(`a[href="${path}"]`).first();
       await link.waitFor({ state: "visible" });
+      await expectDevHubImageToUseNextOptimizer(
+        page.locator(`a[href="${path}"] img`).first(),
+        "/img/solutions/devhub-launch.jpg",
+      );
       await link.click();
       await page.waitForURL(`**${path}`);
       expect(new URL(page.url()).pathname).toBe(path);
@@ -797,6 +885,19 @@ test.describe("solution detail page navigation", () => {
     expect(hrefs).toContain("/docs/start-here");
     expect(hrefs).toContain("/templates");
   });
+
+  test("solution detail hero image uses the Next image optimizer", async ({
+    page,
+  }) => {
+    await page.goto("/solutions/devhub-launch");
+
+    await expectDevHubImageToUseNextOptimizer(
+      page.getByRole("img", {
+        name: "Cover graphic for Introducing DevHub with a grid, launch tags, and developer hub label",
+      }),
+      "/img/solutions/devhub-launch.jpg",
+    );
+  });
 });
 
 test.describe("template detail page navigation", () => {
@@ -826,8 +927,31 @@ test.describe("template detail page navigation", () => {
     });
     const coverImages = moreTemplates.locator('img[alt$=" preview"]');
 
-    await expect(coverImages.first()).toBeVisible();
-    await expect(coverImages.first()).toHaveAttribute("src", /\/img\//);
+    await expectDevHubImageToUseNextOptimizer(coverImages.first());
+  });
+
+  test("template detail pages keep production light preview assets", async ({
+    page,
+  }) => {
+    await page.goto("/templates/lakebase-change-data-feed-autoscaling");
+
+    await expectDevHubImageToUseNextOptimizer(
+      page
+        .locator(
+          'img[alt="Lakebase Change Data Feed: Sync Lakebase to Unity Catalog (Autoscaling) preview"]',
+        )
+        .first(),
+      "/img/guides/lakebase-change-data-feed-autoscaling-preview-light.png",
+    );
+
+    const moreTemplates = page.locator("section").filter({
+      has: page.getByRole("heading", { name: "Explore more templates" }),
+    });
+
+    await expectDevHubImageToUseNextOptimizer(
+      moreTemplates.locator('img[alt="Lakebase Agent Memory preview"]').first(),
+      "/img/guides/lakebase-agent-memory-preview-light.png",
+    );
   });
 });
 
@@ -950,10 +1074,10 @@ test.describe("docs sidebar navigation", () => {
       sidebar.getByRole("button", { name: "AppKit", exact: true }),
     ).toBeVisible();
     await expect(
-      sidebar.locator('a[href^="/docs/appkit/v0/api/appkit-ui"]').first(),
+      sidebar.locator('a[href="/docs/appkit/v0/api/appkit-ui"]'),
     ).toBeVisible();
     await expect(
-      sidebar.locator('a[href^="/docs/appkit/v0/api/appkit/"]').first(),
+      sidebar.locator('a[href="/docs/appkit/v0/api/appkit"]'),
     ).toBeVisible();
   });
 });

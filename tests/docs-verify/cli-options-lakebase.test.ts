@@ -1,11 +1,13 @@
 import { execSync } from "node:child_process";
-import { describe, test, expect } from "vitest";
+
+import { describe, expect, test } from "vitest";
+
 import {
   CLI_COMMANDS,
-  MUTUALLY_EXCLUSIVE,
-  SKIP_FLAGS,
-  SHORT_TO_LONG,
   getAllOptionsBlocks,
+  MUTUALLY_EXCLUSIVE,
+  SHORT_TO_LONG,
+  SKIP_FLAGS,
 } from "./cli-commands";
 
 const LONG_TO_SHORT: Record<string, string> = Object.fromEntries(

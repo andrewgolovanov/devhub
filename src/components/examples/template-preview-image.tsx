@@ -1,19 +1,11 @@
-"use client";
-
-import useBaseUrl from "@docusaurus/useBaseUrl";
-import { useColorMode } from "@docusaurus/theme-common";
 import type { ReactNode } from "react";
+import Image from "next/image";
 
 /**
- * Theme-aware single preview image with a caller-provided fallback.
+ * Preview image with a caller-provided fallback.
  *
- * Renders the dark URL when the site is in dark mode and the light URL in light
- * mode. If only one URL is provided it's used for both modes. If neither is set
- * the caller's `fallback` is rendered instead.
- *
- * The container is always 16:9. Images are assumed to match that ratio (enforced
- * by `npm run verify:images`), so object-cover yields a clean edge with no
- * letterboxing.
+ * Prefer the light asset and fall back to dark only when a light variant is
+ * unavailable. Images are assumed to be 16:9, enforced by `pnpm verify:images`.
  */
 export function TemplatePreviewImage({
   lightUrl,
@@ -21,30 +13,37 @@ export function TemplatePreviewImage({
   alt,
   fallback,
   className,
+  loading,
+  preload,
+  sizes = "100vw",
 }: {
   lightUrl?: string;
   darkUrl?: string;
   alt: string;
   fallback: ReactNode;
   className?: string;
+  loading?: "eager" | "lazy";
+  preload?: boolean;
+  sizes?: string;
 }) {
-  const { colorMode } = useColorMode();
-  const chosen =
-    colorMode === "dark" ? (darkUrl ?? lightUrl) : (lightUrl ?? darkUrl);
-  const src = useBaseUrl(chosen ?? "");
+  const chosen = lightUrl ?? darkUrl;
 
   if (!chosen) {
     return <>{fallback}</>;
   }
 
   return (
-    <img
-      src={src}
+    <Image
+      src={chosen}
       alt={alt}
       className={
         className ?? "absolute inset-0 h-full w-full object-cover object-center"
       }
-      loading="lazy"
+      fill
+      loading={preload ? "eager" : loading}
+      preload={preload}
+      sizes={sizes}
+      quality={100}
     />
   );
 }

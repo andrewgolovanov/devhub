@@ -1,11 +1,14 @@
-import { cn } from "@/lib/utils";
+"use client";
+
 import { useEffect, useRef } from "react";
+
+import { cn } from "@/lib/utils";
 
 import {
   DEFAULT_LOVED_METRICS_SETTINGS,
-  LOVED_TIMELINE_LAYERS,
   formatMetricValue,
   getMetricStartValue,
+  LOVED_TIMELINE_LAYERS,
   setupLovedMetricsReveal,
 } from "./loved-by-developers-metrics-animation";
 
@@ -67,7 +70,7 @@ function LovedMetricValue({
 
   return (
     <span
-      className="loved-metric-value shrink-0 font-mono text-5xl leading-[1.125] font-normal tracking-normal text-white md:text-6xl lg:text-7xl xl:text-7xl 2xl:text-[6.25rem] 3xl:text-[7rem]"
+      className="loved-metric-value 3xl:text-[7rem] shrink-0 font-mono text-5xl leading-[1.125] font-normal tracking-normal text-white md:text-6xl lg:text-7xl xl:text-7xl 2xl:text-[6.25rem]"
       data-display={initialText}
       data-ghost-display=""
       data-layout-display={finalText}
@@ -120,22 +123,22 @@ function LovedByDevelopers({ className }: { className?: string }) {
     <section
       ref={sectionRef}
       className={cn(
-        "relative loved-by-developers overflow-hidden text-white",
+        "loved-by-developers relative overflow-hidden text-white",
         className,
       )}
     >
-      <div className="relative z-10 mx-auto flex flex-col px-5 pt-18 pb-14 max-w-272 xl:max-w-304 md:px-8 md:py-24 lg:py-32 xl:py-46 2xl:py-35 2xl:max-w-360 3xl:max-w-400 3xl:py-46">
+      <div className="3xl:max-w-400 3xl:py-46 relative z-10 mx-auto flex max-w-272 flex-col px-5 pt-18 pb-14 md:px-8 md:py-24 lg:py-32 xl:max-w-304 xl:py-46 2xl:max-w-360 2xl:py-35">
         <header className="relative z-10 flex flex-col">
-          <h2 className="font-heading text-5xl leading-none font-normal tracking-normal max-w-sm sm:max-w-none md:text-7xl/none lg:text-9xl/none xl:text-[10rem] 2xl:text-[12rem] 3xl:text-[13.125rem]">
+          <h2 className="font-heading 3xl:text-[13.125rem] max-w-sm text-5xl leading-none font-normal tracking-normal sm:max-w-none md:text-7xl/none lg:text-9xl/none xl:text-[10rem] 2xl:text-[12rem]">
             <span className="block max-w-342 text-balance">
               Built for enterprise.
             </span>
             <span className="block">
               {" "}
-              <span className="text-db-lava-light lg:block lg:ml-60 2xl:ml-96 3xl:ml-122">
+              <span className="text-db-lava-light 3xl:ml-122 lg:ml-60 lg:block 2xl:ml-96">
                 Loved by
               </span>{" "}
-              <span className="lg:block lg:ml-24 xl:translate-x-8 2xl:ml-52 3xl:ml-64">
+              <span className="3xl:ml-64 lg:ml-24 lg:block xl:translate-x-8 2xl:ml-52">
                 developers.
               </span>
             </span>
@@ -187,12 +190,12 @@ function LovedByDevelopers({ className }: { className?: string }) {
         </ul> */}
       </div>
       <div
-        className="absolute inset-0 pointer-events-none opacity-30"
+        className="pointer-events-none absolute inset-0 opacity-30"
         aria-hidden="true"
       >
-        <div className="absolute top-0 left-1/2 h-30 w-61 translate-x-1/4 [background-image:radial-gradient(circle_at_1px_1px,rgb(255_255_255)_1px,transparent_0)] bg-size-[6px_6px] sm:hidden lg:block lg:translate-x-1/6 lg:h-60 lg:w-100 lg:right-auto lg:left-[calc(50%-4em)] xl:h-85 xl:w-140 xl:left-[calc(50%-3em)] 3xl:translate-x-8 3xl:h-94 3xl:w-170 3xl:left-1/2" />
-        <div className="absolute hidden top-57 -right-1/2 h-98 w-145 [background-image:radial-gradient(circle_at_1px_1px,rgb(255_255_255)_1px,transparent_0)] bg-size-[6px_6px] lg:block lg:right-[calc(50%+27rem)] lg:top-100 lg:h-62 lg:w-80 xl:right-[calc(50%+31.125rem)] xl:top-130 xl:h-84 xl:w-145 2xl:top-136 3xl:h-98 3xl:right-[calc(50%+32.75rem)] 3xl:w-145 3xl:top-158" />
-        <div className="absolute hidden top-66 right-1/2 h-48.5 w-45 [background-image:radial-gradient(circle_at_1px_1px,rgb(255_255_255)_1px,transparent_0)] bg-size-[6px_6px] lg:block lg:right-[calc(50%+20.25rem)] lg:top-100 lg:h-26 lg:w-26 xl:right-[calc(50%+22rem)] xl:top-130 xl:h-36 xl:w-36 2xl:top-136 3xl:h-45 3xl:right-[calc(50%+20.5rem)] 3xl:w-48.5 3xl:top-158" />
+        <div className="3xl:translate-x-8 3xl:h-94 3xl:w-170 3xl:left-1/2 absolute top-0 left-1/2 h-30 w-61 translate-x-1/4 [background-image:radial-gradient(circle_at_1px_1px,rgb(255_255_255)_1px,transparent_0)] bg-size-[6px_6px] sm:hidden lg:right-auto lg:left-[calc(50%-4em)] lg:block lg:h-60 lg:w-100 lg:translate-x-1/6 xl:left-[calc(50%-3em)] xl:h-85 xl:w-140" />
+        <div className="3xl:h-98 3xl:right-[calc(50%+32.75rem)] 3xl:w-145 3xl:top-158 absolute top-57 -right-1/2 hidden h-98 w-145 [background-image:radial-gradient(circle_at_1px_1px,rgb(255_255_255)_1px,transparent_0)] bg-size-[6px_6px] lg:top-100 lg:right-[calc(50%+27rem)] lg:block lg:h-62 lg:w-80 xl:top-130 xl:right-[calc(50%+31.125rem)] xl:h-84 xl:w-145 2xl:top-136" />
+        <div className="3xl:h-45 3xl:right-[calc(50%+20.5rem)] 3xl:w-48.5 3xl:top-158 absolute top-66 right-1/2 hidden h-48.5 w-45 [background-image:radial-gradient(circle_at_1px_1px,rgb(255_255_255)_1px,transparent_0)] bg-size-[6px_6px] lg:top-100 lg:right-[calc(50%+20.25rem)] lg:block lg:h-26 lg:w-26 xl:top-130 xl:right-[calc(50%+22rem)] xl:h-36 xl:w-36 2xl:top-136" />
       </div>
     </section>
   );

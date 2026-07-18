@@ -1,6 +1,6 @@
-import { BarChart } from "@databricks/appkit-ui/react";
-import { sql } from "@databricks/appkit-ui/js";
 import { useMemo } from "react";
+import { sql } from "@databricks/appkit-ui/js";
+import { BarChart } from "@databricks/appkit-ui/react";
 
 export function RevenueChart() {
   const params = useMemo(() => ({ limit: sql.number(10) }), []);

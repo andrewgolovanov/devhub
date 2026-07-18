@@ -1,6 +1,6 @@
-import { useAnalyticsQuery, Skeleton } from "@databricks/appkit-ui/react";
-import { sql } from "@databricks/appkit-ui/js";
 import { useMemo } from "react";
+import { sql } from "@databricks/appkit-ui/js";
+import { Skeleton, useAnalyticsQuery } from "@databricks/appkit-ui/react";
 
 export function RevenueByDestination() {
   const params = useMemo(() => ({ limit: sql.number(10) }), []);
