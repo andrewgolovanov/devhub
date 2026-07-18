@@ -463,21 +463,12 @@ test.describe("footer navigation", () => {
     },
     { href: "/templates", label: "Templates" },
     { href: "/solutions", label: "Solutions" },
+    { href: "/product/databricks-apps", label: "Databricks Apps" },
+    { href: "/product/lakebase", label: "Lakebase" },
+    { href: "/product/agent-bricks", label: "Agent Bricks" },
   ];
 
   const FOOTER_EXTERNAL_LINKS = [
-    {
-      href: "https://www.databricks.com/product/databricks-apps",
-      label: "Databricks Apps",
-    },
-    {
-      href: "https://www.databricks.com/product/lakebase",
-      label: "Lakebase",
-    },
-    {
-      href: "https://www.databricks.com/product/artificial-intelligence/agent-bricks",
-      label: "Agent Bricks",
-    },
     { href: "https://www.reddit.com/r/databricks/", label: "Reddit" },
     { href: "https://www.youtube.com/@Databricks", label: "YouTube" },
     { href: "https://github.com/databricks/devhub", label: "GitHub" },
@@ -506,9 +497,9 @@ test.describe("footer navigation", () => {
     "https://www.databricks.com/legal/terms-of-use",
     "https://www.databricks.com/legal/modern-slavery-policy-statement",
     "https://www.databricks.com/legal/supplemental-privacy-notice-california-residents",
-    "https://www.databricks.com/product/databricks-apps",
-    "https://www.databricks.com/product/lakebase",
-    "https://www.databricks.com/product/artificial-intelligence/agent-bricks",
+    "/product/databricks-apps",
+    "/product/lakebase",
+    "/product/agent-bricks",
     "/docs/start-here",
     "/templates",
     "/solutions",
