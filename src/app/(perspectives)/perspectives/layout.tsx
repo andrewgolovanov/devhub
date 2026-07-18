@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { COPYRIGHT_LINE, LEGAL_LINKS } from "@/lib/legal-links";
+import { YourPrivacyChoicesLink } from "@/components/your-privacy-choices-link";
 
 export default function PerspectivesLayout({
   children,
@@ -63,6 +64,7 @@ export default function PerspectivesLayout({
                 {link.label}
               </Link>
             ))}
+            <YourPrivacyChoicesLink className="text-grey-40 hover:text-grey-70 focus-visible:outline-db-cyan w-fit rounded-sm text-[0.8125rem] leading-none tracking-tight no-underline transition-colors hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-4" />
           </nav>
         </div>
       </footer>

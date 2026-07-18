@@ -19,6 +19,10 @@ const NON_PAGE_ROUTES = new Set([
 ]);
 const NON_PAGE_ROUTE_PREFIXES = ["/api/", "/raw-docs/", "/_next/"];
 
+// JS-handled pseudo-anchors that intentionally have no element id (e.g. the
+// "Your Privacy Choices" link opens the OneTrust preference center onClick).
+const PSEUDO_ANCHORS = new Set(["yourprivacychoices"]);
+
 function listFiles(root: string): string[] {
   if (!existsSync(root)) {
     return [];
@@ -193,7 +197,7 @@ describe("broken internal links", () => {
     const failures: string[] = [];
 
     for (const link of crawl.links) {
-      if (link.hash === "") {
+      if (link.hash === "" || PSEUDO_ANCHORS.has(link.hash)) {
         continue;
       }
 

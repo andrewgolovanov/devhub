@@ -766,7 +766,9 @@ test.describe("docs MDX compatibility", () => {
     expect(layout.articleHeight).toBeLessThanOrEqual(3165);
     expect(layout.codeBlocks).toBe(3);
     expect(layout.inlineCodes).toBe(2);
-    expect(layout.linksWithoutHackathonBanner).toBe(65);
+    // 67 = page links + footer links including "Your Privacy Choices", which
+    // the footer renders twice (desktop and mobile legal blocks).
+    expect(layout.linksWithoutHackathonBanner).toBe(67);
   });
 
   test("renders relative docs image assets and links", async ({ page }) => {
