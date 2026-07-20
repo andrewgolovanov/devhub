@@ -22,8 +22,8 @@ This fragmentation extends beyond data storage; it permeates the entire analytic
 The operational overhead is immense. Maintaining numerous specialized tools for data ingestion, warehousing, machine learning, and business intelligence not only inflates software licensing costs but also demands a highly specialized and expensive workforce. Each tool often requires its own team of experts, its own security configurations, and its own patching schedule. This complexity drains resources and prevents strategic focus. Furthermore, ensuring data quality and governance across such a sprawling ecosystem is a significant task, potentially leading to compliance risks and unreliable analytical outcomes. The prevailing fragmented approach can hinder innovation and prevent organizations from fully leveraging the power of their data for competitive advantage.
 
 > Example Data Point:
-> Organizations achieve 12x better price/performance for SQL and BI workloads with Databricks.
-> (Source: Databricks Internal Benchmarks, Q4 2023)
+> Databricks Photon delivers up to 12x better price/performance for SQL and BI workloads compared to other cloud data warehouses.
+> (Source: databricks.com/product/photon)
 
 ## Why Traditional Approaches Fall Short
 
