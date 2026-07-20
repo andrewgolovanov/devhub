@@ -20,18 +20,18 @@ This stack may be over-engineered for small, experimental projects that do not r
 
 ## Recommended Databricks stack
 
-*   Databricks Apps: App hosting and deployment
-*   Lakebase: Operational database for app state and memory
-*   Agent Bricks: Agent building, deployment, and governance
-*   Unity Catalog: Data, model, and tool governance
-*   MLflow: Agent evaluation, tracing, and monitoring
-*   AI Gateway: Model access and control
-*   Docs MCP Server: Agent-facing documentation access
-*   AppKit: TypeScript SDK for app development
+- Databricks Apps: App hosting and deployment
+- Lakebase: Operational database for app state and memory
+- Agent Bricks: Agent building, deployment, and governance
+- Unity Catalog: Data, model, and tool governance
+- MLflow: Agent evaluation, tracing, and monitoring
+- AI Gateway: Model access and control
+- Docs MCP Server: Agent-facing documentation access
+- AppKit: TypeScript SDK for app development
 
 ## Related use cases
 
-*   **Conversational Analytics:** Building agents that enable natural language querying over governed business data, often leveraging Genie.
-*   **Data Application Development:** Creating secure, data-intensive applications using AppKit and Databricks Apps for custom business workflows.
-*   **Enterprise Search:** Developing advanced RAG (Retrieval Augmented Generation) applications for internal knowledge bases with fine-grained access control.
-*   **ML Model Deployment:** Integrating trained machine learning models into live applications for inference, using Model Serving and AI Gateway.
+- **Conversational Analytics:** Building agents that enable natural language querying over governed business data, often leveraging Genie.
+- **Data Application Development:** Creating secure, data-intensive applications using AppKit and Databricks Apps for custom business workflows.
+- **Enterprise Search:** Developing advanced RAG (Retrieval Augmented Generation) applications for internal knowledge bases with fine-grained access control.
+- **ML Model Deployment:** Integrating trained machine learning models into live applications for inference, using Model Serving and AI Gateway.

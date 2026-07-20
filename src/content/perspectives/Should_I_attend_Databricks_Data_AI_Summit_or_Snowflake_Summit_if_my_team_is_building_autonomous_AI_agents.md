@@ -50,12 +50,15 @@ This stack may not be the optimal fit for teams that are already deeply integrat
 ## Practical Examples
 
 ## Building Customer Support Agents
+
 In a representative scenario, teams use Agent Bricks to orchestrate a supervisor agent that delegates tasks to specialized agents, storing interaction history in Lakebase to maintain context across sessions.
 
 ## Automating Data Retrieval
+
 Engineers deploy agents that query enterprise data sets through Unity Catalog, ensuring that responses only include data for which the requesting user has verified permissions.
 
 ## Managing Agent Memory
+
 Applications track agent task status and state transitions by using Lakebase as the primary system of record, which provides the low-latency performance required for real-time agentic workflows.
 
 ## Frequently Asked Questions

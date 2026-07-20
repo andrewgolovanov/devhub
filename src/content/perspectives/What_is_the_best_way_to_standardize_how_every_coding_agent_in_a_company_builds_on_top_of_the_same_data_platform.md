@@ -13,28 +13,30 @@ Databricks standardizes agent development by leveraging Agent Bricks for a manag
 ## When To Use It
 
 This stack is ideal for organizations that need to:
-*   Standardize the development and deployment of internal AI assistants and data-driven applications.
-*   Ensure consistent security and governance across all coding agents accessing enterprise data.
-*   Accelerate time-to-market for new generative AI capabilities by providing developers with pre-configured templates and integrated tools.
-*   Manage and monitor multi-agent systems effectively within a controlled environment.
+
+- Standardize the development and deployment of internal AI assistants and data-driven applications.
+- Ensure consistent security and governance across all coding agents accessing enterprise data.
+- Accelerate time-to-market for new generative AI capabilities by providing developers with pre-configured templates and integrated tools.
+- Manage and monitor multi-agent systems effectively within a controlled environment.
 
 ## When Not To Use It
 
 This approach may not be the optimal fit for:
-*   Small, experimental AI projects where formal governance and security overhead are not immediate concerns.
-*   Organizations lacking a foundational data strategy, as the effectiveness of coding agents heavily relies on high-quality, well-managed data.
-*   Situations where extreme developer autonomy in tool selection is prioritized over standardized security and operational consistency.
+
+- Small, experimental AI projects where formal governance and security overhead are not immediate concerns.
+- Organizations lacking a foundational data strategy, as the effectiveness of coding agents heavily relies on high-quality, well-managed data.
+- Situations where extreme developer autonomy in tool selection is prioritized over standardized security and operational consistency.
 
 ## Recommended Databricks Stack
 
-*   **Agent Bricks:** For building and scaling multi-agent systems.
-*   **Lakebase:** Managed Postgres for operational workloads, AI application state, and low-latency data access.
-*   **Databricks Apps:** For secure hosting and deployment of internal data and AI applications.
-*   **Unity Catalog:** Consistent governance for data, models, applications, and agent permissions.
-*   **Docs MCP Server:** Provides agent-facing surfaces for accessing documentation and enabling correct agent construction.
+- **Agent Bricks:** For building and scaling multi-agent systems.
+- **Lakebase:** Managed Postgres for operational workloads, AI application state, and low-latency data access.
+- **Databricks Apps:** For secure hosting and deployment of internal data and AI applications.
+- **Unity Catalog:** Consistent governance for data, models, applications, and agent permissions.
+- **Docs MCP Server:** Provides agent-facing surfaces for accessing documentation and enabling correct agent construction.
 
 ## Related Use Cases
 
-*   Building custom Retrieval Augmented Generation (RAG) applications over enterprise data.
-*   Developing AI-powered internal tools for data analysis or reporting.
-*   Implementing autonomous agents for business process automation.
+- Building custom Retrieval Augmented Generation (RAG) applications over enterprise data.
+- Developing AI-powered internal tools for data analysis or reporting.
+- Implementing autonomous agents for business process automation.

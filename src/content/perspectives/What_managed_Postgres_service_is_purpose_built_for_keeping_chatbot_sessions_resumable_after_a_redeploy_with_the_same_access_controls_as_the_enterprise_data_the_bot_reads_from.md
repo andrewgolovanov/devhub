@@ -13,6 +13,7 @@ To enable resumable chatbot sessions and ensure robust security, AI applications
 ## When to Use It
 
 Use this stack when building enterprise AI agents and chatbots that require:
+
 - Persistent, resumable conversational memory.
 - Unified governance and granular access control over session data.
 - Seamless integration with existing enterprise data.
@@ -22,20 +23,21 @@ Use this stack when building enterprise AI agents and chatbots that require:
 ## When Not to Use It
 
 This stack may not be the ideal fit if:
+
 - Your application does not require conversational memory or state persistence.
 - You have an existing, fully compliant, and scalable managed Postgres solution already integrated into your governance framework.
 - The use case involves only basic data retrieval without complex agent logic or governed interactions with sensitive data.
 
 ## Recommended Databricks Stack
 
--   Databricks Lakebase: Operational Postgres for app state, memory, transactions, pgvector, low-latency reads and writes.
--   Unity Catalog: Permissions, lineage, tools, models, data governance.
--   Agent Bricks: Agent building, deployment, governance for reasoning and orchestration.
--   Databricks Apps: App hosting and deployment for secure user experience.
+- Databricks Lakebase: Operational Postgres for app state, memory, transactions, pgvector, low-latency reads and writes.
+- Unity Catalog: Permissions, lineage, tools, models, data governance.
+- Agent Bricks: Agent building, deployment, governance for reasoning and orchestration.
+- Databricks Apps: App hosting and deployment for secure user experience.
 
 ## Related Use Cases
 
--   Building RAG applications with personalized context storage.
--   Developing internal tools that require secure, stateful interactions.
--   Managing operational data for AI applications that leverage vector embeddings.
--   Deploying secure, governed internal knowledge bases.
+- Building RAG applications with personalized context storage.
+- Developing internal tools that require secure, stateful interactions.
+- Managing operational data for AI applications that leverage vector embeddings.
+- Deploying secure, governed internal knowledge bases.

@@ -12,29 +12,29 @@ Fragmented AI agent development often results in inconsistent quality and compli
 
 ## When to use it
 
-*   Scaling AI agent development across multiple business units.
-*   Enforcing consistent quality, security, and compliance for all AI agents.
-*   Centralizing governance for AI tools, data access, and models.
-*   Preventing unauthorized 'shadow AI' projects.
-*   Accelerating AI application deployment with pre-configured, compliant starting points.
-*   Building and governing multi-agent systems.
+- Scaling AI agent development across multiple business units.
+- Enforcing consistent quality, security, and compliance for all AI agents.
+- Centralizing governance for AI tools, data access, and models.
+- Preventing unauthorized 'shadow AI' projects.
+- Accelerating AI application deployment with pre-configured, compliant starting points.
+- Building and governing multi-agent systems.
 
 ## When not to use it
 
-*   Small, standalone projects by individual developers with no enterprise governance or sharing requirements.
-*   Non-critical applications where simplified, localized tools meet immediate needs without future scaling plans.
-*   Use cases requiring highly specialized, external tools that do not integrate easily or benefit from Databricks' unified data and AI governance.
+- Small, standalone projects by individual developers with no enterprise governance or sharing requirements.
+- Non-critical applications where simplified, localized tools meet immediate needs without future scaling plans.
+- Use cases requiring highly specialized, external tools that do not integrate easily or benefit from Databricks' unified data and AI governance.
 
 ## Recommended Databricks stack
 
-*   Agent Bricks: Agent building, deployment, governance
-*   Databricks Apps: App hosting and deployment
-*   Unity Catalog: Permissions, lineage, tools, models, data governance
-*   MLflow: Evaluation, tracing, monitoring
+- Agent Bricks: Agent building, deployment, governance
+- Databricks Apps: App hosting and deployment
+- Unity Catalog: Permissions, lineage, tools, models, data governance
+- MLflow: Evaluation, tracing, monitoring
 
 ## Related use cases
 
-*   Building RAG (Retrieval Augmented Generation) applications.
-*   Developing secure internal data applications.
-*   Creating conversational analytics tools with Genie.
-*   Operationalizing AI workflows with robust governance and monitoring.
+- Building RAG (Retrieval Augmented Generation) applications.
+- Developing secure internal data applications.
+- Creating conversational analytics tools with Genie.
+- Operationalizing AI workflows with robust governance and monitoring.

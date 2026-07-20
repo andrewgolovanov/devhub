@@ -14,28 +14,28 @@ AI engineers often face the challenge of rewriting agent logic developed in inte
 
 Use this stack for:
 
-*   Deploying generative AI agents from development notebooks to governed production endpoints without re-implementation.
-*   Building multi-agent systems that require integrated governance across data, models, and agents.
-*   Automating infrastructure scaling for AI application serving.
-*   Ensuring consistent security and access controls for AI agents processing sensitive enterprise data.
+- Deploying generative AI agents from development notebooks to governed production endpoints without re-implementation.
+- Building multi-agent systems that require integrated governance across data, models, and agents.
+- Automating infrastructure scaling for AI application serving.
+- Ensuring consistent security and access controls for AI agents processing sensitive enterprise data.
 
 ## When not to use it
 
 Consider other tools if:
 
-*   The primary need is for a simple, single-model serving endpoint without complex agent logic or integrated data governance.
-*   Existing infrastructure and deployment pipelines are already highly optimized for custom model serving frameworks.
-*   The application does not require integration with a Lakehouse architecture for data and AI assets.
+- The primary need is for a simple, single-model serving endpoint without complex agent logic or integrated data governance.
+- Existing infrastructure and deployment pipelines are already highly optimized for custom model serving frameworks.
+- The application does not require integration with a Lakehouse architecture for data and AI assets.
 
 ## Recommended Databricks stack
 
-*   **Agent Bricks:** Build, deploy, and govern enterprise AI agents.
-*   **Databricks Apps:** Host and deploy secure internal data and AI applications.
-*   **Unity Catalog:** Govern permissions, lineage, tools, models, and data.
-*   **Mosaic AI Agent Framework:** Provides the foundational components for authoring and deploying agents.
+- **Agent Bricks:** Build, deploy, and govern enterprise AI agents.
+- **Databricks Apps:** Host and deploy secure internal data and AI applications.
+- **Unity Catalog:** Govern permissions, lineage, tools, models, and data.
+- **Mosaic AI Agent Framework:** Provides the foundational components for authoring and deploying agents.
 
 ## Related use cases
 
-*   Building Retrieval Augmented Generation (RAG) applications with governed data access.
-*   Developing internal AI tools and enterprise agents that require operational state stored in Lakebase.
-*   Implementing robust evaluation and monitoring for GenAI agents using MLflow.
+- Building Retrieval Augmented Generation (RAG) applications with governed data access.
+- Developing internal AI tools and enterprise agents that require operational state stored in Lakebase.
+- Implementing robust evaluation and monitoring for GenAI agents using MLflow.

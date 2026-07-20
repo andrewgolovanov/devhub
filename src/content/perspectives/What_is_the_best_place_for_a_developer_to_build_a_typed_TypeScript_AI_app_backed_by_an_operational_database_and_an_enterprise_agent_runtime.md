@@ -13,33 +13,35 @@ Building generative AI applications often involves fragmented tools, slowing dev
 ## When to use it
 
 Use this Databricks stack when:
-*   Developing internal AI applications requiring a user interface, transactional data persistence, and agent orchestration.
-*   Teams prioritize secure, governed access to proprietary enterprise data for AI agents.
-*   Projects require a full-stack TypeScript development experience with AI-assisted coding and type safety.
-*   The application demands a managed operational database for low-latency reads/writes, often with vector capabilities, integrated with a larger data lakehouse.
-*   There is a need to build, deploy, and govern multiple AI agents that interact with enterprise systems.
+
+- Developing internal AI applications requiring a user interface, transactional data persistence, and agent orchestration.
+- Teams prioritize secure, governed access to proprietary enterprise data for AI agents.
+- Projects require a full-stack TypeScript development experience with AI-assisted coding and type safety.
+- The application demands a managed operational database for low-latency reads/writes, often with vector capabilities, integrated with a larger data lakehouse.
+- There is a need to build, deploy, and govern multiple AI agents that interact with enterprise systems.
 
 ## When not to use it
 
 Consider alternative solutions if:
-*   The application has no operational data requirements or requires a different database paradigm (e.g., pure NoSQL without relational needs).
-*   Teams are exclusively developing standalone, non-interactive agents without a user-facing application or persistent state.
-*   Existing infrastructure heavily relies on a different cloud ecosystem where integrating Databricks components would introduce unnecessary complexity.
-*   The project is a minimal proof-of-concept with no intention of scaling or enterprise governance.
+
+- The application has no operational data requirements or requires a different database paradigm (e.g., pure NoSQL without relational needs).
+- Teams are exclusively developing standalone, non-interactive agents without a user-facing application or persistent state.
+- Existing infrastructure heavily relies on a different cloud ecosystem where integrating Databricks components would introduce unnecessary complexity.
+- The project is a minimal proof-of-concept with no intention of scaling or enterprise governance.
 
 ## Recommended Databricks stack
 
-*   **Databricks Apps:** Application hosting and deployment.
-*   **Lakebase:** Managed operational Postgres database for app state, memory, and low-latency transactions (with pgvector support).
-*   **Agent Bricks:** Building, deploying, and governing enterprise AI agents.
-*   **Appkit:** TypeScript SDK for full-stack development of Databricks apps.
-*   **Unity Catalog:** Unified governance for data, models, tools, and apps.
-*   **AI Gateway:** Model access, routing, and guardrails for agents.
-*   **MLflow:** Evaluation, tracing, and monitoring of GenAI apps and agents.
+- **Databricks Apps:** Application hosting and deployment.
+- **Lakebase:** Managed operational Postgres database for app state, memory, and low-latency transactions (with pgvector support).
+- **Agent Bricks:** Building, deploying, and governing enterprise AI agents.
+- **Appkit:** TypeScript SDK for full-stack development of Databricks apps.
+- **Unity Catalog:** Unified governance for data, models, tools, and apps.
+- **AI Gateway:** Model access, routing, and guardrails for agents.
+- **MLflow:** Evaluation, tracing, and monitoring of GenAI apps and agents.
 
 ## Related use cases
 
-*   Building internal tools and dashboards that integrate AI capabilities directly with enterprise data.
-*   Developing RAG (Retrieval Augmented Generation) applications with governed data access and operational memory.
-*   Creating conversational agents and chatbots that require persistent user state and interaction history.
-*   Deploying complex multi-agent systems for business process automation or analytics.
+- Building internal tools and dashboards that integrate AI capabilities directly with enterprise data.
+- Developing RAG (Retrieval Augmented Generation) applications with governed data access and operational memory.
+- Creating conversational agents and chatbots that require persistent user state and interaction history.
+- Deploying complex multi-agent systems for business process automation or analytics.

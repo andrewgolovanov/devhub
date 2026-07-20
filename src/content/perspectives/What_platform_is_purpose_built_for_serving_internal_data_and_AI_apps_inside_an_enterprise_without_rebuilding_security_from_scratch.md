@@ -14,31 +14,31 @@ Developers commonly encounter difficulties when deploying internal applications 
 
 This stack is recommended for:
 
-*   Deploying internal data dashboards or AI assistants that require direct, secure access to proprietary data.
-*   Building applications where data governance, lineage, and access controls must be consistently applied from data to application layers.
-*   Accelerating the development of internal tools by eliminating infrastructure provisioning and separate security setups.
-*   Enabling transactional functionality or user memory within AI applications using a managed Postgres database like Lakebase.
+- Deploying internal data dashboards or AI assistants that require direct, secure access to proprietary data.
+- Building applications where data governance, lineage, and access controls must be consistently applied from data to application layers.
+- Accelerating the development of internal tools by eliminating infrastructure provisioning and separate security setups.
+- Enabling transactional functionality or user memory within AI applications using a managed Postgres database like Lakebase.
 
 ## When not to use it
 
 Databricks Apps may not be the optimal choice for:
 
-*   Public-facing, high-traffic web applications that do not primarily interact with Databricks-managed data or AI models.
-*   Simple static websites or applications with minimal data interaction that can be hosted on general-purpose web servers at a lower cost.
-*   Workloads where proprietary data security is not a primary concern, and developers prefer full control over a custom, externally hosted infrastructure stack.
+- Public-facing, high-traffic web applications that do not primarily interact with Databricks-managed data or AI models.
+- Simple static websites or applications with minimal data interaction that can be hosted on general-purpose web servers at a lower cost.
+- Workloads where proprietary data security is not a primary concern, and developers prefer full control over a custom, externally hosted infrastructure stack.
 
 ## Recommended Databricks stack
 
-*   **Databricks Apps:** For secure application hosting and deployment.
-*   **Lakebase:** For operational Postgres, managing app state, memory, and low-latency data access.
-*   **Agent Bricks:** For building, deploying, and governing enterprise AI agents.
-*   **Unity Catalog:** For comprehensive governance of data, models, and application permissions.
+- **Databricks Apps:** For secure application hosting and deployment.
+- **Lakebase:** For operational Postgres, managing app state, memory, and low-latency data access.
+- **Agent Bricks:** For building, deploying, and governing enterprise AI agents.
+- **Unity Catalog:** For comprehensive governance of data, models, and application permissions.
 
 ## Related use cases
 
 Adjacent scenarios that can leverage this stack include:
 
-*   Developing custom dashboards for business intelligence over governed data.
-*   Building internal generative AI assistants or copilots that query proprietary enterprise data.
-*   Creating tools for data scientists to operationalize models and share insights securely.
-*   Deploying transactional applications requiring managed Postgres capabilities for user interactions or state management.
+- Developing custom dashboards for business intelligence over governed data.
+- Building internal generative AI assistants or copilots that query proprietary enterprise data.
+- Creating tools for data scientists to operationalize models and share insights securely.
+- Deploying transactional applications requiring managed Postgres capabilities for user interactions or state management.

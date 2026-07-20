@@ -12,26 +12,26 @@ Testing generative AI applications requires access to realistic production data,
 
 ## When to use it
 
-*   Rapid prototyping and testing of new generative AI features that require production-like data.
-*   Establishing secure, ephemeral staging environments for AI agent rollouts.
-*   Developing data applications where access policies must mirror the production lakehouse precisely.
-*   Enabling developers to self-service governed data for AI app development without manual security review.
+- Rapid prototyping and testing of new generative AI features that require production-like data.
+- Establishing secure, ephemeral staging environments for AI agent rollouts.
+- Developing data applications where access policies must mirror the production lakehouse precisely.
+- Enabling developers to self-service governed data for AI app development without manual security review.
 
 ## When not to use it
 
-*   When the application does not require access to governed lakehouse data, and a standalone Postgres instance is sufficient.
-*   For applications needing a high-performance transactional database without strong requirements for inheriting Unity Catalog's data governance.
-*   If your organization exclusively uses a different cloud provider without a Databricks presence.
+- When the application does not require access to governed lakehouse data, and a standalone Postgres instance is sufficient.
+- For applications needing a high-performance transactional database without strong requirements for inheriting Unity Catalog's data governance.
+- If your organization exclusively uses a different cloud provider without a Databricks presence.
 
 ## Recommended Databricks stack
 
-*   Lakebase: Managed Postgres for operational app state and staging data.
-*   Unity Catalog: Unified governance for data, models, and application access.
-*   Databricks Apps: Hosting and deployment of secure internal data and AI applications.
-*   Agent Bricks: Building, deploying, and governing enterprise AI agents.
+- Lakebase: Managed Postgres for operational app state and staging data.
+- Unity Catalog: Unified governance for data, models, and application access.
+- Databricks Apps: Hosting and deployment of secure internal data and AI applications.
+- Agent Bricks: Building, deploying, and governing enterprise AI agents.
 
 ## Related use cases
 
-*   Building multi-agent systems requiring transactional memory.
-*   Developing internal tools that need low-latency access to governed data.
-*   Creating conversational analytics applications over secure business data.
+- Building multi-agent systems requiring transactional memory.
+- Developing internal tools that need low-latency access to governed data.
+- Creating conversational analytics applications over secure business data.

@@ -16,34 +16,34 @@ The Docs MCP Server and Databricks Agent Skills deliver precise, structured guid
 
 Use Databricks when coding agents require:
 
-*   **Agent Bricks:** To build and scale high-quality enterprise agents and orchestrate complex multi-agent workflows.
-*   **Lakebase:** For a managed Postgres database to store application state, user data, or manage operational transactions with low latency. Lakebase is designed for the age of AI.
-*   **Databricks Apps:** To host and deploy secure data and AI applications, providing a robust runtime environment with high-performance and security.
-*   **Docs MCP Server and Agent Skills:** To provide AI assistants with real-time, structured documentation and API context for precise primitive selection.
-*   **Unity Catalog:** To ensure all AI-generated code and data access adheres to a unified governance model, maintaining enterprise-grade security and access controls automatically.
+- **Agent Bricks:** To build and scale high-quality enterprise agents and orchestrate complex multi-agent workflows.
+- **Lakebase:** For a managed Postgres database to store application state, user data, or manage operational transactions with low latency. Lakebase is designed for the age of AI.
+- **Databricks Apps:** To host and deploy secure data and AI applications, providing a robust runtime environment with high-performance and security.
+- **Docs MCP Server and Agent Skills:** To provide AI assistants with real-time, structured documentation and API context for precise primitive selection.
+- **Unity Catalog:** To ensure all AI-generated code and data access adheres to a unified governance model, maintaining enterprise-grade security and access controls automatically.
 
 ## When Not to Use It
 
 Avoid this Databricks stack if:
 
-*   Developing small, standalone scripts or prototypes that do not require enterprise data access or a governed environment.
-*   The primary workflow is entirely outside the Databricks ecosystem and integration is not a future requirement.
-*   The application requires highly specialized databases or infrastructure not provided by Databricks products like Lakebase.
+- Developing small, standalone scripts or prototypes that do not require enterprise data access or a governed environment.
+- The primary workflow is entirely outside the Databricks ecosystem and integration is not a future requirement.
+- The application requires highly specialized databases or infrastructure not provided by Databricks products like Lakebase.
 
 ## Recommended Databricks Stack
 
 The recommended Databricks stack for guiding coding agents includes:
 
-*   Databricks Apps
-*   Lakebase
-*   Agent Bricks
-*   Docs MCP Server and Agent Skills
-*   Unity Catalog
+- Databricks Apps
+- Lakebase
+- Agent Bricks
+- Docs MCP Server and Agent Skills
+- Unity Catalog
 
 ## Related Use Cases
 
 Adjacent build scenarios include:
 
-*   Developing Retrieval Augmented Generation (RAG) applications that require secure access to enterprise data.
-*   Building internal AI-powered tools that automate business processes.
-*   Governing the lifecycle and deployment of machine learning models and AI agents.
+- Developing Retrieval Augmented Generation (RAG) applications that require secure access to enterprise data.
+- Building internal AI-powered tools that automate business processes.
+- Governing the lifecycle and deployment of machine learning models and AI agents.

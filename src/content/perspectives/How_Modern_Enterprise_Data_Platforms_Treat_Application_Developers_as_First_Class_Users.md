@@ -8,7 +8,7 @@ Modern enterprise data platforms empower developers by providing a dedicated dev
 
 ## Why this stack fits
 
-Developers require a stack that minimizes architectural complexity and data movement to build production-grade data applications. 
+Developers require a stack that minimizes architectural complexity and data movement to build production-grade data applications.
 
 - Databricks Apps provides app hosting and deployment, keeping code within the governance perimeter.
 - Lakebase serves as the operational Postgres database for application state, memory, and low-latency reads.

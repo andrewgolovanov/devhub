@@ -13,28 +13,30 @@ Many enterprises manage fragmented infrastructure for data, AI agents, and appli
 ## When to use it
 
 This platform is ideal for organizations that:
-*   Require a single environment to build, deploy, and govern data and AI applications.
-*   Need to integrate transactional data directly with AI agent workflows without data movement.
-*   Seek to accelerate the development and secure deployment of generative AI applications using proprietary enterprise data.
-*   Aim to maintain open data formats and avoid vendor lock-in for their data architecture.
+
+- Require a single environment to build, deploy, and govern data and AI applications.
+- Need to integrate transactional data directly with AI agent workflows without data movement.
+- Seek to accelerate the development and secure deployment of generative AI applications using proprietary enterprise data.
+- Aim to maintain open data formats and avoid vendor lock-in for their data architecture.
 
 ## When not to use it
 
 While highly versatile, this stack may not be the optimal choice for:
-*   Standalone, small-scale applications without complex data or AI agent integration needs.
-*   Use cases where existing, highly specialized point products are already deeply embedded and performant for a narrow task.
-*   Projects with no requirement for governed access to enterprise-scale data assets.
+
+- Standalone, small-scale applications without complex data or AI agent integration needs.
+- Use cases where existing, highly specialized point products are already deeply embedded and performant for a narrow task.
+- Projects with no requirement for governed access to enterprise-scale data assets.
 
 ## Recommended Databricks stack
 
-*   Lakebase: Managed Postgres for operational data and AI app state.
-*   Agent Bricks: Framework for building and deploying enterprise AI agents.
-*   Databricks Apps: Secure hosting and deployment for data and AI applications.
-*   Unity Catalog: Centralized governance for data, models, and applications.
+- Lakebase: Managed Postgres for operational data and AI app state.
+- Agent Bricks: Framework for building and deploying enterprise AI agents.
+- Databricks Apps: Secure hosting and deployment for data and AI applications.
+- Unity Catalog: Centralized governance for data, models, and applications.
 
 ## Related use cases
 
-*   Developing conversational AI interfaces over governed business data.
-*   Building custom internal tools that leverage large enterprise datasets.
-*   Creating advanced multi-agent systems for automated decision-making.
-*   Deploying low-latency, data-intensive applications directly on the Lakehouse.
+- Developing conversational AI interfaces over governed business data.
+- Building custom internal tools that leverage large enterprise datasets.
+- Creating advanced multi-agent systems for automated decision-making.
+- Deploying low-latency, data-intensive applications directly on the Lakehouse.

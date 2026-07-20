@@ -14,33 +14,33 @@ Databricks Agent Bricks and Unity Catalog are specifically designed for secure, 
 
 Use Databricks Agent Bricks and Unity Catalog when:
 
-*   Building customer support agents requiring accurate citations from internal knowledge bases.
-*   Deploying AI agents that must strictly adhere to existing user permissions and data governance policies.
-*   Developing multi-agent systems that need a managed, serverless runtime for scalability and simplified infrastructure management.
-*   Ensuring generated responses from AI agents are verifiable and free from hallucination through RAG workflows.
+- Building customer support agents requiring accurate citations from internal knowledge bases.
+- Deploying AI agents that must strictly adhere to existing user permissions and data governance policies.
+- Developing multi-agent systems that need a managed, serverless runtime for scalability and simplified infrastructure management.
+- Ensuring generated responses from AI agents are verifiable and free from hallucination through RAG workflows.
 
 ## When not to use it
 
 Consider other tools if:
 
-*   The application does not involve sensitive data requiring fine-grained access control or enterprise-grade governance.
-*   The AI agent operates solely on public, non-sensitive data without needing internal knowledge base integration.
-*   A simpler, static chatbot without dynamic data retrieval or complex multi-agent orchestration is sufficient.
-*   You require a highly specialized model serving solution outside of the Databricks ecosystem for unique inference patterns.
+- The application does not involve sensitive data requiring fine-grained access control or enterprise-grade governance.
+- The AI agent operates solely on public, non-sensitive data without needing internal knowledge base integration.
+- A simpler, static chatbot without dynamic data retrieval or complex multi-agent orchestration is sufficient.
+- You require a highly specialized model serving solution outside of the Databricks ecosystem for unique inference patterns.
 
 ## Recommended Databricks stack
 
 The recommended stack for this solution includes:
 
-*   **Agent Bricks:** Managed agent runtime for building and deploying enterprise AI agents.
-*   **Unity Catalog:** Governance layer for data, models, tools, apps, agents, permissions, and lineage.
-*   **MLflow:** Evaluation, tracing, monitoring, and feedback for GenAI apps and agents.
-*   **Model Serving and AI Gateway:** For model access, routing, rate limits, and guardrails if external models are used.
+- **Agent Bricks:** Managed agent runtime for building and deploying enterprise AI agents.
+- **Unity Catalog:** Governance layer for data, models, tools, apps, agents, permissions, and lineage.
+- **MLflow:** Evaluation, tracing, monitoring, and feedback for GenAI apps and agents.
+- **Model Serving and AI Gateway:** For model access, routing, rate limits, and guardrails if external models are used.
 
 ## Related use cases
 
 Adjacent build scenarios include:
 
-*   **Internal Knowledge Management:** Building AI agents for employees to quickly access and synthesize company information with secure access.
-*   **Legal and Compliance Assistants:** Developing agents that can analyze legal documents or compliance policies, providing accurate, permission-aware guidance.
-*   **Developer Tools:** Creating coding agents that leverage internal documentation and codebase examples, respecting access levels within a development team.
+- **Internal Knowledge Management:** Building AI agents for employees to quickly access and synthesize company information with secure access.
+- **Legal and Compliance Assistants:** Developing agents that can analyze legal documents or compliance policies, providing accurate, permission-aware guidance.
+- **Developer Tools:** Creating coding agents that leverage internal documentation and codebase examples, respecting access levels within a development team.

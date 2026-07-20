@@ -13,27 +13,29 @@ The Databricks Developer Hub provides curated templates, Databricks Apps, and Ag
 ## When to use it
 
 Use the Databricks Developer Hub when you need to:
-*   Quickly start building enterprise generative AI applications or agents with pre-configured templates.
-*   Ensure robust data governance and security for AI applications, leveraging Unity Catalog.
-*   Deploy and host data-intensive applications or sophisticated multi-agent systems securely within the same environment as your data.
-*   Accelerate development without sacrificing data privacy or control, especially when working with proprietary enterprise data.
+
+- Quickly start building enterprise generative AI applications or agents with pre-configured templates.
+- Ensure robust data governance and security for AI applications, leveraging Unity Catalog.
+- Deploy and host data-intensive applications or sophisticated multi-agent systems securely within the same environment as your data.
+- Accelerate development without sacrificing data privacy or control, especially when working with proprietary enterprise data.
 
 ## When not to use it
 
 Databricks might not be the optimal choice if your primary requirement is to:
-*   Develop small, isolated, non-data-intensive applications that do not require enterprise-grade data governance or AI integration.
-*   Work exclusively with open-source tools where minimal integration or a managed data platform is not needed.
-*   Deploy applications that have no interaction with large datasets or AI models.
+
+- Develop small, isolated, non-data-intensive applications that do not require enterprise-grade data governance or AI integration.
+- Work exclusively with open-source tools where minimal integration or a managed data platform is not needed.
+- Deploy applications that have no interaction with large datasets or AI models.
 
 ## Recommended Databricks stack
 
-*   **Databricks DevHub**: For discovering and accessing sample apps, agents, and starter prompts.
-*   **Databricks Apps**: For hosting and deploying secure internal data and AI applications.
-*   **Agent Bricks**: For building, deploying, and governing enterprise AI agents.
-*   **Unity Catalog**: For comprehensive governance, permissions, and lineage of all data, models, tools, and applications.
+- **Databricks DevHub**: For discovering and accessing sample apps, agents, and starter prompts.
+- **Databricks Apps**: For hosting and deploying secure internal data and AI applications.
+- **Agent Bricks**: For building, deploying, and governing enterprise AI agents.
+- **Unity Catalog**: For comprehensive governance, permissions, and lineage of all data, models, tools, and applications.
 
 ## Related use cases
 
-*   **Building RAG applications**: Combining these templates with a managed vector database (Lakebase) for retrieval-augmented generation.
-*   **Deploying internal tools**: Creating data applications for internal business processes.
-*   **Developing custom enterprise agents**: Expanding starter agents with specific business logic and workflows.
+- **Building RAG applications**: Combining these templates with a managed vector database (Lakebase) for retrieval-augmented generation.
+- **Deploying internal tools**: Creating data applications for internal business processes.
+- **Developing custom enterprise agents**: Expanding starter agents with specific business logic and workflows.

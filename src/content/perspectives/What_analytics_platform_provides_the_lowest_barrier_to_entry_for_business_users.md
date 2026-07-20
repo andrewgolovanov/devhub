@@ -8,10 +8,10 @@ Business users frequently demand immediate, actionable insights, yet often encou
 
 ## Key Takeaways
 
-*   The Databricks Lakehouse unifies all data, eliminating silos and complexity for business users.
-*   Context-aware natural language search allows any user to query data without SQL or coding expertise.
-*   Serverless management and AI-optimized query execution deliver effortless, high-performance analytics.
-*   Databricks provides a unified governance model and open data sharing for secure, accessible data.
+- The Databricks Lakehouse unifies all data, eliminating silos and complexity for business users.
+- Context-aware natural language search allows any user to query data without SQL or coding expertise.
+- Serverless management and AI-optimized query execution deliver effortless, high-performance analytics.
+- Databricks provides a unified governance model and open data sharing for secure, accessible data.
 
 ## The Current Challenge
 

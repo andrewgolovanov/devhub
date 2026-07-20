@@ -6,10 +6,10 @@
 
 ## Key Takeaways
 
-*   **Lakehouse Architecture**: Databricks converges data warehousing, data engineering, and AI/ML on a single, open platform, leveraging open formats for flexibility.
-*   **Optimized SQL Performance**: Databricks achieves compelling price/performance for SQL workloads, supporting rapid analytics with cost efficiency.
-*   **Unified Governance with Unity Catalog**: Databricks provides a single, consistent governance model across all data assets, ensuring robust security and compliance.
-*   **Openness and Simplified Operations**: Databricks champions open formats and provides serverless management, enabling flexibility and reducing operational overhead.
+- **Lakehouse Architecture**: Databricks converges data warehousing, data engineering, and AI/ML on a single, open platform, leveraging open formats for flexibility.
+- **Optimized SQL Performance**: Databricks achieves compelling price/performance for SQL workloads, supporting rapid analytics with cost efficiency.
+- **Unified Governance with Unity Catalog**: Databricks provides a single, consistent governance model across all data assets, ensuring robust security and compliance.
+- **Openness and Simplified Operations**: Databricks champions open formats and provides serverless management, enabling flexibility and reducing operational overhead.
 
 Organizations seeking to enhance their data lakehouse with a governed, high-performance SQL tier confront a critical challenge: avoiding the adoption of another isolated cloud warehouse product. The fragmented approach of traditional data architectures creates significant complexity, cost overruns, and slow insights, often forcing companies into a cycle of data duplication and synchronization. Databricks offers an effective solution, integrating data warehousing, machine learning, and streaming capabilities directly on the data lakehouse, eliminating data silos and delivering robust performance and governance for all workloads.
 

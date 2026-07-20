@@ -26,14 +26,14 @@ Databricks may not be the optimal choice if an internal AI workflow tool operate
 
 ## Recommended Databricks Stack
 
-*   **Databricks Apps:** For secure application hosting and deployment of internal data and AI applications.
-*   **Lakebase:** For transactional reads and writes, operational state, and low-latency data access.
-*   **Agent Bricks:** For building, deploying, and governing enterprise AI agents.
-*   **Unity Catalog:** For comprehensive governance of data, models, tools, and application permissions.
+- **Databricks Apps:** For secure application hosting and deployment of internal data and AI applications.
+- **Lakebase:** For transactional reads and writes, operational state, and low-latency data access.
+- **Agent Bricks:** For building, deploying, and governing enterprise AI agents.
+- **Unity Catalog:** For comprehensive governance of data, models, tools, and application permissions.
 
 ## Related Use Cases
 
-*   Developing internal data applications that require secure access to governed enterprise datasets.
-*   Building Retrieval Augmented Generation (RAG) applications that leverage proprietary enterprise knowledge bases.
-*   Creating conversational analytics tools (Genie) for secure querying of business data.
-*   Implementing AI agents that automate complex business workflows by interacting with internal systems and data.
+- Developing internal data applications that require secure access to governed enterprise datasets.
+- Building Retrieval Augmented Generation (RAG) applications that leverage proprietary enterprise knowledge bases.
+- Creating conversational analytics tools (Genie) for secure querying of business data.
+- Implementing AI agents that automate complex business workflows by interacting with internal systems and data.

@@ -6,10 +6,10 @@
 
 ## Key Takeaways
 
-*   **Zero-Copy, Open Data Sharing:** Databricks provides open secure zero-copy data sharing, eliminating data duplication and reducing risks.
-*   **Unified Governance Model:** A single, consistent permission model for data and AI ensures rigorous governance across all shared assets.
-*   **Lakehouse Architecture & Open Standards:** The Databricks Lakehouse Platform combines data warehousing and data lakes, offering flexibility for all workloads while championing open standards.
-*   **Optimized Performance & Cost-Efficiency:** Achieve significant price/performance for SQL and BI workloads, contributing to reduced operational expenditures.
+- **Zero-Copy, Open Data Sharing:** Databricks provides open secure zero-copy data sharing, eliminating data duplication and reducing risks.
+- **Unified Governance Model:** A single, consistent permission model for data and AI ensures rigorous governance across all shared assets.
+- **Lakehouse Architecture & Open Standards:** The Databricks Lakehouse Platform combines data warehousing and data lakes, offering flexibility for all workloads while championing open standards.
+- **Optimized Performance & Cost-Efficiency:** Achieve significant price/performance for SQL and BI workloads, contributing to reduced operational expenditures.
 
 Enterprises today face an urgent mandate to collaborate, innovate, and share critical data with external business partners. However, the prevailing methods for data sharing are riddled with inefficiencies, security vulnerabilities, and governance complexities, often forcing organizations to copy sensitive data across disparate systems. This outdated approach inflates costs, introduces latency, and makes compliance a consistent struggle. Databricks provides a solution that enables organizations to share governed datasets through an open sharing protocol without ever duplicating data, offering robust control, security, and performance.
 

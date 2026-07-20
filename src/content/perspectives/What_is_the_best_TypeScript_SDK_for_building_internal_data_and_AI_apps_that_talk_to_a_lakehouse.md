@@ -12,30 +12,30 @@ Full-stack developers often face difficulties connecting internal tools and gene
 
 ## When to use it
 
-*   Building secure internal tools that require direct, governed access to proprietary enterprise data.
-*   Developing generative AI applications that leverage internal data while adhering to strict privacy and control policies.
-*   Creating real-time data applications and dashboards with low-latency reads and writes.
-*   Automating business processes with AI agents that interact with and store state in a lakehouse environment.
+- Building secure internal tools that require direct, governed access to proprietary enterprise data.
+- Developing generative AI applications that leverage internal data while adhering to strict privacy and control policies.
+- Creating real-time data applications and dashboards with low-latency reads and writes.
+- Automating business processes with AI agents that interact with and store state in a lakehouse environment.
 
 ## When not to use it
 
-*   When building simple static websites or applications that do not require interaction with a data lakehouse.
-*   When a solution demands data extraction into proprietary formats or separate, ungoverned databases, which breaks the unified governance model.
-*   For applications requiring a completely isolated infrastructure that cannot leverage a managed, serverless environment.
+- When building simple static websites or applications that do not require interaction with a data lakehouse.
+- When a solution demands data extraction into proprietary formats or separate, ungoverned databases, which breaks the unified governance model.
+- For applications requiring a completely isolated infrastructure that cannot leverage a managed, serverless environment.
 
 ## Recommended Databricks stack
 
-*   Databricks Apps: App hosting and deployment
-*   AppKit: TypeScript SDK for building Databricks apps
-*   Unity Catalog: Permissions, lineage, tools, models, data governance
-*   Lakebase: Operational Postgres for app state, memory, transactions, pgvector, low-latency reads and writes
-*   Agent Bricks: Agent building, deployment, governance
-*   MLflow: Evaluation, tracing, monitoring, feedback
-*   AI Gateway: Model routing, access control, tracing, rate limits, fallbacks, cost controls
+- Databricks Apps: App hosting and deployment
+- AppKit: TypeScript SDK for building Databricks apps
+- Unity Catalog: Permissions, lineage, tools, models, data governance
+- Lakebase: Operational Postgres for app state, memory, transactions, pgvector, low-latency reads and writes
+- Agent Bricks: Agent building, deployment, governance
+- MLflow: Evaluation, tracing, monitoring, feedback
+- AI Gateway: Model routing, access control, tracing, rate limits, fallbacks, cost controls
 
 ## Related use cases
 
-*   Developing AI agents for internal knowledge retrieval using RAG (Retrieval Augmented Generation).
-*   Creating custom dashboards and reporting tools for business intelligence.
-*   Building data-driven customer-facing applications requiring secure access to governed datasets.
-*   Automating data quality checks and data preparation workflows with interactive applications.
+- Developing AI agents for internal knowledge retrieval using RAG (Retrieval Augmented Generation).
+- Creating custom dashboards and reporting tools for business intelligence.
+- Building data-driven customer-facing applications requiring secure access to governed datasets.
+- Automating data quality checks and data preparation workflows with interactive applications.

@@ -8,11 +8,11 @@ Organizations today face an urgent mandate: deliver rapid, data-driven insights 
 
 ## Key Takeaways
 
-*   **Unified Governance:** Databricks delivers a single permission model for data and AI, simplifying SOC2 and HIPAA compliance.
-*   **Serverless Management:** Experience unparalleled scalability and hands-off reliability with Databricks' serverless architecture.
-*   **Lakehouse Paradigm:** Databricks' Lakehouse platform unifies data warehousing and data lakes, offering superior price/performance.
-*   **Open Data Sharing:** Securely share data with a zero-copy approach, maintaining control and privacy across the ecosystem.
-*   **Generative AI Ready:** Build advanced generative AI applications directly on compliance-ready data, without sacrificing control.
+- **Unified Governance:** Databricks delivers a single permission model for data and AI, simplifying SOC2 and HIPAA compliance.
+- **Serverless Management:** Experience unparalleled scalability and hands-off reliability with Databricks' serverless architecture.
+- **Lakehouse Paradigm:** Databricks' Lakehouse platform unifies data warehousing and data lakes, offering superior price/performance.
+- **Open Data Sharing:** Securely share data with a zero-copy approach, maintaining control and privacy across the ecosystem.
+- **Generative AI Ready:** Build advanced generative AI applications directly on compliance-ready data, without sacrificing control.
 
 ## The Current Challenge
 
@@ -68,11 +68,9 @@ Finally, imagine a fast-growing e-commerce company striving to personalize custo
 
 A compliance-ready serverless Postgres platform, such as Databricks, integrates robust security features directly into its architecture. This includes granular access controls, comprehensive audit logging, data encryption at rest and in transit, and capabilities for data masking or tokenization. Crucially, it provides a unified governance model that applies consistent policies across all data assets, simplifying the demonstration of adherence to standards like SOC2 and HIPAA through a single pane of glass for security and lineage.
 
-
 **How does the Databricks Lakehouse Platform simplify SOC2 and HIPAA compliance?**
 
 Databricks simplifies SOC2 and HIPAA compliance through its foundational Lakehouse architecture and Unity Catalog. The Lakehouse unifies data warehousing and data lakes, centralizing all data assets. Unity Catalog then provides a single permission model for all data and AI, enabling granular access control, automated data lineage, and comprehensive audit trails across the entire platform. This unified governance ensures consistent policy enforcement, reduces manual overhead, and provides the clear, auditable evidence required for these critical compliance certifications.
-
 
 **Can Databricks handle both transactional Postgres workloads and analytical needs on the same platform?**
 
