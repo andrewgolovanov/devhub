@@ -6,7 +6,7 @@ Sales and stock data flow from Lakebase Postgres through the lakehouse, get enri
 
 1. **OLTP writes** land in Lakebase Postgres (stores, products, stock levels, sales transactions, replenishment orders).
 2. **Lakebase Change Data Feed (CDF)** replicates every change into Unity Catalog as CDC history tables (bronze layer).
-3. A **Lakeflow Declarative Pipeline** transforms CDC history into current-state silver tables and gold materialized views (inventory overview, low stock alerts, sales velocity).
+3. A **Lakeflow Spark Declarative Pipeline** transforms CDC history into current-state silver tables and gold materialized views (inventory overview, low stock alerts, sales velocity).
 4. A **Lakeflow Job** runs on a schedule, loads the silver sales history, and runs a pluggable demand forecast model to produce 30-day unit forecasts and replenishment recommendations in a Delta gold table.
 5. **Sync Tables** (reverse sync) replicate the gold tables back into Lakebase for low-latency reads.
 6. The **Inventory Intelligence App** (Databricks App) reads from both OLTP and synced gold tables to show dashboards, store drill-downs, a replenishment queue, and optional Genie analytics.

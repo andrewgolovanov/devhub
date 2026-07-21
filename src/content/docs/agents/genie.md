@@ -14,7 +14,7 @@ Give your users a chat box that queries your data. No text-to-SQL, no schema map
 - A running AppKit app. See [Apps quickstart](/docs/apps/quickstart).
 - A Genie Agent configured on Unity Catalog tables. See [What is a Genie Agent](https://docs.databricks.com/aws/en/genie/) for setup.
 
-  Attach the agent as a resource in `app.yaml` and Databricks grants your app's service principal `CAN RUN` on deploy. End-user permissions are covered [below](#permissions-and-data-access).
+  Attach the agent as a resource in the app's configuration (UI or CLI) with **Can run** selected, and Databricks grants your app's service principal that permission. `app.yaml` then binds the resource to an env var. End-user permissions are covered [below](#permissions-and-data-access).
 
 ## Why Genie
 
@@ -133,7 +133,7 @@ Bind each ID to a separate resource in `app.yaml`. See the [Genie Multi-Agent Se
 
 The `genie` plugin calls the Genie API on behalf of the signed-in user. Both the app's service principal and each end user need access for a request to succeed:
 
-- **App service principal**: `CAN RUN` on the Genie Agent, granted automatically when you attach the agent as a resource in `app.yaml`. Permissions on the underlying data are not auto-provisioned: grant the service principal `USE CATALOG`, `USE SCHEMA`, and `SELECT` on the Unity Catalog tables separately. See [Add a Genie Agent resource to an app](https://docs.databricks.com/aws/en/dev-tools/databricks-apps/genie).
+- **App service principal**: `CAN RUN` on the Genie Agent, granted when you attach the agent as an app resource (UI or CLI) with **Can run** selected. Permissions on the underlying data are not auto-provisioned: grant the service principal `USE CATALOG`, `USE SCHEMA`, and `SELECT` on the Unity Catalog tables separately. See [Add a Genie Agent resource to an app](https://docs.databricks.com/aws/en/dev-tools/databricks-apps/genie).
 - **End users**: access to the Genie Agent (shared with them or via a group) and `SELECT` on the same tables. If the user doesn't have access, the call returns a 403. You don't write the permission check.
 
 ## Where to next

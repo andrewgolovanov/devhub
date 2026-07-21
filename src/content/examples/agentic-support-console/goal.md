@@ -6,9 +6,9 @@ Customer interactions flow from your application's OLTP database (Lakebase Postg
 
 1. **OLTP writes** land in Lakebase Postgres (users, orders, support cases, messages).
 2. **Lakebase Change Data Feed (CDF)** replicates every change into Unity Catalog as CDC history tables (bronze layer).
-3. A **Lakeflow Declarative Pipeline** transforms CDC history into current-state silver tables and analytical gold materialized views (daily revenue, support overview, user profiles, case context).
+3. A **Lakeflow Spark Declarative Pipeline** transforms CDC history into current-state silver tables and analytical gold materialized views (daily revenue, support overview, user profiles, case context).
 4. A **Lakeflow Job** runs every minute, finds unanswered messages, builds rich context from gold tables, calls an LLM via a Model Serving endpoint, and merges suggested responses into a Delta table.
-5. **Sync Tables** (reverse sync) replicate gold tables back into Lakebase for sub-10ms reads.
+5. **Synced tables** (reverse sync) replicate gold tables back into Lakebase for low-latency reads.
 6. The **Support Console** (Databricks App) reads from both OLTP and synced gold tables to present cases, AI suggestions, and analytics.
 
 ### What to Adapt

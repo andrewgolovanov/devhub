@@ -19,7 +19,7 @@ To make this template your own:
 
 - **Lakebase**: Point the app's `databricks.yml` at your own Lakebase project, branch, and database.
 - **SQL Warehouse**: Set the warehouse ID for the analytics queries.
-- **Serving Endpoint**: Set the model serving endpoint name for AI content analysis (e.g. `databricks-claude-sonnet-4`). AI scoring is optional; the app works without it.
+- **Serving Endpoint**: Set the model serving endpoint name for AI content analysis (e.g. `databricks-claude-sonnet-4-6`). AI scoring is optional; the app works without it.
 - **Genie Agent**: Create a Genie Agent over the `content_moderation` tables and set the space ID.
 - **Content Targets**: Adjust the target list in the server routes and client utils to match your organization's content channels.
 - **Guidelines**: Replace the seed guidelines with your organization's actual content policies.

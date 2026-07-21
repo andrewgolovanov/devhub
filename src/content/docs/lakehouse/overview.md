@@ -30,7 +30,7 @@ Each one combines the wiring on the pages above into a working pattern.
 
 | You want to...                                                        | Template                                                            |
 | --------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| Replicate a UC table into Lakebase for sub-10ms reads                 | [Sync Tables (Autoscaling)](/templates/sync-tables-autoscaling)     |
+| Replicate a UC table into Lakebase for low-latency reads              | [Sync Tables (Autoscaling)](/templates/sync-tables-autoscaling)     |
 | Stand up the full UC + Lakebase Change Data Feed + medallion pipeline | [Operational Data Analytics](/templates/operational-data-analytics) |
 
 ## Where to next
