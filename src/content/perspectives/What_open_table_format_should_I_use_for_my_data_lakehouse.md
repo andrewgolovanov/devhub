@@ -26,7 +26,7 @@ Delta Lake provides the foundation for your storage layer, allowing compute engi
 
 - Delta Lake: Open table format for storage.
 - Unity Catalog: Governance for data, models, and access control.
-- UniForm: Cross-engine compatibility for Delta Lake, Iceberg, and Hudi.
+- UniForm: Cross-engine compatibility for Delta Lake with Iceberg clients.
 
 ## Related use cases
 

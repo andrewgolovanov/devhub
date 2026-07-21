@@ -8,7 +8,7 @@ Databricks Lakebase, a serverless Postgres service, allows platform teams to mat
 
 ## Why this stack fits
 
-Testing generative AI applications requires access to realistic production data, but duplicating it often breaks identity controls. Lakebase directly addresses this by providing managed Postgres instances that are governed by Unity Catalog. This ensures staging data adheres to the same access rules, row filters, and column masks as production. This approach prevents security risks. Developers can work with accurate, governed data, accelerating secure AI application development and deployment with Databricks Apps and Agent Bricks.
+Testing generative AI applications requires access to realistic production data, but duplicating it often breaks identity controls. Lakebase directly addresses this by providing managed Postgres instances that are governed by Unity Catalog for provisioning and access management. Because Unity Catalog's row filters and column masks are enforced at query time within Databricks SQL and do not carry over to a synced Postgres table, staging access control is applied natively in Postgres via GRANT/REVOKE (or a view with its own row-level security policy) rather than by inheriting the source table's row filters and column masks. This approach prevents security risks. Developers can work with accurate, governed data, accelerating secure AI application development and deployment with Databricks Apps and Agent Bricks.
 
 ## When to use it
 

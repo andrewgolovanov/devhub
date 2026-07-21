@@ -70,7 +70,7 @@ Run `databricks aitools list` to see available skills and their install status.
 | `databricks-data-discovery`              | Discover, explore, and query Databricks data via Genie — the CLI equivalent of the Genie One MCP.               |
 | `databricks-dbsql`                       | Databricks SQL (DBSQL) advanced features and SQL warehouse capabilities.                                        |
 | `databricks-docs`                        | Databricks documentation reference via `llms.txt` index.                                                        |
-| `databricks-execution-compute`           | Execute code and manage compute: run Python/Scala/SQL/R via serverless, classic, or interactive clusters.       |
+| `databricks-execution-compute`           | Execute code and manage compute: run Python/SQL via serverless, or Python/Scala/SQL/R via classic or interactive clusters.       |
 | `databricks-iceberg`                     | Apache Iceberg tables on Databricks — Managed Iceberg, External Iceberg Reads, IRC, Iceberg v3, and more.       |
 | `databricks-jobs`                        | Develop and deploy Lakeflow Jobs via DABs, Python SDK, or the CLI.                                              |
 | `databricks-lakebase`                    | Databricks Lakebase Postgres: projects, scaling, connectivity, synced tables, and Data API.                     |
