@@ -21,7 +21,7 @@ This stack is not necessary for simple, isolated coding tasks that do not involv
 ## Recommended Databricks stack
 
 - **Databricks Apps:** For hosting and deploying secure internal data and AI applications.
-- **Docs MCP Server:** To provide agents with dynamic, real-time context from internal systems and documentation.
+- **Docs MCP Server:** To give agents read access to current platform documentation.
 - **Agent Bricks:** For building, deploying, and governing enterprise AI agents and creating reusable skills.
 - **Unity Catalog:** For a unified governance model across all data, models, tools, applications, agents, permissions, and lineage.
 

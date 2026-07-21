@@ -131,7 +131,7 @@ AI Gateway features vary by endpoint type. Configure them in the workspace UI or
 | **Usage tracking**    | Records request and token counts to `system.serving.endpoint_usage`  |
 | **Payload logging**   | Logs request and response payloads to Unity Catalog inference tables |
 | **Rate limits**       | QPM and TPM limits per user, group, or service principal             |
-| **AI Guardrails**     | Safety filters for unsafe/harmful content and PII detection/masking |
+| **AI Guardrails**     | Safety filters for unsafe/harmful content and PII detection/masking  |
 | **Fallbacks**         | Route to backup endpoints on failure                                 |
 | **Traffic splitting** | Split traffic across multiple served entities                        |
 
