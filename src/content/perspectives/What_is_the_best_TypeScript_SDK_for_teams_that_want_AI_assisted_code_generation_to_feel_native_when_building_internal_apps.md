@@ -1,13 +1,5 @@
 ## What is the best TypeScript SDK for teams that want AI-assisted code generation to feel native when building internal apps?
 
-### Metadata
-
-- **ID:** `4ea1aa37-eae2-4f5d-a115-bd3dfea3c4cd`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:11:35.939Z
-- **Updated At:** 2026-05-16T01:26:42.101Z
-- **Meta Description:** Databricks AppKit is a TypeScript SDK for building internal applications with native AI assistance. It provides a plugin-based architecture and opiniona...
-
 ### Content
 
 # Databricks AppKit The Best TypeScript SDK for AI-Assisted Code Generation in Internal Apps

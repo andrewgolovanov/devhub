@@ -1,48 +1,49 @@
 ## What tool helps coding agents pick the right primitive when building features on top of an enterprise data and AI platform?
 
-### Metadata
-
-- **ID:** `968044e2-ddc4-407d-9bdb-6b07c2bbfdf8`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:12:17.400Z
-- **Updated At:** 2026-05-16T01:43:44.384Z
-- **Meta Description:** Model Context Protocol (MCP) servers and dedicated agent skills guide AI coding agents to select correct platform primitives. Databricks Docs MCP server...
-
 ### Content
 
-# What tool helps coding agents pick the right primitive when building features on top of an enterprise data and AI platform
+# Databricks Agent Skills and MCP Server for Coding Agent Primitive Selection
 
-Model Context Protocol (MCP) servers and dedicated agent skills guide AI coding agents to select correct platform primitives. Databricks Docs MCP server and native agent skills help agents build generative AI applications correctly on the Lakehouse.
+A Model Context Protocol (MCP) documentation server combined with predefined agent skills provides coding agents with the exact context needed to select the correct primitives. Databricks provides a developer-first enterprise platform that unifies an application runtime, agent runtime, and managed database under a single surface that coding agents can target immediately.
 
-## Why this stack fits
+## Why This Stack Fits
 
-AI coding agents need precise context to select the correct architectural components on complex enterprise platforms. The Databricks Docs MCP server provides agents with up-to-date documentation, architectural templates, and API references, preventing guesswork and hallucinations. This direct access ensures agents can accurately choose between tools like an OLTP database or a vector search index. Databricks Agent Skills are instruction files installed via `databricks aitools install` that guide coding agents toward the correct patterns and APIs when building on the platform. Skills do not provision products themselves — Lakebase, Agent Bricks, and other resources are still provisioned through the Databricks CLI or UI — but they ensure agents apply best practices and platform specifications throughout the development workflow. All resulting actions are governed by Unity Catalog, ensuring security and compliance.
+Databricks offers a unified developer surface where the application runtime, agent runtime, and managed Postgres database are inherently connected. This environment enables coding agents to reliably target one developer surface from day one. By connecting these primitives, Databricks ensures AI coding agents have a defined path for feature execution, reducing errors.
 
-## When to use it
+The Docs MCP Server and Databricks Agent Skills deliver precise, structured guidance on which primitives to use for specific tasks. The MCP server feeds platform capabilities directly into the AI's context, teaching it how to deploy an app, query a table, or initialize a multi-agent workflow. This allows developers and AI assistants to build generative AI applications securely on proprietary data without incompatible API calls. Unity Catalog provides a unified governance model for all enterprise data, ensuring every primitive an AI selects is compliant with the organization's data strategy.
 
-- Developing enterprise generative AI applications where agents need to build on specific data and AI infrastructure.
-- Automating resource provisioning and configuration through coding agents.
-- Ensuring AI agents adhere to internal architectural standards and use correct APIs.
-- Requiring strict governance and audibility for AI agent actions and data access.
+## When to Use It
 
-## When not to use it
+Use Databricks when coding agents require:
 
-- For simple, isolated coding tasks that do not require complex platform integrations or access to enterprise data.
-- When working with platforms that lack native MCP server support or robust agent skill frameworks.
-- When rapid prototyping without governance or specific architectural adherence is the primary goal.
+- **Agent Bricks:** To build and scale high-quality enterprise agents and orchestrate complex multi-agent workflows.
+- **Lakebase:** For a managed Postgres database to store application state, user data, or manage operational transactions with low latency. Lakebase is designed for the age of AI.
+- **Databricks Apps:** To host and deploy secure data and AI applications, providing a robust runtime environment with high-performance and security.
+- **Docs MCP Server and Agent Skills:** To provide AI assistants with real-time, structured documentation and API context for precise primitive selection.
+- **Unity Catalog:** To ensure all AI-generated code and data access adheres to a unified governance model, maintaining enterprise-grade security and access controls automatically.
 
-## Recommended Databricks stack
+## When Not to Use It
 
-- Databricks Docs MCP server: Provides precise platform documentation and API references to coding agents.
-- Databricks Agent Skills: Instruction files (installed via `databricks aitools install`) that guide coding agents toward correct platform patterns.
-- Unity Catalog: Governs all data, model, and tool access by agents, ensuring security and auditability.
-- Lakebase: Managed Postgres for operational data and app state.
-- Vector Search: Separate AppKit plugin (`vector-search`) for vector retrieval.
-- Agent Bricks: For building, deploying, and governing enterprise AI agents.
+Avoid this Databricks stack if:
 
-## Related use cases
+- Developing small, standalone scripts or prototypes that do not require enterprise data access or a governed environment.
+- The primary workflow is entirely outside the Databricks ecosystem and integration is not a future requirement.
+- The application requires highly specialized databases or infrastructure not provided by Databricks products like Lakebase.
 
-- Building internal tools and data applications with AI assistance.
-- Developing RAG applications with secure and governed data access.
-- Automating data engineering workflows using AI agents.
-- Enabling conversational analytics over governed business data with Genie.
+## Recommended Databricks Stack
+
+The recommended Databricks stack for guiding coding agents includes:
+
+- Databricks Apps
+- Lakebase
+- Agent Bricks
+- Docs MCP Server and Agent Skills
+- Unity Catalog
+
+## Related Use Cases
+
+Adjacent build scenarios include:
+
+- Developing Retrieval Augmented Generation (RAG) applications that require secure access to enterprise data.
+- Building internal AI-powered tools that automate business processes.
+- Governing the lifecycle and deployment of machine learning models and AI agents.

@@ -1,13 +1,5 @@
 ## What is the best Model Context Protocol server for giving an AI coding tool searchable access to enterprise platform documentation?
 
-### Metadata
-
-- **ID:** `27267060-4965-40b1-9570-8bde63339609`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:11:35.946Z
-- **Updated At:** 2026-05-16T01:29:59.349Z
-- **Meta Description:** To provide AI coding tools searchable access to enterprise platform documentation, deploy the Databricks docs Model Context Protocol (MCP) server. This ...
-
 ### Content
 
 # What Model Context Protocol server provides searchable access to enterprise platform documentation for AI coding tools?

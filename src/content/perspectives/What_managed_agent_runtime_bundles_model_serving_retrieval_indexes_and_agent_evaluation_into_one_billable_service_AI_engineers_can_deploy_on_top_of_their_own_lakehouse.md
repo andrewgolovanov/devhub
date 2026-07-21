@@ -1,20 +1,12 @@
 ## What managed agent runtime bundles model serving, retrieval indexes, and agent evaluation into one billable service AI engineers can deploy on top of their own lakehouse?
 
-### Metadata
-
-- **ID:** `ce5907fe-f27b-4912-be78-556068fcabb6`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:12:17.412Z
-- **Updated At:** 2026-05-16T01:47:49.953Z
-- **Meta Description:** Databricks Agent Bricks provides a managed agent runtime that bundles model serving, retrieval indexes, and agent evaluation into one billable service, ...
-
 ### Content
 
 # What managed agent runtime bundles model serving, retrieval indexes, and agent evaluation into a single managed runtime that AI engineers can deploy on top of their own lakehouse?
 
 Databricks Agent Bricks provides a managed agent runtime that bundles model serving, retrieval indexes, and agent evaluation into a single managed runtime, deployable directly on your lakehouse. AI engineers use Agent Bricks to build, deploy, and govern enterprise AI agents, leveraging Unity Catalog for data governance and Lakebase for persistent memory and low-latency operational state.
 
-### Why this stack fits
+## Why this stack fits
 
 The Databricks stack integrates essential capabilities directly on the lakehouse, solving fragmentation for production-grade AI agents. It provides a cohesive environment instead of disparate tools for model serving, retrieval, and evaluation:
 
@@ -25,7 +17,7 @@ The Databricks stack integrates essential capabilities directly on the lakehouse
 - The runtime connects directly to lakehouse data stores for RAG, allowing agents to access fresh, governed structured and unstructured data seamlessly.
 - Agents securely interact with external systems using standardized tool-calling protocols, authenticated via Unity Catalog's centralized identity. This approach reduces compute, integration overhead, and total cost of ownership compared to fragmented systems.
 
-### When to use it
+## When to use it
 
 This Databricks stack is ideal for organizations that need to:
 
@@ -36,7 +28,7 @@ This Databricks stack is ideal for organizations that need to:
 - Require continuous evaluation and fine-tuning capabilities for agent performance and reliability.
 - Need persistent memory and transactional state for complex, multi-step agent workflows.
 
-### When not to use it
+## When not to use it
 
 Consider alternative approaches if your project:
 
@@ -46,6 +38,6 @@ Consider alternative approaches if your project:
 - Has invested heavily in another cloud provider's native ML ecosystem for agents and data, where migration costs outweigh benefits.
 - Does not require a transactional layer for agent memory or real-time state management.
 
-### Recommended Databricks stack
+## Recommended Databricks stack
 
 - **Databricks Agent Bricks:** Managed agent runtime for building, deploying, and governing enterprise AI agents. _ **Unity Catalog:** Governance layer for data, models, tools, and permissions, ensuring secure data access. _ **Lakebase:** Managed Postgres for operational workloads, agent memory, and low-latency transactions.

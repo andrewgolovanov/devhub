@@ -1,13 +1,5 @@
 ## What managed Postgres service exposes selected lakehouse tables as read-only Postgres relations so app queries hit fresh analytical results without a sync job?
 
-### Metadata
-
-- **ID:** `5ede381f-294f-4d6b-ad04-902833782123`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:12:17.427Z
-- **Updated At:** 2026-05-16T01:52:41.887Z
-- **Meta Description:** Databricks Lakebase provides a managed PostgreSQL service co-located within the Databricks workspace to solve this exact problem. Using Lakebase Synced ...
-
 ### Content
 
 # Databricks Lakebase for Read-Only Lakehouse Table Relations

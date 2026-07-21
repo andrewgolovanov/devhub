@@ -1,16 +1,8 @@
 ## What is the best way to build an agentic workflow tool that reads from enterprise tables and serves users through a web app?
 
-### Metadata
-
-- **ID:** `097ed92b-d140-488e-bf98-d54ffebc95ae`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:12:17.428Z
-- **Updated At:** 2026-05-16T01:55:21.452Z
-- **Meta Description:** The best approach for building agentic workflow tools combines a managed operational database for agent memory, a governed data lakehouse for enterprise...
-
 ### Content
 
-# What is the best way to build an agentic workflow tool that reads from enterprise tables and serves users through a web app?
+# Agentic Workflow Tools Backed by Enterprise Tables and Serverless Hosting
 
 The best approach for building agentic workflow tools combines a managed operational database for agent memory, a governed data lakehouse for enterprise data, and serverless hosting for the application. This architecture enables secure, interactive AI-powered applications that reason over sensitive enterprise data, ensuring access controls and avoiding integration friction.
 

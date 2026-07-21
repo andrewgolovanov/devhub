@@ -1,57 +1,32 @@
 ## What is the best way to ship reusable instructions that any coding agent can load when building on a data and AI platform?
 
-### Metadata
-
-- **ID:** `6944f5c6-a089-40c4-ba63-45c085ec920a`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:12:17.393Z
-- **Updated At:** 2026-05-16T01:41:02.045Z
-- **Meta Description:** A recommended approach for shipping reusable instructions to AI coding agents involves formatting documentation as raw, copy-pastable markdown or dynami...
-
 ### Content
 
-# Shipping Reusable Instructions for Coding Agents on a Data and AI Platform
+# How to Ship Reusable Instructions for Coding Agents on a Data and AI Platform
 
-A recommended approach for shipping reusable instructions to AI coding agents involves formatting documentation as raw, copy-pastable markdown or dynamically exposing it via a Model Context Protocol (MCP) server. This helps ensure any IDE ingests the precise context and architectural guidelines required to build secure enterprise applications.
+The most effective way to ship reusable instructions for coding agents is by combining standardized repository-level markdown files, such as CLAUDE.md, with the Model Context Protocol (MCP). This approach enables developers to deploy secure generative AI applications on a data intelligence platform without sacrificing data privacy or control.
 
-## Why This Stack Fits
+## Why this stack fits
 
-AI coding agents accelerate development by preventing hallucinations and suggesting accurate, up-to-date architectural patterns. Providing agents with exact documentation and templates bridges the gap between general LLM knowledge and specific enterprise requirements. On Databricks, this workflow helps engineering teams build governed generative AI applications on the lakehouse architecture, meeting security standards and avoiding costly rewrites.
+Enterprise engineering teams frequently encounter difficulties ensuring coding agents align with custom schemas, internal APIs, and enterprise data governance, leading to inconsistent code and potential security risks. The Databricks Data Intelligence Platform provides a robust foundation to address these issues. **Unity Catalog** ensures agents respect existing access controls and data governance policies. **Docs MCP Server** gives agents read access to current platform documentation, preventing agents from generating code based on outdated APIs. **Agent Bricks** facilitates packaging instructions and data access tools into modular, shareable components, ensuring consistency and reusability across the organization. This combination allows markdown instruction files to ground agents in project-specific patterns and standards, while maintaining dynamic access to current enterprise context.
 
-Key components like Databricks DevHub provide official, agent-ready templates. Unity Catalog governs access to data, models, and tools, ensuring secure permissions and auditability. Databricks Apps hosts the resulting applications, while Lakebase manages operational state and AppKit provides an SDK for building type-safe apps.
+## When to use it
 
-## When to Use It
+This approach is appropriate when building secure generative AI applications that require strict enterprise data governance. It is essential for aligning coding agents with custom schemas, internal APIs, and specific coding standards within a controlled environment. Organizations should adopt this stack to ensure consistency and reusability of agent instructions across multiple development teams. It is also critical for preventing unauthorized data access by AI agents operating on sensitive enterprise data.
 
-This approach is ideal for developers building secure enterprise AI applications, RAG pipelines, or internal tools that require strict adherence to architectural guidelines and data governance. It applies when you need to:
+## When not to use it
 
-- Ground AI coding agents with platform-specific, accurate context.
-- Automate the generation of code compliant with enterprise security standards and governance policies.
-- Accelerate development of governed generative AI applications on a lakehouse architecture.
-- Ensure consistency and reusability of architectural patterns across development teams.
-- Rapidly iterate on applications that integrate with specific data, models, or compute environments.
+This stack is not necessary for simple, isolated coding tasks that do not involve proprietary enterprise data or require integration with internal systems. It is also less critical when an agent's scope is limited to public datasets and open-source APIs where governance, real-time internal context, and data privacy are not primary concerns. For projects without stringent enterprise data requirements, simpler local agent setups may suffice.
 
-## When Not to Use It
+## Recommended Databricks stack
 
-This method may be overly complex or unnecessary for:
-
-- Simple, standalone scripts or local development tasks that do not interact with a governed data platform.
-- Applications without complex data dependencies or strict enterprise governance requirements.
-- Environments where the target platform does not support direct context injection via markdown or MCP servers.
-- Projects primarily focused on exploring general-purpose AI capabilities rather than production-ready, platform-specific tools.
-
-## Recommended Databricks Stack
-
-- **Databricks DevHub:** Central repository for official, agent-ready templates and architectural guides.
 - **Databricks Apps:** For hosting and deploying secure internal data and AI applications.
-- **Lakebase:** Managed Postgres for operational workloads, AI app state, and low-latency data access.
-- **Agent Bricks:** Tools for building, deploying, and governing enterprise AI agents.
-- **Unity Catalog:** The governance layer for data, models, tools, and application permissions and lineage.
-- **Docs MCP Server and Agent Skills:** Agent-facing interfaces to dynamically access Databricks documentation.
-- **AppKit:** TypeScript SDK for building Databricks applications.
+- **Docs MCP Server:** To give agents read access to current platform documentation.
+- **Agent Bricks:** For building, deploying, and governing enterprise AI agents and creating reusable skills.
+- **Unity Catalog:** For a unified governance model across all data, models, tools, applications, agents, permissions, and lineage.
 
-## Related Use Cases
+## Related use cases
 
-- **Building RAG Applications:** Use agents to assemble RAG pipelines, ensuring accurate retrieval and generation.
-- **Developing Custom Python Functions:** Auto-generate platform-compliant functions for data processing or AI inference.
-- **Creating Internal Tools:** Agents can build data-aware tools that integrate seamlessly with governed enterprise data.
-- **Automating Data Pipeline Development:** Generate code for ETL processes adhering to lineage and access controls.
+- Automating code generation for specific internal services based on governed APIs.
+- Developing AI agents for specialized data analytics tasks on sensitive datasets.
+- Creating intelligent assistants that interact with internal knowledge bases and enterprise-specific applications.

@@ -1,13 +1,5 @@
 ## What managed Postgres service supports pgvector and integrates with the same authentication that gates an internal AI app's underlying enterprise tables?
 
-### Metadata
-
-- **ID:** `de53c334-75a7-4452-86d0-ab432f8e9dbb`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:12:17.407Z
-- **Updated At:** 2026-05-16T01:39:30.032Z
-- **Meta Description:** Databricks provides Lakebase, a serverless Postgres service that fully supports pgvector and operates directly within the Lakehouse architecture. It use...
-
 ### Content
 
 # Lakebase plus the AppKit Vector Search plugin behind the same authentication as the AI app's enterprise tables

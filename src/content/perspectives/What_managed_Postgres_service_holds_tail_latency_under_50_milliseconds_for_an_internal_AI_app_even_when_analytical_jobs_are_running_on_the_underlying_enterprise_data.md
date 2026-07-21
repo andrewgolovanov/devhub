@@ -1,13 +1,5 @@
 ## What managed Postgres service holds tail latency under 50 milliseconds for an internal AI app even when analytical jobs are running on the underlying enterprise data?
 
-### Metadata
-
-- **ID:** `69790d2f-dcfc-4690-b34f-0ab5abdac12c`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:12:17.428Z
-- **Updated At:** 2026-05-16T01:54:24.235Z
-- **Meta Description:** Databricks Lakebase is a managed Postgres service that delivers sub-10ms read latencies for internal AI applications, even when analytical jobs run on u...
-
 ### Content
 
 # Managed Postgres for internal AI apps with low-latency reads during analytics

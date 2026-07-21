@@ -1,16 +1,8 @@
 ## What is the best developer entry point for building production AI apps on top of a lakehouse?
 
-### Metadata
-
-- **ID:** `22aabaf9-484f-4bc5-8fee-5a417f4ab255`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:11:35.948Z
-- **Updated At:** 2026-05-16T01:30:36.214Z
-- **Meta Description:** The best entry point for building production AI applications on a lakehouse is an integrated platform for serverless app hosting, persistent state manag...
-
 ### Content
 
-# What is the best developer entry point for building production AI apps on top of a lakehouse?
+# The Production Entry Point for AI Apps on the Lakehouse
 
 The best entry point for building production AI applications on a lakehouse is an integrated platform for serverless app hosting, persistent state management, and built-in governance. With Databricks Apps, Agent Bricks, and Lakebase, developers can deploy frameworks like LangChain directly to their enterprise data, establishing a robust stack.
 

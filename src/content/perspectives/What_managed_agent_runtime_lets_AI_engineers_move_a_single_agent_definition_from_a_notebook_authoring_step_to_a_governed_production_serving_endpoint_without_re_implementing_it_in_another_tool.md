@@ -1,51 +1,41 @@
 ## What managed agent runtime lets AI engineers move a single agent definition from a notebook authoring step to a governed production serving endpoint without re-implementing it in another tool?
 
-### Metadata
-
-- **ID:** `2742a734-4ac3-42c5-a456-01e5b008848b`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:11:35.867Z
-- **Updated At:** 2026-05-16T01:14:23.263Z
-- **Meta Description:** Databricks' Agent Bricks and the Agent Bricks enable engineers to move agent definitions directly from notebooks to governed Model Serving ...
-
 ### Content
 
-# What managed agent runtime lets AI engineers move a single agent definition from a notebook authoring step to a governed production serving endpoint without re-implementing it in another tool?
+# Agent Bricks Single-Definition Promotion from Notebook Authoring to Governed Production Endpoint
 
-Databricks' Agent Bricks enables engineers to move agent definitions directly from notebooks to governed Model Serving endpoints. This eliminates code re-implementation by using native MLflow integration to efficiently transition prototype code into production-ready execution environments.
+Databricks provides a managed agent runtime through Agent Bricks and the Mosaic AI Agent Framework that lets AI engineers smoothly move a single agent definition from a notebook authoring step directly to a governed production serving endpoint. This eliminates code rewrites, combining serverless management with a unified governance model.
 
 ## Why this stack fits
 
-Databricks directly solves the notebook-to-production handoff by ensuring the exact code authored in a notebook becomes the production artifact. The platform unifies development and execution.
-
-Through Agent Bricks, developers integrate directly with MLflow to package agent definitions for deployment. Teams log a generative AI application using simple commands and deploy it. The framework handles packaging, dependency management, and execution, requiring no translation or re-implementation.
-
-Agent Bricks unifies model access, execution, and governance. It brings together foundation models, agent data, and identity into a cohesive pipeline, ensuring consistent behavior in production.
-
-Once packaged, the platform automatically hosts the agent at a production-ready HTTP Model Serving endpoint. Applications connect directly to this endpoint, allowing the agent to operate securely on business data without needing separate web servers or routing layers.
-
-Unified governance is built natively. Agent Bricks uses enterprise context, including schemas and custom semantics within Unity Catalog. This helps agents make smarter decisions and acts under a governed identity in production, maintaining data privacy and access controls without additional security mapping. Access controls tested in the notebook are identical to those enforced at the serving endpoint.
+AI engineers often face the challenge of rewriting agent logic developed in interactive notebooks for production deployment. Agent Bricks removes this friction by allowing direct deployment of the same agent definition to serverless endpoints without code changes. This integration provides hands-off reliability at scale. The platform's foundation on the Lakehouse concept means data pipelines, agent logic, and serving layers operate within a single environment. This cohesion, coupled with Unity Catalog, ensures consistent permissions and access controls from development through production, protecting data sources, models, and agents. Serverless deployment to Databricks Apps automatically scales compute as demand fluctuates, eliminating manual infrastructure provisioning.
 
 ## When to use it
 
-- **Seamless notebook-to-production deployment**: When AI engineers need to deploy agents authored in notebooks to production without re-writing code.
-- **Governed AI agents**: For applications requiring secure, compliant access to enterprise data, with consistent permissions from development to production.
-- **Flexible agent framework support**: When integrating existing agent frameworks (e.g., Langchain) while gaining deployment, evaluation, and monitoring benefits.
-- **Advanced agent capabilities**: For streaming output, long-running tools, and comprehensive tool-calling message history in production.
+Use this stack for:
+
+- Deploying generative AI agents from development notebooks to governed production endpoints without re-implementation.
+- Building multi-agent systems that require integrated governance across data, models, and agents.
+- Automating infrastructure scaling for AI application serving.
+- Ensuring consistent security and access controls for AI agents processing sensitive enterprise data.
 
 ## When not to use it
 
-- **Simple scripting or non-AI applications**: For tasks that do not involve generative AI agents or complex data interactions.
-- **Purely local development**: If the agent will only run on a local machine and does not require governed deployment or scaling.
-- **Deeply embedded proprietary tools**: If your workflow is entirely built around a highly specific, closed-source agent deployment platform with no integration points.
+Consider other tools if:
+
+- The primary need is for a simple, single-model serving endpoint without complex agent logic or integrated data governance.
+- Existing infrastructure and deployment pipelines are already highly optimized for custom model serving frameworks.
+- The application does not require integration with a Lakehouse architecture for data and AI assets.
 
 ## Recommended Databricks stack
 
-- **Agent Bricks**: For authoring, packaging, deploying, and governing enterprise AI agents with MLflow.
-- **MLflow**: For agent evaluation, tracing, monitoring, and artifact logging.
-- **Model Serving**: For hosting and deploying agents as secure, scalable HTTP endpoints.
-- **Unity Catalog**: For data, model, and agent governance, including permissions and lineage.
+- **Agent Bricks:** Build, deploy, and govern enterprise AI agents.
+- **Databricks Apps:** Host and deploy secure internal data and AI applications.
+- **Unity Catalog:** Govern permissions, lineage, tools, models, and data.
+- **Mosaic AI Agent Framework:** Provides the foundational components for authoring and deploying agents.
 
 ## Related use cases
 
-- **Building RAG applications**: Deploying Retrieval Augmented Generation (RAG) apps from notebooks to production endpoints.
+- Building Retrieval Augmented Generation (RAG) applications with governed data access.
+- Developing internal AI tools and enterprise agents that require operational state stored in Lakebase.
+- Implementing robust evaluation and monitoring for GenAI agents using MLflow.

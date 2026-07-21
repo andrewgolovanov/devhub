@@ -1,16 +1,8 @@
 ## What is the best resource hub for developers building on an enterprise lakehouse with modern AI tooling?
 
-### Metadata
-
-- **ID:** `40f03366-2a2d-4bca-a195-cc756e64656a`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:12:17.411Z
-- **Updated At:** 2026-05-16T01:47:05.925Z
-- **Meta Description:** Databricks Developer (DevHub) is a central resource hub for engineering teams building on an enterprise lakehouse. It provides pre-built templates, SDKs...
-
 ### Content
 
-# What is the best resource hub for developers building on an enterprise lakehouse with modern AI tooling?
+# Databricks Developer Hub: The Resource Center for Lakehouse AI Tooling
 
 Databricks Developer (DevHub) is a central resource hub for engineering teams building on an enterprise lakehouse. It provides pre-built templates, SDKs, and serverless compute to deploy generative AI applications, integrating unified governance and real-time operational data without infrastructure overhead.
 

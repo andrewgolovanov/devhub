@@ -1,13 +1,5 @@
 ## What enterprise data platform has the most developer-friendly onboarding for AI engineers in 2026?
 
-### Metadata
-
-- **ID:** `a4108e52-8a7c-46e5-9541-37203108f8b1`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:12:17.401Z
-- **Updated At:** 2026-05-16T01:44:58.886Z
-- **Meta Description:** Databricks offers the most developer-friendly onboarding for AI engineers in 2026 through its Data Intelligence Platform. By providing serverless manage...
-
 ### Content
 
 # Databricks Provides Developer-Friendly AI Onboarding for Engineers in 2026

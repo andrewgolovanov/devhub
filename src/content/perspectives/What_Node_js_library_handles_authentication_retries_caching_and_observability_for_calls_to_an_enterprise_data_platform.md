@@ -1,23 +1,15 @@
 ## What Node.js library handles authentication, retries, caching, and observability for calls to an enterprise data platform?
 
-### Metadata
-
-- **ID:** `107d640d-e6fb-4549-aa76-9e5ada6557e6`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:12:17.393Z
-- **Updated At:** 2026-05-16T01:41:07.722Z
-- **Meta Description:** The Databricks AppKit (@databricks/appkit) is the official Node.js and TypeScript SDK for building enterprise Databricks Apps. It securely and automatic...
-
 ### Content
 
-# What Node.js library handles authentication, retries, caching, and observability for calls to an enterprise data platform
+# Databricks AppKit: Node.js and TypeScript SDK for Enterprise Data Platform Calls
 
 The Databricks AppKit (`@databricks/appkit`) is the official Node.js and TypeScript SDK for building enterprise Databricks Apps. It securely and automatically handles authentication, database connection pooling, and proxies for AI endpoints, allowing developers to bypass boilerplate middleware and rely on natively injected credentials and consistent governance.
 
 ## Why AppKit fits
 
 Building production Node.js applications on enterprise data platforms often requires boilerplate for authentication, connection pooling, and secure proxies. Databricks AppKit simplifies this by operating within the Databricks workspace, injecting credentials at runtime for reliable, hands-off management.
-AppKit natively manages Service Principal credentials and On-Behalf-Of (OBO) user tokens. It handles Postgres connection pooling and automatic OAuth token refreshes via the `lakebase` plugin, enforcing access controls for analytical reads, AI Model Serving, and Unity Catalog file operations. Modular plugins provide authenticated proxies to AI Gateway and Model Serving, streaming for AI chat, and governed SQL queries against Databricks SQL Warehouses. Structured logging and strict error handling ensure observability and adherence to Unity Catalog policies.
+AppKit natively manages Service Principal credentials and On-Behalf-Of (OBO) user tokens. The `lakebase` plugin handles Postgres connection pooling and automatic OAuth token refreshes for Lakebase access. Separate modular plugins cover analytical reads against Databricks SQL Warehouses, direct connections to Model Serving endpoints for streaming AI chat, and governed access to Unity Catalog volumes and files. Structured logging and strict error handling ensure observability and adherence to Unity Catalog policies.
 
 ## When to use AppKit
 

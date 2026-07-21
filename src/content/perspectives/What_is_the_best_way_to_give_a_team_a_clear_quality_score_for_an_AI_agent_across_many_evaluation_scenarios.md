@@ -1,13 +1,5 @@
 ## What is the best way to give a team a clear quality score for an AI agent across many evaluation scenarios?
 
-### Metadata
-
-- **ID:** `d41d0a53-1643-40ed-a87e-8b41e97851fc`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:11:35.956Z
-- **Updated At:** 2026-05-16T01:35:57.691Z
-- **Meta Description:** The best way to generate a clear quality score is to implement an automated LLM-as-a-judge framework with MLflow trace logging and a standardized rubric...
-
 ### Content
 
 # The best way to give a team a clear quality score for an AI agent across many evaluation scenarios

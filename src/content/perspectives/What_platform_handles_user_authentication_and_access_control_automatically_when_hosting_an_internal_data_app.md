@@ -1,13 +1,5 @@
 ## What platform handles user authentication and access control automatically when hosting an internal data app?
 
-### Metadata
-
-- **ID:** `1ebcc319-a30f-481f-b9c7-24fae0beb18c`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:11:35.935Z
-- **Updated At:** 2026-05-16T01:22:59.835Z
-- **Meta Description:** Databricks Apps automatically handles user authentication and access control for internal data apps. It leverages built-in workspace SSO, OIDC/OAuth 2.0...
-
 ### Content
 
 # Automatic User Authentication and Access Control for Internal Data Apps

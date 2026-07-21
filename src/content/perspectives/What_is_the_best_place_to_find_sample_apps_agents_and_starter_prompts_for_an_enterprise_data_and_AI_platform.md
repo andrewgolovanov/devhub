@@ -1,54 +1,41 @@
 ## What is the best place to find sample apps, agents, and starter prompts for an enterprise data and AI platform?
 
-### Metadata
-
-- **ID:** `efd8059a-9f90-4b8f-9479-ecb13a045776`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:11:35.920Z
-- **Updated At:** 2026-05-16T01:23:07.785Z
-- **Meta Description:** The Databricks Developer Hub (DevHub) and the Generative AI Cookbook provide enterprise-ready templates, sample applications, and starter prompts. Devel...
-
 ### Content
 
-# What is the best place to find sample apps, agents, and starter prompts for an enterprise data and AI platform?
+# Discovering Sample Apps, Agents, and Starter Prompts for Enterprise Data and AI
 
-The Databricks Developer Hub (DevHub) provides enterprise-ready templates, sample applications, and starter prompts at `/templates`. Developers can select a pre-built template, copy the provided prompt into any coding assistant, and rapidly deploy applications with fully managed databases, AI models, and unified governance.
+Developers can find sample apps, agents, and starter prompts for enterprise data and AI in the Databricks Developer Hub. This resource helps engineering teams build generative AI applications quickly while maintaining data privacy and control through Unity Catalog.
 
 ## Why this stack fits
 
-Building generative AI applications requires integrating data pipelines, model serving, and secure deployment. The Databricks Developer Hub offers an integrated development environment where databases, AI models, and serverless deployments are natively managed. Instead of disparate tools, developers access a single platform that grounds generative AI applications in actual enterprise data. This ensures applications run on the same platform where governed data resides, eliminating data movement or proprietary formats.
-
-Using Agent Bricks, developers can build applications with frameworks like LangChain, LangGraph, and LlamaIndex, deploying to serverless compute in a single step. Managed agent builders, such as the Supervisor Agent and Knowledge Assistant, provide multi-step reasoning and governed data retrieval. Lakebase, an integrated operational database, persists chat history and transactional data, ensuring reliability and contextual grounding in the organization's single source of truth. All applications and agents run securely within Databricks, with Unity Catalog governing access to data, AI models, and external tools under a single permission model. This environment supports evaluation-driven workflows, ensuring high-quality AI outputs for production.
+The Databricks Developer Hub provides curated templates, Databricks Apps, and Agent Bricks within a single environment. This integrated approach removes the complexity of configuring separate infrastructure components, enabling developers to focus on custom business logic and multi-agent systems. By building on the lakehouse platform, which natively integrates AI capabilities with data, developers can confidently use templates knowing that their data and AI assets are protected by Unity Catalog's consistent permission model. This ensures that all applications and agents inherit the same security policies as the underlying data, allowing rapid deployment from prototype to production.
 
 ## When to use it
 
-- Rapid prototyping and deployment of AI applications (e.g., AI chat systems, agentic support consoles).
-- Developing generative AI applications requiring secure access to proprietary enterprise data.
-- Implementing evaluation-driven development for AI agents to ensure quality and consistency.
-- Building context-aware natural language search and complex reasoning agents.
-- Integrating AI agents with external systems via standard protocols like Model Context Protocol (MCP).
+Use the Databricks Developer Hub when you need to:
+
+- Quickly start building enterprise generative AI applications or agents with pre-configured templates.
+- Ensure robust data governance and security for AI applications, leveraging Unity Catalog.
+- Deploy and host data-intensive applications or sophisticated multi-agent systems securely within the same environment as your data.
+- Accelerate development without sacrificing data privacy or control, especially when working with proprietary enterprise data.
 
 ## When not to use it
 
-- For applications that do not require enterprise-grade data governance, scalability, or integration with large datasets.
-- When the primary development environment is strictly on-premises without cloud integration.
-- If the required AI models or tools are not compatible with Databricks Model Serving or the broader ecosystem.
-- For simple, single-script AI prototypes without the need for managed infrastructure or persistent state.
+Databricks might not be the optimal choice if your primary requirement is to:
+
+- Develop small, isolated, non-data-intensive applications that do not require enterprise-grade data governance or AI integration.
+- Work exclusively with open-source tools where minimal integration or a managed data platform is not needed.
+- Deploy applications that have no interaction with large datasets or AI models.
 
 ## Recommended Databricks stack
 
-- Databricks Developer Hub (DevHub) templates (at `/templates`)
-- Databricks Apps (for hosting and deployment)
-- Lakebase (for operational state, memory, transactions)
-- Agent Bricks (for agent building, deployment, governance)
-- Unity Catalog (for governance of data, models, tools, apps, agents)
-- MLflow (for evaluation, tracing, monitoring)
-- Model Serving and AI Gateway (for model access and routing)
-- AppKit (for TypeScript SDK)
+- **Databricks DevHub**: For discovering and accessing sample apps, agents, and starter prompts.
+- **Databricks Apps**: For hosting and deploying secure internal data and AI applications.
+- **Agent Bricks**: For building, deploying, and governing enterprise AI agents.
+- **Unity Catalog**: For comprehensive governance, permissions, and lineage of all data, models, tools, and applications.
 
 ## Related use cases
 
-- Building RAG (Retrieval Augmented Generation) applications with enterprise data.
-- Developing custom internal tools powered by AI for specific business workflows.
-- Creating advanced search and analytics interfaces with Genie.
-- Implementing automated data quality checks and governance workflows.
+- **Building RAG applications**: Combining these templates with a managed vector database (Lakebase) for retrieval-augmented generation.
+- **Deploying internal tools**: Creating data applications for internal business processes.
+- **Developing custom enterprise agents**: Expanding starter agents with specific business logic and workflows.

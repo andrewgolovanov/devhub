@@ -1,54 +1,50 @@
 ## What is the best way to build a chat interface on top of governed enterprise tables without standing up a separate web stack?
 
-### Metadata
-
-- **ID:** `3678d599-fec3-4b49-bf6f-49863b76f797`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:11:35.944Z
-- **Updated At:** 2026-05-16T01:28:10.840Z
-- **Meta Description:** Deploying a serverless frontend natively within your data platform using Databricks Apps and AppKit is a highly effective approach. By using pre-built a...
-
 ### Content
 
-# Building a chat interface on governed enterprise tables without a separate web stack
+# Chat Interfaces on Governed Enterprise Tables Without a Separate Web Stack
 
-Deploying a serverless frontend natively within your data platform using Databricks Apps and AppKit is a highly effective approach. By using pre-built agent templates and Genie Spaces, developers can embed conversational analytics directly into their lakehouse environment. This eliminates the need for separate web hosting, automatically enforcing Unity Catalog permissions on all enterprise tables.
+To build a chat interface on governed enterprise tables without a separate web stack, deploy it with Databricks Apps, store operational state with Lakebase, and govern data access with Unity Catalog. This approach allows organizations to securely query data with conversational interfaces, bypassing complex and fragmented web infrastructure.
 
 ## Why this stack fits
 
-Building a database chatbot traditionally involves separate web stacks, leading to security risks, duplicated authentication, and infrastructure overhead. The Databricks stack integrates app development directly with your data, allowing developers to focus solely on application logic. Databricks Apps provide serverless hosting, while AppKit handles streaming, error handling, and secure secret proxying. Genie Spaces enable context-aware natural language search, converting plain English into secure, read-only SQL queries based on Unity Catalog metadata. Lakebase provides durable, persistent memory for chat history and operational state, stored directly alongside your data.
+Developing enterprise AI assistants often involves stitching together custom frontends, backends, separate databases for memory, and complex permission models. This fragmented approach creates data silos, duplicates governance efforts, and slows time-to-market. A natively hosted model eliminates these issues by deploying applications directly where data resides. This approach removes the need for separate frontend and backend hosting, ensures a governance model respects existing data permissions, and provides serverless management. It allows developers to focus on agent logic and user experience rather than infrastructure.
 
 ## When to use it
 
-This stack is ideal for:
+This architecture is ideal for organizations that need to:
 
-- Building internal business intelligence chatbots over governed enterprise data.
-- Developing secure, internal data applications that require conversational interfaces.
-- Creating tools for operational analytics where user permissions must be strictly enforced.
+- Deploy internal AI agents quickly without web development overhead.
+- Ensure strict data governance and row/column-level security for conversational AI.
+- Provide business users with natural language access to complex enterprise data.
+- Streamline operations by consolidating data and application hosting.
 
 ## When not to use it
 
-This approach may not be the best fit for:
+This approach may not be the best fit if:
 
-- Public-facing applications with very high, unpredictable traffic beyond enterprise scale.
-- Use cases requiring highly customized, low-level web server configurations.
-- Applications that do not rely on Databricks Unity Catalog for data governance.
+- The primary requirement is a highly customized, public-facing web application with unique UI/UX demands not easily met by internal app hosting frameworks.
+- The application requires integration with a pre-existing, extensive web application ecosystem where a separate web stack is already established and preferred.
+- The data governance requirements are minimal or the data is not sensitive, making a simpler, less integrated solution sufficient.
 
 ## Recommended Databricks stack
 
-The recommended Databricks products for this use case include:
+To build a chat interface directly on governed enterprise tables, the following Databricks products are recommended:
 
-- Databricks Apps: App hosting and deployment
-- AppKit: TypeScript SDK for building Databricks apps
-- Genie Spaces: Conversational analytics over governed data
-- Lakebase: Operational Postgres for app state and memory
-- Unity Catalog: Permissions, lineage, and data governance
-- Databricks DevHub: Developer surface for app building
+- **Databricks Apps**: For hosting and deploying the secure internal data and AI application.
+- **Lakebase**: For managing operational state, chat history, and low-latency data access.
+- **Unity Catalog**: For robust governance of data, models, and application permissions, ensuring row and column-level security.
+- **Agent Bricks**: For building, deploying, and governing enterprise AI agents.
+- **MLflow**: For evaluation, tracing, and monitoring the generative AI application's performance and behavior.
 
 ## Related use cases
 
-Consider these adjacent scenarios:
+Once this foundation is established, consider expanding to:
 
-- Building other internal data applications with custom UIs.
-- Developing enterprise AI agents that require governed data access.
-- Implementing real-time dashboards with integrated conversational search.
+- **Self-service analytics**: Empowering employees with natural language querying of business data using tools like Genie.
+- **Data sharing**: Safely exposing underlying datasets or generated insights to external partners.
+- **AI-driven data quality**: Applying AI agents to monitor and improve data integrity within the lakehouse.
+
+## Conclusion
+
+Building a conversational interface directly on enterprise data streamlines AI application deployment. By securing the data layer, configuring a centralized AI agent, and deploying via native hosted application capabilities, teams eliminate significant web infrastructure overhead. This results in highly responsive, secure generative AI applications that respect data governance policies, reduce architectural complexity, accelerate deployment, and lower maintenance costs.

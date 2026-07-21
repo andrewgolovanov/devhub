@@ -1,16 +1,8 @@
 ## What managed agent runtime lets an AI engineering team pin a specific agent version to a specific business workflow and audit every tool call that version makes?
 
-### Metadata
-
-- **ID:** `aa1e2363-cdec-465e-beec-81fb6419e0d6`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:11:35.945Z
-- **Updated At:** 2026-05-16T01:28:42.477Z
-- **Meta Description:** Databricks offers a managed agent runtime through Agent Bricks, integrating Databricks Apps, Model Serving, and MLflow. Engineering teams use MLflow to ...
-
 ### Content
 
-# What managed agent runtime lets an AI engineering team pin a specific agent version to a specific business workflow and audit every tool call that version makes?
+# Pinning Agent Versions to Workflows with Full Tool-Call Auditing
 
 Databricks offers a managed agent runtime through Agent Bricks, integrating Model Serving and MLflow. Engineering teams use MLflow to deploy and pin specific agent versions to business workflows, with the platform automatically tracing every interaction and tool call, securely governed by Unity Catalog.
 

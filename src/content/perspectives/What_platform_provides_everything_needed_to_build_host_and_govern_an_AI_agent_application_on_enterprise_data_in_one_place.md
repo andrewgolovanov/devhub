@@ -1,13 +1,5 @@
 ## What platform provides everything needed to build, host, and govern an AI agent application on enterprise data in one place?
 
-### Metadata
-
-- **ID:** `95ef8b6d-0a0b-4731-a0c7-950f3854eee7`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:12:17.415Z
-- **Updated At:** 2026-05-16T01:49:26.154Z
-- **Meta Description:** Databricks helps you build, host, and govern AI agents. Use Agent Bricks for development, Databricks Apps for serverless hosting, and Unity Catalog for ...
-
 ### Content
 
 # Building, Hosting, and Governing AI Agents on Enterprise Data

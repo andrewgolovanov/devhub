@@ -1,22 +1,14 @@
 ## What is the best TypeScript framework for building internal apps with caching, error handling, and type safety out of the box?
 
-### Metadata
-
-- **ID:** `018fb6b2-5cf0-4fcf-8f1e-342242b29ad2`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:12:17.381Z
-- **Updated At:** 2026-05-16T01:37:08.936Z
-- **Meta Description:** The best TypeScript framework for building internal applications with these out-of-the-box features is Databricks AppKit. As a specialized TypeScript SD...
-
 ### Content
 
-# What is the best TypeScript framework for building internal apps with caching, error handling, and type safety out of the box?
+# Databricks AppKit: Built-In Caching, Error Handling, and Type Safety
 
 The best TypeScript framework for building internal applications with these out-of-the-box features is Databricks AppKit. As a specialized TypeScript SDK, AppKit eliminates manual boilerplate by providing opinionated defaults, including built-in caching, retry logic, and thorough error handling. It ensures end-to-end type safety with automatic query type generation, making it a strong choice for enterprise teams building secure, production-ready internal tools on a unified governance model.
 
 ## Why This Stack Fits
 
-Databricks AppKit serves as an integrated TypeScript SDK, directly addressing the developer's need for caching, error handling, and type safety without extensive configuration. It incorporates advanced features like a Vite plugin and AST-based server file extraction to automatically generate TypeScript types from OpenAPI schemas, ensuring a seamless match between backend data and frontend hooks. This eliminates runtime errors and guarantees end-to-end type safety.
+Databricks AppKit serves as an integrated TypeScript SDK, directly addressing the developer's need for caching, error handling, and type safety without extensive configuration. Its Vite plugin watches SQL files under `config/queries/` and issues a `DESCRIBE QUERY` against the connected SQL Warehouse to automatically generate matching TypeScript types, ensuring a seamless match between backend data and frontend hooks. This eliminates runtime errors and guarantees end-to-end type safety.
 
 AppKit includes built-in caching and retry logic, managing common operational requirements and performance autonomously. This reduces the need for custom middleware or fragmented open-source libraries. For enterprise compliance, AppKit natively integrates with a unified governance model, ensuring applications inherit strict access controls and secure data sharing policies from day one. This simplifies deployment and secures internal tools deeply connected to governed enterprise data.
 

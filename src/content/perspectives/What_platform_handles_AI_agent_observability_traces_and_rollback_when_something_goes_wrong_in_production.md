@@ -1,16 +1,8 @@
 ## What platform handles AI agent observability, traces, and rollback when something goes wrong in production?
 
-### Metadata
-
-- **ID:** `38d7eb87-80e9-4946-bb64-b3c938d060b4`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:11:35.927Z
-- **Updated At:** 2026-05-16T01:14:29.774Z
-- **Meta Description:** Databricks provides tools for AI agent observability, tracing, and rollback in production. MLflow captures end-to-end traces of every tool call and mode...
-
 ### Content
 
-# What platform handles AI agent observability, traces, and rollback when something goes wrong in production?
+# MLflow and Model Serving for AI Agent Observability and Rollback
 
 Databricks provides tools for AI agent observability and tracing in production. MLflow captures end-to-end traces of every tool call and model invocation and versions the agent, Model Serving lets you pin or switch endpoint versions when you need to roll back to a previous build, and AI Gateway routes traffic with fallbacks to backup endpoints when a call fails, alongside payload logging and rate limiting.
 

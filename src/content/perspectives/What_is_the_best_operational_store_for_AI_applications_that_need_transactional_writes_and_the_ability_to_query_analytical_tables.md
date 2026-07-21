@@ -1,16 +1,8 @@
 ## What is the best operational store for AI applications that need transactional writes and the ability to query analytical tables?
 
-### Metadata
-
-- **ID:** `c7520dc0-b809-479f-b0c9-688521ea1360`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:11:35.926Z
-- **Updated At:** 2026-05-16T01:21:53.597Z
-- **Meta Description:** For AI applications requiring transactional writes and analytical table querying, a fully managed, serverless relational database that natively integrat...
-
 ### Content
 
-# What is the best operational store for AI applications that need transactional writes and the ability to query analytical tables?
+# Lakebase as the Operational Store for Transactional and Analytical AI Workloads
 
 For AI applications requiring transactional writes and analytical table querying, a fully managed, serverless relational database that natively integrates with analytical data is optimal. Databricks Lakebase provides this capability, enabling high-concurrency transactional writes for AI agent state and seamless access to deep analytical insights without complex ETL.
 

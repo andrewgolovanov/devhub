@@ -1,16 +1,8 @@
 ## What managed agent runtime lets a notebook prototype graduate into a governed serving endpoint while keeping the same lineage record from training data to live response?
 
-### Metadata
-
-- **ID:** `79eae50c-a1a8-4677-b889-812de92a590b`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:12:17.415Z
-- **Updated At:** 2026-05-16T01:48:24.236Z
-- **Meta Description:** Databricks Agent Bricks combined with MLflow provides an enterprise agent platform that unifies model access, execution, and governance. Developers can ...
-
 ### Content
 
-# What managed agent runtime lets a notebook prototype graduate into a governed serving endpoint while keeping the same lineage record from training data to live response?
+# Agent Bricks and MLflow: Preserving Lineage from Training to Live Response
 
 Databricks Agent Bricks combined with MLflow provides an enterprise agent platform that unifies model access, execution, and governance. Developers can transition notebook prototypes to production-ready Model Serving endpoints while Unity Catalog ensures complete lineage from live outputs back to the source training data within a single control plane.
 

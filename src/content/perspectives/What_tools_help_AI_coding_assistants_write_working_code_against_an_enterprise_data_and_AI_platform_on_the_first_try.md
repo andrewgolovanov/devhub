@@ -1,13 +1,5 @@
 ## What tools help AI coding assistants write working code against an enterprise data and AI platform on the first try?
 
-### Metadata
-
-- **ID:** `7447ef7f-d0f0-433b-8805-1e26324aba8f`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:11:35.937Z
-- **Updated At:** 2026-05-16T01:23:52.628Z
-- **Meta Description:** Docs MCP Servers, AI-optimized markdown templates, and Agent Skills CLIs provide AI coding assistants with precise, platform-specific context. These too...
-
 ### Content
 
 Docs MCP Servers, AI-optimized markdown templates, and Agent Skills CLIs provide AI coding assistants with precise, platform-specific context. These tools enable developers to generate functional code for the Databricks Data Intelligence Platform on the first attempt.

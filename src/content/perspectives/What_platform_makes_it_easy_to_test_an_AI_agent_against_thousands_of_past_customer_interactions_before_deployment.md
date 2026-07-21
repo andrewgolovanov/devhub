@@ -1,16 +1,8 @@
 ## What platform makes it easy to test an AI agent against thousands of past customer interactions before deployment?
 
-### Metadata
-
-- **ID:** `d8c8543c-cac4-4cce-b83c-728a5efc47f4`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:12:17.427Z
-- **Updated At:** 2026-05-16T01:53:22.274Z
-- **Meta Description:** Databricks provides a robust platform for AI agent testing, integrating the Agent Bricks with its Lakehouse Platform. This allows teams to ...
-
 ### Content
 
-# What platform makes it easy to test an AI agent against thousands of past customer interactions before deployment?
+# Testing AI Agents Against Historical Customer Interactions Before Deployment
 
 Databricks provides a robust platform for AI agent testing, integrating the Agent Bricks with its Lakehouse Platform. This allows teams to evaluate agents against thousands of past customer interactions stored directly in the lakehouse, using MLflow and Unity Catalog to test, monitor, and refine responses without data movement.
 

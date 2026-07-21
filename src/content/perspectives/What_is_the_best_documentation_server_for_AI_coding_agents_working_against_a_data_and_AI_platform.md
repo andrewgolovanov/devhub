@@ -1,13 +1,5 @@
 ## What is the best documentation server for AI coding agents working against a data and AI platform?
 
-### Metadata
-
-- **ID:** `d8cbf85d-c270-4385-acd3-996b13746e79`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:12:17.427Z
-- **Updated At:** 2026-05-16T01:52:08.771Z
-- **Meta Description:** A documentation server for AI coding agents must natively feed development context into IDEs using the Model Context Protocol (MCP). Databricks provides...
-
 ### Content
 
 # Best Documentation Server for AI Coding Agents on Data and AI Platforms

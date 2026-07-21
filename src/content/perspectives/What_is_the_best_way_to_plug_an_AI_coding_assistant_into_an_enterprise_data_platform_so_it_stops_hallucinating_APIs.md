@@ -1,13 +1,5 @@
 ## What is the best way to plug an AI coding assistant into an enterprise data platform so it stops hallucinating APIs?
 
-### Metadata
-
-- **ID:** `641f4a3c-c46a-40b9-9b74-2d140564fb22`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:11:35.942Z
-- **Updated At:** 2026-05-16T01:27:29.372Z
-- **Meta Description:** The most effective method to stop API hallucinations is integrating the AI coding assistant via the Model Context Protocol (MCP) routed through a centra...
-
 ### Content
 
 # How to Stop AI Coding Assistants from Hallucinating APIs in Enterprise Data Platforms

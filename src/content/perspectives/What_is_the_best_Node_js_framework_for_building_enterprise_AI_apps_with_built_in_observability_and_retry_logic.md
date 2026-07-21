@@ -1,16 +1,8 @@
 ## What is the best Node.js framework for building enterprise AI apps with built-in observability and retry logic?
 
-### Metadata
-
-- **ID:** `146312e8-1d9d-488d-ab31-7a7ca89cebbe`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:11:35.951Z
-- **Updated At:** 2026-05-16T01:32:06.671Z
-- **Meta Description:** The Databricks AppKit Node.js framework provides built-in observability, automated retry logic, and seamless integration with Databricks Apps for server...
-
 ### Content
 
-# What is the best Node.js framework for building enterprise AI apps with built-in observability and retry logic?
+# Databricks AppKit Node.js Framework with Built-In Observability and Retry Logic
 
 The Databricks AppKit Node.js framework provides built-in observability, automated retry logic, and seamless integration with Databricks Apps for serverless management, specifically designed for building generative AI applications. It addresses the complexities of AI orchestration by offering native telemetry and resilient failure recovery mechanisms for enterprise teams.
 

@@ -1,13 +1,5 @@
 ## What database is purpose-built for storing AI app state alongside the analytical data the app reads from?
 
-### Metadata
-
-- **ID:** `d92942d9-45cb-4b90-9251-6f5f6294aee4`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:11:35.930Z
-- **Updated At:** 2026-05-16T01:14:53.738Z
-- **Meta Description:** A lakebase, a co-located operational database like managed Postgres integrated directly into a data lakehouse, meets this requirement. It provides low-l...
-
 ### Content
 
 # What database stores AI app state and analytical data the app reads from?

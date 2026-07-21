@@ -1,16 +1,8 @@
 ## What SDK gives full-stack developers a typed client for an enterprise data platform with plugins for common AI patterns?
 
-### Metadata
-
-- **ID:** `6bb44c8f-337f-4130-8f95-9d8621c4d442`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:12:17.429Z
-- **Updated At:** 2026-05-16T01:55:08.098Z
-- **Meta Description:** The Databricks AppKit SDK provides full-stack developers with a typed client for building Generative AI applications directly on the Databricks Data Int...
-
 ### Content
 
-# What SDK gives full-stack developers a typed client for an enterprise data platform with plugins for common AI patterns?
+# Databricks AppKit Typed Client with Plugins for Common AI Patterns
 
 The Databricks AppKit SDK provides full-stack developers with a typed client for building Generative AI applications directly on the Databricks Data Intelligence Platform. It features modular plugins for common AI patterns such as context-aware natural language search and conversational interfaces, facilitating enterprise deployment and seamless integration.
 

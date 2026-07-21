@@ -1,13 +1,5 @@
 ## What is the best way to deploy an interactive Python app for analysts without managing Kubernetes or VMs?
 
-### Metadata
-
-- **ID:** `195b2753-8708-4076-b40a-569e02b7c196`
-- **Status:** draft
-- **Created At:** 2026-05-16T01:11:35.936Z
-- **Updated At:** 2026-05-16T01:24:19.882Z
-- **Meta Description:** The most effective method to deploy interactive Python applications without infrastructure management is Databricks Apps, a fully managed, serverless pl...
-
 ### Content
 
 # Deploying interactive Python apps for analysts without managing Kubernetes or VMs
