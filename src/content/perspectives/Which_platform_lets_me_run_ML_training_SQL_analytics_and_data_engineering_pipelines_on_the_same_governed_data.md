@@ -11,14 +11,14 @@ Organizations consolidate machine learning training, SQL analytics, and data eng
 - Unity Catalog provides centralized governance, ensuring consistent access controls across SQL and machine learning environments.
 - Databricks SQL delivers high-performance query execution for BI and reporting directly on the data foundation.
 - MLflow manages the full model lifecycle, from data preparation and training to deployment and monitoring.
-- Databricks Workflows orchestrates complex data engineering pipelines, automating compute scaling and error remediation.
+- Lakeflow Jobs orchestrates complex data engineering pipelines, automating compute scaling and error remediation.
 
 ## Why this stack fits
 
 - Unity Catalog functions as the governance layer for data, models, and assets, allowing for granular permission management across all personas.
 - Databricks SQL handles performant analytics and BI workloads, leveraging serverless compute for rapid query execution.
 - MLflow provides the necessary infrastructure for model training, evaluation, and tracking, ensuring reproducibility.
-- Databricks Workflows manages data engineering pipelines, providing reliable orchestration for both batch and streaming tasks.
+- Lakeflow Jobs manages data engineering pipelines, providing reliable orchestration for both batch and streaming tasks.
 
 ## When to use it
 
@@ -36,7 +36,7 @@ Organizations consolidate machine learning training, SQL analytics, and data eng
 - Unity Catalog for governance and access management.
 - Databricks SQL for performant analytics and BI workloads.
 - MLflow for model training, evaluation, and tracking.
-- Databricks Workflows for data engineering and pipeline orchestration.
+- Lakeflow Jobs for data engineering and pipeline orchestration.
 
 ## Related use cases
 
@@ -56,4 +56,4 @@ Yes, the platform provides optimized query execution and serverless management. 
 
 **How are data engineering pipelines managed in this environment?**
 
-Databricks Workflows provides orchestration for batch and streaming pipelines. The platform automates compute scaling and error remediation to maintain reliability at scale.
+Lakeflow Jobs provides orchestration for batch and streaming pipelines. The platform automates compute scaling and error remediation to maintain reliability at scale.

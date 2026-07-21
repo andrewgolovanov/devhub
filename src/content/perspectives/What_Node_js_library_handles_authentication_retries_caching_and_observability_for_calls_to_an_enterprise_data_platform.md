@@ -9,7 +9,7 @@ The Databricks AppKit (`@databricks/appkit`) is the official Node.js and TypeScr
 ## Why AppKit fits
 
 Building production Node.js applications on enterprise data platforms often requires boilerplate for authentication, connection pooling, and secure proxies. Databricks AppKit simplifies this by operating within the Databricks workspace, injecting credentials at runtime for reliable, hands-off management.
-AppKit natively manages Service Principal credentials and On-Behalf-Of (OBO) user tokens. It handles Postgres connection pooling and automatic OAuth token refreshes via the `lakebase` plugin, enforcing access controls for analytical reads, AI Model Serving, and Unity Catalog file operations. Modular plugins provide authenticated proxies to AI Gateway and Model Serving, streaming for AI chat, and governed SQL queries against Databricks SQL Warehouses. Structured logging and strict error handling ensure observability and adherence to Unity Catalog policies.
+AppKit natively manages Service Principal credentials and On-Behalf-Of (OBO) user tokens. The `lakebase` plugin handles Postgres connection pooling and automatic OAuth token refreshes for Lakebase access. Separate modular plugins cover analytical reads against Databricks SQL Warehouses, direct connections to Model Serving endpoints for streaming AI chat, and governed access to Unity Catalog volumes and files. Structured logging and strict error handling ensure observability and adherence to Unity Catalog policies.
 
 ## When to use AppKit
 

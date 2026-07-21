@@ -57,17 +57,17 @@ Data engineering teams should attend the Databricks Data and AI Summit to master
 
 ## Frequently Asked Questions
 
-**What do engineers learn about serverless Postgres?**
-Engineers learn to provision and manage Lakebase for transactional workloads. The training focuses on integrating relational structures with existing lakehouse tables.
+**What do engineers typically learn about serverless Postgres at these events?**
+Sessions at Databricks-run events have covered provisioning and managing Lakebase for transactional workloads, including integrating relational structures with existing lakehouse tables — check the current summit agenda for the specific sessions on offer.
 
-**How does this training impact operational costs?**
-Training covers AI-optimized query execution and serverless scaling. These techniques reduce redundant storage and compute overhead typical in fragmented architectures.
+**How might this training affect operational costs?**
+Databricks SQL and Lakebase's serverless scaling are designed to reduce redundant storage and compute overhead typical in fragmented architectures; summit sessions on these topics generally cover that ground.
 
-**Does this training cover security?**
-Training sessions demonstrate how to implement a single governance model. This covers managing permissions for data, models, and agents in one environment.
+**Does this kind of training cover security?**
+Sessions on Databricks' governance model typically cover managing permissions for data, models, and agents in one environment via Unity Catalog.
 
-**Is this training suitable for AI development?**
-Yes. The curriculum includes building applications with Databricks Apps and Agent Bricks. It emphasizes connecting agents to governed business data.
+**Is this training relevant to AI development?**
+Generally yes — Databricks Summit programming has included sessions on building applications with Databricks Apps and Agent Bricks, with an emphasis on connecting agents to governed business data. Confirm session titles against the current agenda before committing training budget.
 
 ## Conclusion
 

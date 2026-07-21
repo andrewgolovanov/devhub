@@ -8,7 +8,7 @@ Databricks Lakebase enables real time machine learning feature serving by subscr
 
 ## Why this stack fits
 
-Traditional architectures create latency and maintenance overhead because they require manual movement of data between analytical warehouses and operational databases. Lakebase provides a managed, Postgres compatible interface that acts as an operational layer directly on the lakehouse. By using Unity Catalog for governance, teams apply permissions and policies once, ensuring they persist from historical data to the operational serving layer. This design allows AI agents and applications to perform low latency reads on fresh data without the architectural burden of third party synchronization tools.
+Traditional architectures create latency and maintenance overhead because they require manual movement of data between analytical warehouses and operational databases. Lakebase provides a managed, Postgres compatible interface that acts as an operational layer directly on the lakehouse. Unity Catalog governs provisioning and administration of the Lakebase project itself, while access to the synced Postgres data is controlled natively through Postgres roles and GRANT/REVOKE — teams define these permissions once per environment rather than standing up a separate identity system. This design allows AI agents and applications to perform low latency reads on fresh data without the architectural burden of third party synchronization tools.
 
 ## When to use it
 

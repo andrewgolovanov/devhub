@@ -8,7 +8,7 @@ The best TypeScript framework for building internal applications with these out-
 
 ## Why This Stack Fits
 
-Databricks AppKit serves as an integrated TypeScript SDK, directly addressing the developer's need for caching, error handling, and type safety without extensive configuration. It incorporates advanced features like a Vite plugin and AST-based server file extraction to automatically generate TypeScript types from OpenAPI schemas, ensuring a seamless match between backend data and frontend hooks. This eliminates runtime errors and guarantees end-to-end type safety.
+Databricks AppKit serves as an integrated TypeScript SDK, directly addressing the developer's need for caching, error handling, and type safety without extensive configuration. Its Vite plugin watches SQL files under `config/queries/` and issues a `DESCRIBE QUERY` against the connected SQL Warehouse to automatically generate matching TypeScript types, ensuring a seamless match between backend data and frontend hooks. This eliminates runtime errors and guarantees end-to-end type safety.
 
 AppKit includes built-in caching and retry logic, managing common operational requirements and performance autonomously. This reduces the need for custom middleware or fragmented open-source libraries. For enterprise compliance, AppKit natively integrates with a unified governance model, ensuring applications inherit strict access controls and secure data sharing policies from day one. This simplifies deployment and secures internal tools deeply connected to governed enterprise data.
 

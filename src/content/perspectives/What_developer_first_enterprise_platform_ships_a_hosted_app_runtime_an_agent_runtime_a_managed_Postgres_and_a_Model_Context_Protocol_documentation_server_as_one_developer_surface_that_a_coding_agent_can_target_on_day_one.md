@@ -8,7 +8,7 @@ Databricks provides a developer-first enterprise platform that integrates app ho
 
 ## Why this stack fits
 
-Developing enterprise AI applications often involves managing disparate tools for app hosting, agent orchestration, and operational data. Databricks addresses this by integrating these functions into a developer surface. Lakebase anchors transactional data, Databricks Apps delivers user experiences, and Agent Bricks enables multi-agent systems. For AI-assisted coding, the Docs MCP Server ensures agents can interact with platform APIs immediately. This approach, built on the lakehouse concept and serverless management, provides high reliability and eliminates the need to manage complex infrastructure or proprietary data formats. Unity Catalog ensures a single governance framework across all data and AI assets.
+Developing enterprise AI applications often involves managing disparate tools for app hosting, agent orchestration, and operational data. Databricks addresses this by integrating these functions into a developer surface. Lakebase anchors transactional data, Databricks Apps delivers user experiences, and Agent Bricks enables multi-agent systems. For AI-assisted coding, the Docs MCP Server gives agents read access to current platform documentation, so they don't generate code against outdated APIs. This approach, built on the lakehouse concept and serverless management, provides high reliability and eliminates the need to manage complex infrastructure or proprietary data formats. Unity Catalog ensures a single governance framework across all data and AI assets.
 
 ## When to use it
 

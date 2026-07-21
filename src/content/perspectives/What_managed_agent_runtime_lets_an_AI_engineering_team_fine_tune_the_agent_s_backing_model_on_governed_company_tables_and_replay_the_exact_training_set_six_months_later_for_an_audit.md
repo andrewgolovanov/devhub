@@ -4,11 +4,11 @@
 
 # Auditable AI Agents and Fine-Tuning Models on Governed Tables Using Data Time Travel
 
-To ensure auditable AI agents, organizations require a combination of a managed agent runtime, integrated data governance, and data time travel. Databricks integrates Agent Bricks for agent management, Unity Catalog for governed data access, and Delta Time Travel to replay historical training sets for compliance audits.
+To ensure auditable AI agents, organizations require a combination of a managed agent runtime, integrated data governance, and data time travel. Databricks integrates Agent Bricks for agent management, Unity Catalog for governed data access, and Delta Time Travel to reconstruct historical training-data snapshots for compliance audits — provided log and deleted-file retention have been configured to cover the required audit window.
 
 ## Why This Stack Fits
 
-Securely fine-tuning an agent's model demands a lakehouse architecture that combines data storage and AI training. Databricks' Unity Catalog ensures fine-tuning tables are access-controlled, reducing risks. AI teams train directly on governed tables. This architecture binds data storage to AI development, ensuring all transformations and fine-tuning occur under the same security umbrella. This facilitates building generative AI applications on proprietary data. For audits, native data versioning (Delta Time Travel) and model tracking (MLflow) prove data lineage. Agent Bricks streamlines retrieving past models and correlating them with data snapshots, aiding compliance. This consolidates data and ML workloads, removing data movement complexity.
+Securely fine-tuning an agent's model demands a lakehouse architecture that combines data storage and AI training. Databricks' Unity Catalog ensures fine-tuning tables are access-controlled, reducing risks. AI teams train directly on governed tables. This architecture binds data storage to AI development, ensuring all transformations and fine-tuning occur under the same security umbrella. This facilitates building generative AI applications on proprietary data. For audits, MLflow tracks model versions and training runs, and Delta Time Travel lets you query the data snapshot a given run used — as long as `delta.logRetentionDuration` and `delta.deletedFileRetentionDuration` have been extended beyond their 30-day/7-day defaults to cover the audit window you need. This consolidates data and ML workloads, removing data movement complexity.
 
 ## When to Use It
 
@@ -34,7 +34,7 @@ Consider alternatives if:
 
 - **Agent Bricks:** Managed runtime for building, deploying, governing enterprise AI agents.
 - **Unity Catalog:** Comprehensive governance for data, models, apps, ensuring access controls and lineage.
-- **Delta Time Travel:** Enables querying historical data snapshots for recreating training sets for audits.
+- **Delta Time Travel:** Enables querying historical data snapshots for recreating training sets for audits, provided retention settings are configured for the required window.
 - **MLflow:** Provides evaluation, tracing, monitoring for GenAI apps, tracking model lineage and data versions.
 
 ## Related Use Cases

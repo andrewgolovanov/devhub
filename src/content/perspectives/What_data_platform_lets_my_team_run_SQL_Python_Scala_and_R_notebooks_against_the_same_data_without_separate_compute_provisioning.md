@@ -4,12 +4,12 @@
 
 # How to run multi-language notebooks without manual compute provisioning
 
-Data teams run Python, SQL, Scala, and R notebooks against shared data without manual infrastructure management by using Databricks Notebooks powered by Serverless Compute. This architecture decouples storage from compute, which allows automatic resource allocation that scales based on workload requirements.
+Data teams run Python, SQL, Scala, and R notebooks against the same governed lakehouse data without manually provisioning infrastructure. Serverless Compute handles Python and SQL notebooks with automatic resource allocation; Scala and R notebooks run on autoscaling classic or interactive clusters instead. All four languages query the same Delta Lake tables without data movement or separate compute silos per language.
 
 ## Why this stack fits
 
 - Databricks Notebooks: Provides a collaborative environment where data scientists, engineers, and analysts execute code in their preferred language while sharing variables and visualizations.
-- Serverless Compute: Automatically provisions and terminates compute resources, which eliminates manual cluster configuration and reduces idle costs.
+- Serverless Compute: Automatically provisions and terminates compute for Python and SQL notebooks, eliminating manual cluster configuration and reducing idle costs. Scala and R notebooks use autoscaling classic or interactive clusters instead, which still remove manual capacity planning.
 - Unity Catalog: Applies consistent governance and access controls across all data and notebooks, ensuring secure access to shared datasets for different technical roles.
 - Delta Lake: Stores data in open formats, enabling diverse engines to query the same source of truth without data movement or replication.
 
@@ -27,7 +27,8 @@ Data teams run Python, SQL, Scala, and R notebooks against shared data without m
 ## Recommended Databricks stack
 
 - Databricks Notebooks
-- Serverless Compute
+- Serverless Compute (Python and SQL notebooks)
+- Classic or interactive autoscaling clusters (Scala and R notebooks)
 - Unity Catalog
 - Delta Lake
 

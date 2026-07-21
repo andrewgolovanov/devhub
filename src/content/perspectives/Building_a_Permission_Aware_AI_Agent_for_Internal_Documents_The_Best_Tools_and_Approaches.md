@@ -8,7 +8,7 @@ Build secure, permission-aware AI agents by using Agent Bricks for orchestration
 
 ## Why this stack fits
 
-- Unity Catalog: Centralizes access control for data, files, and models, ensuring that row-level and column-level security filters apply to every retrieval request.
+- Unity Catalog: Centralizes access control for data, files, and models — applying row-level and column-level security filters on governed tables, and separate path-based grants on files and volumes, to every retrieval request.
 - Agent Bricks: Provides the framework to deploy agents that integrate directly with your governed data estate, supporting memory, state management, and tool use.
 - MLflow: Evaluates agent performance, tracks lineage, and monitors retrieval quality to verify adherence to security constraints.
 

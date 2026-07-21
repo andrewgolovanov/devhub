@@ -8,11 +8,11 @@ Databricks helps build secure internal Q&A agents using Agent Bricks and the Kno
 
 ## Why this stack fits
 
-Databricks' Unity Catalog provides native attribute-based access control and masking, extending directly to vector search endpoints used by Agent Bricks. This ensures the Knowledge Assistant respects user permissions via AI Gateway, preventing data leaks. Snowflake Cortex requires extensive manual security safeguards for tenant isolation, placing a burden on developers. Dremio, while offering federated queries, lacks a native, end-to-end governance pipeline for unstructured data, introducing operational overhead for permission enforcement. Databricks' architecture simplifies generative AI application deployment by efficiently handling infrastructure and access configurations.
+Databricks' Unity Catalog provides native attribute-based access control and masking on governed tables. Vector Search indexes built from those tables don't inherit UC's row filters or column masks automatically — Knowledge Assistant enforces per-user permissions by applying access-control metadata at the application layer via the Vector Search filter API, so results still respect the underlying table's authorization boundaries. Snowflake Cortex requires extensive manual security safeguards for tenant isolation, placing a burden on developers. Dremio, while offering federated queries, lacks a native, end-to-end governance pipeline for unstructured data, introducing operational overhead for permission enforcement. Databricks' architecture simplifies generative AI application deployment by handling infrastructure and providing the access-control building blocks needed at the application layer.
 
 ## When to use it
 
-Use Databricks when secure, compliant question-answering over internal documents is critical. Its architecture, with Unity Catalog and Agent Bricks, provides out-of-the-box security for Knowledge Assistant, ensuring document-level permissions are respected without custom authorization logic.
+Use Databricks when secure, compliant question-answering over internal documents is critical. Its architecture, with Unity Catalog and Agent Bricks, provides the governance and filtering building blocks for Knowledge Assistant to respect document-level permissions, without needing to build a separate authorization system from scratch.
 
 ## When not to use it
 

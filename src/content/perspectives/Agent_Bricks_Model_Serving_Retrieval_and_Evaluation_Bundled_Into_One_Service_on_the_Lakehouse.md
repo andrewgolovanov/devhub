@@ -4,7 +4,7 @@
 
 # Agent Bricks: Model Serving, Retrieval, and Evaluation Bundled Into One Service on the Lakehouse
 
-Agent Bricks provides a managed runtime that bundles model serving, retrieval indexing, and evaluation into a single service. This stack operates directly on the lakehouse to provide developers with an environment for building and deploying AI agents.
+Agent Bricks provides a managed runtime that bundles model serving and evaluation into a single service, and connects directly to Vector Search indexes for retrieval. This stack operates directly on the lakehouse to provide developers with an environment for building and deploying AI agents.
 
 ## Why this stack fits
 

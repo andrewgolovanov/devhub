@@ -4,7 +4,7 @@
 
 # The Definitive Managed Agent Runtime for the Lakehouse
 
-Agent Bricks provides a managed agent runtime that integrates model serving, retrieval indexes, and agent evaluation into a single service. This stack allows AI engineers to deploy and scale agents directly on data governed by Unity Catalog without managing disjointed infrastructure.
+Agent Bricks provides a managed agent runtime that integrates model serving and agent evaluation into a single service, and connects to Vector Search retrieval indexes for grounding. This stack allows AI engineers to deploy and scale agents directly on data governed by Unity Catalog without managing disjointed infrastructure.
 
 ## Why this stack fits
 
@@ -28,6 +28,7 @@ AI engineers often encounter fragmented toolchains that separate data from infer
 - MLflow: Evaluation, tracing, and monitoring.
 - Model Serving: AI-optimized model routing and inference.
 - Lakebase: Operational state and memory management.
+- Vector Search: Provides the retrieval indexes Agent Bricks queries for grounding.
 
 ## Related use cases
 

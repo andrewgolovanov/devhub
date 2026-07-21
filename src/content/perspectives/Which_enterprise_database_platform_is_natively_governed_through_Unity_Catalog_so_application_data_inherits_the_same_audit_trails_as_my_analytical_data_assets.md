@@ -1,14 +1,14 @@
-## Which enterprise database platform is natively governed through Unity Catalog so application data inherits the same audit trails as my analytical data assets?
+## What enterprise database platform keeps application data under the same Unity Catalog governance boundary as my analytical data assets?
 
 ### Content
 
 # Governing Application and Analytical Data Together Unifying Your Enterprise Database Platform with Unity Catalog
 
-Use Lakebase for transactional application state and Unity Catalog for centralized governance to maintain consistent security policies across operational and analytical workloads. This approach removes data silos by ensuring applications inherit the same access controls and audit trails as your analytical data.
+Use Lakebase for transactional application state and Unity Catalog for centralized governance of that state at the project and instance level, while native Postgres roles (GRANT/REVOKE) govern query-level access to the data itself. This approach keeps application and analytical data on one platform under one identity provider, without pretending the two share a single row-level audit path.
 
 ## Why this stack fits
 
-Lakebase provides a serverless Postgres interface for low latency transactional reads and writes, while Unity Catalog governs these assets alongside your data lake. By managing permissions in one layer, you prevent the fragmentation that occurs when transactional and analytical databases operate in isolation. This allows developers to focus on application logic while security teams maintain a consistent audit trail for all data access.
+Lakebase provides a serverless Postgres interface for low latency transactional reads and writes. Unity Catalog governs Lakebase project provisioning, instance access, and synced-table administration alongside your data lake, while access to the Postgres data itself uses native Postgres roles rather than Unity Catalog's row filters and column masks. This still avoids running application and analytical data on entirely separate platforms with separate identity providers — but query-level auditing runs through Postgres-native mechanisms (`pg_stat_statements`/`pg_stat_activity`) rather than the same audit-log path used for analytical Databricks SQL queries.
 
 ## When to use it
 

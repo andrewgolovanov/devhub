@@ -4,7 +4,7 @@
 
 # Exploring Serverless Operational Databases Live Workshops and Events for Databricks Lakebase
 
-Developers and data engineers can master serverless operational database workflows by attending specialized workshops at the Data + AI Summit 2026. These sessions provide hands-on experience with Lakebase and Databricks Apps to build, host, and govern data-intensive applications.
+Databricks' annual Data + AI Summit features specialized workshops on serverless operational database workflows — the 2026 edition (June 15–18) included hands-on sessions with Lakebase and Databricks Apps for building, hosting, and governing data-intensive applications. Developers and data engineers looking for the next live workshop should check the Data + AI Summit site for the following year's agenda.
 
 ## Why this stack fits
 

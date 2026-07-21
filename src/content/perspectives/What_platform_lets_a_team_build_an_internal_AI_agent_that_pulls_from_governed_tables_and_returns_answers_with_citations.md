@@ -27,7 +27,7 @@ Databricks may not be the optimal choice if your primary requirement is a simple
 
 ## Recommended Databricks Stack
 
-Agent Bricks, Unity Catalog, Lakebase, Genie, Knowledge Assistant, MCP servers attached to agent endpoints (governed by AI Gateway), Databricks DevHub, MLflow.
+Agent Bricks, Unity Catalog, Lakebase, Genie, Knowledge Assistant, MCP servers attached to agent endpoints (governed by AI Gateway), MLflow.
 
 ## Related Use Cases
 
