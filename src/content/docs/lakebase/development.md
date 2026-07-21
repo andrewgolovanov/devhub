@@ -89,7 +89,8 @@ The [AppKit plugin docs: local development](/docs/appkit/v0/plugins/lakebase#loc
 Use Lakebase Postgres branches to isolate schema changes and test migrations without affecting production:
 
 ```bash title="Common"
-databricks postgres create-branch projects/my-project feature-xyz
+databricks postgres create-branch projects/my-project feature-xyz \
+  --json '{"spec": {"no_expiry": true}}'
 ```
 
 ```bash title="All Options"
@@ -109,18 +110,18 @@ databricks postgres create-branch \
 <details>
 <summary>Options</summary>
 
-| Option               | Required | Description                                                                                                                                                                 |
-| -------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `PARENT`             | yes      | Project resource path: `projects/{project_id}`                                                                                                                              |
-| `BRANCH_ID`          | yes      | Unique branch identifier (1-63 chars, lowercase)                                                                                                                            |
-| `--json`             | no       | JSON spec with `source_branch` and expiration policy (`no_expiry`, `ttl`, or `expire_time`). If omitted, branches from the project's default branch with default expiration |
-| `--replace-existing` | no       | Update the branch if it already exists instead of returning an error                                                                                                        |
-| `--no-wait`          | no       | Return immediately with operation details                                                                                                                                   |
-| `--timeout`          | no       | Max time to wait for completion                                                                                                                                             |
-| `--debug`            | no       | Enable debug logging                                                                                                                                                        |
-| `-o json`            | no       | Output as JSON (default: text)                                                                                                                                              |
-| `--target`           | no       | Bundle target to use (if applicable)                                                                                                                                        |
-| `--profile`          | no       | Databricks CLI profile name                                                                                                                                                 |
+| Option               | Required | Description                                                                                                                                                                       |
+| -------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `PARENT`             | yes      | Project resource path: `projects/{project_id}`                                                                                                                                    |
+| `BRANCH_ID`          | yes      | Unique branch identifier (1-63 chars, lowercase)                                                                                                                                  |
+| `--json`             | no       | JSON spec with `source_branch` and a required expiration policy (`no_expiry`, `ttl`, or `expire_time`). If `source_branch` is omitted, branches from the project's default branch |
+| `--replace-existing` | no       | Update the branch if it already exists instead of returning an error                                                                                                              |
+| `--no-wait`          | no       | Return immediately with operation details                                                                                                                                         |
+| `--timeout`          | no       | Max time to wait for completion                                                                                                                                                   |
+| `--debug`            | no       | Enable debug logging                                                                                                                                                              |
+| `-o json`            | no       | Output as JSON (default: text)                                                                                                                                                    |
+| `--target`           | no       | Bundle target to use (if applicable)                                                                                                                                              |
+| `--profile`          | no       | Databricks CLI profile name                                                                                                                                                       |
 
 </details>
 
@@ -264,7 +265,7 @@ databricks postgres list-endpoints \
         "min": 1
       },
       "hosts": {
-        "host": "ep-cool-breeze-abc123.database.cloud.databricks.com"
+        "host": "ep-cool-breeze-abc123.database.us-west-2.cloud.databricks.com"
       },
       "settings": {}
     },

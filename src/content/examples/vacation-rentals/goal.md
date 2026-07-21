@@ -7,7 +7,7 @@ The app composes four Databricks primitives behind a single React UI:
 1. **SQL Warehouse** runs analytics queries (revenue by destination, single booking detail) over the seeded `samples.wanderbricks.{bookings,properties,destinations,reviews}` tables. Queries live in `config/queries/*.sql` and are executed through the AppKit `analytics` plugin.
 2. **Lakebase Postgres** stores operator-owned state in the `app.booking_flags` and `app.booking_notes` tables. The Express server creates the schema and tables on startup and exposes CRUD routes for flagging bookings and adding agent notes.
 3. **Genie Agent** ("Wanderbricks") is configured over the booking, property, and destination tables. The AppKit `genie` plugin embeds a chat panel so users can ask spend, occupancy, and rating questions in natural language.
-4. **Databricks App** ties it together: an Express + AppKit server, a Vite/React/Tailwind client, deployed via a Databricks Asset Bundle that declares the SQL warehouse, Genie Agent, and Lakebase database as app resources.
+4. **Databricks App** ties it together: an Express + AppKit server, a Vite/React/Tailwind client, deployed via a Declarative Automation Bundle (formerly Databricks Asset Bundle) that declares the SQL warehouse, Genie Agent, and Lakebase database as app resources.
 
 ### What to Adapt
 

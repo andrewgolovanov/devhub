@@ -28,7 +28,7 @@ Setup and provisioning are documented in the repository's **`README.md`**.
 To make this template your own:
 
 - **Lakebase**: Point the bundle at your own Lakebase project, branch, and database (prompted at init time).
-- **Model Serving endpoint**: Override `DATABRICKS_ENDPOINT` for a different chat model (e.g. `databricks-claude-sonnet-4`).
+- **Model Serving endpoint**: Override `DATABRICKS_ENDPOINT` for a different chat model (e.g. `databricks-claude-sonnet-4-6`).
 - **Embeddings endpoint**: Override `DATABRICKS_EMBEDDING_ENDPOINT` if you want a different embedding model. Make sure the `vector(N)` dimension in `server/lib/rag-store.ts` matches.
 - **Seed data**: Replace the Wikipedia article list in `server/lib/seed-data.ts` with your own corpus. The chunking function splits on paragraph boundaries — adapt if your source has different structure.
 - **Retrieval**: The default top-k is 5 and the similarity metric is cosine. Tune in `retrieveSimilar()`.

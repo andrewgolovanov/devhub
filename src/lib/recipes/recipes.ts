@@ -221,7 +221,7 @@ export const recipes: Recipe[] = [
     id: "sync-tables-autoscaling",
     name: "Sync Tables: Unity Catalog to Lakebase (Autoscaling)",
     description:
-      "Sync Unity Catalog tables into Lakebase Autoscaling Postgres as synced tables for sub-10ms application queries, with snapshot, triggered, or continuous modes.",
+      "Sync Unity Catalog tables into Lakebase Autoscaling Postgres as synced tables for low-latency application queries, with snapshot, triggered, or continuous modes.",
     tags: [
       "Lakebase",
       "Sync Tables",
@@ -281,7 +281,7 @@ export const recipes: Recipe[] = [
     id: "medallion-architecture-from-cdc",
     name: "Medallion Architecture from CDC History Tables",
     description:
-      "Transform Lakebase Change Data Feed history tables into a medallion architecture with silver (current state) and gold (aggregations) layers using Lakeflow Declarative Pipelines.",
+      "Transform Lakebase Change Data Feed history tables into a medallion architecture with silver (current state) and gold (aggregations) layers using Lakeflow Spark Declarative Pipelines.",
     tags: [
       "Medallion Architecture",
       "Data Lakehouse",
@@ -358,7 +358,7 @@ export const recipes: Recipe[] = [
     id: "hackathon-app-with-synced-dataset",
     name: "Hackathon App with Synced Dataset",
     description:
-      "Scaffold a Databricks App backed by Lakebase and continuously sync the hackathon dataset from Unity Catalog into Lakebase for sub-10ms reads.",
+      "Scaffold a Databricks App backed by Lakebase and continuously sync the hackathon dataset from Unity Catalog into Lakebase for low-latency reads.",
     tags: [
       "Lakebase",
       "Postgres",
