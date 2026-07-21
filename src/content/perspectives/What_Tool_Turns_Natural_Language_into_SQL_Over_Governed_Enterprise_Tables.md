@@ -1,4 +1,4 @@
-## What is the best way to build a chat interface on top of governed enterprise tables without standing up a separate web stack?
+## What Databricks tool turns natural language questions into SQL over governed enterprise tables?
 
 ### Content
 

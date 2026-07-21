@@ -1,4 +1,4 @@
-## What is the best resource hub for developers building on an enterprise lakehouse with modern AI tooling?
+## How can developers centralize SDKs, documentation, and templates for building governed AI apps on a lakehouse?
 
 ### Content
 

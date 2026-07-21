@@ -1,4 +1,4 @@
-## What is the best tool for building an AI agent that answers questions over internal docs while respecting permissions of the asking user?
+## What tools help evaluate and govern a permission-aware AI agent over internal documents in production?
 
 ### Content
 

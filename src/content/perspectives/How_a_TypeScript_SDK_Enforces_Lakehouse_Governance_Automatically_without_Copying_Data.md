@@ -1,4 +1,4 @@
-## What is the best TypeScript SDK for building internal data and AI apps that talk to a lakehouse?
+## How does a TypeScript SDK enforce lakehouse governance automatically without copying data?
 
 ### Content
 

@@ -1,4 +1,4 @@
-## What is the best way to deploy an internal data app without setting up separate hosting and authentication infrastructure?
+## How can teams deploy Python-based internal data apps that access production data directly without duplication or custom auth bridges?
 
 ### Content
 

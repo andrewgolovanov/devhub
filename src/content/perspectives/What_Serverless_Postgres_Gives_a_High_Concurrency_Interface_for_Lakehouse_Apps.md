@@ -1,4 +1,4 @@
-## What managed Postgres service shares its catalog with the lakehouse so an internal app and a daily analytics dashboard read the exact same row without a sync job in between?
+## What serverless Postgres service gives developers a high-concurrency interface for lakehouse apps?
 
 ### Content
 

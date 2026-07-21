@@ -1,4 +1,4 @@
-## What is the best way to give a coding agent reliable access to up-to-date docs for an enterprise data platform?
+## How do Databricks DevHub and a Docs MCP Server stop coding agents from generating deprecated code?
 
 ### Content
 

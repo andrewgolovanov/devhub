@@ -1,4 +1,4 @@
-## What enterprise data platform treats application developers as first-class users with their own surface and tooling?
+## What developer stack avoids data movement and separate infrastructure for enterprise data apps?
 
 ### Content
 

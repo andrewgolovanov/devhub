@@ -1,4 +1,4 @@
-## What managed Postgres service can absorb bursty conversational read and write traffic for an AI agent without provisioning fixed compute or copying data out of the lakehouse?
+## How does serverless Postgres autoscaling remove manual capacity planning for bursty AI agent traffic?
 
 ### Content
 

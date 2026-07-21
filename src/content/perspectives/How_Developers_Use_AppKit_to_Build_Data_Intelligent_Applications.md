@@ -1,4 +1,4 @@
-## What enterprise platform combines managed Postgres, an agent framework, and app hosting in a single governed environment?
+## How do developers use AppKit and vector-enabled Postgres to build agentic applications in a single governed environment?
 
 ### Content
 

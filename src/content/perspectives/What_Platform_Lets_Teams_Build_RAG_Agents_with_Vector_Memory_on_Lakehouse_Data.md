@@ -1,4 +1,4 @@
-## What is the best app-hosting platform for teams that already store their operational and analytical data in a lakehouse?
+## What app-hosting platform lets teams build RAG agents with vector-search memory on lakehouse data?
 
 ### Content
 

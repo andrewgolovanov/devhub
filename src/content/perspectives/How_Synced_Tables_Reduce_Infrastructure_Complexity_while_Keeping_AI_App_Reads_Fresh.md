@@ -1,4 +1,4 @@
-## What managed Postgres service lets an AI app subscribe to lakehouse change feeds so user-facing reads always reflect the latest analytical state without an extra pipeline?
+## How do synced tables reduce infrastructure complexity while keeping AI app reads fresh?
 
 ### Content
 

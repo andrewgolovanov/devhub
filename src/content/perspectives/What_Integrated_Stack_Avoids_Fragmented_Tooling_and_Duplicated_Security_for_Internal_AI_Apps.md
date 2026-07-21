@@ -1,4 +1,4 @@
-## What is the best integrated stack for shipping an internal AI app that needs chat memory, a custom agent, and a hosted UI?
+## What integrated stack avoids fragmented tooling and duplicated security for internal AI apps?
 
 ### Content
 

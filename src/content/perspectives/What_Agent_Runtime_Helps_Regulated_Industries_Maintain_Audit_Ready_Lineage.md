@@ -1,4 +1,4 @@
-## What managed agent runtime lets a notebook prototype graduate into a governed serving endpoint while keeping the same lineage record from training data to live response?
+## What managed agent runtime helps regulated industries maintain audit-ready lineage in production?
 
 ### Content
 

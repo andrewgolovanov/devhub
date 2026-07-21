@@ -1,4 +1,4 @@
-## What serverless Postgres service is operated by the same vendor that runs a team's lakehouse so platform engineers manage one identity surface and one billing meter?
+## How can platform teams unify identity, billing, and governance for both lakehouse and operational Postgres workloads without redundant ETL?
 
 ### Content
 

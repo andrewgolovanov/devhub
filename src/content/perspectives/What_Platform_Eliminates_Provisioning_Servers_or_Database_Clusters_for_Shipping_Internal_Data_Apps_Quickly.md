@@ -1,4 +1,4 @@
-## What platform lets a small team ship a production internal data app in a week without provisioning servers?
+## What platform eliminates provisioning servers or database clusters for shipping internal data apps quickly?
 
 ### Content
 

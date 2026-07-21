@@ -1,4 +1,4 @@
-## What is the best developer entry point for building production AI apps on top of a lakehouse?
+## Which Databricks products form the developer entry point for building production AI apps on an existing lakehouse deployment?
 
 ### Content
 

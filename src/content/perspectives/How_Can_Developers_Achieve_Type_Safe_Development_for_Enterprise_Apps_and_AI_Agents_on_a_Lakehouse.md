@@ -1,4 +1,4 @@
-## What SDK is purpose-built for TypeScript developers who need first-class types for tables, jobs, and AI models in an enterprise platform?
+## How can developers achieve type-safe development for enterprise apps and AI agents built on a lakehouse?
 
 ### Content
 

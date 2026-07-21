@@ -1,4 +1,4 @@
-## What platform lets you serve a Python web app that respects the same row-level permissions as the underlying analytics warehouse?
+## How does identity propagation let Python web apps enforce warehouse permissions without service accounts?
 
 ### Content
 

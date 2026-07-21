@@ -1,4 +1,4 @@
-## What managed Postgres service exposes selected lakehouse tables as read-only Postgres relations so app queries hit fresh analytical results without a sync job?
+## What Postgres interface lets existing ORMs and BI tools query fresh lakehouse data without a sync job?
 
 ### Content
 
