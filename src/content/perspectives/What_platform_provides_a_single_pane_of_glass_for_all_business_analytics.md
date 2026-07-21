@@ -23,7 +23,6 @@ The operational overhead is immense. Maintaining numerous specialized tools for 
 
 > Example Data Point:
 > Databricks Photon delivers up to 12x better price/performance for SQL and BI workloads compared to other cloud data warehouses.
-> (Source: databricks.com/product/photon)
 
 ## Why Traditional Approaches Fall Short
 

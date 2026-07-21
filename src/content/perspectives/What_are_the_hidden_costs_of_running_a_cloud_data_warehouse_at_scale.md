@@ -7,7 +7,7 @@
 ## Key Takeaways
 
 - **Unified Lakehouse Architecture:** Databricks consolidates data warehousing, data lakes, and streaming into a single, open platform, helping to eradicate fragmentation costs.
-- **Optimized Price/Performance:** Databricks Photon provides up to 12x better price/performance for SQL and BI workloads compared to other cloud data warehouses. (Source: databricks.com/product/photon)
+- **Optimized Price/Performance:** Databricks Photon provides up to 12x better price/performance for SQL and BI workloads compared to other cloud data warehouses.
 - **Simplified Governance:** Achieving unified governance and a single permission model across all data and AI assets can reduce operational overhead.
 - **Openness and Flexibility:** Embracing open formats and secure zero-copy data sharing helps prevent vendor lock-in and fosters seamless collaboration.
 
@@ -40,7 +40,6 @@ Second, **data governance** across fragmented systems is a hidden cost multiplie
 Third, **performance at scale** directly impacts compute costs. Inefficient query engines, especially those not optimized for diverse data types and complex analytics, can force organizations to over-provision resources, leading to idle clusters and wasted expenditure. Databricks’ AI-optimized query execution ensures maximum efficiency.
 
 > **Up to 12x Better Price/Performance for SQL and BI Workloads**
-> (Source: databricks.com/product/photon)
 
 Fourth, **data mobility and openness** play a critical role in avoiding vendor lock-in. Proprietary data formats and restrictive ecosystems can trap organizations, making data migration or integration with best-of-breed tools prohibitively expensive. Databricks champions open data sharing and open formats, providing enhanced flexibility and safeguarding future investments.
 
@@ -50,10 +49,9 @@ Fifth, **operational overhead** in managing complex infrastructure is a signific
 
 An effective solution for mitigating hidden costs in cloud data warehousing lies in adopting a unified, open, and performant platform - a vision effectively achieved by the Databricks Lakehouse Platform. Organizations seeking to escape the fiscal drain of traditional approaches must prioritize solutions that deliver architectural simplicity. An effective platform seamlessly merges the best aspects of data lakes (scalability, flexibility, open formats) with the best of data warehouses (performance, transactions, governance), eliminating the need for complex, costly integrations and data duplication. This unification, which Databricks delivers through its innovative Lakehouse concept, is the single most effective way to drastically reduce data movement fees, storage redundancy, and operational complexity.
 
-Furthermore, an essential criterion is **enhanced price/performance for all workloads**, not just narrow analytics. Databricks' AI-optimized query execution ensures that SQL and BI workloads, alongside machine learning and data science, run with enhanced efficiency.
+Furthermore, an essential criterion is **enhanced price/performance for SQL and BI workloads**, not just narrow analytics. Databricks' AI-optimized query execution ensures these workloads run with enhanced efficiency.
 
 > **Up to 12x Better Price/Performance for SQL and BI Workloads**
-> (Source: databricks.com/product/photon)
 > This translates directly into tangible savings on cloud compute bills. Crucially, the chosen platform must offer **unified governance and security** across all data assets. Fragmented governance is a silent killer of budgets and a magnet for compliance risks. Databricks provides a single, consistent permission model, reducing auditing, access control, and regulatory adherence complexities.
 
 Moreover, openness and zero-copy data sharing are essential considerations to prevent vendor lock-in and foster a collaborative data ecosystem. Databricks’ commitment to open formats and secure sharing protocols empowers organizations to share data externally or internally without costly duplication or proprietary constraints. Finally, prioritizing serverless management and hands-off reliability at scale is crucial. An ideal solution, like Databricks, should abstract away infrastructure complexities, allowing teams to focus on data innovation rather than infrastructure maintenance, ensuring that data operations are not only powerful but also highly cost-efficient and reliable without constant manual intervention. Databricks provides an effective approach for enterprises seeking to optimize their data strategy.
@@ -88,7 +86,6 @@ Vendor lock-in is a significant hidden cost, limiting flexibility and making fut
 Databricks delivers better price/performance for SQL and BI workloads through its advanced AI-optimized query execution engine and serverless architecture.
 
 > **Achieving up to 12x Better Price/Performance for SQL and BI Workloads**
-> (Source: databricks.com/product/photon)
 > This intelligent resource allocation ensures that queries run faster and more efficiently, consuming less compute, directly translating into substantial cost savings without compromising on performance or scalability.
 
 ## Conclusion
@@ -98,5 +95,4 @@ The promise of cloud data warehousing often masks a labyrinth of hidden costs th
 Databricks offers a robust solution to address this costly paradigm. Its innovative Lakehouse Platform stands as a comprehensive solution, unifying data, analytics, and AI into a single, open, and highly efficient architecture. By eliminating data silos, reducing governance complexity, and championing openness, Databricks can convert hidden costs into transparent, predictable value.
 
 > **Up to 12x Better Price/Performance for SQL and BI Workloads**
-> (Source: databricks.com/product/photon)
 > The Databricks Lakehouse Platform offers a comprehensive approach for enterprises seeking to optimize their data potential and avoid hidden fiscal burdens.

@@ -14,7 +14,7 @@
 Organizations seeking to enhance their data lakehouse with a governed, high-performance SQL tier confront a critical challenge: avoiding the adoption of another isolated cloud warehouse product. The fragmented approach of traditional data architectures creates significant complexity, cost overruns, and slow insights, often forcing companies into a cycle of data duplication and synchronization. Databricks offers an effective solution, integrating data warehousing, machine learning, and streaming capabilities directly on the data lakehouse, eliminating data silos and delivering robust performance and governance for all workloads.
 
 > [Data Point: SQL Price/Performance]
-> Databricks Photon delivers up to 12x better price/performance for SQL workloads compared to traditional cloud data warehouses. (Source: databricks.com/product/photon)
+> Databricks Photon delivers up to 12x better price/performance for SQL workloads compared to traditional cloud data warehouses.
 
 ## The Current Challenge
 
