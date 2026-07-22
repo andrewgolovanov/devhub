@@ -56,6 +56,12 @@ Flipping the banner on Vercel is "edit env var → redeploy", the same model as 
 
 To stand up a new event: copy an existing file in `src/legacy-pages/hackathon/` to a new slug, add an App Router wrapper in `src/app/(website)/hackathon/<new-slug>/page.tsx`, edit its data (or write a custom layout), then set `HACKATHON_EVENT_SLUG=<new-slug>` and `HACKATHON_BANNER_ENABLED=true` on Vercel.
 
+### Cookie consent & analytics (OneTrust + GTM)
+
+[`ConsentTags`](./src/components/consent-tags.tsx) renders the OneTrust consent banner and the Google Tag Manager container at the top of `<body>`, gated by [`resolveOneTrustEnv`](./src/lib/onetrust.ts): production deploys get the production OneTrust variant, previews get the test variant (works on any domain), and local dev gets none. Set `ONETRUST_ENV=test pnpm dev` to see the banner locally. Tag order is load-bearing — the OneTrust AutoBlocker must run before GTM so non-consented cookies are gated — so the tags render as plain blocking scripts, not `next/script` (React hoists only the banner stylesheet `<link>` into `<head>`; the scripts keep their `<body>` source order). The "Your Privacy Choices" footer link ([`YourPrivacyChoicesLink`](./src/components/your-privacy-choices-link.tsx)) opens the OneTrust preference center and must remain in both footers (main and perspectives).
+
+Because the site is a SPA there is no next page load to pick up a consent change, so `ConsentTags` also renders a consent-change handler that reloads the page when the user actually changes their consent (guarded by comparing `OnetrustActiveGroups` against its initial snapshot). It chains — never replaces — `OptanonWrapper`, which the shared databricks `onetrust.js` defines to delete opted-out cookies, so that script's logic keeps running first and the handler must stay ordered after it.
+
 ### Site URL Resolution
 
 Anywhere we need an absolute URL — `llms.txt`, `sitemap.xml`, `robots.txt`, JSON-LD, `/api/markdown`, `/api/bootstrap-prompt`, `/api/mcp`, the `Copy prompt` / `Copy Markdown` buttons — we resolve the site origin in this order (see `src/lib/site-url.ts`):

@@ -5,6 +5,7 @@ import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/react";
 
 import { resolveSiteUrl } from "@/lib/site-url";
+import { ConsentTags } from "@/components/consent-tags";
 
 export const metadata: Metadata = {
   metadataBase: new URL(resolveSiteUrl()),
@@ -55,6 +56,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning className="dark">
       <body>
+        <ConsentTags />
         {renderVercelAnalytics ? <Analytics /> : null}
         {children}
       </body>
