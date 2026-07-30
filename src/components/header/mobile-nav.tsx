@@ -3,9 +3,11 @@
 import { useEffect, useId, type ComponentProps } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { ArrowUpRight } from "lucide-react";
 
 import {
   getActiveProductHref,
+  isExternalHref,
   isHeaderNavItemActive,
   PRODUCT_LINKS,
   type HeaderNavItem,
@@ -101,6 +103,8 @@ function MobileTreeText({
   className?: string;
   href: string;
 } & Omit<ComponentProps<typeof Link>, "children" | "className" | "href">) {
+  const isExternal = isExternalHref(href);
+
   return (
     <Link
       href={href}
@@ -111,17 +115,27 @@ function MobileTreeText({
           : "text-grey-80 hover:text-grey-80",
         className,
       )}
+      {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       {...props}
     >
       <span
         className={cn(
-          "inline-block px-0.5 py-1",
+          "inline-flex items-center px-0.5 py-1",
           active && "bg-grey-80",
-          activeFill === "full" && "block w-full",
+          activeFill === "full" && "flex w-full",
         )}
         data-mobile-menu-item-label="true"
       >
         {children}
+        {isExternal && (
+          <ArrowUpRight
+            className={cn(
+              "ml-1 size-4 shrink-0",
+              active ? "text-grey-12" : "text-grey-80",
+            )}
+            aria-label="(opens in a new tab)"
+          />
+        )}
       </span>
     </Link>
   );
@@ -259,15 +273,16 @@ export function MobileNav({
             className="relative flex h-full w-full justify-between font-mono text-xl leading-none font-normal tracking-[-0.025rem]"
             aria-label="Main navigation"
           >
-            <MobileTreeLine className="top-[38px] left-[23px] h-[226px] w-px" />
+            <MobileTreeLine className="top-[38px] left-[23px] h-[260px] w-px" />
             <MobileTreeLine className="top-[58px] left-6 h-px w-[37px]" />
             <MobileTreeLine className="top-[90px] left-[63px] h-px w-[37px]" />
             <MobileTreeLine className="top-[124px] left-[63px] h-px w-[37px]" />
             <MobileTreeLine className="top-[158px] left-[63px] h-px w-[37px]" />
-            <MobileTreeLine className="top-[194px] left-6 h-px w-[37px] md:w-[39px]" />
+            <MobileTreeLine className="top-[192px] left-[63px] h-px w-[37px]" />
             <MobileTreeLine className="top-[228px] left-6 h-px w-[37px] md:w-[39px]" />
-            <MobileTreeLine className="top-[264px] left-6 h-px w-[37px] md:w-[39px]" />
-            <MobileTreeLine className="top-[72px] left-[63px] h-[86px] w-px md:top-[73px] md:h-[85px]" />
+            <MobileTreeLine className="top-[262px] left-6 h-px w-[37px] md:w-[39px]" />
+            <MobileTreeLine className="top-[298px] left-6 h-px w-[37px] md:w-[39px]" />
+            <MobileTreeLine className="top-[72px] left-[63px] h-[120px] w-px md:top-[73px] md:h-[119px]" />
 
             <MobileTreeText
               active={isHomeActive}
@@ -300,6 +315,7 @@ export function MobileNav({
                     index === 0 && "top-[76px]",
                     index === 1 && "top-[110px]",
                     index === 2 && "top-36",
+                    index === 3 && "top-[178px]",
                   )}
                   data-mobile-menu-product-link="true"
                   href={product.href}
@@ -320,9 +336,9 @@ export function MobileNav({
                   aria-current={isActive ? "page" : undefined}
                   className={cn(
                     "right-5 left-[61px] md:right-[22px] md:left-[63px]",
-                    index === 0 && "top-[180px]",
-                    index === 1 && "top-[214px]",
-                    index === 2 && "top-[248px]",
+                    index === 0 && "top-[214px]",
+                    index === 1 && "top-[248px]",
+                    index === 2 && "top-[282px]",
                   )}
                   data-mobile-menu-section-link="true"
                   href={item.href}

@@ -11,6 +11,7 @@ export const PRODUCT_LINKS = [
   { label: "Lakebase", href: "/product/lakebase" },
   { label: "Agent Bricks", href: "/product/agent-bricks" },
   { label: "Databricks Apps", href: "/product/databricks-apps" },
+  { label: "Neon", href: "https://neon.com" },
 ] as const;
 
 function normalizePath(path: string) {
@@ -19,7 +20,7 @@ function normalizePath(path: string) {
   return path.replace(/\/$/, "");
 }
 
-function isExternalHref(href: string) {
+export function isExternalHref(href: string) {
   return /^https?:\/\//.test(href);
 }
 
