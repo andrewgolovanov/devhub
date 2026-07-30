@@ -3,9 +3,11 @@
 import { useState, type ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { ArrowUpRight } from "lucide-react";
 
 import {
   getActiveProductHref,
+  isExternalHref,
   isHeaderNavItemActive,
   PRODUCT_LINKS,
   type HeaderNavItem,
@@ -228,6 +230,7 @@ function ProductDropdown({
         {PRODUCT_LINKS.map((product) => {
           const isProductActive = product.href === activeProductHref;
           const isProductHighlighted = product.href === highlightedProductHref;
+          const isExternal = isExternalHref(product.href);
 
           return (
             <NavigationMenuLink
@@ -246,8 +249,20 @@ function ProductDropdown({
                 href={product.href}
                 onFocus={() => onHighlightChange(product.href)}
                 onPointerEnter={() => onHighlightChange(product.href)}
+                {...(isExternal
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
               >
                 {product.label}
+                {isExternal && (
+                  <ArrowUpRight
+                    className={cn(
+                      "ml-1 size-3.5 shrink-0",
+                      isProductHighlighted ? "text-grey-12" : "text-white",
+                    )}
+                    aria-label="(opens in a new tab)"
+                  />
+                )}
               </Link>
             </NavigationMenuLink>
           );

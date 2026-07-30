@@ -20,7 +20,7 @@ function normalizePath(path: string) {
   return path.replace(/\/$/, "");
 }
 
-function isExternalHref(href: string) {
+export function isExternalHref(href: string) {
   return /^https?:\/\//.test(href);
 }
 

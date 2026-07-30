@@ -3,9 +3,11 @@
 import { useEffect, useId, type ComponentProps } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { ArrowUpRight } from "lucide-react";
 
 import {
   getActiveProductHref,
+  isExternalHref,
   isHeaderNavItemActive,
   PRODUCT_LINKS,
   type HeaderNavItem,
@@ -101,6 +103,8 @@ function MobileTreeText({
   className?: string;
   href: string;
 } & Omit<ComponentProps<typeof Link>, "children" | "className" | "href">) {
+  const isExternal = isExternalHref(href);
+
   return (
     <Link
       href={href}
@@ -111,17 +115,27 @@ function MobileTreeText({
           : "text-grey-80 hover:text-grey-80",
         className,
       )}
+      {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       {...props}
     >
       <span
         className={cn(
-          "inline-block px-0.5 py-1",
+          "inline-flex items-center px-0.5 py-1",
           active && "bg-grey-80",
-          activeFill === "full" && "block w-full",
+          activeFill === "full" && "flex w-full",
         )}
         data-mobile-menu-item-label="true"
       >
         {children}
+        {isExternal && (
+          <ArrowUpRight
+            className={cn(
+              "ml-1 size-4 shrink-0",
+              active ? "text-grey-12" : "text-grey-80",
+            )}
+            aria-label="(opens in a new tab)"
+          />
+        )}
       </span>
     </Link>
   );
