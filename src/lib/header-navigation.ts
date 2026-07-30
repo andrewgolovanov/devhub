@@ -11,6 +11,7 @@ export const PRODUCT_LINKS = [
   { label: "Lakebase", href: "/product/lakebase" },
   { label: "Agent Bricks", href: "/product/agent-bricks" },
   { label: "Databricks Apps", href: "/product/databricks-apps" },
+  { label: "Neon", href: "https://neon.com" },
 ] as const;
 
 function normalizePath(path: string) {

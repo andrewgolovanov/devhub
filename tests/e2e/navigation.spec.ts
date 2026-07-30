@@ -90,7 +90,7 @@ test.describe("navbar navigation", () => {
     await expect(activeLink).toHaveCSS("color", "rgb(28, 29, 34)");
     await expect(
       productMenu.locator("[data-product-dropdown-frame]"),
-    ).toHaveAttribute("viewBox", "0 0 178 90");
+    ).toHaveAttribute("viewBox", "0 0 178 114");
 
     const highlight = productMenu.locator("[data-product-dropdown-highlight]");
     const thumb = productMenu.locator("[data-product-dropdown-thumb]");
@@ -155,7 +155,7 @@ test.describe("navbar navigation", () => {
 
         return Math.round((box?.y ?? 0) - initialThumbBox.y);
       })
-      .toBe(12);
+      .toBe(16);
   });
 });
 
@@ -247,13 +247,13 @@ test.describe("mobile navigation", () => {
       expect(Math.round(lakebaseBox.y)).toBe(offsetY + 132);
       expect(Math.round(lakebaseBox.width)).toBe(viewport.highlightWidth);
       expect(Math.round(solutionsBox.x)).toBe(viewport.sectionX);
-      expect(Math.round(solutionsBox.y)).toBe(offsetY + 236);
+      expect(Math.round(solutionsBox.y)).toBe(offsetY + 270);
       expect(Math.round(solutionsBox.width)).toBe(viewport.sectionClickWidth);
       expect(Math.round(templatesBox.x)).toBe(viewport.sectionX);
-      expect(Math.round(templatesBox.y)).toBe(offsetY + 270);
+      expect(Math.round(templatesBox.y)).toBe(offsetY + 304);
       expect(Math.round(templatesBox.width)).toBe(viewport.sectionClickWidth);
       expect(Math.round(docsBox.x)).toBe(viewport.sectionX);
-      expect(Math.round(docsBox.y)).toBe(offsetY + 304);
+      expect(Math.round(docsBox.y)).toBe(offsetY + 338);
       expect(Math.round(docsBox.width)).toBe(viewport.sectionClickWidth);
     });
   }
@@ -293,7 +293,7 @@ test.describe("mobile navigation", () => {
     );
     await expect(lakebase).toHaveCSS("color", "rgb(199, 201, 209)");
 
-    await expect(productLinks).toHaveCount(3);
+    await expect(productLinks).toHaveCount(4);
     for (const productLink of await productLinks.all()) {
       await expect(productLink).not.toHaveAttribute("aria-current", "page");
     }

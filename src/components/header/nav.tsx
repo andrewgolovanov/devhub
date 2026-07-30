@@ -26,10 +26,10 @@ type HeaderNavProps = {
 };
 
 const PRODUCT_DROPDOWN_ROW_STEP = 24;
-const PRODUCT_SCROLLBAR_STEP = 12;
-const PRODUCT_SCROLL_DOT_TRACK_HEIGHT = 42;
+const PRODUCT_SCROLLBAR_STEP = 16;
+const PRODUCT_SCROLL_DOT_TRACK_HEIGHT = 66;
 const PRODUCT_SCROLL_DOT_Y_POSITIONS = Array.from(
-  { length: 21 },
+  { length: 33 },
   (_, index) => index * 2 + 1.5,
 );
 
@@ -72,21 +72,21 @@ function ProductDropdownFrame() {
   return (
     <svg
       data-product-dropdown-frame="true"
-      className="pointer-events-none absolute top-2.5 left-1 z-30 h-[90px] w-[178px] overflow-visible text-white"
-      viewBox="0 0 178 90"
+      className="pointer-events-none absolute top-2.5 left-1 z-30 h-[114px] w-[178px] overflow-visible text-white"
+      viewBox="0 0 178 114"
       fill="none"
       preserveAspectRatio="none"
       aria-hidden="true"
     >
       <path
-        d="M177.5 80.0319V89.5H0.5V0.5H177.5V1.44681V9.96809"
+        d="M177.5 104.0319V113.5H0.5V0.5H177.5V1.44681V9.96809"
         stroke="currentColor"
       />
       <path
-        d="M176.5 0.504639V1.45145V9.97272M176.5 89.5046V80.0365"
+        d="M176.5 0.504639V1.45145V9.97272M176.5 113.5046V104.0365"
         stroke="currentColor"
       />
-      <path d="M1.5 0.5V89.5" stroke="currentColor" />
+      <path d="M1.5 0.5V113.5" stroke="currentColor" />
     </svg>
   );
 }
@@ -133,7 +133,7 @@ function ProductScrollDotColumn({ left, top }: { left: number; top: number }) {
   return (
     <svg
       data-product-dropdown-dot-column="true"
-      className="absolute z-0 h-[42px] w-[3px] overflow-visible"
+      className="absolute z-0 h-[66px] w-[3px] overflow-visible"
       style={{ left, top }}
       viewBox={`0 0 3 ${PRODUCT_SCROLL_DOT_TRACK_HEIGHT}`}
       fill="none"
@@ -177,7 +177,7 @@ function ProductScrollbar({
           }px)`,
         }}
       />
-      <ProductScrollArrow direction="down" top={76} />
+      <ProductScrollArrow direction="down" top={100} />
     </span>
   );
 }
@@ -200,7 +200,7 @@ function ProductDropdown({
 
   return (
     <div
-      className="bg-grey-12 relative h-[111px] w-[185px] font-mono text-sm leading-none text-white"
+      className="bg-grey-12 relative h-[135px] w-[185px] font-mono text-sm leading-none text-white"
       onMouseLeave={onHighlightReset}
       onBlur={(event) => {
         const nextFocusedElement = event.relatedTarget;
@@ -289,7 +289,7 @@ export function HeaderNav({ className, items }: HeaderNavProps) {
                 <NavigationMenuTrigger className="group/product-trigger focus-visible:outline-db-cyan h-auto rounded-none bg-transparent! p-0 font-mono text-white shadow-none !transition-none hover:bg-transparent! hover:text-white! focus:bg-transparent! focus:text-white! focus-visible:outline-offset-2 data-[active=true]:!bg-transparent data-[state=open]:bg-transparent! data-[state=open]:text-white! [&>svg]:hidden">
                   <NavItemChrome active={isActive}>{label}</NavItemChrome>
                 </NavigationMenuTrigger>
-                <NavigationMenuContent className="bg-grey-12! z-60 mt-0! h-[111px]! w-[185px]! overflow-visible! rounded-none! border-0! p-0! shadow-none! !transition-none !duration-0 group-data-[viewport=false]/navigation-menu:!duration-0 data-[motion^=from-]:!animate-none data-[motion^=to-]:!animate-none data-[state=closed]:!animate-none group-data-[viewport=false]/navigation-menu:data-[state=closed]:!animate-none data-[state=open]:!animate-none group-data-[viewport=false]/navigation-menu:data-[state=open]:!animate-none">
+                <NavigationMenuContent className="bg-grey-12! z-60 mt-0! h-[135px]! w-[185px]! overflow-visible! rounded-none! border-0! p-0! shadow-none! !transition-none !duration-0 group-data-[viewport=false]/navigation-menu:!duration-0 data-[motion^=from-]:!animate-none data-[motion^=to-]:!animate-none data-[state=closed]:!animate-none group-data-[viewport=false]/navigation-menu:data-[state=closed]:!animate-none data-[state=open]:!animate-none group-data-[viewport=false]/navigation-menu:data-[state=open]:!animate-none">
                   <ProductDropdown
                     activeProductHref={activeProductHref}
                     highlightedProductHref={productHighlightHref}
