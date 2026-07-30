@@ -501,6 +501,7 @@ test.describe("footer navigation", () => {
     "/product/databricks-apps",
     "/product/lakebase",
     "/product/agent-bricks",
+    "https://neon.com",
     "/docs/start-here",
     "/templates",
     "/solutions",
