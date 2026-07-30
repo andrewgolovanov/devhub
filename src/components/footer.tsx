@@ -29,6 +29,7 @@ const FOOTER_SECTIONS: FooterSection[] = [
       { label: "Databricks Apps", to: "/product/databricks-apps" },
       { label: "Lakebase", to: "/product/lakebase" },
       { label: "Agent Bricks", to: "/product/agent-bricks" },
+      { label: "Neon", href: "https://neon.com", externalArrow: true },
     ],
   },
   {
