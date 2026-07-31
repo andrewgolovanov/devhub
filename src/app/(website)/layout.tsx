@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { getDocsSearchItems } from "@/lib/docs-content";
 import { HackathonBanner } from "@/components/hackathon/hackathon-banner";
 import { Header } from "@/components/header/header";
+import { SiteBanner } from "@/components/site-banner/site-banner";
 
 export default function WebsiteLayout({ children }: { children: ReactNode }) {
   const searchItems = getDocsSearchItems();
@@ -14,6 +15,7 @@ export default function WebsiteLayout({ children }: { children: ReactNode }) {
           Skip to main content
         </a>
       </div>
+      <SiteBanner />
       <HackathonBanner />
       <Header searchItems={searchItems} />
       <div id="devhub-main-content" tabIndex={-1}>

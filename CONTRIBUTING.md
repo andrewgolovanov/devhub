@@ -38,13 +38,35 @@ Next.js loads `.env.local` automatically. Restart the dev server after editing t
 
 A flag is **enabled only when its value is exactly `"true"`** — any other value (empty, `"1"`, `"yes"`) is treated as disabled.
 
+### Site Announcement Banner
+
+The reusable site-wide announcement bar is driven by env vars, resolved by [`src/lib/site-banner-server.ts`](./src/lib/site-banner-server.ts), and rendered by [`SiteBanner`](./src/components/site-banner/site-banner.tsx) in the website layout (above the hackathon banner; not on Perspectives). It is **non-dismissible**.
+
+| Env var                 | Purpose                                                                       |
+| ----------------------- | ----------------------------------------------------------------------------- |
+| `SITE_BANNER_ENABLED`   | Exact `"true"` shows the banner. Any other value (including unset) hides it.  |
+| `SITE_BANNER_TEXT`      | Lead-in copy, injected as raw HTML (keep it trusted). **Required** to render. |
+| `SITE_BANNER_LINK`      | CTA href (`/` path or `http(s):` URL). **Required**.                          |
+| `SITE_BANNER_LINK_TEXT` | CTA label (e.g. `Learn more`). **Required**. No default.                      |
+
+The banner is resolved at build time and ships in the initial HTML, so it never shifts layout after hydration. There is no date window: starting and ending a campaign is a redeploy, which is the tradeoff for avoiding that shift.
+
+Example (Data + AI World Tour):
+
+```bash
+SITE_BANNER_ENABLED=true
+SITE_BANNER_TEXT="Vibe code (safely) at work! Enable anyone to build and deploy AI apps that are fully-connected to enterprise data at"
+SITE_BANNER_LINK="https://www.databricks.com/dataaisummit/worldtour"
+SITE_BANNER_LINK_TEXT="Data + AI World Tour"
+```
+
 ### Hackathon Banner & Events
 
 Each hackathon event is its own page at `/hackathon/<slug>`, served by a Next App Router wrapper under `src/app/(website)/hackathon/<slug>/page.tsx`. Reusable legacy event bodies live under [`src/legacy-pages/hackathon/`](./src/legacy-pages/hackathon/) (for example [`apps-agents-for-good-2026.tsx`](./src/legacy-pages/hackathon/apps-agents-for-good-2026.tsx)). Events are fully independent — editing one never touches another. An event can reuse the shared [`HackathonEventPage`](./src/components/hackathon/hackathon-event-page.tsx) template by passing a typed `HackathonEvent` object, or render a completely bespoke layout instead. Event pages are `noindex` and kept out of `sitemap.xml`; entry is via the banner.
 
 `/hackathon` ([`src/app/(website)/hackathon/page.tsx`](<./src/app/(website)/hackathon/page.tsx>)) redirects to the active event.
 
-The site-wide announcement bar is driven by env vars at build time, resolved by [`src/lib/hackathon-banner-server.ts`](./src/lib/hackathon-banner-server.ts), and rendered by [`HackathonBanner`](./src/components/hackathon/hackathon-banner.tsx) in the website layout. It shows above the navbar across website routes and is intentionally **non-dismissible** so it stays the only on-site entry point to the event for the full window.
+The hackathon announcement bar is driven by env vars at build time, resolved by [`src/lib/hackathon-banner-server.ts`](./src/lib/hackathon-banner-server.ts), and rendered by [`HackathonBanner`](./src/components/hackathon/hackathon-banner.tsx) in the website layout. It shows above the navbar across website routes and is intentionally **non-dismissible** so it stays the only on-site entry point to the event for the full window. When both the site banner and hackathon banner are active, they stack (site banner on top).
 
 | Env var                    | Purpose                                                                                                                                                                                                                                                 |
 | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
