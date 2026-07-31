@@ -757,9 +757,11 @@ test.describe("docs MDX compatibility", () => {
       inlineCodes: document.querySelectorAll(
         ".prose.prose-docs > code, article :not(pre) > code",
       ).length,
-      linksWithoutHackathonBanner:
+      linksWithoutBanners:
         document.querySelectorAll("a").length -
-        document.querySelectorAll(".devhub-hackathon-banner a").length,
+        document.querySelectorAll(
+          ".devhub-hackathon-banner a, .devhub-site-banner a",
+        ).length,
     }));
 
     expect(layout.articleHeight).toBeGreaterThanOrEqual(3130);
@@ -767,8 +769,10 @@ test.describe("docs MDX compatibility", () => {
     expect(layout.codeBlocks).toBe(3);
     expect(layout.inlineCodes).toBe(2);
     // 67 = page links + footer links including "Your Privacy Choices", which
-    // the footer renders twice (desktop and mobile legal blocks).
-    expect(layout.linksWithoutHackathonBanner).toBe(67);
+    // the footer renders twice (desktop and mobile legal blocks). Announcement
+    // banners are env-gated, so their links are excluded to keep the count
+    // stable whether or not a banner is live.
+    expect(layout.linksWithoutBanners).toBe(67);
   });
 
   test("renders relative docs image assets and links", async ({ page }) => {

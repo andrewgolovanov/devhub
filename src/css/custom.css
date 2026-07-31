@@ -312,117 +312,44 @@
     color: var(--foreground);
   }
 
-  .devhub-hackathon-banner {
+  .devhub-hackathon-banner,
+  .devhub-site-banner {
     position: relative;
     z-index: 60;
     box-sizing: border-box;
     width: 100%;
     min-height: 44px;
-    overflow: hidden;
-    padding: 14px 0;
+    padding: 14px 1rem;
     font-family: "Geist Mono", monospace;
     font-size: 1rem;
     font-weight: 500;
-    line-height: 1;
+    line-height: 1.4;
     text-align: center;
     text-transform: uppercase;
   }
 
-  .devhub-hackathon-banner > div {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    font-size: inherit;
-  }
-
-  .devhub-hackathon-banner .banner-marquee-track {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .devhub-hackathon-banner .banner-marquee-item {
-    display: inline-flex;
-    align-items: center;
-  }
-
-  .devhub-hackathon-banner .banner-marquee-copy {
-    display: none;
-  }
-
-  .devhub-hackathon-banner a {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    margin-left: 0.5rem;
+  .devhub-hackathon-banner a,
+  .devhub-site-banner a {
+    /* Geist Mono is monospace, so 1ch is exactly one space: the CTA sits a
+       word-width from the copy and tracks the font-size breakpoint. */
+    margin-left: 1ch;
     color: inherit;
     font-weight: 500;
     text-decoration: none !important;
+    white-space: nowrap;
   }
 
-  .devhub-hackathon-banner .banner-link-text {
+  .devhub-hackathon-banner .banner-link-text,
+  .devhub-site-banner .banner-link-text {
     text-decoration: underline;
     text-underline-offset: 2px;
   }
 
-  .devhub-hackathon-banner .banner-arrow {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    flex-shrink: 0;
-    vertical-align: middle;
-  }
-
-  @keyframes devhub-banner-marquee {
-    0% {
-      transform: translateX(0);
-    }
-
-    100% {
-      transform: translateX(-50%);
-    }
-  }
-
   @media (max-width: 768px) {
-    .devhub-hackathon-banner {
+    .devhub-hackathon-banner,
+    .devhub-site-banner {
       min-height: 38px;
-      padding: 12px 0;
       font-size: 14px;
-    }
-
-    .devhub-hackathon-banner > div {
-      justify-content: flex-start;
-    }
-
-    .devhub-hackathon-banner .banner-marquee-track {
-      display: flex;
-      min-width: max-content;
-      align-items: center;
-      white-space: nowrap;
-      animation: devhub-banner-marquee 12s linear infinite;
-      will-change: transform;
-    }
-
-    .devhub-hackathon-banner .banner-marquee-item {
-      flex: 0 0 auto;
-      padding-right: 2rem;
-      white-space: nowrap;
-    }
-
-    .devhub-hackathon-banner .banner-marquee-copy {
-      display: inline-flex;
-    }
-
-    .devhub-hackathon-banner a {
-      margin-left: 6px;
-      white-space: nowrap;
-    }
-
-    .devhub-hackathon-banner .banner-arrow {
-      width: 14px;
-      height: 14px;
     }
   }
 }

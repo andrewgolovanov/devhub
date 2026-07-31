@@ -54,9 +54,7 @@ describe("getHackathonBannerConfig", () => {
     );
     expect(config?.id).toBe("hackathon-apps-agents-for-good-2026");
     expect(config?.content).not.toContain("<img");
-    expect(config?.content).toContain(
-      '<svg class="banner-arrow" aria-hidden="true"',
-    );
+    expect(config?.content).not.toContain("<svg");
   });
 
   test("falls back to /hackathon and a generic id when no slug is set", () => {
@@ -102,12 +100,11 @@ describe("getHackathonBannerConfig", () => {
     expect(config?.content).toContain(
       '<span class="banner-lead-text">Custom message</span><a href="/hackathon/apps-agents-for-good-2026">',
     );
-    expect(config?.content).toContain(
-      '<span class="banner-marquee-item banner-marquee-copy" aria-hidden="true">',
-    );
-    expect(config?.content).toContain(
-      '<a href="/hackathon/apps-agents-for-good-2026" tabindex="-1" aria-hidden="true">',
-    );
+    // Copy is rendered once: no duplicated marquee track to scroll.
+    expect(config?.content).not.toContain("aria-hidden");
+    expect(
+      config?.content.match(/class="banner-lead-text"/g) ?? [],
+    ).toHaveLength(1);
     expect(config?.content).not.toContain("Custom message   ");
   });
 
