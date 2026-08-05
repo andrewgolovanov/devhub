@@ -8,6 +8,30 @@ test-results
 playwright-report
 screenshots
 
+# Generated content — regenerated on every Vercel build by the pre/postbuild
+# scripts (build-home-hero-player.mjs, sync-appkit-docs.mjs,
+# generate-next-static-artifacts.mjs, next-sitemap). These are gitignored, but
+# the Vercel CLI uploads the working tree using .vercelignore (NOT .gitignore),
+# so without these entries a `vercel` deploy ships whatever stale copies happen
+# to be on disk. When source is renamed upstream (e.g. appkit vector-search ->
+# ai-search), the build regenerates the tree and drops the old file, and the
+# "Deploying outputs" step fails with ENOENT on the now-missing stale path.
+# Keep this list in sync with the generated-files block in .gitignore
+# (same order, so the two blocks diff line-for-line).
+public/llms.txt
+public/robots.txt
+public/sitemap*.xml
+public/raw-docs
+public/docs
+public/templates
+public/solutions
+public/templates.md
+public/solutions.md
+src/content/docs/appkit/
+src/components/doc-examples/
+public/appkit-preview/
+public/js/home-hero-player.js
+
 # Keep Vercel on npm — bun.lock would make it try bun, which
 # hits registry-proxy issues and hangs/fails the deploy
 bun.lock
