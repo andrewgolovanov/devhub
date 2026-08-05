@@ -104,3 +104,34 @@ describe("vercel headers", () => {
     ).toBe(false);
   });
 });
+
+const generatedFilesHeading = "# Generated files";
+
+function readGitignoreGeneratedPaths(): string[] {
+  const block = readFileSync(resolve(__dirname, "..", ".gitignore"), "utf-8")
+    .split(/\n\s*\n/)
+    .find((section) => section.startsWith(generatedFilesHeading));
+
+  if (!block) {
+    throw new Error(`Missing "${generatedFilesHeading}" block in .gitignore`);
+  }
+
+  return block.trim().split("\n").slice(1);
+}
+
+describe("vercel upload ignores", () => {
+  // The Vercel CLI builds its upload ignore set from .vercelignore and never
+  // reads .gitignore, so a generated path listed only in .gitignore gets
+  // uploaded stale. The build then regenerates the tree without that file and
+  // "Deploying outputs" fails with ENOENT on the now-missing path.
+  test("excludes every generated path that .gitignore excludes", () => {
+    const vercelignore = readFileSync(
+      resolve(__dirname, "..", ".vercelignore"),
+      "utf-8",
+    ).split("\n");
+
+    for (const generatedPath of readGitignoreGeneratedPaths()) {
+      expect(vercelignore).toContain(generatedPath);
+    }
+  });
+});
