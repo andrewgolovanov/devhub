@@ -45,7 +45,7 @@
     },
     stateAnimationSettings: {
       1: {
-        speed: 1,
+        speed: 2,
         delayBefore: 0,
         delayAfter: 500,
         powerOnEnabled: true,
@@ -75,7 +75,7 @@
         installFramePause: 600,
       },
       2: {
-        speed: 1,
+        speed: 2,
         delayBefore: 300,
         delayAfter: 0,
         promptType: 2,
@@ -89,7 +89,7 @@
         promptEnterFlashColor: "#808080",
       },
       3: {
-        speed: 1,
+        speed: 2,
         delayBefore: 0,
         delayAfter: 600,
         buildLineReveal: 860,
@@ -104,7 +104,7 @@
         statusDotBurstDuration: 160,
       },
       4: {
-        speed: 1,
+        speed: 2,
         delayBefore: 600,
         delayAfter: 1880,
         terminalScroll: true,
@@ -124,7 +124,7 @@
         terminalScrollJitterY: 0,
       },
       5: {
-        speed: 1,
+        speed: 2,
         delayBefore: 0,
         delayAfter: 0,
         windowBootEnabled: true,
@@ -153,7 +153,7 @@
         windowBootAsciiNoise: 0,
       },
       6: {
-        speed: 1.25,
+        speed: 2.5,
         delayBefore: 80,
         delayAfter: 5000,
       },
@@ -625,7 +625,7 @@
 
   const defaultStateAnimationSettings = {
     1: {
-      speed: 1,
+      speed: 2,
       delayBefore: 0,
       delayAfter: 500,
       powerOnEnabled: true,
@@ -655,7 +655,7 @@
       installFramePause: 600,
     },
     2: {
-      speed: 1,
+      speed: 2,
       delayBefore: 300,
       delayAfter: 0,
       promptType: 2,
@@ -669,7 +669,7 @@
       promptEnterFlashColor: "#808080",
     },
     3: {
-      speed: 1,
+      speed: 2,
       delayBefore: 0,
       delayAfter: 600,
       buildLineReveal: 860,
@@ -684,7 +684,7 @@
       statusDotBurstDuration: 160,
     },
     4: {
-      speed: 1,
+      speed: 2,
       delayBefore: 600,
       delayAfter: 1880,
       terminalScroll: true,
@@ -704,7 +704,7 @@
       terminalScrollJitterY: 0,
     },
     5: {
-      speed: 1,
+      speed: 2,
       delayBefore: 0,
       delayAfter: 0,
       windowBootEnabled: true,
@@ -733,7 +733,7 @@
       windowBootAsciiNoise: 0,
     },
     6: {
-      speed: 1.25,
+      speed: 2.5,
       delayBefore: 80,
       delayAfter: 5000,
     },
